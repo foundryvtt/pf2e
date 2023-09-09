@@ -6,7 +6,7 @@ form > header {
     background-repeat: repeat-x, no-repeat;
     background-size: cover;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-    color: white;
+    color: var(--text-light);
     display: flex;
     font-family: var(--sans-serif);
     font-weight: 600;
@@ -28,7 +28,7 @@ form > header {
         }
 
         .image-container {
-            [data-action=show-image] {
+            [data-action="show-image"] {
                 color: var(--color-text-dark-primary);
             }
         }
@@ -51,7 +51,7 @@ form > header {
             left: -10px;
             border-radius: 10px;
             background-color: white;
-            color: black;
+            color: var(--text-dark);
             cursor: pointer;
             @include brown-border;
 
@@ -72,11 +72,13 @@ form > header {
         }
     }
 
-    input[type="text"], input[type="number"] {
-        color: white;
+    input[type="text"],
+    input[type="number"] {
+        color: var(--text-light);
         border: none;
         border-bottom: 1px solid transparent;
-        &:hover:not(:disabled), &:focus {
+        &:hover:not(:disabled),
+        &:focus {
             border: none;
             border-bottom: 1px solid var(--text-light);
             box-shadow: none;

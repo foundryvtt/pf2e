@@ -188,8 +188,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -305,12 +303,7 @@
                 "category": {
                     "value": "ritual"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": "1,000 gp worth of precious stones ground to dust"
                 },
@@ -399,7 +392,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -518,8 +510,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -629,13 +619,12 @@
                 },
                 "area": {
                     "type": "burst",
-                    "value": 5
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -652,22 +641,32 @@
                                 "subtype": "",
                                 "value": "bludgeoning"
                             },
-                            "value": "2d8+2d8"
+                            "value": "2d8"
+                        },
+                        "wnlxzlrxtrkk2bh3": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "cold"
+                            },
+                            "value": "2d8"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You create a gray storm cloud that pelts creatures with an icy deluge. When you @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Cast the Spell}, a burst of magical hail deals @Damage[2d8[bludgeoning]] damage and @Damage[2d8[cold]] damage to each creature in the area below the cloud (basic Reflex save). Snow and sleet continue to rain down in the area for the remainder of the spell's duration, making the area difficult terrain, causing creatures in the storm to be @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and making creatures outside the storm Concealed from those inside the storm. Any creature that ends its turn in the storm takes [[/r 4 #cold]]{4 cold damage}. If you Cast this Spell outdoors, you can create two non-overlapping clouds instead of one.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial bludgeoning damage and cold damage increase by 1d8 each, and the cold damage creatures take at the end of their turns increases by 2.</p>"
+                    "value": "<p>You create a gray storm cloud that pelts creatures with an icy deluge. When you Cast the Spell, a burst of magical hail deals 2d8 bludgeoning damage and 2d8 cold damage to each creature in the area below the cloud (basic Reflex save). Snow and sleet continue to rain down in the area for the remainder of the spell's duration, making the area difficult terrain. Any creature that ends its turn in the storm takes 2 cold damage. If you Cast this Spell outdoors, you can create two non-overlapping clouds instead of one. As normal, if a Large or larger creature is in both clouds, it still only takes the initial damage once and the continuing damage once per turn.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial bludgeoning damage and cold damage increase by 1d8 each, and the cold damage creatures take at the end of their turns increases by 1.</p>\n<p>[[/r (floor(@item.level/2))[cold]]]{Leveled Cold Damage}</p>"
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": "sustained up to 1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d8+1d8"
+                        "0": "1d8",
+                        "wnlxzlrxtrkk2bh3": "1d8"
                     },
                     "interval": 2,
                     "type": "interval"
@@ -740,7 +739,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2"
                 }
             },
-            "img": "systems/pf2e/icons/spells/lightning-bolt.webp",
+            "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
             "sort": 700000,
             "system": {
@@ -755,8 +754,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -871,12 +868,7 @@
                 "category": {
                     "value": "ritual"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": "rare herbs worth a total value of the target's level (minimum 1) × 25 gp"
                 },
@@ -956,7 +948,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.it4ZsAi6XgvGcodc"
                 }
             },
-            "img": "systems/pf2e/icons/spells/wall-of-wind.webp",
+            "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
             "sort": 900000,
             "system": {
@@ -968,7 +960,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1068,8 +1059,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1168,8 +1157,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1256,7 +1243,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.Seaah9amXg70RKw2"
                 }
             },
-            "img": "systems/pf2e/icons/spells/water-walk.webp",
+            "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk",
             "sort": 1200000,
             "system": {
@@ -1268,8 +1255,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1368,9 +1353,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -1469,8 +1451,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1558,7 +1538,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
                 }
             },
-            "img": "systems/pf2e/icons/spells/electric-arc.webp",
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
             "sort": 1500000,
             "system": {
@@ -1570,8 +1550,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1691,8 +1669,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1779,7 +1755,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
                 }
             },
-            "img": "systems/pf2e/icons/spells/heal.webp",
+            "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
             "sort": 1700000,
             "system": {
@@ -1790,12 +1766,7 @@
                 "category": {
                     "value": "spell"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": ""
                 },
@@ -2010,8 +1981,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -2114,8 +2083,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -2233,8 +2200,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -2337,8 +2302,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -2469,17 +2432,15 @@
                 "level": {
                     "value": 6
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2584,18 +2545,16 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potency": {},
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2683,14 +2642,12 @@
                 "level": {
                     "value": 6
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {

@@ -1,9 +1,16 @@
+import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
+import type { TableResultSource } from "types/foundry/common/documents/table-result.d.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
-import { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, MultiselectData, RangesData } from "./data.ts";
-import { TableResultSource } from "types/foundry/common/documents/table-result.js";
+import {
+    BrowserFilter,
+    CheckboxOptions,
+    CompendiumBrowserIndexData,
+    MultiselectData,
+    RangesInputData,
+} from "./data.ts";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
@@ -48,6 +55,8 @@ export abstract class CompendiumBrowserTab {
         this.searchEngine = new MiniSearch({
             fields: this.searchFields,
             idField: "uuid",
+            processTerm: (t) =>
+                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null,
             storeFields: this.storeFields,
             searchOptions: { combineWith: "AND", prefix: true },
         });
@@ -174,7 +183,7 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Return new range filter values based on input */
-    parseRangeFilterInput(_name: string, lower: string, upper: string): RangesData["values"] {
+    parseRangeFilterInput(_name: string, lower: string, upper: string): RangesInputData["values"] {
         return {
             min: Number(lower) || 0,
             max: Number(upper) || 0,

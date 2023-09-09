@@ -1,5 +1,6 @@
 import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { CompendiumBrowser } from "@module/apps/compendium-browser/index.ts";
@@ -77,6 +78,7 @@ export const SetGamePF2e = {
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
             TextEditor: TextEditorPF2e,
+            ElementalBlast,
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),

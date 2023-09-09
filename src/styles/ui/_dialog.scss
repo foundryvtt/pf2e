@@ -23,7 +23,7 @@
             @include button;
             background-color: var(--alt);
             border-radius: 2px;
-            color: white;
+            color: var(--text-light);
             cursor: pointer;
             font-family: var(--sans-serif);
 
@@ -35,8 +35,9 @@
         .dialog-row {
             align-items: center;
             display: grid;
-            grid: "mod type value exclude" 1fr
-                  / 1.5fr 1fr 36px 50px;
+            grid:
+                "mod type value exclude" 1fr
+                / 1.5fr 1fr 36px 50px;
             padding: 8px 0;
 
             &.header {
@@ -70,8 +71,7 @@
                 &.toggle {
                     background: var(--secondary);
                     border-radius: 50px;
-                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
-                                0px 1px 0px rgba(255, 255, 255, 0.2);
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
                     cursor: pointer;
                     height: 19px;
                     margin: 4px auto;
@@ -79,7 +79,7 @@
                     width: 46px;
 
                     &::before {
-                        color: white;
+                        color: var(--text-light);
                         content: "ON";
                         left: 6px;
                         position: absolute;
@@ -87,7 +87,7 @@
                     }
 
                     &::after {
-                        color: black;
+                        color: var(--text-dark);
                         content: "OFF";
                         position: absolute;
                         right: 4px;
@@ -95,22 +95,17 @@
                         z-index: 0;
                     }
 
-                    &::after, &::before {
+                    &::after,
+                    &::before {
                         @include micro;
                         top: 4px;
                     }
 
                     label {
                         background: #fcfff4;
-                        background: linear-gradient(
-                            to bottom,
-                            #fcfff4 0%,
-                            #dfe5d7 40%,
-                            #b3bead 100%
-                        );
+                        background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
                         border-radius: 50px;
-                        box-shadow: 0 0 0 1px rgba(black, 0.2),
-                                    0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                        box-shadow: 0 0 0 1px rgba(black, 0.2), 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
                         cursor: pointer;
                         display: block;
                         height: 16px;
@@ -122,7 +117,7 @@
                         z-index: 1;
                     }
 
-                    input[type=checkbox] {
+                    input[type="checkbox"] {
                         visibility: hidden;
                         &:not(:checked) + label {
                             right: 23px;
@@ -132,7 +127,8 @@
             }
         }
 
-        .substitutions, .modifier-container {
+        .substitutions,
+        .modifier-container {
             display: flex;
             flex-direction: column;
 
@@ -147,7 +143,7 @@
                     background-color: var(--sub);
                     border-radius: 2px;
                     box-shadow: inset 0 0 0 1px rgba(black, 0.25);
-                    color: white;
+                    color: var(--text-light);
                     font-family: var(--sans-serif);
                     font-size: var(--font-size-10);
                     letter-spacing: 0.5px;
@@ -165,7 +161,7 @@
 
                     .toggle {
                         background: rgba(black, 0.4);
-                        input[type=checkbox] + label {
+                        input[type="checkbox"] + label {
                             right: 26px;
                         }
                     }
@@ -249,7 +245,7 @@
         }
 
         .roll {
-            color: white;
+            color: var(--text-light);
             background-color: var(--secondary);
         }
     }

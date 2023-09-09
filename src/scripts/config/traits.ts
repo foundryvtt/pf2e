@@ -6,6 +6,7 @@ import { RANGE_TRAITS } from "@item/data/values.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
+import * as R from "remeda";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits
@@ -81,7 +82,7 @@ const ancestryItemTraits = {
     undead: "PF2E.TraitUndead",
 };
 
-const elementalTraits = {
+const elementTraits = {
     air: "PF2E.TraitAir",
     earth: "PF2E.TraitEarth",
     fire: "PF2E.TraitFire",
@@ -89,7 +90,7 @@ const elementalTraits = {
     water: "PF2E.TraitWater",
     wood: "PF2E.TraitWood",
 };
-type ElementTrait = keyof typeof elementalTraits;
+type ElementTrait = keyof typeof elementTraits;
 
 const energyDamageTypes = {
     acid: "PF2E.TraitAcid",
@@ -111,7 +112,7 @@ const magicTraditions: Record<MagicTradition, string> = {
 
 const creatureTraits = {
     ...ancestryItemTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicTraditions,
     aberration: "PF2E.TraitAberration",
@@ -167,6 +168,7 @@ const creatureTraits = {
     hag: "PF2E.TraitHag",
     hantu: "PF2E.TraitHantu",
     herald: "PF2E.TraitHerald",
+    hryngar: "PF2E.TraitHryngar",
     humanoid: "PF2E.TraitHumanoid",
     ifrit: "PF2E.TraitIfrit",
     ikeshti: "PF2E.TraitIkeshti",
@@ -340,7 +342,7 @@ const alignmentTraits: Record<AlignmentTrait, string> = {
 
 const damageTraits = {
     ...alignmentTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
@@ -367,7 +369,7 @@ const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     ...spellOtherTraits,
@@ -376,7 +378,7 @@ const spellTraits = {
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicSchools,
     ...magicTraditions,
@@ -536,6 +538,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     peachwood: "PF2E.PreciousMaterialPeachwood",
     siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
+    sisterstone: "PF2E.PreciousMaterialSisterstone",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
@@ -657,7 +660,7 @@ const featTraits = {
 
 const consumableTraits = {
     ...damageTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     additive1: "PF2E.TraitAdditive1",
@@ -726,6 +729,18 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
+    ...R.pick(weaponTraits, [
+        "agile",
+        "propulsive",
+        "backswing",
+        "forceful",
+        "reach",
+        "sweep",
+        "thrown",
+        "volley-20",
+        "volley-30",
+        "volley-50",
+    ]),
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
@@ -739,6 +754,7 @@ const hazardTraits = {
     animal: "PF2E.TraitAnimal",
     aquatic: "PF2E.TraitAquatic",
     auditory: "PF2E.TraitAuditory",
+    beast: "PF2E.TraitBeast",
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
     curse: "PF2E.TraitCurse",
@@ -750,6 +766,7 @@ const hazardTraits = {
     magical: "PF2E.TraitMagical",
     mechanical: "PF2E.TraitMechanical",
     poison: "PF2E.TraitPoison",
+    polymorph: "PF2E.TraitPolymorph",
     shadow: "PF2E.TraitShadow",
     steam: "PF2E.TraitSteam",
     summoned: "PF2E.TraitSummoned",
@@ -771,7 +788,7 @@ const vehicleTraits = {
 const equipmentTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicSchools,
     ...magicTraditions,
@@ -864,7 +881,7 @@ const shieldTraits = {
 
 const armorTraits = {
     ...alignmentTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     ...shieldTraits,
@@ -919,6 +936,7 @@ const preciousMaterialDescriptions = {
     orichalcum: "PF2E.PreciousMaterialOrichalcumDescription",
     siccatite: "PF2E.PreciousMaterialSiccatiteDescription",
     silver: "PF2E.PreciousMaterialSilverDescription",
+    sisterstone: "PF2E.PreciousMaterialSisterstoneDescription",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
@@ -1368,7 +1386,7 @@ const kingmakerTraits = {
 };
 
 export {
-    ElementTrait,
+    type ElementTrait,
     actionTraits,
     alignmentTraits,
     ancestryItemTraits,
@@ -1378,7 +1396,7 @@ export {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    elementalTraits,
+    elementTraits,
     energyDamageTypes,
     equipmentTraits,
     featTraits,

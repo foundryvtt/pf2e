@@ -1,4 +1,5 @@
-import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 
 /** The size property of creatures and equipment */
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
@@ -135,7 +136,8 @@ type EnfolderableDocumentPF2e =
     | ItemPF2e<null>
     | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
-export {
+export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
+export type {
     DocumentSchemaRecord,
     EnfolderableDocumentPF2e,
     LabeledNumber,
@@ -145,10 +147,7 @@ export {
     OneToFour,
     OneToTen,
     OneToThree,
-    RARITIES,
     Rarity,
-    SIZES,
-    SIZE_SLUGS,
     Size,
     TraitsWithRarity,
     TwoToThree,
@@ -162,5 +161,4 @@ export {
     ZeroToTen,
     ZeroToThree,
     ZeroToTwo,
-    goesToEleven,
 };

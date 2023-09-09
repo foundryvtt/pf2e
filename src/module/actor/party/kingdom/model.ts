@@ -33,6 +33,7 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -54,7 +55,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     get extraItemTypes(): ItemType[] {
-        return ["campaignFeature"];
+        return ["campaignFeature", "effect"];
     }
 
     get activities(): CampaignFeaturePF2e[] {
@@ -83,22 +84,58 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         // Do not show kingdom to party members until it becomes activated.
         if (!this.active && !game.user.isGM) return [];
 
-        const crownIcon = fontAwesomeIcon("crown");
-        const icon = createHTMLElement("a", { classes: ["create-button"], children: [crownIcon] });
-        if (!this.active) {
-            icon.appendChild(fontAwesomeIcon("plus"));
-        }
+        const icon = createHTMLElement("a", {
+            classes: ["create-button"],
+            children: R.compact([fontAwesomeIcon("crown"), !this.active ? fontAwesomeIcon("plus") : null]),
+            dataset: {
+                tooltip: game.i18n.localize(`PF2E.Kingmaker.SIDEBAR.${this.active ? "OpenSheet" : "CreateKingdom"}`),
+            },
+        });
 
         icon.addEventListener("click", (event) => {
             event.stopPropagation();
             const type = this.active ? null : "builder";
             this.renderSheet({ type });
         });
+
         return [icon];
     }
 
-    async collect(): Promise<void> {
-        // todo: implement
+    /** Perform the collection portion of the upkeep phase */
+    async collect(options: { skipDialog?: boolean } = {}): Promise<void> {
+        const commodityTypes = ["luxuries", "lumber", "ore", "stone"] as const;
+
+        const dice = `${this.resources.dice.number}d${this.resources.dice.faces}`;
+        const commodities = R.mapToObj(commodityTypes, (type) => {
+            const value = this.resources.workSites[type];
+            return [type, value.value + value.resource * 2];
+        });
+
+        if (!options.skipDialog) {
+            const content = await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
+                dice,
+                commodities,
+            });
+            const result = await Dialog.confirm({
+                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.Title"),
+                content,
+            });
+            if (!result) return;
+        }
+
+        const roll = await new Roll(dice).evaluate({ async: true });
+        await roll.toMessage();
+
+        this.update({
+            resources: {
+                points: roll.total,
+                commodities: R.mapToObj(commodityTypes, (type) => {
+                    const current = this.resources.commodities[type];
+                    const incoming = commodities[type];
+                    return [type, { value: Math.max(current.value + incoming, current.max) }];
+                }),
+            },
+        });
     }
 
     /**
@@ -233,7 +270,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             }
         }
 
-        // Auto-set if vacant (for npcs), and inject vacancy penalty modifiers into synthetics
+        // Auto-set if vacant (for npcs), and inject vacancy penalty modifiers and adjustments into synthetics
         for (const role of KINGDOM_LEADERSHIP) {
             const data = this.leadership[role];
             const actor = fromUuidSync(data.uuid ?? "");
@@ -245,6 +282,10 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
             if (data.vacant) {
                 const penalties = VACANCY_PENALTIES[role]();
+                for (const [selector, entries] of Object.entries(penalties.adjustments ?? {})) {
+                    const adjustments = (synthetics.modifierAdjustments[selector] ??= []);
+                    adjustments.push(...entries);
+                }
                 for (const [selector, entries] of Object.entries(penalties.modifiers ?? {})) {
                     const modifiers = (synthetics.modifiers[selector] ??= []);
                     modifiers.push(...entries.map((e) => () => new ModifierPF2e(e)));
@@ -273,6 +314,8 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     prepareDerivedData(): void {
+        const { synthetics } = this.actor;
+
         // Calculate the control dc, used for skill checks
         const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
         this.control = new Statistic(this.actor, {
@@ -299,8 +342,9 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         label: KINGDOM_ABILITY_LABELS[ability],
                         modifier: abilityMod,
                         type: "ability",
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, ability),
                     }),
-                    createProficiencyModifier({ actor: this.actor, rank, domains }),
+                    createProficiencyModifier({ actor: this.actor, rank, domains, level: this.level }),
                 ],
                 check: { type: "skill-check" },
             });
@@ -351,6 +395,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 this.bonusFeats.assignFeat(feat);
             }
         }
+    }
+
+    getRollOptions(): string[] {
+        const prefix = "kingdom";
+        return R.compact([this.unrest.value ? `${prefix}:unrest:${this.unrest.value}` : null]);
     }
 
     getRollData(): Record<string, unknown> {

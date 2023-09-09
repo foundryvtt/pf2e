@@ -55,4 +55,4 @@ interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
 }
 
-export { ArmorSource, ArmorSystemData, ArmorSystemSource };
+export type { ArmorSource, ArmorSystemData, ArmorSystemSource };

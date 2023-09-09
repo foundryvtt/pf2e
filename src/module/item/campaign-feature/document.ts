@@ -5,6 +5,7 @@ import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { CampaignFeatureSource, CampaignFeatureSystemData, CampaignFeatureSystemSource } from "./data.ts";
 import { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";
 import { CategoryData, KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORY_TYPES } from "./values.ts";
@@ -42,6 +43,10 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         return this.system.frequency ?? null;
     }
 
+    get isAction(): boolean {
+        return this.behavior === "activity";
+    }
+
     get isFeature(): boolean {
         return this.behavior === "feature";
     }
@@ -65,12 +70,13 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         }
     }
 
-    /** Set a self roll option for this feat(ure) */
+    /** Set a self roll option for this feat(ure). Skip for actions */
     override prepareActorData(this: CampaignFeaturePF2e<ActorPF2e>): void {
-        const { actor } = this;
-        const prefix = this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
-        const slug = this.slug ?? sluggify(this.name);
-        actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        const prefix = this.isFeature ? "feature" : this.isFeat ? "feat" : null;
+        if (prefix) {
+            const slug = this.slug ?? sluggify(this.name);
+            this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        }
     }
 
     override prepareSiblingData(): void {
@@ -82,13 +88,13 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "feat"): string[] {
-        const actualPrefix = this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
-        prefix = prefix === "feat" ? actualPrefix : prefix;
-        return [
+    override getRollOptions(prefix: string | null = null): string[] {
+        prefix ??= this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
+        return R.compact([
             ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
-        ];
+            this.isAction ? `action:${this.slug}` : null,
+        ]);
     }
 
     /* -------------------------------------------- */

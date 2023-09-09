@@ -1,7 +1,7 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e } from "@item";
-import { objectHasKey } from "@util";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { isObject, objectHasKey } from "@util";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
@@ -35,6 +35,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 initial: "applyAEs",
             }),
             value: new ResolvableValueField({ required: true, nullable: true, initial: undefined }),
+            merge: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
@@ -61,6 +62,19 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
     })();
 
+    static override validateJoint(data: SourceFromSchema<AELikeSchema>): void {
+        super.validateJoint(data);
+
+        if (data.merge) {
+            if (data.mode !== "override") {
+                throw new foundry.data.validation.DataModelValidationError('  merge: `mode` must be "override"');
+            }
+            if (!isObject(data.value)) {
+                throw new foundry.data.validation.DataModelValidationError("  merge: `value` must an object");
+            }
+        }
+    }
+
     #rewriteSkillLongFormPath(path: string): string {
         return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
             objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match
@@ -80,25 +94,26 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     /** Apply the modifications immediately after proper ActiveEffects are applied */
     override onApplyActiveEffects(): void {
-        if (!this.ignored && this.phase === "applyAEs") this.applyAELike();
+        if (this.phase === "applyAEs") this.applyAELike();
     }
 
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
     override beforePrepareData(): void {
-        if (!this.ignored && this.phase === "beforeDerived") this.applyAELike();
+        if (this.phase === "beforeDerived") this.applyAELike();
     }
 
     /** Apply the modifications at the conclusion of the actor's derived-data preparation */
     override afterPrepareData(): void {
-        if (!this.ignored && this.phase === "afterDerived") this.applyAELike();
+        if (this.phase === "afterDerived") this.applyAELike();
     }
 
     /** Apply the modifications prior to a Check (roll) */
     override beforeRoll(_domains: string[], rollOptions: Set<string>): void {
-        if (!this.ignored && this.phase === "beforeRoll") this.applyAELike(rollOptions);
+        if (this.phase === "beforeRoll") this.applyAELike(rollOptions);
     }
 
     protected applyAELike(rollOptions?: Set<string>): void {
+        if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
         if (this.ignored) return;
@@ -112,7 +127,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const { actor } = this;
         const current = getProperty(actor, path);
         const change = this.resolveValue(this.value);
-        const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
+        const newValue = AELikeRuleElement.getNewValue(this.mode, current, change, this.merge);
         if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
             return this.failValidation(newValue.asError().message);
         }
@@ -140,9 +155,10 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     static getNewValue<TCurrent>(
         mode: AELikeChangeMode,
         current: TCurrent,
-        change: TCurrent extends (infer TValue)[] ? TValue : TCurrent
+        change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
+        merge?: boolean
     ): TCurrent | DataModelValidationFailure;
-    static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown): unknown {
+    static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown, merge = false): unknown {
         const { DataModelValidationFailure } = foundry.data.validation;
 
         const addOrSubtract = (value: unknown): unknown => {
@@ -202,6 +218,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return Math.max(current ?? 0, change);
             }
             case "override": {
+                if (merge && isObject(current) && isObject(change)) {
+                    return mergeObject(current, change);
+                }
                 return change;
             }
             default:
@@ -243,10 +262,16 @@ interface AutoChangeEntry {
 }
 
 type AELikeSchema = RuleElementSchema & {
+    /** How to apply the `value` at the `path` */
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    /** The data property path to modify on the parent item's actor */
     path: StringField<string, string, true, false, false>;
+    /** Which phase of data preparation to run in */
     phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
+    /** The value to applied at the `path` */
     value: ResolvableValueField<true, boolean, boolean>;
+    /** Whether to merge two objects given a `mode` of "override" */
+    merge: BooleanField<boolean, boolean, false, false, false>;
 };
 
 type AELikeChangeMode = (typeof AELikeRuleElement.CHANGE_MODES)[number];
@@ -258,4 +283,5 @@ interface AELikeSource extends RuleElementSource {
     phase?: unknown;
 }
 
-export { AELikeChangeMode, AELikeDataPrepPhase, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };
+export { AELikeRuleElement };
+export type { AELikeChangeMode, AELikeDataPrepPhase, AELikeSchema, AELikeSource, AutoChangeEntry };

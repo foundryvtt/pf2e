@@ -4,7 +4,7 @@ import { ItemSummaryData } from "@item/data/index.ts";
 import { isItemSystemData } from "@item/data/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -53,19 +53,18 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
-            if (existing || options.visible) return existing;
+            if (existing?.hasChildNodes() || options.visible) return existing;
 
             if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
                 const insertLocation = htmlQueryAll(
                     element,
                     ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
                 ).at(-1)?.parentNode?.lastChild;
-                if (!insertLocation) return null;
+                if (!insertLocation && !existing) return null;
 
-                const summary = document.createElement("div");
-                summary.classList.add("item-summary");
+                const summary = existing ?? createHTMLElement("div", { classes: ["item-summary"] });
                 summary.hidden = true;
-                insertLocation.after(summary);
+                insertLocation?.after(summary);
 
                 const chatData = await item.getChatData({ secrets: actor.isOwner }, element.dataset);
                 await this.renderItemSummary(summary, item, chatData);

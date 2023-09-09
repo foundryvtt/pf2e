@@ -104,7 +104,8 @@ async function treat(
     const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        return ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        return;
     }
 
     const rank = skill.rank ?? 1;

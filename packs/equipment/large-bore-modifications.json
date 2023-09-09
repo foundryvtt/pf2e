@@ -19,14 +19,12 @@
         "level": {
             "value": 5
         },
+        "material": {
+            "grade": null,
+            "type": null
+        },
         "negateBulk": {
             "value": "0"
-        },
-        "preciousMaterial": {
-            "value": null
-        },
-        "preciousMaterialGrade": {
-            "value": null
         },
         "price": {
             "value": {
@@ -36,84 +34,51 @@
         "quantity": 1,
         "rules": [
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    "kickback"
+                    "item:trait:kickback"
                 ],
-                "selector": "strike-damage",
-                "type": "circumstance",
+                "relabel": "{item|name}",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "slug": "kickback",
                 "value": 2
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
-                    "scatter",
+                    "item:trait:scatter",
                     {
-                        "not": "kickback"
+                        "lt": [
+                            "attribute:str:mod",
+                            2
+                        ]
                     }
                 ],
-                "selector": "attack",
+                "selector": "ranged-strike-attack-roll",
                 "slug": "large-bore-scatter",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 13,
-                            "start": 1,
-                            "value": -2
-                        },
-                        {
-                            "start": 14,
-                            "value": 0
-                        }
-                    ],
-                    "field": "actor|system.abilities.str.value"
-                }
+                "type": "circumstance",
+                "value": -2
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
-                    "kickback"
+                    "item:trait:kickback",
+                    {
+                        "lt": [
+                            "attribute:str:mod",
+                            4
+                        ]
+                    }
                 ],
-                "selector": "attack",
+                "selector": "ranged-strike-attack-roll",
                 "slug": "large-bore-kickback",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 17,
-                            "start": 1,
-                            "value": -2
-                        },
-                        {
-                            "start": 18,
-                            "value": 0
-                        }
-                    ],
-                    "field": "actor|system.abilities.str.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "kickback",
-                    "scatter"
-                ],
-                "selector": "attack",
-                "slug": "large-bore-scatter-kickback",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 17,
-                            "start": 1,
-                            "value": -2
-                        },
-                        {
-                            "start": 18,
-                            "value": 0
-                        }
-                    ],
-                    "field": "actor|system.abilities.str.value"
-                }
+                "value": -2
             }
         ],
         "size": "med",

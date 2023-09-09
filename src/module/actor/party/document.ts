@@ -1,19 +1,20 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, type CreaturePF2e } from "@actor";
+import { resetActors } from "@actor/helpers.ts";
 import { ItemType } from "@item/data/index.ts";
-import { UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
-import { resetActors } from "@actor/helpers.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
-import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -73,6 +74,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
+    /** Make `system.campaign` non-enumerable to prevent `TokenDocument.getTrackedAttributes` from recursing into it. */
+    protected override _initialize(options?: Record<string, unknown> | undefined): void {
+        super._initialize(options);
+        Object.defineProperty(this.system, "campaign", { writable: true, enumerable: false });
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.members = this.system.details.members
@@ -109,6 +116,15 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } else {
             this.campaign = null;
         }
+
+        // Filler until put into use for encounter metrics
+        const partyLevel = Math.round(
+            R.meanBy(
+                this.members.filter((m) => m.isOfType("character")),
+                (m) => m.level
+            )
+        );
+        this.system.details.level = { value: partyLevel };
     }
 
     /** Run rule elements (which may occur if it contains a kingdom) */
@@ -161,6 +177,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return combatants;
     }
 
+    override getRollOptions(domains?: string[]): string[] {
+        const options = super.getRollOptions(domains);
+        return options.concat(this.campaign?.getRollOptions?.() ?? []);
+    }
+
     override getRollData(): Record<string, unknown> {
         return mergeObject(super.getRollData(), this.campaign?.getRollData?.() ?? {});
     }
@@ -188,6 +209,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         super.reset();
         this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
     }, 50);
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
 
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
@@ -240,6 +265,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         resetActors(this.members);
+        ui.actors.saveActivePartyFolderState();
     }
 }
 

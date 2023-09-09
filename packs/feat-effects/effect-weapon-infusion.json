@@ -1,0 +1,187 @@
+{
+    "_id": "zezKegTvOArcDQ0x",
+    "img": "systems/pf2e/icons/actions/elemental-blast/weapon-infusion.webp",
+    "name": "Effect: Weapon Infusion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Weapon Infusion].</p>\n<p>If your next action is an Elemental Blast, choose a weapon shape for it to take. You can choose to change the blast's damage type to bludgeoning, piercing, or slashing-whichever suits the weapon shape-and you can choose other alterations depending on whether you make a melee or ranged blast.</p>\n<ul>\n<li><strong>Melee</strong> Add one of the following traits of your choice: agile, backswing, forceful, reach, sweep.</li>\n<li><strong>Ranged</strong> Choose one of three options: range increment 100 feet and the volley 30 feet trait, range increment 50 feet and the propulsive trait, or range increment 20 feet and the thrown trait.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "self:effect:weapon-infusion"
+                ],
+                "value": {
+                    "damageTypes": [
+                        "bludgeoning",
+                        "piercing",
+                        "slashing"
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:melee:agile"
+                ],
+                "value": {
+                    "traits": {
+                        "melee": [
+                            "agile"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:melee:backswing"
+                ],
+                "value": {
+                    "traits": {
+                        "melee": [
+                            "backswing"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:melee:forceful"
+                ],
+                "value": {
+                    "traits": {
+                        "melee": [
+                            "forceful"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:melee:reach"
+                ],
+                "value": {
+                    "traits": {
+                        "melee": [
+                            "reach"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:melee:sweep"
+                ],
+                "value": {
+                    "traits": {
+                        "melee": [
+                            "sweep"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:ranged:volley-30"
+                ],
+                "value": {
+                    "range": {
+                        "increment": 100
+                    },
+                    "traits": {
+                        "ranged": [
+                            "volley-30"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:ranged:propulsive"
+                ],
+                "value": {
+                    "range": {
+                        "increment": 50
+                    },
+                    "traits": {
+                        "ranged": [
+                            "propulsive"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "merge": true,
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.infusion",
+                "predicate": [
+                    "weapon-infusion:ranged:thrown"
+                ],
+                "value": {
+                    "range": {
+                        "increment": 20
+                    },
+                    "traits": {
+                        "ranged": [
+                            "thrown"
+                        ]
+                    }
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

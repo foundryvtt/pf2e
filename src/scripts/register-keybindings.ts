@@ -1,9 +1,44 @@
+import type { PartyPF2e } from "@actor";
+
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
         name: "PF2E.Keybinding.CycleTokenStack.Label",
         hint: "PF2E.Keybinding.CycleTokenStack.Hint",
         editable: [{ key: "KeyZ", modifiers: [] }],
         onUp: (): boolean => canvas.tokens.cycleStack(),
+    });
+
+    game.keybindings.register("pf2e", "toggle-party-sheet", {
+        name: "PF2E.Keybinding.TogglePartySheet.Label",
+        hint: "PF2E.Keybinding.TogglePartySheet.Hint",
+        editable: [{ key: "KeyP", modifiers: [] }],
+        onDown: (): boolean | null => {
+            const party = ((): PartyPF2e | null => {
+                if (game.user.isGM) {
+                    const token =
+                        canvas.ready && canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                    return token?.actor?.isOfType("party") ? token.actor : game.actors.party;
+                } else if (game.user.character?.isOfType("character")) {
+                    const pcParties = Array.from(game.user.character.parties);
+                    return pcParties.find((p) => p.active) ?? pcParties.at(0) ?? null;
+                }
+                return null;
+            })();
+            if (!party) return false;
+
+            const { sheet } = party;
+            if (sheet.rendered) {
+                if (sheet._minimized) {
+                    sheet.maximize();
+                } else {
+                    sheet.close();
+                }
+            } else {
+                sheet.render(true);
+            }
+
+            return true;
+        },
     });
 
     // Defer to the Perfect Vision module if enabled

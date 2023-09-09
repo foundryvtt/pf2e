@@ -61,4 +61,4 @@ type BattleFormRuleSchema = RuleElementSchema & {
     ownUnarmed: BooleanField<boolean, boolean, false, false, true>;
 };
 
-export { BattleFormRuleSchema, BattleFormRuleOverrideSchema };
+export type { BattleFormRuleSchema, BattleFormRuleOverrideSchema };

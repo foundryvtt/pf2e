@@ -112,7 +112,7 @@ type SimpleDamageTemplate = SpellDamageTemplate;
 
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | SimpleDamageTemplate;
 
-export {
+export type {
     AfflictionDamageTemplate,
     BaseDamageData,
     CreateDamageFormulaParams,

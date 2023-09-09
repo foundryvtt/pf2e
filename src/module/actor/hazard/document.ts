@@ -12,8 +12,7 @@ import { Rarity } from "@module/data.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
 
@@ -152,7 +151,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
-            const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
+            const ability = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
             // Later on we'll need to explicitly check for null, since 0 is supposed to be valid

@@ -10,9 +10,8 @@ import "./tour.d.ts";
 
 declare global {
     interface FoundryUI<
-        TActor extends Actor<null>,
-        TActorDirectory extends ActorDirectory<TActor>,
-        TItem extends Item<null>,
+        TActorDirectory extends ActorDirectory<Actor<null>>,
+        TItemDirectory extends ItemDirectory<Item<null>>,
         TChatLog extends ChatLog,
         TCompendiumDirectory extends CompendiumDirectory,
         TCombatTracker extends CombatTracker<Combat | null>
@@ -22,7 +21,7 @@ declare global {
         combat: TCombatTracker;
         compendium: TCompendiumDirectory;
         controls: SceneControls;
-        items: ItemDirectory<TItem>;
+        items: TItemDirectory;
         notifications: Notifications;
         settings: Settings;
         sidebar: Sidebar;

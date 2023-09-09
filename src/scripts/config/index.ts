@@ -51,6 +51,7 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
+    elementTraits,
     equipmentTraits,
     featTraits,
     hazardTraits,
@@ -294,6 +295,7 @@ function notifyDeprecatedPath(configPath: string, locPath: string): void {
 }
 
 export const PF2ECONFIG = {
+    defaultPartyId: "xxxPF2ExPARTYxxx",
     chatDamageButtonShieldToggle: false,
 
     statusEffects: {
@@ -382,7 +384,7 @@ export const PF2ECONFIG = {
         will: "PF2E.SavesWill",
     },
 
-    savingThrowDefaultAbilities: {
+    savingThrowDefaultAttributes: {
         fortitude: "con",
         reflex: "dex",
         will: "wis",
@@ -412,6 +414,8 @@ export const PF2ECONFIG = {
     },
     armorPropertyRunes: {
         acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
+        advancing: "PF2E.ArmorPropertyRuneAdvancing",
+        aimAiding: "PF2E.ArmorPropertyRuneAimAiding",
         antimagic: "PF2E.ArmorPropertyRuneAntimagic",
         assisting: "PF2E.ArmorPropertyRuneAssisting",
         bitter: "PF2E.ArmorPropertyRuneBitter",
@@ -419,30 +423,40 @@ export const PF2ECONFIG = {
         deathless: "PF2E.ArmorPropertyRuneDeathless",
         dread: "PF2E.ArmorPropertyRuneDread",
         electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
+        energyAdaptive: "PF2E.ArmorPropertyRuneEnergyAdaptive",
         ethereal: "PF2E.ArmorPropertyRuneEthereal",
         fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
         fortification: "PF2E.ArmorPropertyRuneFortification",
         glamered: "PF2E.ArmorPropertyRuneGlamered",
+        gliding: "PF2E.ArmorPropertyRuneGliding",
         greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
+        greaterAdvancing: "PF2E.ArmorPropertyRuneGreaterAdvancing",
         greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
         greaterDread: "PF2E.ArmorPropertyRuneGreaterDread",
         greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
         greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
         greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
         greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
+        greaterQuenching: "PF2E.ArmorPropertyRuneGreaterQuenching",
         greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
         greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
         greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
         greaterStanching: "PF2E.ArmorPropertyRuneGreaterStanching",
         greaterSwallowSpike: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
         greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
+        immovable: "PF2E.ArmorPropertyRuneImmovable",
         implacable: "PF2E.ArmorPropertyRuneImplacable",
         invisibility: "PF2E.ArmorPropertyRuneInvisibility",
+        magnetizing: "PF2E.ArmorPropertyRuneMagnetizing",
+        majorQuenching: "PF2E.ArmorPropertyRuneMajorQuenching",
         majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
         majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
         majorStanching: "PF2E.ArmorPropertyRuneMajorStanching",
         majorSwallowSpike: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
+        misleading: "PF2E.ArmorPropertyRuneMisleading",
         moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
+        portable: "PF2E.ArmorPropertyRunePortable",
+        quenching: "PF2E.ArmorPropertyRuneQuenching",
         ready: "PF2E.ArmorPropertyRuneReady",
         rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
         shadow: "PF2E.ArmorPropertyRuneShadow",
@@ -451,6 +465,7 @@ export const PF2ECONFIG = {
         soaring: "PF2E.ArmorPropertyRuneSoaring",
         stanching: "PF2E.ArmorPropertyRuneStanching",
         swallowSpike: "PF2E.ArmorPropertyRuneSwallowSpike",
+        trueQuenching: "PF2E.ArmorPropertyRuneTrueQuenching",
         trueStanching: "PF2E.ArmorPropertyRuneTrueStanching",
         winged: "PF2E.ArmorPropertyRuneWinged",
     },
@@ -483,6 +498,7 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
+    elementTraits,
     materialDamageEffects,
     resistanceTypes,
 
@@ -1309,9 +1325,9 @@ export const PF2ECONFIG = {
             syncDarknessScene: {
                 name: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Name",
                 hint: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Hint",
-                enabled: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Enabled",
-                disabled: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Disabled",
-                default: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Default",
+                enabled: "PF2E.SETTINGS.EnabledDisabled.Enabled",
+                default: "PF2E.SETTINGS.EnabledDisabled.Default",
+                disabled: "PF2E.SETTINGS.EnabledDisabled.Disabled",
             },
             worldCreatedOn: {
                 name: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name",

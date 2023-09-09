@@ -13,8 +13,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import { AbstractNPCSheet } from "./sheet.ts";
@@ -60,48 +59,22 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
     }
 
-    /** Users with limited permission can loot a dead NPC */
-    override canUserModify(user: User, action: UserAction): boolean {
-        if (action === "update" && this.isLootable) {
-            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
-        }
-        return super.canUserModify(user, action);
-    }
-
-    /** A user can see a synthetic NPC in the actor directory only if they have at least Observer permission */
-    override get visible(): boolean {
-        return !this.isToken && this.prototypeToken.actorLink
-            ? super.visible
-            : this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
-    }
-
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
         return this.isDead && (npcsAreLootable || this.flags.pf2e.lootable);
     }
 
-    /** Grant all users at least limited permission on dead NPCs */
-    override get permission(): DocumentOwnershipLevel {
-        if (game.user.isGM || !this.isLootable) {
-            return super.permission;
-        }
-        return Math.max(super.permission, 1) as DocumentOwnershipLevel;
+    /** A user can see an unlinked NPC in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
+        return (
+            (super.visible && this.prototypeToken.actorLink) ||
+            this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER
+        );
     }
 
-    /** Grant players limited permission on dead NPCs */
-    override testUserPermission(
-        user: User,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        options?: { exact?: boolean }
-    ): boolean {
-        // Temporary measure until a lootable view of the legacy sheet is ready
-        if (game.user.isGM || !this.isLootable) {
-            return super.testUserPermission(user, permission, options);
-        }
-        if ([1, "LIMITED"].includes(permission) && !options) {
-            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
-        }
-        return super.testUserPermission(user, permission, options);
+    /** Users with limited permission can loot a dead NPC */
+    override canUserModify(user: User, action: UserAction): boolean {
+        return super.canUserModify(user, action) || (action === "update" && this.isLootable);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -113,7 +86,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const systemData = this.system;
         systemData.actions = [];
         for (const key of SAVE_TYPES) {
-            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAttributes[key];
         }
 
         const { attributes, details } = systemData;
@@ -255,7 +228,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             this.perception = new Statistic(this, {
                 slug: "perception",
                 label: "PF2E.PerceptionLabel",
-                ability: "wis",
+                attribute: "wis",
                 domains,
                 modifiers: [
                     new ModifierPF2e({
@@ -331,15 +304,15 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Internal function to create trace data, since NPCs still use the lore item type
         system.skills = {};
         function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
-            const { ability, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
+            const { attribute, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
-                : { ability: "int" as AttributeString, shortForm: stat.slug };
+                : { attribute: "int" as AttributeString, shortForm: stat.slug };
             system.skills[shortForm] = {
                 ...stat.getTraceData(),
                 base: item?.system.mod.value,
                 isLore: !!stat.lore,
                 itemID: item?.id,
-                ability,
+                ability: attribute,
                 visible: stat.proficient,
                 variants: Object.values(item?.system.variants ?? {}),
             };
@@ -348,20 +321,20 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Create default "untrained" skills for all basic types first
         const skills: Partial<CreatureSkills> = {};
         for (const skill of SKILL_LONG_FORMS) {
-            const { ability, shortForm } = SKILL_EXPANDED[skill];
-            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
+            const { attribute, shortForm } = SKILL_EXPANDED[skill];
+            const domains = [skill, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortForm].capitalize()}`);
 
             const statistic = new Statistic(this, {
                 slug: skill,
                 label: name,
-                ability,
+                attribute,
                 domains,
                 modifiers: [
                     new ModifierPF2e({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
-                        modifier: system.abilities[ability].mod,
+                        modifier: system.abilities[attribute].mod,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
@@ -377,23 +350,23 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         for (const item of this.itemTypes.lore) {
             // override untrained skills if defined in the NPC data
             const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
-            const ability = objectHasKey(SKILL_EXPANDED, skill) ? SKILL_EXPANDED[skill].ability : "int";
+            const attribute = objectHasKey(SKILL_EXPANDED, skill) ? SKILL_EXPANDED[skill].attribute : "int";
             const label = objectHasKey(CONFIG.PF2E.skillList, skill) ? CONFIG.PF2E.skillList[skill] : item.name;
 
             const base = item.system.mod.value;
             const domains = [
                 skill,
-                `${ability}-based`,
+                `${attribute}-based`,
                 "skill-check",
                 "lore-skill-check",
-                `${ability}-skill-check`,
+                `${attribute}-skill-check`,
                 "all",
             ];
 
             const statistic = new Statistic(this, {
                 slug: skill,
                 label,
-                ability,
+                attribute,
                 lore: !objectHasKey(SKILL_EXPANDED, skill),
                 domains,
                 modifiers: [

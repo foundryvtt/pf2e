@@ -1,15 +1,29 @@
 import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { CheckRoll } from "@system/check/index.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import { ChatMessagePF2e } from "../index.ts";
 
 class ChatCards {
+    static #lastClick = 0;
+
     static listen(message: ChatMessagePF2e, html: HTMLElement): void {
         const selector = ["a[data-action], button[data-action]"].join(",");
         for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
@@ -18,6 +32,12 @@ class ChatCards {
     }
 
     static async #onClickButton({ message, event, html, button }: OnClickButtonParams): Promise<void> {
+        const currentTime = Date.now();
+        if (currentTime - this.#lastClick < 500) {
+            return;
+        }
+        this.#lastClick = currentTime;
+
         // Extract card data
         const action = button.dataset.action;
 
@@ -160,6 +180,7 @@ class ChatCards {
                     break;
                 }
                 case "apply-effect": {
+                    button.disabled = true;
                     const target = fromUuidSync(button.dataset.targets ?? "");
                     const effect =
                         item.isOfType("action", "feat") && item.system.selfEffect
@@ -167,10 +188,47 @@ class ChatCards {
                             : null;
                     if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
                         await target.createEmbeddedDocuments("Item", [effect.clone().toObject()]);
+                        const parsedMessageContent = ((): HTMLElement => {
+                            const container = document.createElement("div");
+                            container.innerHTML = message.content;
+                            return container;
+                        })();
+
+                        // Replace the "Apply Effect" button with a success notice
+                        const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
+                        if (buttons) {
+                            const span = createHTMLElement("span", { classes: ["effect-applied"] });
+                            const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
+                            const locKey = "PF2E.Item.Action.SelfAppliedEffect.Applied";
+                            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
+                            span.innerHTML = statement;
+                            buttons.replaceChildren(span);
+                            await message.update({ content: parsedMessageContent.innerHTML });
+                        }
+                    }
+                    break;
+                }
+                case "elemental-blast-damage": {
+                    if (!actor.isOfType("character")) return;
+                    const roll = message.rolls.find(
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.action === "elemental-blast"
+                    );
+                    const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
+                    const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
+                        roll?.options.identifier?.split(".") ?? [];
+                    if (objectHasKey(elementTraits, element) && objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                        await new ElementalBlast(actor).damage({
+                            element,
+                            damageType,
+                            melee: meleeOrRanged === "melee",
+                            actionCost: Number(actionCost) || 1,
+                            outcome,
+                            event,
+                        });
                     }
                 }
             }
-        } else if (actor.isOfType("character", "npc")) {
+        } else if (action && actor.isOfType("character", "npc")) {
             const buttonGroup = htmlClosest(button, ".chat-card, .message-buttons");
             const physicalItem = await (async (): Promise<PhysicalItemPF2e | null> => {
                 const itemUuid = buttonGroup?.dataset.itemUuid ?? "";
@@ -186,7 +244,8 @@ class ChatCards {
                 const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    return;
                 }
 
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
@@ -209,7 +268,8 @@ class ChatCards {
 
                 const result = await actor.addToInventory(itemObject, undefined);
                 if (!result) {
-                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    return;
                 }
 
                 ChatMessagePF2e.create({
@@ -238,7 +298,7 @@ class ChatCards {
                         speaker: { alias: actor.name },
                     });
                 }
-            } else if (physicalItem && action === "receieve-crafting-item") {
+            } else if (action === "receieve-crafting-item" && physicalItem) {
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
                     return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {

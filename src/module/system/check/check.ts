@@ -1,7 +1,8 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { StrikeData, TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
+import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -193,9 +194,9 @@ class CheckPF2e {
             roll.options.degreeOfSuccess = degree.value;
         }
 
-        const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
-        const notesText =
-            notes
+        const notes =
+            context.notes
+                ?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n)))
                 .filter((note) => {
                     if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
                         return false;
@@ -206,9 +207,8 @@ class CheckPF2e {
                     }
                     const outcome = context.outcome ?? context.unadjustedOutcome;
                     return !!(outcome && note.outcome.includes(outcome));
-                })
-                .map((n) => n.text)
-                .join("\n") ?? "";
+                }) ?? [];
+        const notesList = RollNotePF2e.notesToHTML(notes);
 
         const item = context.item ?? null;
 
@@ -224,7 +224,7 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return [header, result ?? [], tags, notesText]
+            return [header, result ?? [], tags, notesList]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
@@ -242,7 +242,7 @@ class CheckPF2e {
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
-            notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
+            notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
@@ -250,7 +250,6 @@ class CheckPF2e {
             substitutions,
             dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
-            damaging: context.damaging ?? false,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
             unadjustedOutcome: context.unadjustedOutcome ?? null,
@@ -337,24 +336,13 @@ class CheckPF2e {
             : [];
 
         const properties = ((): HTMLElement[] => {
-            if (item?.isOfType("weapon") && item.isRanged) {
-                // Show the range increment for ranged weapons
-                const rangeIncrement = item.rangeIncrement ?? 10;
-                const locKey =
-                    item.maxRange === rangeIncrement
-                        ? `PF2E.TraitRange${rangeIncrement}`
-                        : "PF2E.Item.Weapon.RangeIncrementN.Label";
-                const label = game.i18n.format(locKey, { range: rangeIncrement });
-                return [
-                    toTagElement(
-                        {
-                            name: `range-${rangeIncrement}`,
-                            label,
-                            description: "PF2E.Item.Weapon.RangeIncrementN.Hint",
-                        },
-                        "secondary"
-                    ),
-                ];
+            const range = item?.isOfType("action", "weapon") ? item.range : null;
+            const label = createActionRangeLabel(range);
+            if (label && (range?.increment || range?.max)) {
+                // Show the range increment or max range as a tag
+                const slug = range.increment ? `range-increment-${range.increment}` : `range-${range.max}`;
+                const description = "PF2E.Item.Weapon.RangeIncrementN.Hint";
+                return [toTagElement({ name: slug, label, description }, "secondary")];
             } else {
                 return [];
             }
@@ -399,7 +387,7 @@ class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor instanceof CharacterPF2e) {
+            if (actor?.isOfType("character")) {
                 const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
@@ -755,4 +743,5 @@ interface CreateTagFlavorParams {
     extraTags: string[];
 }
 
-export { CheckPF2e, CheckRollCallback };
+export { CheckPF2e };
+export type { CheckRollCallback };

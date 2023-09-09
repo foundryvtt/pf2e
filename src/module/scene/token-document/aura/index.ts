@@ -1,7 +1,7 @@
 import { AuraColors, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
-import { measureDistanceCuboid } from "@module/canvas/index.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { measureDistanceCuboid } from "@module/canvas/index.ts";
 import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
 import { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "../document.ts";
@@ -79,25 +79,19 @@ class TokenAura implements TokenAuraData {
         return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.bounds) === 0);
     }
 
-    /**
-     * Notify tokens' actors if they are inside an aura in this collection
-     * @param [specific] A limited list of tokens whose actors will be notified
-     */
-    async notifyActors(specific?: TokenDocumentPF2e[]): Promise<void> {
+    /** Notify tokens' actors if they are inside an aura in this collection */
+    async notifyActors(): Promise<void> {
+        if (!this.scene.isInFocus) return;
+
         const auraActor = this.token.actor;
-        if (!(auraActor && this.scene.isInFocus)) return;
+        const auraData = auraActor?.auras.get(this.slug);
+        if (!(auraActor && auraData)) return;
 
-        const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
-            (t) => !!t.actor?.canUserModify(game.user, "update")
+        const auradTokens = this.scene.tokens.filter(
+            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t)
         );
+        const affectedActors = new Set(auradTokens.flatMap((t) => t.actor ?? []));
 
-        const auraData = auraActor.auras.get(this.slug);
-        if (!auraData) return;
-
-        const containedTokens = tokensToCheck.filter((t) => this.containsToken(t));
-
-        // Get unique actors and notify
-        const affectedActors = new Set(containedTokens.flatMap((t) => t.actor ?? []));
         const origin = { actor: auraActor, token: this.token };
         for (const actor of affectedActors) {
             await actor.applyAreaEffects(auraData, origin);

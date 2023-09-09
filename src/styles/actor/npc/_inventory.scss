@@ -7,7 +7,7 @@
 }
 
 .inventory-section {
-    --border-color: #{$secondary-accent};
+    --border-color: var(--secondary);
     flex: 1 0 auto;
     padding: 0px;
     margin: 0px;
@@ -26,7 +26,7 @@
             display: flex;
             flex: 1;
             flex-flow: row nowrap;
-            color: white;
+            color: var(--color-text-light-0);
             align-items: baseline;
 
             h4 {
@@ -45,42 +45,6 @@
                 margin: 2px 4px 2px 6px;
             }
 
-            &[data-item-rarity="common"] {
-                .item-name {
-                    h4 {
-                        border-color: var(--color-rarity-common);
-                        color: var(--color-rarity-common);
-                    }
-                }
-            }
-
-            &[data-item-rarity="uncommon"] {
-                .item-name {
-                    h4 {
-                        border-color: var(--color-rarity-uncommon);
-                        color: var(--color-rarity-uncommon);
-                    }
-                }
-            }
-
-            &[data-item-rarity="rare"] {
-                .item-name {
-                    h4 {
-                        border-color: var(--color-rarity-rare);
-                        color: var(--color-rarity-rare);
-                    }
-                }
-            }
-
-            &[data-item-rarity="unique"] {
-                .item-name {
-                    h4 {
-                        border-color: var(--color-rarity-unique);
-                        color: var(--color-rarity-unique);
-                    }
-                }
-            }
-
             .controls .item-toggle-equip {
                 color: rgba(black, 0.4);
                 &.active {
@@ -96,8 +60,8 @@
         width: 100%;
         justify-content: center;
         align-items: baseline;
-        background-color: $primary-accent;
-        color: $light-text;
+        background-color: var(--secondary);
+        color: var(--text-light);
         border-radius: 0px 0px 3px 3px;
     }
 }

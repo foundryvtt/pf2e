@@ -123,4 +123,4 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };
+export type { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };

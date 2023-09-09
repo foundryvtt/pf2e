@@ -1,11 +1,12 @@
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { htmlClosest, pick } from "@util";
-import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { Renderer } from "pixi.js";
+import * as R from "remeda";
+import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
-import { Renderer } from "pixi.js";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -180,6 +181,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
+    /** Draw auras if certain conditions are met */
+    protected override _refreshVisibility(): void {
+        super._refreshVisibility();
+        this.auras.draw();
+    }
+
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
@@ -238,7 +245,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
         await this._animation;
-        this.auras.draw();
+        this.auras.reset();
     }
 
     /** Emulate a pointer hover ("pointerover") event */
@@ -321,7 +328,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
-                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
+                const textStyle = R.pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
@@ -368,10 +375,36 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         });
     }
 
-    /** Add a callback for when a movement animation finishes */
-    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
+    override async animate(
+        updateData: Record<string, unknown>,
+        options?: TokenAnimationOptionsPF2e<this>
+    ): Promise<void> {
+        // Handle system "spin" animation option
+        if (options?.spin) {
+            let attributeAdded = false;
+            const currentRotation = this.document.rotation;
+            const rotationAngle = this.x <= this.document.x ? 360 : -360;
+            options.ontick = (_frame, data) => {
+                // Temporarily unlock rotation
+                this.document.lockRotation = false;
+                if (!attributeAdded && data.attributes.length > 0) {
+                    const duration = (data.duration ?? 1000) / 1000;
+                    data.attributes.push({
+                        attribute: "rotation",
+                        parent: data.attributes[0].parent,
+                        from: currentRotation,
+                        to: currentRotation + duration * rotationAngle,
+                        delta: data.attributes[0].delta,
+                    });
+                    attributeAdded = true;
+                }
+            };
+        }
+
         await super.animate(updateData, options);
-        if (!this._animation) this.#onFinishAnimation();
+
+        // Restore `lockRotation` to source value in case it was unlocked for spin animation
+        this.document.lockRotation = this.document._source.lockRotation;
     }
 
     /** Hearing should be updated whenever vision is */
@@ -397,6 +430,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     protected override _destroy(): void {
         super._destroy();
+        this.auras.destroy();
         this.hearing.destroy();
     }
 
@@ -404,60 +438,34 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    /** Players can view the sheets of lootable NPCs */
+    protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+        return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
+    }
+
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        super._onControl(options);
-        this.auras.refresh();
+        return super._onControl(options);
         this.flankingHighlight.refresh();
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-
         super._onRelease(options);
-
-        this.auras.refresh();
         this.flankingHighlight.refresh();
     }
 
-    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
-        super._onDragLeftStart(event);
-        this.auras.clearHighlights();
-    }
-
-    protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
-        const refreshed = super._onHoverIn(event, options);
-        if (refreshed === false) return false;
-        this.auras.refresh();
-
-        return true;
-    }
-
-    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
-        // Ignore hover events coming from `Application` windows
-        if (htmlClosest(event.nativeEvent?.target, ".app.sheet")) {
-            return false;
-        }
-        const refreshed = super._onHoverOut(event);
-        if (refreshed === false) return false;
-        this.auras.refresh();
-
-        return true;
-    }
-
-    /** Destroy auras and flankingHighlight before removing this token from the canvas */
+    /** Destroy flankingHighlight before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
-        this.auras.clear();
         this.flankingHighlight.destroy();
     }
 
     /** A callback for when a movement animation for this token finishes */
     async #onFinishAnimation(): Promise<void> {
         await this._animation;
-        this.auras.refresh();
         this.flankingHighlight.refresh();
     }
 
@@ -483,4 +491,9 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { ShowFloatyEffectParams, TokenPF2e };
+interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+    spin?: boolean;
+}
+
+export { TokenPF2e };
+export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

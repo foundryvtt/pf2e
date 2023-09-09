@@ -1,4 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
+import { HitPointsSummary } from "@actor/base.ts";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
@@ -12,11 +13,12 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { SettingsMenuOptions } from "@system/settings/menu.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -96,6 +98,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
+            playerRestricted: !game.settings.get("pf2e", "metagame_showPartyStats"),
             restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
@@ -181,10 +184,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         label: CONFIG.PF2E.senses[r.type] ?? r.type,
                     }));
                 })(),
-                hp: {
-                    showValue: observer || !restricted,
-                    ...actor.hitPoints,
-                },
+                hp: actor.hitPoints,
                 activities: activities.map((action) => ({
                     uuid: action.uuid,
                     name: action.name,
@@ -278,6 +278,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+
+        // Show metagame option if clicked
+        htmlQuery(html, "a[data-action=open-meta-setting]")?.addEventListener("click", () => {
+            const menu = game.settings.menus.get("pf2e.metagame");
+            if (menu) {
+                const options: Partial<SettingsMenuOptions> = { highlightSetting: "showPartyStats" };
+                const app = new menu.type(undefined, options);
+                app.render(true);
+            }
+        });
 
         // Enable all roll actions
         for (const rollLink of htmlQueryAll(html, "[data-action=roll]")) {
@@ -377,8 +387,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             const rollData = document.getRollData();
             (async () => {
-                const content = createHTMLElement("div", { classes: ["item-summary"] });
-                content.innerHTML = await TextEditor.enrichHTML(document.description, { async: true, rollData });
+                const content = createHTMLElement("div", {
+                    classes: ["item-summary"],
+                    innerHTML: await TextEditor.enrichHTML(document.description, { async: true, rollData }),
+                });
                 InlineRollLinks.listen(content, document);
                 $(activityElem).tooltipster({
                     contentAsHTML: true,
@@ -482,6 +494,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 }
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
+    /** Is the sheet restricted to players? */
+    playerRestricted: boolean;
+    /** Is the sheet restricted to the current user? */
     restricted: boolean;
     members: MemberBreakdown[];
     overviewSummary: {
@@ -527,7 +542,7 @@ interface MemberBreakdown {
 
     speeds: { label: string; value: number }[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
-    hp: { showValue: boolean; temp: number; value: number; max: number };
+    hp: HitPointsSummary;
 
     activities: {
         uuid: string;
@@ -546,4 +561,4 @@ interface LanguageSheetData {
     actors: ActorPF2e[];
 }
 
-export { PartySheetPF2e, PartySheetRenderOptions };
+export { PartySheetPF2e, type PartySheetRenderOptions };

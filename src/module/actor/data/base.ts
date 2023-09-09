@@ -1,19 +1,26 @@
-import { ActorPF2e } from "@actor/base.ts";
+import type { ActorPF2e } from "@actor/base.ts";
 import { DexterityModifierCapData } from "@actor/character/types.ts";
 import { Abilities } from "@actor/creature/data.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
-import { StatisticModifier } from "@actor/modifiers.ts";
+import type { ActorSizePF2e } from "@actor/data/size.ts";
+import type { StatisticModifier } from "@actor/modifiers.ts";
 import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
-import { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@module/system/rolls.ts";
-import { CheckRoll } from "@system/check/roll.ts";
-import { DamageRoll } from "@system/damage/roll.ts";
+import type { CheckRoll } from "@system/check/roll.ts";
+import type { DamageRoll } from "@system/damage/roll.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { ActorType } from "./index.ts";
-import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr.ts";
+import type {
+    ImmunityData,
+    ImmunitySource,
+    ResistanceData,
+    ResistanceSource,
+    WeaknessData,
+    WeaknessSource,
+} from "./iwr.ts";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
@@ -55,7 +62,6 @@ interface ActorHitPointsSource extends ValueAndMaybeMax {
 interface ActorDetailsSource {
     level?: { value: number };
     alliance?: ActorAlliance;
-    creature?: unknown;
 }
 
 interface ActorSystemData extends ActorSystemSource {
@@ -151,12 +157,12 @@ interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrai
 }
 
 /** Basic skill and save data (not including custom modifiers). */
-interface AbilityBasedStatistic {
-    /** The actual modifier for this martial type. */
+interface AttributeBasedTraceData extends StatisticTraceData {
+    /** The actual modifier for this martial type */
     value: number;
-    /** Describes how the value was computed. */
+    /** Describes how the value was computed */
     breakdown: string;
-    /** The ability which this save scales off of. */
+    /** The attribute off of which this save scales */
     ability?: AttributeString;
 }
 
@@ -176,10 +182,10 @@ interface InitiativeData extends StatisticTraceData {
     tiebreakPriority: ZeroToTwo;
 }
 
-/** The full data for character perception rolls (which behave similarly to skills). */
-type PerceptionData = StatisticTraceData & AbilityBasedStatistic;
+/** The full data for creature perception rolls (which behave similarly to skills). */
+type PerceptionData = AttributeBasedTraceData;
 
-/** The full data for character AC; includes the armor check penalty. */
+/** The full data for creature or hazard AC; includes the armor check penalty. */
 interface ArmorClassData {
     /** The actual AC value */
     value: number;
@@ -279,8 +285,7 @@ interface PrototypeTokenPF2e<TParent extends ActorPF2e | null> extends foundry.d
     };
 }
 
-export {
-    AbilityBasedStatistic,
+export type {
     ActorAttributes,
     ActorAttributesSource,
     ActorDetails,
@@ -292,6 +297,7 @@ export {
     ActorTraitsData,
     ActorTraitsSource,
     ArmorClassData,
+    AttributeBasedTraceData,
     BaseActorSourcePF2e,
     BaseHitPointsSource,
     DamageRollFunction,

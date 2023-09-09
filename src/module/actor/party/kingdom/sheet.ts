@@ -1,28 +1,27 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { CampaignFeaturePF2e, ItemPF2e } from "@item";
+import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
+    createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    objectHasKey,
     setHasElement,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { PartyPF2e } from "../document.ts";
 import { KingdomBuilder } from "./builder.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomAbilityData, KingdomData, KingdomLeadershipData, KingdomSource } from "./types.ts";
@@ -36,11 +35,10 @@ import {
 } from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
-const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic"];
-type KingdomTrait = (typeof KINGDOM_TRAITS)[number];
+const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
 
 class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
-    protected selectedFilter: KingdomTrait | null = null;
+    protected selectedFilter: string | null = null;
 
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
@@ -111,6 +109,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...data,
+            actor: this.actor,
             kingdom: this.kingdom,
             nationTypeLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.NationType.${kingdom.nationType}`),
             abilities: KINGDOM_ABILITIES.map((slug) => {
@@ -125,7 +124,13 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 ...kingdom.resources.commodities[type],
                 type,
                 label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`),
-                workSites: objectHasKey(kingdom.resources.workSites, type) ? kingdom.resources.workSites[type] : null,
+                workSites: {
+                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Name`),
+                    description: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Description`),
+                    hasResource: ["lumber", "ore", "stone"].includes(type),
+                    value: kingdom.resources.workSites[type].value,
+                    resource: kingdom.resources.workSites[type].resource,
+                },
             })),
             resourceDice: {
                 ...kingdom.resources.dice,
@@ -142,15 +147,23 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     actor,
                     img: actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON,
                     abilityLabel: game.i18n.localize(KINGDOM_ABILITY_LABELS[KINGDOM_LEADERSHIP_ABILITIES[slug]]),
+                    penaltyLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.VacancyPenalty.${slug}`),
                 };
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
                 item,
-                traits: createSheetTags(CONFIG.PF2E.kingmakerTraits, item.system.traits.value),
+                traits: createSheetTags(
+                    CONFIG.PF2E.kingmakerTraits,
+                    item.system.traits.value.filter((t) => t !== "downtime")
+                ),
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
             feats: [kingdom.features, kingdom.feats, kingdom.bonusFeats],
-            actionFilterChoices: createSheetTags(CONFIG.PF2E.kingmakerTraits, KINGDOM_TRAITS),
+            actionFilterChoices: KINGDOM_TRAITS.map((trait) => ({
+                label: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[trait]),
+                value: trait,
+                selected: false, // selected is handled without re-render
+            })),
         };
     }
 
@@ -172,7 +185,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         const { fame } = this.kingdom.resources;
-        const famePips = htmlQuery(html, "a[data-action=adjust-fame]");
+        const famePips = htmlQuery(html, "[data-action=adjust-fame]");
         famePips?.addEventListener("click", async () => {
             const newValue = Math.min(fame.value + 1, fame.max);
             await this.kingdom.update({ "resources.fame.value": newValue });
@@ -185,10 +198,28 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Data binding for leader roles
         for (const leader of htmlQueryAll(html, ".leader[data-role]")) {
-            const role = leader.dataset.role;
+            const { role, uuid } = leader.dataset;
             htmlQuery(leader, "[data-action=remove-leader]")?.addEventListener("click", () => {
                 this.kingdom.update({ [`leadership.${role}`]: null });
             });
+
+            if (uuid) {
+                for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
+                    clickable.addEventListener("click", () => fromUuid(uuid).then((a) => a?.sheet.render(true)));
+                }
+            }
+
+            const vacantEl = htmlQuery(leader, ".vacant[title]");
+            if (vacantEl) {
+                const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
+                const content = createHTMLElement("ul", { children: lines });
+                $(vacantEl).tooltipster({
+                    content,
+                    contentAsHTML: true,
+                    side: "right",
+                    theme: "crb-hover",
+                });
+            }
         }
 
         // Implement events for rollable statistics
@@ -253,10 +284,32 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
                     game.i18n.localize(`PF2E.ModifierType.${type}`);
                 if (!setHasElement(MODIFIER_TYPES, type)) {
-                    return ui.notifications.error("Type is required.");
+                    ui.notifications.error("Type is required.");
+                    return;
                 }
 
                 this.kingdom.addCustomModifier(stat, { label, modifier, type });
+            });
+        }
+
+        for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
+            const maxLevel = Number(link.dataset.level) || this.kingdom.level;
+
+            link.addEventListener("click", async () => {
+                const compendiumTab = game.pf2e.compendiumBrowser.tabs.campaignFeature;
+                const filter = await compendiumTab.getFilterData();
+
+                // Configure level filters
+                const levels = filter.sliders.level;
+                levels.values.max = Math.min(maxLevel, levels.values.upperLimit);
+                levels.isExpanded = levels.values.max !== levels.values.upperLimit;
+
+                // Set category
+                filter.checkboxes.category.options["kingdom-feat"].selected = true;
+                filter.checkboxes.category.selected.push("kingdom-feat");
+                filter.checkboxes.category.isExpanded = true;
+
+                compendiumTab.open(filter);
             });
         }
     }
@@ -266,12 +319,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const duration = 0.4;
         this.selectedFilter = trait;
 
-        // Set and animate visibility of the different action types
-        for (const action of this.kingdom.activities) {
-            const element = htmlQuery(html, `[data-item-id="${action.id}"]`);
-            const visible = !trait || tupleHasValue(action.system.traits.value, trait);
-            if (!element) continue;
-
+        const animateElement = (element: HTMLElement, visible: boolean) => {
             if (options.instant) {
                 element.hidden = !visible;
             } else if (visible && element.hidden) {
@@ -295,6 +343,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     },
                 });
             }
+        };
+
+        // Set and animate visibility of the different action types
+        for (const action of this.kingdom.activities) {
+            const element = htmlQuery(html, `[data-item-id="${action.id}"]`);
+            const visible = !trait || tupleHasValue(action.system.traits.value, trait);
+            if (!element) continue;
+            animateElement(element, visible);
+        }
+
+        // Set and animate phases
+        for (const summary of htmlQueryAll(html, ".phase-summary")) {
+            animateElement(summary, summary.dataset.phase === trait);
         }
 
         // Set active toggle
@@ -400,7 +461,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
-    actionFilterChoices: SheetOptions;
+    actionFilterChoices: SheetOption[];
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
@@ -409,13 +470,20 @@ interface LeaderSheetData extends KingdomLeadershipData {
     slug: string;
     label: string;
     abilityLabel: string;
+    penaltyLabel: string;
 }
 
 interface CommoditySheetData extends ValueAndMax {
     type: string;
     label: string;
     /** Worksite data (if it exists for the commodity type) */
-    workSites: Kingdom["resources"]["workSites"]["ore"] | null;
+    workSites: {
+        label: string;
+        description: string;
+        hasResource: boolean;
+        value: number;
+        resource?: number;
+    };
 }
 
 export { KingdomSheetPF2e };

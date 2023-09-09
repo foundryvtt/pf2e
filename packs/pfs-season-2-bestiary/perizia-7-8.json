@@ -124,8 +124,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -225,7 +223,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -326,8 +323,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -430,8 +425,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -534,8 +527,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -638,8 +629,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -758,8 +747,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -888,17 +875,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1452,7 +1437,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "skewer",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "skewer"
+                        ],
+                        "selector": "trident-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1650,6 +1652,9 @@
         }
     ],
     "name": "Perizia (7-8)",
+    "prototypeToken": {
+        "name": "Perizia"
+    },
     "system": {
         "abilities": {
             "cha": {

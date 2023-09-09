@@ -93,4 +93,5 @@ interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends Docume
     documentType: string;
 }
 
-export { BaseTagSelector, TagSelectorData, TagSelectorOptions };
+export { BaseTagSelector };
+export type { TagSelectorData, TagSelectorOptions };

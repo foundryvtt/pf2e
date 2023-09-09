@@ -45,12 +45,13 @@
         .image-container {
             display: flex;
             img.actor-image {
-                flex: 0;
-                width: 125px;
-                height: 100%;
                 border-radius: 0;
+                flex: 0;
+                height: 100%;
+                min-width: 125px;
+                width: 125px;
             }
-            [data-action=show-image] {
+            [data-action="show-image"] {
                 bottom: 2px;
                 right: 2px;
             }
@@ -119,7 +120,7 @@
             .traits {
                 margin: 0.25em 0;
                 span {
-                    color: white;
+                    color: var(--text-light);
                     font-size: 0.75em;
                     font-weight: 700;
                     padding: 0.25em 0.5em;
@@ -174,7 +175,8 @@
                             background: none;
                             height: auto;
 
-                            &:hover, &:focus {
+                            &:hover,
+                            &:focus {
                                 border: 1px solid black;
                                 box-shadow: 0 0 10px #00005a;
                             }
@@ -205,7 +207,8 @@
                         justify-content: space-between;
                         gap: 12px;
 
-                        .save-name, .ac {
+                        .save-name,
+                        .ac {
                             display: flex;
                             flex-direction: column;
                             align-items: center;
@@ -368,7 +371,6 @@
             .familiar-senses {
                 flex-basis: 50%;
                 height: min-content;
-
 
                 .tags {
                     margin: 0;

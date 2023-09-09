@@ -124,8 +124,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -248,8 +246,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -376,17 +372,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -487,17 +481,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -599,17 +591,15 @@
                 "level": {
                     "value": 2
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -705,17 +695,15 @@
                 "level": {
                     "value": 5
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -806,14 +794,12 @@
                 "level": {
                     "value": 1
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1076,7 +1062,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional @Damage[2d4[electricity]] damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
+                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional 2d4 electricity damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1108,18 +1094,9 @@
                             "foxfire-blast"
                         ],
                         "selector": "strike-damage",
-                        "text": "The target takes an additional 2d4 electricity damage and is pushed back 5 feet."
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "foxfire-blast"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]."
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

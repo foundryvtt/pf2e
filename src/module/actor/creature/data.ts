@@ -1,15 +1,16 @@
 import {
-    AbilityBasedStatistic,
     ActorAttributes,
+    ActorDetailsSource,
     ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
     ActorTraitsSource,
+    AttributeBasedTraceData,
     BaseActorSourcePF2e,
     StrikeData,
 } from "@actor/data/base.ts";
-import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type {
     ActorAlliance,
     AttributeString,
@@ -20,8 +21,8 @@ import type {
 } from "@actor/types.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
-import { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
+import type { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
+import type { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
 import { Alignment, CreatureTrait } from "./types.ts";
 
 type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<
@@ -33,12 +34,7 @@ type BaseCreatureSource<TType extends CreatureType, TSystemSource extends Creatu
 type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
-    details?: {
-        level?: { value: number };
-        alliance?: ActorAlliance;
-        /** Present on familiars */
-        creature?: unknown;
-    };
+    details?: CreatureDetailsSource;
 
     /** Traits, languages, and other information. */
     traits?: CreatureTraitsSource;
@@ -51,6 +47,8 @@ interface CreatureSystemSource extends ActorSystemSource {
 
     resources?: CreatureResourcesSource;
 }
+
+type CreatureDetailsSource = ActorDetailsSource;
 
 type CreatureDetails = {
     /** The alignment this creature has */
@@ -126,10 +124,12 @@ interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<Creatu
     languages: ValuesList<Language>;
 }
 
-type SkillData = StatisticTraceData & AbilityBasedStatistic;
+type SkillData = AttributeBasedTraceData;
 
 /** The full save data for a character; including its modifiers and other details */
-type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
+interface SaveData extends AttributeBasedTraceData {
+    saveDetail?: string;
+}
 
 type CreatureSaves = Record<SaveType, SaveData>;
 
@@ -228,13 +228,15 @@ interface HeldShieldData {
     icon: ImageFilePath;
 }
 
-export {
+export { VisionLevels };
+export type {
     Abilities,
     AbilityData,
     Attitude,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
+    CreatureDetailsSource,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
@@ -254,5 +256,4 @@ export {
     SkillAbbreviation,
     SkillData,
     VisionLevel,
-    VisionLevels,
 };

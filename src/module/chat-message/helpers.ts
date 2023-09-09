@@ -85,7 +85,8 @@ async function applyDamageFromMessage({
             ? [message.token]
             : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
     if (tokens.length === 0) {
-        return ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
+        ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
+        return;
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;

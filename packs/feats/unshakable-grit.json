@@ -1,6 +1,6 @@
 {
     "_id": "eGZzifQWCf5gSq2y",
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Unshakable Grit",
     "system": {
         "actionType": {
@@ -23,7 +23,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "grit-and-tenacity"
+                ],
+                "selector": "fortitude"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "grit-and-tenacity"
+                ],
+                "selector": "will"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

@@ -1,13 +1,6 @@
 $faded-color: #7a7971;
-$color-disabled: $light-gray-color;
-$attack-button-color: $secondary-color;
-$damage-button-color: $primary-color;
-$primary-accent: $primary-color;
-$secondary-accent: $secondary-color;
-$light-text: #f5efe0;
 
 @import "forms";
-@import "data-entry";
 
 .npc-sheet {
     @import "inventory";
@@ -18,7 +11,6 @@ $light-text: #f5efe0;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    color: var(--color-rarity-common);
 
     .npc-sheet-header {
         display: flex;
@@ -34,7 +26,7 @@ $light-text: #f5efe0;
 
             input {
                 font-weight: inherit;
-                height: 32px;
+                height: 2rem;
             }
 
             .name-value {
@@ -56,8 +48,13 @@ $light-text: #f5efe0;
             }
         }
 
+        .rarity-alignment-size {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         .paizo-style {
-            border: none;
             margin-top: 2px;
             padding-left: 0;
             padding-right: 0;
@@ -68,7 +65,7 @@ $light-text: #f5efe0;
         margin: 10px 6px 10px 0;
     }
 
-    .side-bar {
+    .sidebar {
         flex: 160px 0 0;
         height: 100%;
         @include scrollbar;
@@ -76,7 +73,7 @@ $light-text: #f5efe0;
         .image-container {
             img.actor-image {
                 border: none;
-                border-radius: 8px
+                border-radius: 8px;
             }
         }
 
@@ -89,8 +86,8 @@ $light-text: #f5efe0;
             }
         }
 
-        .health-section, .shield-section {
-
+        .health-section,
+        .shield-section {
             .hit-points {
                 display: flex;
                 flex-direction: row;
@@ -103,7 +100,8 @@ $light-text: #f5efe0;
                     padding-right: 3px;
                 }
 
-                .slash, .max {
+                .slash,
+                .max {
                     align-items: center;
                     display: flex;
                 }
@@ -287,7 +285,8 @@ $light-text: #f5efe0;
                 font-size: 0.8rem;
             }
 
-            h4, label {
+            h4,
+            label {
                 font-size: 0.8rem;
                 margin-bottom: 0px;
                 padding-left: 2px;
@@ -297,7 +296,6 @@ $light-text: #f5efe0;
             }
         }
     }
-
 
     .sheet-body {
         flex: auto;
@@ -321,7 +319,9 @@ $light-text: #f5efe0;
         }
     }
 
-    input.adjustable:not(:focus), span.adjustable, div.adjustable {
+    input.adjustable:not(:focus),
+    span.adjustable,
+    div.adjustable {
         display: inline;
         text-align: right;
 
@@ -335,10 +335,11 @@ $light-text: #f5efe0;
     }
 
     .disabled {
-        color: $color-disabled;
-        border-color: $color-disabled;
+        color: var(--color-disabled);
+        border-color: var(--color-disabled);
 
-        &:hover, &.active {
+        &:hover,
+        &.active {
             color: var(--color-rarity-common);
             border-color: $faded-color;
         }
@@ -386,7 +387,7 @@ $light-text: #f5efe0;
             }
 
             .item-image:hover {
-                border: 1px solid $light-text;
+                border: 1px solid var(--text-light);
                 border-radius: 3px;
             }
         }
@@ -435,7 +436,8 @@ $light-text: #f5efe0;
         flex-direction: row;
         align-items: baseline;
 
-        label, .rollable {
+        label,
+        .rollable {
             flex: 1;
             font-weight: 600;
         }
@@ -527,8 +529,8 @@ $light-text: #f5efe0;
                     font-size: var(--font-size-9);
                     line-height: 15px;
                     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    background: $secondary-color;
-                    color: $light-text;
+                    background: var(--secondary);
+                    color: var(--text-light);
                     font-family: var(--sans-serif);
                     text-transform: uppercase;
                     border-radius: 3px;
@@ -548,10 +550,6 @@ $light-text: #f5efe0;
         }
     }
 
-    .tag {
-        line-height: 0.8rem;
-    }
-
     select {
         flex: auto 0 0;
         padding: 4px !important;
@@ -566,16 +564,20 @@ $light-text: #f5efe0;
         }
     }
 
-    .adjustment-select {
+    .adjustments {
+        align-items: center;
+        display: flex;
+        justify-content: end;
+
         .adjustment {
             &.active {
-                background-color: $primary-accent;
-                color: $light-text;
+                background-color: var(--primary);
+                color: var(--text-light);
             }
 
             &:not(.active) {
-                background-color: $faded-color;
-                color: $light-text;
+                background-color: var(--color-disabled);
+                color: var(--color-text-trait);
             }
         }
     }
@@ -591,7 +593,6 @@ $light-text: #f5efe0;
     }
 
     .notes {
-
         &.active {
             display: flex;
             flex-direction: column;
@@ -625,7 +626,7 @@ $light-text: #f5efe0;
                 height: 100%;
                 .editor-edit {
                     background: var(--primary);
-                    color: white;
+                    color: var(--text-light);
                 }
 
                 .editor-content {
@@ -676,6 +677,7 @@ $light-text: #f5efe0;
                 opacity: 0.33;
             }
         }
+
         h2.name {
             margin-top: 3px;
             text-align: center;

@@ -5,4 +5,4 @@ type BaseArmorType = keyof ConfigPF2e["PF2E"]["baseArmorTypes"];
 type ResilientRuneType = "" | "resilient" | "greaterResilient" | "majorResilient";
 type OtherArmorTag = "shoddy";
 
-export { ArmorTrait, ArmorCategory, ArmorGroup, BaseArmorType, ResilientRuneType, OtherArmorTag };
+export type { ArmorTrait, ArmorCategory, ArmorGroup, BaseArmorType, ResilientRuneType, OtherArmorTag };

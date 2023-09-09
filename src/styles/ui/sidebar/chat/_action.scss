@@ -33,7 +33,7 @@
         margin-bottom: 0rem;
         position: relative;
 
-        .preview {
+        a.preview {
             height: 4.5ch;
             display: block;
             -webkit-mask-image: linear-gradient(to bottom, black, rgba(black, 0));
@@ -54,6 +54,7 @@
         }
 
         .shadow {
+            border-bottom: 1px solid rgba(black, 0.05);
             height: 6px;
             position: relative;
             top: -6px;
@@ -69,11 +70,22 @@
             position: relative;
 
             i.cue {
-                color: green;
+                --fa-primary-color: var(--color-border-dark);
+                --fa-secondary-color: var(--primary);
+                --fa-secondary-opacity: 0.6;
                 position: absolute;
-                right: 4px;
+                right: 0.5rem;
                 top: 26%;
             }
+        }
+
+        &:has(.effect-applied) {
+            align-items: center;
+            color: var(--color-text-dark-secondary);
+            font-style: italic;
+            height: 2.1rem;
+            justify-content: center;
+            padding-bottom: 0.1rem;
         }
     }
 }

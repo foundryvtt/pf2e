@@ -1,6 +1,6 @@
 {
     "_id": "N5Gnf73TvuO6Reoj",
-    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
     "name": "Second Gate's Threshold",
     "system": {
         "actionType": {
@@ -214,6 +214,19 @@
             },
             {
                 "adjustName": "false",
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Kineticist.KineticGate.AllowedDropsLabel",
+                    "predicate": [
+                        {
+                            "lte": [
+                                "item:level",
+                                9
+                            ]
+                        },
+                        "item:trait:kineticist",
+                        "item:type:feat"
+                    ]
+                },
                 "choices": {
                     "filter": [
                         "item:rarity:common",

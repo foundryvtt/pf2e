@@ -1,20 +1,18 @@
-import Document, { _Document } from "types/foundry/common/abstract/document.js";
-import { DataSchema } from "types/foundry/common/data/fields.js";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
-import {
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e,
-} from "./index.ts";
-import { SceneConfigPF2e } from "./sheet.ts";
+import type { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e } from "./index.ts";
+import { TokenDocumentPF2e } from "./index.ts";
+import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
-        const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
-        return this.tokenVision && settingEnabled;
+        if (!this.tokenVision) return false;
+        return this.flags.pf2e.rulesBasedVision ?? game.settings.get("pf2e", "automation.rulesBasedVision");
+    }
+
+    get hearingRange(): number | null {
+        return this.flags.pf2e.hearingRange;
     }
 
     /** Is this scene's darkness value synced to the world time? */
@@ -63,14 +61,21 @@ class ScenePF2e extends Scene {
     /** Toggle Unrestricted Global Vision according to scene darkness level */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.flags.pf2e = mergeObject(
+            {
+                hearingRange: null,
+                rulesBasedVision: null,
+                syncDarkness: "default",
+            },
+            this.flags.pf2e ?? {}
+        );
+
         if (this.rulesBasedVision) {
             this.globalLight = true;
             this.hasGlobalThreshold = true;
             this.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
         }
-
-        this.flags.pf2e ??= { syncDarkness: "default" };
-        this.flags.pf2e.syncDarkness ??= "default";
     }
 
     /* -------------------------------------------- */
@@ -81,9 +86,14 @@ class ScenePF2e extends Scene {
     override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void {
         super._onUpdate(changed, options, userId);
 
+        const flagChanges = changed.flags?.pf2e ?? {};
+        if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
+            canvas.perception.update({ initializeLighting: true, initializeVision: true });
+        }
+
         if (changed.active && canvas.scene === this) {
             for (const token of canvas.tokens.placeables) {
-                token.auras.draw();
+                token.auras.reset();
             }
         }
     }
@@ -91,7 +101,7 @@ class ScenePF2e extends Scene {
     protected override _onDeleteDescendantDocuments(
         parent: this,
         collection: string,
-        documents: Document<_Document | null, DataSchema>[],
+        documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
         userId: string

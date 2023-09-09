@@ -2,14 +2,23 @@ import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { StrikeSelf } from "@actor/types.ts";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
-import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
+import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
+import {
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlClosest,
+    localizer,
+    objectHasKey,
+    setHasElement,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
@@ -121,14 +130,28 @@ class TextEditorPF2e extends TextEditor {
         const messageElem = htmlClosest(anchor, "li.chat-message");
         const app = ui.windows[Number(sheetElem?.dataset.appid)];
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
-        const [actor, rollData]: [ActorPF2e | null, Record<string, unknown>] =
-            app instanceof ActorSheetPF2e
-                ? [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()]
-                : app instanceof ItemSheetPF2e
-                ? [app.item.actor, app.item.getRollData()]
-                : message?.actor
-                ? [message.actor, message.getRollData()]
-                : [null, {}];
+
+        const [actor, rollData] = ((): [ActorPF2e | null, Record<string, unknown>] => {
+            if (message?.actor) {
+                return [message.actor, message.getRollData()];
+            }
+            if (app instanceof ActorSheetPF2e) {
+                [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()];
+            }
+            if (app instanceof ItemSheetPF2e) {
+                return [app.actor, app.item.getRollData()];
+            }
+
+            // Retrieve item/actor from anywhere via UUID
+            const itemUuid = anchor.dataset.itemUuid;
+            const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
+            if (itemByUUID instanceof ItemPF2e) {
+                return [itemByUUID.actor, itemByUUID.getRollData()];
+            }
+
+            return [null, {}];
+        })();
+
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
 
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
@@ -138,11 +161,13 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const domains = anchor.dataset.pf2Domains?.split(",");
             const extraRollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event),
                 actor,
                 item,
+                domains,
                 traits,
                 extraRollOptions,
             });
@@ -158,11 +183,11 @@ class TextEditorPF2e extends TextEditor {
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
-        const $html = $("<div>").html(content);
+        const html = createHTMLElement("div", { innerHTML: content });
         const document = options.rollData?.actor ?? null;
-        UserVisibilityPF2e.process($html, { document });
+        UserVisibilityPF2e.process(html, { document });
 
-        return $html.html();
+        return html.innerHTML;
     }
 
     static async enrichString(
@@ -324,11 +349,17 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
+        const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
+            ? rawParams.showDC
+            : actor?.hasPlayerOwner || game.settings.get("pf2e", "metagame_showDC")
+            ? "all"
+            : "gm";
+
         const params: CheckLinkParams = {
             ...rawParams,
             type: rawParams.type,
             basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
-            showDC: rawParams.showDC === "" ? "all" : rawParams.showDC,
+            showDC,
             traits: (() => {
                 const traits: string[] = [];
                 // Set item traits
@@ -373,7 +404,7 @@ class TextEditorPF2e extends TextEditor {
                 actor,
                 item,
                 inlineLabel,
-                params: { ...params, ...{ type, adjustment: adjustments[i] || "0" } },
+                params: { ...params, ...{ type, adjustment: adjustments[i] } },
             })
         );
         if (buttons.length === 1) {
@@ -406,9 +437,7 @@ class TextEditorPF2e extends TextEditor {
         actor?: ActorPF2e | null;
         inlineLabel?: string;
     }): HTMLSpanElement | null {
-        // Build the inline link
-        const anchor = document.createElement("a");
-        anchor.className = "inline-check";
+        // Get the icon
         const icon = ((): HTMLElement => {
             switch (params.type) {
                 case "fortitude":
@@ -418,79 +447,77 @@ class TextEditorPF2e extends TextEditor {
                 case "will":
                     return fontAwesomeIcon("brain");
                 case "perception":
-                    return fontAwesomeIcon("heart-pulse");
+                    return fontAwesomeIcon("eye");
                 default:
                     return fontAwesomeIcon("dice-d20");
             }
         })();
         icon.classList.add("icon");
-        anchor.append(icon);
 
-        anchor.dataset.pf2Traits = params.traits.toString();
-        anchor.dataset.pf2RollOptions = params.extraRollOptions.toString();
         const name = params.name ?? item?.name ?? params.type;
-        anchor.dataset.pf2RepostFlavor = name;
-        const role = params.showDC ?? "owner";
-        anchor.dataset.pf2ShowDc = role;
-
         const localize = localizer("PF2E.InlineCheck");
-        anchor.dataset.pf2Label = localize("DCWithName", { name });
 
-        if (params.adjustment) anchor.dataset.pf2Adjustment = params.adjustment;
-        if (params.roller) anchor.dataset.pf2Roller = params.roller;
+        // Get the label
+        const label = (() => {
+            if (inlineLabel) return inlineLabel;
+
+            if (tupleHasValue(SAVE_TYPES, params.type)) {
+                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
+                return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
+            }
+
+            switch (params.type) {
+                case "flat":
+                    return game.i18n.localize("PF2E.FlatCheck");
+                case "perception":
+                    return game.i18n.localize("PF2E.PerceptionLabel");
+                default: {
+                    // Skill or Lore
+                    const shortForm = (() => {
+                        if (objectHasKey(SKILL_EXPANDED, params.type)) {
+                            return SKILL_EXPANDED[params.type].shortForm;
+                        } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
+                            return params.type;
+                        }
+                        return;
+                    })();
+                    return shortForm
+                        ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
+                        : params.type
+                              .split("-")
+                              .map((word) => {
+                                  return word.slice(0, 1).toUpperCase() + word.slice(1);
+                              })
+                              .join(" ");
+                }
+            }
+        })();
+
+        const createLabel = (content: string): HTMLSpanElement =>
+            createHTMLElement("span", { classes: ["label"], innerHTML: content });
+
+        const anchor = createHTMLElement("a", {
+            classes: ["inline-check"],
+            children: [icon, createLabel(label)],
+            dataset: {
+                pf2Traits: params.traits.toString() || null,
+                pf2RollOptions: params.extraRollOptions.toString() || null,
+                pf2RepostFlavor: name,
+                pf2ShowDc: params.showDC === "all" ? null : params.showDC,
+                pf2Label: localize("DCWithName", { name }),
+                pf2Adjustment: Number(params.adjustment) || null,
+                pf2Roller: params.roller || null,
+                pf2Check: sluggify(params.type),
+            },
+        });
+
         if (params.defense && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
             anchor.dataset.invalid = "true";
         }
 
-        const createLabel = (text: string): HTMLSpanElement => {
-            const span = document.createElement("span");
-            span.className = "label";
-            span.innerHTML = text;
-            return span;
-        };
-
-        switch (params.type) {
-            case "flat":
-                anchor.append(createLabel(inlineLabel ?? game.i18n.localize("PF2E.FlatCheck")));
-                anchor.dataset.pf2Check = "flat";
-                break;
-            case "perception":
-                anchor.append(createLabel(inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel")));
-                anchor.dataset.pf2Check = "perception";
-                if (params.defense) anchor.dataset.pf2Defense = params.defense;
-                break;
-            case "fortitude":
-            case "reflex":
-            case "will": {
-                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
-                const saveLabel = params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
-                anchor.append(createLabel(inlineLabel ?? saveLabel));
-                anchor.dataset.pf2Check = params.type;
-                break;
-            }
-            default: {
-                // Skill or Lore
-                const shortForm = (() => {
-                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortForm;
-                    } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                        return params.type;
-                    }
-                    return;
-                })();
-                const skillLabel = shortForm
-                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                    : params.type
-                          .split("-")
-                          .map((word) => {
-                              return word.slice(0, 1).toUpperCase() + word.slice(1);
-                          })
-                          .join(" ");
-                anchor.append(createLabel(inlineLabel ?? skillLabel));
-                anchor.dataset.pf2Check = sluggify(params.type);
-                if (params.defense) anchor.dataset.pf2Defense = params.defense;
-            }
+        if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
+            anchor.dataset.pf2Defense = params.defense;
         }
 
         if (params.type && params.dc) {
@@ -503,11 +530,15 @@ class TextEditorPF2e extends TextEditor {
                 const dc = params.dc === "" ? NaN : Number(checkDC);
                 const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
                 const text = anchor.innerText;
-                anchor
-                    .querySelector("span.label")
-                    ?.replaceWith(
-                        createLabel(game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text }))
-                    );
+                anchor.querySelector("span.label")?.replaceWith(
+                    createLabel(
+                        game.i18n.format("PF2E.DCWithValueAndVisibility", {
+                            role: params.showDC,
+                            dc: displayedDC,
+                            text,
+                        })
+                    )
+                );
             }
         }
 
@@ -532,6 +563,13 @@ class TextEditorPF2e extends TextEditor {
 
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
+        const domains = params.domains?.split(",");
+
+        // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
+        if (domains?.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
+            ui.notifications.warn(game.i18n.format("PF2E.InlineCheck.Errors.InvalidDomains", { type: "@Damage" }));
+            return null;
+        }
 
         const traits = ((): string[] => {
             const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
@@ -548,6 +586,7 @@ class TextEditorPF2e extends TextEditor {
             skipDialog: true,
             actor,
             item,
+            domains,
             traits,
             extraRollOptions,
         });
@@ -560,6 +599,7 @@ class TextEditorPF2e extends TextEditor {
                 formula: roll._formula,
                 tooltip: roll.formula,
                 damageRoll: params.formula,
+                pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,
                 pf2Traits: traits.toString() || null,
                 pf2RollOptions: extraRollOptions.toString() || null,
@@ -656,6 +696,7 @@ async function augmentInlineDamageRoll(
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         traits?: string[];
+        domains?: string[];
         extraRollOptions?: string[];
     }
 ): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
@@ -674,7 +715,8 @@ async function augmentInlineDamageRoll(
             "inline-damage",
             item ? `${item.id}-inline-damage` : null,
             item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
-        ]);
+            args.domains,
+        ]).flat();
 
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
@@ -717,7 +759,7 @@ async function augmentInlineDamageRoll(
                 return {
                     actor,
                     token: actor.token,
-                    item: null,
+                    item: item ? (item as ItemPF2e<ActorPF2e>) : null,
                     statistic: null,
                     modifiers,
                 };
@@ -784,9 +826,9 @@ interface CheckLinkParams {
     traits: string[];
     extraRollOptions: string[];
     name?: string;
-    showDC?: string;
+    showDC: UserVisibility;
     immutable?: string;
     roller?: string;
 }
 
-export { EnrichmentOptionsPF2e, TextEditorPF2e };
+export { TextEditorPF2e, type EnrichmentOptionsPF2e };

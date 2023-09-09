@@ -1,12 +1,11 @@
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
-import { htmlQueryAll, objectHasKey } from "@util";
+import { htmlQueryAll } from "@util";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,
     ItemActivation,
-    MaterialGradeData,
     MaterialValuationData,
     PhysicalItemPF2e,
     PhysicalItemType,
@@ -82,8 +81,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return super.render(force, options);
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
-        const { material } = this.item;
+    protected prepareMaterials(valuationData: MaterialValuationData): MaterialSheetData {
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
         const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
             const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
@@ -94,7 +92,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                         validGrades.map((grade) => [
                             grade,
                             {
-                                ...materialData[grade],
+                                value: JSON.stringify({ type: materialKey, grade: grade }),
                                 label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
                             },
                         ])
@@ -105,7 +103,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             return result;
         }, {} as MaterialSheetData["materials"]);
 
-        const value = material.precious ? `${material.precious.type}|${material.precious.grade}` : "";
+        const value = JSON.stringify(this.item.material);
         return { value, materials };
     }
 
@@ -117,7 +115,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         super.activateListeners($html);
         const html = $html[0];
 
-        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-property]")) {
+        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        for (const input of modifiedPropertyFields) {
             const propertyPath = input.dataset.property ?? "";
             const baseValue =
                 input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
@@ -190,32 +189,22 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         }
 
         // Process precious-material selection
-        if (typeof formData["preciousMaterial"] === "string") {
-            const typeGrade = formData["preciousMaterial"].split("|");
-            const isValidSelection =
-                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
-                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
-            if (isValidSelection) {
-                formData["system.preciousMaterial.value"] = typeGrade[0];
-                formData["system.preciousMaterialGrade.value"] = typeGrade[1];
-            } else {
-                formData["system.preciousMaterial.value"] = null;
-                formData["system.preciousMaterialGrade.value"] = null;
-            }
-
-            delete formData["preciousMaterial"];
+        const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
+        const typeIsValid =
+            materialType === undefined ||
+            (typeof materialType === "string" && materialType in CONFIG.PF2E.preciousMaterials);
+        const gradeIsValid =
+            materialGrade === undefined ||
+            (typeof materialGrade === "string" && materialGrade in CONFIG.PF2E.preciousMaterialGrades);
+        if (!typeIsValid || !gradeIsValid) {
+            formData["system.material.type"] = null;
+            formData["system.material.grade"] = null;
         }
 
         // Normalize nullable fields to actual `null`s
-        const propertyPaths = [
-            "system.baseItem",
-            "system.preciousMaterial.value",
-            "system.preciousMaterialGrade.value",
-            "system.group",
-            "system.group.value",
-        ];
+        const propertyPaths = ["system.baseItem", "system.group"];
         for (const path of propertyPaths) {
-            if (formData[path] === "") formData[path] = null;
+            formData[path] ||= null;
         }
 
         // Convert price from a string to an actual object
@@ -261,19 +250,15 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     }[];
 }
 
-interface PreparedMaterials {
-    value: string;
-    materials: Record<string, { label: string; grades: { [K in PreciousMaterialGrade]?: MaterialGradeData } }>;
+interface MaterialSheetEntry {
+    label: string;
+    grades: Partial<Record<PreciousMaterialGrade, { value: string; label: string }>>;
 }
 
-type MaterialSheetEntry = {
-    label: string;
-    grades: Partial<Record<PreciousMaterialGrade, MaterialGradeData>>;
-};
-
-type MaterialSheetData = {
+interface MaterialSheetData {
     value: string;
     materials: Record<string, MaterialSheetEntry>;
-};
+}
 
-export { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials };
+export { PhysicalItemSheetPF2e };
+export type { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData };

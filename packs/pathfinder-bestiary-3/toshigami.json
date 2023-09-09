@@ -123,8 +123,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -227,8 +225,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -345,8 +341,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -435,7 +429,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.F1qxaqsEItmBura2"
                 }
             },
-            "img": "systems/pf2e/icons/spells/tree-stride.webp",
+            "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Tree Stride (At Will) (Cherry Trees Only)",
             "sort": 500000,
             "system": {
@@ -447,7 +441,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -549,8 +542,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -648,7 +639,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3"
                 }
             },
-            "img": "systems/pf2e/icons/spells/slow.webp",
+            "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
             "sort": 700000,
             "system": {
@@ -660,8 +651,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -771,8 +760,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -889,8 +876,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -991,8 +976,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1106,8 +1089,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1196,7 +1177,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
                 }
             },
-            "img": "systems/pf2e/icons/spells/heal.webp",
+            "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
             "sort": 1200000,
             "system": {
@@ -1207,12 +1188,7 @@
                 "category": {
                     "value": "spell"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": ""
                 },
@@ -1420,7 +1396,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/staff.webp",
+            "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
             "sort": 1300000,
             "system": {
@@ -1461,17 +1437,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {}
@@ -1866,7 +1840,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "staff-damage"
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "selector": "staff-damage"
+                    },
+                    {
+                        "damageType": "positive",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:undead"
+                        ],
+                        "selector": "staff-damage"
+                    }
+                ],
                 "slug": "fleeting-blossoms",
                 "source": {
                     "value": ""

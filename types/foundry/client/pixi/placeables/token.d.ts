@@ -248,6 +248,11 @@ declare global {
 
         protected _draw(): Promise<void>;
 
+        /** Refresh the visibility. */
+        protected _refreshVisibility(): void;
+
+        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
+
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
 
@@ -355,17 +360,14 @@ declare global {
          * Animate changes to the appearance of the Token.
          * Animations are performed over differences between the TokenDocument and the current Token and TokenMesh appearance.
          * @param updateData A record of the differential data which changed, for reference only
-         * @param [options] Options which configure the animation behavior
+         * @param [options]  Options which configure the animation behavior
+         * @param [options.ontick]        An optional function called each animation frame
+         * @param [options.movementSpeed] A desired token movement speed in grid spaces per second
+         * @param [options.a0]            The animation starting attributes if different from those cached.
+         * @param [options.hoverInOut]    The placeable need hover/un-hover emulation.
          * @returns A promise which resolves once the animation is complete
          */
         animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void>;
-
-        /** Animate the continual revealing of Token vision during a movement animation */
-        protected _onMovementFrame(
-            dt: number,
-            anim: TokenAnimationAttribute<this>[],
-            config: TokenAnimationConfig
-        ): void;
 
         /** Update perception each frame depending on the animation configuration */
         protected _animatePerceptionFrame({
@@ -620,5 +622,7 @@ declare global {
     interface TokenAnimationOptions<TObject extends Token> extends CanvasAnimationOptions<TObject> {
         /** A desired token movement speed in grid spaces per second */
         movementSpeed?: number;
+        a0?: Partial<TokenMeshDisplayAttributes>;
+        hoverInOut?: boolean;
     }
 }

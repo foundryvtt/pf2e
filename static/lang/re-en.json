@@ -552,6 +552,14 @@
                 "SuspendedAnimationEnter": "Enter Suspended Animation",
                 "SuspendedAnimationExit": "Exit Suspended Animation"
             },
+            "Capritellix": {
+                "ShiftMood": {
+                    "Angry": "Angry",
+                    "Gregarious": "Gregarious",
+                    "Serene": "Serene",
+                    "Sly": "Sly"
+                }
+            },
             "Charge": {
                 "AtLeastTen": "Moved at Least 10 feet"
             },
@@ -1243,8 +1251,18 @@
                 "TwoActions": "Two Actions"
             },
             "AdjustDegreeOfSuccess": {
+                "Athletics": {
+                    "Climb": {
+                        "SuccessBetter": "If you roll a success on an Athletics check to Climb you get a critical success instead."
+                    }
+                },
                 "Squeeze": {
                     "CriticalFailureSuccessBetter": "When you roll a critical failure on a check to Squeeze, you get a failure instead, and when you roll a success, you get a critical success instead."
+                },
+                "Survival": {
+                    "SenseDirection": {
+                        "SuccessBetter": "If you roll a success on an Survival check to Sense Direction you get a critical success instead."
+                    }
                 }
             },
             "AdoptedAncestry": {
@@ -1850,6 +1868,14 @@
                     "SaveNote": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead."
                 }
             },
+            "Genie": {
+                "Faydhaan": "Faydhaan",
+                "Ifrit": "Ifrit",
+                "Jaathoom": "Jaathoom",
+                "Jabali": "Jabali",
+                "Janni": "Janni",
+                "Prompt": "Select a Genie."
+            },
             "GeneralTraining": {
                 "Prompt": "Select a 1st-level general feat."
             },
@@ -1922,6 +1948,10 @@
                 "Unmatched": "Unmatched"
             },
             "HarrowCourt": {
+                "BrassDwarf": {
+                    "ResistanceLabel": "Brass Dwarf Resistance",
+                    "WeaknessLabel": "Brass Dwarf Weakness"
+                },
                 "Fiend": {
                     "ToggleLabel": "Repeating a non-strike action"
                 },
@@ -2029,6 +2059,7 @@
                 }
             },
             "Kineticist": {
+                "GateAttenuator": "Gate Attenuator",
                 "Impulse": {
                     "ElementalBlast": {
                         "Label": {
@@ -2039,6 +2070,9 @@
                             "Water": "Elemental Blast (Water)",
                             "Wood": "Elemental Blast (Wood)"
                         },
+                        "OneAction": "One Action",
+                        "ShortLabel": "Blast",
+                        "TwoActions": "Two Actions",
                         "TwoActionBonus": "Two-Action Blast"
                     },
                     "ImpulseJunction": {
@@ -2052,6 +2086,7 @@
                     "Prompt": "Select an Impulse."
                 },
                 "KineticGate": {
+                    "AllowedDropsLabel": "Kineticist class feat",
                     "DualGate": "Dual Gate",
                     "ExpandThePortal": "Expand the Portal",
                     "ForkThePath": "Fork the Path",
@@ -2091,7 +2126,8 @@
                 "Exit": "Exit",
                 "ResistanceType": "Resistance Type",
                 "SecondAttempt": "Second Attempt",
-                "ThirdAttempt": "Third Attempt"
+                "ThirdAttempt": "Third Attempt",
+                "WeaknessType": "Weakness Type"
             },
             "Leshy": {
                 "Seedpod": {
@@ -2247,7 +2283,7 @@
                     "Prompt": "Choose your aligned damage."
                 },
                 "StunningFist": {
-                    "Note": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.proficiencies.classDCs.monk.value)|traits:incapacitation|overrideTraits:true] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3} on a critical failure)."
+                    "Note": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.proficiencies.classDCs.monk.value)|name:Monk|traits:incapacitation|overrideTraits:true] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 3} on a critical failure)."
                 },
                 "WolfDrag": {
                     "Note": "If the attack succeeds, you knock the target @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
@@ -2347,6 +2383,7 @@
                 "Feat": "Select a feat.",
                 "FirstImplement": "Select a first implement.",
                 "Lesson": "Select a lesson.",
+                "LevelOneAncestryFeat": "Select a 1st-level ancestry feat.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
                 "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",
                 "Material": "Select a material.",
@@ -2524,6 +2561,7 @@
                     "ShadowGrasp": "Shadow Grasp",
                     "SkywardSlash": "Skyward Slash",
                     "StingingLash": "Stinging Lash",
+                    "Stonestrike": "Stonestrike",
                     "StumblingSwing": "Stumbling Swing",
                     "TigerClaw": "Tiger Claw",
                     "WindCrash": "Wind Crash",
@@ -2584,7 +2622,8 @@
                 "AgainstDemons": "Against Demons",
                 "AgainstDevils": "Against Devils",
                 "AgainstHumanoids": "Against Humanoids",
-                "Necromancer": "Target is a necromancer"
+                "Necromancer": "Target is a necromancer",
+                "Metal": "Target is wearing metal armor or is made of metal"
             },
             "Tattoo": {
                 "WildwoodInk": {
@@ -2694,6 +2733,10 @@
             },
             "WardingRune": {
                 "Prompt": "Select a school of magic other than divination."
+            },
+            "WeaponInfusion": {
+                "Melee": "Melee Infusion",
+                "Ranged": "Ranged Infusion"
             },
             "WellspringMage": {
                 "CriticalSuccess": "You temporarily recover an expended spell slot of any level of your choice. The temporary spell slot lasts for 1 minute, and if you don't use it by then, you experience an immediate @UUID[Compendium.pf2e.rollable-tables.RollTable.N0pDFNCffTe2Du39]{Wellspring Surge}.",

@@ -261,15 +261,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
         }
 
-        $html.find(".spell-attack").on("click", async (event) => {
-            if (!this.actor.isOfType("character")) {
-                throw ErrorPF2e("This sheet only works for characters");
-            }
-            const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
-            const entry = this.actor.spellcasting.get(index);
-            await entry?.statistic?.check.roll(eventToRollParams(event));
-        });
-
         $html.find(".prepared-toggle").on("click", async (event) => {
             event.preventDefault();
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";

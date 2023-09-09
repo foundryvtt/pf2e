@@ -1,0 +1,57 @@
+{
+    "_id": "jp7nDEmyRUtR5KFG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stonebound Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You bind yourself to the very essence of stone. You become trained in Plane of Earth Lore and learn the Terran language. If you are already trained in Plane of Earth Lore, you become trained in a skill of your choice. If you already speak Terran, you learn a common language of your choice. Increase your maximum Hit Points by your level.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the stonebound archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "value": "petran"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.stoneboundArchetype.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #195: Heavy is the Crown"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,13 +1,15 @@
-import { CharacterPF2e } from "@actor";
-import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
+import type { ActorPF2e, CharacterPF2e, HazardPF2e } from "@actor";
+import type { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
-import { resetActors } from "@actor/helpers.ts";
+import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillLongForm } from "@actor/types.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import { calculateXP } from "@scripts/macros/index.ts";
+import { ThreatRating } from "@scripts/macros/xp/index.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
+import { CombatantFlags, RolledCombatant, type CombatantPF2e } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
@@ -34,6 +36,29 @@ class EncounterPF2e extends Combat {
     getCombatantWithHigherInit(a: RolledCombatant<this>, b: RolledCombatant<this>): RolledCombatant<this> | null {
         const sortResult = this._sortCombatants(a, b);
         return sortResult > 0 ? b : sortResult < 0 ? a : null;
+    }
+
+    /** Determine threat rating and XP award for this encounter */
+    analyze(): { threat: ThreatRating; xp: number } | null {
+        const { party } = game.actors;
+        const partyMembers: ActorPF2e[] = party?.members.filter((a) => isReallyPC(a)) ?? [];
+        const enemies =
+            this.combatants
+                .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
+                .flatMap((c) => c.actor ?? []) ?? [];
+        if (!party || enemies.length === 0) {
+            return null;
+        }
+
+        const result = calculateXP(
+            party.level,
+            party.members.length,
+            enemies.filter((e) => !e.isOfType("hazard")).map((e) => e.level),
+            enemies.filter((e): e is HazardPF2e => e.isOfType("hazard")),
+            { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
+        );
+
+        return { threat: result.rating, xp: result.xpPerPlayer };
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
@@ -176,7 +201,7 @@ class EncounterPF2e extends Combat {
         super._onCreate(data, options, userId);
 
         const pcSheets = Object.values(ui.windows).filter(
-            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
+            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e"
         );
         for (const sheet of pcSheets) {
             sheet.toggleInitiativeLink();
@@ -250,7 +275,7 @@ class EncounterPF2e extends Combat {
         // Disable the initiative button if this was the only encounter
         if (!game.combat) {
             const pcSheets = Object.values(ui.windows).filter(
-                (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
+                (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e"
             );
             for (const sheet of pcSheets) {
                 sheet.toggleInitiativeLink();

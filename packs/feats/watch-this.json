@@ -1,6 +1,6 @@
 {
     "_id": "9xcvJn3lWXwbkU52",
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Watch This!",
     "system": {
         "actionType": {
@@ -23,7 +23,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "watch-this",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": "2*@weapon.system.damage.dice",
+                "predicate": [
+                    "watch-this"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Firebrands"
         },

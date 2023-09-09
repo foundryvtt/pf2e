@@ -1,17 +1,16 @@
-$faded-color: #7a7971;
-$attack-button-color: $secondary-color;
-$damage-button-color: $primary-color;
-$light-text: #f5efe0;
-
 .sheet.hazard {
     @import "../red-action-boxes";
 
-    ul, ol {
+    ul,
+    ol {
         @include p-reset;
         list-style-type: none;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
         @include p-reset;
         border-bottom: none;
     }
@@ -34,12 +33,14 @@ $light-text: #f5efe0;
         @include p-reset;
     }
 
-    input[type="text"], input[type="number"] {
+    input[type="text"],
+    input[type="number"] {
         @include p-reset;
         background: none;
         border: 1px solid transparent;
 
-        &:hover:not(:disabled), &:focus {
+        &:hover:not(:disabled),
+        &:focus {
             border: 1px solid black;
             box-shadow: 0 0 10px #00005a;
         }
@@ -47,10 +48,7 @@ $light-text: #f5efe0;
 
     .container {
         display: flex;
-        background: linear-gradient(
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
         height: 100%;
         overflow: hidden;
     }
@@ -88,7 +86,8 @@ $light-text: #f5efe0;
             }
         }
 
-        .actions-list, .attacks-list {
+        .actions-list,
+        .attacks-list {
             border-bottom: 1px solid var(--alt);
             &:last-child {
                 border-bottom: none;
@@ -119,7 +118,7 @@ $light-text: #f5efe0;
     // When the editor is open, fill more space so the user has something to work with
     .tox.tox-tinymce {
         // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-        height: 200px!important;
+        height: 200px !important;
     }
 
     // Hide editor button for those controlled by section controls

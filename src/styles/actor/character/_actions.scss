@@ -2,9 +2,9 @@
     gap: 0.5rem;
     padding: 0;
 
-    .actions-container .actions-tabs-wrapper .actions-panels ol.actions-list.strikes-list {
+    ol.actions-list {
         & + .actions-list {
-            margin-top: 8px;
+            margin-top: 0.5rem;
         }
 
         li.strike {
@@ -19,42 +19,6 @@
                 .item-image {
                     height: 32px;
                     width: 32px;
-                }
-            }
-
-            .ammo {
-                align-items: center;
-                display: flex;
-                gap: 3px;
-
-                select.linked {
-                    font: normal var(--font-size-12) var(--sans-serif);
-                    line-height: var(--font-size-12);
-                    padding-top: 3px;
-                    width: fit-content;
-
-                    &[data-compatible="false"] {
-                        color: #ffffff99;
-                    }
-
-                    option,
-                    optgroup {
-                        color: white;
-                    }
-                }
-
-                .magazine {
-                    margin-right: 0.5rem;
-                    font-family: var(--sans-serif);
-                    font-weight: 600;
-
-                    .icon {
-                        display: inline-block;
-                        width: 0.9rem;
-                        height: 0.9rem;
-                        background-image: url("/assets/icons/heavy-bullets.svg");
-                        background-size: cover;
-                    }
                 }
             }
 
@@ -77,18 +41,9 @@
                     padding: 0 0.5em;
                     white-space: nowrap;
 
-                    &:not(:disabled) {
-                        background: var(--secondary);
-                        cursor: pointer;
-
-                        &.damage {
-                            background: var(--primary);
-                        }
-
-                        &:hover {
-                            box-shadow: none;
-                            text-shadow: 0 0 2px white;
-                        }
+                    &:not(:disabled):hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px var(--text-light);
                     }
                 }
 
@@ -97,6 +52,7 @@
                     display: flex;
                     font-size: var(--font-size-14);
                     gap: 2px;
+                    justify-content: center;
                     padding: 0 3px;
 
                     .title {
@@ -105,23 +61,26 @@
 
                     button {
                         align-items: center;
-                        background: var(--bg-dark);
                         box-shadow: inset 0 0 0 1px rgba(black, 0.3), inset 0 0 0 2px rgba(white, 0.2);
                         display: flex;
                         justify-content: center;
                         width: 3ch;
 
                         &.selected {
-                            background: var(--body);
-                            color: var(--bg-dark);
+                            background: var(--text-dark);
+
+                            > .icon {
+                                color: var(--bg-dark);
+                            }
                         }
 
-                        &:hover {
-                            box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
+                        &:not(disabled):hover {
+                            box-shadow: inset 0 0 0 1px rgba($primary-color, 0.5);
+                            text-shadow: none;
                         }
 
                         &:active {
-                            text-shadow: 0 0 1px $rank-legendary;
+                            text-shadow: 0 0 1px var(--primary);
                         }
                     }
                 }
@@ -132,22 +91,60 @@
                 margin-left: calc(3em - 2px);
                 position: relative;
 
-                img.alt-usage-icon {
+                .alt-usage-icon {
                     border: none;
+                    height: 1rem;
                     position: absolute;
                     left: -1.5em;
-                    top: 0.15em;
+                    top: 0.2em;
+                }
+            }
+
+            .ammo,
+            .auxiliary-actions {
+                margin-left: 2.5rem;
+            }
+
+            .ammo {
+                align-items: center;
+                display: flex;
+                gap: 3px;
+                margin-bottom: 2px;
+
+                select.linked {
+                    font: normal var(--font-size-12) var(--sans-serif);
+                    line-height: var(--font-size-12);
+                    padding-top: 3px;
+                    width: fit-content;
+
+                    &[data-compatible="false"] {
+                        color: #ffffff99;
+                    }
+
+                    option,
+                    optgroup {
+                        color: var(--text-light);
+                    }
+                }
+
+                .magazine {
+                    margin-right: 0.5rem;
+                    font-family: var(--sans-serif);
+                    font-weight: 600;
+
+                    .icon {
+                        display: inline-block;
+                        width: 0.9rem;
+                        height: 0.9rem;
+                        background-image: url("/assets/icons/heavy-bullets.svg");
+                        background-size: cover;
+                    }
                 }
             }
 
             .auxiliary-actions {
                 display: flex;
                 gap: 3px;
-                margin-left: 2.5rem;
-
-                &.weapon-drawn {
-                    flex-basis: 100%;
-                }
 
                 button {
                     // Modular damage select menu
@@ -173,41 +170,36 @@
             }
 
             .action-name {
-                .item-carry-type {
-                    color: rgba(0, 0, 0, 0.4);
-                    &.active {
-                        color: var(--primary);
-                    }
-                }
+                justify-content: space-between;
             }
 
             &:not(.ready) .auxiliary-actions {
                 justify-content: right;
             }
         }
-    }
 
-    ol.actions-list li.action {
-        .item-image:hover {
-            background:none;
-        }
-
-        .tracking {
-            align-items: center;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            margin-left: auto;
-            margin-right: 1rem;
-
-            input {
-                width: 0;
-                flex: 0 1 4rem;
-                text-align: center;
+        li.action {
+            .item-image:hover {
+                background: none;
             }
 
-            span {
-                white-space: nowrap;
+            .tracking {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                margin-left: auto;
+                margin-right: 1rem;
+
+                input {
+                    width: 0;
+                    flex: 0 1 4rem;
+                    text-align: center;
+                }
+
+                span {
+                    white-space: nowrap;
+                }
             }
         }
     }
@@ -218,7 +210,7 @@
 
     button.activate {
         background: none;
-        border: 1px solid #00000066;
+        border: 1px solid var(--color-border-dark);
         border-radius: 5px;
         flex: 0;
         line-height: 1.25em;
@@ -226,9 +218,10 @@
         margin-right: 0.5rem;
         padding: 0 0.25rem;
 
-        &.active, &:hover {
+        &.active,
+        &:hover {
             background-color: var(--primary);
-            color: white;
+            color: var(--text-light);
             opacity: 1;
         }
     }

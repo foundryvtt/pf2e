@@ -73,7 +73,7 @@ interface BattleFormStrikeQuery {
     ownIfHigher: boolean;
 }
 
-export {
+export type {
     BattleFormAC,
     BattleFormOverrides,
     BattleFormSenses,

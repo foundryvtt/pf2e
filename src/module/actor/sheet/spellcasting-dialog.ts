@@ -69,16 +69,16 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: R.omit(CONFIG.PF2E.preparationType, ["ritual"]),
             attributes: CONFIG.PF2E.abilities,
-            isAttributeConfigurable: this.#canSetAbility(),
-            selectedAttribute: selectedStatistic?.ability ?? this.object.attribute,
+            isAttributeConfigurable: this.#canSetAttribute(),
+            selectedAttribute: selectedStatistic?.attribute ?? this.object.attribute,
         };
     }
 
     /** Returns whether or not the spellcasting data can include an ability */
-    #canSetAbility(): boolean {
+    #canSetAttribute(): boolean {
         const slug = this.object._source.system.proficiency.slug;
         const baseStat = this.actor.isOfType("character") ? this.actor.getStatistic(slug) : null;
-        return !slug || (!!baseStat && !baseStat.ability);
+        return !slug || (!!baseStat && !baseStat.attribute);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

@@ -124,8 +124,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -227,8 +225,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -332,8 +328,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -436,7 +430,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -535,8 +528,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -638,8 +629,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -726,7 +715,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
                 }
             },
-            "img": "systems/pf2e/icons/spells/heal.webp",
+            "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
             "sort": 800000,
             "system": {
@@ -737,12 +726,7 @@
                 "category": {
                     "value": "spell"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": ""
                 },
@@ -962,8 +946,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1553,7 +1535,37 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rearing-thrust",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-attack",
+                        "text": "PF2E.AttackEffects.KnockProne",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

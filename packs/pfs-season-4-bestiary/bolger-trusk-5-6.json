@@ -125,8 +125,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -256,17 +254,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -357,18 +353,16 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potency": {},
                 "potencyRune": {
                     "value": 0
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -446,14 +440,12 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1039,7 +1031,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the vampire's reach.</p>\n<hr />\n<p><strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an Athletics check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and the vampire regains [[/r 10[healing]]]{10 Hit Points}, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a @Check[type:medicine|dc:20|name:Blood Transfusion] check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes.</p>"
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the vampire's reach.</p>\n<hr />\n<p><strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an @Check[type:athletics|defense:fortitude] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and the vampire regains [[/r 10[healing]]]{10 Hit Points}, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a @Check[type:medicine|dc:20|name:Blood Transfusion] check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1270,6 +1262,9 @@
         }
     ],
     "name": "Bolger Trusk (5-6)",
+    "prototypeToken": {
+        "name": "Bolger Trusk"
+    },
     "system": {
         "abilities": {
             "cha": {

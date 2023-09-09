@@ -50,17 +50,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 3
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -162,17 +160,15 @@
                 "level": {
                     "value": 16
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 3
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -267,17 +263,15 @@
                 "level": {
                     "value": 14
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -368,14 +362,12 @@
                 "level": {
                     "value": 7
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -762,12 +754,43 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional @Damage[2d4[electricity]] damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
+                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional 3d6 electricity damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "foxfire-blast",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

@@ -193,7 +193,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:aid"
+                        ],
+                        "selector": "all",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:aid"
+                        ],
+                        "selector": "all"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

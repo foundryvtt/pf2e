@@ -1,6 +1,6 @@
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_TYPES } from "@system/damage/values.ts";
-import { pick } from "@util";
+import * as R from "remeda";
 import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
@@ -9,7 +9,7 @@ const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     splash: "PF2E.TraitSplash",
 };
 
-const materialDamageEffects = pick(preciousMaterials, [
+const materialDamageEffects = R.pick(preciousMaterials, [
     "abysium",
     "adamantine",
     "cold-iron",

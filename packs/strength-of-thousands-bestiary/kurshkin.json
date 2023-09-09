@@ -124,8 +124,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -226,8 +224,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -315,7 +311,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
                 }
             },
-            "img": "systems/pf2e/icons/spells/prestidigitation.webp",
+            "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
             "sort": 400000,
             "system": {
@@ -327,8 +323,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -430,8 +424,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -568,16 +560,14 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
                     "value": null
                 },
                 "price": {
@@ -637,7 +627,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
+            "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
             "sort": 700000,
             "system": {
@@ -678,16 +668,14 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
                     "value": null
                 },
                 "price": {
@@ -786,14 +774,12 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "per": 10,
@@ -851,26 +837,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Lucky Stabs",
-                        "predicate": [
-                            "unluck-aura-melee"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Target is affected by Unluck Aura",
-                        "option": "unluck-aura-melee",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1183,7 +1150,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee",
+                            "target:effect:unluck-aura"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

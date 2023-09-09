@@ -45,4 +45,4 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }
 
-export { ItemSheetDataPF2e };
+export type { ItemSheetDataPF2e };

@@ -8,30 +8,32 @@
 .skills, .actions {
     display: flex;
     height: 100%;
-    overflow: hidden;
     flex-direction: column;
 }
 
 .skill-list, .actions-list {
     @include scrollbar;
+    margin-bottom: 0.25rem;
 }
 
 .skills {
     padding-right: 0.5rem;
 
     .control-dc {
+        align-items: center;
         background: var(--paper-bg);
         box-shadow: var(--drop-shadow);
+        display: flex;
+        gap: 8px;
         margin: 0.5rem 0;
-        padding: 0.25rem 0;
         .mod {
             color: var(--secondary);
             display: inline-block;
+            font-family: var(--serif);
             font-size: 1.25em;
             font-weight: bold;
-            min-width: 5ch;
+            min-width: 3rem;
             text-align: right;
-            margin-right: 8px;
         }
     }
 
@@ -49,11 +51,11 @@
             font-weight: 600;
             font-size: 1.25em;
             line-height: 1em;
+            min-width: 3rem;
             padding: 3px 0; // easier to click
-            min-width: 5ch;
 
             i {
-                color: black;
+                color: var(--text-dark);
                 font-size: 0.8em;
                 margin-right: 2px;
             }
@@ -63,7 +65,7 @@
             flex: 1;
             color: var(--alt-dark);
             &.selected {
-                color: black;
+                color: var(--text-dark);
                 font-weight: 600;
             }
         }
@@ -84,8 +86,7 @@
 
     h3.header .filters {
         float: right;
-        margin: 0;
-        margin-left: auto;
+        margin: -0.125rem 0 0.125rem auto;
 
         .choice {
             cursor: pointer;
@@ -100,6 +101,19 @@
         }
     }
 
+    .phase-summary {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        margin: 0 12px 0.5rem 2px;
+        padding: 0.25rem 0.5rem;
+        header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--color-text-dark-input);
+            margin-top: 0.25rem;
+        }
+    }
+
     .action {
         align-items: center;
         display: flex;
@@ -111,6 +125,7 @@
 
         .item-name {
             align-items: center;
+            cursor: pointer;
             display: flex;
             flex: 1;
         }

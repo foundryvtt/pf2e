@@ -225,7 +225,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -326,8 +325,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -427,8 +424,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -557,8 +552,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -656,8 +649,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -758,8 +749,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -875,8 +864,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -964,8 +951,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1066,9 +1051,7 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -1162,7 +1145,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
                 }
             },
-            "img": "systems/pf2e/icons/spells/invisibility.webp",
+            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
             "sort": 1200000,
             "system": {
@@ -1174,10 +1157,8 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
-                    "somatic": true,
-                    "verbal": false
+                    "somatic": true
                 },
                 "cost": {
                     "value": ""
@@ -1266,7 +1247,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
                 }
             },
-            "img": "systems/pf2e/icons/spells/invisibility.webp",
+            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
             "sort": 1300000,
             "system": {
@@ -1278,10 +1259,8 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
-                    "somatic": true,
-                    "verbal": false
+                    "somatic": true
                 },
                 "cost": {
                     "value": ""
@@ -1378,8 +1357,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1479,7 +1456,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1579,8 +1555,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1680,8 +1654,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1785,8 +1757,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1889,8 +1859,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -2037,17 +2005,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2573,12 +2539,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The faydhaan shuyookh makes a melee jambiya Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
+                    "value": "<p>The faydhaan shuyookh makes a melee <em>jambiya</em> Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "to-the-hilt",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee",
+                            "to-the-hilt"
+                        ],
+                        "selector": "jambiya-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

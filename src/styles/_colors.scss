@@ -1,22 +1,21 @@
+@use "sass:color";
+
 /* ----------------------------------------- */
 /* Color definitions                         */
 /* ----------------------------------------- */
 
 /* Colors */
-$white-color: white;
-$black-color: black;
-$gray-color: #808080;
 $light-gray-color: #ababab;
 $dark-gray-color: #545454;
 
 /* Global */
 $primary-color: #5e0000 !default;
 $secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
-$tertiary-color: #E9D7A1 !default; /* compliments the primary color, usually used in combination */
+$tertiary-color: #e9d7a1 !default; /* compliments the primary color, usually used in combination */
 
 $alt-color: #786452 !default; /* for all other uses */
 $alt-dark: #443730 !default;
-$background-color: #F8F4F1 !default;
+$background-color: #f8f4f1 !default;
 $background-dark: darken($background-color, 10);
 $sub-color: #605856 !default;
 
@@ -27,40 +26,11 @@ $tertiary-dark-color: darken($tertiary-color, 10) !default;
 $tertiary-light-color: lighten($tertiary-color, 10) !default;
 
 /* Text */
-$text-dark-color: #1C1C1C !default;
-
-/* Damage */
-$damage-physical: #3c3c3c;
-$damage-acid: #007300;
-$damage-bleed: #99001a;
-$damage-bludgeoning: $damage-physical;
-$damage-chaotic: #a600a6;
-$damage-cold: #2f2fa6;
-$damage-electricity: darkgoldenrod;
-$damage-evil: indigo;
-$damage-fire: #a62f00;
-$damage-force: #6300aa;
-$damage-good: #9d730a;
-$damage-lawful: #402600;
-$damage-mental: midnightblue;
-$damage-negative: #00001f;
-$damage-piercing: $damage-physical;
-$damage-poison: #5b7332;
-$damage-positive: #ffffe0;
-$damage-slashing: $damage-physical;
-$damage-sonic: darkcyan;
-$damage-spirit: #5a5585;
+$text-dark-color: #1c1c1c !default;
 
 /* ----------------------------------------- */
 /* Color schemes                             */
 /* ----------------------------------------- */
-
-/* Proficiency ranks */
-$rank-untrained: #424242 !default;
-$rank-trained: #171f69 !default;
-$rank-expert: #3c005e !default;
-$rank-master: #664400 !default;
-$rank-legendary: #5e0000 !default;
 
 /* Degrees of success */
 $degree-success-critical: rgb(0, 128, 0) !default;
@@ -71,7 +41,6 @@ $degree-failure-critical: rgb(255, 0, 0) !default;
 /* Value adjustments (e.g. weak/elite) */
 $adjusted-higher: #009988 !default;
 $adjusted-lower: #cc3311 !default;
-
 
 /* ----------------------------------------- */
 /* CSS Custom Properties                     */
@@ -105,13 +74,11 @@ $adjusted-lower: #cc3311 !default;
     --tertiary-light: #{$tertiary-light-color};
 
     /* Text */
-    --body: var(--text-dark);
-    --color-text-trait: #f5efe0;
-    --text-dark: #{$text-dark-color};
-    --text-light: #{$white-color};
+    --text-dark: var(--color-text-dark-primary);
+    --text-light: #f5efe0;
+    --color-text-dark-input: #333;
 
     /* Borders */
-    --color-border-trait: #d8c384;
     --color-border-divider: #baa991;
 
     /* Headers w/ boxes */
@@ -122,9 +89,279 @@ $adjusted-lower: #cc3311 !default;
     --sidebar-label: var(--tertiary-dark);
     --sidebar-title: var(--tertiary);
 
+    /** Traits */
+    --color-bg-alignment: #576293;
+    --color-bg-size: #3a7b59;
+    --color-bg-trait: #{$primary-color};
+    --color-border-trait: #d8c384;
+    --color-text-trait: white;
+
     /* Rarity */
     --color-rarity-common: #323232;
     --color-rarity-uncommon: #98513d;
     --color-rarity-rare: #002664;
     --color-rarity-unique: #54166e;
+
+    /** Proficiency ranks */
+    --color-proficiency-untrained: #424242;
+    --color-proficiency-trained: #171f69;
+    --color-proficiency-expert: #3c005e;
+    --color-proficiency-master: #664400;
+    --color-proficiency-legendary: #{$primary-color};
+
+    /* Damage colors */
+    .damage {
+        $damage-physical: #3c3c3c;
+        $damage-acid: #007300;
+        $damage-bleed: #99001a;
+        $damage-chaotic: #a600a6;
+        $damage-cold: #2f2fa6;
+        $damage-electricity: darkgoldenrod;
+        $damage-evil: indigo;
+        $damage-fire: #a62f00;
+        $damage-force: #6300aa;
+        $damage-good: #9d730a;
+        $damage-lawful: #402600;
+        $damage-mental: midnightblue;
+        $damage-poison: #5b7332;
+        $damage-sonic: darkcyan;
+        $damage-spirit: #5a5585;
+        $damage-vitality: #ffffe0;
+        $damage-void: #00001f;
+        $darker: -12.5%;
+        $transparenter: 0.875;
+
+        --color-bg-acid: #{transparentize($damage-acid, $transparenter)};
+        --color-bg-bleed: #{transparentize($damage-bleed, $transparenter)};
+        --color-bg-chaotic: #{transparentize($damage-chaotic, $transparenter)};
+        --color-bg-cold: #{transparentize($damage-cold, $transparenter)};
+        --color-bg-electricity: #{transparentize($damage-electricity, $transparenter)};
+        --color-bg-evil: #{transparentize($damage-evil, $transparenter)};
+        --color-bg-fire: #{transparentize($damage-fire, $transparenter)};
+        --color-bg-force: #{transparentize($damage-force, $transparenter)};
+        --color-bg-good: #{transparentize($damage-good, $transparenter)};
+        --color-bg-lawful: #{transparentize($damage-lawful, $transparenter)};
+        --color-bg-mental: #{transparentize($damage-mental, $transparenter)};
+        --color-bg-physical: #{transparentize($damage-physical, $transparenter)};
+        --color-bg-poison: #{transparentize($damage-poison, $transparenter)};
+        --color-bg-sonic: #{transparentize($damage-sonic, $transparenter)};
+        --color-bg-spirit: #{transparentize($damage-spirit, $transparenter)};
+        --color-bg-vitality: #{transparentize($damage-vitality, $transparenter)};
+        --color-bg-void: #{transparentize($damage-void, $transparenter)};
+
+        --color-border-acid: #{$damage-acid};
+        --color-border-bleed: #{$damage-bleed};
+        --color-border-chaotic: #{$damage-chaotic};
+        --color-border-cold: #{$damage-cold};
+        --color-border-electricity: #{$damage-electricity};
+        --color-border-evil: #{$damage-evil};
+        --color-border-fire: #{$damage-fire};
+        --color-border-force: #{$damage-force};
+        --color-border-good: #{$damage-good};
+        --color-border-lawful: #{$damage-lawful};
+        --color-border-mental: #{$damage-mental};
+        --color-border-physical: #{$damage-physical};
+        --color-border-poison: #{$damage-poison};
+        --color-border-sonic: #{$damage-sonic};
+        --color-border-spirit: #{$damage-spirit};
+        --color-border-vitality: #{$damage-vitality};
+        --color-border-void: #{$damage-void};
+
+        --color-text-acid: #{color.adjust($damage-acid, $lightness: $darker)};
+        --color-text-bleed: #{color.adjust($damage-bleed, $lightness: $darker)};
+        --color-text-chaotic: #{color.adjust($damage-chaotic, $lightness: $darker)};
+        --color-text-cold: #{color.adjust($damage-cold, $lightness: $darker)};
+        --color-text-electricity: #{color.adjust($damage-electricity, $lightness: $darker)};
+        --color-text-evil: #{color.adjust($damage-evil, $lightness: $darker)};
+        --color-text-fire: #{color.adjust($damage-fire, $lightness: $darker)};
+        --color-text-force: #{color.adjust($damage-force, $lightness: $darker)};
+        --color-text-good: #{color.adjust($damage-good, $lightness: $darker)};
+        --color-text-lawful: #{color.adjust($damage-lawful, $lightness: $darker)};
+        --color-text-mental: #{color.adjust($damage-mental, $lightness: $darker)};
+        --color-text-physical: #{color.adjust($damage-physical, $lightness: $darker)};
+        --color-text-poison: #{color.adjust($damage-poison, $lightness: $darker)};
+        --color-text-sonic: #{color.adjust($damage-sonic, $lightness: $darker)};
+        --color-text-spirit: #{color.adjust($damage-spirit, $lightness: $darker)};
+        --color-text-vitality: #{color.adjust($damage-vitality, $lightness: $darker)};
+        --color-text-void: #{color.adjust($damage-void, $lightness: $darker)};
+
+        &.color {
+            &.acid {
+                background-color: var(--color-bg-acid);
+                border-color: var(--color-border-acid);
+                color: var(--color-text-acid);
+
+                .icon {
+                    color: var(--color-border-acid);
+                }
+            }
+
+            &.bleed {
+                background-color: var(--color-bg-bleed);
+                border-color: var(--color-border-bleed);
+                color: var(--color-text-bleed);
+
+                .icon {
+                    color: var(--color-border-bleed);
+                }
+            }
+
+            &.bludgeoning,
+            &.piercing,
+            &.slashing {
+                background-color: var(--color-bg-physical);
+                border-color: var(--color-border-physical);
+                color: var(--color-text-physical);
+
+                .icon {
+                    color: var(--color-border-physical);
+                }
+            }
+
+            &.chaotic {
+                background-color: var(--color-bg-chaotic);
+                border-color: var(--color-border-chaotic);
+                color: var(--color-text-chaotic);
+
+                .icon {
+                    color: var(--color-border-chaotic);
+                }
+            }
+
+            &.cold {
+                background-color: var(--color-bg-cold);
+                border-color: var(--color-border-cold);
+                box-shadow: var(--color-border-cold);
+                color: var(--color-text-cold);
+
+                .icon {
+                    color: var(--color-border-cold);
+                }
+            }
+
+            &.electricity {
+                background-color: var(--color-bg-electricity);
+                border-color: var(--color-border-electricity);
+                color: var(--color-text-electricity);
+
+                .icon {
+                    color: var(--color-border-electricity);
+                }
+            }
+
+            &.evil {
+                background-color: var(--color-bg-evil);
+                border-color: var(--color-border-evil);
+                color: var(--color-text-evil);
+
+                .icon {
+                    color: var(--color-border-evil);
+                }
+            }
+
+            &.fire {
+                background-color: var(--color-bg-fire);
+                border-color: var(--color-border-fire);
+                box-shadow: var(--color-border-fire);
+                color: var(--color-text-fire);
+
+                .icon {
+                    color: var(--color-border-fire);
+                }
+            }
+
+            &.force {
+                background-color: var(--color-bg-force);
+                border-color: var(--color-border-force);
+                color: var(--color-text-force);
+
+                .icon {
+                    color: var(--color-border-force);
+                }
+            }
+
+            &.good {
+                background-color: var(--color-bg-good);
+                border-color: var(--color-border-good);
+                color: var(--color-text-good);
+
+                .icon {
+                    color: var(--color-border-good);
+                }
+            }
+
+            &.lawful {
+                background-color: var(--color-bg-lawful);
+                border-color: var(--color-border-lawful);
+                color: var(--color-text-lawful);
+
+                .icon {
+                    color: var(--color-border-lawful);
+                }
+            }
+
+            &.mental {
+                background-color: var(--color-bg-mental);
+                border-color: var(--color-border-mental);
+                color: var(--color-text-mental);
+
+                .icon {
+                    color: var(--color-border-mental);
+                }
+            }
+
+            &.poison {
+                background-color: var(--color-bg-poison);
+                border-color: var(--color-border-poison);
+                color: var(--color-text-poison);
+
+                .icon {
+                    color: var(--color-border-poison);
+                }
+            }
+
+            &.sonic {
+                border-color: var(--color-border-sonic);
+                background-color: var(--color-bg-sonic);
+                color: var(--color-text-sonic);
+
+                .icon {
+                    color: var(--color-border-sonic);
+                }
+            }
+
+            &.spirit {
+                border-color: var(--color-border-spirit);
+                background-color: var(--color-bg-spirit);
+                color: var(--color-text-spirit);
+
+                .icon {
+                    color: var(--color-border-spirit);
+                }
+            }
+
+            &.vitality,
+            &.positive {
+                background-color: var(--color-bg-physical); // Improve contrast with bright color
+                border-color: var(--color-border-vitality);
+                color: var(--color-text-vitality);
+                text-shadow: 1px 1px var(--color-text-dark-1);
+
+                .icon {
+                    color: var(--color-border-vitality);
+                }
+            }
+
+            &.void,
+            &.negative {
+                background-color: var(--color-bg-void);
+                border-color: var(--color-border-void);
+                color: var(--color-border-void);
+
+                .icon {
+                    color: var(--color-border-void);
+                }
+            }
+        }
+    }
 }

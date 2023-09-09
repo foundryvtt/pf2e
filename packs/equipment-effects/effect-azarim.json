@@ -17,28 +17,6 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": {
-                    "ownedItems": true,
-                    "predicate": [
-                        "item:slug:azarim"
-                    ],
-                    "types": [
-                        "weapon"
-                    ]
-                },
-                "flag": "effectAzarim",
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "lt": [
-                            "self:level",
-                            11
-                        ]
-                    }
-                ]
-            },
-            {
                 "choices": {
                     "includeHandwraps": true,
                     "ownedItems": true,
@@ -60,10 +38,35 @@
             },
             {
                 "definition": [
+                    "item:slug:azarim"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "anarchic"
+            },
+            {
+                "definition": [
                     "item:id:{item|flags.pf2e.rulesSelections.effectAzarim}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
                 "property": "property-runes",
                 "value": "anarchic"
             },

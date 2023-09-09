@@ -54,4 +54,4 @@ interface EffectSystemData
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export type { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

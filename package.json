@@ -1,6 +1,6 @@
 {
     "name": "foundry-pf2e",
-    "version": "5.3.2",
+    "version": "5.4.4",
     "description": "",
     "private": true,
     "type": "module",
@@ -17,10 +17,11 @@
         "pretest": "npm run lint",
         "test": "jest",
         "migrate": "esno ./build/run-migration.ts",
-        "lint": "npm run lint:ts && npm run lint:json",
+        "lint": "npm run lint:ts && npm run lint:json && npm run prettier:scss",
         "lint:ts": "eslint ./build ./src ./tests ./types --ext .ts",
-        "lint:json": "eslint ./static --ext .json --no-eslintrc --plugin json --rule \"json/*: error\"",
-        "lint:fix": "eslint ./build ./src ./tests ./types --ext .ts --fix"
+        "prettier:scss": "prettier --check src/styles/**/*.scss",
+        "lint:json": "eslint ./static --ext .json --no-eslintrc --plugin json --rule \"json/*: error\" --rule \"linebreak-style: error\"",
+        "lint:fix": "eslint ./build ./src ./tests ./types --ext .ts --fix && prettier --fix"
     },
     "author": "The PF2e System Developers",
     "license": "Apache-2.0",

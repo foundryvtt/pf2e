@@ -25,7 +25,7 @@ type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 
-export {
+export type {
     BaseWeaponType,
     MeleeWeaponGroup,
     OtherWeaponTag,

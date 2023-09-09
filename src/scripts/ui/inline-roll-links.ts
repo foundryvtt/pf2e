@@ -11,6 +11,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -87,28 +88,29 @@ export const InlineRollLinks = {
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
-                const parent = resolveActor(foundryDoc);
-                const actors = (() => {
-                    if (pf2Roller === "self") {
-                        const validActor = parent instanceof ActorPF2e && parent.canUserModify(game.user, "update");
-                        if (!validActor) {
-                            ui.notifications.warn(game.i18n.localize("PF2E.UI.warnNoActor"));
-                        }
-                        return validActor ? [parent] : [];
+                const parent = resolveActor(foundryDoc, link);
+                const actors = ((): ActorPF2e[] => {
+                    switch (pf2Roller) {
+                        case "self":
+                            return parent?.canUserModify(game.user, "update") ? [parent] : [];
+                        case "party":
+                            if (parent?.isOfType("party")) return [parent];
+                            return R.compact([game.actors.party]);
                     }
 
+                    // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
                     const actors = getSelectedOrOwnActors();
-                    if (actors.length === 0) {
-                        // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                        if (parent instanceof ActorPF2e && !tupleHasValue(SAVE_TYPES, pf2Check)) {
-                            return [parent];
-                        }
-                        ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    if (actors.length === 0 && parent && !tupleHasValue(SAVE_TYPES, pf2Check)) {
+                        return [parent];
                     }
+
                     return actors;
                 })();
 
-                if (actors.length === 0) return;
+                if (actors.length === 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    return;
+                }
 
                 const extraRollOptions = [
                     ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
@@ -197,7 +199,7 @@ export const InlineRollLinks = {
                                         ? foundryDoc.item
                                         : null;
 
-                                return itemFromDoc?.isOfType("action") ||
+                                return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
                                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
                                     ? itemFromDoc
                                     : null;
@@ -214,7 +216,7 @@ export const InlineRollLinks = {
                             };
 
                             // Use a special header for checks against defenses
-                            const itemIsEncounterAction = !!(item?.isOfType("action") && item.actionCost);
+                            const itemIsEncounterAction = !!(item?.isOfType("action", "feat") && item.actionCost);
                             if (itemIsEncounterAction && pf2Defense) {
                                 const subtitleLocKey =
                                     pf2Check in CONFIG.PF2E.magicTraditions
@@ -306,7 +308,7 @@ export const InlineRollLinks = {
             return;
         }
 
-        const actor = resolveActor(foundryDoc);
+        const actor = resolveActor(foundryDoc, target);
         const defaultVisibility = (actor ?? foundryDoc)?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
@@ -362,9 +364,13 @@ function resolveDocument(html: HTMLElement, foundryDoc?: ClientDocument | null):
     return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
 }
 
-/** Retrieves the actor for the given document, or the document itself if its already an actor */
-function resolveActor(foundryDoc: ClientDocument | null): ActorPF2e | null {
+/** Retrieve an actor via a passed document or item UUID in the dataset of a link */
+function resolveActor(foundryDoc: ClientDocument | null, anchor: HTMLElement): ActorPF2e | null {
     if (foundryDoc instanceof ActorPF2e) return foundryDoc;
     if (foundryDoc instanceof ItemPF2e || foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor;
-    return null;
+
+    // Retrieve item/actor from anywhere via UUID
+    const itemUuid = anchor.dataset.itemUuid;
+    const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
+    return itemByUUID instanceof ItemPF2e ? itemByUUID.actor : null;
 }

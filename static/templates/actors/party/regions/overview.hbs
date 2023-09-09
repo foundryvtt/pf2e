@@ -49,17 +49,15 @@
         <section class="member {{#unless member.limited}}readonly{{/unless}}" data-actor-uuid="{{member.actor.uuid}}">
             <div class="portrait">
                 <a data-action="open-sheet"><img src="{{member.actor.img}}" /></a>
-                <div class="health-bar">
+                {{#if member.hp}}
                     <div class="health-bar">
                         {{#if member.hp.temp}}
                             <div class="temp bar" style="width: {{percentage member.hp.temp member.hp.max}}%;"></div>
                         {{/if}}
                         <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
-                        {{#if member.hp.showValue}}
-                            <span><i class="fas fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
-                        {{/if}}
+                        <span><i class="fa-solid fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
                     </div>
-                </div>
+                {{/if}}
             </div>
             <div class="data">
                 <div class="name">
@@ -86,7 +84,7 @@
                         <a class="hero-points {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-hero-points">
                             {{#times member.heroPoints.max}}
                                 {{#if (gt member.heroPoints.value this)}}
-                                    <img src="/systems/pf2e/dice/basic/heads.webp" />
+                                    <img src="systems/pf2e/dice/basic/heads.webp" />
                                 {{else}}
                                     <span class="empty"></span>
                                 {{/if}}

@@ -65,10 +65,8 @@ declare global {
          */
         get controlled(): TObject[];
 
-        /**
-         * Track whether "highlight all objects" is currently active
-         */
-        get highlightObjects(): boolean;
+        /** Track whether "highlight all objects" is currently active */
+        highlightObjects: boolean;
 
         /* -------------------------------------------- */
         /*  Rendering                                   */

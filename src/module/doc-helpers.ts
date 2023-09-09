@@ -4,7 +4,7 @@ import { isObject } from "@util";
 import { MigrationList, MigrationRunner } from "./migration/index.ts";
 import { MigrationRunnerBase } from "./migration/runner/base.ts";
 import { CombatantPF2e } from "./encounter/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
 async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(

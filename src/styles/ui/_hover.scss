@@ -17,7 +17,8 @@
 
             .item-summary {
                 @include journal-styling;
-                a, span[data-pf2-effect-area] {
+                a,
+                span[data-pf2-effect-area] {
                     color: var(--color-text-dark-primary);
                 }
             }
@@ -52,7 +53,8 @@
                     justify-content: space-between;
                     margin: 0.25em 0 0.5em;
 
-                    h2, a {
+                    h2,
+                    a {
                         @include micro;
                         border: none;
                         color: var(--sidebar-title);
@@ -65,7 +67,7 @@
                     }
 
                     a {
-                        color: white;
+                        color: var(--text-light);
                         text-decoration: none;
                     }
                 }
@@ -93,7 +95,7 @@
                     }
 
                     &.selected {
-                        color: white;
+                        color: var(--text-light);
 
                         &:hover {
                             cursor: default;
@@ -107,7 +109,7 @@
                     @include p-reset;
                     flex: 1 auto;
                     input {
-                        color: white;
+                        color: var(--text-light);
                         border: none;
                         border-radius: 0;
                         background: transparent;
@@ -130,7 +132,7 @@
                             appearance: none;
                             margin: 0;
                         }
-                        &[type=number] {
+                        &[type="number"] {
                             appearance: textfield;
                             -moz-appearance: textfield;
                         }
@@ -146,7 +148,7 @@
                         option {
                             font-size: 0.8rem;
                             min-height: 1rem;
-                            color: var(--body);
+                            color: var(--text-dark);
                             text-transform: capitalize;
                         }
                     }
@@ -164,7 +166,7 @@
                         font-size: var(--font-size-12);
                         font-family: var(--serif);
                         font-weight: 400;
-                        color: white;
+                        color: var(--text-light);
                         @include p-reset;
                     }
 
@@ -239,8 +241,8 @@
                         border-top: 1px solid var(--sidebar-title);
                         padding-top: 5px;
                         grid:
-                            'value name name' 1fr
-                            'type type btn' 1fr
+                            "value name name" 1fr
+                            "type type btn" 1fr
                             /42px 1fr 1fr;
                         font-size: 0.8rem;
                         gap: 0.25rem 0.5rem;
@@ -252,8 +254,8 @@
                             text-align: right;
                             display: grid;
                             grid:
-                                'input plus' 1fr
-                                'input minus' 1fr
+                                "input plus" 1fr
+                                "input minus" 1fr
                                 /1fr 10px;
                             column-gap: 4px;
                             align-items: center;

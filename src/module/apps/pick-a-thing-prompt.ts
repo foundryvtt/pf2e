@@ -1,11 +1,11 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
-abstract class PickAThingPrompt<T> extends Application {
+abstract class PickAThingPrompt<T extends string | number | object> extends Application {
     protected item: ItemPF2e<ActorPF2e>;
 
     #resolve?: (value: PickableThing<T> | null) => void;
@@ -138,7 +138,7 @@ abstract class PickAThingPrompt<T> extends Application {
     }
 }
 
-interface PickAThingConstructorArgs<T> {
+interface PickAThingConstructorArgs<T extends string | number | object> {
     title?: string;
     prompt?: string;
     choices?: PickableThing<T>[];
@@ -147,7 +147,7 @@ interface PickAThingConstructorArgs<T> {
     allowNoSelection?: boolean;
 }
 
-interface PickableThing<T = string | number | object> {
+interface PickableThing<T extends string | number | object = string | number | object> {
     value: T;
     label: string;
     img?: string;
@@ -161,4 +161,5 @@ interface PromptTemplateData {
     selectMenu: boolean;
 }
 
-export { PickAThingConstructorArgs, PickAThingPrompt, PickableThing, PromptTemplateData };
+export { PickAThingPrompt };
+export type { PickAThingConstructorArgs, PickableThing, PromptTemplateData };

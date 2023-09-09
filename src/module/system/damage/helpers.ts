@@ -1,4 +1,4 @@
-import { DamageDicePF2e } from "@actor/modifiers.ts";
+import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
 import * as R from "remeda";
 import { combinePartialTerms } from "./formula.ts";

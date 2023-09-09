@@ -124,10 +124,7 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": false
+                    "somatic": true
                 },
                 "cost": {
                     "value": ""
@@ -222,8 +219,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -335,9 +330,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -432,9 +424,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -546,9 +535,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -644,9 +630,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -787,17 +770,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -900,17 +881,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1012,17 +991,15 @@
                 "level": {
                     "value": 2
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1112,14 +1089,12 @@
                 "level": {
                     "value": 8
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1449,7 +1424,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "powerful-uppercut",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "powerful-uppercut",
+                            "unarmed"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

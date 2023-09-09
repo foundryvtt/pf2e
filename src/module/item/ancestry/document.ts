@@ -1,9 +1,9 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ABCItemPF2e, FeatPF2e } from "@item";
+import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
 import { AncestrySource, AncestrySystemData } from "./data.ts";
@@ -75,7 +75,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Prepare a character's data derived from their ancestry */
     override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
         const { actor } = this;
-        if (!(actor instanceof CharacterPF2e)) {
+        if (!actor.isOfType("character")) {
             console.error("PF2e System | Only a character can have an ancestry");
             return;
         }

@@ -98,20 +98,26 @@ const KINGDOM_RESOURCES_SCHEMA = {
             return [type, schema];
         })
     ),
+    points: new fields.NumberField<number, number, false, false, true>({
+        min: 0,
+        required: false,
+        nullable: false,
+        initial: 0,
+    }),
     /** Worksites by commodity type, for the commodities that can have work sites */
     workSites: new fields.SchemaField(
-        R.mapToObj(["lumber", "ore", "stone"], (type) => {
+        R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
             const schema = new fields.SchemaField({
                 /** The number of regular non-resource work sites */
-                regular: new fields.NumberField<number, number, true, false>({
-                    required: true,
+                value: new fields.NumberField<number, number, false, false>({
+                    required: false,
                     nullable: false,
                     min: 0,
                     initial: 0,
                 }),
-                /** The number of worksites that are on resource hexes (these) */
-                resource: new fields.NumberField<number, number, true, false>({
-                    required: true,
+                /** The number of worksites that are on resource hexes (these grant double) */
+                resource: new fields.NumberField<number, number, false, false>({
+                    required: false,
                     nullable: false,
                     min: 0,
                     initial: 0,
@@ -165,14 +171,14 @@ const KINGDOM_SCHEMA = {
     abilities: new fields.SchemaField(
         R.mapToObj(KINGDOM_ABILITIES, (ability) => {
             const schema = new fields.SchemaField({
-                value: new fields.NumberField<number, number, true, false>({
+                value: new fields.NumberField<number, number, false, false>({
                     initial: 10,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
-                mod: new fields.NumberField<number, number, true, false>({
+                mod: new fields.NumberField<number, number, false, false>({
                     initial: 0,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
                 ruin: new fields.SchemaField({
@@ -188,9 +194,9 @@ const KINGDOM_SCHEMA = {
                     }),
                 }),
                 // todo: see if this goes away once we wire it up
-                penalty: new fields.NumberField<number, number, true, false>({
+                penalty: new fields.NumberField<number, number, false, false>({
                     initial: 0,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
             });
@@ -216,6 +222,25 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
+    unrest: new fields.SchemaField({
+        value: new fields.NumberField<number, number, false, false, true>({
+            integer: true,
+            min: 0,
+            max: 99,
+            required: false,
+            nullable: false,
+            initial: 0,
+        }),
+        anarchyThreshold: new fields.NumberField<number, number, false, false, true>({
+            integer: true,
+            required: false,
+            nullable: false,
+            initial: 20,
+        }),
+    }),
+
+    /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
+    module: new fields.ObjectField({ required: false, initial: {} }),
 };
 
 export { KINGDOM_SCHEMA };

@@ -1,0 +1,54 @@
+{
+    "_id": "m6z7OrJgF4XQFNpa",
+    "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+    "name": "Effect: Spiny Lodestone - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Spiny Lodestone]</p>\n<p>After you cast a spell by Activating the <em>spiny lodestone</em>, your Strikes with the weapon deal an additional 1d4 piercing damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectSpinyLodestoneWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "piercing",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectSpinyLodestoneWeapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

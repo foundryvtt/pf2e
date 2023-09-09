@@ -1,7 +1,7 @@
 {
     "_id": "O58VXVbilHphAKDp",
     "folder": "p5NnHNepx1LSyHe5",
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Free and Fair",
     "system": {
         "actionType": {
@@ -13,21 +13,40 @@
         "campaign": "kingmaker",
         "category": "kingdom-feat",
         "description": {
-            "value": ""
+            "value": "<p>Your reputation for transparency and fairness in conducting elections, appointments, and other changes in government inspires tremendous public trust. You gain a +2 circumstance bonus to Loyalty-based checks attempted as part of the New Leadership and Pledge of Fealty activities. If you fail or critically fail such a check, you can spend 2 RP to reroll the check (but without the +2 circumstance bonus); attempting this adds the Fortune trait. You must take the result of the second roll, even if it is worse than the original roll.</p>"
         },
         "level": {
             "value": 7
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:new-leadership",
+                            "action:pledge-of-fealty"
+                        ]
+                    }
+                ],
+                "selector": "kingdom-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Kingmaker"
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "general",
+                "kingdom"
+            ]
         }
     },
     "type": "campaignFeature"

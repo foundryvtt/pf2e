@@ -6,6 +6,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
@@ -27,9 +28,19 @@ import {
     SpellDamageTemplate,
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { StatisticRollParameters } from "@system/statistic/index.ts";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, getActionIcon, htmlClosest, localizer, ordinal, setHasElement, traitSlugToObject } from "@util";
+import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    getActionIcon,
+    htmlClosest,
+    localizer,
+    ordinal,
+    setHasElement,
+    traitSlugToObject,
+} from "@util";
+import * as R from "remeda";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
@@ -179,6 +190,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.overlays.size > 0;
     }
 
+    /** Dummy getter for interface alignment with weapons and actions */
+    get range(): RangeData | null {
+        return null;
+    }
+
     override get uuid(): ItemUUID {
         return this.isVariant ? this.original!.uuid : super.uuid;
     }
@@ -263,12 +279,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const { actor, attribute } = this;
-        const domains = [
+        const checkStatistic = this.spellcasting?.statistic;
+        const domains = R.compact([
             "damage",
             "spell-damage",
             `${this.id}-damage`,
-            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : [],
-        ].flat();
+            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : null,
+            checkStatistic?.base ? `${checkStatistic?.base.slug}-damage` : null,
+        ]).flat();
 
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
@@ -305,7 +323,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         new ModifierPF2e({
                             label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
-                            // Not a restricted ability modifier in the same way it is for checks or weapon damage
+                            // Not a restricted attribute modifier in the same way it is for checks or weapon damage
                             type: "untyped",
                             modifier: attributes[attribute].mod,
                             damageType: d.type.value,
@@ -547,7 +565,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const options = new Set(["magical", `${prefix}:magical`, `${prefix}:rank:${this.rank}`]);
+        const options = new Set(["magical", `${prefix}:rank:${this.rank}`]);
 
         const entryHasSlots = !!(this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous);
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
@@ -711,7 +729,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Spell save label
         const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : null;
         const saveKey = systemData.save.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
-        const saveLabel = spellDC && saveType ? game.i18n.format(saveKey, { dc: spellDC, type: saveType }) : null;
+        const saveLabel = ((): string | null => {
+            if (!(spellDC && saveType)) return null;
+            const localized = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
+            const tempElement = createHTMLElement("div", { innerHTML: localized });
+            const visibility = game.settings.get("pf2e", "metagame_showDC") ? "all" : "owner";
+            TextEditorPF2e.convertXMLNode(tempElement, "dc", { visibility, whose: null });
+            return tempElement.innerHTML;
+        })();
 
         // Spell attack labels
         const isHeal = systemData.spellType.value === "heal";
@@ -832,18 +857,25 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     /** Roll counteract check */
     async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
         event = event instanceof Event ? event : event?.originalEvent;
-        if (!this.actor?.isOfType("character", "npc")) return null;
+        if (!this.actor?.isOfType("character", "npc")) {
+            return null;
+        }
 
-        const statistic = this.spellcasting?.statistic;
-        if (!statistic) {
+        if (!this.spellcasting?.statistic?.attribute) {
             console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to counteract with (${this.id}) on actor ${this.actor.name}`
+                ErrorPF2e(`Spell ${this.name} (${this.uuid}) is missing a statistic with which to counteract.`).message
             );
             return null;
         }
 
-        const domain = "counteract-check";
         const localize = localizer("PF2E.Item.Spell.Counteract");
+        const statistic = new Statistic(this.actor, {
+            slug: "counteract",
+            label: localize("Label"),
+            attribute: this.spellcasting.attribute,
+            rank: this.spellcasting.statistic.rank ?? 0,
+        });
+        const domain = "counteract-check";
         const notes = [
             new RollNotePF2e({ selector: domain, text: localize("Hint") }),
             ...DEGREE_OF_SUCCESS_STRINGS.map((degreeString): RollNotePF2e => {
@@ -973,4 +1005,4 @@ interface SpellDamageOptions {
     target?: ActorPF2e | null;
 }
 
-export { SpellPF2e, SpellToMessageOptions };
+export { SpellPF2e, type SpellToMessageOptions };

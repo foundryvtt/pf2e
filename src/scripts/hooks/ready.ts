@@ -129,6 +129,13 @@ export const Ready = {
             ]);
             resetActors(new Set(actorsToReprepare));
 
+            // Open the active party by default if the folder state is set
+            const activeParty = game.actors.party;
+            if (activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
+                ui.actors.extraFolders[activeParty.id] = true;
+                ui.actors.render();
+            }
+
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
             if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {
                 fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2").then((entry) => {

@@ -255,12 +255,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the shatterling attempts an Intimidation check to Demoralize a target within 30 feet of a creature with persistent bleed damage, the shatterling has +4 circumstance bonus to the Intimidation check. In addition, the shatterling takes no penalty to the check for not speaking a language the target can hear, and the target isn't temporarily immune to the shatterling's attempts to Demoralize it unless the shatterling critically fails its Intimidation check.</p>"
+                    "value": "<p>If the shatterling attempts an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a target within 30 feet of a creature with persistent bleed damage, the shatterling has +4 circumstance bonus to the Intimidation check. In addition, the shatterling takes no penalty to the check for not speaking a language the target can hear, and the target isn't temporarily immune to the shatterling's attempts to Demoralize it unless the shatterling critically fails its Intimidation check.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-fueled-titter",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:demoralize",
+                            "blood-fueled-titter"
+                        ],
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

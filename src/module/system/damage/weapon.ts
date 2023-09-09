@@ -177,7 +177,18 @@ class WeaponDamagePF2e {
             // Kickback trait
             if (weaponTraits.includes("kickback")) {
                 // For NPCs, subtract from the base damage and add back as an untype bonus
-                modifiers.push(new ModifierPF2e({ label: CONFIG.PF2E.weaponTraits.kickback, modifier: 1 }));
+                modifiers.push(
+                    new ModifierPF2e({
+                        slug: "kickback",
+                        label: CONFIG.PF2E.weaponTraits.kickback,
+                        modifier: 1,
+                        adjustments: extractModifierAdjustments(
+                            actor.synthetics.modifierAdjustments,
+                            selectors,
+                            "kickback"
+                        ),
+                    })
+                );
             }
 
             // Two-Hand trait
@@ -420,8 +431,8 @@ class WeaponDamagePF2e {
         const notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
 
         // Accumulate damage-affecting precious materials
-        const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
-            ? weapon.system.material.precious!.type
+        const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.type)
+            ? weapon.system.material.type
             : null;
         const materials: Set<MaterialDamageEffect> = new Set([materialTraits, material ?? []].flat());
         for (const adjustment of actor.synthetics.strikeAdjustments) {
@@ -572,9 +583,12 @@ class WeaponDamagePF2e {
         ability: AttributeString | null,
         proficiencyRank: number
     ): string[] {
+        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const selectors = [
             `${weapon.id}-damage`,
             `${weapon.slug ?? sluggify(weapon.name)}-damage`,
+            `${meleeOrRanged}-strike-damage`,
+            `${meleeOrRanged}-damage`,
             "strike-damage",
             "damage",
         ];
@@ -680,4 +694,4 @@ interface ExcludeDamageParams {
     options: Set<string>;
 }
 
-export { ConvertedNPCDamage, WeaponDamagePF2e };
+export { WeaponDamagePF2e, type ConvertedNPCDamage };

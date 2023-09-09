@@ -123,10 +123,7 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": false
+                    "somatic": true
                 },
                 "cost": {
                     "value": ""
@@ -265,16 +262,14 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
                     "value": null
                 },
                 "price": {
@@ -375,16 +370,14 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
                     "value": null
                 },
                 "price": {
@@ -475,18 +468,16 @@
                 "level": {
                     "value": 12
                 },
+                "material": {
+                    "grade": "standard",
+                    "type": "adamantine"
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potency": {},
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": "adamantine"
-                },
-                "preciousMaterialGrade": {
-                    "value": "standard"
                 },
                 "price": {
                     "value": {
@@ -573,17 +564,15 @@
                 "level": {
                     "value": 19
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 0
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -934,7 +923,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "iron-command",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitEvil",
+                                "value": "evil"
+                            },
+                            {
+                                "label": "PF2E.TraitNegative",
+                                "value": "negative"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.ironCommand}",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "iron-command"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 3
+                    }
+                ],
                 "slug": "iron-command",
                 "source": {
                     "value": ""

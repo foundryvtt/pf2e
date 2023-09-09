@@ -129,8 +129,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -242,7 +240,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -344,8 +341,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -455,8 +450,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -571,12 +564,7 @@
                 "category": {
                     "value": "ritual"
                 },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
+                "components": {},
                 "cost": {
                     "value": "black onyx, see Table 7-1"
                 },
@@ -673,8 +661,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1444,7 +1430,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "item:rune:property:ghost-touch"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:trait:incorporeal"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "damageType": "force",
+                        "diceNumber": 8,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:undead"
+                        ],
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

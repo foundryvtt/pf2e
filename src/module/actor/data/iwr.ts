@@ -66,7 +66,7 @@ abstract class IWRData<TType extends IWRType> {
             case "critical-hits":
                 return ["damage:component:critical"];
             case "damage-from-spells":
-                return ["damage", "item:type:spell"];
+                return ["damage", "item:type:spell", "impulse"];
             case "disease":
                 return ["item:trait:disease"];
             case "emotion":
@@ -91,6 +91,7 @@ abstract class IWRData<TType extends IWRType> {
                             "damage:type:bleed",
                             "damage:type:mental",
                             "damage:type:poison",
+                            "damage:type:spirit",
                             {
                                 and: [
                                     "item:type:condition",
@@ -115,7 +116,7 @@ abstract class IWRData<TType extends IWRType> {
                 return [`damage:component:${component}`];
             }
             case "spells": {
-                return ["damage", { or: ["item:type:spell", "item:from-spell"] }];
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
             }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
@@ -320,6 +321,7 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "earth",
     "ghost-touch",
     "metal",
+    "plant",
     "radiation",
     "salt",
     "salt-water",
@@ -328,13 +330,5 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export {
-    ImmunityData,
-    ImmunitySource,
-    IWRSource,
-    NON_DAMAGE_WEAKNESSES,
-    ResistanceData,
-    ResistanceSource,
-    WeaknessData,
-    WeaknessSource,
-};
+export { ImmunityData, NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData };
+export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

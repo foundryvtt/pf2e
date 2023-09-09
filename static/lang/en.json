@@ -129,6 +129,7 @@
                 "TakesNoDamage": "<actor>{actor}</actor> takes no damage.",
                 "TheTarget": "The target"
             },
+            "Attacks": "Attacks",
             "Character": {
                 "Attribute": {
                     "Apex": "Apex Attribute",
@@ -323,7 +324,8 @@
                 "SimpleSheet": "Simple NPC Sheet"
             },
             "Party": {
-                "BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started. ",
+                "BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started.",
+                "Bulk": "Total Bulk: {bulk}",
                 "Coin": "Coin",
                 "ClearActivities": {
                     "Label": "Clear",
@@ -344,6 +346,7 @@
                 },
                 "Languages": "Party Languages",
                 "MembersLabel": "Members: ",
+                "NoMembers": "No Members",
                 "NoSpecialSenses": "No Special Senses",
                 "RemoveMember": {
                     "Title": "Remove Member",
@@ -367,6 +370,11 @@
                     "Stash": "Stash"
                 },
                 "Total": "Party Total",
+                "TravelHeader": "Party Travel and Hexploration",
+                "Visibility": {
+                    "Restricted": "Restricted",
+                    "Unrestricted": "Unrestricted"
+                },
                 "Wealth": "Wealth"
             },
             "Plural": "Actors"
@@ -462,6 +470,8 @@
         "ArmorPotencyRune3": "Armor Potency (+3)",
         "ArmorPotencyRune4": "Armor Potency (+4)",
         "ArmorPropertyRuneAcidResistant": "Acid-Resistant",
+        "ArmorPropertyRuneAdvancing": "Advancing",
+        "ArmorPropertyRuneAimAiding": "Aim-Aiding",
         "ArmorPropertyRuneAntimagic": "Antimagic",
         "ArmorPropertyRuneAssisting": "Assisting",
         "ArmorPropertyRuneBitter": "Bitter",
@@ -469,30 +479,40 @@
         "ArmorPropertyRuneDeathless": "Deathless",
         "ArmorPropertyRuneDread": "Lesser Dread",
         "ArmorPropertyRuneElectricityResistant": "Electricity-Resistant",
+        "ArmorPropertyRuneEnergyAdaptive": "Energy Adaptive",
         "ArmorPropertyRuneEthereal": "Ethereal",
         "ArmorPropertyRuneFireResistant": "Fire-Resistant",
         "ArmorPropertyRuneFortification": "Fortification",
         "ArmorPropertyRuneGlamered": "Glamered",
+        "ArmorPropertyRuneGliding": "Gliding",
         "ArmorPropertyRuneGreaterAcidResistant": "Greater Acid-Resistant",
+        "ArmorPropertyRuneGreaterAdvancing": "Greater Advancing",
         "ArmorPropertyRuneGreaterColdResistant": "Greater Cold-Resistant",
         "ArmorPropertyRuneGreaterDread": "Greater Dread",
         "ArmorPropertyRuneGreaterElectricityResistant": "Greater Electricity-Resistant",
         "ArmorPropertyRuneGreaterFireResistant": "Greater Fire-Resistant",
         "ArmorPropertyRuneGreaterFortification": "Greater Fortification",
         "ArmorPropertyRuneGreaterInvisibility": "Greater Invisibility",
+        "ArmorPropertyRuneGreaterQuenching": "Greater Quenching",
         "ArmorPropertyRuneGreaterReady": "Greater Ready",
         "ArmorPropertyRuneGreaterShadow": "Greater Shadow",
         "ArmorPropertyRuneGreaterSlick": "Greater Slick",
         "ArmorPropertyRuneGreaterStanching": "Greater Stanching",
         "ArmorPropertyRuneGreaterSwallowSpike": "Greater Swallow-Spike",
         "ArmorPropertyRuneGreaterWinged": "Greater Winged",
+        "ArmorPropertyRuneImmovable": "Immovable",
         "ArmorPropertyRuneImplacable": "Implacable",
         "ArmorPropertyRuneInvisibility": "Invisibility",
+        "ArmorPropertyRuneMagnetizing": "Magnetizing",
+        "ArmorPropertyRuneMajorQuenching": "Major Quenching",
         "ArmorPropertyRuneMajorShadow": "Major Shadow",
         "ArmorPropertyRuneMajorSlick": "Major Slick",
         "ArmorPropertyRuneMajorStanching": "Major Stanching",
         "ArmorPropertyRuneMajorSwallowSpike": "Major Swallow-Spike",
+        "ArmorPropertyRuneMisleading": "Misleading",
         "ArmorPropertyRuneModerateDread": "Moderate Dread",
+        "ArmorPropertyRunePortable": "Portable",
+        "ArmorPropertyRuneQuenching": "Quenching",
         "ArmorPropertyRuneReady": "Ready",
         "ArmorPropertyRuneRockBraced": "Rock-Braced",
         "ArmorPropertyRuneShadow": "Shadow",
@@ -501,6 +521,7 @@
         "ArmorPropertyRuneSoaring": "Soaring",
         "ArmorPropertyRuneStanching": "Stanching",
         "ArmorPropertyRuneSwallowSpike": "Swallow-Spike",
+        "ArmorPropertyRuneTrueQuenching": "True Quenching",
         "ArmorPropertyRuneTrueStanching": "True Stanching",
         "ArmorPropertyRuneWinged": "Winged",
         "ArmorResilientRune": "Resilient",
@@ -746,6 +767,7 @@
             },
             "TabAction": "Actions",
             "TabBestiary": "Bestiaries",
+            "TabCampaign": "Campaign",
             "TabEquipment": "Equipment",
             "TabFeat": "Feats/Features",
             "TabHazard": "Hazards",
@@ -1088,6 +1110,7 @@
                 "precision": "precision",
                 "slashing": "slashing",
                 "sonic": "sonic",
+                "spirit": "spirit",
                 "splash": "splash",
                 "untyped": "untyped"
             },
@@ -1240,7 +1263,8 @@
             "InitiativeSet": "Inititative of {actor} was set to {initiative}.",
             "NoActiveEncounter": "There is no active encounter.",
             "NoTokenInScene": "{actor} has no token in the scene.",
-            "RevealName": "Reveal Name"
+            "RevealName": "Reveal Name",
+            "XP": "XP"
         },
         "EquipmentEquippedLabel": "Equipped",
         "EquippedBulkLabel": "Worn Bulk",
@@ -1389,7 +1413,8 @@
                 "AdjustmentLengthMismatch": "mismatch between number of type and adjustment parameters",
                 "DCAndDefense": "cannot have both dc and defense arguments",
                 "NonIntegerAdjustment": "adjustments must be integers",
-                "TypeMissing": "type argment is mandatory"
+                "TypeMissing": "type argument is mandatory",
+                "InvalidDomains": "{type} domains must be sluggified and end with -damage"
             }
         },
         "InlineTemplateErrors": {
@@ -1413,6 +1438,7 @@
             },
             "Action": {
                 "SelfAppliedEffect": {
+                    "Applied": "{effect} was applied.",
                     "Delete": "Delete Reference",
                     "Drop": "Drop Effect",
                     "Label": "Self-Applied Effect",
@@ -2158,6 +2184,10 @@
             "GMVision": {
                 "Hint": "Brighten dark scenes for easier viewing.",
                 "Label": "GM Vision"
+            },
+            "TogglePartySheet": {
+                "Hint": "Open or close the sheet of the active or (if a player) assigned party.",
+                "Label": "Toggle Party Sheet"
             }
         },
         "KitItems": "Items",
@@ -2507,7 +2537,7 @@
             "NotesTab": "Notes",
             "PassivesLabel": "Passives",
             "PrivateNotes": "Private Notes",
-            "PublicNotes": "Public Notes",
+            "PublicNotes": "Description",
             "Remove": "Remove",
             "SavesExtraInfoLabelPlaceholder": "Bonus to all saves...",
             "SendToChat": "Send to chat",
@@ -2579,6 +2609,7 @@
         },
         "OrphanedSpellsHeader": "Orphaned Spells (move to spellcasting entry above)",
         "OverridesTitle": "Overrides",
+        "Pathfinder": "Pathfinder",
         "PFS": {
             "CharacterNumber": "Character #",
             "CurrentFaction": "Current Faction",
@@ -2649,6 +2680,7 @@
         "PreciousMaterialSiccatiteDescription": "In its raw state, this silvery ore is either scalding hot or freezing cold. Metallurgists disagree over whether siccatite is two related substances or one substance that determines its temperature output via some unknown process. Whatever the reason, the extreme temperature of the material means it must be handled carefully. Hot siccatite can easily ignite flammables such as paper and dry brush, and cold siccatite left in moist areas quickly surrounds itself with a thick layer of ice. A creature that comes into physical contact with a significant amount of siccatite takes 1 energy Damage for each round of continued contact (either fire or cold damage, for hot and cold siccatite respectively).",
         "PreciousMaterialSilver": "Silver",
         "PreciousMaterialSilverDescription": "Silver weapons are a bane to creatures ranging from devils to werewolves. Silver items are less durable than steel items, and low-grade silver items are usually merely silver-plated.",
+        "PreciousMaterialSisterstone": "Sisterstone",
         "PreciousMaterialSisterstoneDescription": "Sisterstone is a term used for two closely related ores infused by the spiritual runoff in the Field of Maidens, dusk sisterstone and scarlet sisterstone. They have the same physical properties except for color-dusk sisterstone is a pale orange while scarlet sisterstone is orange-red. When near an object made of the other type of sisterstone, they both begin exuding spiritual energy that repels undead.",
         "PreciousMaterialSisterstoneDusk": "Sisterstone (Dusk)",
         "PreciousMaterialSisterstoneScarlet": "Sisterstone (Scarlet)",
@@ -2773,7 +2805,7 @@
                     "Both": "PCs and NPCs",
                     "Hint": "Upon reaching zero hit points, NPCs are marked as dead.",
                     "NPCsOnly": "Yes",
-                    "Name": "NPCs dead at 0 HP",
+                    "Name": "NPCs Dead at 0 HP",
                     "Neither": "No",
                     "PCsOnly": "PCs only"
                 },
@@ -2783,31 +2815,32 @@
                 },
                 "EffectExpiration": {
                     "Hint": "Effects automatically disable attached rule elements when the duration expires.",
-                    "Name": "Effects auto-expire"
+                    "Name": "Effects Auto-Expire"
                 },
                 "FlankingDetection": {
                     "Hint": "Flanking arrangements and abilities that predicate on it are managed by the system.",
-                    "Name": "Flanking detection"
+                    "Name": "Flanking Detection"
                 },
                 "Hint": "Decide how much and what kinds of automation should apply to your game world.",
                 "IWR": {
                     "Hint": "When applying damage to an actor, adjust its value according to the actor's immunities, weaknesses, and resistances.",
-                    "Name": "Immunities, weaknesses, & resistances"
+                    "Name": "Immunities, Weaknesses, & Resistances"
                 },
                 "Label": "Manage Automation",
                 "LootableNPCs": {
                     "Hint": "Upon their demise, NPCs become lootable by players.",
-                    "Name": "NPCs are lootable"
+                    "Name": "Lootable NPCs"
                 },
                 "Name": "Automation",
                 "RemoveExpiredEffects": {
                     "Hint": "Expired effects are automatically removed from actors (requires a GM to be logged in).",
-                    "Name": "Remove expired effects"
+                    "Name": "Remove Expired Effects"
                 },
                 "RulesBasedVision": {
-                    "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii.",
+                    "Hint": "Apply vision mechanics that are a best-effort attempt to capture Pathfinder Second Edition rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii.",
                     "ManagedBy": "Managed by <rbv>rules-based vision</rbv>.",
-                    "Name": "Rules-based vision"
+                    "Name": "Rules-Based Vision",
+                    "ViewWorldSetting": "View World Setting"
                 }
             },
             "CampaignFeats": {
@@ -2848,6 +2881,11 @@
             "DeathIcon": {
                 "Hint": "Set the overlay icon used to mark dead actors.",
                 "Name": "Death Icon"
+            },
+            "EnabledDisabled": {
+                "Enabled": "Enabled",
+                "Default": "World Default ({worldDefault})",
+                "Disabled": "Disabled"
             },
             "EnabledRulesUI": {
                 "Hint": "When enabled, players are able to see and utilize the rule elements panel on item sheets.",
@@ -2927,31 +2965,31 @@
                 "Name": "Metagame Information",
                 "PartyVision": {
                     "Hint": "If enabled, all players will mutually share token vision, regardless of permissions or token selection.",
-                    "Name": "Shared party vision"
+                    "Name": "Shared Party Vision"
                 },
                 "SecretCondition": {
                     "Hint": "If enabled, only the GM will see the condition update and reminder messages that are generated for tokens not owned by a player.",
-                    "Name": "Hide condition update message"
+                    "Name": "Hide Condition Update Message"
                 },
                 "SecretDamage": {
                     "Hint": "If enabled, only the GM will see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player.",
-                    "Name": "Hide damage taken message"
+                    "Name": "Hide Damage-Taken Message"
                 },
                 "ShowDC": {
                     "Hint": "If enabled, players will see DCs of checks made against NPCs and other non-player-owned sources.",
-                    "Name": "Show DCs on attacks and saves"
+                    "Name": "Show DCs on Attacks and Saves"
                 },
                 "ShowResults": {
                     "Hint": "If enabled, players will see the degree of success of checks made against NPCs and other non-player-owned sources.",
-                    "Name": "Show results on attacks and saves"
+                    "Name": "Show Results on Attacks and Saves"
                 },
                 "ShowPartyStats": {
                     "Hint": "If enabled, players will see stats for their fellow party members in the party actor sheet",
-                    "Name": "Show Party Member Stats"
+                    "Name": "Show Party-Member Stats"
                 },
                 "TokenSetsNameVisibility": {
                     "Hint": "If enabled, then for any NPC token whose nameplate isn't visible to players, its name will also be hidden from them in the encounter tracker and chat messages.",
-                    "Name": "Tokens determine NPC name visibility"
+                    "Name": "Tokens Determine NPC Name Visibility"
                 }
             },
             "NathMode": {
@@ -2978,7 +3016,7 @@
             "Tokens": {
                 "Autoscale": {
                     "Hint": "If enabled, tokens will be scaled to 1.0 or (if belonging to a small creature) 0.8",
-                    "Name": "Scale tokens according to size"
+                    "Name": "Scale Tokens According to Size"
                 }
             },
             "User": {
@@ -3095,16 +3133,13 @@
                 },
                 "ShowClockButton": {
                     "Hint": "Set whether to show the clock button at all (requires refresh).",
-                    "Name": "Show clock button"
+                    "Name": "Show Clock Button"
                 },
                 "SyncDarkness": {
                     "Hint": "Set whether any scene's Darkness Level will reflect the time of day.",
                     "Name": "Synchronize Darkness (World Default)"
                 },
                 "SyncDarknessScene": {
-                    "Default": "World Default ({worldDefault})",
-                    "Disabled": "Disabled",
-                    "Enabled": "Enabled",
                     "Hint": "Set whether this scene's Darkness Level will reflect the time of day.",
                     "ManagedBy": "Synchronized with <wt>world time</wt>.",
                     "Name": "Synchronize Darkness (Current Scene)"
@@ -3140,8 +3175,8 @@
                 "name": "Condition Icon Set"
             }
         },
-        "SaveDCLabel": "Save DC {dc} {type}",
-        "SaveDCLabelBasic": "Save DC {dc} basic {type}",
+        "SaveDCLabel": "Save <dc>DC {dc}</dc> {type}",
+        "SaveDCLabelBasic": "Save <dc>DC {dc}</dc> basic {type}",
         "SavesFortitude": "Fortitude",
         "SavesFortitudeShort": "Fort",
         "SavesHeader": "Saves",
@@ -3151,7 +3186,12 @@
         "SavesWillShort": "Will",
         "SavingThrowWithName": "{saveName} Saving Throw",
         "Scene": {
-            "Plural": "Scenes"
+            "HearingRange": {
+                "Caveat": "*For performance reasons, the radius is a real measurement rather than a grid-based one.",
+                "Hint": "Limit the range* creatures can hear in this scene as a representation of \"an environment that distorts the sense, such as a noisy room\" (CRB pg. 464). Requires rules-based vision to be enabled.",
+                "Name": "Hearing Range (ft.)",
+                "Unlimited": "Unlimited"
+            }
         },
         "ScoreTitle": "Score",
         "SelectLabel": "Select",
@@ -4108,6 +4148,7 @@
         "TraitHex": "Hex",
         "TraitHindering": "Hindering",
         "TraitHobgoblin": "Hobgoblin",
+        "TraitHryngar": "Hryngar",
         "TraitHuman": "Human",
         "TraitHumanoid": "Humanoid",
         "TraitIfrit": "Ifrit",
@@ -4537,7 +4578,6 @@
         "TraitsLabel": "Traits",
         "Trap": "Trap",
         "TravelSpeed": {
-            "ActivitiesPerDay": "Activities per Day",
             "Days": "Days",
             "DetectBeforeRunningIntoIt": "Notice Everything in Advance",
             "DetectEverything": "Notice Everything",
@@ -4562,10 +4602,12 @@
             "Feet": "Feet",
             "FeetAcronym": "ft",
             "GreaterDifficultTerrain": "Greater Difficult Terrain Speed",
+            "HexplorationActivities": "Hexploration Activities",
             "Hours": "Hours",
             "HoursPerDay": "Hours Spent Traveling Per Day",
             "HustleMinutes": "Minutes Spent Hustling Per Day",
             "Journey": "Journey",
+            "Label": "Travel Speed",
             "Miles": "Miles",
             "Name": "Name",
             "None": "Full Speed",
@@ -4590,8 +4632,7 @@
                 "shieldActive": "and their {shield} gets ",
                 "shieldInActive": "gets"
             },
-            "errorTargetToken": "Select at least one token.",
-            "warnNoActor": "This inline roll requires an actor.",
+            "errorTargetToken": "Select at least one valid token.",
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
             "shiftModifyDamageLabel": "Adjust Damage/Healing",
             "shiftModifyDamageTitle": "Adjust the rolled damage/healing"

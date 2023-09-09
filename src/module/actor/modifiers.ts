@@ -1,7 +1,7 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { RollNotePF2e } from "@module/notes.ts";
+import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
@@ -277,27 +277,27 @@ type ModifierOrderedParams = [
 ];
 
 /**
- * Create a modifier from a given ability type and score.
- * @returns The modifier provided by the given ability score.
+ * Create a modifier for a given attribute type.
+ * @returns The modifier of the given attribute
  */
-function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
-    const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
-    const modifierValue = actor.abilities[ability].mod;
+function createAttributeModifier({ actor, attribute, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
+    const withAttributeBased = domains.includes(`${attribute}-based`) ? domains : [...domains, `${attribute}-based`];
+    const modifierValue = actor.abilities[attribute].mod;
     const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
     return new ModifierPF2e({
-        slug: ability,
-        label: CONFIG.PF2E.abilities[ability],
+        slug: attribute,
+        label: CONFIG.PF2E.abilities[attribute],
         modifier: cappedValue,
         type: "ability",
-        ability,
-        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAbilityBased, ability),
+        ability: attribute,
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAttributeBased, attribute),
     });
 }
 
 interface CreateAbilityModifierParams {
     actor: CharacterPF2e | NPCPF2e;
-    ability: AttributeString;
+    attribute: AttributeString;
     domains: string[];
     /** An optional maximum for this ability modifier */
     max?: number;
@@ -307,7 +307,13 @@ interface CreateAbilityModifierParams {
  * Create a modifier for a given proficiency level of some ability.
  * @returns The modifier for the given proficiency rank and character level.
  */
-function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e {
+function createProficiencyModifier({
+    actor,
+    rank,
+    domains,
+    level,
+    addLevel,
+}: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
     const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
@@ -322,7 +328,7 @@ function createProficiencyModifier({ actor, rank, domains, addLevel }: CreatePro
           ]
         : [0, 2, 4, 6, 8];
 
-    const addedLevel = addLevel && !pwolVariant ? actor.level : 0;
+    const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
@@ -338,6 +344,8 @@ interface CreateProficiencyModifierParams {
     actor: ActorPF2e;
     rank: ZeroToFour;
     domains: string[];
+    /** If given, use this value instead of actor.level */
+    level?: number;
     addLevel?: boolean;
 }
 
@@ -457,7 +465,8 @@ class StatisticModifier {
 
         // De-duplication. Prefer higher valued
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
-            if (!(modifier.slug in result) || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
+            const existing = result[modifier.slug];
+            if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
                 result[modifier.slug] = modifier;
             }
             return result;
@@ -686,25 +695,27 @@ class DamageDicePF2e {
 type RawDamageDice = Required<DamageDiceParameters>;
 
 export {
-    BaseRawModifier,
     CheckModifier,
     DamageDicePF2e,
+    MODIFIER_TYPES,
+    ModifierPF2e,
+    PROFICIENCY_RANK_OPTION,
+    StatisticModifier,
+    adjustModifiers,
+    applyStackingRules,
+    createAttributeModifier,
+    createProficiencyModifier,
+    ensureProficiencyOption,
+};
+export type {
+    BaseRawModifier,
     DamageDiceOverride,
     DamageDiceParameters,
     DeferredPromise,
     DeferredValue,
     DeferredValueParams,
-    MODIFIER_TYPES,
     ModifierAdjustment,
-    ModifierPF2e,
     ModifierType,
-    PROFICIENCY_RANK_OPTION,
     RawModifier,
-    StatisticModifier,
     TestableDeferredValueParams,
-    adjustModifiers,
-    applyStackingRules,
-    createAbilityModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };

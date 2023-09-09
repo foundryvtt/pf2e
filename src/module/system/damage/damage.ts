@@ -1,8 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
+import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
@@ -25,14 +27,15 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        let flavor = `<strong>${data.name}</strong>`;
-        if (context.sourceType === "attack") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        } else if (context.sourceType === "check") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        }
+        const subtitle = outcome
+            ? context.sourceType === "attack"
+                ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
+                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
+            : null;
+        let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            title: data.name,
+            subtitle,
+        });
 
         if (data.traits) {
             interface ToTagsParams {
@@ -84,11 +87,11 @@ export class DamagePF2e {
                 : "";
 
             const properties = ((): string => {
-                if (item?.isOfType("weapon") && item.isRanged) {
-                    // Show the range increment for ranged weapons
-                    const { rangeIncrement } = item;
-                    const slug = `range-increment-${rangeIncrement}`;
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range: rangeIncrement });
+                const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;
+                const label = createActionRangeLabel(range);
+                if (label && (range?.increment || range?.max)) {
+                    // Show the range increment or max range as a tag
+                    const slug = range.increment ? `range-increment-${range.increment}` : `range-${range.max}`;
                     return toTags([slug], {
                         labels: { [slug]: label },
                         descriptions: { [slug]: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
@@ -154,21 +157,13 @@ export class DamagePF2e {
         const syntheticNotes = context.self?.actor
             ? extractNotes(context.self?.actor.synthetics.rollNotes, context.domains ?? [])
             : [];
-        const allNotes = [...syntheticNotes, ...data.notes];
-        const filteredNotes = allNotes.filter(
+        const notes = [...syntheticNotes, ...data.notes].filter(
             (n) =>
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options)
         );
-        const noteRollData = context.self?.item?.getRollData() ?? {};
-        const notesFlavor = (
-            await Promise.all(
-                filteredNotes.map(
-                    async (n) => await TextEditor.enrichHTML(n.text, { rollData: noteRollData, async: true })
-                )
-            )
-        ).join("\n");
-        flavor += notesFlavor;
+        const notesList = RollNotePF2e.notesToHTML(notes);
+        flavor += notesList.outerHTML;
 
         const { self, target } = context;
         const item = self?.item ?? null;
@@ -208,7 +203,7 @@ export class DamagePF2e {
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
             mapIncreases: context.mapIncreases,
-            notes: allNotes.map((n) => n.toObject()),
+            notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
             rollMode,
             traits: context.traits ?? [],

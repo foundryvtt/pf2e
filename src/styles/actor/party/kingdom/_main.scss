@@ -25,17 +25,22 @@ input[type="text"], input[type="number"] {
         grid-template-rows: 1fr auto;
         margin-bottom: 6px;
 
-        img {
+       .image {
             @include frame-icon;
             grid-area: img;
             width: 2.75rem;
             height: 2.75rem;
             z-index: 1;
+            img {
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
         }
         .name {
             grid-area: name;
             background: rgba(0, 0, 0, 0.025);
-            padding: 0 4px;
+            padding: 0 8px;
             border: 0;
             height: auto;
             line-height: 1.5em;
@@ -56,7 +61,7 @@ input[type="text"], input[type="number"] {
             background: var(--paper-bg);
             box-shadow: var(--drop-shadow);
             font-size: var(--font-size-12);
-            padding: 0 4px;
+            padding: 0 8px;
             position: relative;
             margin-bottom: 1px;
             height: 1.5rem;
@@ -67,6 +72,7 @@ input[type="text"], input[type="number"] {
             }
         }
         .invested, .vacant {
+            font-size: var(--font-size-12);
             input {
                 margin: 0;
                 width: 1em;
@@ -128,6 +134,15 @@ input[type="text"], input[type="number"] {
                 width: 2ch;
             }
         }
+
+        .work-site {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            & + .work-site {
+                margin-left: 0.25rem;
+            }
+        }
     }
 }
 
@@ -142,37 +157,66 @@ input[type="text"], input[type="number"] {
     .ability {
         display: flex;
         flex-direction: row;
+        margin-bottom: 0.25rem;
+        align-items: end;
+        width: 100%;
 
         .score {
-            width: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--paper-bg);
+            box-shadow: var(--drop-shadow);
+            width: 4.5rem;
             text-align: center;
+            padding: 0.25rem 0;
+            z-index: 1;
             .value {
                 font-size: var(--font-size-20);
-            }
-        }
-
-        .ruin-value {
-            display: flex;
-            gap: 2px;
-            justify-content: center;
-            input {
-                width: 3ch;
             }
         }
 
         .corruption-section {
             display: flex;
             flex-wrap: wrap;
+            flex: 1;
+            box-shadow: var(--drop-shadow);
 
-            & > div {
+            & > .stat {
                 display: flex;
                 flex-direction: column;
                 text-align: center;
                 flex: 1;
             }
 
-            progress {
+            .ruin-value {
+                display: flex;
+                gap: 2px;
+                justify-content: center;
+                input {
+                    width: 3ch;
+                }
+            }
+
+            .progress {
                 flex-basis: 100%;
+                margin: 0;
+                padding: 0;
+                height: 8px;
+                border-top: 1px solid rgba(0, 0, 0, 0.15);
+                margin-top: 0.125rem;
+
+                background: #ddd;
+
+                &::after {
+                    display: block;
+                    content: " ";
+                    background-color: var(--color-border-highlight-alt);
+                    width: calc(100% * var(--value) / var(--max));
+                    max-width: 100%;
+                    height: 100%;
+                }
             }
         }
     }

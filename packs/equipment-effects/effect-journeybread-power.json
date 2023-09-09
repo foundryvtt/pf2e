@@ -1,0 +1,59 @@
+{
+    "_id": "LIhJbq72TiDu5kGs",
+    "img": "icons/consumables/grains/bread-loaf-boule-tan.webp",
+    "name": "Effect: Journeybread (Power)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Journeybread (Power)]</p>\n<p>In addition to the benefits of journeybread, power journeybread grants you a +1 item bonus to Athletics checks to Climb, Force Open, and Swim, and to Fortitude saving throws against being sickened.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 4
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:climb",
+                            "action:force-open",
+                            "action:swim"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:sickened"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

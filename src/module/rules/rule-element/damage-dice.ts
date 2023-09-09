@@ -1,8 +1,8 @@
-import { DamageDicePF2e, DamageDiceOverride, DeferredValueParams } from "@actor/modifiers.ts";
+import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
 import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
-import type { BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
 
@@ -11,7 +11,9 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false }),
+            selector: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, initial: undefined })
+            ),
             diceNumber: new ResolvableValueField({ required: false, initial: undefined }),
             dieSize: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
             damageType: new fields.StringField({
@@ -50,75 +52,93 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const selector = this.resolveInjectedProperties(this.selector);
+        for (const selector of this.resolveInjectedProperties(this.selector)) {
+            if (selector === "null") continue;
 
-        const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
-            const label = this.getReducedLabel();
+            const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
+                const label = this.getReducedLabel();
 
-            // If this rule element's predicate would have passed without all fields being resolvable, send out a
-            // warning.
-            const testPassed =
-                this.predicate.length === 0 ||
-                this.resolveInjectedProperties(this.predicate).test([
-                    ...(params.test ?? this.actor.getRollOptions(["damage"])),
-                    ...this.item.getRollOptions("parent"),
-                ]);
-            const resolveOptions = { ...params, warn: testPassed };
+                // If this rule element's predicate would have passed without all fields being resolvable, send out a
+                // warning.
+                const testPassed =
+                    this.predicate.length === 0 ||
+                    this.resolveInjectedProperties(this.predicate).test([
+                        ...(params.test ?? this.actor.getRollOptions(["damage"])),
+                        ...this.item.getRollOptions("parent"),
+                    ]);
+                const resolveOptions = { ...params, warn: testPassed };
 
-            const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
-            // Warning may have been suppressed, but return early if validation failed
-            if (this.ignored) return null;
+                const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
+                // Warning may have been suppressed, but return early if validation failed
+                if (this.ignored) return null;
 
-            const resolvedBrackets = this.resolveValue(this.brackets, {}, resolveOptions);
-            if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
-                if (testPassed) this.failValidation("Brackets failed to validate");
-                return null;
-            }
-
-            const damageType = this.resolveInjectedProperties(this.damageType, resolveOptions);
-            if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-                if (testPassed) this.failValidation(`Unrecognized damage type: ${damageType}`);
-                return null;
-            }
-
-            if (this.override) {
-                this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType, resolveOptions);
-                if ("damageType" in this.override && !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)) {
-                    if (testPassed) this.failValidation("Unrecognized damage type in override");
+                const resolvedBrackets = this.resolveValue(this.brackets, {}, resolveOptions);
+                if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
+                    if (testPassed) this.failValidation("Brackets failed to validate");
                     return null;
                 }
 
-                this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
-                if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
-                    if (testPassed) this.failValidation("Unrecognized die size in override");
+                const damageType = this.resolveInjectedProperties(this.damageType, resolveOptions);
+                if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                    if (testPassed) this.failValidation(`Unrecognized damage type: ${damageType}`);
                     return null;
                 }
-            }
 
-            const dieSize = this.resolveInjectedProperties(this.dieSize, resolveOptions);
-            if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
-                if (testPassed) this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
-                return null;
-            }
+                if (this.override) {
+                    this.override.damageType &&= this.resolveInjectedProperties(
+                        this.override.damageType,
+                        resolveOptions
+                    );
+                    if (
+                        "damageType" in this.override &&
+                        !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)
+                    ) {
+                        if (testPassed) this.failValidation("Unrecognized damage type in override");
+                        return null;
+                    }
 
-            return new DamageDicePF2e({
-                selector,
-                slug: this.slug ?? sluggify(this.item.name),
-                label,
-                diceNumber,
-                dieSize,
-                critical: this.critical,
-                category: this.category,
-                damageType,
-                predicate: this.predicate,
-                override: deepClone(this.override),
-                enabled: testPassed,
-                ...resolvedBrackets,
-            });
-        };
+                    this.override.diceNumber &&= Math.floor(
+                        Number(this.resolveValue(this.override.diceNumber, resolveOptions))
+                    );
+                    if (typeof this.override.diceNumber === "number" && this.override.diceNumber < 0) {
+                        if (testPassed) this.failValidation("A dice number must resolve to at least zero");
+                        return null;
+                    }
 
-        const synthetics = (this.actor.synthetics.damageDice[selector] ??= []);
-        synthetics.push(deferredDice);
+                    this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
+                    if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
+                        if (testPassed) this.failValidation("Unrecognized die size in override");
+                        return null;
+                    }
+                }
+
+                const dieSize = this.resolveInjectedProperties(this.dieSize, resolveOptions);
+                if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
+                    if (testPassed) {
+                        this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
+                    }
+                    return null;
+                }
+
+                return new DamageDicePF2e({
+                    selector,
+                    slug: this.slug ?? sluggify(this.item.name),
+                    label,
+                    diceNumber,
+                    dieSize,
+                    critical: this.critical,
+                    category: this.category,
+                    damageType,
+                    predicate: this.predicate,
+                    override: deepClone(this.override),
+                    enabled: testPassed,
+                    ...resolvedBrackets,
+                });
+            };
+
+            const synthetics = (this.actor.synthetics.damageDice[selector] ??= []);
+            synthetics.push(deferredDice);
+        }
     }
 
     #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
@@ -130,10 +150,11 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                 typeof override.damageType === "string" ||
                 typeof override.dieSize === "string" ||
+                typeof override.diceNumber === "string" ||
                 (typeof override.diceNumber === "number" &&
                     Number.isInteger(override.diceNumber) &&
                     override.diceNumber >= 0 &&
-                    override.diceNumber <= 10))
+                    override.diceNumber <= 256))
         );
     }
 
@@ -171,7 +192,7 @@ interface DamageDiceRuleElement
 
 type DamageDiceRuleSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: StringField<string, string, true, false, false>;
+    selector: ArrayField<StringField<string, string, true, false, false>>;
     /** The number of dice to add */
     diceNumber: ResolvableValueField<false, false, false>;
     /** The damage die size */

@@ -72,4 +72,5 @@ class ResolvableValueField<
     }
 }
 
-export { Bracket, BracketedValue, ResolvableValueField, RuleElementSchema, RuleElementSource, RuleValue };
+export { ResolvableValueField };
+export type { Bracket, BracketedValue, RuleElementSchema, RuleElementSource, RuleValue };

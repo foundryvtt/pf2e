@@ -1,9 +1,9 @@
 import { ActorUpdateContext } from "@actor/base.ts";
 import { ItemType } from "@item/data/index.ts";
-import { TokenDocumentPF2e } from "@scene";
-import { Statistic } from "@system/statistic/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
+import type { Statistic } from "@system/statistic/index.ts";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
-import { PartyPF2e } from "./document.ts";
+import type { PartyPF2e } from "./document.ts";
 
 interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
     removedMembers?: string[];
@@ -19,6 +19,8 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     createSidebarButtons?(): HTMLElement[];
     /** Returns any additional statistics that should be returned by the party */
     getStatistic?(slug: string): Statistic | null;
+    /** Additional campaign specific roll options for rule elements */
+    getRollOptions?(): string[];
     /** Additional data for inline rolls */
     getRollData?(): Record<string, unknown>;
     /** Renders the sheet associateed with this campaign, if available */
@@ -27,4 +29,4 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     prepareDerivedData?(): void;
 }
 
-export { PartyCampaign, PartyUpdateContext };
+export type { PartyCampaign, PartyUpdateContext };

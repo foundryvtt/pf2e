@@ -1,7 +1,7 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { ErrorPF2e } from "@util";
@@ -47,7 +47,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<Base
             throw ErrorPF2e("Actors do not currently support regular refocusing");
         }
 
-        if (this.actor instanceof NPCPF2e || this.actor instanceof CharacterPF2e) {
+        if (this.actor.isOfType("character", "npc")) {
             const focus = this.actor.system.resources.focus;
 
             const rechargeFocus = focus?.max && focus.value < focus.max;

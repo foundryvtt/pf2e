@@ -1,5 +1,5 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ABCItemPF2e, FeatPF2e } from "@item";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { OneToFour } from "@module/data.ts";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 

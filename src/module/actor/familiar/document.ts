@@ -1,4 +1,4 @@
-import { CharacterPF2e, CreaturePF2e } from "@actor";
+import { CreaturePF2e, type CharacterPF2e } from "@actor";
 import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
@@ -9,13 +9,14 @@ import { ItemType } from "@item/data/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
+    /** The familiar's attack statistic, for the rare occasion it must make an attack roll */
+    declare attackStatistic: Statistic;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action"];
     }
@@ -26,7 +27,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         if (!game.ready || !this.system.master.id) return null;
 
         const master = game.actors.get(this.system.master.id ?? "");
-        if (master instanceof CharacterPF2e) {
+        if (master?.isOfType("character")) {
             master.familiar ??= this;
             return master;
         }
@@ -159,8 +160,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             const save = master?.saves[saveType];
             const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
             const totalMod = applyStackingRules(source);
-            const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
-            const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
+            const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
+            const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
@@ -181,15 +182,14 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Attack
-        if (master) {
-            systemData.attack = new Statistic(this, {
-                slug: "attack-roll",
-                label: "PF2E.Familiar.AttackRoll",
-                modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
-                domains: ["attack", "attack-roll"],
-                check: { type: "attack-roll", domains: ["attack", "attack-roll"] },
-            });
-        }
+        this.attackStatistic = new Statistic(this, {
+            slug: "attack-roll",
+            label: "PF2E.Familiar.AttackRoll",
+            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
+            check: { type: "attack-roll" },
+        });
+
+        this.system.attack = this.attackStatistic.getTraceData();
 
         // Perception
         {
@@ -220,14 +220,14 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
             }
 
-            const ability = SKILL_EXPANDED[longForm].ability;
-            const domains = [longForm, `${ability}-based`, "skill-check", "all"];
+            const attribute = SKILL_EXPANDED[longForm].attribute;
+            const domains = [longForm, `${attribute}-based`, "skill-check", "all"];
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
             const statistic = new Statistic(this, {
                 slug: longForm,
                 label,
-                ability,
+                attribute,
                 domains,
                 modifiers,
                 lore: false,

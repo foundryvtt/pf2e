@@ -1,5 +1,5 @@
-import { KINGDOM_SCHEMA } from "./schema.ts";
-import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
+import type { KINGDOM_SCHEMA } from "./schema.ts";
+import type { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
 
 interface KingdomCHG {
     name: string;
@@ -27,7 +27,7 @@ type KingdomLeadershipData = KingdomData["leadership"][KingdomLeadershipRole];
 
 type FameType = "fame" | "infamy";
 
-export {
+export type {
     KingdomAbility,
     KingdomAbilityData,
     KingdomCommodity,

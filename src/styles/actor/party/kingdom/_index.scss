@@ -1,3 +1,5 @@
+@use "../../../mixins/effects-list";
+
 .sheet.kingdom {
     --paper-bg: rgba(221, 216, 200, 0.4);
     --drop-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
@@ -20,7 +22,7 @@
         background-size: cover;
         background-color: #66bc1a;
         background-blend-mode: multiply;
-        color: white;
+        color: var(--text-light);
 
         width: 100%;
         font-family: var(--sans-serif);
@@ -58,10 +60,10 @@
 
         .details {
             display: grid;
-            grid-template-areas:
-                "title title title level"
-                "capital size fame level";
-            grid-template-columns: 1fr auto auto;
+            grid-template:
+                "title title title title level" auto
+                "capital size rp fame level" auto /
+                1fr auto auto auto auto;
             align-items: center;
             gap: 0 4px;
 
@@ -72,13 +74,15 @@
             margin: 4px 0;
             flex: 1;
 
-            input[type="text"], input[type="number"] {
-                color: white;
+            input[type="text"],
+            input[type="number"] {
+                color: var(--text-light);
                 border: none;
                 border-bottom: 1px solid transparent;
                 padding: 0;
                 height: unset;
-                &:hover, &:focus {
+                &:hover,
+                &:focus {
                     border: none;
                     border-bottom: 1px solid var(--text-light);
                     box-shadow: none;
@@ -89,9 +93,10 @@
                 }
             }
 
-            .name {
+            .title {
+                display: flex;
                 grid-area: title;
-                flex: 1;
+                gap: 1rem;
                 font-size: var(--font-size-30);
             }
 
@@ -113,6 +118,15 @@
 
             .size {
                 grid-area: size;
+                margin-left: 0.5rem;
+                input {
+                    width: 3ch;
+                    text-align: center;
+                }
+            }
+
+            .resource-points {
+                grid-area: rp;
                 margin-left: 1rem;
                 input {
                     width: 3ch;
@@ -124,9 +138,9 @@
                 align-items: center;
                 display: flex;
                 grid-area: fame;
-                margin-left: 1rem;
+                margin-left: 0.25rem;
                 .pips {
-                    font-size: var(--font-size-14);
+                    font-size: var(--font-size-12);
                 }
             }
 
@@ -224,7 +238,6 @@
         }
     }
 
-
     @import "../../nav";
 
     .container {
@@ -244,7 +257,7 @@
 
     // Prevent flex from overriding hidden
     [hidden] {
-        display: none!important;
+        display: none !important;
     }
 
     .sidebar {
@@ -265,7 +278,8 @@
             border-radius: 3px;
             font-size: var(--font-size-12);
 
-            header, footer {
+            header,
+            footer {
                 margin: -1px;
                 padding: 0.25rem;
             }
@@ -273,7 +287,7 @@
             header {
                 background-color: var(--sub);
                 border-radius: 3px 3px 0 0;
-                color: white;
+                color: var(--text-light);
                 font-weight: 700;
             }
 
@@ -288,7 +302,7 @@
     }
 
     .tag-light {
-        --tag-color: #{$rank-untrained};
+        --tag-color: var(--color-proficiency-untrained);
         border: 1px solid var(--tag-color);
         border-radius: 2px;
         color: var(--tag-color);
@@ -337,7 +351,8 @@
         color: var(--primary);
         line-height: 1;
         border-bottom: 1px solid var(--color-border-divider);
-        & > button, & > .controls {
+        & > button,
+        & > .controls {
             position: absolute;
             bottom: -1px;
             right: 0;
@@ -363,7 +378,8 @@
         }
     }
 
-    button.small-button, select.proficiency {
+    button.small-button,
+    select.proficiency {
         @include micro;
         align-items: center;
         background: #6c6b68;
@@ -381,7 +397,7 @@
     }
 
     select.proficiency {
-        background: #{$rank-untrained};
+        background: var(--color-proficiency-untrained);
         cursor: pointer;
         text-align-last: center;
         appearance: none;
@@ -398,23 +414,27 @@
         }
 
         option[value="0"] {
-            background: #{$rank-untrained};
+            background: var(--color-proficiency-untrained);
         }
 
-        &[data-rank="1"], option[value="1"] {
-            background: #{$rank-trained};
+        &[data-rank="1"],
+        option[value="1"] {
+            background: var(--color-proficiency-trained);
         }
 
-        &[data-rank="2"], option[value="2"] {
-            background: #{$rank-expert};
+        &[data-rank="2"],
+        option[value="2"] {
+            background: var(--color-proficiency-expert);
         }
 
-        &[data-rank="3"], option[value="3"] {
-            background: #{$rank-master};
+        &[data-rank="3"],
+        option[value="3"] {
+            background: var(--color-proficiency-master);
         }
 
-        &[data-rank="4"], option[value="4"] {
-            background: #{$rank-legendary};
+        &[data-rank="4"],
+        option[value="4"] {
+            background: var(--color-proficiency-legendary);
         }
     }
 
@@ -429,6 +449,15 @@
 
         &[data-tab="advancement"] {
             @import "advancement";
+        }
+
+        &[data-tab="effects"] {
+            .content {
+                padding: 12px;
+            }
+            .effects-list {
+                @include effects-list;
+            }
         }
     }
 }

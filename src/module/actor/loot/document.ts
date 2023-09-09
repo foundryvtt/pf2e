@@ -1,10 +1,11 @@
+import { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { UserPF2e } from "@module/user/document.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
 import { LootSource, LootSystemData } from "./data.ts";
 
@@ -43,17 +44,17 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return false;
     }
 
+    /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
+        return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
+    }
+
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === "update") {
             return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         }
         return super.canUserModify(user, action);
-    }
-
-    /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
-    override get visible(): boolean {
-        return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
 
     override async transferItemToActor(

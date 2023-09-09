@@ -171,4 +171,4 @@ interface LevelDatabaseOptions<T> {
     dbOptions?: DatabaseOptions<string, T>;
 }
 
-export { DBFolder, LevelDatabase };
+export { type DBFolder, LevelDatabase };

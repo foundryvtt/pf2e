@@ -1,6 +1,7 @@
 import { EffectPF2e, ItemPF2e } from "@item";
 import { FrequencySource } from "@item/data/base.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
+import { RangeData } from "@item/types.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
 import { AbilitySystemData, SelfEffectReference } from "./data.ts";
 import type { ActionSheetPF2e } from "./sheet.ts";
@@ -95,4 +96,19 @@ async function handleSelfEffectDrop(sheet: ActionSheetPF2e | FeatSheetPF2e, even
     await sheet.item.update({ "system.selfEffect": { uuid: item.uuid, name: item.name } });
 }
 
-export { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop, normalizeActionChangeData };
+function createActionRangeLabel(range: Maybe<RangeData>): string | null {
+    if (!range?.max) return null;
+    const [key, value] = range.increment
+        ? ["PF2E.Action.Range.IncrementN", range.increment]
+        : ["PF2E.Action.Range.MaxN", range.max];
+
+    return game.i18n.format(key, { n: value });
+}
+
+export {
+    activateActionSheetListeners,
+    createActionRangeLabel,
+    createSelfEffectSheetData,
+    handleSelfEffectDrop,
+    normalizeActionChangeData,
+};

@@ -1,8 +1,9 @@
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { EffectExpiryType } from "@item/effect/data.ts";
-import { ActorPF2e, TokenDocumentPF2e } from "@module/documents.ts";
+import { ActorPF2e } from "@actor";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
+import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {

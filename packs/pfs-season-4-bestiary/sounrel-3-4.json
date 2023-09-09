@@ -228,8 +228,6 @@
                     "value": "focus"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -329,8 +327,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -442,8 +438,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -563,8 +557,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -680,8 +672,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -785,8 +775,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -901,8 +889,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1013,8 +999,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1131,8 +1115,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1253,8 +1235,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1360,8 +1340,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1476,8 +1454,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1588,9 +1564,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -1690,8 +1663,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1849,7 +1820,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/true-strike.webp",
+            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
             "sort": 1700000,
             "system": {
@@ -1861,9 +1832,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -1991,17 +1959,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2203,19 +2169,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,metal]] damage.</p>"
+                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,mental]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "claw-damage",
-                        "text": "{item|system.description.value}"
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "claw-damage"
                     }
                 ],
                 "slug": null,

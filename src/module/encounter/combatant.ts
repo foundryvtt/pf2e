@@ -1,8 +1,8 @@
-import { SkillLongForm } from "@actor/types.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { ActorPF2e } from "@actor";
+import type { SkillLongForm } from "@actor/types.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
-import { EncounterPF2e } from "./index.ts";
-import { ActorPF2e } from "@actor";
+import type { EncounterPF2e } from "./index.ts";
 
 class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
@@ -247,6 +247,7 @@ class CombatantPF2e<
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
+
         // Reset actor data in case initiative order changed
         if (this.encounter?.started) {
             this.encounter.resetActors();
@@ -274,4 +275,5 @@ type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounte
     initiative: number;
 };
 
-export { CombatantPF2e, CombatantFlags, RolledCombatant };
+export { CombatantPF2e };
+export type { CombatantFlags, RolledCombatant };

@@ -11,7 +11,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
@@ -19,12 +18,13 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
-import { StrikeAttackTraits } from "./creature/helpers.ts";
+import * as R from "remeda";
+import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
-import { AttackItem } from "./types.ts";
+import { AuraEffectData } from "./types.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -90,24 +90,17 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
         const auraData = effect.flags.pf2e.aura;
         if (!auraData?.removeOnExit) continue;
 
-        const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-            const document = await fromUuid(auraData.origin);
-            if (document instanceof TokenDocumentPF2e) {
-                return document;
-            } else if (document instanceof ActorPF2e) {
-                return document.getActiveTokens(true, true).shift() ?? null;
-            }
-            return null;
-        })();
-
+        const auraActor = (await fromUuid(auraData.origin)) as ActorPF2e | null;
+        const auraToken = auraActor?.getActiveTokens(true, true).shift() ?? null;
         const aura = auraToken?.auras.get(auraData.slug);
 
-        // Main sure this isn't an identically-slugged aura with different effects
-        const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
-        const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
+        // Make sure this isn't an identically-slugged aura with different effects
+        const auraEffectData = auraActor?.auras
+            .get(auraData.slug)
+            ?.effects.find((e) => e.uuid === effect.sourceId && auraAffectsActor(e, auraActor, this));
 
         for (const token of thisTokens) {
-            if (auraHasEffect && aura?.containsToken(token)) {
+            if (auraEffectData && aura?.containsToken(token)) {
                 toKeep.push(effect.id);
             } else {
                 toDelete.push(effect.id);
@@ -126,6 +119,15 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
     if (finalToDelete.length > 0) {
         await this.deleteEmbeddedDocuments("Item", finalToDelete);
     }
+}
+
+function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorPF2e): boolean {
+    return (
+        (data.includesSelf && origin === actor) ||
+        (data.affects === "allies" && actor.isAllyOf(origin)) ||
+        (data.affects === "enemies" && actor.isEnemyOf(origin)) ||
+        (data.affects === "all" && actor !== origin)
+    );
 }
 
 /**  Set a roll option for HP remaining and percentage remaining */
@@ -157,7 +159,7 @@ function calculateMAPs(
 function calculateBaseMAP(item: ItemPF2e): MAPData {
     const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
 
-    if (item.isOfType("melee", "weapon")) {
+    if (item.isOfType("action", "melee", "weapon")) {
         // calculate multiple attack penalty tiers
         const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
         switch (alternateMAP) {
@@ -243,6 +245,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         `${item.id}-attack`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
+        `${meleeOrRanged}-strike-attack-roll`,
         "strike-attack-roll",
         "attack-roll",
         "attack",
@@ -264,7 +267,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     ];
 
     modifiers.push(...extractModifiers(synthetics, domains));
-    modifiers.push(...StrikeAttackTraits.createAttackModifiers({ weapon: item }));
+    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item }));
     const notes = extractNotes(synthetics.rollNotes, domains);
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
@@ -278,18 +281,14 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     for (const adjustment of synthetics.strikeAdjustments) {
         adjustment.adjustWeapon?.(item);
     }
+    const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
+    const initialRollOptions = new Set([
+        ...baseOptions,
+        ...actor.getRollOptions(domains),
+        ...item.getRollOptions("item"),
+    ]);
 
-    const baseOptions = [...actor.getRollOptions(domains), ...item.system.traits.value];
-    // Legacy support for "melee", "ranged", and "thrown" roll options
-    if (isMelee) {
-        baseOptions.push("melee");
-    } else if (isThrown) {
-        baseOptions.push("ranged", "thrown");
-    } else {
-        baseOptions.push("ranged");
-    }
-
-    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
+    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, initialRollOptions);
     const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,
@@ -310,7 +309,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         item,
         weapon: item,
         traits: traitObjects,
-        options: [],
+        options: Array.from(baseOptions),
         variants: [],
         success: "",
         ready: true,
@@ -343,7 +342,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
         ...(["map1", "map2"] as const).map((prop) => {
             const modifier = createMapModifier(prop);
-            adjustModifiers([modifier], new Set(baseOptions));
+            adjustModifiers([modifier], baseOptions);
             const penalty = modifier.ignored ? 0 : modifier.value;
             return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
                 value: signedInteger(strike.totalModifier + penalty),
@@ -372,7 +371,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
             // Check whether target is out of maximum range; abort early if so
             if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                const maxRange = item.maxRange ?? 10;
+                const maxRange = item.range?.max ?? 10;
                 if (context.target.distance > maxRange) {
                     ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
                     return null;
@@ -385,8 +384,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 { weapon: item.name }
             );
 
+            const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
             const roll = await CheckPF2e.roll(
-                new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers),
+                check,
                 {
                     type: "attack-roll",
                     identifier: item.id,
@@ -409,14 +409,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 params.event
             );
 
-            for (const rule of actor.rules.filter((r) => !r.ignored)) {
-                await rule.afterRoll?.({
-                    roll,
-                    statistic: context.self.statistic,
-                    selectors: domains,
-                    domains,
-                    rollOptions: context.options,
-                });
+            if (roll) {
+                for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({
+                        roll,
+                        check,
+                        selectors: domains,
+                        domains,
+                        rollOptions: context.options,
+                    });
+                }
             }
 
             return roll;
@@ -489,12 +491,11 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 }
 
 /** Get the range increment of a target for a given weapon */
-function getRangeIncrement(attackItem: AttackItem, distance: number | null): number | null {
-    if (attackItem.isOfType("spell")) return null;
+function getRangeIncrement(attackItem: ItemPF2e<ActorPF2e>, distance: number | null): number | null {
+    if (!attackItem.isOfType("action", "melee", "weapon")) return null;
 
-    return attackItem.rangeIncrement && typeof distance === "number"
-        ? Math.max(Math.ceil(distance / attackItem.rangeIncrement), 1)
-        : null;
+    const { increment } = attackItem.range ?? {};
+    return increment && typeof distance === "number" ? Math.max(Math.ceil(distance / increment), 1) : null;
 }
 
 /** Determine range penalty for a ranged attack roll */
@@ -505,6 +506,7 @@ function calculateRangePenalty(
     rollOptions: Set<string>
 ): ModifierPF2e | null {
     if (!increment || increment === 1) return null;
+
     const slug = "range-penalty";
     const modifier = new ModifierPF2e({
         label: "PF2E.RangePenalty",
@@ -515,6 +517,7 @@ function calculateRangePenalty(
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, slug),
     });
     modifier.test(rollOptions);
+
     return modifier;
 }
 
@@ -532,6 +535,7 @@ interface MAPData {
 }
 
 export {
+    auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,

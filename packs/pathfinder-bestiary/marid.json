@@ -125,7 +125,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -228,8 +227,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -332,7 +329,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -436,8 +432,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -556,7 +550,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -568,7 +561,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Obscuring Mist]</em>, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
+                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em>, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -657,8 +650,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -761,8 +752,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -865,8 +854,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -969,8 +956,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1089,8 +1074,6 @@
                     "value": "spell"
                 },
                 "components": {
-                    "focus": false,
-                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1219,17 +1202,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1749,19 +1730,20 @@
                 },
                 "rules": [
                     {
-                        "domain": "attack-roll",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "skewer",
                         "toggleable": true
                     },
                     {
-                        "key": "Note",
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
                         "predicate": [
                             "skewer"
                         ],
-                        "selector": "trident-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "trident-damage"
                     }
                 ],
                 "slug": null,

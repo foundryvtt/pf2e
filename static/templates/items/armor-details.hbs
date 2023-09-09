@@ -37,13 +37,13 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
-    <select name="preciousMaterial">
+    <select data-property="system.material" data-value-base="{{json item._source.system.material}}" data-dtype="JSON">
         {{#select preciousMaterials.value}}
-            <option value=""></option>
-            {{#each preciousMaterials.materials as |material materialKey|}}
+            <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
+            {{#each preciousMaterials.materials as |material|}}
                 <optgroup label="{{material.label}}">
-                    {{#each material.grades as |grade gradeKey|}}
-                        <option value="{{materialKey}}|{{gradeKey}}">
+                    {{#each material.grades as |grade|}}
+                        <option value="{{grade.value}}">
                             {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
                         </option>
                     {{/each}}

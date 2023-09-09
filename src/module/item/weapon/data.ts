@@ -3,6 +3,7 @@ import { ItemFlagsPF2e } from "@item/data/base.ts";
 import {
     BasePhysicalItemSource,
     Investable,
+    ItemMaterialData,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
@@ -139,9 +140,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     propertyRune2: WeaponPropertyRuneSlot;
     propertyRune3: WeaponPropertyRuneSlot;
     propertyRune4: WeaponPropertyRuneSlot;
-    preciousMaterial: {
-        value: WeaponMaterialType | null;
-    };
+
+    material: WeaponMaterialData;
 
     // Refers to custom damage, *not* property runes
     property1: {
@@ -157,9 +157,14 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
+interface WeaponMaterialData extends ItemMaterialData {
+    type: WeaponMaterialType | null;
+    grade: PreciousMaterialGrade | null;
+}
+
 interface WeaponSystemData
     extends Omit<WeaponSystemSource, "hp" | "identification" | "price" | "temporary">,
-        Investable<PhysicalSystemData> {
+        Omit<Investable<PhysicalSystemData>, "material"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
     maxRange: number | null;
@@ -176,7 +181,6 @@ interface WeaponSystemData
         property: WeaponPropertyRuneType[];
         effects: [];
     };
-    material: WeaponMaterialData;
     usage: WeaponUsageDetails;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
@@ -188,14 +192,6 @@ interface WeaponTraits extends WeaponTraitsSource {
     toggles: WeaponTraitToggles;
 }
 
-interface WeaponMaterialData {
-    /** The precious material of which this weapon is composed */
-    precious: {
-        type: WeaponMaterialType;
-        grade: PreciousMaterialGrade;
-    } | null;
-}
-
 interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
@@ -203,7 +199,7 @@ interface ComboWeaponMeleeUsage {
     traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
 }
 
-export {
+export type {
     ComboWeaponMeleeUsage,
     WeaponDamage,
     WeaponFlags,

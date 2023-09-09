@@ -12,22 +12,40 @@ type MaybeHTML = Maybe<Document | Element | EventTarget>;
  * @param [options.dataset={}]  An object of keys and values with which to populate the `dataset`: nullish values will
  *                              be excluded.
  * @param [options.children=[]] A list of child elements as well as strings that will be converted to text nodes
+ * @param [options.innerHTML]   A string to set as the inner HTML of the created element. Only one of `children` and
+ *                              `innerHTML` can be used.
  * @returns The HTML element with all options applied
  */
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    { classes = [], dataset = {}, children = [] }: CreateHTMLElementOptions = {}
+    options?: CreateHTMLElementOptionsWithChildren
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    options?: CreateHTMLElementOptionsWithInnerHTML
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    options?: CreateHTMLElementOptionsWithNeither
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {}
 ): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
-    element.classList.add(...classes);
+    if (classes.length > 0) element.classList.add(...classes);
 
     for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v))) {
         element.dataset[key] = String(value);
     }
 
-    for (const child of children) {
-        const childElement = child instanceof HTMLElement ? child : new Text(child);
-        element.appendChild(childElement);
+    if (innerHTML) {
+        element.innerHTML = innerHTML;
+    } else {
+        for (const child of children) {
+            const childElement = child instanceof HTMLElement ? child : new Text(child);
+            element.appendChild(childElement);
+        }
     }
 
     return element;
@@ -35,8 +53,24 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
 
 interface CreateHTMLElementOptions {
     classes?: string[];
-    dataset?: Record<string, string | number | null | undefined>;
+    dataset?: Record<string, string | number | boolean | null | undefined>;
     children?: (HTMLElement | string)[];
+    innerHTML?: string;
+}
+
+interface CreateHTMLElementOptionsWithChildren extends CreateHTMLElementOptions {
+    children: (HTMLElement | string)[];
+    innerHTML?: never;
+}
+
+interface CreateHTMLElementOptionsWithInnerHTML extends CreateHTMLElementOptions {
+    children?: never;
+    innerHTML: string;
+}
+
+interface CreateHTMLElementOptionsWithNeither extends CreateHTMLElementOptions {
+    children?: never;
+    innerHTML?: never;
 }
 
 function htmlQuery<K extends keyof HTMLElementTagNameMap>(

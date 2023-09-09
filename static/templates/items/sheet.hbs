@@ -23,7 +23,7 @@
             {{/if}}
             <template class="traits-extra">
                 {{#if rarity}}
-                    <select class="tag" name="system.traits.rarity" value="{{rarity}}">
+                    <select class="tag rarity" name="system.traits.rarity" value="{{rarity}}">
                         {{#select rarity}}
                             {{#each rarities as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
@@ -67,7 +67,7 @@
     </nav>
 
     <!-- ITEM SHEET CONTENT -->
-    <article class="sheet-content">
+    <section class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
             <section class="sheet-sidebar">

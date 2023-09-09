@@ -115,7 +115,91 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Label.ResistanceType",
+                        "option": "chromatic-shift-resistance",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Label.WeaknessType",
+                        "option": "chromatic-shift-weakness",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "chromatic-shift-resistance"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.chromaticShiftResistance}",
+                        "value": 20
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "chromatic-shift-weakness"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.chromaticShiftWeakness}",
+                        "value": 20
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.chromaticShiftResistance",
+                        "predicate": [
+                            "chromatic-shift-resistance"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.chromaticShiftResistance}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -178,12 +262,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ooze's pseudopod Strikes deal an additional [[/r {2d10}]]{2d10 damage} of the same type it resists from its Chromatic Shift ability, if any.</p>"
+                    "value": "<p>The ooze's pseudopod Strikes deal an additional 2d10 damage of the same type it resists from its Chromatic Shift ability, if any.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "{actor|flags.pf2e.chromaticShiftResistance}",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "chromatic-shift-resistance"
+                        ],
+                        "selector": "pseudopod-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

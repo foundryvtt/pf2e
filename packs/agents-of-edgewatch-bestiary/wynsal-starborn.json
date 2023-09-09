@@ -45,17 +45,15 @@
                 "level": {
                     "value": 0
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
                 },
                 "price": {
                     "value": {
@@ -139,18 +137,16 @@
                 "level": {
                     "value": 2
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potency": {},
                 "potencyRune": {
                     "value": 2
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -254,13 +250,11 @@
                 "level": {
                     "value": 7
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
                     "value": ""
                 },
                 "price": {
@@ -331,14 +325,12 @@
                 "level": {
                     "value": 7
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
                 "negateBulk": {
                     "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -521,7 +513,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Wynsal commands his allies to take action. Allies within 120 feet who hear and understand his order are quickened 1 for 1 round and can use this extra action to Stride, Strike, or Step.</p>"
+                    "value": "<p>Wynsal commands his allies to take action. Allies within 120 feet who hear and understand his order are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 round and can use this extra action to Stride, Strike, or Step.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -561,7 +553,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract level 17th, counteract check +30). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
+                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract level 17th, counteract check [[/r 1d20+30 #Counteract]]{+30}). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -605,7 +597,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "formation-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "formation-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -637,7 +645,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A foe that takes damage from Wynsal's melee Strike is slowed 1 for 1 round. If it's already slowed, the value of the slowed condition increases by 1.</p>"
+                    "value": "<p>A foe that takes damage from Wynsal's melee Strike is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. If it's already slowed, the value of the slowed condition increases by 1.</p>"
                 },
                 "requirements": {
                     "value": ""

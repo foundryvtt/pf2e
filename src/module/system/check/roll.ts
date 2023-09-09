@@ -21,6 +21,10 @@ class CheckRoll extends Roll {
         return this.options.identifier ?? null;
     }
 
+    get action(): string | null {
+        return this.options.action ?? null;
+    }
+
     get degreeOfSuccess(): DegreeOfSuccessIndex | null {
         return this.options.degreeOfSuccess ?? null;
     }
@@ -68,4 +72,4 @@ interface CheckRollDataPF2e extends RollDataPF2e {
     domains?: string[];
 }
 
-export { CheckRoll, CheckRollDataPF2e };
+export { CheckRoll, type CheckRollDataPF2e };

@@ -65,11 +65,11 @@ ol.actions-list {
             display: flex;
         }
 
-        &.action, &.strike {
+        &.action,
+        &.strike {
             $border-color: lighten($alt-color, 40);
             border: solid transparent;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
-            border-top: 1px solid $border-color;
             border-width: 0 0 1px;
             padding: 4px;
             width: 100%;
@@ -121,7 +121,7 @@ ol.actions-list {
                                 color: var(--primary);
 
                                 .action-glyph {
-                                    color: var(--body);
+                                    color: var(--text-dark);
                                 }
                             }
                         }
@@ -138,13 +138,12 @@ ol.actions-list {
                 flex: 0;
                 font: 500 var(--font-size-10) var(--sans-serif);
                 gap: 0.25em;
-                height: 1.25rem;
+                height: 2em;
                 justify-content: space-evenly;
-                justify-self: end;
                 letter-spacing: 0.05em;
                 margin: 0;
                 max-width: fit-content;
-                padding: 0.25em 0.5em;
+                padding: 0.5em;
                 text-rendering: optimizeLegibility;
                 text-transform: uppercase;
                 white-space: nowrap;
@@ -158,7 +157,7 @@ ol.actions-list {
                     }
 
                     &:active {
-                        color: $rank-legendary;
+                        color: var(--primary);
                     }
                 }
             }
@@ -199,7 +198,7 @@ ol.actions-list {
                     &.actionlight {
                         background: var(--alt);
                         vertical-align: middle;
-                        border: 1px solid var(--body);
+                        border: 1px solid var(--text-dark);
                     }
                 }
 
@@ -218,7 +217,7 @@ ol.actions-list {
 
                         &.toggled-on {
                             background-color: rgba(23, 31, 105, 0.5);
-                            color: black;
+                            color: var(--text-dark);
                             text-shadow: 0 0 2px white;
                         }
                     }
@@ -261,13 +260,18 @@ ol.actions-list {
             }
 
             .name {
+                align-items: center;
                 grid-area: name;
+                display: flex;
                 margin-bottom: 0;
                 text-align: left;
             }
 
             .button-group {
                 grid-area: buttons;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1px;
             }
 
             .tracking {
@@ -284,4 +288,3 @@ ol.actions-list {
         }
     }
 }
-

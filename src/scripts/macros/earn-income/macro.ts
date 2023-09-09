@@ -5,7 +5,8 @@ import { askSkillPopupTemplate, runEarnIncome } from "./helpers.ts";
 
 function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
     if (!actor?.isOfType("character")) {
-        return ui.notifications.error(`You must select at least one PC`);
+        ui.notifications.error(`You must select at least one PC`);
+        return;
     }
 
     const skills = Object.values(actor.skills).filter((s): s is CharacterSkill => !!s?.proficient);

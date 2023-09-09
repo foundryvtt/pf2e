@@ -1,4 +1,4 @@
-import { PredicateField, StrictStringField } from "@system/schema-data-fields.ts";
+import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, sluggify } from "@util";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
@@ -55,12 +55,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         return {
             ...super.defineSchema(),
-            scope: new fields.StringField({
-                required: false,
-                nullable: false,
-                initial: "actions-tab",
-                choices: ["actions-tab"],
-            }),
+
             domain: new fields.StringField({
                 required: true,
                 nullable: false,
@@ -101,6 +96,27 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 }
             ),
             value: new ResolvableValueField({ required: false, initial: undefined }),
+            toggleable: new DataUnionField(
+                [
+                    new StrictStringField<"totm">({
+                        required: false,
+                        nullable: false,
+                        choices: ["totm"],
+                        initial: undefined,
+                    }),
+                    new StrictBooleanField<boolean, boolean>({
+                        required: false,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                ],
+                { required: false, nullable: false, initial: undefined }
+            ),
+            placement: new fields.StringField({
+                required: false,
+                nullable: false,
+                initial: "actions-tab",
+            }),
             disabledIf: new PredicateField({ required: false, initial: undefined }),
             disabledValue: new fields.BooleanField({ required: false, initial: undefined }),
             alwaysActive: new fields.BooleanField({ required: false, initial: undefined }),
@@ -112,28 +128,26 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     static override validateJoint(source: SourceFromSchema<RollOptionSchema>): void {
         super.validateJoint(source);
 
-        const toggleable = "toggleable" in source ? !!source.toggleable : false;
-
-        if (source.suboptions.length > 0 && !toggleable) {
-            throw Error("  suboptions: must be toggleable");
+        if (source.suboptions.length > 0 && !source.toggleable) {
+            throw Error("  suboptions: must be omitted if not toggleable");
         }
 
-        if (source.disabledIf && !toggleable) {
+        if (source.disabledIf && !source.toggleable) {
             throw Error("  disabledIf: must be false if not toggleable");
         }
 
-        if (source.count && toggleable) {
+        if (source.count && source.toggleable) {
             throw Error("  count: must be false if toggleable");
         }
 
-        if (typeof source.disabledValue === "boolean" && (!toggleable || !source.disabledIf)) {
+        if (typeof source.disabledValue === "boolean" && (!source.toggleable || !source.disabledIf)) {
             throw Error(
                 'The "disabledValue" property may only be included if "toggeable" is true and there is a ' +
                     '"disabledIf" predicate.'
             );
         }
 
-        if (source.alwaysActive && (!toggleable || source.suboptions.length === 0)) {
+        if (source.alwaysActive && (!source.toggleable || source.suboptions.length === 0)) {
             throw Error("  alwaysActive: must be false unless toggleable and containing suboptions");
         }
     }
@@ -166,10 +180,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     #setFlag(value: boolean): void {
-        const suboption = this.suboptions.find((o) => o.selected);
-        if (value && suboption) {
-            const flag = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
-            this.item.flags.pf2e.rulesSelections[flag] = suboption.value;
+        const suboption = this.suboptions.find((o) => o.selected) ?? this.suboptions.at(0);
+        if (suboption) {
+            const flagKey = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
+            if (value) {
+                const flagValue = /^\d+$/.test(suboption.value) ? Number(suboption.value) : suboption.value;
+                this.item.flags.pf2e.rulesSelections[flagKey] = flagValue;
+            } else {
+                this.item.flags.pf2e.rulesSelections[flagKey] = null;
+            }
         }
     }
 
@@ -177,7 +196,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const optionSet = new Set(
             [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
         );
-        if (!this.test(optionSet)) return;
+        if (!this.test(optionSet)) return this.#setFlag(false);
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
@@ -230,7 +249,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label: this.getReducedLabel(),
-                    scope: this.scope,
+                    placement: this.placement,
                     domain: this.domain,
                     option: baseOption,
                     suboptions,
@@ -336,7 +355,6 @@ interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, Model
 }
 
 type RollOptionSchema = RuleElementSchema & {
-    scope: StringField<string, string, false, false, true>;
     domain: StringField<string, string, true, false, true>;
     phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
     option: StringField<string, string, true, false, false>;
@@ -356,6 +374,10 @@ type RollOptionSchema = RuleElementSchema & {
      * `true` unless also `togglable`, in which case to `false`.
      */
     value: ResolvableValueField<false, false, false>;
+    /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
+    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, false>;
+    /** If toggleable, the location to be found in an interface */
+    placement: StringField<string, string, false, false, true>;
     /** An optional predicate to determine whether the toggle is interactable by the user */
     disabledIf: PredicateField<false, false, false>;
     /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
@@ -379,7 +401,6 @@ type SuboptionData = {
 };
 
 interface RollOptionSource extends RuleElementSource {
-    scope?: unknown;
     domain?: unknown;
     option?: unknown;
     toggleable?: unknown;

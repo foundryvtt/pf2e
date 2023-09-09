@@ -1,10 +1,9 @@
 import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
-import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -21,8 +20,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
 import {
     CreatureSkills,
@@ -72,19 +70,22 @@ abstract class CreaturePF2e<
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
         const baseReach = this.attributes.reach.base;
+        const weaponReach = weapon?.isOfType("melee") ? weapon.reach : null;
 
         if (action === "interact" || this.type === "familiar") {
             return baseReach;
+        } else if (typeof weaponReach === "number") {
+            return weaponReach;
         } else {
-            const attacks: Pick<StrikeData, "item" | "ready">[] = weapon
+            const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
                 : this.system.actions ?? [];
             const readyAttacks = attacks.filter((a) => a.ready);
-            const traitsFromWeapons = readyAttacks.map((a) => a.item.traits);
-            if (traitsFromWeapons.length === 0) return baseReach;
+            const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
+            if (traitsFromItems.length === 0) return baseReach;
 
-            const reaches = traitsFromWeapons.map((traits): number => {
-                if (traits.has("reach")) return baseReach + 5;
+            const reaches = traitsFromItems.map((traits): number => {
+                if (setHasElement(traits, "reach")) return baseReach + 5;
 
                 const reachNPattern = /^reach-\d{1,3}$/;
                 return Number([...traits].find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;

@@ -28,6 +28,7 @@ import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
 import { ItemInstances } from "./types.ts";
+import { MAGIC_TRADITIONS } from "./spell/values.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -104,7 +105,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this> {
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments(
                 "Item",
@@ -113,6 +114,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             );
             return this;
         }
+
         return super.delete(context);
     }
 
@@ -122,8 +124,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
 
+        const traits = this.system.traits?.value ?? [];
         const traitOptions = ((): string[] => {
-            const traits = this.system.traits?.value ?? [];
             // Additionally include annotated traits without their annotations
             const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
             const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
@@ -141,6 +143,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
+        if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
+            options.push(`${prefix}:magical`);
+        }
+
         // The heightened level of a spell is retrievable from its getter but not prepared level data
         const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
         if (typeof level === "number") {
@@ -152,7 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             options.unshift(`${prefix}:type:${itemType}`);
         }
 
-        return options;
+        return options.sort();
     }
 
     override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
@@ -264,10 +270,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Pull the latest system data from the source compendium and replace this item's with it */
     async refreshFromCompendium(options: { name?: boolean } = {}): Promise<void> {
         if (!this.isOwned) {
-            return ui.notifications.error("This utility may only be used on owned items");
+            ui.notifications.error("This utility may only be used on owned items");
+            return;
         }
         if (!this.sourceId?.startsWith("Compendium.")) {
-            return ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
+            ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
+            return;
         }
 
         options.name ??= false;
@@ -300,11 +308,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
-        // Preserve precious material and runes
+        // Preserve material and runes
         if (currentSource.type === "weapon" || currentSource.type === "armor") {
             const materialAndRunes: Record<string, unknown> = {
-                "system.preciousMaterial": currentSource.system.preciousMaterial,
-                "system.preciousMaterialGrade": currentSource.system.preciousMaterialGrade,
+                "system.material": currentSource.system.material,
                 "system.potencyRune": currentSource.system.potencyRune,
                 "system.propertyRune1": currentSource.system.propertyRune1,
                 "system.propertyRune2": currentSource.system.propertyRune2,

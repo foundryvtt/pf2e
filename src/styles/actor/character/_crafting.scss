@@ -23,7 +23,8 @@
         }
     }
 
-    .known-formulas, .crafting-entry {
+    .known-formulas,
+    .crafting-entry {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -57,7 +58,7 @@
                         flex: 1 0 auto;
                     }
 
-                    input[type=checkbox] {
+                    input[type="checkbox"] {
                         height: 1em;
                         width: 1em;
                     }
@@ -89,10 +90,12 @@
                 }
             }
 
-            .formula-level-header, .formula-item {
+            .formula-level-header,
+            .formula-item {
                 display: grid;
-                grid: "name dc price quantity controls" 1fr
-                      / 4fr 0.7fr 1fr 1fr 1fr;
+                grid:
+                    "name dc price quantity controls" 1fr
+                    / 4fr 0.7fr 1fr 1fr 1fr;
                 align-items: center;
                 justify-items: center;
 
@@ -119,7 +122,7 @@
                     background: rgba($sub-color, 0.25);
                     border: 1px solid var(--sub);
                     padding: 4px;
-                    color: var(--body);
+                    color: var(--text-dark);
                     font: 600 var(--font-size-12) var(--sans-serif);
                     line-height: 1;
                     letter-spacing: 0.25px;
@@ -144,7 +147,7 @@
                         background: var(--alt);
                         border: 1px solid var(--sub);
                         border-radius: 3px;
-                        color: white;
+                        color: var(--text-light);
                         font-size: var(--font-size-11);
                         height: 14px;
                         max-width: 22px;
@@ -163,7 +166,8 @@
                     min-height: 28px;
                 }
 
-                .level-name, .item-name {
+                .level-name,
+                .item-name {
                     justify-self: start;
                     display: flex;
                     align-items: center;
@@ -194,7 +198,8 @@
                         }
                     }
 
-                    &.aa-level, &.reagent-resource {
+                    &.aa-level,
+                    &.reagent-resource {
                         justify-content: flex-end;
                     }
                 }

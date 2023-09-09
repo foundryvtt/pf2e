@@ -322,7 +322,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "tentacle-stab",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "piercing"
+                        },
+                        "predicate": [
+                            "tentacle-stab"
+                        ],
+                        "selector": "tentacle-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

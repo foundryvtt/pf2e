@@ -165,10 +165,6 @@ function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
 }
 
 export {
-    DCAdjustment,
-    DCOptions,
-    NegativeDCAdjustment,
-    PositiveDCAdjustment,
     adjustDC,
     adjustDCByRarity,
     calculateDC,
@@ -178,3 +174,4 @@ export {
     createDifficultyScale,
     rarityToDCAdjustment,
 };
+export type { DCAdjustment, DCOptions, NegativeDCAdjustment, PositiveDCAdjustment };

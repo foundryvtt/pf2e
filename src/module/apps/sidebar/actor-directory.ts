@@ -38,6 +38,10 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         };
     }
 
+    saveActivePartyFolderState(): void {
+        game.settings.set("pf2e", "activePartyFolderState", this.extraFolders[game.actors.party?.id ?? ""] ?? true);
+    }
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -69,6 +73,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                     this.extraFolders[entryId] = folderEl.classList.contains("collapsed");
                     folderEl.classList.toggle("collapsed", !this.extraFolders[entryId]);
                     if (this.popOut) this.setPosition();
+
+                    this.saveActivePartyFolderState();
                 }
             });
 
@@ -129,6 +135,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 const documentId = htmlClosest(activatePartyLink, "[data-document-id]")?.dataset.documentId ?? "";
                 if (game.actors.has(documentId)) {
                     game.settings.set("pf2e", "activeParty", documentId);
+                    this.saveActivePartyFolderState();
                 }
             });
         }
@@ -230,7 +237,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             for (const header of htmlQueryAll($element.get(0), ".party")) {
                 const party = game.actors.get(header.dataset.documentId ?? "");
                 const sidebarButtons = party?.isOfType("party") ? party.campaign?.createSidebarButtons?.() ?? [] : [];
-                header.querySelector("a[data-action=create-member")?.before(...sidebarButtons);
+                header.querySelector("header h3")?.after(...sidebarButtons);
             }
         }
 

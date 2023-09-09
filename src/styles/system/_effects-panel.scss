@@ -9,7 +9,7 @@
         justify-content: end;
         height: 52px;
 
-        &[data-badge-type=formula] .icon {
+        &[data-badge-type="formula"] .icon {
             cursor: pointer;
 
             &:hover::before {
@@ -18,7 +18,7 @@
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 font-size: var(--font-size-26);
-                color: white;
+                color: var(--text-light);
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -81,7 +81,8 @@
                 }
             }
 
-            .instructions, .description {
+            .instructions,
+            .description {
                 font-size: var(--font-size-12);
             }
 
@@ -99,7 +100,8 @@
                 padding: 0 0.5em;
                 text-align: left;
 
-                a, span[data-pf2-effect-area] {
+                a,
+                span[data-pf2-effect-area] {
                     color: var(--color-text-dark-primary);
                 }
             }
@@ -135,7 +137,7 @@
                 width: 100%;
                 padding: 2px 1px;
                 @include micro;
-                color: white;
+                color: var(--text-light);
                 background-color: var(--primary);
             }
 
@@ -145,7 +147,7 @@
                 bottom: -1px;
                 right: -1px;
                 padding: 0px 2px;
-                color: white;
+                color: var(--text-light);
                 background-color: rgba(0, 0, 0, 0.75);
             }
 
@@ -156,7 +158,7 @@
                 max-width: calc(100% + 2px);
                 padding: 0px 2px;
 
-                color: white;
+                color: var(--text-light);
                 background-color: rgba(0, 0, 0, 0.75);
                 font-size: var(--font-size-13);
                 letter-spacing: -0.05em;

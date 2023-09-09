@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -26,10 +27,11 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { ActorPF2e } from "@module/documents.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
+import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
@@ -68,6 +70,7 @@ import {
     MartialProficiencies,
 } from "./data.ts";
 import { CharacterPF2e } from "./document.ts";
+import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
 import { FeatGroup } from "./feats.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
@@ -159,9 +162,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             const keyAttributeSelected =
                 !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
-            const ancestryBoostsSelected = Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
-                (b) => b.value.length === 0 || !!b.selected
-            );
+            const ancestryBoostsSelected =
+                (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 ||
+                    Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
+                        (b) => b.value.length === 0 || !!b.selected
+                    )) &&
+                sheetData.ancestry?.system.voluntary?.boost !== null;
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected
             );
@@ -335,6 +341,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             async: true,
         });
 
+        // Elemental Blasts
+        try {
+            const action = new ElementalBlast(this.actor);
+            const blastData = (await Promise.all(action.configs.map((c) => this.#getBlastData(action, c)))).sort(
+                (a, b) => a.label.localeCompare(b.label, game.i18n.lang)
+            );
+            sheetData.elementalBlasts = blastData;
+        } catch (error) {
+            if (BUILD_MODE === "development") console.error(error);
+            sheetData.elementalBlasts = [];
+        }
+
         // Return data for rendering
         return sheetData;
     }
@@ -385,6 +403,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         for (const item of actor.items) {
             if (!item.isOfType("action") && !(item.isOfType("feat") && item.actionCost)) {
+                continue;
+            }
+
+            // KINETICIST HARD CODE: Show elemental blasts alongside strikes instead of among other actions
+            if (item.slug === "elemental-blast" && this.actor.flags.pf2e.kineticist) {
                 continue;
             }
 
@@ -729,7 +752,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
                     game.i18n.localize(`PF2E.ModifierType.${type}`);
                 if (!setHasElement(MODIFIER_TYPES, type)) {
-                    return ui.notifications.error("Type is required.");
+                    ui.notifications.error("Type is required.");
+                    return;
                 }
 
                 this.actor.addCustomModifier(stat, label, modifier, type);
@@ -742,6 +766,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             theme: "crb-hover",
             contentAsHTML: true,
         });
+
+        this.#activateBlastListeners(actionsPanel);
 
         {
             // Add and remove combat proficiencies
@@ -1019,10 +1045,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
+        for (const spellcastingCollectionEl of htmlQueryAll(html, ".spellcasting-entry[data-item-id]")) {
+            const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
+            htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {
+                entry?.statistic?.check.roll(eventToRollParams(event));
+            });
+        }
+
         PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>("a[data-action=manage-tabs]")[0]);
 
         // Feat Browser shortcut links
-        for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
+        for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
     }
@@ -1037,6 +1070,81 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const itemId = htmlClosest(link, ".item")?.dataset.itemId;
             if (itemId) this.actor.toggleInvested(itemId);
         });
+    }
+
+    async #getBlastData(blast: ElementalBlast, config: ElementalBlastConfig): Promise<ElementalBlastSheetConfig> {
+        const damageType = config.damageTypes.find((dt) => dt.selected)?.value ?? "untyped";
+        const formulaFor = (outcome: "success" | "criticalSuccess", melee = true): Promise<string | null> =>
+            blast.damage({
+                element: config.element,
+                damageType,
+                melee,
+                outcome,
+                getFormula: true,
+            });
+
+        return {
+            ...config,
+            damageType,
+            formula: {
+                melee: {
+                    damage: await formulaFor("success"),
+                    critical: await formulaFor("criticalSuccess"),
+                },
+                ranged: {
+                    damage: await formulaFor("success", false),
+                    critical: await formulaFor("criticalSuccess", false),
+                },
+            },
+        };
+    }
+
+    #activateBlastListeners(panel: HTMLElement | null): void {
+        const blastList = htmlQuery(panel, "ol.elemental-blasts");
+        const { elementTraits, damageTypes } = CONFIG.PF2E;
+        const selectors = ["roll-attack", "roll-damage", "set-damage-type"]
+            .map((s) => `button[data-action=${s}]`)
+            .join(",");
+
+        blastList?.addEventListener("click", async (event) => {
+            const button = htmlClosest<HTMLButtonElement>(event.target, selectors);
+            const blastRow = htmlClosest(button, "li");
+            if (!(button && blastRow)) return;
+            event.stopPropagation();
+
+            const blast = new ElementalBlast(this.actor);
+            const { element } = blastRow.dataset;
+            const damageType = button.value || blastRow.dataset.damageType;
+            if (!objectHasKey(elementTraits, element)) {
+                throw ErrorPF2e("Unexpected error retrieve element");
+            }
+            if (!objectHasKey(damageTypes, damageType)) {
+                throw ErrorPF2e("Unexpected error retrieving damage type");
+            }
+            const melee = button.dataset.melee === "true";
+
+            switch (button.dataset.action) {
+                case "roll-attack": {
+                    const mapIncreases = Math.clamped(Number(button.dataset.mapIncreases) || 0, 0, 2);
+                    await blast.attack({ mapIncreases, element, damageType, melee, event });
+                    break;
+                }
+                case "roll-damage": {
+                    const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
+                    await blast.damage({ element, damageType, melee, outcome, event });
+                    break;
+                }
+                case "set-damage-type": {
+                    blast.setDamageType({ element, damageType });
+                }
+            }
+        });
+
+        // Damage formula tooltips
+        for (const damageButton of htmlQueryAll<HTMLButtonElement>(blastList, "button[data-action=roll-damage]")) {
+            const formula = damageButton.dataset.formula ?? "";
+            $(damageButton).tooltipster({ position: "top", theme: "crb-hover", content: formula });
+        }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
@@ -1057,16 +1165,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const { traits } = filter.multiselects;
 
         for (const filterCode of checkboxesFilterCodes) {
-            const [filterType, value] = filterCode.split("-");
+            const [filterType, ...rest] = filterCode.split("-");
+            const value = rest.join("-"); // The value may also include hyphens
+
             if (!(filterType && value)) {
                 throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
-            if (filterType === "category") {
-                if (value in category.options) {
-                    category.isExpanded = true;
-                    category.options[value].selected = true;
-                    category.selected.push(value);
-                }
+            if (filterType === "category" && value in category.options) {
+                category.isExpanded = true;
+                category.options[value].selected = true;
+                category.selected.push(value);
             } else if (filterType === "traits") {
                 const trait = traits.options.find((t) => t.value === value);
                 if (trait) {
@@ -1445,6 +1553,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
         downtime: ActionSheetData[];
     };
     feats: FeatGroup[];
+    elementalBlasts: ElementalBlastSheetConfig[];
 }
 
 interface ActionSheetData {
@@ -1469,4 +1578,12 @@ interface ClassDCSheetData extends ClassDCData {
     rankName: string;
 }
 
-export { CharacterSheetPF2e, CharacterSheetTabVisibility };
+interface ElementalBlastSheetConfig extends ElementalBlastConfig {
+    damageType: DamageType;
+    formula: {
+        ranged: { damage: string | null; critical: string | null };
+        melee: { damage: string | null; critical: string | null };
+    };
+}
+
+export { CharacterSheetPF2e, type CharacterSheetTabVisibility };

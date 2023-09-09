@@ -28,127 +28,12 @@
                 "type": "attack-roll"
             },
             {
-                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Elemental Blast"
             },
             {
-                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Base Kinesis"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.air",
-                "predicate": [
-                    "kinetic-gate:air"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "electricity",
-                        "slashing"
-                    ],
-                    "dieFaces": 6,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Air",
-                    "range": 60,
-                    "slug": "air"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.earth",
-                "predicate": [
-                    "kinetic-gate:earth"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "piercing"
-                    ],
-                    "dieFaces": 8,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Earth",
-                    "range": 30,
-                    "slug": "earth"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.fire",
-                "predicate": [
-                    "kinetic-gate:fire"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "fire"
-                    ],
-                    "dieFaces": 6,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Fire",
-                    "range": 60,
-                    "slug": "fire"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.metal",
-                "predicate": [
-                    "kinetic-gate:metal"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "piercing",
-                        "slashing"
-                    ],
-                    "dieFaces": 8,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Metal",
-                    "range": 30,
-                    "slug": "metal"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.water",
-                "predicate": [
-                    "kinetic-gate:water"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "cold"
-                    ],
-                    "dieFaces": 8,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Water",
-                    "range": 30,
-                    "slug": "water"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.wood",
-                "predicate": [
-                    "kinetic-gate:wood"
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "vitality"
-                    ],
-                    "dieFaces": 8,
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Wood",
-                    "range": 30,
-                    "slug": "wood"
-                }
             },
             {
                 "damageType": "fire",
@@ -163,10 +48,13 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:fire:impulse"
                 ],
-                "selector": "inline-damage"
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ]
             },
             {
                 "key": "Note",
@@ -177,11 +65,14 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:air:impulse",
-                    "item:trait:air"
+                    "air"
                 ],
-                "selector": "inline-damage",
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
@@ -194,11 +85,14 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:earth:impulse",
-                    "item:trait:earth"
+                    "earth"
                 ],
-                "selector": "inline-damage",
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Earth",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
@@ -211,11 +105,14 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:metal:impulse",
-                    "item:trait:metal"
+                    "metal"
                 ],
-                "selector": "inline-damage",
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Metal",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
@@ -228,11 +125,14 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:water:impulse",
-                    "item:trait:water"
+                    "water"
                 ],
-                "selector": "inline-damage",
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Water",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
@@ -245,11 +145,14 @@
                             2
                         ]
                     },
-                    "item:trait:impulse",
+                    "impulse",
                     "junction:wood:impulse",
-                    "item:trait:wood"
+                    "wood"
                 ],
-                "selector": "inline-damage",
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Wood",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             }

@@ -2,11 +2,15 @@
     <header>
         <div class="frame-container">
             <div class="frame">
-                <img class="player-image" alt="{{kingdom.name}}" src="{{kingdom.img}}" title="{{actor.name}}" data-edit="img" />
+                <img class="player-image" alt="{{kingdom.name}}" src="{{kingdom.img}}" title="{{kingdom.name}}" data-edit="img" />
             </div>
         </div>
         <div class="details">
-            <input name="name" class="name" type="text" value="{{kingdom.name}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.NamePlaceholder"}}"/>
+            <div class="title">
+                <input name="name" class="name" type="text" value="{{kingdom.name}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.NamePlaceholder"}}"/>
+                <div class="nation-type">{{nationTypeLabel}}</div>
+            </div>
+
             <label class="capital">
                 <span>{{localize "PF2E.Kingmaker.Kingdom.Capital"}}</span>
                 <input name="capital" type="text" value="{{kingdom.capital}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.CapitalPlaceholder"}}" />
@@ -15,12 +19,16 @@
             <label class="size">
                 <span>{{localize "PF2E.Kingmaker.Kingdom.Size"}}</span>
                 <input name="size" type="number" value="{{kingdom.size}}" />
-                <div>{{nationTypeLabel}}</div>
             </label>
 
-            <label class="fame">
+            <label class="resource-points">
+                <span data-tooltip="PF2E.Kingmaker.Kingdom.Resources.Points">{{localize "PF2E.Kingmaker.Kingdom.Resources.RP"}}</span>
+                <input name="resources.points" type="number" value="{{kingdom.resources.points}}" />
+            </label>
+
+            <label class="fame" data-action="adjust-fame">
                 <span>{{localize (concat "PF2E.Kingmaker.Kingdom.Aspiration." kingdom.aspiration)}}</span>
-                <a class="pips {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-fame">
+                <a class="pips {{#unless member.owner}}readonly{{/unless}}">
                     {{#times kingdom.resources.fame.max}}
                         {{#if (gt @root.kingdom.resources.fame.value this)}}
                             <i class="fa-solid fa-circle"></i>
@@ -54,6 +62,7 @@
         <a data-tab="main">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Main"}}</a>
         <a data-tab="activities">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Activities"}}</a>
         <a data-tab="advancement">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Advancement"}}</a>
+        <a data-tab="effects">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Effects"}}</a>
     </nav>
 
     <section class="container">
@@ -65,6 +74,14 @@
         </section>
         <section class="tab" data-tab="advancement">
             {{> "systems/pf2e/templates/actors/party/kingdom/advancement.hbs"}}
+        </section>
+        <section class="tab" data-tab="effects">
+            <div class="content">
+                <h3 class="header">{{localize "PF2E.EffectsLabel"}}</h3>
+                <ol class="effects-list directory-list item-list">
+                    {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=actor.itemTypes.effect}}
+                </ol>
+            </div>
         </section>
     </section>
 </form>

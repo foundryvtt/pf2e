@@ -130,7 +130,7 @@
     <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span>
-        <div class="modifier-type{{#if modifier.damageType}} {{modifier.damageType}}{{/if}}" title="{{modifier.typeLabel}}">
+        <div class="modifier-type{{#if modifier.damageType}} damage color {{modifier.damageType}}{{/if}}" title="{{modifier.typeLabel}}">
             <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
             {{> icon-container modifier=modifier}}
         </div>

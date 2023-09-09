@@ -1,8 +1,9 @@
-import { PhysicalItemPF2e } from "@item";
-import { UserPF2e } from "@module/user/index.ts";
+import type { PhysicalItemPF2e } from "@item";
+import type { UserPF2e } from "@module/user/document.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { ErrorPF2e, getActionGlyph, localizer } from "@util";
-import { ActorPF2e } from "./index.ts";
+import type { ActorPF2e } from "./base.ts";
+import { TraitViewData } from "./data/base.ts";
 
 export interface ItemTransferData {
     source: {
@@ -38,7 +39,7 @@ export class ItemTransfer implements ItemTransferData {
             const target = this.#getTarget();
             const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
-            if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
+            if (!loot) throw ErrorPF2e("Unexpected missing actor");
             ui.notifications.error(
                 game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) })
             );
@@ -57,19 +58,11 @@ export class ItemTransfer implements ItemTransferData {
 
         console.debug("PF2e System | Enacting item transfer");
         const sourceActor = this.#getSource();
-        const sourceItem = sourceActor?.items?.find((i) => i.id === this.source.itemId);
+        const sourceItem = sourceActor?.inventory.find((i) => i.id === this.source.itemId);
         const targetActor = this.#getTarget();
 
         // Sanity checks
-        if (
-            !(
-                sourceActor instanceof ActorPF2e &&
-                sourceItem instanceof PhysicalItemPF2e &&
-                targetActor instanceof ActorPF2e &&
-                sourceActor.isLootableBy(game.user) &&
-                targetActor.isLootableBy(game.user)
-            )
-        ) {
+        if (!(sourceActor?.isLootableBy(game.user) && sourceItem && targetActor?.isLootableBy(game.user))) {
             throw ErrorPF2e("Failed sanity check during item transfer");
         }
 
@@ -108,7 +101,7 @@ export class ItemTransfer implements ItemTransferData {
 
     // Prefer token names over actor names
     static #tokenName(document: ActorPF2e | User): string {
-        if (document instanceof ActorPF2e) {
+        if ("items" in document) {
             // Use a special moniker for party actors
             if (document.isOfType("party")) return game.i18n.localize("PF2E.loot.PartyStash");
             // Synthetic actor: use its token name or, failing that, actor name
@@ -118,7 +111,7 @@ export class ItemTransfer implements ItemTransferData {
             return document.prototypeToken?.name ?? document.name;
         }
         // User with an assigned character
-        if (document.character instanceof ActorPF2e) {
+        if (document.character) {
             const token = canvas.tokens.placeables.find((t) => t.actor?.id === document.id);
             return token?.name ?? document.character?.name;
         }
@@ -326,19 +319,15 @@ export class ItemTransfer implements ItemTransferData {
 
     async #messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
         const glyph = getActionGlyph(sourceActor.isOfType("loot") && targetActor.isOfType("loot") ? 2 : 1);
-        return await renderTemplate(this.#templatePaths.flavor, {
-            action: {
-                title: "PF2E.TraitInteract",
-                subtitle: subtitle,
-                tooltip: "PF2E.TraitInteract",
-                glyph,
+        const action = { title: "PF2E.Actions.Interact.Title", subtitle: subtitle, glyph };
+        const traits: TraitViewData[] = [
+            {
+                name: "manipulate",
+                label: CONFIG.PF2E.featTraits.manipulate,
+                description: CONFIG.PF2E.traitsDescriptions.manipulate,
             },
-            traits: [
-                {
-                    name: CONFIG.PF2E.featTraits.manipulate,
-                    description: CONFIG.PF2E.traitsDescriptions.manipulate,
-                },
-            ],
-        });
+        ];
+
+        return await renderTemplate(this.#templatePaths.flavor, { action, traits });
     }
 }

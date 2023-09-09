@@ -3,14 +3,15 @@ import { FamiliarSheetPF2e } from "@actor/familiar/sheet.ts";
 import { HazardSheetPF2e } from "@actor/hazard/sheet.ts";
 import { LootSheetPF2e } from "@actor/loot/sheet.ts";
 import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
+import { PartySheetPF2e } from "@actor/party/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
-import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ActionSheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
 import { BackgroundSheetPF2e } from "@item/background/sheet.ts";
 import { BookSheetPF2e } from "@item/book/sheet.ts";
+import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
 import { ClassSheetPF2e } from "@item/class/sheet.ts";
 import { ConsumableSheetPF2e } from "@item/consumable/sheet.ts";
 import { ContainerSheetPF2e } from "@item/container/sheet.ts";
@@ -23,15 +24,15 @@ import { KitSheetPF2e } from "@item/kit/sheet.ts";
 import { MeleeSheetPF2e } from "@item/melee/sheet.ts";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { SpellSheetPF2e } from "@item/spell/index.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
-import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
-import { PartySheetPF2e } from "@actor/party/sheet.ts";
-import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
+import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 
 export function registerSheets(): void {
     const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
@@ -39,7 +40,7 @@ export function registerSheets(): void {
     Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
     DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
-    // ACTORS
+    // ACTOR
     Actors.unregisterSheet("core", ActorSheet);
 
     const localizeType = (type: string) => {
@@ -47,63 +48,60 @@ export function registerSheets(): void {
         return game.i18n.localize(`TYPES.${docType}.${type}`);
     };
 
+    // PC
     Actors.registerSheet("pf2e", CharacterSheetPF2e, {
         types: ["character"],
         label: game.i18n.format(sheetLabel, { type: localizeType("character") }),
         makeDefault: true,
     });
 
-    // Regiser NPC Sheet
+    // NPC
     Actors.registerSheet("pf2e", NPCSheetPF2e, {
         types: ["npc"],
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
         makeDefault: true,
     });
+    Actors.registerSheet("pf2e", SimpleNPCSheet, {
+        types: ["npc"],
+        label: "PF2E.Actor.NPC.SimpleSheet",
+        canBeDefault: false,
+    });
 
-    // Register simple NPC sheet
-    if (BUILD_MODE === "development") {
-        Actors.registerSheet("pf2e", SimpleNPCSheet, {
-            types: ["npc"],
-            label: "PF2E.Actor.NPC.SimpleSheet",
-            canBeDefault: false,
-        });
-    }
-
-    // Register Hazard Sheet
+    // Hazard
     Actors.registerSheet("pf2e", HazardSheetPF2e, {
         types: ["hazard"],
         label: game.i18n.format(sheetLabel, { type: localizeType("hazard") }),
     });
 
-    // Register Loot Sheet
+    // Loot
     Actors.registerSheet("pf2e", LootSheetPF2e, {
         types: ["loot"],
         label: game.i18n.format(sheetLabel, { type: localizeType("loot") }),
         makeDefault: true,
     });
 
-    // Register Familiar Sheet
+    // Familiar
     Actors.registerSheet("pf2e", FamiliarSheetPF2e, {
         types: ["familiar"],
         label: game.i18n.format(sheetLabel, { type: localizeType("familiar") }),
         makeDefault: true,
     });
 
-    // Register Vehicle Sheet
+    // Vehicle
     Actors.registerSheet("pf2e", VehicleSheetPF2e, {
         types: ["vehicle"],
         label: game.i18n.format(sheetLabel, { type: localizeType("vehicle") }),
         makeDefault: true,
     });
 
-    // Register Party Sheet
+    // Party
     Actors.registerSheet("pf2e", PartySheetPF2e, {
         types: ["party"],
         label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
         makeDefault: true,
     });
 
-    // ITEMS
+    // ITEM
     Items.unregisterSheet("core", ItemSheet);
 
     const itemTypes = ["condition", "lore", "spellcastingEntry"];
@@ -155,15 +153,13 @@ export function registerSheets(): void {
         });
     }
 
-    // JOURNAL
-
+    // JOURNAL ENTRY
     Journal.unregisterSheet("core", JournalSheet);
     Journal.registerSheet("pf2e", JournalSheetPF2e, {
         label: () =>
             game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
     });
-
     // Replace the TinyMCE sheet with the version that'll let us inject themes
     DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
     DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
@@ -171,7 +167,7 @@ export function registerSheets(): void {
         label: game.i18n.localize("EDITOR.TinyMCE"),
     });
 
-    // User
+    // USER
     Users.unregisterSheet("core", UserConfig);
     Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,

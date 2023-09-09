@@ -1,6 +1,6 @@
 {
     "_id": "HM0uhpM9t97MAABn",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/equipment/back/cape-layered-brown-gold.webp",
     "name": "Cape of Illumination (Lesser)",
     "system": {
         "baseItem": null,
@@ -19,14 +19,12 @@
         "level": {
             "value": 5
         },
+        "material": {
+            "grade": null,
+            "type": null
+        },
         "negateBulk": {
             "value": "0"
-        },
-        "preciousMaterial": {
-            "value": null
-        },
-        "preciousMaterialGrade": {
-            "value": null
         },
         "price": {
             "value": {
@@ -34,14 +32,44 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "lit-cape-of-illumination",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-cape-of-illumination"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": 20,
+                    "color": "#343434",
+                    "dim": 40
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-cape-of-illumination"
+                ],
+                "value": "icons/equipment/back/cape-layered-brown-gold.webp"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Lost Omens: Firebrands"
         },
         "stackGroup": null,
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "value": [
                 "evocation",
                 "invested",
@@ -50,7 +78,7 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worncloak"
         },
         "weight": {
             "value": "L"

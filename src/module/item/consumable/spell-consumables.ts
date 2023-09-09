@@ -1,4 +1,4 @@
-import { ConsumablePF2e, SpellPF2e } from "@item";
+import { ConsumablePF2e, type SpellPF2e } from "@item";
 import { ConsumableSource } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
@@ -136,10 +136,5 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export {
-    SpellConsumableItemType,
-    TrickMagicItemDifficultyData,
-    calculateTrickMagicItemCheckDC,
-    createConsumableFromSpell,
-    isSpellConsumable,
-};
+export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable };
+export type { SpellConsumableItemType, TrickMagicItemDifficultyData };

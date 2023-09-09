@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
-import { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
 import type {
     OtherWeaponTag,
@@ -17,7 +17,7 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { isBlank } from "@util";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
-    const fromMaterial = item.system.preciousMaterial?.value === "orichalcum" ? 1 : 0;
+    const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
 
     const fromPotency = ABP.isEnabled(item.actor)
         ? // If the item is unowned or on a loot actor, place no limit on slots
@@ -1284,9 +1284,7 @@ const WEAPON_VALUATION_DATA: WeaponValuationData = {
 };
 
 export {
-    RuneValuationData,
     WEAPON_VALUATION_DATA,
-    WeaponPropertyRuneData,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
     getPropertyRuneStrikeAdjustments,
@@ -1294,4 +1292,6 @@ export {
     getPropertySlots,
     getResilientBonus,
     getStrikingDice,
+    type RuneValuationData,
+    type WeaponPropertyRuneData,
 };

@@ -178,6 +178,14 @@ declare global {
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 
     function fromUuid(uuid: CompendiumUUID, relative?: Maybe<ClientDocument>): Promise<CompendiumDocument | null>;
+    function fromUuid(
+        uuid: ActorUUID,
+        relative?: Maybe<ClientDocument>
+    ): Promise<Actor<TokenDocument<Scene> | null> | null>;
+    function fromUuid(
+        uuid: ItemUUID,
+        relative?: Maybe<ClientDocument>
+    ): Promise<Item<Actor<TokenDocument<Scene> | null>> | null>;
     function fromUuid(uuid: TokenDocumentUUID, relative?: Maybe<ClientDocument>): Promise<TokenDocument<Scene> | null>;
     function fromUuid<TDocument extends ClientDocument>(
         uuid: string,

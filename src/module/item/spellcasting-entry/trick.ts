@@ -85,7 +85,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
-            ability: attribute,
+            attribute: attribute,
             rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
@@ -175,4 +175,5 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 }
 
-export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill, traditionSkills };
+export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, traditionSkills };
+export type { TrickMagicItemSkill };

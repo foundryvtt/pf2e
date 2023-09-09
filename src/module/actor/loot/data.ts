@@ -1,9 +1,10 @@
 import {
+    ActorAttributes,
+    ActorAttributesSource,
+    ActorDetails,
     ActorSystemData,
     ActorSystemSource,
     BaseActorSourcePF2e,
-    ActorAttributesSource,
-    ActorAttributes,
 } from "@actor/data/base.ts";
 
 /** The stored source data of a loot actor */
@@ -18,9 +19,9 @@ interface LootSystemSource extends ActorSystemSource {
     traits?: never;
 }
 
-interface LootSystemData extends Omit<LootSystemSource, "attributes">, ActorSystemData {
+interface LootSystemData extends Omit<LootSystemSource, "attributes" | "details">, ActorSystemData {
     attributes: LootAttributes;
-    details: LootDetailsData;
+    details: LootDetails;
     traits?: never;
 }
 
@@ -40,14 +41,15 @@ interface LootAttributes
 }
 
 interface LootDetailsSource {
+    alliance?: never;
     description: string;
     level: {
         value: number;
     };
 }
 
-interface LootDetailsData extends LootDetailsSource {
+interface LootDetails extends Omit<LootDetailsSource, "alliance">, ActorDetails {
     alliance: null;
 }
 
-export { LootSource, LootSystemData, LootSystemSource };
+export type { LootSource, LootSystemData, LootSystemSource };

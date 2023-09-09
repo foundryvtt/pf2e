@@ -23,16 +23,10 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         };
     }
 
-    override _updateObject(formData: Partial<FastHealingSource>): void {
-        if (formData.type !== "regeneration") {
-            delete formData.deactivatedBy;
-        } else {
-            delete formData.details;
-        }
-
-        if (formData.value && !Number.isNaN(Number(formData.value))) {
-            formData.value = Number(formData.value);
-        }
+    override updateObject(formData: Partial<FastHealingSource>): void {
+        // Fast healing has mutually exclusive properties
+        delete formData[formData.type === "regeneration" ? "details" : "deactivatedBy"];
+        super.updateObject(formData);
     }
 }
 

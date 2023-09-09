@@ -1,7 +1,8 @@
-import { ActorPF2e, ChatMessagePF2e } from "@module/documents.ts";
+import type { ActorPF2e } from "@actor";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
-const ACTION_COST = ["free", "reaction", 1, 2, 3] as const;
-type ActionCost = (typeof ACTION_COST)[number];
+const ACTION_COSTS = ["free", "reaction", 1, 2, 3] as const;
+type ActionCost = (typeof ACTION_COSTS)[number];
 
 interface ActionMessageOptions {
     blind: boolean;
@@ -44,12 +45,4 @@ interface Action {
     use(options?: Partial<ActionUseOptions>): Promise<unknown>;
 }
 
-export {
-    ACTION_COST,
-    Action,
-    ActionCost,
-    ActionMessageOptions,
-    ActionUseOptions,
-    ActionVariant,
-    ActionVariantUseOptions,
-};
+export type { Action, ActionCost, ActionMessageOptions, ActionUseOptions, ActionVariant, ActionVariantUseOptions };

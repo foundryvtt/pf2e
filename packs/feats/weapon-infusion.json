@@ -1,6 +1,6 @@
 {
     "_id": "Gvx8Mdg5mxUtTD5g",
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Weapon Infusion",
     "system": {
         "actionType": {
@@ -19,7 +19,70 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaponInfusion.Melee",
+                "option": "weapon-infusion:melee",
+                "predicate": [
+                    "self:effect:weapon-infusion"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAgile",
+                        "value": "agile"
+                    },
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitReach",
+                        "value": "reach"
+                    },
+                    {
+                        "label": "PF2E.TraitSweep",
+                        "value": "sweep"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaponInfusion.Ranged",
+                "option": "weapon-infusion:ranged",
+                "predicate": [
+                    "self:effect:weapon-infusion"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitVolley30",
+                        "value": "volley-30"
+                    },
+                    {
+                        "label": "PF2E.TraitPropulsive",
+                        "value": "propulsive"
+                    },
+                    {
+                        "label": "PF2E.TraitThrown",
+                        "value": "thrown"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Weapon Infusion",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Weapon Infusion"
+        },
         "source": {
             "value": "Pathfinder Rage of Elements"
         },

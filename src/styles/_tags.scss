@@ -8,117 +8,71 @@
     margin-bottom: 2px;
     padding-left: 0;
 
-    .tag, .tag option {
+    .tag,
+    .tag option {
         @include micro;
         align-items: center;
         background-color: var(--primary);
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-        color: white;
+        color: var(--color-text-trait);
         display: flex;
         font-weight: 500;
-        min-height: 1.5em;
+        height: var(--font-size-18);
         padding: 0 0.33em;
-
-        &.edit-btn {
-            align-items: center;
-            background-color: white;
-            border-radius: 0;
-            color: var(--primary);
-            display: flex;
-            justify-content: center;
-
-            a {
-                display: inline-flex;
-                svg {
-                    height: 9px;
-                    width: auto;
-                }
-            }
-        }
 
         &.tag_secondary {
             background-color: var(--secondary);
-            color: white;
         }
 
         &.tag_tertiary {
             background-color: var(--tertiary);
-            color: white;
         }
 
         &.tag_alt {
             background-color: var(--alt);
-            color: white;
         }
 
         &.tag_material {
             background-color: var(--alt-dark);
-            color: white;
         }
 
         &.tag_transparent {
             background-color: transparent;
-            color: var(--text-color-dark-2);
-            text-transform: none;
+            border-radius: 4px;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+            color: var(--color-text-dark-2);
             font-family: var(--font-primary);
             font-size: var(--font-size-10);
-            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
-            border-radius: 4px;
+            text-transform: none;
         }
 
         &.mystified {
             opacity: 0.7;
         }
-
-        &.common, &[value="common"] {
-            border-color: var(--color-rarity-common);
-            background-color: var(--color-rarity-common);
-        }
-
-        &.uncommon, &[value="uncommon"] {
-            border-color: var(--color-rarity-uncommon);
-            background-color: var(--color-rarity-uncommon);
-        }
-
-        &.rare, &[value="rare"] {
-            border-color: var(--color-rarity-rare);
-            background-color: var(--color-rarity-rare);
-        }
-
-        &.unique, &[value="unique"] {
-            border-color: var(--color-rarity-unique);
-            background-color: var(--color-rarity-unique);
-        }
     }
 }
 
-li.chat-message .tags .tag {
-    height: unset;
-    line-height: 1.65em;
-    min-height: 1em;
-
-    &_transparent {
-        line-height: 1.25em;
-        padding: 0.1em 0.25em;
-    }
+li.chat-message .tags .tag_transparent {
+    line-height: 1.25em;
+    padding: 0.1em 0.25em;
 }
 
 // Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
     align-items: center;
+    border: none;
     border-radius: 3px;
     padding: 0.05em;
     gap: 0;
 
+    tag,
+    .tag,
     select.tag {
-        height: 22px;
-    }
-
-    tag, .tag, select.tag {
-        border: 2px solid var(--color-border-trait);
+        background-color: var(--color-bg-trait);
+        border: solid var(--color-border-trait);
+        box-shadow: none;
         margin: 0;
-        min-height: 22px;
 
         x {
             align-items: start;
@@ -130,11 +84,78 @@ li.chat-message .tags .tag {
         }
     }
 
+    tag,
+    select.tag {
+        border-width: 2px 3px 2px 2px;
+        height: var(--font-size-22);
+
+        &:first-child {
+            border-left-width: 5px;
+        }
+
+        &:last-child {
+            border-right-width: 5px;
+        }
+    }
+
+    tag:last-of-type {
+        border-right-width: 5px;
+    }
+
+    .tag {
+        border-width: 1px 2px 1px 1px;
+        height: var(--font-size-19);
+
+        &:first-child {
+            border-left-width: 3px;
+        }
+
+        &:last-child {
+            border-right-width: 3px;
+        }
+
+        &.rarity {
+            &.common,
+            &[value="common"],
+            > option[value="common"] {
+                background-color: var(--color-rarity-common);
+            }
+
+            &.uncommon,
+            &[value="uncommon"],
+            > option[value="uncommon"] {
+                background-color: var(--color-rarity-uncommon);
+            }
+
+            &.rare,
+            &[value="rare"],
+            > option[value="rare"] {
+                background-color: var(--color-rarity-rare);
+            }
+
+            &.unique,
+            &[value="unique"],
+            > option[value="unique"] {
+                background-color: var(--color-rarity-unique);
+            }
+        }
+
+        &.alignment {
+            background-color: var(--color-bg-alignment);
+        }
+
+        &.size {
+            background-color: var(--color-bg-size);
+        }
+    }
+
     tag > div {
         padding: 0 0.09rem 0 0.25rem;
     }
 
-    tag > div, .tag, select {
+    tag > div,
+    .tag,
+    select {
         border-radius: 0;
         display: flex;
         font: 500 var(--font-size-10) var(--sans-serif);
@@ -144,11 +165,16 @@ li.chat-message .tags .tag {
         }
     }
 
+    hr.vr {
+        height: 1.25em;
+        margin: 1px 2px;
+    }
+
     // Tone down disabled effects so we still see trait colors
     &[disabled] {
         filter: none;
         tag > div::before {
-            animation: none!important;
+            animation: none !important;
         }
 
         // There's some css specificity issues that reintroduce margins,
@@ -161,13 +187,13 @@ li.chat-message .tags .tag {
 
 tags.tags.paizo-style {
     background-color: rgba(0, 0, 0, 0.075);
-    --tag-bg: var(--primary);
-    --tag-hover: var(--primary);
+    --tag-bg: var(--color-bg-trait);
+    --tag-hover: var(--color-bg-trait);
     --tag-remove-btn-color: var(--color-text-trait);
     --tag-text-color: var(--color-text-trait);
-    --tags-border-color: var(--color-border-light-tertiary);
-    --tags-focus-border-color: var(--color-border-light-tertiary);
-    --tags-hover-border-color: var(--color-border-light-tertiary);
+    --tags-border-color: var(--color-border-trait);
+    --tags-focus-border-color: var(--color-border-trait);
+    --tags-hover-border-color: var(--color-border-trait);
     --readonly-striped: 0;
 
     .tagify__input {
@@ -197,7 +223,7 @@ tags.tags.paizo-style {
     }
 
     // In lieu of remove button
-    tag[readonly=true] {
+    tag[readonly="true"] {
         padding-right: 2px;
     }
 }
@@ -213,7 +239,7 @@ tags.tagify.pf2e-tagify {
     padding: 2px;
 
     &:hover {
-        box-shadow: 0 0 10px #00005a
+        box-shadow: 0 0 10px #00005a;
     }
 
     tag {
@@ -243,7 +269,8 @@ tags.tagify.pf2e-tagify {
 }
 
 // Prevents early word wrap on certain forms
-tags.pf2e-tagify, tags.tags.paizo-style {
+tags.pf2e-tagify,
+tags.tags.paizo-style {
     &.tagify--hasMaxTags > span {
         display: none;
     }
@@ -263,7 +290,7 @@ tags.pf2e-tagify, tags.tags.paizo-style {
     border-radius: 3px;
 
     &-base {
-        color: white;
+        color: var(--text-light);
         background: rgba(0, 0, 0, 0.45);
     }
 
@@ -275,7 +302,7 @@ tags.pf2e-tagify, tags.tags.paizo-style {
 // Ensure shadow fills the whole tag even if it wraps lines
 // Default from tagify module is 1.1em
 .tagify {
-    --tag-inset-shadow-size: 10em
+    --tag-inset-shadow-size: 10em;
 }
 
 // Ensure that remove button doesn't get covered up when window is small

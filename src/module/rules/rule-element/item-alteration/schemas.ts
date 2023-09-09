@@ -1,8 +1,8 @@
+import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
-import { ItemPF2e } from "@module/documents.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -142,6 +142,16 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             nullable: false,
             positive: true,
+            initial: undefined,
+        } as const),
+    }),
+    "material-type": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: Array.from(PRECIOUS_MATERIAL_TYPES),
             initial: undefined,
         } as const),
     }),

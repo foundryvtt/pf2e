@@ -37,7 +37,7 @@
         gap: var(--space-l);
         background-color: var(--alt);
         font-family: var(--sans-serif);
-        color: white;
+        color: var(--text-light);
         padding: 0;
         font-size: 0.8em;
         font-weight: 400;
@@ -53,7 +53,7 @@
             font-weight: 400;
         }
 
-        +p {
+        + p {
             margin-top: var(--space-s);
         }
     }
@@ -61,7 +61,7 @@
     .info {
         background-color: var(--secondary);
         padding: var(--space-m);
-        color: white;
+        color: var(--text-light);
         margin-left: auto;
         margin-right: auto;
         padding: 0;
@@ -69,15 +69,15 @@
         font-family: var(--sans-serif);
         padding-bottom: var(--space-m);
 
-        >*+* {
+        > * + * {
             margin-top: var(--space-m);
         }
 
-        &+* {
+        & + * {
             margin-top: var(--space-xl);
         }
 
-        &+& {
+        & + & {
             margin-top: var(--space-s);
         }
 
@@ -92,7 +92,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: white;
+            color: var(--text-light);
 
             &::after {
                 font-family: "Font Awesome 6";
@@ -126,7 +126,7 @@
 
             background-color: var(--primary);
             border: 2px solid var(--color-border-trait);
-            color: white;
+            color: var(--text-light);
             font: 500 var(--font-size-10) var(--sans-serif);
             text-transform: uppercase;
         }
@@ -134,11 +134,11 @@
 
     .statblock {
         font-family: var(--sans-serif-condensed);
-        color: black;
+        color: var(--text-dark);
         line-height: 1.2;
         margin-bottom: var(--space-m);
 
-        >*+* {
+        > * + * {
             margin-top: var(--space-s);
             margin-bottom: 0;
         }
@@ -168,7 +168,7 @@
             display: flex;
             align-items: baseline;
             justify-content: space-between;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid var(--color-border-dark);
             text-transform: uppercase;
             letter-spacing: -0.05em;
             font-family: var(--sans-serif-condensed);
@@ -177,7 +177,7 @@
 
         hr {
             border: none;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid var(--color-border-dark);
         }
     }
 

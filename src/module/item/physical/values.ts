@@ -24,6 +24,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "peachwood",
     "siccatite",
     "silver",
+    "sisterstone",
     "sisterstone-dusk",
     "sisterstone-scarlet",
     "sovereign-steel",

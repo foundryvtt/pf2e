@@ -1,7 +1,7 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ConsumablePF2e } from "@item";
-import { calculateTrickMagicItemCheckDC, TrickMagicItemDifficultyData } from "@item/consumable/spell-consumables.ts";
-import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick.ts";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ConsumablePF2e } from "@item";
+import { TrickMagicItemDifficultyData, calculateTrickMagicItemCheckDC } from "@item/consumable/spell-consumables.ts";
+import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill } from "@item/spellcasting-entry/trick.ts";
 import { ErrorPF2e, localizer } from "@util";
 
 export class TrickMagicItemPopup {
