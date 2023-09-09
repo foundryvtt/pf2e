@@ -23,7 +23,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "watch-this",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": "2*@weapon.system.damage.dice",
+                "predicate": [
+                    "watch-this"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Firebrands"
         },
