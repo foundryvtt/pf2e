@@ -7,6 +7,7 @@ import { DiceSoNiceReady } from "./dice-so-nice-ready.ts";
 import { DropCanvasData } from "./drop-canvas-data.ts";
 import { GetSceneControlButtons } from "./get-scene-control-buttons.ts";
 import { Init } from "./init.ts";
+import { HighlightObjects } from "./highlight-objects.ts";
 import { LightingRefresh } from "./lighting-refresh.ts";
 import { Load } from "./load.ts";
 import { Ready } from "./ready.ts";
@@ -34,6 +35,7 @@ export const HooksPF2e = {
             DropCanvasData,
             GetSceneControlButtons,
             Init,
+            HighlightObjects,
             LightingRefresh,
             Ready,
             RenderChatPopout,

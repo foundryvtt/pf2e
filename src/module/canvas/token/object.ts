@@ -4,11 +4,15 @@ import { htmlClosest, pick } from "@util";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
+import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 import { Renderer } from "pixi.js";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
+
+    /** Visual rendering of lines from token to flanking buddy tokens on highlight */
+    readonly flankingHighlight: FlankingHighlightRenderer;
 
     /** The token's line hearing source */
     hearing: HearingSource<this>;
@@ -19,6 +23,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
+        this.flankingHighlight = new FlankingHighlightRenderer(this);
+        Object.defineProperty(this, "flankingHighlight", { configurable: false, writable: false });
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -80,21 +86,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
-     * @param flankee       The potentially flanked token
-     * @param context.reach An optional reach distance specific to this measurement */
-    canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking highlight) */
+    canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
         if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
             return false;
         }
 
-        if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
-            return false;
-        }
+        // Can actor flank and is flankee flankable (if we care about flankable)
+        const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
+        if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
 
         // Only PCs and NPCs can flank
         if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
-        if (!flankee.actor.isOfType("creature")) return false;
+        if (!flankee.actor?.isOfType("creature")) return false;
 
         // Allies don't flank each other
         if (this.actor.isAllyOf(flankee.actor)) return false;
@@ -104,27 +111,40 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
-    /** Determine whether this token is in fact flanking another */
-    isFlanking(flankee: TokenPF2e, { reach }: { reach?: number } = {}): boolean {
-        if (!(this.actor && this.canFlank(flankee, { reach }))) return false;
+    /**
+     * Determine whether two potential flankers are on opposite sides of flankee
+     * @param flankerA  First of two potential flankers
+     * @param flankerB  Second of two potential flankers
+     * @param flankee   Potentially flanked token
+     */
+    protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
+        const { lineSegmentIntersects } = foundry.utils;
+
+        const [centerA, centerB] = [flankerA.center, flankerB.center];
+        const { bounds } = flankee;
+
+        const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
+        const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
+        const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
+        const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
+        const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
+
+        return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
+    }
+
+    /**
+     * Determine whether this token is in fact flanking another
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    isFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
+        if (!(this.actor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
-        const { lineSegmentIntersects } = foundry.utils;
-        const onOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
-            const [centerA, centerB] = [flankerA.center, flankerB.center];
-            const { bounds } = flankee;
-
-            const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
-            const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
-            const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
-            const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
-            const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
-
-            return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
-        };
-
         const { flanking } = this.actor.attributes;
-        const flankingBuddies = canvas.tokens.placeables.filter((t) => t !== this && t.canFlank(flankee));
+        const flankingBuddies = canvas.tokens.placeables.filter(
+            (t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"]))
+        );
         if (flankingBuddies.length === 0) return false;
 
         // The actual "Gang Up" rule or similar
@@ -143,7 +163,21 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (sideBySide) return true;
 
         // Find a flanking buddy opposite this token
-        return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
+        return flankingBuddies.some((b) => this.onOppositeSides(this, b, flankee));
+    }
+
+    /**
+     * Find other tokens that are in fact flanking a flankee with this token.
+     * Only detects tokens on opposite sides of flankee, does not support Gang Up or Side By Side.
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
+        if (!this.actor || !this.canFlank(flankee, context)) return [];
+
+        return canvas.tokens.placeables
+            .filter((t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"])))
+            .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -375,6 +409,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
         this.auras.refresh();
+        this.flankingHighlight.refresh();
     }
 
     /** Refresh vision and the `EffectsPanel` */
@@ -384,6 +419,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._onRelease(options);
 
         this.auras.refresh();
+        this.flankingHighlight.refresh();
     }
 
     protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
@@ -411,16 +447,18 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return true;
     }
 
-    /** Destroy auras before removing this token from the canvas */
+    /** Destroy auras and flankingHighlight before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
         this.auras.clear();
+        this.flankingHighlight.destroy();
     }
 
     /** A callback for when a movement animation for this token finishes */
     async #onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
+        this.flankingHighlight.refresh();
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
