@@ -16,7 +16,39 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "living-fortification",
+                "suboptions": [
+                    {
+                        "label": "+1",
+                        "value": "1"
+                    },
+                    {
+                        "label": "+2",
+                        "value": "2"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "living-fortification"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.livingFortification}"
+            },
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "Interact to draw a firearm or crossbow. You gain a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.",
+                "title": "<span class=\"pf2-icon\">F</span> {item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
