@@ -185,8 +185,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Draw flankingHighlights when position updates */
     override _applyRenderFlags(flags: Record<string, boolean>): void {
         super._applyRenderFlags(flags);
-        if ( flags.refreshPosition ) this.flankingHighlight.draw();
-      }
+        if (flags.refreshPosition) this.flankingHighlight.draw();
+    }
 
     /** Draw auras if certain conditions are met */
     protected override _refreshVisibility(): void {
