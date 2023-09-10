@@ -43,7 +43,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         if (this.size === 0) return;
 
         this.clearHighlights();
-        if (this.token.isPreview || this.token.isAnimating) return;
+        if (this.token.isAnimating) return;
 
         for (const aura of this.values()) {
             aura.visible = false;

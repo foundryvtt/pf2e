@@ -106,10 +106,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     #drawRing(): void {
         if (this.geometry.drawCalls.length > 0) return;
 
-        this.beginFill(this.colors.fill, 0)
-            .lineStyle(AuraRenderer.LINE_THICKNESS, this.colors.border, 0.75)
-            .drawCircle(this.token.w / 2, this.token.h / 2, this.radiusPixels)
-            .endFill();
+        const [x, y, radius] = [this.token.w / 2, this.token.h / 2, this.radiusPixels];
+        this.lineStyle(AuraRenderer.LINE_THICKNESS, this.colors.border, 0.5).drawCircle(x, y, radius);
     }
 
     /** Add a numeric label and marker dot indicating the emanation radius */
@@ -123,12 +121,13 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
         const { center } = this.token;
-        text.position.set(center.x, center.y - this.radiusPixels);
+        const textOffset = Math.sqrt(style.fontSize);
+        text.position.set(center.x + textOffset, center.y - this.radiusPixels - style.fontSize - textOffset);
 
         this.highlightLayer
             ?.beginFill(0x000000, 0.5)
             .lineStyle(AuraRenderer.LINE_THICKNESS, 0x000000)
-            .drawCircle(text.position.x, text.position.y, 6)
+            .drawCircle(center.x, center.y - this.radiusPixels, 6)
             .endFill()
             .addChild(text);
     }
