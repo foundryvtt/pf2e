@@ -45,20 +45,10 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
      */
     draw(): void {
         if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
-            this.visible = false;
-            this.refresh();
-            this.token.layer.addChild(this);
-            this.visible = true;
-        }
-    }
-
-    /**
-     * Refresh, update, and/or clear flanking highlight based on highlight, target, and flanking conditions
-     */
-    refresh(): void {
-        this.clear();
-        if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
+            if (!this.parent) this.token.layer.addChild(this);
             game.user.targets.forEach((target) => this.drawForTarget(target));
+        } else {
+            if (this.geometry.drawCalls.length > 0) this.clear();
         }
     }
 

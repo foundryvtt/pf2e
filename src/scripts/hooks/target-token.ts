@@ -13,7 +13,7 @@ export const TargetToken = {
                 const actor = actors[0];
                 const actorToken = actor.getActiveTokens(false, true).shift();
                 if (canvas.tokens.highlightObjects && user === game.user && actorToken) {
-                    actorToken.object?.flankingHighlight.refresh();
+                    actorToken.object?.flankingHighlight.draw();
                 }
             }
         });

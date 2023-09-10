@@ -2,6 +2,7 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Renderer } from "pixi.js";
+import { pick } from "@util";
 import * as R from "remeda";
 import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
@@ -180,6 +181,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .filter((t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"])))
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
+
+    /** Draw flankingHighlights when position updates */
+    override _applyRenderFlags(flags: Record<string, boolean>): void {
+        super._applyRenderFlags(flags);
+        if ( flags.refreshPosition ) this.flankingHighlight.draw();
+      }
 
     /** Draw auras if certain conditions are met */
     protected override _refreshVisibility(): void {
@@ -432,6 +439,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._destroy();
         this.auras.destroy();
         this.hearing.destroy();
+        this.flankingHighlight.destroy();
     }
 
     /* -------------------------------------------- */
@@ -446,27 +454,15 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
+        this.flankingHighlight.draw();
         return super._onControl(options);
-        this.flankingHighlight.refresh();
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
+        this.flankingHighlight.draw();
         super._onRelease(options);
-        this.flankingHighlight.refresh();
-    }
-
-    /** Destroy flankingHighlight before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
-        super._onDelete(options, userId);
-        this.flankingHighlight.destroy();
-    }
-
-    /** A callback for when a movement animation for this token finishes */
-    async #onFinishAnimation(): Promise<void> {
-        await this._animation;
-        this.flankingHighlight.refresh();
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
