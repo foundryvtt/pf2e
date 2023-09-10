@@ -41,7 +41,7 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
     }
 
     /**
-     * Initial draw behavior for flanking highlight, must be called before subsequent refresh calls
+     * Draw flanking highlight if conditions are met
      */
     draw(): void {
         if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {

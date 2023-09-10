@@ -7,7 +7,7 @@ export const TargetToken = {
             const tokenDocument = token.document as TokenDocumentPF2e;
             ui.combat.refreshTargetDisplay(tokenDocument);
 
-            // Refresh flanking highlights if applicable
+            // Draw flanking highlights if applicable
             const actors = getSelectedOrOwnActors();
             if (actors.length === 1 && tokenDocument.object) {
                 const actor = actors[0];

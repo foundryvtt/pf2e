@@ -451,14 +451,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
     }
 
-    /** Refresh vision and the `EffectsPanel` */
+    /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         this.flankingHighlight.draw();
         return super._onControl(options);
     }
 
-    /** Refresh vision and the `EffectsPanel` */
+    /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
         this.flankingHighlight.draw();
