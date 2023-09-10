@@ -228,12 +228,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             formData["system.material.grade"] = null;
         }
 
-        // Normalize nullable fields to actual `null`s
-        const propertyPaths = ["system.baseItem", "system.group"];
-        for (const path of propertyPaths) {
-            formData[path] ||= null;
-        }
-
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));

@@ -778,6 +778,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
         }
+        if (changed.system?.group !== undefined) {
+            changed.system.group ||= null;
+        }
 
         return super._preUpdate(changed, options, user);
     }

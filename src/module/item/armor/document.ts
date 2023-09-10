@@ -305,10 +305,12 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        const category = changed.system?.category;
-        if (changed.system && category) {
-            const usage = { value: category === "shield" ? "held-in-one-hand" : "wornarmor" };
+        if (changed.system?.category) {
+            const usage = { value: changed.system.category === "shield" ? "held-in-one-hand" : "wornarmor" };
             changed.system = mergeObject(changed.system, { usage });
+        }
+        if (changed.system?.group !== undefined) {
+            changed.system.group ||= null;
         }
 
         return super._preUpdate(changed, options, user);
