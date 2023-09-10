@@ -100,7 +100,7 @@ class WeaponDamagePF2e {
             return null;
         }
 
-        const baseDomains = [`${weapon.id}-damage`, "damage", "strike-damage"];
+        const baseDomains = [`${weapon.id}-damage`, "damage", "attack-damage", "strike-damage"];
         const weaponTraits = weapon.system.traits.value;
         // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
         const materialTraits = weapon.isOfType("melee")
