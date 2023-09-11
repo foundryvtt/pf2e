@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import {
@@ -10,7 +10,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { ItemPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
@@ -34,7 +34,9 @@ import {
     StatisticChatData,
     StatisticCheckData,
     StatisticData,
+    StatisticDCSource,
     StatisticDifficultyClassData,
+    StatisticSource,
     StatisticTraceData,
 } from "./data.ts";
 
@@ -56,6 +58,11 @@ class Statistic extends BaseStatistic {
 
     #check?: StatisticCheck<this>;
     #dc?: StatisticDifficultyClass<this>;
+
+    #source: {
+        data: StatisticData;
+        config: RollOptionConfig;
+    };
 
     constructor(actor: ActorPF2e, data: StatisticData, config: RollOptionConfig = {}) {
         data.modifiers ??= [];
@@ -85,6 +92,11 @@ class Statistic extends BaseStatistic {
         data.modifiers.unshift(...baseModifiers);
 
         super(actor, data);
+
+        this.#source = {
+            data,
+            config,
+        };
 
         this.attribute = data.attribute ?? null;
         if (typeof data.lore === "boolean") this.lore = data.lore;
@@ -262,6 +274,63 @@ class Statistic extends BaseStatistic {
             breakdown,
             modifiers: modifiers.map((m) => m.toObject()),
         };
+    }
+
+    toObject(): StatisticSource {
+        const { data, config } = this.#source;
+
+        return {
+            actor: this.actor.uuid,
+            data: {
+                ...deepClone(R.omit(data, ["filter", "modifiers"])),
+                modifiers: (data.modifiers ?? []).map((m) => m.toObject()),
+            },
+            config: {
+                extraRollOptions: duplicate(config.extraRollOptions ?? []),
+                item: config.item?.uuid,
+                target: config.target?.uuid,
+                origin: config.origin?.uuid,
+            },
+        };
+    }
+
+    static fromSource(source: StatisticSource): Statistic {
+        const config: RollOptionConfig = {
+            extraRollOptions: source.config.extraRollOptions,
+        };
+
+        const item = fromUuidSync(source.config.item ?? "");
+        if (item instanceof ItemPF2e) {
+            config.item = item;
+        } else if (source.config.item) {
+            throw ErrorPF2e(`Failed to resolve item UUID [${source.config.item}]`);
+        }
+
+        const origin = fromUuidSync(source.config.origin ?? "");
+        if (origin instanceof ActorPF2e) {
+            config.origin = origin;
+        } else if (source.config.origin) {
+            throw ErrorPF2e(`Failed to resolve origin actor with UUID [${source.config.origin}]`);
+        }
+
+        const target = fromUuidSync(source.config.target ?? "");
+        if (target instanceof ActorPF2e) {
+            config.target = target;
+        } else if (source.config.target) {
+            throw ErrorPF2e(`Failed to resolve target actor with UUID [${source.config.target}]`);
+        }
+
+        const data = {
+            ...source.data,
+            modifiers: source.data.modifiers.map((m) => new ModifierPF2e(m)),
+        } satisfies StatisticData;
+
+        const actor = fromUuidSync(source.actor);
+        if (!(actor instanceof ActorPF2e)) {
+            throw ErrorPF2e(`Failed to resolve actor UUID [${source.actor}]`);
+        }
+
+        return new Statistic(actor, data, config);
     }
 }
 
@@ -598,11 +667,20 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     modifiers: ModifierPF2e[];
     options: Set<string>;
 
-    constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {
+    #source: {
+        data: StatisticData;
+        config: RollOptionConfig;
+    };
+
+    constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
+        this.#source = {
+            data,
+            config,
+        };
         this.parent = parent;
         this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat())).sort();
         this.label = data.dc?.label;
-        this.options = parent.createRollOptions(this.domains, options);
+        this.options = parent.createRollOptions(this.domains, config);
 
         // Acquire additional adjustments for cloned parent modifiers
         const { modifierAdjustments } = parent.actor.synthetics;
@@ -658,6 +736,60 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     toString(): string {
         return String(this.value);
+    }
+
+    toObject(): StatisticDCSource {
+        const { data, config } = this.#source;
+
+        return {
+            parent: this.parent.toObject(),
+            data: {
+                ...deepClone(R.omit(data, ["filter", "modifiers"])),
+                modifiers: (data.modifiers ?? []).map((m) => m.toObject()),
+            },
+            config: {
+                extraRollOptions: duplicate(config.extraRollOptions ?? []),
+                item: config.item?.uuid,
+                target: config.target?.uuid,
+                origin: config.origin?.uuid,
+            },
+        };
+    }
+
+    static fromSource(source: StatisticDCSource): StatisticDifficultyClass {
+        const config: RollOptionConfig = {
+            extraRollOptions: source.config.extraRollOptions,
+        };
+
+        const item = fromUuidSync(source.config.item ?? "");
+        if (item instanceof ItemPF2e) {
+            config.item = item;
+        } else if (source.config.item) {
+            throw ErrorPF2e(`Failed to resolve item UUID [${source.config.item}]`);
+        }
+
+        const origin = fromUuidSync(source.config.origin ?? "");
+        if (origin instanceof ActorPF2e) {
+            config.origin = origin;
+        } else if (source.config.origin) {
+            throw ErrorPF2e(`Failed to resolve origin actor with UUID [${source.config.origin}]`);
+        }
+
+        const target = fromUuidSync(source.config.target ?? "");
+        if (target instanceof ActorPF2e) {
+            config.target = target;
+        } else if (source.config.target) {
+            throw ErrorPF2e(`Failed to resolve target actor with UUID [${source.config.target}]`);
+        }
+
+        const data = {
+            ...source.data,
+            modifiers: source.data.modifiers.map((m) => new ModifierPF2e(m)),
+        } satisfies StatisticData;
+
+        const parent = Statistic.fromSource(source.parent);
+
+        return new StatisticDifficultyClass(parent, data, config);
     }
 }
 

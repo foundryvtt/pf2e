@@ -253,7 +253,7 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate({ ...this, item: undefined });
+        return duplicate({ ...this });
     }
 
     toString(): string {

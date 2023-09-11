@@ -248,7 +248,7 @@ class CheckPF2e {
             title: context.title ?? "PF2E.Check.Label",
             traits: context.traits ?? [],
             substitutions,
-            dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
+            dc: context.dc ? { ...context.dc, statistic: context.dc.statistic?.toObject() } : null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
@@ -428,6 +428,27 @@ class CheckPF2e {
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
         const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
+
+        const degree = (() => {
+            const dcSource = context.dc;
+            if (!dcSource) return null;
+
+            if (!dcSource.statistic) {
+                return new DegreeOfSuccess(newRoll, R.omit(dcSource, ["statistic"]), context.dosAdjustments);
+            }
+
+            const dc = {
+                ...dcSource,
+                statistic: StatisticDifficultyClass.fromSource(dcSource.statistic),
+            };
+
+            return dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
+        })();
+
+        if (degree) {
+            newRoll.options.degreeOfSuccess = degree.value;
+        }
+
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded
@@ -453,9 +474,7 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
-        const degree = dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
         const useNewRoll = keptRoll === newRoll && !!degree;
         context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 

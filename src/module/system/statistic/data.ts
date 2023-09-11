@@ -83,12 +83,33 @@ interface StatisticTraceData extends BaseStatisticTraceData {
     dc: number;
 }
 
+interface StatisticSource {
+    actor: ActorUUID;
+    data: Omit<StatisticData, "filter" | "modifiers"> & {
+        modifiers: Required<RawModifier>[];
+    };
+    config: {
+        extraRollOptions?: string[];
+        item?: ItemUUID;
+        origin?: ActorUUID;
+        target?: ActorUUID;
+    };
+}
+
+interface StatisticDCSource {
+    parent: StatisticSource;
+    data: StatisticSource["data"];
+    config: StatisticSource["config"];
+}
+
 export type {
     BaseStatisticData,
     BaseStatisticTraceData,
     StatisticChatData,
     StatisticCheckData,
     StatisticData,
+    StatisticDCSource,
     StatisticDifficultyClassData,
+    StatisticSource,
     StatisticTraceData,
 };
