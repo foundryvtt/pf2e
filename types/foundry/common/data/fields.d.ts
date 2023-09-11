@@ -407,7 +407,7 @@ export class NumberField<
 
     protected static override get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean>;
 
-    protected override _cast(value: unknown): TSourceProp;
+    protected override _cast(value: unknown): unknown;
 
     protected override _cleanType(
         value: unknown,

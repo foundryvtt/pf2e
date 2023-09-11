@@ -1,12 +1,15 @@
-import { AuraColors, AuraData } from "@actor/types.ts";
+import { AuraAppearanceData, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
 import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
+import { isVideoFilePath } from "@util";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
+    slug: string;
+
     /** The token associated with this aura */
     token: TokenPF2e;
 
@@ -19,20 +22,26 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
-    /** Border and fill colors in hexadecimal */
-    colors: TokenAuraColors;
+    /** Border, highlight, and texture data */
+    appearance: AuraAppearanceData;
 
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
 
+    #border = new PIXI.Graphics();
+
+    texture: PIXI.Texture | null = null;
+
     constructor(params: AuraRendererParams) {
         super();
 
+        this.slug = params.slug;
         this.token = params.token;
-        this.colors = this.#convertColors(params.colors);
+        this.appearance = params.appearance;
         this.radius = params.radius;
         this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
+        this.addChild(this.#border);
     }
 
     get bounds(): PIXI.Rectangle {
@@ -61,11 +70,51 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return !!this.token.combatant?.encounter.started;
     }
 
-    /** Draw the aura's circular emanation */
-    draw(): void {
-        this.#drawRing();
-        if (this.token.controlled || this.token.hover || this.token.layer.highlightObjects || this.inEncounter) {
-            this.visible = true;
+    /** Draw the aura's border and texture */
+    draw(showBorder: boolean): void {
+        this.#drawBorder();
+        this.#border.visible = showBorder;
+        this.#drawTexture();
+    }
+
+    /** Draw the aura's border, making sure it's only ever drawn once. */
+    #drawBorder(): void {
+        const data = this.appearance.border;
+        if (!data || this.#border.geometry.drawCalls.length > 0) {
+            return;
+        }
+
+        const [x, y, radius] = [this.token.w / 2, this.token.h / 2, this.radiusPixels];
+        this.#border.lineStyle(AuraRenderer.LINE_THICKNESS, data.color, data.alpha).drawCircle(x, y, radius);
+    }
+
+    /** Draw the aura's texture, resizing the image/video over the area (applying adjustments to that if provided) */
+    async #drawTexture(): Promise<void> {
+        const data = this.appearance.texture;
+        if (!data || this.token.isPreview || this.geometry.drawCalls.length > 0) {
+            return;
+        }
+
+        const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
+        this.texture = maybeTexture instanceof PIXI.Texture ? maybeTexture : null;
+        const video = isVideoFilePath(data.src) && this.texture ? game.video.getVideoSource(this.texture) : null;
+        if (video instanceof HTMLVideoElement) {
+            this.texture?.destroy();
+            this.texture = await game.video.cloneTexture(video);
+            const fromTexture = game.video.getVideoSource(this.texture) ?? video;
+            game.video.play(fromTexture, { volume: 0, offset: Math.random() * fromTexture.duration });
+        }
+
+        if (this.texture) {
+            const radius = data.scale * this.radiusPixels;
+            const diameter = radius * 2;
+            const scale = { x: diameter / this.texture.width, y: diameter / this.texture.height };
+            const center = { x: Math.round(this.token.w / 2), y: Math.round(this.token.h / 2) };
+            const translation = data.translation ?? { x: radius + center.x, y: radius + center.y };
+            const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, translation.x, translation.y);
+            this.beginTextureFill({ texture: this.texture, alpha: data.alpha, matrix })
+                .drawCircle(center.x, center.y, radius)
+                .endFill();
         }
     }
 
@@ -82,32 +131,9 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             if (!highlightLayer) return;
 
             for (const square of this.squares) {
-                square.highlight(highlightLayer, this.colors);
+                square.highlight(highlightLayer, this.appearance);
             }
         }
-    }
-
-    /**
-     * Convert HTML color strings to hexadecimal values
-     * Due to a bug in the core BaseGrid class, black (0) is treated as the color being excluded
-     */
-    #convertColors(colors: AuraColors | null): TokenAuraColors {
-        const user =
-            game.users.find((u) => !!u.character && u.character.id === this.token.actor?.id) ??
-            game.users.find((u) => u.isGM && u.active) ??
-            game.user;
-
-        return {
-            border: Number(foundry.utils.Color.fromString(colors?.border ?? "#000000")),
-            fill: Number(foundry.utils.Color.fromString(colors?.fill ?? user.color ?? "#000000")),
-        };
-    }
-
-    #drawRing(): void {
-        if (this.geometry.drawCalls.length > 0) return;
-
-        const [x, y, radius] = [this.token.w / 2, this.token.h / 2, this.radiusPixels];
-        this.lineStyle(AuraRenderer.LINE_THICKNESS, this.colors.border, 0.5).drawCircle(x, y, radius);
     }
 
     /** Add a numeric label and marker dot indicating the emanation radius */
@@ -133,14 +159,10 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     }
 }
 
-interface TokenAuraColors {
-    border: number;
-    fill: number;
-}
-
 interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
+    slug: string;
     token: TokenPF2e;
     traits: Set<ItemTrait>;
 }
 
-export { AuraRenderer, type TokenAuraColors };
+export { AuraRenderer };

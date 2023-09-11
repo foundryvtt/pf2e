@@ -60,9 +60,9 @@ interface AuraData {
     slug: string;
     level: number | null;
     radius: number;
-    effects: AuraEffectData[];
-    colors: AuraColors | null;
     traits: EffectTrait[];
+    effects: AuraEffectData[];
+    appearance: AuraAppearanceData;
 }
 
 interface AuraEffectData {
@@ -78,9 +78,15 @@ interface AuraEffectData {
     includesSelf: boolean;
 }
 
-interface AuraColors {
-    border: `#${string}` | null;
-    fill: `#${string}` | null;
+interface AuraAppearanceData {
+    border: { color: number; alpha: number } | null;
+    highlight: { color: number; alpha: number };
+    texture: {
+        src: ImageFilePath | VideoFilePath;
+        alpha: number;
+        scale: number;
+        translation: { x: number; y: number } | null;
+    } | null;
 }
 
 /* -------------------------------------------- */
@@ -191,7 +197,7 @@ export type {
     ActorInstances,
     ApplyDamageParams,
     AttributeString,
-    AuraColors,
+    AuraAppearanceData,
     AuraData,
     AuraEffectData,
     CheckContext,
