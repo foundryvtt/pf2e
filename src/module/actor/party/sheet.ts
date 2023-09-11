@@ -1,6 +1,7 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { Language } from "@actor/creature/index.ts";
+import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
@@ -34,7 +35,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...options,
             classes: [...options.classes, "party"],
             width: 720,
-            height: 660,
+            height: 720,
             template: "systems/pf2e/templates/actors/party/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
@@ -138,6 +139,23 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return this.actor.members.map((actor): MemberBreakdown => {
             const observer = actor.testUserPermission(game.user, "OBSERVER");
             const restricted = !(game.settings.get("pf2e", "metagame_showPartyStats") || observer);
+            const genderPronouns = actor.isOfType("character")
+                ? actor.system.details.gender.value.trim() || null
+                : null;
+            const blurb =
+                actor.isOfType("character") && actor.ancestry && actor.class
+                    ? game.i18n.format("PF2E.Actor.Character.Blurb", {
+                          level: actor.level,
+                          ancestry: actor.ancestry.name,
+                          class: actor.class.name,
+                      })
+                    : actor.isOfType("familiar") && actor.master
+                    ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
+                    : actor.isOfType("npc")
+                    ? actor.system.details.blurb.trim() || null
+                    : null;
+            const heroPoints =
+                actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")
                 ? R.compact(actor.system.exploration.map((id) => actor.items.get(id)))
                 : [];
@@ -151,7 +169,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .reverse()
                     .slice(0, 4)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
-                heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
+                genderPronouns,
+                blurb,
+                heroPoints,
                 owner: actor.isOwner,
                 observer,
                 limited: observer || actor.limited,
@@ -165,10 +185,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 senses: (() => {
                     const rawSenses = actor.system.traits.senses ?? [];
                     if (!Array.isArray(rawSenses)) {
-                        return rawSenses.value.split(",").map((l) => ({
-                            labelFull: l.trim(),
-                            label: sanitizeSense(l),
-                        }));
+                        return rawSenses.value
+                            .split(",")
+                            .filter((s) => !!s.trim())
+                            .map((l) => ({
+                                labelFull: l.trim(),
+                                label: sanitizeSense(l),
+                            }));
                     }
 
                     // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
@@ -529,6 +552,8 @@ interface SkillData {
 
 interface MemberBreakdown {
     actor: ActorPF2e;
+    genderPronouns: string | null;
+    blurb: string | null;
     heroPoints: ValueAndMax | null;
     hasBulk: boolean;
     bestSkills: SkillData[];
