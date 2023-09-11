@@ -153,6 +153,32 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
+    /**
+     * Use border color corresponding with disposition even when the token's actor is player-owned.
+     * @see https://github.com/foundryvtt/foundryvtt/issues/9993
+     */
+    protected override _getBorderColor(options?: { hover?: boolean }): number | null {
+        const isHovered = options?.hover ?? (this.hover || this.layer.highlightObjects);
+        const isControlled = this.controlled || (!game.user.isGM && this.isOwner);
+        const isFriendly = this.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        if (!isHovered || isControlled || isFriendly || !this.actor?.hasPlayerOwner) {
+            // Upstream will do the right thing in these cases
+            return super._getBorderColor();
+        }
+
+        const colors = CONFIG.Canvas.dispositionColors;
+        switch (this.document.disposition) {
+            case CONST.TOKEN_DISPOSITIONS.NEUTRAL:
+                return colors.NEUTRAL;
+            case CONST.TOKEN_DISPOSITIONS.HOSTILE:
+                return colors.HOSTILE;
+            case CONST.TOKEN_DISPOSITIONS.SECRET:
+                return this.isOwner ? colors.SECRET : null;
+            default:
+                return super._getBorderColor(options);
+        }
+    }
+
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
