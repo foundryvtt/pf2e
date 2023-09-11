@@ -41,24 +41,33 @@ class EncounterPF2e extends Combat {
     /** Determine threat rating and XP award for this encounter */
     analyze(): { threat: ThreatRating; xp: number } | null {
         const { party } = game.actors;
-        const partyMembers: ActorPF2e[] = party?.members.filter((a) => isReallyPC(a)) ?? [];
-        const enemies =
-            this.combatants
-                .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
-                .flatMap((c) => c.actor ?? []) ?? [];
-        if (!party || enemies.length === 0) {
+        const partyMembers: ActorPF2e[] = party?.members.filter((a) => a.alliance === "party" && isReallyPC(a)) ?? [];
+        // If no party members are in the encounter yet, show threat/XP as though all are.
+        const fightyPartyMembers = ((): ActorPF2e[] => {
+            const inEncounter = partyMembers.filter((m) => m.combatant?.encounter === this);
+            return inEncounter.length > 0 ? inEncounter : partyMembers;
+        })();
+        const enemies = this.combatants
+            .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
+            .flatMap((c) => c.actor ?? []);
+        if (!party || fightyPartyMembers.length === 0 || enemies.length === 0) {
             return null;
         }
 
         const result = calculateXP(
             party.level,
-            party.members.length,
-            enemies.filter((e) => !e.isOfType("hazard")).map((e) => e.level),
+            fightyPartyMembers.length,
+            enemies.filter((e) => e.isOfType("character", "npc")).map((e) => e.level),
             enemies.filter((e): e is HazardPF2e => e.isOfType("hazard")),
             { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
         );
+        const threat = result.rating;
+        // "Any XP awarded goes to all members of the group. For instance, if the party wins a battle worth 100 XP, they
+        // each get 100 XP, even if the party's rogue was off in a vault stealing treasure during the battle."
+        // - CRB pg. 507
+        const xp = Math.floor(result.xpPerPlayer * (fightyPartyMembers.length / partyMembers.length));
 
-        return { threat: result.rating, xp: result.xpPerPlayer };
+        return { threat, xp };
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */

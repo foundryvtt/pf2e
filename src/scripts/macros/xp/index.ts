@@ -95,7 +95,7 @@ function generateEncounterBudgets(partySize: number): EncounterBudgets {
 
 const rewardEncounterBudgets = generateEncounterBudgets(4);
 
-function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): keyof EncounterBudgets {
+function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): ThreatRating {
     if (challenge <= budgets.trivial) {
         return "trivial";
     } else if (challenge <= budgets.low) {
