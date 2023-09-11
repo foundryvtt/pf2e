@@ -412,6 +412,7 @@ export const PF2ECONFIG = {
         greaterResilient: "PF2E.ArmorGreaterResilientRune",
         majorResilient: "PF2E.ArmorMajorResilientRune",
     },
+
     armorPropertyRunes: {
         acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
         advancing: "PF2E.ArmorPropertyRuneAdvancing",

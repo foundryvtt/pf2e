@@ -22,7 +22,7 @@ import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
+import type { PROFICIENCY_RANKS } from "@module/data.ts";
 
 export * from "./helpers.ts";
 

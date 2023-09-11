@@ -8,17 +8,11 @@ import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
-    Bulk,
-    CoinsPF2e,
     IdentificationStatus,
-    MaterialGradeData,
     MystifiedData,
-    RuneValuationData,
-    WEAPON_MATERIAL_VALUATION_DATA,
     WEAPON_PROPERTY_RUNES,
-    WEAPON_VALUATION_DATA,
-    WeaponPropertyRuneData,
     getPropertySlots,
+    prunePropertyRunes,
 } from "@item/physical/index.ts";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RangeData } from "@item/types.ts";
@@ -28,14 +22,13 @@ import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
-import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
+import { WeaponTraitToggles } from "./helpers.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
     StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
-    WeaponPropertyRuneType,
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
@@ -116,7 +109,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.system.reload.value || null;
     }
 
-    get isSpecific(): boolean {
+    override get isSpecific(): boolean {
         return this.system.specific?.value ?? false;
     }
 
@@ -313,8 +306,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        ABP.cleanupRunes(this);
-
         // Thrown weapons always have a reload of "-" or 0
         if (this.isThrown && !tupleHasValue(["-", "0"], this.system.reload.value)) {
             this.system.reload.value = "-";
@@ -367,13 +358,24 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
 
-        this.prepareMaterialAndRunes();
-        this.prepareLevelAndRarity();
+        this.prepareRunes();
+
+        // Add traits from fundamental runes
+        const baseTraits = this.system.traits.value;
+        const { runes } = this.system;
+        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
+        const magicTraits: ("evocation" | "magical")[] = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t))
+            ? ["evocation"]
+            : hasRunes
+            ? ["evocation", "magical"]
+            : [];
+        this.system.traits.value = R.uniq([baseTraits, magicTraits].flat()).sort();
     }
 
-    private prepareMaterialAndRunes(): void {
-        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
+    private prepareRunes(): void {
+        ABP.cleanupRunes(this);
 
+        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
         const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
             ["striking", 1],
             ["greaterStriking", 2],
@@ -385,9 +387,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             potency: potencyRune.value ?? 0,
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: prunePropertyRunes(
-                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                    (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
-                )
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
+                CONFIG.PF2E.weaponPropertyRunes
             ),
             effects: [],
         });
@@ -409,48 +410,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 : this.system.damage.dice;
     }
 
-    /** Set level, price, and rarity according to precious material and runes */
-    private prepareLevelAndRarity(): void {
-        const systemData = this.system;
-
-        // Collect all traits from the runes and apply them to the weapon
-        const runesData = this.getRunesValuationData();
-        const baseTraits = systemData.traits.value;
-        const { runes } = this.system;
-        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTraits: ("evocation" | "magical")[] = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t))
-            ? ["evocation"]
-            : hasRunes
-            ? ["evocation", "magical"]
-            : [];
-        systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
-
-        // Set tags from runes
-        systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
-
-        // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
-        const materialData = this.getMaterialValuationData();
-        if (!(this.isMagical || materialData) || this.isSpecific) return;
-
-        const baseLevel = this.level;
-        systemData.level.value = runesData
-            .map((runeData) => runeData.level)
-            .concat(materialData?.level ?? 0)
-            .reduce((highest, level) => (level > highest ? level : highest), baseLevel);
-
-        const rarityOrder = {
-            common: 0,
-            uncommon: 1,
-            rare: 2,
-            unique: 3,
-        };
-        const baseRarity = this.rarity;
-        systemData.traits.rarity = runesData
-            .map((runeData) => runeData.rarity)
-            .concat(materialData?.rarity ?? "common")
-            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
-    }
-
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
@@ -464,39 +423,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Set the default label to the ammunition item's name
         const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
-    }
-
-    override computeAdjustedPrice(): CoinsPF2e | null {
-        const materialData = this.getMaterialValuationData();
-        if (!(this.isMagical || materialData) || this.isSpecific) return null;
-
-        // Adjust the weapon price according to precious material and runes
-        // Base prices are not included in these cases
-        // https://2e.aonprd.com/Rules.aspx?ID=731
-        // https://2e.aonprd.com/Equipment.aspx?ID=380
-        const runesData = this.getRunesValuationData();
-        const materialPrice = materialData?.price ?? 0;
-        const heldOrStowedBulk = new Bulk({ light: this.system.bulk.heldOrStowed });
-        const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
-        const materialValue = materialPrice + (bulk * materialPrice) / 10;
-        const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-
-        return new CoinsPF2e({ gp: runeValue + materialValue });
-    }
-
-    getRunesValuationData(): RuneValuationData[] {
-        const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
-        return [
-            WEAPON_VALUATION_DATA.potency[this.system.runes.potency],
-            WEAPON_VALUATION_DATA.striking[this.system.runes.striking],
-            ...this.system.runes.property.map((p) => propertyRuneData[p]),
-        ].filter((d): d is RuneValuationData => !!d);
-    }
-
-    getMaterialValuationData(): MaterialGradeData | null {
-        const { material } = this;
-        const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.type ?? ""];
-        return material.grade && (materialData?.[material.grade] ?? null);
     }
 
     override async getChatData(

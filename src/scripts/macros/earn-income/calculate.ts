@@ -1,5 +1,5 @@
+import { CoinsPF2e } from "@item/physical/coins.ts";
 import { Coins } from "@item/physical/data.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
 import { DegreeOfSuccess, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";

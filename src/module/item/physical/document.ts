@@ -3,7 +3,7 @@ import { ItemPF2e, type ContainerPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
 import { MystifiedTraits } from "@item/data/values.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { CoinsPF2e, computeLevelRarityPrice } from "@item/physical/helpers.ts";
 import { Rarity, Size } from "@module/data.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
@@ -120,6 +120,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     get material(): ItemMaterialData {
         return deepClone(this.system.material);
+    }
+
+    /** Whether this is a specific magic item: applicable to armor, shields, and weapons */
+    get isSpecific(): boolean {
+        return false;
     }
 
     get isInContainer(): boolean {
@@ -265,23 +270,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             },
         };
 
-        // If the item has an adjusted price, replace it if higher
-        const adjustedPrice = this.computeAdjustedPrice?.();
-        if (adjustedPrice) {
-            const basePrice = this.price.value;
-            const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
-            const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
-            this.system.price.value = highestPrice;
-        }
-
-        if (this.isShoddy) {
-            this.system.price.value = this.system.price.value.scale(0.5);
-            this.system.hp.max = Math.floor(this.system.hp.max / 2);
-            this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
-            this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
-        }
-
-        this.system.price.value = this.adjustPriceForSize();
+        // Compute level, rarity, and price from factors like runes, precious material, shoddiness, and size
+        const { level, rarity, price } = computeLevelRarityPrice(this);
+        this.system.level.value = level;
+        this.system.traits.rarity = rarity;
+        this.system.price.value = price;
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
@@ -291,11 +284,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Fill gaps in unidentified data with defaults
         this.system.identification.unidentified = this.getMystifiedData("unidentified");
-    }
-
-    /** Increase the price if it is larger than medium and not magical. */
-    protected adjustPriceForSize(): CoinsPF2e {
-        return this.isMagical ? this.price.value : this.price.value.adjustForSize(this.size);
     }
 
     override prepareSiblingData(): void {
@@ -627,8 +615,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: PhysicalItemSource;
     system: PhysicalSystemData;
-
-    computeAdjustedPrice?(): CoinsPF2e | null;
 }
 
 export { PhysicalItemPF2e };
