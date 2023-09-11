@@ -1,6 +1,6 @@
 {
     "_id": "6bC6RAZddiv8Io6w",
-    "img": "systems/pf2e/icons/default-icons/armor.svg",
+    "img": "icons/equipment/shield/kite-wooden-oak-glow.webp",
     "name": "Broadleaf Shield (Greater)",
     "system": {
         "acBonus": 2,
@@ -55,7 +55,46 @@
         "resiliencyRune": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "broadleaf-shield-resistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.BroadleafShield.Void",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.BroadleafShield.Fire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.BroadleafShield.Poison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.BroadleafShield.Cold",
+                        "value": "cold"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.broadleafShieldResistance}",
+                "value": 4
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:shield:raised"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.broadleafShieldResistance}",
+                "value": 8
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Rage of Elements"
