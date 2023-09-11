@@ -146,7 +146,7 @@ export default abstract class DataModel<
      */
     updateSource(
         changes?: DeepPartial<this["_source"]> | undefined,
-        options?: MergeObjectOptions
+        options?: DocumentSourceUpdateContext
     ): DeepPartial<this["_source"]>;
 
     /* ---------------------------------------- */

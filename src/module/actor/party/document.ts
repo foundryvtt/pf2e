@@ -65,6 +65,21 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return true;
     }
 
+    override updateSource(
+        data?: DocumentUpdateData<PartyPF2e>,
+        options?: DocumentSourceUpdateContext
+    ): DeepPartial<this["_source"]> {
+        if (!this.campaign) return super.updateSource(data, options);
+
+        // Note: inner data must be handled *before* outer data, otherwise it'll fail
+        const expanded: DeepPartial<PartySource> = expandObject(data ?? {});
+        const campaignDiff = expanded?.system?.campaign
+            ? this.campaign.updateSource(expanded.system.campaign, options)
+            : {};
+        const diff = super.updateSource(data, options);
+        return R.isEmpty(campaignDiff) ? diff : mergeObject(diff, campaignDiff);
+    }
+
     /** Only prepare rule elements for non-physical items (in case campaigin items exist) */
     protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
         return this.items.contents
@@ -101,10 +116,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             } else {
                 // Wrap in a try catch in case data preparation fails
                 try {
-                    if (this.campaign?.type === campaignType) {
-                        this.campaign.updateSource(this.system.campaign);
-                    } else {
+                    if (this.campaign?.type !== campaignType) {
                         this.campaign = new Kingdom(deepClone(this._source.system.campaign), { parent: this });
+                    } else {
+                        // System data models are normally cleaned with partial: false, allowing certain defaults to be set
+                        // We fake such an update here so that elements like settlements can function
+                        Kingdom.cleanData(this.campaign._source);
                     }
 
                     this.system.campaign = this.campaign;
