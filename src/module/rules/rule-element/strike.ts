@@ -34,7 +34,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     constructor(source: StrikeSource, options: RuleElementOptions) {
-        source.img ??= options.parent.img;
+        source.img ??= source.fist ? "icons/skills/melee/unarmed-punch-fist.webp" : options.parent.img;
 
         super(source, options);
 
@@ -173,7 +173,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.key = "Strike";
             this.priority = 99;
             this.slug = "fist";
-            this.img = "systems/pf2e/icons/features/classes/powerful-fist.webp";
+            this.img = this._source.img;
             this.category = "unarmed";
             this.group = "brawling";
             this.baseType = "fist";

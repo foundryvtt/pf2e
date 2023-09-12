@@ -134,9 +134,12 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         "water-spout",
         "wave",
         "wing",
-    ].reduce((accumulated: Record<string, ImageFilePath | undefined>, strike) => {
-        const path = `systems/pf2e/icons/unarmed-attacks/${strike}.webp` as const;
-        return { ...accumulated, [strike]: path };
+    ].reduce((accumulated: Record<string, ImageFilePath | undefined>, slug) => {
+        const path =
+            slug === "fist"
+                ? "icons/skills/melee/unarmed-punch-fist.webp"
+                : (`systems/pf2e/icons/unarmed-attacks/${slug}.webp` as const);
+        return { ...accumulated, [slug]: path };
     }, {});
 
     override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
