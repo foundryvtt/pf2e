@@ -211,7 +211,7 @@
 
 {{#unless data.heightening.type}}
     {{#if canHeighten}}
-        <button data-action="heightening-interval-create"><i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
+        <button type="button" data-action="heightening-interval-create"><i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
     {{/if}}
 {{/unless}}
 
@@ -250,7 +250,7 @@
         {{> systems/pf2e/templates/items/spell-overlay.hbs this=this}}
     {{/each}}
     {{#if canHeighten}}
-        <button data-action="heightening-fixed-create" data-overlay-type="heightening">
+        <button type="button" data-action="heightening-fixed-create" data-overlay-type="heightening">
             <i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
         </button>
     {{/if}}
