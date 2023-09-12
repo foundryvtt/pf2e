@@ -22,9 +22,9 @@
                 </span>
             {{/if}}
             <template class="traits-extra">
-                {{#if rarity}}
-                    <select class="tag rarity" name="system.traits.rarity" value="{{rarity}}">
-                        {{#select rarity}}
+                {{#if item.rarity}}
+                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity" data-base-value="{{item._source.system.traits.rarity}}">
+                        {{#select item.rarity}}
                             {{#each rarities as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}

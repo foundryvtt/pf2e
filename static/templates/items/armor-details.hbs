@@ -58,9 +58,8 @@
         <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
         <select name="system.potencyRune.value" data-dtype="Number">
             {{#select data.potencyRune.value}}
-                <option value="0"></option>
-                {{#each armorPotencyRunes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
+                {{#each fundamentalRunes.potency as |rune|}}
+                    <option value="{{rune.value}}">{{localize rune.name}}</option>
                 {{/each}}
             {{/select}}
         </select>
@@ -70,9 +69,8 @@
         <label>{{localize "PF2E.ResiliencyRuneLabel"}}</label>
         <select name="system.resiliencyRune.value">
             {{#select data.resiliencyRune.value}}
-                <option value=""></option>
-                {{#each armorResiliencyRunes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
+                {{#each fundamentalRunes.resilient as |rune|}}
+                    <option value="{{rune.slug}}">{{localize rune.name}}</option>
                 {{/each}}
             {{/select}}
         </select>
@@ -84,8 +82,8 @@
             <select name="system.propertyRune1.value">
                 {{#select data.propertyRune1.value}}
                     <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each propertyRunes as |rune|}}
+                        <option value="{{rune.slug}}">{{localize rune.name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -98,8 +96,8 @@
             <select name="system.propertyRune2.value">
                 {{#select data.propertyRune2.value}}
                     <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each propertyRunes as |rune|}}
+                        <option value="{{rune.slug}}">{{localize rune.name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -112,8 +110,8 @@
             <select name="system.propertyRune3.value">
                 {{#select data.propertyRune3.value}}
                     <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each propertyRunes as |rune|}}
+                        <option value="{{rune.slug}}">{{localize rune.name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -126,8 +124,8 @@
             <select name="system.propertyRune4.value">
                 {{#select data.propertyRune4.value}}
                     <option value=""></option>
-                    {{#each armorPropertyRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each propertyRunes as |rune|}}
+                        <option value="{{rune.slug}}">{{localize rune.name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -137,7 +135,16 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
-    <input type="number" name="system.acBonus" value="{{data.acBonus}}" />
+    <input type="number"
+        value="{{item.system.acBonus}}"
+        {{#if (gt item.acBonus item._source.system.acBonus)}}
+            class="adjusted-higher"
+        {{else if (lt item.acBonus item._source.system.acBonus)}}
+            class="adjusted-lower"
+        {{/if}}
+        data-property="system.acBonus"
+        data-value-base="{{json item._source.system.acBonus}}"
+    />
 </div>
 
 <div class="form-group">

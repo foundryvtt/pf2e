@@ -1,7 +1,13 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, prunePropertyRunes } from "@item/physical/index.ts";
+import {
+    PhysicalItemHitPoints,
+    PhysicalItemPF2e,
+    RUNE_DATA,
+    getPropertySlots,
+    prunePropertyRunes,
+} from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -57,9 +63,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     get acBonus(): number {
-        const potencyRune = this.isArmor && this.isInvested ? this.system.runes.potency : 0;
-        const baseArmor = Number(this.system.acBonus) || 0;
-        return this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
+        return this.system.acBonus;
     }
 
     get hitPoints(): PhysicalItemHitPoints {
@@ -124,6 +128,15 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         this.system.traits.value = R.uniq([baseTraits, fromRunes, magicTraits].flat()).sort();
     }
 
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        const potencyRune =
+            this.isArmor && this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
+        const baseArmor = Number(this.system.acBonus) || 0;
+        this.system.acBonus = this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
+    }
+
     private prepareRunes(): void {
         ABP.cleanupRunes(this);
 
@@ -140,7 +153,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             resilient: resilientBonusAddend.get(resiliencyRune.value) ?? 0,
             property: prunePropertyRunes(
                 [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
-                CONFIG.PF2E.armorPropertyRunes
+                RUNE_DATA.armor.property
             ),
             effects: [],
         });
@@ -255,29 +268,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         });
     }
 
-    override generateModifiedName(): string {
-        const baseArmors: Record<string, string | undefined> = CONFIG.PF2E.baseArmorTypes;
-        const { material } = this;
-        const storedName = this._source.name;
-        const baseName = game.i18n.localize(baseArmors[this.baseType ?? ""] ?? "");
-        if (!baseName || !material.type || storedName !== baseName) {
-            return this.name;
-        }
-
-        const materialName = game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
-
-        // Special case: avoid armor names like "Dragonhide Hide Armor"
-        if (this.baseType === "hide-armor" && material.type.includes("hide")) {
-            const genericName = game.i18n.localize("TYPES.Item.armor");
-            return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", {
-                base: genericName,
-                material: materialName,
-            });
-        }
-
-        return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", { base: baseName, material: materialName });
-    }
-
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
@@ -308,6 +298,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (changed.system?.category) {
             const usage = { value: changed.system.category === "shield" ? "held-in-one-hand" : "wornarmor" };
             changed.system = mergeObject(changed.system, { usage });
+        }
+        if (changed.system?.acBonus !== undefined) {
+            changed.system.acBonus ||= 0;
         }
         if (changed.system?.group !== undefined) {
             changed.system.group ||= null;

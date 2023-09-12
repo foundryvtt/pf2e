@@ -35,7 +35,6 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
-            damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.system.prerequisites?.value ?? []),
             isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
@@ -89,7 +88,6 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
     prerequisites: string;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;

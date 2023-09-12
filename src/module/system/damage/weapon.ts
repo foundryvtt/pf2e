@@ -4,7 +4,7 @@ import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTI
 import { AttributeString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
-import { getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
+import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractDamageSynthetics, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
@@ -356,7 +356,7 @@ class WeaponDamagePF2e {
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
-            (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
+            (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []
         );
 
         // Backstabber trait
@@ -424,7 +424,7 @@ class WeaponDamagePF2e {
 
         // Roll notes
         const runeNotes = propertyRunes.flatMap((r) => {
-            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
 

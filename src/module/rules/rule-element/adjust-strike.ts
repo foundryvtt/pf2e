@@ -1,7 +1,7 @@
 import { ActorType } from "@actor/data/index.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { prunePropertyRunes } from "@item/physical/runes.ts";
+import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
@@ -196,7 +196,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 );
                             }
                             const runeSlug = sluggify(String(change), { camel: "dromedary" });
-                            if (!objectHasKey(CONFIG.PF2E.weaponPropertyRunes, runeSlug)) {
+                            if (!objectHasKey(RUNE_DATA.weapon.property, runeSlug)) {
                                 return this.failValidation(`"${change}" is not a recognized weapon property rune.`);
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
@@ -211,10 +211,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
                             }
 
-                            weapon.system.runes.property = prunePropertyRunes(
-                                propertyRunes,
-                                CONFIG.PF2E.weaponPropertyRunes
-                            );
+                            weapon.system.runes.property = prunePropertyRunes(propertyRunes, RUNE_DATA.weapon.property);
                         },
                     };
             }

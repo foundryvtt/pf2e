@@ -31,9 +31,8 @@ import {
 import { ConditionSlug } from "@item/condition/types.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { FeatCategory } from "@item/feat/index.ts";
-import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
-import { MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType, WeaponReloadTime } from "@item/weapon/types.ts";
+import { MeleeWeaponGroup, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
@@ -113,12 +112,6 @@ const senseAcuity: Record<SenseAcuity, string> = {
     imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",
     precise: "PF2E.Actor.Creature.Sense.Acuity.Precise",
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
-};
-
-const weaponPropertyRunes = {
-    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
-        return { ...accumulated, [slug]: rune.name };
-    }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
@@ -400,76 +393,6 @@ export const PF2ECONFIG = {
     preciousMaterialGrades,
     preciousMaterials,
 
-    armorPotencyRunes: {
-        "1": "PF2E.ArmorPotencyRune1",
-        "2": "PF2E.ArmorPotencyRune2",
-        "3": "PF2E.ArmorPotencyRune3",
-        "4": "PF2E.ArmorPotencyRune4",
-    },
-
-    armorResiliencyRunes: {
-        resilient: "PF2E.ArmorResilientRune",
-        greaterResilient: "PF2E.ArmorGreaterResilientRune",
-        majorResilient: "PF2E.ArmorMajorResilientRune",
-    },
-
-    armorPropertyRunes: {
-        acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
-        advancing: "PF2E.ArmorPropertyRuneAdvancing",
-        aimAiding: "PF2E.ArmorPropertyRuneAimAiding",
-        antimagic: "PF2E.ArmorPropertyRuneAntimagic",
-        assisting: "PF2E.ArmorPropertyRuneAssisting",
-        bitter: "PF2E.ArmorPropertyRuneBitter",
-        coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
-        deathless: "PF2E.ArmorPropertyRuneDeathless",
-        dread: "PF2E.ArmorPropertyRuneDread",
-        electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
-        energyAdaptive: "PF2E.ArmorPropertyRuneEnergyAdaptive",
-        ethereal: "PF2E.ArmorPropertyRuneEthereal",
-        fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
-        fortification: "PF2E.ArmorPropertyRuneFortification",
-        glamered: "PF2E.ArmorPropertyRuneGlamered",
-        gliding: "PF2E.ArmorPropertyRuneGliding",
-        greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
-        greaterAdvancing: "PF2E.ArmorPropertyRuneGreaterAdvancing",
-        greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
-        greaterDread: "PF2E.ArmorPropertyRuneGreaterDread",
-        greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
-        greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
-        greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
-        greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
-        greaterQuenching: "PF2E.ArmorPropertyRuneGreaterQuenching",
-        greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
-        greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
-        greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
-        greaterStanching: "PF2E.ArmorPropertyRuneGreaterStanching",
-        greaterSwallowSpike: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
-        greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
-        immovable: "PF2E.ArmorPropertyRuneImmovable",
-        implacable: "PF2E.ArmorPropertyRuneImplacable",
-        invisibility: "PF2E.ArmorPropertyRuneInvisibility",
-        magnetizing: "PF2E.ArmorPropertyRuneMagnetizing",
-        majorQuenching: "PF2E.ArmorPropertyRuneMajorQuenching",
-        majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
-        majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
-        majorStanching: "PF2E.ArmorPropertyRuneMajorStanching",
-        majorSwallowSpike: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
-        misleading: "PF2E.ArmorPropertyRuneMisleading",
-        moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
-        portable: "PF2E.ArmorPropertyRunePortable",
-        quenching: "PF2E.ArmorPropertyRuneQuenching",
-        ready: "PF2E.ArmorPropertyRuneReady",
-        rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
-        shadow: "PF2E.ArmorPropertyRuneShadow",
-        sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
-        slick: "PF2E.ArmorPropertyRuneSlick",
-        soaring: "PF2E.ArmorPropertyRuneSoaring",
-        stanching: "PF2E.ArmorPropertyRuneStanching",
-        swallowSpike: "PF2E.ArmorPropertyRuneSwallowSpike",
-        trueQuenching: "PF2E.ArmorPropertyRuneTrueQuenching",
-        trueStanching: "PF2E.ArmorPropertyRuneTrueStanching",
-        winged: "PF2E.ArmorPropertyRuneWinged",
-    },
     accessoryPropertyRunes: {
         called: "PF2E.AccessoryPropertyRuneCalled",
         dragonsBreath: "PF2E.AccessoryPropertyRuneDragonsBreath",
@@ -483,18 +406,6 @@ export const PF2ECONFIG = {
         windCatcher: "PF2E.AccessoryPropertyRuneWindCatcher",
         greaterWindCatcher: "PF2E.AccessoryPropertyRuneGreaterWindCatcher",
     },
-    weaponPotencyRunes: {
-        1: "PF2E.WeaponPotencyRune1",
-        2: "PF2E.WeaponPotencyRune2",
-        3: "PF2E.WeaponPotencyRune3",
-        4: "PF2E.WeaponPotencyRune4",
-    },
-    weaponStrikingRunes: {
-        striking: "PF2E.ArmorStrikingRune",
-        greaterStriking: "PF2E.ArmorGreaterStrikingRune",
-        majorStriking: "PF2E.ArmorMajorStrikingRune",
-    },
-    weaponPropertyRunes,
     damageTraits,
     damageTypes,
     damageRollFlavors,
@@ -519,21 +430,9 @@ export const PF2ECONFIG = {
     },
 
     weaknessTypes,
-
-    weaponDamage: {
-        bludgeoning: "PF2E.TraitBludgeoning",
-        piercing: "PF2E.TraitPiercing",
-        slashing: "PF2E.TraitSlashing",
-        modular: "PF2E.TraitModular",
-    },
-
-    healingTypes: {
-        healing: "PF2E.TraitHealing",
-        temphp: "PF2E.HealingTypeTemporaryHealing",
-    },
-
     weaponCategories,
     weaponGroups,
+
     meleeWeaponGroups,
 
     baseArmorTypes,
@@ -799,11 +698,6 @@ export const PF2ECONFIG = {
     },
 
     identification: configFromLocalization(enJSON.PF2E.identification, "PF2E.identification"),
-
-    weaponGeneratedNames: configFromLocalization(
-        enJSON.PF2E.Item.Weapon.GeneratedName,
-        "PF2E.Item.Weapon.GeneratedName"
-    ),
 
     ruleElement: configFromLocalization(reEnJSON.PF2E.RuleElement, "PF2E.RuleElement"),
 
@@ -1209,12 +1103,6 @@ export const PF2ECONFIG = {
         40: 2,
         55: 3,
         Infinity: 4,
-    },
-
-    runes: {
-        weapon: {
-            property: { ...WEAPON_PROPERTY_RUNES },
-        },
     },
 
     SETTINGS: {
