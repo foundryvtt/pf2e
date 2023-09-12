@@ -1,0 +1,75 @@
+{
+    "_id": "BBGg5gpMmuBSo7Mi",
+    "img": "icons/magic/water/ice-snowman.webp",
+    "name": "Effect: Deep Freeze",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.jNzjecRGyyAqkkrm]{Deep Freeze}.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and takes a -5-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Failure</strong> The target takes full damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, and takes a -15-foot status penalty to its Speeds for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": 15
+                    }
+                ],
+                "flag": "deepFreezeSpeedPenalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "deep-freeze-penalty"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": "-@item.flags.pf2e.rulesSelections.deepFreezeSpeedPenalty"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 1
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "deep-freeze-penalty:15"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
