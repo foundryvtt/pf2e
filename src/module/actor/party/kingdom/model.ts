@@ -308,6 +308,22 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             }
         }
 
+        // Add a status penalty due to unrest
+        if (this.unrest.value > 0) {
+            const thresholds = [1, 5, 10, 15];
+            const modifier = -(thresholds.findLastIndex((t) => this.unrest.value >= t) + 1);
+            const modifiers = (synthetics.modifiers["kingdom-check"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "unrest",
+                        label: "PF2E.Kingmaker.Kingdom.Unrest",
+                        type: "status",
+                        modifier,
+                    })
+            );
+        }
+
         const settlements = R.compact(Object.values(this.settlements));
 
         // Initialize settlement data
@@ -327,6 +343,14 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     prepareDerivedData(): void {
         const { synthetics } = this.actor;
+
+        // Compute consumption
+        const settlements = R.compact(Object.values(this.settlements));
+        const consumption = this.consumption;
+        consumption.settlement = R.sumBy(settlements, (s) => s.consumption.total);
+        const computedConsumption =
+            consumption.base + consumption.settlement + consumption.army - this.resources.workSites.food.value;
+        consumption.value = Math.max(0, computedConsumption);
 
         // Calculate the control dc, used for skill checks
         const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
