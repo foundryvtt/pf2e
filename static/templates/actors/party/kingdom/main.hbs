@@ -62,16 +62,6 @@
                             <input type="number" value="{{commodity.value}}" name="resources.commodities.{{commodity.type}}.value" />
                             / {{commodity.max}}
                         </div>
-                        <label class="work-site">
-                            <span data-tooltip="{{commodity.workSites.description}}">{{commodity.workSites.label}}</span>
-                            <input type="number" value="{{commodity.workSites.value}}" name="resources.workSites.{{commodity.type}}.value" />
-                        </label>
-                        {{#if commodity.workSites.hasResource}}
-                            <label class="work-site">
-                                <span data-tooltip="{{localize "PF2E.Kingmaker.Kingdom.WorkSites.Resource"}}">2x</span>
-                                <input type="number" value="{{commodity.workSites.resource}}" name="resources.workSites.{{commodity.type}}.resource" />
-                            </label>
-                        {{/if}}
                     </section>
                 {{/each}}
             </div>

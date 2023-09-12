@@ -46,7 +46,8 @@ export function registerTemplates(): void {
         // Kingdom Sheet Partials
         "systems/pf2e/templates/actors/party/kingdom/main.hbs",
         "systems/pf2e/templates/actors/party/kingdom/activities.hbs",
-        "systems/pf2e/templates/actors/party/kingdom/advancement.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/world.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/features.hbs",
 
         // Shared Actor Sheet Partials
         "systems/pf2e/templates/actors/partials/action.hbs",
