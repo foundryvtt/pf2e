@@ -257,3 +257,4 @@ export { Migration856NoSystemDotCustom } from "./856-no-system-dot-custom.ts";
 export { Migration857WeaponSpecializationRE } from "./857-weapon-spec-re.ts";
 export { Migration858FakeWeaponSpecialization } from "./858-fake-weapon-specialization.ts";
 export { Migration859MaterialTypeGrade } from "./859-material-type-grade.ts";
+export { Migration860RMGroup } from "./860-rm-group.ts";
