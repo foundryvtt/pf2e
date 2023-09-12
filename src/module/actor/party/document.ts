@@ -122,6 +122,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         // System data models are normally cleaned with partial: false, allowing certain defaults to be set
                         // We fake such an update here so that elements like settlements can function
                         Kingdom.cleanData(this.campaign._source);
+                        this.campaign.reset();
                     }
 
                     this.system.campaign = this.campaign;

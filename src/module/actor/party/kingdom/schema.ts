@@ -154,14 +154,14 @@ const KINGDOM_SETTLEMENT_SCHEMA = {
     description: new fields.StringField(),
     sort: new fields.IntegerSortField(),
     consumption: new fields.SchemaField({
-        base: new fields.NumberField(),
+        base: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),
         /** Some settlements reduce consumption, this is the number of reductions that may exist */
         reduction: new fields.NumberField<number, number, false, false>({
             required: false,
             nullable: false,
             initial: 0,
         }),
-        total: new fields.NumberField(),
+        total: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),
     }),
     storage: new fields.SchemaField(
         R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
@@ -275,9 +275,10 @@ const KINGDOM_SCHEMA = {
         { required: false, nullable: false, initial: {} }
     ),
     consumption: new fields.SchemaField({
-        value: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+        base: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),
         settlement: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
         army: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+        value: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
     }),
     unrest: new fields.SchemaField({
         value: new fields.NumberField<number, number, false, false, true>({

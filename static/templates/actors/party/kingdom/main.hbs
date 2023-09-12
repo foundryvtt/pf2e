@@ -54,17 +54,29 @@
                 <label>{{localize "PF2E.Bonus"}} <input type="number" value="{{resourceDice.bonus}}" name="resources.dice.bonus"/></label>
                 <label>{{localize "PF2E.Kingmaker.Penalty"}} <input type="number" value="{{resourceDice.penalty}}" name="resources.dice.penalty"/></label>
             </section>
-            <div class="commodities">
+            <section class="commodities">
                 {{#each commodities as |commodity|}}
-                    <section class="commodity">
-                        <span class="type">{{commodity.label}}</span>
+                    <div class="commodity">
+                        <label class="type" for="commodity-{{commodity.type}}">{{commodity.label}}</label>
                         <div class="value-max">
-                            <input type="number" value="{{commodity.value}}" name="resources.commodities.{{commodity.type}}.value" />
+                            <input id="commodity-{{commodity.type}}" type="number" value="{{commodity.value}}" name="resources.commodities.{{commodity.type}}.value" />
                             / {{commodity.max}}
                         </div>
-                    </section>
+                    </div>
                 {{/each}}
-            </div>
+            </section>
+            <section class="stats">
+                <div>
+                    {{localize "PF2E.Kingmaker.Consumption.Label"}}
+                    <span class="number">{{kingdom.consumption.value}}</span>
+                </div>
+                <label>
+                    {{localize "PF2E.Kingmaker.Kingdom.Unrest"}}
+                    <input type="number" name="unrest.value" value="{{kingdom.unrest.value}}"/>
+                    /
+                    <span class="number">{{kingdom.unrest.anarchyThreshold}}</span>
+                </label>
+            </section>
         </div>
     </section>
     <section class="ability-scores">
