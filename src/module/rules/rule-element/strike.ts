@@ -171,7 +171,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     protected override _initialize(options?: Record<string, unknown>): void {
         if (this._source.fist) {
             this.key = "Strike";
-            this.priority = 100;
+            this.priority = 99;
             this.slug = "fist";
             this.img = "systems/pf2e/icons/features/classes/powerful-fist.webp";
             this.category = "unarmed";
