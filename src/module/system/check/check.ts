@@ -262,7 +262,6 @@ class CheckPF2e {
                 core: context.type === "initiative" ? { initiativeRoll: true } : {},
                 pf2e: {
                     context: contextFlag,
-                    unsafe: flavor,
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
                     origin: item?.getOriginData(),
