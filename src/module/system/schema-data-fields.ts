@@ -363,6 +363,9 @@ class RecordField<
         const validationFailure = foundry.data.validation.DataModelValidationFailure;
         const failures = new validationFailure();
         for (const [key, value] of Object.entries(values)) {
+            // If this is a deletion key for a partial update, skip
+            if (key.startsWith("-=") && options?.partial) continue;
+
             const keyFailure = this.keyField.validate(key, options);
             if (keyFailure) {
                 failures.elements.push({ id: key, failure: keyFailure });
@@ -375,6 +378,16 @@ class RecordField<
         if (failures.elements.length) {
             return failures;
         }
+    }
+
+    protected override _cleanType(
+        values: Record<string, unknown>,
+        options?: CleanFieldOptions | undefined
+    ): Record<string, unknown> {
+        for (const [key, value] of Object.entries(values)) {
+            values[key] = this.valueField.clean(value, options);
+        }
+        return values;
     }
 
     protected override _validateType(
