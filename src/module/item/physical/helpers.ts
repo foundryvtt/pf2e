@@ -4,7 +4,7 @@ import { Bulk } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
-import { getRunesValuationData } from "./runes.ts";
+import { getRuneValuationData } from "./runes.ts";
 
 function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = item.price.value;
@@ -20,7 +20,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
     const materialValue = materialPrice + (bulk * materialPrice) / 10;
 
-    const runesData = getRunesValuationData(item);
+    const runesData = getRuneValuationData(item);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0);
 
     const afterMaterialAndRunes = runeValue
@@ -41,7 +41,7 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
         return { ...R.pick(item, ["level", "rarity"]), price };
     }
 
-    const runesData = getRunesValuationData(item);
+    const runesData = getRuneValuationData(item);
     const level = runesData
         .map((runeData) => runeData.level)
         .concat(materialData?.level ?? 0)

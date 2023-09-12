@@ -10,7 +10,7 @@ import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     IdentificationStatus,
     MystifiedData,
-    WEAPON_PROPERTY_RUNES,
+    RUNE_DATA,
     getPropertySlots,
     prunePropertyRunes,
 } from "@item/physical/index.ts";
@@ -388,7 +388,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: prunePropertyRunes(
                 [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
-                CONFIG.PF2E.weaponPropertyRunes
+                RUNE_DATA.weapon.property
             ),
             effects: [],
         });
@@ -443,57 +443,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             traits,
             properties,
         });
-    }
-
-    /** Generate a weapon name base on precious-material composition and runes */
-    override generateModifiedName(): string {
-        const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
-
-        const storedName = this._source.name;
-        if (this.isSpecific || !this.baseType || storedName !== game.i18n.localize(baseWeapons[this.baseType])) {
-            return this.name;
-        }
-
-        const { material } = this;
-        const { runes } = this.system;
-        const potencyRune = runes.potency;
-        const strikingRune = ((): keyof ConfigPF2e["PF2E"]["weaponStrikingRunes"] | null => {
-            const locMap = { 0: null, 1: "striking", 2: "greaterStriking", 3: "majorStriking" } as const;
-            return locMap[runes.striking];
-        })();
-
-        const params = {
-            base: this.baseType ? game.i18n.localize(baseWeapons[this.baseType]) : this.name,
-            material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
-            potency: potencyRune,
-            striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
-            property1: runes.property[0] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[0]]),
-            property2: runes.property[1] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[1]]),
-            property3: runes.property[2] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[2]]),
-            property4: runes.property[3] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[3]]),
-        };
-        const formatStrings = CONFIG.PF2E.weaponGeneratedNames;
-        // Construct a localization key from the weapon material and runes
-        const formatString = (() => {
-            const potency = params.potency && "Potency";
-            const striking = params.striking && "Striking";
-            const properties = params.property4
-                ? "FourProperties"
-                : params.property3
-                ? "ThreeProperties"
-                : params.property2
-                ? "TwoProperties"
-                : params.property1
-                ? "OneProperty"
-                : null;
-            const material = params.material && "Material";
-            const key = ([potency, striking, properties, material]
-                .filter((keyPart): keyPart is string => !!keyPart)
-                .join("") || null) as keyof typeof formatStrings | null;
-            return key && game.i18n.localize(formatStrings[key]);
-        })();
-
-        return formatString ? game.i18n.format(formatString, params) : this.name;
     }
 
     override getMystifiedData(status: IdentificationStatus, { source = false } = {}): MystifiedData {
@@ -629,7 +578,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             };
         })();
         const fromPropertyRunes = this.system.runes.property
-            .flatMap((r) => WEAPON_PROPERTY_RUNES[r].damage?.dice ?? [])
+            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.dice ?? [])
             .map(
                 (d): NPCAttackDamage => ({
                     damage: `${d.diceNumber}${d.dieSize}`,

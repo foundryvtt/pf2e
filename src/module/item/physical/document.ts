@@ -1,11 +1,10 @@
-import { ActorPF2e, ActorProxyPF2e } from "@actor";
+import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import { ItemPF2e, type ContainerPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
 import { MystifiedTraits } from "@item/data/values.ts";
-import { CoinsPF2e, computeLevelRarityPrice } from "@item/physical/helpers.ts";
 import { Rarity, Size } from "@module/data.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
@@ -19,6 +18,8 @@ import {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
+import { CoinsPF2e, computeLevelRarityPrice } from "./helpers.ts";
+import { RUNE_DATA } from "./runes.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -463,7 +464,67 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * have significant implementations.
      */
     generateModifiedName(): string {
-        return this.name;
+        if (!this.isOfType("armor", "weapon")) return this.name;
+
+        type Dictionaries = [
+            Record<string, string | undefined>,
+            Record<string, { name: string } | undefined>,
+            Record<string, { name: string } | null>
+        ];
+
+        // Acquire base-type and rune dictionaries, with "fundamental 2" being either resilient or striking
+        const [baseItemDictionary, propertyDictionary, fundamentalTwoDictionary]: Dictionaries = this.isOfType("armor")
+            ? [CONFIG.PF2E.baseArmorTypes, RUNE_DATA.armor.property, RUNE_DATA.armor.resilient]
+            : [CONFIG.PF2E.baseWeaponTypes, RUNE_DATA.weapon.property, RUNE_DATA.weapon.striking];
+
+        const storedName = this._source.name;
+        const baseType = this.baseType ?? "";
+        if (
+            !baseType ||
+            !(baseType in baseItemDictionary) ||
+            this.isSpecific ||
+            storedName !== game.i18n.localize(baseItemDictionary[baseType] ?? "")
+        ) {
+            return this.name;
+        }
+
+        const { material } = this;
+        const { runes } = this.system;
+        const potencyRune = runes.potency;
+        const fundamental2 = "resilient" in runes ? runes.resilient : runes.striking;
+
+        const params = {
+            base: baseType ? game.i18n.localize(baseItemDictionary[baseType] ?? "") : this.name,
+            material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
+            potency: potencyRune,
+            fundamental2: game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null,
+            property1: game.i18n.localize(propertyDictionary[runes.property[0]]?.name ?? "") || null,
+            property2: game.i18n.localize(propertyDictionary[runes.property[1]]?.name ?? "") || null,
+            property3: game.i18n.localize(propertyDictionary[runes.property[2]]?.name ?? "") || null,
+            property4: game.i18n.localize(propertyDictionary[runes.property[3]]?.name ?? "") || null,
+        };
+        // Construct a localization key from material and runes
+        const formatString = (() => {
+            const potency = params.potency && "Potency";
+            const fundamental2 = params.fundamental2 && "Fundamental2";
+            const properties = params.property4
+                ? "FourProperties"
+                : params.property3
+                ? "ThreeProperties"
+                : params.property2
+                ? "TwoProperties"
+                : params.property1
+                ? "OneProperty"
+                : null;
+            const material = params.material && "Material";
+            const key =
+                [potency, fundamental2, properties, material]
+                    .filter((keyPart): keyPart is string => !!keyPart)
+                    .join("") || null;
+            return key && game.i18n.localize(key);
+        })();
+
+        return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : this.name;
     }
 
     async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
