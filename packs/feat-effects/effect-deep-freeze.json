@@ -20,51 +20,27 @@
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": "success"
+                        "value": "5"
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.failure",
-                        "value": "failure"
+                        "value": "10"
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
-                        "value": "critical-failure"
+                        "value": "15"
                     }
                 ],
-                "flag": "deepFreezeDegreeOfSuccess",
+                "flag": "speedPenalty",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "deep-freeze:degree-of-success"
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "deep-freeze-penalty"
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "deep-freeze:degree-of-success:success"
-                ],
-                "selector": "speed",
-                "slug": "deep-freeze-success",
+                "selector": "all-speeds",
                 "type": "circumstance",
-                "value": -5
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "deep-freeze:degree-of-success:failure"
-                ],
-                "selector": "speed",
-                "slug": "deep-freeze-failure",
-                "type": "circumstance",
-                "value": -10
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "deep-freeze:degree-of-success:critical-failure"
-                ],
-                "selector": "speed",
-                "slug": "deep-freeze-critical-failure",
-                "type": "circumstance",
-                "value": -15
+                "value": "-@item.flags.pf2e.rulesSelections.speedPenalty"
             },
             {
                 "alterations": [
@@ -76,7 +52,7 @@
                 ],
                 "key": "GrantItem",
                 "predicate": [
-                    "deep-freeze:degree-of-success:critical-failure"
+                    "deep-freeze-penalty:15"
                 ],
                 "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
             }
