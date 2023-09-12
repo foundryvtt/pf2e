@@ -1,9 +1,16 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.js";
-import { KingdomAbility } from "./types.ts";
-import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
+import { type ArrayField, type StringField } from "types/foundry/common/data/fields.js";
+import { KingdomAbility, KingdomSettlementType } from "./types.ts";
+import {
+    KINGDOM_ABILITIES,
+    KINGDOM_COMMODITIES,
+    KINGDOM_LEADERSHIP,
+    KINGDOM_SETTLEMENT_TYPES,
+    KINGDOM_SKILLS,
+} from "./values.ts";
 import { RawModifier } from "@actor/modifiers.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 
@@ -129,6 +136,46 @@ const KINGDOM_RESOURCES_SCHEMA = {
     ),
 };
 
+const KINGDOM_SETTLEMENT_SCHEMA = {
+    name: new fields.StringField<string, string, true, false, true>({
+        required: true,
+        blank: true,
+        nullable: false,
+        initial: "",
+    }),
+    type: new fields.StringField<KingdomSettlementType, KingdomSettlementType, false, false, true>({
+        required: false,
+        nullable: false,
+        choices: KINGDOM_SETTLEMENT_TYPES,
+        initial: "village",
+    }),
+    level: new fields.NumberField({ min: 1, initial: 1, max: 30, nullable: false }),
+    overcrowded: new fields.BooleanField(),
+    description: new fields.StringField(),
+    sort: new fields.IntegerSortField(),
+    consumption: new fields.SchemaField({
+        base: new fields.NumberField(),
+        /** Some settlements reduce consumption, this is the number of reductions that may exist */
+        reduction: new fields.NumberField<number, number, false, false>({
+            required: false,
+            nullable: false,
+            initial: 0,
+        }),
+        total: new fields.NumberField(),
+    }),
+    storage: new fields.SchemaField(
+        R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
+            const schema = new fields.NumberField<number, number, false, false>({
+                required: false,
+                nullable: false,
+                min: 0,
+                initial: 0,
+            });
+            return [type, schema];
+        })
+    ),
+};
+
 const KINGDOM_SCHEMA = {
     type: new fields.StringField({
         choices: ["kingmaker"],
@@ -136,6 +183,7 @@ const KINGDOM_SCHEMA = {
         nullable: false,
         initial: "kingmaker",
     }),
+    active: new fields.BooleanField<boolean, boolean, true, false>({ initial: false, required: true, nullable: false }),
 
     name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
     img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
@@ -161,7 +209,6 @@ const KINGDOM_SCHEMA = {
             initial: 1000,
         }),
     }),
-    active: new fields.BooleanField<boolean, boolean, true, false>({ initial: false, required: true, nullable: false }),
     aspiration: new fields.StringField({
         choices: ["fame", "infamy"],
         required: true,
@@ -222,6 +269,16 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
+    settlements: new RecordField(
+        new fields.StringField({ required: true, nullable: false, blank: false }),
+        new fields.SchemaField(KINGDOM_SETTLEMENT_SCHEMA, { required: true }),
+        { required: false, nullable: false, initial: {} }
+    ),
+    consumption: new fields.SchemaField({
+        value: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+        settlement: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+        army: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+    }),
     unrest: new fields.SchemaField({
         value: new fields.NumberField<number, number, false, false, true>({
             integer: true,
@@ -243,4 +300,4 @@ const KINGDOM_SCHEMA = {
     module: new fields.ObjectField({ required: false, initial: {} }),
 };
 
-export { KINGDOM_SCHEMA };
+export { KINGDOM_SCHEMA, KINGDOM_SETTLEMENT_SCHEMA };

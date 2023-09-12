@@ -1,0 +1,73 @@
+<section class="content">
+    <section class="work-sites">
+        <h4>{{localize "PF2E.Kingmaker.WorkSites.Label"}}</h4>
+        {{#each commodities as |commodity|}}
+            <div class="work-site-row">
+                <label class="value">
+                    <span data-tooltip="{{commodity.workSites.description}}">{{commodity.workSites.label}}</span>
+                    <input type="number" value="{{commodity.workSites.value}}" name="resources.workSites.{{commodity.type}}.value" />
+                </label>
+                {{#if commodity.workSites.hasResource}}
+                    <label class="resource">
+                        <span data-tooltip="{{localize "PF2E.Kingmaker.WorkSites.Resource"}}">2x</span>
+                        <input type="number" value="{{commodity.workSites.resource}}" name="resources.workSites.{{commodity.type}}.resource" />
+                    </label>
+                {{/if}}
+            </div>
+        {{/each}}
+    </section>
+
+    <h3 class="header">
+        {{localize "PF2E.Kingmaker.Kingdom.Activities"}}
+        <button type="button" data-action="add-settlement">
+            <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
+        </button>
+    </h3>
+    <ol class="actions-list item-list directory-list">
+        {{#each settlements as |settlement id|}}
+            <li class="settlement" data-settlement-id="{{id}}">
+                <header>
+                    <input class="name" type="text" value="{{settlement.name}}" name="settlements.{{id}}.name" placeholder="{{localize "PF2E.Kingmaker.Settlement.Name"}}" />
+                    <a data-action="delete-settlement"><i class="fa-solid fa-times"></i></a>
+                    <select name="settlements.{{id}}.type" data-dtype="String">
+                        {{#select settlement.type}}
+                            {{#each @root.settlementTypes as |label value|}}
+                                <option value="{{value}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <label class="level">
+                        {{localize "PF2E.LevelLabel"}}
+                        <input type="number" value="{{settlement.level}}" name="settlements.{{id}}.level" />
+                    </label>
+                </header>
+
+                <section class="info">
+                    <h4>Stats</h4>
+                    <div>{{settlement.blocks}} {{localize "PF2E.Kingmaker.Settlement.Blocks"}}</div>
+                    <label>
+                        <input type="number" value="{{settlement.consumption.reduction}}" name="settlements.{{id}}.consumption.reduction"/>
+                        {{localize "PF2E.Kingmaker.Consumption.Reduced"}}
+                    </label>
+                    <div>{{settlement.consumption.total}} {{localize "PF2E.Kingmaker.Consumption.Label"}}</div>
+                </section>
+
+                <section class="storage">
+                    <h4>Storage</h4>
+                    {{#each storage as |storage|}}
+                        <section class="commodity-data">
+                            <label class="value">
+                                <span data-tooltip="{{storage.description}}">{{storage.label}}</span>
+                                <input type="number" value="{{storage.value}}" name="settlements.{{id}}.storage.{{storage.type}}" />
+                            </label>
+                        </section>
+                    {{/each}}
+                </section>
+
+                <section class="description">
+                    {{editor enrichedContent.description target=(concat "settlements." id ".description") button=true owner=@root.owner editable=@root.editable}}
+                </section>
+            </li>
+        {{/each}}
+    </ol>
+</section>

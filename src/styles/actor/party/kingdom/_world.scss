@@ -1,0 +1,109 @@
+.content {
+    padding: 12px;
+}
+
+input[type="text"], input[type="number"] {
+    border: none;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+
+.work-sites {
+    input[type=number] {
+        width: 3ch;
+        text-align: center;
+        padding: 0;
+    }
+
+    .work-site-row, label {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .value span {
+        min-width: 7rem;
+    }
+}
+
+.settlement {
+    display: grid;
+    grid-template:
+        "header header header" min-content
+        "info work description" 1fr
+        / auto auto 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+
+    input[type=number] {
+        width: 3ch;
+        text-align: center;
+        padding: 0;
+    }
+
+    header {
+        grid-area: header;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        label {
+            display: flex;
+            align-items: center;
+        }
+        .name {
+            font-size: var(--font-size-20);
+        }
+        select {
+            margin-left: 2rem;
+        }
+        .level {
+            font-size: var(--font-size-16);
+            input {
+                width: 3ch;
+                text-align: center;
+            }
+        }
+    }
+
+    & > section {
+        display: flex;
+        flex-direction: column;
+        & > label,
+        & > div {
+            line-height: 1.5em;
+        }
+    }
+
+    .info {
+        grid-area: info;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+    }
+
+    .storage {
+        grid-area: work;
+        white-space: nowrap;
+        .commodity-data,
+        label {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        label + label {
+            margin-left: 0.25rem;
+        }
+        .value span {
+            min-width: 5rem;
+        }
+    }
+
+    .description {
+        grid-area: description;
+        display: flex;
+        flex-direction: column;
+        & > * {
+            flex: 1;
+        }
+    }
+}

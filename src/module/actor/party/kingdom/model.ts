@@ -27,6 +27,7 @@ import {
     KINGDOM_LEADERSHIP,
     KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
+    KINGDOM_SETTLEMENT_TYPE_DATA,
     KINGDOM_SIZE_DATA,
     KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
@@ -307,9 +308,20 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             }
         }
 
+        const settlements = R.compact(Object.values(this.settlements));
+
+        // Initialize settlement data
+        for (const settlement of settlements) {
+            if (!settlement) continue;
+            const typeData = KINGDOM_SETTLEMENT_TYPE_DATA[settlement.type];
+            settlement.consumption.base = typeData.consumption;
+            settlement.consumption.total = Math.max(0, typeData.consumption - settlement.consumption.reduction);
+        }
+
         // Compute commodity max values
-        for (const value of Object.values(this.resources.commodities)) {
-            value.max = sizeData.storage;
+        for (const [type, value] of Object.entries(this.resources.commodities)) {
+            const settlementStorage = R.sumBy(settlements, (s) => s.storage[type]);
+            value.max = sizeData.storage + settlementStorage;
         }
     }
 

@@ -24,14 +24,23 @@ import {
 import * as R from "remeda";
 import { KingdomBuilder } from "./builder.ts";
 import { Kingdom } from "./model.ts";
-import { KingdomAbilityData, KingdomData, KingdomLeadershipData, KingdomSource } from "./types.ts";
+import {
+    KingdomAbilityData,
+    KingdomData,
+    KingdomLeadershipData,
+    KingdomSettlementData,
+    KingdomSource,
+} from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
+    KINGDOM_COMMODITY_LABELS,
     KINGDOM_LEADERSHIP,
     KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
+    KINGDOM_SETTLEMENT_TYPE_DATA,
+    KINGDOM_SETTLEMENT_TYPE_LABELS,
 } from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
@@ -123,10 +132,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             commodities: KINGDOM_COMMODITIES.map((type) => ({
                 ...kingdom.resources.commodities[type],
                 type,
-                label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`),
+                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
                 workSites: {
-                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Name`),
-                    description: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Description`),
+                    label: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Name`),
+                    description: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Description`),
                     hasResource: ["lumber", "ore", "stone"].includes(type),
                     value: kingdom.resources.workSites[type].value,
                     resource: kingdom.resources.workSites[type].resource,
@@ -163,6 +172,24 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 label: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[trait]),
                 value: trait,
                 selected: false, // selected is handled without re-render
+            })),
+            settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
+            settlements: R.mapToObj(Object.entries(kingdom.settlements), ([id, data]) => {
+                return [id, this.prepareSettlement(data!)];
+            }),
+        };
+    }
+
+    prepareSettlement(settlement: KingdomSettlementData): SettlementSheetData {
+        const data = KINGDOM_SETTLEMENT_TYPE_DATA[settlement.type];
+
+        return {
+            ...settlement,
+            blocks: data.blocks === Infinity ? "10+" : data.blocks,
+            storage: KINGDOM_COMMODITIES.map((type) => ({
+                type,
+                value: settlement.storage[type],
+                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
             })),
         };
     }
@@ -289,6 +316,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 }
 
                 this.kingdom.addCustomModifier(stat, { label, modifier, type });
+            });
+        }
+
+        htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
+            this.kingdom.update({ [`settlements.${randomID(16)}`]: {} });
+        });
+        for (const settlementElement of htmlQueryAll(html, ".settlement")) {
+            const id = settlementElement.dataset.settlementId;
+            htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", () => {
+                this.kingdom.update({ [`settlements.-=${id}`]: null });
             });
         }
 
@@ -462,6 +499,8 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOption[];
+    settlementTypes: Record<string, string>;
+    settlements: Record<string, SettlementSheetData>;
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
@@ -485,5 +524,14 @@ interface CommoditySheetData extends ValueAndMax {
         resource?: number;
     };
 }
+
+type SettlementSheetData = Omit<KingdomSettlementData, "storage"> & {
+    blocks: number | string;
+    storage: {
+        type: string;
+        label: string;
+        value: number;
+    }[];
+};
 
 export { KingdomSheetPF2e };
