@@ -4,7 +4,7 @@ import { Bulk } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
-import { getRuneValuationData } from "./runes.ts";
+import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
 function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = item.price.value;
@@ -62,5 +62,72 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
     return { level, rarity, price };
 }
 
+/**
+ * Generate a modified item name based on precious materials and runes. Currently only armor and weapon documents
+ * have significant implementations.
+ */
+function generateItemName(item: PhysicalItemPF2e): string {
+    if (!item.isOfType("armor", "weapon")) return item.name;
+
+    type Dictionaries = [
+        Record<string, string | undefined>,
+        Record<string, { name: string } | undefined>,
+        Record<string, { name: string } | null>
+    ];
+
+    // Acquire base-type and rune dictionaries, with "fundamental 2" being either resilient or striking
+    const [baseItemDictionary, propertyDictionary, fundamentalTwoDictionary]: Dictionaries = item.isOfType("armor")
+        ? [CONFIG.PF2E.baseArmorTypes, RUNE_DATA.armor.property, RUNE_DATA.armor.resilient]
+        : [CONFIG.PF2E.baseWeaponTypes, RUNE_DATA.weapon.property, RUNE_DATA.weapon.striking];
+
+    const storedName = item._source.name;
+    const baseType = item.baseType ?? "";
+    if (
+        !baseType ||
+        !(baseType in baseItemDictionary) ||
+        item.isSpecific ||
+        storedName !== game.i18n.localize(baseItemDictionary[baseType] ?? "")
+    ) {
+        return item.name;
+    }
+
+    const { material } = item;
+    const { runes } = item.system;
+    const potencyRune = runes.potency;
+    const fundamental2 = "resilient" in runes ? runes.resilient : runes.striking;
+
+    const params = {
+        base: baseType ? game.i18n.localize(baseItemDictionary[baseType] ?? "") : item.name,
+        material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
+        potency: potencyRune,
+        fundamental2: game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null,
+        property1: game.i18n.localize(propertyDictionary[runes.property[0]]?.name ?? "") || null,
+        property2: game.i18n.localize(propertyDictionary[runes.property[1]]?.name ?? "") || null,
+        property3: game.i18n.localize(propertyDictionary[runes.property[2]]?.name ?? "") || null,
+        property4: game.i18n.localize(propertyDictionary[runes.property[3]]?.name ?? "") || null,
+    };
+    // Construct a localization key from material and runes
+    const formatString = (() => {
+        const potency = params.potency && "Potency";
+        const fundamental2 = params.fundamental2 && "Fundamental2";
+        const properties = params.property4
+            ? "FourProperties"
+            : params.property3
+            ? "ThreeProperties"
+            : params.property2
+            ? "TwoProperties"
+            : params.property1
+            ? "OneProperty"
+            : null;
+        const material = params.material && "Material";
+        const key =
+            [potency, fundamental2, properties, material].filter((keyPart): keyPart is string => !!keyPart).join("") ||
+            null;
+        return key && game.i18n.localize(key);
+    })();
+
+    return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
+}
+
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName };

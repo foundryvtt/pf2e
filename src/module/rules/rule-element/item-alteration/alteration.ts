@@ -174,9 +174,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (validator.isValid(data)) {
                     data.item.system.material.type = data.alteration.value;
                     data.item.system.material.grade = "standard";
-                    // Have the displayed name reflect the new material
-                    if ("generateModifiedName" in data.item) {
-                        data.item.name = data.item.generateModifiedName();
+                    // If this is a constructed item, have the displayed name reflect the new material
+                    if ("_source" in data.item) {
+                        data.item.name = game.pf2e.system.generateItemName(data.item);
                     }
                 }
                 return;
