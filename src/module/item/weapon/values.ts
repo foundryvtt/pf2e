@@ -71,6 +71,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "hauling",
     "holy",
     "hopeful",
+    "hooked",
     "impactful",
     "impossible",
     "keen",

@@ -4,7 +4,7 @@ import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTI
 import { AttributeString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
-import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
+import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractDamageSynthetics, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
@@ -354,7 +354,7 @@ class WeaponDamagePF2e {
         // Property Runes
         const propertyRunes = weapon.isOfType("weapon") ? weapon.system.runes.property : [];
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
-        const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
+        const propertyRuneModifierAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
             (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []
         );
@@ -435,8 +435,13 @@ class WeaponDamagePF2e {
             ? weapon.system.material.type
             : null;
         const materials: Set<MaterialDamageEffect> = new Set([materialTraits, material ?? []].flat());
-        for (const adjustment of actor.synthetics.strikeAdjustments) {
-            adjustment.adjustDamageRoll?.(weapon, { materials });
+
+        const strikeAdjustments = [
+            actor.synthetics.strikeAdjustments,
+            getPropertyRuneStrikeAdjustments(propertyRunes),
+        ].flat();
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustDamageRoll?.(weapon, { materials, notes });
         }
 
         for (const option of Array.from(materials).map((m) => `item:material:${m}`)) {
@@ -445,7 +450,7 @@ class WeaponDamagePF2e {
 
         // Attach modifier adjustments from property runes
         for (const modifier of modifiers) {
-            modifier.adjustments.push(...propertyRuneAdjustments.filter((a) => a.slug === modifier.slug));
+            modifier.adjustments.push(...propertyRuneModifierAdjustments.filter((a) => a.slug === modifier.slug));
         }
 
         // Synthetics

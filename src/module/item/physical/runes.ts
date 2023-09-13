@@ -7,7 +7,7 @@ import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
-import { RollNoteSource } from "@module/notes.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 
@@ -310,7 +310,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
-    strikeAdjustments?: StrikeAdjustment[];
+    strikeAdjustments?: Pick<StrikeAdjustment, "adjustDamageRoll" | "adjustWeapon">[];
 }
 
 /** Title and text are mandatory for these notes */
@@ -1635,6 +1635,34 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "holy",
         traits: ["evocation", "good", "magical"],
+    },
+    hooked: {
+        level: 5,
+        name: "PF2E.WeaponPropertyRune.hooked.Name",
+        price: 140,
+        rarity: "rare",
+        slug: "hooked",
+        traits: ["conjuration", "magical"],
+        strikeAdjustments: [
+            {
+                adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                    if (!weapon.system.traits.value.includes("trip")) {
+                        weapon.system.traits.value.push("trip");
+                    }
+                },
+                adjustDamageRoll: (weapon: WeaponPF2e | MeleePF2e, { notes }: { notes?: RollNotePF2e[] }): void => {
+                    if (weapon._source.system.traits.value.includes("trip")) {
+                        notes?.push(new RollNotePF2e({
+                            selector: "strike-damage",
+                            outcome: ["criticalSuccess"],
+                            predicate: ["item:trait:trip"],
+                            title: "PF2E.WeaponPropertyRune.hooked.Name",
+                            text: "PF2E.WeaponPropertyRune.hooked.Note.criticalSuccess",
+                        }));
+                    }
+                }
+            }
+        ]
     },
     hopeful: {
         attack: {
