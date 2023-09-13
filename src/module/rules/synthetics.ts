@@ -123,7 +123,7 @@ interface SenseSynthetic {
 interface StrikeAdjustment {
     adjustDamageRoll?: (
         weapon: WeaponPF2e | MeleePF2e,
-        { materials, notes }: { materials?: Set<MaterialDamageEffect>, notes?: RollNotePF2e[] }
+        { materials, notes }: { materials?: Set<MaterialDamageEffect>; notes?: RollNotePF2e[] }
     ) => void;
     adjustWeapon?: (weapon: WeaponPF2e | MeleePF2e) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;

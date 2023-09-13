@@ -1652,17 +1652,19 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 adjustDamageRoll: (weapon: WeaponPF2e | MeleePF2e, { notes }: { notes?: RollNotePF2e[] }): void => {
                     if (weapon._source.system.traits.value.includes("trip")) {
-                        notes?.push(new RollNotePF2e({
-                            selector: "strike-damage",
-                            outcome: ["criticalSuccess"],
-                            predicate: ["item:trait:trip"],
-                            title: "PF2E.WeaponPropertyRune.hooked.Name",
-                            text: "PF2E.WeaponPropertyRune.hooked.Note.criticalSuccess",
-                        }));
+                        notes?.push(
+                            new RollNotePF2e({
+                                selector: "strike-damage",
+                                outcome: ["criticalSuccess"],
+                                predicate: ["item:trait:trip"],
+                                title: "PF2E.WeaponPropertyRune.hooked.Name",
+                                text: "PF2E.WeaponPropertyRune.hooked.Note.criticalSuccess",
+                            })
+                        );
                     }
-                }
-            }
-        ]
+                },
+            },
+        ],
     },
     hopeful: {
         attack: {

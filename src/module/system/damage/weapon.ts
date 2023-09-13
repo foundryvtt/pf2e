@@ -4,7 +4,12 @@ import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTI
 import { AttributeString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
-import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    RUNE_DATA,
+    getPropertyRuneDice,
+    getPropertyRuneModifierAdjustments,
+    getPropertyRuneStrikeAdjustments
+} from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractDamageSynthetics, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
