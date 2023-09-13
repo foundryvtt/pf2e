@@ -2,7 +2,7 @@ import { isObject, sluggify } from "@util";
 import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.ts";
-import { CompendiumBrowserIndexData, FeatFilters } from "./data.ts";
+import { CompendiumBrowserIndexData, FeatFilters, MultiselectData } from "./data.ts";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
@@ -13,11 +13,15 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "category", "skills", "traits", "rarity", "source"];
 
+    #ancestryTraits: string[];
+
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
         // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
+
+        this.#ancestryTraits = Object.keys(CONFIG.PF2E.ancestryTraits);
     }
 
     protected override async loadData(): Promise<void> {
@@ -131,6 +135,21 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions({ ...CONFIG.PF2E.featTraits });
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
+    }
+
+    protected override filterTraits(
+        traits: string[],
+        selected: MultiselectData["selected"],
+        condition: MultiselectData["conjunction"]
+    ): boolean {
+        // Always return true for ancestry feats that have no ancestry trait
+        if (
+            this.filterData.checkboxes.category.selected.includes("ancestry") &&
+            !this.arrayIncludes(traits, this.#ancestryTraits)
+        ) {
+            return true;
+        }
+        return super.filterTraits(traits, selected, condition);
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
