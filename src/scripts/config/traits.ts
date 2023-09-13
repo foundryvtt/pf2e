@@ -53,6 +53,7 @@ const ancestryTraits = {
     oread: "PF2E.TraitOread",
     poppet: "PF2E.TraitPoppet",
     ratfolk: "PF2E.TraitRatfolk",
+    reflection: "PF2E.TraitReflection",
     shisk: "PF2E.TraitShisk",
     shoony: "PF2E.TraitShoony",
     skeleton: "PF2E.TraitSkeleton",
