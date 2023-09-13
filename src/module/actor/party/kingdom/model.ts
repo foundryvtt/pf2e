@@ -75,11 +75,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         return this.build.government;
     }
 
-    override _initialize(options?: Record<string, unknown>): void {
-        super._initialize(options);
-        this.prepareData();
-    }
-
     /** Creates sidebar buttons to inject into the chat message sidebar */
     createSidebarButtons(): HTMLElement[] {
         // Do not show kingdom to party members until it becomes activated.
@@ -180,7 +175,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
     }
 
-    prepareData(): void {
+    prepareBaseData(): void {
         const { synthetics } = this.actor;
 
         // Calculate Ability Boosts (if calculated automatically)

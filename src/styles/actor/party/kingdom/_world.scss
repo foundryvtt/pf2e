@@ -1,4 +1,4 @@
-.content {
+& {
     padding: 12px;
 }
 
@@ -8,47 +8,35 @@ input[type="text"], input[type="number"] {
     line-height: 1.5em;
 }
 
-.work-sites {
-    input[type=number] {
-        width: 3ch;
-        text-align: center;
-        padding: 0;
-    }
-
-    .work-site-row, label {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
-
-    .value span {
-        min-width: 7rem;
-    }
+.content {
+    padding-right: 1rem;
 }
 
 .settlement {
-    display: grid;
-    grid-template:
-        "header header header" min-content
-        "info work description" 1fr
-        / auto auto 1fr;
-    gap: 0.5rem 1rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 
-    input[type=number] {
-        width: 3ch;
-        text-align: center;
-        padding: 0;
-    }
-
-    header {
-        grid-area: header;
+    .item-name {
+        flex: 1;
+        display: flex;
+        white-space: nowrap;
         display: flex;
         align-items: center;
         gap: 0.25rem;
-        label {
+        h4 {
+            cursor: pointer;
+        }
+        .level {
             display: flex;
             align-items: center;
+            input[type=number] {
+                width: 3ch;
+                text-align: center;
+                padding: 0;
+            }
         }
         .name {
             font-size: var(--font-size-20);
@@ -65,45 +53,83 @@ input[type="text"], input[type="number"] {
         }
     }
 
-    & > section {
+    .item-summary {
+        flex-basis: 100%;
+    }
+
+    .settlement-data {
         display: flex;
-        flex-direction: column;
-        & > label,
-        & > div {
+        justify-content: space-around;
+
+        input[type=number] {
+            width: 3ch;
+            text-align: center;
+            padding: 0;
+        }
+
+        label, div.value {
+            align-items: center;
+            display: flex;
+            gap: 0.25rem;
             line-height: 1.5em;
+        }
+
+        .storage-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 0.25rem;
+            label {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
         }
     }
 
-    .info {
-        grid-area: info;
+    .editor {
         display: flex;
         flex-direction: column;
-        align-items: end;
+        min-height: 4rem;
+        .tox {
+            flex: 1;
+            min-height: 16rem;
+        }
+    }
+}
+
+aside {
+    background: var(--paper-bg);
+    box-shadow: var(--drop-shadow);
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input[type=number] {
+        width: 3ch;
+        text-align: center;
+        padding: 0;
     }
 
-    .storage {
-        grid-area: work;
-        white-space: nowrap;
-        .commodity-data,
-        label {
+    section {
+        .row, label {
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
-        label + label {
-            margin-left: 0.25rem;
-        }
+    }
+
+    .work-sites {
         .value span {
-            min-width: 5rem;
+            min-width: 7rem;
         }
     }
 
-    .description {
-        grid-area: description;
-        display: flex;
-        flex-direction: column;
-        & > * {
-            flex: 1;
+    .other-data {
+        label {
+            width: 100%;
+            justify-content: space-between;
         }
     }
 }
