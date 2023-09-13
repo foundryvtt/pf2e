@@ -125,6 +125,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         this.campaign.reset();
                     }
 
+                    this.campaign.prepareBaseData?.();
                     this.system.campaign = this.campaign;
                 } catch (err) {
                     console.error(err);
