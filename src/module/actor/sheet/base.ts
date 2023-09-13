@@ -1062,7 +1062,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         const mystified = ((): boolean => {
             if (game.user.isGM) {
-                // If the item is dropped on the token, event.altKey is undefined
+                // If the item is dropped on a token, event.altKey is undefined
                 return event.altKey ?? game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
             }
             return false;
