@@ -3,7 +3,8 @@
     flex-direction: column;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
     border: none;
 }
 
@@ -30,7 +31,7 @@ input[type="text"], input[type="number"] {
         grid-template-rows: 1fr auto;
         margin-bottom: 6px;
 
-       .image {
+        .image {
             @include frame-icon;
             grid-area: img;
             width: 2.75rem;
@@ -76,7 +77,8 @@ input[type="text"], input[type="number"] {
                 font-weight: 500;
             }
         }
-        .invested, .vacant {
+        .invested,
+        .vacant {
             font-size: var(--font-size-12);
             input {
                 margin: 0;
@@ -93,7 +95,7 @@ input[type="text"], input[type="number"] {
 .resources {
     grid-area: resources;
 
-    input[type=number] {
+    input[type="number"] {
         width: 3ch;
         text-align: center;
         padding-left: 0;
@@ -138,12 +140,13 @@ input[type="text"], input[type="number"] {
         }
     }
 
-    .commodities, .stats {
+    .commodities,
+    .stats {
         padding: 0.25rem 0.5rem;
         white-space: nowrap;
         & > label,
         & > div,
-        input[type=number] {
+        input[type="number"] {
             height: 1.5em;
             line-height: 1.5em;
             .number {
