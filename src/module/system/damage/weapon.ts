@@ -8,7 +8,7 @@ import {
     RUNE_DATA,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
-    getPropertyRuneStrikeAdjustments
+    getPropertyRuneStrikeAdjustments,
 } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
