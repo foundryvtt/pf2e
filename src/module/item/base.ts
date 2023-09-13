@@ -227,8 +227,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         super._initialize(options);
     }
 
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
     override prepareData(): void {
-        // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
         if (this.parent && !this.parent.flags?.pf2e) return;
 
         super.prepareData();
