@@ -60,38 +60,34 @@
                 {{/if}}
             </div>
             <div class="data">
-                <div class="name">
-                    <a data-action="open-sheet">{{member.actor.name}}</a>
-                    {{#if @root.user.isGM}}
-                        <a data-action="remove-member"><i class="fa-solid fa-fw fa-times"></i></a>
-                    {{/if}}
-                    {{#if (eq member.actor.type "familiar")}}
-                        <span class="abc">{{localize "PF2E.Familiar.Familiar"}}</span>
-                        {{#if member.actor.master}}
-                            <span class="abc">{{member.actor.master.name}}</span>
+                <header>
+                    <div class="name">
+                        <a data-action="open-sheet">{{member.actor.name}}</a>
+                        {{#if @root.user.isGM}}
+                            <a data-action="remove-member"><i class="fa-solid fa-fw fa-times"></i></a>
                         {{/if}}
-                    {{else if member.actor.system.details.creatureType}}
-                        <span class="abc">{{member.actor.system.details.creatureType}}</span>
-                    {{else}}
-                        {{#if member.actor.ancestry}}
-                            <span class="abc">{{member.actor.ancestry.name}}</span>
-                        {{/if}}
-                        {{#if member.actor.class}}
-                            <span class="abc">{{member.actor.class.name}}</span>
-                        {{/if}}
-                    {{/if}}
+                    </div>
+                    {{#if member.blurb~}}
+                        <div class="blurb">
+                            <span class="level-ancestry-class">{{member.blurb}}</span>
+                            {{#if member.genderPronouns}}
+                                <hr class="vr" />
+                                <span class="gender-pronouns">{{member.genderPronouns}}</span>
+                            {{/if}}
+                        </div>
+                    {{~/if}}
                     {{#if member.heroPoints}}
-                        <a class="hero-points {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-hero-points">
-                            {{#times member.heroPoints.max}}
+                        <a class="hero-points{{#unless member.owner}} readonly{{/unless}}" data-action="adjust-hero-points">
+                            {{#times member.heroPoints.max ~}}
                                 {{#if (gt member.heroPoints.value this)}}
                                     <img src="systems/pf2e/dice/basic/heads.webp" />
                                 {{else}}
                                     <span class="empty"></span>
                                 {{/if}}
-                            {{/times}}
+                            {{~/times}}
                         </a>
                     {{/if}}
-                </div>
+                </header>
 
                 <div class="main-stats">
                     <section class="ac score">
