@@ -103,6 +103,8 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                 label: "PF2E.FeatArchetypeHeader",
                 supported: ["class"],
                 slots: evenLevels,
+                featFilter: this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
+                    ? ["traits-archetype"] : ["traits-dedication"],
             });
         }
 
