@@ -142,12 +142,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         selected: MultiselectData["selected"],
         condition: MultiselectData["conjunction"]
     ): boolean {
-        // Always return true for ancestry feats that have no ancestry trait
+        // Pre-filter the selected traits if the current ancestry item has no ancestry traits
         if (
             this.filterData.checkboxes.category.selected.includes("ancestry") &&
             !this.arrayIncludes(traits, this.#ancestryTraits)
         ) {
-            return true;
+            const withoutAncestryTraits = selected.filter((t) => !this.#ancestryTraits.includes(t.value));
+            return super.filterTraits(traits, withoutAncestryTraits, condition);
         }
         return super.filterTraits(traits, selected, condition);
     }
