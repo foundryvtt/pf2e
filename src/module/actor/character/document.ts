@@ -1587,6 +1587,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target: context.target,
                     item: context.self.item,
                     altUsage: params.altUsage ?? null,
+                    damaging: context.self.item.dealsDamage,
                     domains: selectors,
                     options: context.options,
                     notes: attackRollNotes,

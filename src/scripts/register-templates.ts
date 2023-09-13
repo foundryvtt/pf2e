@@ -2,7 +2,7 @@
 export function registerTemplates(): void {
     const templatePaths = [
         // Dice
-        "systems/pf2e/templates/chat/check/strike/attack-roll.hbs",
+        "systems/pf2e/templates/chat/check/roll.hbs",
         "systems/pf2e/templates/chat/check/target-dc-result.hbs",
         "systems/pf2e/templates/chat/damage/damage-taken.hbs",
         "systems/pf2e/templates/dice/damage-roll.hbs",
