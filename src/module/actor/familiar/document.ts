@@ -40,6 +40,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         return this.master?.system.abilities[this.system.master.ability].mod ?? 0;
     }
 
+    /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
+    get masterAbilityModifier(): number {
+        return this.masterAttributeModifier;
+    }
+
     /** Re-render the sheet if data preparation is called from the familiar's master */
     override reset({ fromMaster = false } = {}): void {
         super.reset();
