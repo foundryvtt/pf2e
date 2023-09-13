@@ -1060,7 +1060,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const { actor } = this;
         const itemSource = item.toObject();
 
-        const mystified = game.user.isGM && event.altKey;
+        const mystified = ((): boolean => {
+            if (game.user.isGM) {
+                // If the item is dropped on the token, event.altKey is undefined
+                return event.altKey ?? game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
+            }
+            return false;
+        })();
 
         // Set effect to unidentified if alt key is held
         if (mystified && itemSource.type === "effect") {
