@@ -504,7 +504,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     protected override async _onDropActor(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasData<"Actor", PartyPF2e>
     ): Promise<false | void> {
         await super._onDropActor(event, data);

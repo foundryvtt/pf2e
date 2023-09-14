@@ -1268,9 +1268,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    #getNearestFeatSlotId(event: ElementDragEvent) {
-        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
-        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+    #getNearestFeatSlotId(event: DragEvent) {
+        const categoryId = htmlClosest(event.target, "[data-category-id]")?.dataset.categoryId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
         return typeof categoryId === "string" ? { slotId, categoryId } : null;
     }
 
@@ -1429,9 +1429,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         itemSource: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]> {
+    ): Promise<CollectionValue<TActor["items"]>[]>;
+    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         const item = this.actor.items.get(itemSource._id);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getNearestFeatSlotId(event);

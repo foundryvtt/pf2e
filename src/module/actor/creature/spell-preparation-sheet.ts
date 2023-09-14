@@ -128,10 +128,10 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 
     /** Allow transferring spells between open windows */
     protected override async _onSortItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         itemData: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]>;
-    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<Item<TActor>[]> {
+    ): Promise<CollectionValue<TActor["items"]>[]>;
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id);
