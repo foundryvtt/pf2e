@@ -451,7 +451,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 await this.moveItemBetweenActors(
                     event,
                     item.actor.id,
-                    item.actor?.token?.id ?? null,
+                    item.actor.token?.id ?? null,
                     actorUuid,
                     null,
                     item.id
