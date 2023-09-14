@@ -20,6 +20,7 @@ import type { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -456,6 +457,32 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return super._onDropItemCreate(itemData);
+    }
+
+    /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+        const droppedRegion = event.target?.closest<HTMLElement>("[data-region]")?.dataset.region;
+        const targetActor = event.target?.closest<HTMLElement>("[data-actor-uuid]")?.dataset.actorUuid;
+        if (droppedRegion === "inventoryMembers" && targetActor) {
+            const item = await ItemPF2e.fromDropData(data);
+            if (!item) return [];
+            const actorUuid = foundry.utils.parseUuid(targetActor).documentId;
+            if (actorUuid && item.actor && item.isOfType("physical")) {
+                await this.moveItemBetweenActors(
+                    event,
+                    item.actor.id,
+                    item.actor.token?.id ?? null,
+                    actorUuid,
+                    null,
+                    item.id
+                );
+                return [item];
+            }
+        }
+        return super._onDropItem(event, data);
     }
 
     /** Override to not auto-disable fields on a thing meant to be used by players */
