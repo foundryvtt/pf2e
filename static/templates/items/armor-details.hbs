@@ -131,7 +131,16 @@
             </select>
         </div>
     {{/if}}
+
+    <div class="form-group">
+        <label class="large">
+            {{localize "PF2E.Item.Armor.Specific.Label"}}
+            <i class="fa-solid fa-info-circle large" title="{{localize "PF2E.Item.Armor.Specific.Hint"}}"></i>
+        </label>
+        <input type="checkbox" name="system.specific.value" {{checked data.specific.value}} />
+    </div>
 {{/if}}
+
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
@@ -203,3 +212,4 @@
         {{/each}}
     </ul>
 </div>
+

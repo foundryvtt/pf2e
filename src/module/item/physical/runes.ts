@@ -80,7 +80,8 @@ function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | n
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
-const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined> = new Map([
+const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree> = new Map([
+    [null, 0],
     ["resilient", 1],
     ["greaterResilient", 2],
     ["majorResilient", 3],
@@ -1904,5 +1905,6 @@ export {
     getRuneValuationData,
     getStrikingDice,
     prunePropertyRunes,
+    resilientRuneValues,
 };
 export type { RuneData, WeaponPropertyRuneData };
