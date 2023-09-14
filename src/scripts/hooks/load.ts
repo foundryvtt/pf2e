@@ -17,7 +17,7 @@ import {
 import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
-import { CheckRoll, StrikeAttackRoll } from "@system/check/index.ts";
+import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
 

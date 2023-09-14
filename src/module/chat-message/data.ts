@@ -31,7 +31,6 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
-        strike?: StrikeLookupData | null;
         appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;
     };
@@ -39,15 +38,6 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
 };
 
 type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
-
-/** Data used to lookup a strike on an actor */
-interface StrikeLookupData {
-    actor: ActorUUID | TokenDocumentUUID;
-    index: number;
-    damaging: boolean;
-    name: string;
-    altUsage?: "thrown" | "melee" | null;
-}
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -70,6 +60,7 @@ interface TargetFlag {
 
 type ContextFlagOmission =
     | "actor"
+    | "action"
     | "altUsage"
     | "createMessage"
     | "damaging"
@@ -140,6 +131,5 @@ export type {
     CheckRollContextFlag,
     DamageRollContextFlag,
     DamageRollFlag,
-    StrikeLookupData,
     TargetFlag,
 };

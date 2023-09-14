@@ -211,7 +211,7 @@ class ChatCards {
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;
                     const roll = message.rolls.find(
-                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.action === "elemental-blast"
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
                     );
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
