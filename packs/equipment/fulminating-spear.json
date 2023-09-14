@@ -1,6 +1,6 @@
 {
     "_id": "KQRrAVdcRqtd0Lq2",
-    "img": "systems/pf2e/icons/default-icons/weapon.svg",
+    "img": "icons/weapons/polearms/spear-flared-bronze-teal.webp",
     "name": "Fulminating Spear",
     "system": {
         "MAP": {
@@ -21,7 +21,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p>This <em>+1 striking returning spear</em> is warm to the touch. The head of the spear is crafted from gold with ivory inlay and has a ruby set into the shaft. You can make the spear glow like a torch or suppress its light by using an action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You touch the ruby and hurl the spear at a square within 40 feet. When the spear lands, it detonates, dealing @Damage[6d6[fire]] damage (@Check[type:reflex|dc:23|basic:true|name:Fulminating Spear Explosion|traits:uncommon|showDC:all]) to all creatures in a @Template[type:emanation|distance:10]. It then flies back to your hand.</p>"
+            "value": "<p>This <em>+1 striking returning spear</em> is warm to the touch. The head of the spear is crafted from gold with ivory inlay and has a ruby set into the shaft. You can make the spear glow like a torch or suppress its light by using an action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You touch the ruby and hurl the spear at a square within 40 feet. When the spear lands, it detonates, dealing @Damage[6d6[fire]] damage (@Check[type:reflex|dc:23|basic:true|name:Fulminating Spear Explosion|traits:uncommon|showDC:all]) to all creatures in a @Template[type:emanation|distance:10]. It then flies back to your hand.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -67,7 +67,39 @@
         "reload": {
             "value": "-"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitFulminatingSpear",
+                "option": "lit-fulminating-spear",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-fulminating-spear"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-fulminating-spear"
+                ],
+                "value": "icons/weapons/polearms/spear-flared-bronze-teal.webp"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder #170: Spoken on the Song Wind"
