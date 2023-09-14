@@ -310,7 +310,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
-    strikeAdjustments?: StrikeAdjustment[];
+    strikeAdjustments?: Pick<StrikeAdjustment, "adjustWeapon">[];
 }
 
 /** Title and text are mandatory for these notes */
