@@ -51,8 +51,9 @@ class TextEditorPF2e extends TextEditor {
             // Remove tags
             content = content.substring(3, content.length - 4);
         }
+
         const enriched = superEnrichHTML.apply(this, [content, options]);
-        if (typeof enriched === "string") {
+        if (typeof enriched === "string" && (options.processVisibility ?? true)) {
             return TextEditorPF2e.processUserVisibility(enriched, options);
         }
 
@@ -793,6 +794,8 @@ async function augmentInlineDamageRoll(
 
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
+    /** Whether to run the enriched string through `UserVisiblity.process` */
+    processVisibility?: boolean;
 }
 
 interface RollDataPF2e {

@@ -8,6 +8,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { ChatInspectRoll } from "./chat-inspect-roll.ts";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
@@ -201,7 +202,11 @@ class ChatMessagePF2e extends ChatMessage {
         // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
             const rollData = this.getRollData();
-            this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
+            this.flavor = await TextEditorPF2e.enrichHTML(this.flavor, {
+                async: true,
+                rollData,
+                processVisibility: false,
+            });
         }
 
         const $html = await super.getHTML();
@@ -213,6 +218,7 @@ class ChatMessagePF2e extends ChatMessage {
             });
         }
 
+        UserVisibilityPF2e.process(html, { message: this });
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
         Listeners.ChatCards.listen(this, html);
