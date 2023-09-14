@@ -151,7 +151,12 @@ const KINGDOM_SETTLEMENT_SCHEMA = {
     }),
     level: new fields.NumberField({ min: 1, initial: 1, max: 30, nullable: false }),
     overcrowded: new fields.BooleanField(),
-    description: new fields.StringField(),
+    description: new fields.StringField<string, string, false, false, true>({
+        required: false,
+        nullable: false,
+        blank: true,
+        initial: "",
+    }),
     sort: new fields.IntegerSortField(),
     consumption: new fields.SchemaField({
         base: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),
@@ -297,6 +302,21 @@ const KINGDOM_SCHEMA = {
         }),
     }),
 
+    event: new fields.SchemaField({
+        dc: new fields.NumberField<number, number, false, false>({
+            required: false,
+            nullable: false,
+            min: 0,
+            max: 20,
+            initial: 16,
+        }),
+        text: new fields.StringField<string, string, false, false, true>({
+            required: false,
+            nullable: false,
+            blank: true,
+            initial: "",
+        }),
+    }),
     /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
     module: new fields.ObjectField({ required: false, initial: {} }),
 };
