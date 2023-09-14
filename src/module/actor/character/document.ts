@@ -1103,7 +1103,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                       _id: "xxPF2ExUNARMEDxx",
                       name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                       type: "weapon",
-                      img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                      img: "icons/skills/melee/unarmed-punch-fist.webp",
                       system: {
                           slug: "basic-unarmed",
                           category: "unarmed",
