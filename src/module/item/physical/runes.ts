@@ -563,7 +563,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical", "transmutation"],
     },
     immovable: {
-        name: "PF2E.ArmorPropertyRuneImplacable",
+        name: "PF2E.ArmorPropertyRuneImmovable",
         level: 12,
         price: 1800,
         rarity: "uncommon",
