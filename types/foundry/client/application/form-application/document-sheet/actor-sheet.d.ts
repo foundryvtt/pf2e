@@ -140,6 +140,6 @@ declare global {
         protected _onSortItem(
             event: DragEvent,
             itemData: CollectionValue<TActor["items"]>["_source"]
-        ): Promise<Item<TActor>[]>;
+        ): Promise<CollectionValue<TActor["items"]>[]>;
     }
 }
