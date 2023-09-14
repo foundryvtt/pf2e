@@ -120,10 +120,10 @@ interface KingdomSettlementTypeData {
 const KINGDOM_SETTLEMENT_TYPE_DATA = {
     village: { blocks: 1, population: [0, 400], level: [1, 1], consumption: 1, maxItemBonus: 1, influence: 0 },
     town: { blocks: 4, population: [401, 2000], level: [2, 4], consumption: 2, maxItemBonus: 1, influence: 1 },
-    city: { blocks: 9, population: [0, 400], level: [5, 9], consumption: 4, maxItemBonus: 2, influence: 2 },
+    city: { blocks: 9, population: [2001, 25000], level: [5, 9], consumption: 4, maxItemBonus: 2, influence: 2 },
     metropolis: {
         blocks: Infinity,
-        population: [0, 400],
+        population: [25001, Infinity],
         level: [10, Infinity],
         consumption: 6,
         maxItemBonus: 3,
