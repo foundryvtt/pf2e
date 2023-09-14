@@ -929,7 +929,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Add support for dropping actions and toggles */
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.target instanceof HTMLElement) || !event.dataTransfer) {
+            return;
+        }
+
         // Avoid intercepting content-link drag targets
         const isContentLink = event.target.classList.contains("content-link");
         const isPersistent = "persistent" in event.target.dataset;
@@ -1001,25 +1005,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: ElementDragEvent,
-        itemSource: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]>;
+    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<TActor>[]>;
     protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<Item<TActor>[]> {
         return super._onSortItem(event, itemSource);
     }
 
     /** Emulate a sheet item drop from the canvas */
     async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
+        const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt") });
+        return this._onDropItem(event, data);
     }
 
     protected override async _onDropItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         event.preventDefault();
-
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
 
@@ -1048,12 +1049,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * that isn't already on the actor or transferring to another actor.
      */
     protected async _handleDroppedItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e<ActorPF2e | null>[]>;
     protected async _handleDroppedItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
     ): Promise<Item<ActorPF2e | null>[]> {
@@ -1074,8 +1075,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Get the item type of the drop target
-        const $containerEl = $(event.target).closest(".item-container");
-        const containerAttribute = $containerEl.attr("data-container-type");
+        const containerEl = htmlClosest(event.target, ".item-container");
+        const containerAttribute = containerEl?.dataset.containerType;
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
         const craftingTab = this._tabs[0]?.active === "crafting";
@@ -1146,7 +1147,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         if (isPhysicalData(itemSource)) {
             const containerId =
-                $(event.target).closest('[data-item-is-container="true"]').attr("data-item-id")?.trim() || null;
+                htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
                 itemSource.system.containerId = containerId;
@@ -1190,7 +1191,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * @param itemId           ID of the item to move between the two actors.
      */
     async moveItemBetweenActors(
-        event: ElementDragEvent,
+        event: DragEvent,
         sourceActorId: string,
         sourceTokenId: string | null,
         targetActorId: string,
@@ -1208,8 +1209,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const container = $(event.target).parents("[data-item-is-container=true]");
-        const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
+        const containerElem = htmlClosest(event.target, "[data-item-is-container=true]");
+        const containerId = containerElem?.dataset.itemId?.trim();
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
