@@ -98,7 +98,7 @@ type UserVisibility = SetElement<typeof USER_VISIBILITIES>;
 
 interface ProcessOptions {
     document?: ClientDocument | null;
-    message?: ChatMessagePF2e;
+    message?: ChatMessagePF2e | null;
 }
 
 export { USER_VISIBILITIES, type UserVisibility, UserVisibilityPF2e };

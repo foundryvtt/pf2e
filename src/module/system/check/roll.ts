@@ -33,6 +33,7 @@ class CheckRoll extends Roll {
         const { isPrivate, flavor, template } = options;
         const { type, identifier, action, damaging } = this.options;
         const canRollDamage = !!(damaging && identifier && (this.roller === game.user || game.user.isGM));
+        const limitCueVisibility = !game.settings.get("pf2e", "metagame_showResults");
 
         const chatData: Record<string, unknown> = {
             formula: isPrivate ? "???" : this._formula,
@@ -45,6 +46,7 @@ class CheckRoll extends Roll {
             action,
             degree: this.degreeOfSuccess,
             canRollDamage,
+            limitCueVisibility,
         };
 
         return renderTemplate(template ?? CheckRoll.CHAT_TEMPLATE, chatData);
