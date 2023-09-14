@@ -412,6 +412,31 @@ class CheckPF2e {
             keptRoll = oldRoll;
         }
 
+        const degree = ((): DegreeOfSuccess | null => {
+            const { dc } = context;
+            if (!dc) return null;
+            if (dc.slug === "armor") {
+                const targetActor = ((): ActorPF2e | null => {
+                    const { target } = context;
+                    if (!target?.actor) return null;
+
+                    const maybeActor = fromUuidSync(target.actor);
+                    return maybeActor instanceof ActorPF2e
+                        ? maybeActor
+                        : maybeActor instanceof TokenDocumentPF2e
+                        ? maybeActor.actor
+                        : null;
+                })();
+                dc.statistic = targetActor?.armorClass;
+            }
+            return new DegreeOfSuccess(newRoll, dc, context.dosAdjustments);
+        })();
+        const useNewRoll = keptRoll === newRoll && !!degree;
+
+        if (useNewRoll && degree) {
+            newRoll.options.degreeOfSuccess = degree.value;
+        }
+
         const renders = {
             old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
             new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
@@ -421,10 +446,7 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
-        const degree = dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
-        const useNewRoll = keptRoll === newRoll && !!degree;
         context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
         const newFlavor = useNewRoll
