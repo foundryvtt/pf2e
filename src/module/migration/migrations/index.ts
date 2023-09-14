@@ -259,3 +259,4 @@ export { Migration858FakeWeaponSpecialization } from "./858-fake-weapon-speciali
 export { Migration859MaterialTypeGrade } from "./859-material-type-grade.ts";
 export { Migration860RMGroup } from "./860-rm-group.ts";
 export { Migration861AuraColorsToAppearance } from "./861-aura-colors-to-appearance.ts";
+export { Migration862SpecificMagicArmor } from "./862-specific-magic-armor.ts";

@@ -57,12 +57,13 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
 type SpecificArmorData =
     | {
           value: false;
+          material?: never;
+          runes?: never;
       }
     | {
           value: true;
-          price: string;
           material: ItemMaterialData;
-          runes: Omit<ArmorRuneData, "property">;
+          runes: Pick<ArmorRuneData, "potency" | "resilient">;
       };
 
 interface ArmorSystemData

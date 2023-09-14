@@ -7,14 +7,15 @@ import {
     RUNE_DATA,
     getPropertySlots,
     prunePropertyRunes,
+    resilientRuneValues,
 } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToThree } from "@module/data.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
-import { ArmorCategory, ArmorGroup, BaseArmorType, ResilientRuneType } from "./types.ts";
+import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
@@ -141,16 +142,11 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         ABP.cleanupRunes(this);
 
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
-        const resilientBonusAddend: Map<ResilientRuneType | null, OneToThree> = new Map([
-            ["resilient", 1],
-            ["greaterResilient", 2],
-            ["majorResilient", 3],
-        ]);
 
         // Derived rune data structure
         const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: resilientBonusAddend.get(resiliencyRune.value) ?? 0,
+            resilient: resilientRuneValues.get(resiliencyRune.value) ?? 0,
             property: prunePropertyRunes(
                 [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
                 RUNE_DATA.armor.property
@@ -306,6 +302,18 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             changed.system.group ||= null;
         }
 
+        const changedSpecific: ChangedSpecificData = changed.system?.specific ?? {};
+        if (changedSpecific.value === true) {
+            changedSpecific.material = deepClone(this._source.system.material);
+            changedSpecific.runes = {
+                potency: (Number(this._source.system.potencyRune.value) || 0) as ZeroToFour,
+                resilient: resilientRuneValues.get(this._source.system.resiliencyRune.value) || 0,
+            };
+        } else if (changedSpecific.value === false) {
+            changedSpecific["-=material"] = null;
+            changedSpecific["-=runes"] = null;
+        }
+
         return super._preUpdate(changed, options, user);
     }
 }
@@ -313,6 +321,14 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 interface ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ArmorSource;
     system: ArmorSystemData;
+}
+
+interface ChangedSpecificData {
+    value?: unknown;
+    material?: object;
+    runes?: object;
+    "-=material"?: null;
+    "-=runes"?: null;
 }
 
 export { ArmorPF2e };
