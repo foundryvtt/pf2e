@@ -1,0 +1,108 @@
+{
+    "_id": "mPb9Bhq8T1nsyWug",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Weapon Siphon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Weapon Siphon]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectWeaponSiphonWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaponSiphonDamage",
+                "option": "effect:weapon-siphon:damage",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.effectweaponSiphondamage}",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "effect:weapon-siphon:damage"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectWeaponSiphonWeapon}-damage"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.effectWeaponSiphonWeapon}-attack"
+                ],
+                "slug": "multiple-attack-penalty",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
