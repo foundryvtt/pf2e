@@ -413,13 +413,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Set Expended Status of Spell Slot
         for (const anchor of htmlQueryAll(html, ".item-toggle-prepare")) {
-            const row = htmlClosest(anchor, ".item");
-            const slotLevel = Number(row?.dataset.slotLevel) || 0;
-            const slotId = Number(row?.dataset.slotId) || 0;
-            const entryId = row?.dataset.entryId ?? "";
-            const expendedState = row?.dataset.expendedState !== "true";
-            const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
+            anchor.addEventListener("click", () => {
+                const row = htmlClosest(anchor, ".item");
+                const slotLevel = Number(row?.dataset.slotLevel) || 0;
+                const slotId = Number(row?.dataset.slotId) || 0;
+                const entryId = row?.dataset.entryId ?? "";
+                const expendedState = row?.dataset.expendedState !== "true";
+                const collection = this.actor.spellcasting.collections.get(entryId);
+                collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
+            });
         }
 
         // Trait Selector
