@@ -1,11 +1,12 @@
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
-import { TokenAuraData } from "@scene/token-document/aura/types.ts";
+import { TokenDocumentPF2e } from "@scene";
+import { TokenPF2e } from "../index.ts";
 
-export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
+export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     if (!canvas.dimensions) return [];
     const squareWidth = canvas.dimensions.size;
-    const rowCount = Math.ceil(aura.bounds.width / squareWidth);
+    const rowCount = Math.ceil(data.bounds.width / squareWidth);
     const emptyVector = Array<null>(rowCount - 1).fill(null);
 
     const genColumn = (square: EffectAreaSquare): EffectAreaSquare[] => {
@@ -25,16 +26,16 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
         );
     };
 
-    const topLeftSquare = new EffectAreaSquare(aura.bounds.x, aura.bounds.y, squareWidth, squareWidth);
+    const topLeftSquare = new EffectAreaSquare(data.bounds.x, data.bounds.y, squareWidth, squareWidth);
     const collisionType =
-        aura.traits.has("visual") && !aura.traits.has("auditory")
+        data.traits?.has("visual") && !data.traits.has("auditory")
             ? "sight"
-            : aura.traits.has("auditory") && !aura.traits.has("visual")
+            : data.traits?.has("auditory") && !data.traits.has("visual")
             ? "sound"
             : "move";
 
-    const tokenBounds = aura.token.bounds;
-    const tokenCenter = aura.token.center;
+    const tokenBounds = data.token.bounds;
+    const tokenCenter = data.token.center;
     const tokenCenters = [
         tokenCenter,
         ...[
@@ -61,7 +62,7 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
             [genColumn(topLeftSquare)]
         )
         .flat()
-        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= aura.radius)
+        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
         .map((square) => {
             square.active = tokenCenters.some(
                 (c) =>
@@ -72,4 +73,11 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
             );
             return square;
         });
+}
+
+interface GetAreaSquaresParams {
+    bounds: PIXI.Rectangle;
+    radius: number;
+    token: TokenPF2e | TokenDocumentPF2e;
+    traits?: Set<string>;
 }

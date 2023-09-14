@@ -172,7 +172,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     radius: data.radius,
                     token: this,
                     traits: new Set(data.traits),
-                    colors: data.colors,
+                    appearance: data.appearance,
                 })
             );
         }

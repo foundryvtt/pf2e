@@ -71,6 +71,19 @@ class StrictStringField<
     }
 }
 
+/** A `NumberField` that does not cast the source value */
+class StrictNumberField<
+    TSourceProp extends number,
+    TModelProp = TSourceProp,
+    TRequired extends boolean = false,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends fields.NumberField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+}
+
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
     TSourceProp extends boolean = boolean,
@@ -427,6 +440,7 @@ export {
     SlugField,
     StrictArrayField,
     StrictBooleanField,
+    StrictNumberField,
     StrictObjectField,
     StrictSchemaField,
     StrictStringField,
