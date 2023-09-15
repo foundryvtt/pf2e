@@ -100,15 +100,21 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "armor"): string[] {
-        return super.getRollOptions(prefix).concat(
+        return [
+            super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
+                [`rune:potency`]: this.system.runes.potency > 0,
+                [`rune:resilient`]: this.system.runes.resilient > 0,
             })
                 .filter(([, isTrue]) => isTrue)
-                .map(([key]) => `${prefix}:${key}`)
-        );
+                .map(([key]) => `${prefix}:${key}`),
+            this.system.runes.property.map((r) => `${prefix}:rune:property:${sluggify(r)}`),
+        ]
+            .flat()
+            .sort();
     }
 
     override prepareBaseData(): void {
@@ -165,44 +171,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!this.isEquipped) return;
 
         if (this.isArmor) {
-            // Set some roll options for this armor
-            actor.rollOptions.all[`armor:id:${this.id}`] = true;
-            actor.rollOptions.all[`armor:category:${this.category}`] = true;
-            if (this.group) {
-                actor.rollOptions.all[`armor:group:${this.group}`] = true;
-            }
-
-            if (this.baseType) {
-                actor.rollOptions.all[`armor:base:${this.baseType}`] = true;
-            }
-
-            if (this.system.runes.potency > 0) {
-                actor.rollOptions.all[`armor:rune:potency:${this.system.runes.potency}`] = true;
-            }
-
-            if (this.system.runes.resilient > 0) {
-                actor.rollOptions.all[`armor:rune:resilient:${this.system.runes.resilient}`] = true;
-            }
-
-            for (const rune of this.system.runes.property) {
-                const slug = sluggify(rune);
-                actor.rollOptions.all[`armor:rune:property:${slug}`] = true;
-            }
-
-            // Set roll options for certain armor traits
-            const traits = this.traits;
-            for (const [trait, domains] of [
-                ["bulwark", ["reflex"]],
-                ["flexible", ["acrobatics", "athletics"]],
-                ["noisy", ["stealth"]],
-            ] as const) {
-                if (traits.has(trait)) {
-                    for (const domain of domains) {
-                        const checkOptions = (actor.rollOptions[domain] ??= {});
-                        checkOptions[`armor:trait:${trait}`] = true;
-                        checkOptions[`self:armor:trait:${trait}`] = true;
-                    }
-                }
+            for (const rollOption of this.getRollOptions("armor")) {
+                actor.rollOptions.all[rollOption] = true;
             }
         }
 
