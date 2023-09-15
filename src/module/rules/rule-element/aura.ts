@@ -1,8 +1,14 @@
 import { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
-import { PredicateField, StrictArrayField, StrictNumberField } from "@system/schema-data-fields.ts";
-import { isImageOrVideoPath, sluggify } from "@util";
+import {
+    PredicateField,
+    StrictArrayField,
+    StrictBooleanField,
+    StrictNumberField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
+import { isImageOrVideoPath, isVideoFilePath, sluggify } from "@util";
 import * as R from "remeda";
 import type {
     AlphaField,
@@ -36,6 +42,9 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 actor.primaryUpdater;
             return user?.color ?? "#43dfdf";
         })();
+        if (this.appearance.texture) {
+            this.appearance.texture.loop ??= isVideoFilePath(this.appearance.texture.src);
+        }
     }
 
     static override defineSchema(): AuraSchema {
@@ -117,9 +126,10 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             ),
             texture: new fields.SchemaField(
                 {
-                    src: new fields.StringField({ required: true, nullable: false, initial: undefined }),
+                    src: new StrictStringField({ required: true, nullable: false, initial: undefined }),
                     alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.5 }),
                     scale: new StrictNumberField({ required: true, nullable: false, positive: true, initial: 1 }),
+                    loop: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
                         nullable: false,
@@ -216,15 +226,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         return {
             border: border && { color: Number(Color.fromString(border.color)), alpha: border.alpha },
             highlight: { color: Number(Color.fromString(highlight.color!)), alpha: highlight.alpha },
-            texture:
-                texture?.alpha && textureSrc
-                    ? {
-                          src: textureSrc,
-                          alpha: texture.alpha,
-                          scale: texture.scale,
-                          translation: texture.translation ?? null,
-                      }
-                    : null,
+            texture: texture?.alpha && textureSrc ? { ...texture, src: textureSrc } : null,
         };
     }
 }
@@ -336,6 +338,8 @@ type AuraTextureSchema = {
     alpha: AlphaField<true, false, true>;
     /** A manual rescaling of the texture resource */
     scale: StrictNumberField<number, number, true, false, true>;
+    /** If the `src` is a video, whether to loop it */
+    loop: StrictBooleanField<boolean, boolean, false, false, false>;
     /** A manual x/y translation of the texture resource */
     translation: SchemaField<
         XYPairSchema,
@@ -352,7 +356,14 @@ type XYPairSchema = {
     y: StrictNumberField<number, number, true, false, false>;
 };
 
-type AuraREAppearanceData = ModelPropsFromSchema<AuraAppearanceSchema>;
+type AuraREAppearanceData = ModelPropsFromSchema<AuraAppearanceSchema> & {
+    texture:
+        | (ModelPropsFromSchema<AuraAppearanceSchema> & {
+              loop: boolean;
+              translation: { x: number; y: number } | null;
+          })
+        | null;
+};
 
 interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {
     includesSelf: boolean;

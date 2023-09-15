@@ -91,7 +91,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Draw the aura's texture, resizing the image/video over the area (applying adjustments to that if provided) */
     async #drawTexture(): Promise<void> {
         const data = this.appearance.texture;
-        if (!data || this.token.isPreview || this.geometry.drawCalls.length > 0) {
+        if (!data || this.token.isPreview || this.texture) {
             return;
         }
 
@@ -102,7 +102,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             this.texture?.destroy();
             this.texture = await game.video.cloneTexture(video);
             const fromTexture = game.video.getVideoSource(this.texture) ?? video;
-            game.video.play(fromTexture, { volume: 0, offset: Math.random() * fromTexture.duration });
+            const offset = data.loop ? Math.random() * fromTexture.duration : 0;
+            game.video.play(fromTexture, { volume: 0, offset, loop: data.loop });
         }
 
         if (this.texture) {

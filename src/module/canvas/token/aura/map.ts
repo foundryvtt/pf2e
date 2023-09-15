@@ -27,9 +27,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             }
         }
 
-        if (!(canvas.ready && this.token.actor)) {
-            return;
-        }
+        if (!this.token.actor) return;
 
         const data = Array.from(this.token.document.auras.values()).filter((a) => slugs?.includes(a.slug) ?? true);
         for (const datum of data) {
@@ -40,8 +38,8 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         this.draw();
     }
 
-    /** Whether auras' borders should be shown to the present user */
-    get #showBorders(): boolean {
+    /** Whether auras' borders and highlights should be shown to the present user */
+    get #showBordersHighlights(): boolean {
         return (
             canvas.scene?.grid.type === CONST.GRID_TYPES.SQUARE &&
             // Assume if token vision is disabled then the scene is not intended for play.
@@ -66,12 +64,12 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         this.clearHighlights();
         if (this.token.isAnimating) return;
 
-        const showBorder = this.#showBorders;
+        const showBordersHighlights = this.#showBordersHighlights;
         for (const aura of this.values()) {
-            aura.draw(showBorder);
+            aura.draw(showBordersHighlights);
         }
 
-        if (this.token.hover || this.token.layer.highlightObjects) {
+        if (showBordersHighlights && (this.token.hover || this.token.layer.highlightObjects)) {
             const { highlightId } = this;
             const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
             highlight.clear();
@@ -85,7 +83,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     override delete(key: string): boolean {
         const aura = this.get(key);
         if (!aura) return false;
-        aura.destroy();
+        if (!aura.destroyed) aura.destroy(true);
         this.token.removeChild(aura);
 
         return super.delete(key);
@@ -95,7 +93,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     override clear(): void {
         this.clearHighlights();
         for (const aura of this.values()) {
-            aura.destroy(true);
+            if (!aura.destroyed) aura.destroy(true);
             this.token.removeChild(aura);
         }
 
