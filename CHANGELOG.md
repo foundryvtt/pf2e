@@ -5,6 +5,7 @@
 -   (darvey) Allow dragging stashed items in party sheet to members in sidebar
 -   (darvey) Add default filter to free archetype feat slots on PC sheets
 -   (darvey) Add property runes missing from armor and weapon dropdowns
+-   (In3luki) Add buttons to choice set prompts that open item sheets (given the choices are items)
 -   (stwlam) Automatically price and rename armor with runes and precious materials
 -   (stwlam) Add a system tab to scene config windows, allowing hearing radius and rules-based vision to be managed per scene.
 -   (stwlam) Show basic threat/XP data in encounter tracker: will continue to refine by adding settings and ability to award XP from it.
@@ -19,9 +20,8 @@
 -   (darvey) Fix item summary / spell buttons firing when pressing enter elsewhere in the form
 -   (Dire Weasel) Fix TempHP rule element to resolve injected properties in its predicate
 -   (In3luki) Fix ancestry feats without an ancestry trait being filtered in the compendium browser feats tab
--   (In3luki) Fix `Select Other Variant` button being show on heightened spell chat cards
--   (In3luki) Restore `CheckDC` statistic value from context flag in attack roll rerolls
--   (In3luki) Show a button on the `ChoiceSetPrompt` that opens the item sheet when the choice has a UUID
+-   (In3luki) Fix "Select Other Variant" button being show on heightened spell chat cards
+-   (In3luki) Fix issue causing degree of success to sometimes not be updated when rerolling.
 -   (stwlam) Fix styling and content selection of limited PC sheet
 -   (stwlam) Refrain from having ABP attack potency make weapons magical
 -   (stwlam) Limit visibility of degree-of-success button cues in strike attack rolls
@@ -33,8 +33,7 @@
 
 ### Data Updates
 
--   (Abaddon) Remove duplicate athletics entry for Glaz Nixbrix
--   (Abaddon) Remove duplicate lore entry for Angelique Loveless
+-   (Abaddon) Remove duplicate skill entries for Angelique Loveless and Glaz Nixbrix
 -   (arthurtrumpet) Add an effect for Emblazon Armament (Shield)
 -   (Chas) Brushup rule elements on Acrobat dedication & Tumble Behind
 -   (Cuingamehtar) Fix frequency of Expeditious Inspection
@@ -64,7 +63,8 @@
 -   (Tikael) Add inline check to Disturbing Knowledge
 -   (Tikael) Add missing notes to Kinzaruk
 -   (Tikael) Add missing NPC from PFS 4-12
--   (Tikael) Add missing Hryngar trait, add Talos and Ardande traits to geniekin feats
+-   (Tikael) Add missing Hryngar trait
+-   (Tikael) Add Talos and Ardande traits to geniekin feats
 -   (Tikael) Fix applicability of effects from air and wood kinetic auras
 -   (Tikael) Improve weapon inventor overdrive automation
 
