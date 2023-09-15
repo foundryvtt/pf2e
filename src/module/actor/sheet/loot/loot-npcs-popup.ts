@@ -41,7 +41,7 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             }
         }
         if (itemData.length > 0) {
-            await this.object.createEmbeddedDocuments("Item", itemData);
+            await this.object.createEmbeddedDocuments("Item", this.#combineStacks(itemData));
         }
     }
 
@@ -55,5 +55,39 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             checked: token.actor!.hasPlayerOwner,
         }));
         return { ...(await super.getData()), tokenInfo };
+    }
+
+    /** Combine quantities of items */
+    #combineStacks(itemData: PhysicalItemSource[]): PhysicalItemSource[] {
+        const stacked: PhysicalItemSource[] = [];
+        for (const source of itemData) {
+            const stackableSource = stacked.find((s) => this.#isStackableWith(source, s));
+            if (stackableSource) {
+                stackableSource.system.quantity += source.system.quantity;
+                continue;
+            }
+            stacked.push(source);
+        }
+        return stacked;
+    }
+
+    /** Are the two provided items stackable? */
+    #isStackableWith(source: PhysicalItemSource, other: PhysicalItemSource): boolean {
+        const preCheck =
+            source !== other &&
+            source.type === other.type &&
+            source.name === other.name &&
+            source.system.identification.status === other.system.identification.status;
+        if (!preCheck) return false;
+
+        const sourceData = deepClone(source.system);
+        const otherData = deepClone(other.system);
+        sourceData.quantity = otherData.quantity;
+        sourceData.equipped = otherData.equipped;
+        sourceData.containerId = otherData.containerId;
+        sourceData.schema = otherData.schema;
+        sourceData.identification = otherData.identification;
+
+        return JSON.stringify(sourceData) === JSON.stringify(otherData);
     }
 }
