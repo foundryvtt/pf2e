@@ -61,6 +61,7 @@ import {
     craftSpellConsumable,
 } from "./crafting/index.ts";
 import {
+    CharacterBiography,
     CharacterProficiency,
     CharacterSaveData,
     CharacterSkillData,
@@ -105,6 +106,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
         const { actor } = this;
+
+        // If the user only has limited permission, the main tab will be the biography
+        if (this.actor.limited) {
+            const tab = options?.tabs.find((t) => t.navSelector === ".sheet-navigation");
+            if (tab) tab.initial = "biography";
+        }
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -315,7 +322,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Enrich content
         const rollData = actor.getRollData();
-        const { biography } = actor.system.details;
+        const biography = (sheetData.biography = actor.system.details.biography);
         sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
             rollData,
             async: true,
@@ -562,12 +569,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         // MAIN
-
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
-        if (!mainPanel) throw ErrorPF2e("Unexpected failure finding main panel");
 
         // Ancestry/Heritage/Class/Background/Deity context menu
-        if (this.isEditable) {
+        if (mainPanel && this.isEditable) {
             new ContextMenu(
                 mainPanel,
                 ".detail-item-control",
@@ -1524,6 +1529,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
     attributeBoostsAllocated: boolean;
+    biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];

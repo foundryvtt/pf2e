@@ -1,11 +1,12 @@
 .sidebar {
-    display: flex;
     align-items: center;
+    display: flex;
     flex-direction: column;
+    height: 100%;
 
     .profile-img {
         display: flex;
-        align-items: flex-end;
+        align-items: end;
         margin: 1rem 0;
         max-width: 85%;
         max-height: 200px;
@@ -15,26 +16,34 @@
         @include frame-silver;
     }
 
-    .plaque {
+    .appearance {
         color: var(--sidebar-title);
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 0.25rem;
         display: flex;
+        flex-direction: column;
 
-        &::before,
-        &::after {
-            display: block;
-            content: url("/assets/icons/pathfinder-orn.svg");
-            height: 100%;
-            width: 25px;
+        h3 {
+            border-bottom: none;
+            font-size: 1rem;
+            text-align: center;
         }
-        &::after {
+
+        .body {
+            font-weight: 400;
+            font-size: var(--font-size-14);
+        }
+    }
+
+    .orn img {
+        border: none;
+        position: relative;
+
+        &:first-child {
+            left: 4px;
+        }
+
+        &:last-child {
+            right: 4px;
             transform: scaleX(-1);
-            margin-left: 4px;
-        }
-        &::before {
-            margin-right: 4px;
         }
     }
 
@@ -49,24 +58,8 @@
     }
 }
 
-.tab {
-    &.character {
-        .character-bio {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-
-            footer {
-                margin-top: auto;
-                text-align: left;
-                @include p-reset;
-                margin-top: auto;
-                margin-bottom: 8px;
-
-                p {
-                    color: var(--alt);
-                }
-            }
-        }
+.tab.biography {
+    .bio.backstory p:first-child {
+        margin-top: 0;
     }
 }
