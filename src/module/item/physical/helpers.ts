@@ -37,7 +37,7 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
     // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
     const materialData = getMaterialValuationData(item);
     const price = computePrice(item);
-    if (!(item.isMagical || materialData) || item.isSpecific) {
+    if (!(item.isMagical || materialData) || item.isSpecific || (item.isOfType("armor") && item.isShield)) {
         return { ...R.pick(item, ["level", "rarity"]), price };
     }
 
@@ -67,7 +67,9 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
  * have significant implementations.
  */
 function generateItemName(item: PhysicalItemPF2e): string {
-    if (!item.isOfType("armor", "weapon")) return item.name;
+    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+        return item.name;
+    }
 
     type Dictionaries = [
         Record<string, string | undefined>,

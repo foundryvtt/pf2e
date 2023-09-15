@@ -44,7 +44,9 @@ function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string,
 }
 
 function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
-    if (!item.isOfType("armor", "weapon")) return [];
+    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+        return [];
+    }
 
     type WorkingData = {
         runes: Record<string, Record<string | number, RuneData | null>>;
