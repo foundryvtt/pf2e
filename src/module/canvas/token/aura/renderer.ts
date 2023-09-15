@@ -80,7 +80,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Draw the aura's border, making sure it's only ever drawn once. */
     #drawBorder(): void {
         const data = this.appearance.border;
-        if (!data || this.#border.geometry.drawCalls.length > 0) {
+        if (!data || this.#border.geometry.graphicsData.length > 0) {
             return;
         }
 

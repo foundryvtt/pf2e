@@ -104,9 +104,9 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             border: new fields.SchemaField(
                 {
                     color: new fields.ColorField({ required: true, nullable: false, initial: "#000000" }),
-                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.5 }),
+                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.75 }),
                 } as const,
-                { required: false, nullable: true, initial: () => ({ alpha: 0.5, color: "#000000" }) } as const
+                { required: false, nullable: true, initial: () => ({ alpha: 0.75, color: "#000000" }) } as const
             ),
             highlight: new fields.SchemaField(
                 {
