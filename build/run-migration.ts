@@ -27,6 +27,7 @@ import { Migration858FakeWeaponSpecialization } from "@module/migration/migratio
 import { Migration859MaterialTypeGrade } from "@module/migration/migrations/859-material-type-grade.ts";
 import { Migration860RMGroup } from "@module/migration/migrations/860-rm-group.ts";
 import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862-specific-magic-armor.ts";
+import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -54,6 +55,7 @@ const migrations: MigrationBase[] = [
     new Migration859MaterialTypeGrade(),
     new Migration860RMGroup(),
     new Migration862SpecificMagicArmor(),
+    new Migration863FixMisspelledOrganaizationsProperty(),
 ];
 
 global.deepClone = <T>(original: T): T => {
