@@ -127,7 +127,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             texture: new fields.SchemaField(
                 {
                     src: new StrictStringField({ required: true, nullable: false, initial: undefined }),
-                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.5 }),
+                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 1 }),
                     scale: new StrictNumberField({ required: true, nullable: false, positive: true, initial: 1 }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
