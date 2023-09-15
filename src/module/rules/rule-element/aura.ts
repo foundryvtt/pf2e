@@ -129,12 +129,19 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     src: new StrictStringField({ required: true, nullable: false, initial: undefined }),
                     alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.5 }),
                     scale: new StrictNumberField({ required: true, nullable: false, positive: true, initial: 1 }),
-                    loop: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
                         nullable: false,
                         initial: undefined,
                     } as const),
+                    loop: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+                    playbackRate: new StrictNumberField({
+                        required: false,
+                        nullable: false,
+                        positive: true,
+                        max: 4,
+                        initial: 1,
+                    }),
                 } as const,
                 { required: false, nullable: true, initial: null }
             ),
@@ -338,8 +345,6 @@ type AuraTextureSchema = {
     alpha: AlphaField<true, false, true>;
     /** A manual rescaling of the texture resource */
     scale: StrictNumberField<number, number, true, false, true>;
-    /** If the `src` is a video, whether to loop it */
-    loop: StrictBooleanField<boolean, boolean, false, false, false>;
     /** A manual x/y translation of the texture resource */
     translation: SchemaField<
         XYPairSchema,
@@ -349,6 +354,10 @@ type AuraTextureSchema = {
         false,
         false
     >;
+    /** If the `src` is a video, whether to loop it */
+    loop: StrictBooleanField<boolean, boolean, false, false, false>;
+    /** If the `src` is a video, the playback rate of resulting `HTMLVideoElement` */
+    playbackRate: StrictNumberField<number, number, false, false, true>;
 };
 
 type XYPairSchema = {

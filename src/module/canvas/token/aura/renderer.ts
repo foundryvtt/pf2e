@@ -104,6 +104,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             this.texture.destroy();
             this.texture = await game.video.cloneTexture(globalVideo);
             const video = game.video.getVideoSource(this.texture) ?? globalVideo;
+            video.playbackRate = data.playbackRate;
             const offset = data.loop ? Math.random() * video.duration : 0;
             game.video.play(video, { volume: 0, offset, loop: data.loop });
         }
