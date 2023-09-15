@@ -1,7 +1,6 @@
 import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";
 

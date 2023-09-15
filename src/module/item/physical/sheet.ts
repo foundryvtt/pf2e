@@ -1,7 +1,6 @@
-import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { htmlQueryAll } from "@util";
-import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,

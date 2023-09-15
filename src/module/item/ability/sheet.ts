@@ -1,6 +1,5 @@
 import { AbilityItemPF2e } from "@item/ability/document.ts";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
-import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
 import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
 import { SelfEffectReference } from "./index.ts";
 

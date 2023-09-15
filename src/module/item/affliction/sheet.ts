@@ -1,7 +1,6 @@
 import { AfflictionPF2e, ConditionPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSheetPF2e } from "@item/sheet/base.ts";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
