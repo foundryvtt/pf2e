@@ -279,16 +279,17 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         data.check = mergeObject(data.check ?? {}, { type: this.type });
 
         const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
-        if (this.type === "flat-check") {
-            // If this is a flat check, replace the "check" domain with "flat-check"
-            checkDomains.delete("check");
-            checkDomains.add("flat-check");
-        } else if (this.type === "attack-roll") {
+        if (this.type === "attack-roll") {
             checkDomains.add("attack");
             checkDomains.add("attack-roll");
             checkDomains.add(`${this.parent.slug}-attack-roll`);
         } else {
             checkDomains.add(`${this.parent.slug}-check`);
+            if (this.type === "flat-check") {
+                // If this is a flat check, replace the "check" domain with "flat-check"
+                checkDomains.delete("check");
+                checkDomains.add("flat-check");
+            }
         }
 
         data.check.domains = Array.from(checkDomains).sort();
