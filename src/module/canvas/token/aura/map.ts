@@ -18,7 +18,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
      * Clear current aura renders, acquire new aura data, and render.
      * @param [slugs] A specific list of slugs to limit which auras are cleared
      */
-    reset(slugs?: string[]): void {
+    async reset(slugs?: string[]): Promise<void> {
         if (!slugs) {
             this.clear();
         } else {
@@ -35,7 +35,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             this.set(datum.slug, this.token.addChild(renderer));
         }
 
-        this.draw();
+        return this.draw();
     }
 
     /** Whether auras' borders and highlights should be shown to the present user */
@@ -58,7 +58,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     }
 
     /** Toggle visibility of aura rings and reset highlights */
-    draw(): void {
+    async draw(): Promise<void> {
         if (this.size === 0) return;
 
         this.clearHighlights();
@@ -66,7 +66,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         const showBordersHighlights = this.#showBordersHighlights;
         for (const aura of this.values()) {
-            aura.draw(showBordersHighlights);
+            await aura.draw(showBordersHighlights);
         }
 
         if (showBordersHighlights && (this.token.hover || this.token.layer.highlightObjects)) {
