@@ -238,9 +238,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         await super.drawEffects();
         await this._animation;
 
-        // Redraw auras only if necessary
-        if (this.auras.size === 0 && this.document.auras.size === 0) {
-            return;
+        if (this.auras.size === 0) {
+            return this.auras.reset();
         }
 
         // Determine whether a redraw is warranted by comparing current and updated radius/appearance data

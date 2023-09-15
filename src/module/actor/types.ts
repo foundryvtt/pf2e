@@ -85,6 +85,7 @@ interface AuraAppearanceData {
         src: ImageFilePath | VideoFilePath;
         alpha: number;
         scale: number;
+        loop: boolean;
         translation: { x: number; y: number } | null;
     } | null;
 }
