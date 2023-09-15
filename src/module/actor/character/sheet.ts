@@ -343,7 +343,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             rollData,
             async: true,
         });
-        sheetData.enrichedContent.organaizations = await TextEditor.enrichHTML(biography.organaizations, {
+        sheetData.enrichedContent.organizations = await TextEditor.enrichHTML(biography.organizations, {
             rollData,
             async: true,
         });
