@@ -1,10 +1,10 @@
 import { AuraAppearanceData, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
 import { TokenAuraData } from "@scene/token-document/aura/index.ts";
+import { isVideoFilePath } from "@util";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
-import { isVideoFilePath } from "@util";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -28,7 +28,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
 
-    #border = new PIXI.Graphics();
+    border = new PIXI.Graphics();
 
     texture: PIXI.Texture | null = null;
 
@@ -41,7 +41,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.radius = params.radius;
         this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
-        this.addChild(this.#border);
+        this.addChild(this.border);
     }
 
     get bounds(): PIXI.Rectangle {
@@ -71,21 +71,21 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     }
 
     /** Draw the aura's border and texture */
-    draw(showBorder: boolean): void {
+    async draw(showBorder: boolean): Promise<void> {
         this.#drawBorder();
-        this.#border.visible = showBorder;
-        this.#drawTexture();
+        this.border.visible = showBorder;
+        return this.#drawTexture();
     }
 
     /** Draw the aura's border, making sure it's only ever drawn once. */
     #drawBorder(): void {
         const data = this.appearance.border;
-        if (!data || this.#border.geometry.graphicsData.length > 0) {
+        if (!data || this.border.geometry.graphicsData.length > 0) {
             return;
         }
 
         const [x, y, radius] = [this.token.w / 2, this.token.h / 2, this.radiusPixels];
-        this.#border.lineStyle(AuraRenderer.LINE_THICKNESS, data.color, data.alpha).drawCircle(x, y, radius);
+        this.border.lineStyle(AuraRenderer.LINE_THICKNESS, data.color, data.alpha).drawCircle(x, y, radius);
     }
 
     /** Draw the aura's texture, resizing the image/video over the area (applying adjustments to that if provided) */
@@ -97,26 +97,26 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
         const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
         this.texture = maybeTexture instanceof PIXI.Texture ? maybeTexture : null;
-        const video = isVideoFilePath(data.src) && this.texture ? game.video.getVideoSource(this.texture) : null;
-        if (video instanceof HTMLVideoElement) {
-            this.texture?.destroy();
-            this.texture = await game.video.cloneTexture(video);
-            const fromTexture = game.video.getVideoSource(this.texture) ?? video;
-            const offset = data.loop ? Math.random() * fromTexture.duration : 0;
-            game.video.play(fromTexture, { volume: 0, offset, loop: data.loop });
+        if (!this.texture) return;
+
+        const globalVideo = isVideoFilePath(data.src) ? game.video.getVideoSource(this.texture) : null;
+        if (globalVideo) {
+            this.texture.destroy();
+            this.texture = await game.video.cloneTexture(globalVideo);
+            const video = game.video.getVideoSource(this.texture) ?? globalVideo;
+            const offset = data.loop ? Math.random() * video.duration : 0;
+            game.video.play(video, { volume: 0, offset, loop: data.loop });
         }
 
-        if (this.texture) {
-            const radius = data.scale * this.radiusPixels;
-            const diameter = radius * 2;
-            const scale = { x: diameter / this.texture.width, y: diameter / this.texture.height };
-            const center = { x: Math.round(this.token.w / 2), y: Math.round(this.token.h / 2) };
-            const translation = data.translation ?? { x: radius + center.x, y: radius + center.y };
-            const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, translation.x, translation.y);
-            this.beginTextureFill({ texture: this.texture, alpha: data.alpha, matrix })
-                .drawCircle(center.x, center.y, radius)
-                .endFill();
-        }
+        const radius = data.scale * this.radiusPixels;
+        const diameter = radius * 2;
+        const scale = { x: diameter / this.texture.width, y: diameter / this.texture.height };
+        const center = { x: Math.round(this.token.w / 2), y: Math.round(this.token.h / 2) };
+        const translation = data.translation ?? { x: radius + center.x, y: radius + center.y };
+        const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, translation.x, translation.y);
+        this.beginTextureFill({ texture: this.texture, alpha: data.alpha, matrix })
+            .drawCircle(center.x, center.y, radius)
+            .endFill();
     }
 
     /** Highlight the affected grid squares of this aura and indicate the radius */

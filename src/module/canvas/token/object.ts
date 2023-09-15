@@ -261,7 +261,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .map(([slug]) => slug);
         const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));
 
-        this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
+        return this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
     }
 
     /** Emulate a pointer hover ("pointerover") event */
