@@ -28,12 +28,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             [3, sheetData.data.propertyRune3],
             [4, sheetData.data.propertyRune4],
         ] as const;
+        const lastDisplayedPropertySlot = Math.min(
+            maxPropertySlots,
+            propertyRuneSlotsData.findLastIndex(([, slot]) => !!slot?.value) + 2
+        );
         const propertyRuneSlots = propertyRuneSlotsData
             .filter(
-                ([slotNumber, slot], index) =>
-                    slotNumber <= maxPropertySlots &&
-                    (slotNumber === 1 || !!sheetData.data[`propertyRune${index as OneToFour}` as const]?.value) &&
-                    !(sheetData.data.specific?.value && slot.value === null)
+                ([slotNumber, slot]) =>
+                    slotNumber <= lastDisplayedPropertySlot && !(sheetData.data.specific?.value && slot.value === null)
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,

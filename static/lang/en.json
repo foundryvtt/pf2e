@@ -508,6 +508,7 @@
         "ArmorPropertyRuneMajorSlick": "Major Slick",
         "ArmorPropertyRuneMajorStanching": "Major Stanching",
         "ArmorPropertyRuneMajorSwallowSpike": "Major Swallow-Spike",
+        "ArmorPropertyRuneMalleable": "Malleable",
         "ArmorPropertyRuneMisleading": "Misleading",
         "ArmorPropertyRuneModerateDread": "Moderate Dread",
         "ArmorPropertyRunePortable": "Portable",
@@ -5098,11 +5099,17 @@
                 "Name": "Ghost Touch",
                 "Note": "The weapon can harm creatures without physical form. A ghost touch weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to ghost touch weapons. Incorporeal creatures can touch, hold, and wield ghost touch weapons (unlike most physical objects)."
             },
+            "giantKilling": {
+                "Name": "Giant-Killing",
+                "Note": {
+                    "criticalSuccess": "On a critical hit with this weapon, the giant is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
+                }
+            },
             "greaterAnchoring": {
                 "Name": "Greater Anchoring",
                 "Note": {
                     "criticalSuccess": "When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> on the target (@Check[type:will|dc:38|name:Greater Anchoring Rune], counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
-                    "success": "<strong>Greater Anchoring Rune</strong> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28})."
+                    "success": "When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28})."
                 }
             },
             "greaterAshen": {
@@ -5118,14 +5125,14 @@
                 "Name": "Greater Brilliant",
                 "Note": {
                     "criticalSuccess": "Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
-                    "success": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance."
+                    "success": "Damage dealt by this weapon ignores the target's fire, good, or positive resistance."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive",
                 "Note": {
                     "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r 6d6[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
-                    "success": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance."
+                    "success": "The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
             "greaterCrushing": {
@@ -5163,7 +5170,14 @@
                 "Name": "Greater Frost",
                 "Note": {
                     "criticalSuccess": "Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34|name:Greater Frost Rune] save.",
-                    "success": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance."
+                    "success": "Cold damage dealt by this weapon ignores the target's cold resistance."
+                }
+            },
+            "greaterGiantKilling": {
+                "Name": "Greater Giant-Killing",
+                "Note": {
+                    "success": "Mental damage dealt by this weapon ignores the target's mental resistance.",
+                    "criticalSuccess": "On a critical hit with this weapon, the giant must attempt a @Check[type:fortitude|dc:34] with the following effects.<br /><strong>Critical Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn and takes @Damage[1d10[mental]].<br /><strong>Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} for the next minute and takes @Damage[2d10[mental]].<br/><strong>Critical Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 4} for the next minute and takes @Damage[4d10[mental]]."
                 }
             },
             "greaterHauling": {
@@ -5173,6 +5187,12 @@
                 "Name": "Greater Impactful",
                 "Note": {
                     "criticalSuccess": "On a critical hit, you can choose to force the target to succeed at a @Check[type:fortitude|dc:37|name:Greater Impactful Rune] save or be pushed 10 feet away from you."
+                }
+            },
+            "greaterRooting": {
+                "Name": "Greater Rooting",
+                "Note": {
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"28\">Escape DC 28</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "greaterShock": {
@@ -5223,6 +5243,12 @@
                     "criticalSuccess": "On a critical hit with this weapon, you inspire your comrades, pushing them to fight harder and stand for your shared convictions. Allies within 30 feet that share at least one alignment component with you gain a +1 status bonus to attack rolls until the end of your next turn."
                 }
             },
+            "hooked": {
+                "Name": "Hooked",
+                "Note": {
+                    "criticalSuccess": "If a hooked weapon normally has the trip trait, you can attempt to Trip a foe as a reaction when you critically hit it with the hooked weapon."
+                }
+            },
             "impactful": {
                 "Name": "Impactful",
                 "Note": {
@@ -5239,6 +5265,12 @@
             "kinWarding": {
                 "Name": "Kin-Warding"
             },
+            "majorRooting": {
+                "Name": "Major Rooting",
+                "Note": {
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"34\">Escape DC 34</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                }
+            },
             "merciful": {
                 "Name": "Merciful"
             },
@@ -5250,7 +5282,13 @@
             },
             "returning": {
                 "Name": "Returning",
-                "Note": "<strong>Returning Rune</strong> When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
+                "Note": "When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
+            },
+            "rooting": {
+                "Name": "Rooting",
+                "Note": {
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"23\">Escape DC 23</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
+                }
             },
             "serrating": {
                 "Name": "Serrating"
@@ -5277,6 +5315,12 @@
                 "Name": "Thundering",
                 "Note": {
                     "criticalSuccess": "On a critical hit, the target has to succeed at a @Check[type:fortitude|dc:24|name:Thundering Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure)."
+                }
+            },
+            "trueRooting": {
+                "Name": "True Rooting",
+                "Note": {
+                    "criticalSuccess": "When you critically hit a target with this weapon, roots grow from the target. It's @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{immobilized} for 1 round (<span data-pf2-action=\"escape\" data-pf2-glyph=\"A\" data-pf2-dc=\"41\">Escape DC 41</span>) and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for as long as the immobilization lasts."
                 }
             },
             "underwater": {

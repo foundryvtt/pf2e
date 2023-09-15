@@ -38,8 +38,8 @@ function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string,
             !!r &&
             r in validTypes &&
             !runeSet.has(`greater${r.titleCase()}`) &&
-            !runeSet.has(`major${r.titleCase()}`) &&
-            !runeSet.has(`true${r.titleCase()}`)
+            !runeSet.has(`major${r.replace(/^greater/, "").titleCase()}`) &&
+            !runeSet.has(`true${r.replace(/^greater|^major/, "").titleCase()}`)
     );
 }
 
@@ -311,7 +311,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
-    strikeAdjustments?: StrikeAdjustment[];
+    strikeAdjustments?: Pick<StrikeAdjustment, "adjustWeapon">[];
 }
 
 /** Title and text are mandatory for these notes */
@@ -641,6 +641,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         rarity: "common",
         slug: "majorSwallowSpike",
         traits: ["magical", "transmutation"],
+    },
+    malleable: {
+        name: "PF2E.ArmorPropertyRuneMalleable",
+        level: 9,
+        price: 650,
+        rarity: "common",
+        slug: "malleable",
+        traits: ["magical", "metal"],
     },
     misleading: {
         name: "PF2E.ArmorPropertyRuneMisleading",
@@ -1194,6 +1202,33 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "ghostTouch",
         traits: ["magical", "transmutation"],
     },
+    giantKilling: {
+        damage: {
+            dice: [
+                {
+                    slug: "giantKilling",
+                    damageType: "mental",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: ["target:trait:giant"],
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    predicate: ["target:trait:giant"],
+                    title: "PF2E.WeaponPropertyRune.giantKilling.Name",
+                    text: "PF2E.WeaponPropertyRune.giantKilling.Note.criticalSuccess",
+                },
+            ],
+        },
+        level: 8,
+        name: "PF2E.WeaponPropertyRune.giantKilling.Name",
+        price: 450,
+        rarity: "rare",
+        slug: "giantKilling",
+        traits: ["magical", "necromancy"],
+    },
     greaterAnchoring: {
         damage: {
             notes: [
@@ -1444,6 +1479,34 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "greaterFrost",
         traits: ["cold", "conjuration", "magical"],
     },
+    greaterGiantKilling: {
+        damage: {
+            dice: [
+                {
+                    slug: "greaterGiantKilling",
+                    damageType: "mental",
+                    diceNumber: 2,
+                    dieSize: "d6",
+                    predicate: ["target:trait:giant"],
+                },
+            ],
+            ignoredResistances: [{ type: "mental", max: null }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    predicate: ["target:trait:giant"],
+                    title: "PF2E.WeaponPropertyRune.greaterGiantKilling.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterGiantKilling.Note.criticalSuccess",
+                },
+            ],
+        },
+        level: 15,
+        name: "PF2E.WeaponPropertyRune.greaterGiantKilling.Name",
+        price: 6000,
+        rarity: "rare",
+        slug: "greaterGiantKilling",
+        traits: ["magical", "necromancy"],
+    },
     greaterHauling: {
         level: 11,
         name: "PF2E.WeaponPropertyRune.greaterHauling.Name",
@@ -1469,6 +1532,28 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "greaterImpactful",
         traits: ["evocation", "force", "magical"],
+    },
+    greaterRooting: {
+        level: 11,
+        name: "PF2E.WeaponPropertyRune.greaterRooting.Name",
+        price: 1400,
+        rarity: "common",
+        slug: "greaterRooting",
+        traits: ["plant", "magical", "wood"],
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterRooting.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterRooting.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterRooting.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterRooting.Note.success",
+                },
+            ],
+        },
     },
     greaterShock: {
         damage: {
@@ -1654,6 +1739,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "hopeful",
         traits: ["enchantment", "magical"],
     },
+    hooked: {
+        level: 5,
+        name: "PF2E.WeaponPropertyRune.hooked.Name",
+        price: 140,
+        rarity: "rare",
+        slug: "hooked",
+        traits: ["conjuration", "magical"],
+        strikeAdjustments: [
+            {
+                adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                    if (!weapon.system.traits.value.includes("trip")) {
+                        weapon.system.traits.value.push("trip");
+                    }
+                },
+            },
+        ],
+    },
     impactful: {
         damage: {
             dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
@@ -1726,6 +1828,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "majorFanged",
         traits: ["magical", "transmutation"],
     },
+    majorRooting: {
+        level: 15,
+        name: "PF2E.WeaponPropertyRune.majorRooting.Name",
+        price: 6500,
+        rarity: "common",
+        slug: "majorRooting",
+        traits: ["plant", "magical", "wood"],
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.majorRooting.Name",
+                    text: "PF2E.WeaponPropertyRune.majorRooting.Note.criticalSuccess",
+                },
+            ],
+        },
+    },
     merciful: {
         strikeAdjustments: [
             {
@@ -1763,6 +1882,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "returning",
         traits: ["evocation", "magical"],
+    },
+    rooting: {
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.rooting.Name",
+        price: 360,
+        rarity: "common",
+        slug: "rooting",
+        traits: ["plant", "magical", "wood"],
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.rooting.Name",
+                    text: "PF2E.WeaponPropertyRune.rooting.Note.criticalSuccess",
+                },
+            ],
+        },
     },
     serrating: {
         damage: {
@@ -1842,6 +1978,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "thundering",
         traits: ["evocation", "magical", "sonic"],
+    },
+    trueRooting: {
+        level: 19,
+        name: "PF2E.WeaponPropertyRune.trueRooting.Name",
+        price: 40_000,
+        rarity: "common",
+        slug: "trueRooting",
+        traits: ["plant", "magical", "wood"],
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.trueRooting.Name",
+                    text: "PF2E.WeaponPropertyRune.trueRooting.Note.criticalSuccess",
+                },
+            ],
+        },
     },
     underwater: {
         level: 3,
