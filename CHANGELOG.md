@@ -1,3 +1,73 @@
+## 5.5.0
+
+### System Improvements
+
+-   (darvey) Allow dragging stashed items in party sheet to members in sidebar
+-   (darvey) Add default filter to free archetype feat slots on PC sheets
+-   (darvey) Add property runes missing from armor and weapon dropdowns
+-   (stwlam) Automatically price and rename armor with runes and precious materials
+-   (stwlam) Add a system tab to scene config windows, allowing hearing radius and rules-based vision to be managed per scene.
+-   (stwlam) Show basic threat/XP data in encounter tracker: will continue to refine by adding settings and ability to award XP from it.
+-   (stwlam) Add an "appearance" property to Aura rule element configuration, allowing for greatly expanded control over an aura's looks. Textures, including videos, are now supported. Border and fill colors have been moved to this property.
+-   (stwlam) Refine visibility rules for auras:
+    -   During encounters, borders are always visible unless configured in the rule element to not be. Outside of encounters, they are only visible when a token is hovered or controlled. Only GMs can see aura borders from "opposition" (typically NPC) tokens.
+    -   Highlights are only visible during encounters, and only when a token is hovered or controlled. Visibility to players follows the same rules as borders.
+    -   Textures are always visible, in or out of encounters, and even to players for ones emanating from opposition tokens.
+
+### Bugfixes
+
+-   (darvey) Fix item summary / spell buttons firing when pressing enter elsewhere in the form
+-   (Dire Weasel) Fix TempHP rule element to resolve injected properties in its predicate
+-   (In3luki) Fix ancestry feats without an ancestry trait being filtered in the compendium browser feats tab
+-   (In3luki) Fix `Select Other Variant` button being show on heightened spell chat cards
+-   (In3luki) Restore `CheckDC` statistic value from context flag in attack roll rerolls
+-   (In3luki) Show a button on the `ChoiceSetPrompt` that opens the item sheet when the choice has a UUID
+-   (stwlam) Fix styling and content selection of limited PC sheet
+-   (stwlam) Refrain from having ABP attack potency make weapons magical
+-   (stwlam) Limit visibility of degree-of-success button cues in strike attack rolls
+-   (stwlam) Hide spell DCs in chat cards when appropriate
+-   (stwlam) Fix issue preventing NPC sneak attack from applying damage during flanking
+-   (stwlam) Fix calculation of counteract total modifier
+-   (Supe) Fix Grant Item form defaults
+-   (Supe) Fix effects that modify degree of success of persistent-damage recovery checks
+
+### Data Updates
+
+-   (Abaddon) Remove duplicate athletics entry for Glaz Nixbrix
+-   (Abaddon) Remove duplicate lore entry for Angelique Loveless
+-   (arthurtrumpet) Add an effect for Emblazon Armament (Shield)
+-   (Chas) Brushup rule elements on Acrobat dedication & Tumble Behind
+-   (Cuingamehtar) Fix frequency of Expeditious Inspection
+-   (Cuingamehtar) Improve Flame Wisp effect counter
+-   (Dana) Fix inline perception check icon
+-   (darvey) Add armor specialization rule elements for armor groups added in Treasure Vault
+-   (Dire Weasel) Add automation for Broadleaf Shield, Ooze Ammunition, Cape of Illumination
+-   (Dire Weasel) Add bleed damage to Splintering Spear
+-   (Dire Weasel) Add effect for Conductive Weapon, Envenom Fangs, Ferrous Form, Ginger Chew, Journeybread (Power), Merciful Balm, Pucker Pickle, Sand Form, Spiny Lodestone, and Tremorsense (spell)
+-   (Dire Weasel) Add inline Checks to Invoke The Elements
+-   (Dire Weasel) Add token light to Fulminating Spear and Starfaring Cloak
+-   (Dire Weasel) Fix action cost of Alicorn Lance activation
+-   (Dire Weasel) Fix broken spell link and missing emphasis in Remaster Changes journal
+-   (Dire Weasel) Fix damage links for Slashing Gust and Splinter Volley
+-   (Dire Weasel) Fix Emblazon Armament (Shield) effect to only allow shields
+-   (Dire Weasel) Fix some formatting in the GM screen and archetypes journals
+-   (Dire Weasel) Unify inline damage links for Steaming Fields' Steam Jet
+-   (Dire Weasel) Update Flashy Disappearance effect to include grant of Invisible condition
+-   (Dire Weasel) Update torch icon and swap Strike icon when lit
+-   (Drental) Add automation for Watch This!
+-   (Dwim) Automate Poison Weapon feat chain
+-   (Dwim) Improved automation of Gunslinger initial deeds
+-   (LebombJames) Bring some inventor feats up to date with automation
+-   (stwlam) Add aura to Aura of Despair
+-   (stwlam) Fix rule elements on Large Bore Modifications
+-   (Tikael) Add automation to Tactician's Helm
+-   (Tikael) Add inline check to Disturbing Knowledge
+-   (Tikael) Add missing notes to Kinzaruk
+-   (Tikael) Add missing NPC from PFS 4-12
+-   (Tikael) Add missing Hryngar trait, add Talos and Ardande traits to geniekin feats
+-   (Tikael) Fix applicability of effects from air and wood kinetic auras
+-   (Tikael) Improve weapon inventor overdrive automation
+
 ## 5.4.4
 
 ### System Improvements
