@@ -721,14 +721,6 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "slick",
         traits: ["magical", "transmutation"],
     },
-    spellbreaking: {
-        name: "PF2E.ArmorPropertyRuneSpellbreaking",
-        level: 13,
-        price: 3000,
-        rarity: "common",
-        slug: "spellbreaking",
-        traits: ["abjuration", "magical"],
-    },
     soaring: {
         name: "PF2E.ArmorPropertyRuneSoaring",
         level: 14,
