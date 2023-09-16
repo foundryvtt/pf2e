@@ -12,11 +12,11 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
         const $html = await super._renderInner(data, options);
         if (!game.user.isGM) return $html;
-        const analysis = this.viewed?.analyze();
-        if (!analysis) return $html;
+        const metrics = this.viewed?.metrics;
+        if (!metrics) return $html;
 
         const threatXP = parseHTML(
-            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-xp.hbs", analysis)
+            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-xp.hbs", metrics)
         );
         const html = $html[0];
         htmlQuery(html, "nav.encounters")?.after(threatXP);

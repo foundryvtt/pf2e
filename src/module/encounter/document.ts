@@ -12,6 +12,8 @@ import { setHasElement } from "@util";
 import { CombatantFlags, RolledCombatant, type CombatantPF2e } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
+    declare metrics: EncounterMetrics | null;
+
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
     protected override _sortCombatants(
         a: CombatantPF2e<this, TokenDocumentPF2e>,
@@ -39,7 +41,7 @@ class EncounterPF2e extends Combat {
     }
 
     /** Determine threat rating and XP award for this encounter */
-    analyze(): { threat: ThreatRating; xp: number } | null {
+    analyze(): EncounterMetrics | null {
         const { party } = game.actors;
         const partyMembers: ActorPF2e[] = party?.members.filter((a) => a.alliance === "party" && isReallyPC(a)) ?? [];
         // If no party members are in the encounter yet, show threat/XP as though all are.
@@ -68,6 +70,11 @@ class EncounterPF2e extends Combat {
         const xp = Math.floor(result.xpPerPlayer * (fightyPartyMembers.length / partyMembers.length));
 
         return { threat, xp };
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.metrics = this.analyze();
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
@@ -313,6 +320,11 @@ interface EncounterPF2e extends Combat {
     readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
+}
+
+interface EncounterMetrics {
+    threat: ThreatRating;
+    xp: number;
 }
 
 interface SetInitiativeData {
