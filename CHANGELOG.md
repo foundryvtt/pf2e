@@ -1,3 +1,16 @@
+## 5.5.1
+
+### Bugfixes
+
+-   (stwlam) Fix roll-data resolution in inline damage links
+-   (stwlam) Restore damage buttons to NPC/hazard attack rolls
+-   (Supe) Add support for brackets in Fast Healing/Regeneration rule element form
+
+### Data Updates
+
+-   (Dire Weasel) Add secondary save link to Beheading Buzz Saw
+-   (Dire Weasel) Add effects for Flame Dancer, Galvanic Chew, Phoenix Ward, and Thermal Remedy
+
 ## 5.5.0
 
 ### System Improvements
