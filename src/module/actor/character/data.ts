@@ -180,6 +180,13 @@ interface CharacterBiography {
     enemies: string;
     /** Character organizations (user-provided field). value is HTML */
     organizations: string;
+    /** Visibility (to users with limited ownership of the PC) toggle states */
+    visibility: {
+        appearance: boolean;
+        backstory: boolean;
+        personality: boolean;
+        campaign: boolean;
+    };
 }
 
 interface CharacterBuildSource {

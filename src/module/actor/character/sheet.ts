@@ -44,6 +44,7 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
+    tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -1063,6 +1064,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
+
+        // BIOGRAPHY
+        const bioPanel = htmlQuery(html, ".tab[data-tab=biography]");
+
+        // Biography section visibility toggles
+        bioPanel?.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
+            const section = anchor?.dataset.section;
+            if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
+                event.stopPropagation();
+                const { biography } = this.actor.system.details;
+                const path = `system.details.biography.visibility.${section}`;
+                this.actor.update({ [path]: !biography.visibility[section] });
+            }
+        });
     }
 
     protected override activateInventoryListeners(panel: HTMLElement | null): void {

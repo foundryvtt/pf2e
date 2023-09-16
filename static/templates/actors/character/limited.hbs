@@ -4,18 +4,6 @@
 
         <div class="sidebar">
             <img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" alt="{{actor.name}}" />
-            <div class="appearance">
-                <h3>{{localize "PF2E.SidebarAppearanceLabel"}}</h2>
-                {{#if enrichedContent.appearance~}}
-                    <div class="body">{{{enrichedContent.appearance}}}</div>
-                {{~/if}}
-
-                <ul class="stats">
-                    {{#if data.details.ethnicity.value}}<li>{{data.details.ethnicity.value}}</li>{{/if}}
-                    {{#if data.details.height.value}}<li>{{data.details.height.value}}</li>{{/if}}
-                    {{#if data.details.weight.value}}<li>{{data.details.weight.value}}</li>{{/if}}
-                </ul>
-            </div>
             <div class="orn">
                 <img src="systems/pf2e/assets/icons/pathfinder-orn.svg" />
                 <img src="systems/pf2e/assets/icons/pathfinder-orn.svg" />
@@ -49,66 +37,7 @@
 
     <section class="sheet-body">
         <section class="sheet-content">
-            <!-- Character -->
-            <div class="tab biography" data-group="primary" data-tab="biography">
-                <h3 class="header">{{localize "PF2E.BiographyBackStory"}}</h3>
-                <section class="biography-details">
-                    {{#if enrichedContent.backstory}}
-                        <div class="bio backstory">
-                            {{{enrichedContent.backstory}}}
-                        </div>
-                    {{/if}}
-
-                    {{#if biography.birthPlace}}
-                        <div class="bio birth-place">
-                            <span class="details-label">{{localize "PF2E.BiographyBirthPlace"}}</span>
-                            <span>{{biography.birthPlace}}</span>
-                        </div>
-                    {{/if}}
-                </section>
-
-                {{#if (or biography.attitude biography.beliefs biography.likes biography.dislikes biography.catchphrases)}}
-                    <h3 class="header">{{localize "PF2E.BiographyPersonalityHeader"}}</h3>
-                    <section class="biography-personality">
-                        {{#if biography.attitude}}
-                            <div class="bio attitude">
-                                <span class="details-label">{{localize "PF2E.BiographyAttitude"}}</span>
-                                <span title="{{localize "PF2E.BiographyAttitudeTitle"}}">{{biography.attitude}}</span>
-                            </div>
-                        {{/if}}
-
-                        {{#if biography.beliefs}}
-                            <div class="bio beliefs">
-                                <span class="details-label">{{localize "PF2E.BiographyBeliefs"}}</span>
-                                <span title="{{localize "PF2E.BiographyBeliefsTitle"}}">{{biography.beliefs}}</span>
-                            </div>
-                        {{/if}}
-
-                        {{#if biography.likes}}
-                            <div class="bio likes">
-                                <span class="details-label">{{localize "PF2E.BiographyLikes"}}</span>
-                                <span title="{{localize "PF2E.BiographyLikesTitle"}}">{{biography.likes}}</span>
-                            </div>
-                        {{/if}}
-
-                        {{#if biography.dislikes}}
-                            <div class="bio dislikes">
-                                <span class="details-label">{{localize "PF2E.BiographyDislikes"}}</span>
-                                <span title="{{localize "PF2E.BiographyDislikesTitle"}}">{{biography.dislikes}}</span>
-                            </div>
-                        {{/if}}
-
-                        {{#if biography.catchphrases}}
-                            <div class="bio catchphrases">
-                                <span class="details-label">{{localize "PF2E.BiographyCatchphrases"}}</span>
-                                <span title="{{localize "PF2E.BiographyCatchphrasesTitle"}}">{{biography.catchphrases}}</span>
-                            </div>
-                        {{/if}}
-                    </section>
-                {{/if}}
-            </div>
-
-            <!-- Effects -->
+            {{> "systems/pf2e/templates/actors/character/tabs/biography.hbs"}}
             {{> "systems/pf2e/templates/actors/character/tabs/effects.hbs"}}
         </section>
     </section>
