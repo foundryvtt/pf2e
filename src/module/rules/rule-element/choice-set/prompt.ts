@@ -70,7 +70,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
             this.close();
         });
 
-        const renderItemSheet = async (choice?: ChoiceSetChoice): Promise<void> => {
+        const renderItemSheet = async (choice: ChoiceSetChoice | null): Promise<void> => {
             if (!choice || !UUIDUtils.isItemUUID(choice.value)) return;
             const item = await fromUuid(choice.value);
             item?.sheet.render(true);
@@ -78,42 +78,41 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 
         if (this.containsItems) {
             if (this.selectMenu) {
-                const button = htmlQuery<HTMLButtonElement>(html, "button.item-info");
-                if (!button) return;
+                const itemInfoAnchor = htmlQuery(html, "a.item-info");
+                if (!itemInfoAnchor) return;
 
-                const updateButton = (disable: boolean, value?: string): void => {
-                    value ??= "";
-                    button.value = value;
-                    button.disabled = disable;
-                    button.title = game.i18n.localize(
+                const updateAnchor = (disable: boolean, value = ""): void => {
+                    itemInfoAnchor.dataset.value = value;
+                    itemInfoAnchor.classList.toggle("disabled", disable);
+                    itemInfoAnchor.dataset.tooltip = game.i18n.localize(
                         disable
-                            ? "PF2E.UI.RuleElements.ChoiceSet.ItemSheetButtonTooltipDisabled"
-                            : "PF2E.UI.RuleElements.ChoiceSet.ItemSheetButtonTooltip"
+                            ? "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
+                            : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
                     );
                 };
 
-                button.addEventListener("click", (event) => {
+                itemInfoAnchor.addEventListener("click", (event) => {
                     renderItemSheet(this.getSelection(event));
                 });
 
                 this.selectMenu.on("change", (event) => {
                     const data = event.detail.tagify.value.at(0);
                     if (!data) {
-                        return updateButton(true);
+                        return updateAnchor(true);
                     }
                     const index = Number(data.value);
                     if (!isNaN(index)) {
                         const choice = this.choices.at(index);
                         if (UUIDUtils.isItemUUID(choice?.value)) {
-                            updateButton(false, data.value);
+                            updateAnchor(false, data.value);
                         } else {
-                            updateButton(true);
+                            updateAnchor(true);
                         }
                     }
                 });
             } else {
-                for (const button of htmlQueryAll<HTMLButtonElement>(html, "button.item-info")) {
-                    button.addEventListener("click", (event) => {
+                for (const anchor of htmlQueryAll(html, "a.item-info")) {
+                    anchor.addEventListener("click", (event) => {
                         renderItemSheet(this.getSelection(event));
                     });
                 }
@@ -214,7 +213,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 }
 
 interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
-    getSelection: (event: MouseEvent) => ChoiceSetChoice;
+    getSelection: (event: MouseEvent) => ChoiceSetChoice | null;
 }
 
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
