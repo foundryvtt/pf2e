@@ -1,51 +1,9 @@
 {
-    "_id": "MiVmx6v1nMTX09Aa",
+    "_id": "8wE5OWsgOQ9ZURzu",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PFFaxCwts3m0JyHR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pCqUWjlh7W2eUuix",
+            "_id": "YgzroLowwm3yp6g9",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.baA0nSMhQyFyJIia"
@@ -53,7 +11,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarm Mind",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -87,65 +45,20 @@
             "type": "action"
         },
         {
-            "_id": "sKaI0O0sadZ8p6rZ",
+            "_id": "eHTffn3HeutAp4vD",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Cute But Deadly",
-            "sort": 300000,
+            "name": "Snatch Up",
+            "sort": 200000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. The sight of these bunnies with their red glowing eyes and sharp teeth is so unsettling that upon seeing them a creature must attempt a @Check[type:will|dc:22] save. On a failure, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure) and cannot lower their frightened condition lower than 1 while within the aura. A creature that succeeds at its save is temporarily immune to all abyssal bunny swarm's cute but deadly auras for 1 minute.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "cute-but-deadly",
-                        "traits": [
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "aura",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dWR9saug2xhMitQR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Swarming Bites",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each enemy in the swarm's space takes @Damage[5d4[piercing]] damage (@Check[type:reflex|dc:21|basic:true] save). A creature that fails its save against swarming becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. On a critical failure, the creature also takes @Damage[1d6[persistent,bleed]] damage.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<hr />\n<p><strong>Effect</strong> The creature must attempt a @Check[type:fortitude|dc:18] save to escape the swarm's space or they are picked up and thrown 5 feet, taking @Damage[1d6[bludgeoning]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -165,7 +78,73 @@
             "type": "action"
         },
         {
-            "_id": "fLRDH2B5oCaUPuAj",
+            "_id": "Eyv2i0G0kG3hK3hO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Echolocation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A bat can use its hearing as a precise sense at the listed range.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FiI2bWuRneIPIYMW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Bites",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[1d8[piercing]] damage (@Check[type:reflex|dc:18|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kxZ8UGDE1gWWIDZr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 500000,
@@ -174,7 +153,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 12
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -188,7 +167,7 @@
             "type": "lore"
         },
         {
-            "_id": "LX7L84ynzhXaICTw",
+            "_id": "HpyM7SVjSmjd4uH0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 600000,
@@ -197,7 +176,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 12
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -205,13 +184,11 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
                         "predicate": [
-                            "action:long-jump",
-                            "action:high-jump"
+                            "action:climb"
                         ],
                         "selector": "athletics",
-                        "value": 2
+                        "value": 3
                     }
                 ],
                 "slug": null,
@@ -220,15 +197,15 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+14 when jumping",
-                        "options": "action:long-jump,action:high-jump"
+                        "label": "+8 to Climb",
+                        "options": "action:climb"
                     }
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "H2IIoHadBstOaLk7",
+            "_id": "FfbCT4qrhsLAD0Xx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 700000,
@@ -237,7 +214,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 12
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -251,41 +228,41 @@
             "type": "lore"
         }
     ],
-    "name": "Vicious Abyssal Bunny Swarm",
+    "name": "Hoarding Bat Swarm",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 5
+                "mod": -3
             },
             "con": {
-                "mod": 4
+                "mod": 1
             },
             "dex": {
-                "mod": 5
-            },
-            "int": {
                 "mod": 4
             },
+            "int": {
+                "mod": -4
+            },
             "str": {
-                "mod": 3
+                "mod": 1
             },
             "wis": {
-                "mod": 1
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 21
+                "value": 17
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 76,
+                "max": 21,
                 "temp": 0,
-                "value": 76
+                "value": 21
             },
             "immunities": [
                 {
@@ -301,46 +278,31 @@
                 "statistic": "perception"
             },
             "perception": {
-                "value": 12
+                "value": 11
             },
             "resistances": [
                 {
                     "doubleVs": [],
-                    "exceptions": [],
-                    "type": "bludgeoning",
-                    "value": 2
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "slashing",
-                    "value": 5
+                    "exceptions": [
+                        "piercing"
+                    ],
+                    "type": "physical",
+                    "value": 6
                 }
             ],
             "speed": {
-                "otherSpeeds": [],
-                "value": 40
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 5
             },
             "weaknesses": [
                 {
                     "exceptions": [],
                     "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "exceptions": [],
-                    "type": "cold-iron",
-                    "value": 5
-                },
-                {
-                    "exceptions": [],
-                    "type": "good",
                     "value": 5
                 },
                 {
@@ -352,53 +314,48 @@
         },
         "details": {
             "alignment": {
-                "value": "CE"
+                "value": "N"
             },
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 5
+                "value": 2
             },
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society Scenario #4-99: Blessings of the Forest"
+                "value": "Pathfinder Society Scenario #5-04: Necessary Introductions"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 13
+                "value": 7
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 14
+                "value": 10
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 7
             }
         },
         "traits": {
             "languages": {
-                "custom": "Can't Speak",
-                "selected": [],
-                "value": [
-                    "abyssal"
-                ]
+                "custom": "",
+                "value": []
             },
-            "rarity": "rare",
+            "rarity": "uncommon",
             "senses": {
-                "value": "darkvision"
+                "value": "echolocation (precise) 40 feet"
             },
             "size": {
                 "value": "lg"
             },
             "value": [
                 "animal",
-                "demon",
-                "fiend",
                 "swarm"
             ]
         }
