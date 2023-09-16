@@ -1,9 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item/base.ts";
+import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { htmlQuery, isObject, tagify } from "@util";
+import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
 import { type DataField } from "types/foundry/common/data/fields.js";
 
@@ -26,6 +27,11 @@ class RuleElementForm<
     readonly rule: TSource;
     readonly object: TObject | null;
     schema: LaxSchemaField<RuleElementSchema> | null;
+
+    /** Base proprety path for the contained rule */
+    get basePath(): string {
+        return `system.rules.${this.options.index}`;
+    }
 
     constructor(protected options: RuleElementFormOptions<TSource, TObject>) {
         this.item = options.item;
@@ -61,22 +67,69 @@ class RuleElementForm<
     }
 
     async getData(): Promise<RuleElementFormSheetData<TSource, TObject>> {
+        const localization = CONFIG.PF2E.ruleElement;
+        const key = String(this.rule.key).replace(/^PF2E\.RuleElement\./, "");
+        const label = game.i18n.localize(localization[key as keyof typeof localization] ?? localization.Unrecognized);
+        const recognized = label !== game.i18n.localize(localization.Unrecognized);
+
+        const mergedRule = mergeObject(this.#getInitialValue(), this.rule);
+
         return {
             ...this.options,
-            rule: mergeObject(this.#getInitialValue(), this.rule),
+            label,
+            recognized,
+            basePath: this.basePath,
+            rule: mergedRule,
+            form: await this.#getFormHelpers(mergedRule),
+        };
+    }
+
+    async #getFormHelpers(rule: TSource): Promise<Record<string, unknown>> {
+        const valueTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/resolvable-value.hbs");
+        const bracketsTemplate = await getTemplate(
+            "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs"
+        );
+
+        const getResolvableData = (property: string) => {
+            const value = getProperty(rule, property);
+            const mode = isBracketedValue(value) ? "brackets" : isObject(value) ? "object" : "primitive";
+            return { value, mode, property, path: `${this.basePath}.${property}` };
+        };
+
+        return {
+            resolvableValue: (property: string) => {
+                return valueTemplate(getResolvableData(property));
+            },
+            resolvableAddBracket: (property: string) => {
+                const data = getResolvableData(property);
+                if (data.mode !== "brackets") return "";
+                return createHTMLElement("a", {
+                    children: [fontAwesomeIcon("fa-plus", { fixedWidth: true })],
+                    dataset: {
+                        action: "add-bracket",
+                        property,
+                    },
+                }).outerHTML;
+            },
+            resolvableBrackets: (property: string) => {
+                return bracketsTemplate(getResolvableData(property));
+            },
         };
     }
 
     async render(): Promise<string> {
         const data = await this.getData();
-        return renderTemplate(this.template, data);
+        return renderTemplate("systems/pf2e/templates/items/rules/outer.hbs", {
+            ...data,
+            template: await renderTemplate(this.template, data),
+        });
     }
 
     /**
      * Helper to update the item with the new rule data.
      * This function exists because array updates in foundry are currently clunky
      */
-    updateItem(updates: Partial<TSource>): void {
+    updateItem(updates: Partial<TSource> | Record<string, unknown>): void {
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
         rules[this.index] = mergeObject(this.rule, updates, { performDeletions: true });
         this.item.update({ [`system.rules`]: rules });
@@ -86,6 +139,41 @@ class RuleElementForm<
         // Tagify selectors lists
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
         tagify(selectorElement);
+
+        for (const button of htmlQueryAll(html, "[data-action=toggle-brackets]")) {
+            button.addEventListener("click", () => {
+                const property = button.dataset.property ?? "value";
+                const value = getProperty(this.rule, property);
+                if (isBracketedValue(value)) {
+                    this.updateItem({ [property]: "" });
+                } else {
+                    this.updateItem({ [property]: { brackets: [{ value: "" }] } });
+                }
+            });
+        }
+
+        for (const button of htmlQueryAll(html, "[data-action=add-bracket]")) {
+            const property = button.dataset.property ?? "value";
+            button.addEventListener("click", () => {
+                const value = getProperty(this.rule, property);
+                if (isBracketedValue(value)) {
+                    value.brackets.push({ value: "" });
+                    this.updateItem({ [property]: value });
+                }
+            });
+        }
+
+        for (const button of htmlQueryAll(html, "[data-action=delete-bracket]")) {
+            const property = button.dataset.property ?? "value";
+            button.addEventListener("click", () => {
+                const value = getProperty(this.rule, property);
+                const idx = Number(htmlClosest(button, "[data-idx]")?.dataset.idx);
+                if (isBracketedValue(value)) {
+                    value.brackets.splice(idx, 1);
+                    this.updateItem({ [property]: value });
+                }
+            });
+        }
     }
 
     updateObject(formData: Partial<RuleElementSource> & Record<string, unknown>): void {
@@ -179,9 +267,14 @@ function getCleanedResolvable(value: unknown) {
     return value;
 }
 
-type RuleElementFormSheetData<
-    TSource extends RuleElementSource,
-    TObject extends RuleElementPF2e
-> = RuleElementFormOptions<TSource, TObject>;
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e>
+    extends RuleElementFormOptions<TSource, TObject> {
+    label: string;
+    recognized: boolean;
+    basePath: string;
+    /** A collection of additional handlebars functions */
+    form: Record<string, unknown>;
+}
 
-export { RuleElementForm, coerceNumber, type RuleElementFormSheetData };
+export { RuleElementForm };
+export type { RuleElementFormSheetData };

@@ -1,9 +1,10 @@
 /**
  * Get a template from the server by fetch request and caching the retrieved result
  * @param path  The web-accessible HTML template URL
- * @returns     A Promise which resolves to the compiled template or null
+ * @param id  An ID to register the partial with.
+ * @returns     A Promise which resolves to the compiled Handlebars template
  */
-declare function getTemplate(path: string): Promise<string>;
+declare function getTemplate(path: string, id?: string): Promise<Function>;
 
 /**
  * Load and cache a set of templates by providing an Array of paths

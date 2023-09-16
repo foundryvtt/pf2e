@@ -39,10 +39,18 @@
 
         .rule-element-header {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
 
-            h3.unrecognized {
-                color: #880000;
+            h3 {
+                margin: 0;
+                &.unrecognized {
+                    color: #880000;
+                }
+            }
+
+            .item-controls {
+                margin-left: auto;
             }
         }
 
@@ -187,14 +195,18 @@
         }
 
         &[data-key="FastHealing"] {
-            .details,
-            tags {
-                flex: 3;
+            select {
+                flex: 0;
             }
 
-            .value {
+            .details,
+            tags {
                 flex: 1;
-                min-width: 80px;
+            }
+
+            .resolvable {
+                flex: 1;
+                min-width: 120px;
             }
         }
 

@@ -147,15 +147,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
-                labels: rules.map((ruleData: RuleElementSource) => {
-                    const localization = CONFIG.PF2E.ruleElement;
-                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = game.i18n.localize(
-                        localization[key as keyof typeof localization] ?? localization.Unrecognized
-                    );
-                    const recognized = label !== game.i18n.localize(localization.Unrecognized);
-                    return { label, recognized };
-                }),
                 selection: {
                     selected: this.selectedRuleElementType,
                     types: sortStringRecord(
@@ -167,10 +158,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     ),
                 },
                 elements: await Promise.all(
-                    rules.map(async (rule, index) => ({
-                        template: await this.ruleElementForms[index].render(),
-                        index,
-                        rule,
+                    Object.values(this.ruleElementForms).map(async (form) => ({
+                        template: await form.render(),
                     }))
                 ),
             },
@@ -598,10 +587,6 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     traits: SheetOptions | null;
     traitTagifyData: TraitTagifyEntry[] | null;
     rules: {
-        labels: {
-            label: string;
-            recognized: boolean;
-        }[];
         selection: {
             selected: string | null;
             types: Record<string, string>;
