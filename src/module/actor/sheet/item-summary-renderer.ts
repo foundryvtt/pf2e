@@ -138,7 +138,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         });
 
         div.innerHTML = summary;
-        UserVisibilityPF2e.process(div);
+        UserVisibilityPF2e.process(div, { document: item });
 
         if (item.actor?.isOfType("creature")) {
             for (const button of htmlQueryAll(div, "button")) {
