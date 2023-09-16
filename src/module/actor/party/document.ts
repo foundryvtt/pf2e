@@ -270,6 +270,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         resetActors(removedCreatures);
 
+        // If members were added or removed, rerender the encounter tracker to show new XP calculation
+        if (changed.system?.details?.members && ui.combat.viewed) {
+            ui.combat.render();
+        }
+
         // Update the actor directory if this included campaign changes
         if (game.ready && !!changed.system?.campaign && game.actors.get(this.id) === (this as ActorPF2e)) {
             ui.actors.render();
