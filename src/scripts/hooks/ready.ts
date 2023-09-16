@@ -144,6 +144,14 @@ export const Ready = {
                 game.settings.set("pf2e", "seenRemasterJournalEntry", true);
             }
 
+            // Reset all encounter data and re-render the tracker if an encounter is running
+            if (game.combat) {
+                for (const encounter of game.combats) {
+                    encounter.reset();
+                }
+                ui.combat.render();
+            }
+
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");
         });

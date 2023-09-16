@@ -226,7 +226,7 @@ class TextEditorPF2e extends TextEditor {
     static convertXMLNode(
         html: HTMLElement,
         name: string,
-        { visible = undefined, visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
+        { visible, visibility, whose, tooltip, classes }: ConvertXMLNodeOptions
     ): HTMLElement | null {
         const node = html.querySelector(name);
         if (!node) return null;
@@ -234,11 +234,14 @@ class TextEditorPF2e extends TextEditor {
         const span = document.createElement("span");
         const { dataset, classList } = span;
 
-        if (visible !== undefined) visibility = visible ? "all" : "gm";
+        if (typeof visible === "boolean") visibility = visible ? "all" : "gm";
         if (visibility) dataset.visibility = visibility;
         if (whose) dataset.whose = whose;
-        for (const cssClass of classes) {
-            classList.add(cssClass);
+        if (tooltip) dataset.tooltip = tooltip.trim();
+        if (classes) {
+            for (const cssClass of classes) {
+                classList.add(cssClass);
+            }
         }
 
         span.append(...Array.from(node.childNodes));
@@ -819,6 +822,8 @@ interface ConvertXMLNodeOptions {
     whose?: "self" | "target" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
+    /** An optional tooltip to apply to the converted node */
+    tooltip?: string;
 }
 
 interface CheckLinkParams {
