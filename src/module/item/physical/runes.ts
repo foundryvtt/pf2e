@@ -282,7 +282,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             traits: ["evocation"],
         },
         3: {
-            name: "PF2E.Item.Weapon.Rune.Striking.Greater",
+            name: "PF2E.Item.Weapon.Rune.Striking.Major",
             level: 19,
             price: 31_065,
             rarity: "common",
