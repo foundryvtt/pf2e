@@ -201,9 +201,14 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const initiativeRank = participants.indexOf(participant) + 1;
     const { initiativeStatistic } = participant.flags.pf2e;
 
+    const threat = encounter.metrics?.threat;
+    const numericThreat = { trivial: 0, low: 1, moderate: 2, severe: 3, extreme: 4 }[threat ?? "trivial"];
+
     const entries = (
         [
             ["encounter", true],
+            [`encounter:threat:${numericThreat}`, !!threat],
+            [`encounter:threat:${threat}`, !!threat],
             [`encounter:round:${encounter.round}`, true],
             [`encounter:turn:${encounter.turn + 1}`, true],
             ["self:participant:own-turn", encounter.combatant?.actor === actor],
