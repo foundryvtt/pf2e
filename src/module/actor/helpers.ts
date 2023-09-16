@@ -236,12 +236,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     }
 
     // Conditions and Custom modifiers to attack rolls
-    const slug = item.slug ?? sluggify(item.name);
+    const attackSlug = item.slug ?? sluggify(item.name);
     const unarmedOrWeapon = item.system.traits.value.includes("unarmed") ? "unarmed" : "weapon";
     const meleeOrRanged = isMelee ? "melee" : "ranged";
 
     const domains = [
-        `${slug}-attack`,
+        `${attackSlug}-attack`,
         `${item.id}-attack`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
@@ -288,7 +288,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         ...item.getRollOptions("item"),
     ]);
 
-    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, initialRollOptions);
+    const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
     const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,
@@ -389,13 +389,14 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 check,
                 {
                     type: "attack-roll",
-                    identifier: item.id,
+                    identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
                     action: "strike",
                     title,
                     actor: context.self.actor,
                     token: context.self.token,
                     item: context.self.item,
                     target: context.target,
+                    damaging: item.dealsDamage,
                     domains,
                     options: context.options,
                     traits: [attackTrait],

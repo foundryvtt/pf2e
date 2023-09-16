@@ -138,7 +138,9 @@ class ChatMessagePF2e extends ChatMessage {
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
-        const identifier = roll?.options.identifier;
+        const identifier =
+            roll?.options.identifier ??
+            htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
         const [itemId, slug, meleeOrRanged] = identifier?.split(".") ?? [null, null, null];
         if (!meleeOrRanged || !["melee", "ranged"].includes(meleeOrRanged)) {
             return null;
