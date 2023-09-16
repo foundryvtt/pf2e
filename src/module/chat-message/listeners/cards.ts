@@ -69,12 +69,11 @@ class ChatCards {
                 case "strike-attack3":
                     strikeAction.variants[2].roll(rollArgs);
                     return;
-                case "strike-damage":
-                    strikeAction.damage?.(rollArgs);
+                case "strike-damage": {
+                    const method = button.dataset.outcome === "success" ? "damage" : "critical";
+                    strikeAction[method]?.(rollArgs);
                     return;
-                case "strike-critical":
-                    strikeAction.critical?.(rollArgs);
-                    return;
+                }
             }
         }
 
