@@ -272,6 +272,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // If members were added or removed, rerender the encounter tracker to show new XP calculation
         if (changed.system?.details?.members && ui.combat.viewed) {
+            ui.combat.viewed.reset();
             ui.combat.render();
         }
 
