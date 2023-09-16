@@ -9,7 +9,8 @@ import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, RolledCombatant, type CombatantPF2e } from "./combatant.ts";
+import * as R from "remeda";
+import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
     declare metrics: EncounterMetrics | null;
@@ -42,6 +43,8 @@ class EncounterPF2e extends Combat {
 
     /** Determine threat rating and XP award for this encounter */
     analyze(): EncounterMetrics | null {
+        if (!game.ready) return null;
+
         const { party } = game.actors;
         const partyMembers: ActorPF2e[] = party?.members.filter((a) => a.alliance === "party" && isReallyPC(a)) ?? [];
         // If no party members are in the encounter yet, show threat/XP as though all are.
@@ -49,31 +52,46 @@ class EncounterPF2e extends Combat {
             const inEncounter = partyMembers.filter((m) => m.combatant?.encounter === this);
             return inEncounter.length > 0 ? inEncounter : partyMembers;
         })();
-        const enemies = this.combatants
-            .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
-            .flatMap((c) => c.actor ?? []);
-        if (!party || fightyPartyMembers.length === 0 || enemies.length === 0) {
+
+        const opposition = R.uniq(
+            this.combatants
+                .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
+                .flatMap((c) => c.actor ?? [])
+        );
+        if (!party || fightyPartyMembers.length === 0 || opposition.length === 0) {
             return null;
         }
 
+        const partyLevel = Math.round(
+            R.meanBy(
+                fightyPartyMembers.filter((m) => m.isOfType("character")),
+                (m) => m.level
+            )
+        );
+
         const result = calculateXP(
-            party.level,
+            partyLevel,
             fightyPartyMembers.length,
-            enemies.filter((e) => e.isOfType("character", "npc")).map((e) => e.level),
-            enemies.filter((e): e is HazardPF2e => e.isOfType("hazard")),
+            opposition.filter((e) => e.isOfType("character", "npc")).map((e) => e.level),
+            opposition.filter((e): e is HazardPF2e => e.isOfType("hazard")),
             { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
         );
         const threat = result.rating;
+        const budget = { spent: result.totalXP, max: result.encounterBudgets[threat], partyLevel };
         // "Any XP awarded goes to all members of the group. For instance, if the party wins a battle worth 100 XP, they
         // each get 100 XP, even if the party's rogue was off in a vault stealing treasure during the battle."
         // - CRB pg. 507
-        const xp = Math.floor(result.xpPerPlayer * (fightyPartyMembers.length / partyMembers.length));
+        const award = {
+            xp: Math.floor(result.xpPerPlayer * (fightyPartyMembers.length / partyMembers.length)),
+            recipients: partyMembers,
+        };
+        const participants = { party: fightyPartyMembers, opposition };
 
-        return { threat, xp };
+        return { threat, budget, award, participants };
     }
 
-    override prepareBaseData(): void {
-        super.prepareBaseData();
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
         this.metrics = this.analyze();
     }
 
@@ -324,7 +342,9 @@ interface EncounterPF2e extends Combat {
 
 interface EncounterMetrics {
     threat: ThreatRating;
-    xp: number;
+    budget: { spent: number; max: number; partyLevel: number };
+    award: { xp: number; recipients: ActorPF2e[] };
+    participants: { party: ActorPF2e[]; opposition: ActorPF2e[] };
 }
 
 interface SetInitiativeData {
