@@ -137,7 +137,8 @@ class TextEditorPF2e extends TextEditor {
                 return [message.actor, message.getRollData()];
             }
             if (app instanceof ActorSheetPF2e) {
-                [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()];
+                const itemId = anchor.dataset.pf2ItemId;
+                return [app.actor, app.actor.items.get(itemId)?.getRollData() ?? app.actor.getRollData()];
             }
             if (app instanceof ItemSheetPF2e) {
                 return [app.actor, app.item.getRollData()];
