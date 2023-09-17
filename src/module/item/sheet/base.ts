@@ -28,6 +28,7 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
+import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
@@ -57,16 +58,16 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Maintain selected rule element at the sheet level (do not persist) */
-    private selectedRuleElementType: string | null = Object.keys(RuleElements.all).at(0) ?? null;
+    #selectedRuleElementType: string | null = Object.keys(RuleElements.all).at(0) ?? null;
 
     /** If we are currently editing an RE, this is the index */
-    private editingRuleElementIndex: number | null = null;
+    #editingRuleElementIndex: number | null = null;
 
-    private ruleElementForms: Record<number, RuleElementForm> = {};
+    #ruleElementForms: RuleElementForm[] = [];
 
     get editingRuleElement(): RuleElementSource | null {
-        if (this.editingRuleElementIndex === null) return null;
-        return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
+        if (this.#editingRuleElementIndex === null) return null;
+        return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
     get validTraits(): Record<string, string> | null {
@@ -108,17 +109,30 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
 
-        // Activate rule element sub forms
-        this.ruleElementForms = {};
-        for (const [index, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            this.ruleElementForms[Number(index)] = new FormClass({
+        // Create and activate rule element sub forms
+        const previousForms = this.#ruleElementForms;
+        this.#ruleElementForms = rules.map((rule, index) => {
+            const options = {
                 item: this.item,
                 index,
                 rule,
                 object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
-            });
-        }
+            };
+
+            // If a form exists of the correct type with an exact match, reuse that one.
+            // Reusing forms allow internal variables to persist between updates
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
+            const existing = previousForms.find((f) => R.equals(f.rule, rule));
+            if (existing instanceof FormClass) {
+                // Prevent a form from getting reused twice
+                previousForms.splice(previousForms.indexOf(existing), 1);
+
+                existing.initialize(options);
+                return existing;
+            }
+
+            return new FormClass(options);
+        });
 
         return {
             itemType: null,
@@ -148,7 +162,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 selection: {
-                    selected: this.selectedRuleElementType,
+                    selected: this.#selectedRuleElementType,
                     types: sortStringRecord(
                         Object.keys(RuleElements.all).reduce(
                             (result: Record<string, string>, key) =>
@@ -158,7 +172,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     ),
                 },
                 elements: await Promise.all(
-                    Object.values(this.ruleElementForms).map(async (form) => ({
+                    this.#ruleElementForms.map(async (form) => ({
                         template: await form.render(),
                     }))
                 ),
@@ -228,7 +242,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.editingRuleElementIndex = null;
+        this.#editingRuleElementIndex = null;
         return super.close(options);
     }
 
@@ -263,14 +277,14 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
-            this.selectedRuleElementType = ruleElementSelect.value;
+            this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
         for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
-                const key = this.selectedRuleElementType ?? "NewRuleElement";
+                const key = this.#selectedRuleElementType ?? "NewRuleElement";
                 this.item.update({ "system.rules": rulesData.concat({ key }) });
             });
         }
@@ -279,7 +293,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             anchor.addEventListener("click", async () => {
                 if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
-                this.editingRuleElementIndex = index;
+                this.#editingRuleElementIndex = index;
                 this.render();
             });
         }
@@ -324,7 +338,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
             closeBtn?.addEventListener("click", () => {
-                this.editingRuleElementIndex = null;
+                this.#editingRuleElementIndex = null;
                 this.render();
             });
             closeBtn?.removeAttribute("disabled");
@@ -335,16 +349,16 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
-                    if (this.editingRuleElementIndex === null) {
-                        this.editingRuleElementIndex = null;
+                    if (this.#editingRuleElementIndex === null) {
+                        this.#editingRuleElementIndex = null;
                         this.render();
                         return;
                     }
 
                     try {
                         const rules = this.item.toObject().system.rules;
-                        rules[this.editingRuleElementIndex] = JSON.parse(value as string);
-                        this.editingRuleElementIndex = null;
+                        rules[this.#editingRuleElementIndex] = JSON.parse(value as string);
+                        this.#editingRuleElementIndex = null;
                         this.item.update({ "system.rules": rules });
                     } catch (error) {
                         if (error instanceof Error) {
@@ -363,10 +377,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
         for (const ruleSection of Array.from(ruleSections)) {
             const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;
-            const form = this.ruleElementForms[idx];
-            if (form) {
-                form.activateListeners(ruleSection);
-            }
+            this.#ruleElementForms.at(idx)?.activateListeners(ruleSection);
         }
 
         InlineRollLinks.listen(html, this.item);
@@ -569,7 +580,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
                 // Call any special handlers in the rule element forms
                 rules[idx] = mergeObject(rules[idx] ?? {}, value);
-                this.ruleElementForms[idx]?.updateObject(rules[idx]);
+                this.#ruleElementForms.at(idx)?.updateObject(rules[idx]);
             }
 
             expanded.system.rules = rules;

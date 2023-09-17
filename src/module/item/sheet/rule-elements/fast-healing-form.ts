@@ -25,10 +25,10 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         };
     }
 
-    override updateObject(formData: Partial<FastHealingSource>): void {
+    override updateObject(source: FastHealingSource): void {
         // Fast healing has mutually exclusive properties
-        delete formData[formData.type === "regeneration" ? "details" : "deactivatedBy"];
-        super.updateObject(formData);
+        delete source[source.type === "regeneration" ? "details" : "deactivatedBy"];
+        super.updateObject(source);
     }
 }
 
