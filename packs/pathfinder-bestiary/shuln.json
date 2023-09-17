@@ -27,7 +27,17 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -72,7 +82,17 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -192,7 +212,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
