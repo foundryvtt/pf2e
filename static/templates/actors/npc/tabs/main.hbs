@@ -114,7 +114,7 @@
         <div class="section-body">
             <ol class="attacks-list strikes-list item-list">
                 {{#each data.actions as |attack index|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index isEditable=../options.editable}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
@@ -131,12 +131,8 @@
         </div>
         <div class="section-body">
             <ol class="actions-list item-list">
-                {{#each actions as |section sectionId|}}
-                    {{#unless (eq sectionId "passive")}}
-                        {{#each section.actions as |action actionId|}}
-                            {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=../../options.editable}}
-                        {{/each}}
-                    {{/unless}}
+                {{#each actions.active.actions as |action actionId|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
@@ -153,12 +149,8 @@
         </div>
         <div class="section-body">
             <ol class="actions-list item-list">
-                {{#each actions as |section sectionId|}}
-                    {{#if (eq sectionId "passive")}}
-                        {{#each section.actions as |action actionId|}}
-                            {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
-                        {{/each}}
-                    {{/if}}
+                {{#each actions.passive.actions as |action actionId|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
