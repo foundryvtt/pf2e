@@ -1,3 +1,24 @@
+## 5.5.2
+
+### System Improvements
+
+-   (In3luki) Show action cost in feat chat card when available
+-   (stwlam) Add tooltips explaining threat and XP award in encounter tracker
+-   (stwlam) Add visibility toggles to PC biography sections
+
+### Bugfixes
+
+-   (stwlam) Fix labeling and options presentation of Striking runes in weapon sheet
+-   (stwlam) Recalculate encounter metrics when party membership is changed while encounter is running
+-   (Supe) Fix display of spell DCs in item summaries
+
+### Data Updates
+
+-   (In3luki) Eliminate console noise from Versatile Blast feat when Kinetic Aura effect isn't present
+-   (Intervención) Fixed typo on Aura trait description
+-   (stwlam) Predicate on encounter threat level in Battle oracle curse effect
+-   (Tikael) Fix stats of Vicious Abyssal Bunny Swarm
+
 ## 5.5.1
 
 ### Bugfixes
