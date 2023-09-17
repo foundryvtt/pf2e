@@ -35,6 +35,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "adamantine",
                         "agile",
                         "reach-15"
                     ]
@@ -80,6 +81,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "adamantine",
                         "reach-15"
                     ]
                 },
@@ -234,7 +236,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
