@@ -518,10 +518,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
 
         // Update experience percentage from raw experience amounts.
-        systemData.details.xp.pct = Math.min(
-            Math.round((systemData.details.xp.value * 100) / systemData.details.xp.max),
-            99.5
-        );
+        if (game.settings.get("pf2e", "levelingType") === "ExperiencePoints") {
+            const expAmount: number = game.settings.get("pf2e", "expPointsPerLevel");
+
+            systemData.details.xp = systemData.details.xp || { value: 0, min: 0, pct: 0 };
+
+            systemData.details.xp.pct = Math.min(Math.round((systemData.details.xp.value * 100) / expAmount), 99.5);
+        }
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
@@ -1872,9 +1875,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Ensure minimum XP value and max
-        const xp = changed.system?.details?.xp ?? {};
-        if (typeof xp.value === "number") xp.value = Math.max(xp.value, 0);
-        if (typeof xp.max === "number") xp.max = Math.max(xp.max, 1);
+        const xp = changed.system?.details?.xp;
+        if (xp) {
+            if (typeof xp.value === "number") xp.value = Math.max(xp.value, 0);
+        }
 
         // Add or remove class features as necessary, appropriate to the PC's level
         const newLevel = changed.system?.details?.level?.value ?? this.level;

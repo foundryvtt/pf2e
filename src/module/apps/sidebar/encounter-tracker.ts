@@ -34,19 +34,24 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return { label: tempContainer.innerHTML, tooltip };
         })();
 
-        const award = ((): { label: string; tooltip: string } => {
-            const label = localize("Award.Label", { xp: metrics.award.xp });
-            const numRecipients = metrics.award.recipients.length;
-            const tooltip = localize(
-                numRecipients === 1
-                    ? "Award.Tooltip.Singular"
-                    : numRecipients === 4
-                    ? "Award.Tooltip.Four"
-                    : "Award.Tooltip.Plural",
-                { xpPerFour: metrics.budget.spent, recipients: numRecipients }
-            );
-            return { label, tooltip };
-        })();
+        let award;
+        if (game.settings.get("pf2e", "levelingType") === "ExperiencePoints") {
+            award = ((): { label: string; tooltip: string } => {
+                const label = localize("Award.Label", { xp: metrics.award.xp });
+                const numRecipients = metrics.award.recipients.length;
+                const tooltip = localize(
+                    numRecipients === 1
+                        ? "Award.Tooltip.Singular"
+                        : numRecipients === 4
+                        ? "Award.Tooltip.Four"
+                        : "Award.Tooltip.Plural",
+                    { xpPerFour: metrics.budget.spent, recipients: numRecipients }
+                );
+                return { label, tooltip };
+            })();
+        } else {
+            award = null;
+        }
 
         const threatAward = parseHTML(
             await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", { threat, award })
