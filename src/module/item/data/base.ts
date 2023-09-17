@@ -26,6 +26,11 @@ interface ItemTraits<T extends ItemTrait = ItemTrait> {
     rarity?: Rarity;
 }
 
+interface RarityTraitOnly {
+    value?: never;
+    rarity: Rarity;
+}
+
 interface ItemFlagsPF2e extends foundry.documents.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object | null>;
@@ -64,7 +69,7 @@ interface ItemSystemSource {
     source: {
         value: string;
     };
-    traits?: ItemTraits;
+    traits?: ItemTraits | RarityTraitOnly;
     options?: {
         value: string[];
     };
@@ -103,4 +108,5 @@ export type {
     ItemSystemSource,
     ItemTrait,
     ItemTraits,
+    RarityTraitOnly,
 };

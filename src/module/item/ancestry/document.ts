@@ -13,10 +13,6 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         return new Set(this.system.traits.value);
     }
 
-    get rarity(): string {
-        return this.system.traits.rarity;
-    }
-
     get hitPoints(): number {
         return this.system.hp;
     }
