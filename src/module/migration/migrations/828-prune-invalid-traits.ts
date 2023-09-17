@@ -45,8 +45,8 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const { traits } = source.system;
-        if (!traits) return;
+        const traits: { value?: string[] } | undefined = source.system.traits;
+        if (!traits?.value) return;
 
         switch (source.type) {
             case "action": {

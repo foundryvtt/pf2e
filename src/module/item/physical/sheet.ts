@@ -141,26 +141,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         super.activateListeners($html);
         const html = $html[0];
 
-        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
-        for (const input of modifiedPropertyFields) {
-            const propertyPath = input.dataset.property ?? "";
-            const baseValue =
-                input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
-
-            input.addEventListener("focus", () => {
-                input.dataset.value = input.value;
-                input.value = baseValue;
-                input.name = propertyPath;
-            });
-
-            input.addEventListener("blur", () => {
-                input.removeAttribute("name");
-                if (input.value === baseValue) {
-                    input.value = input.dataset.value ?? "";
-                }
-            });
-        }
-
         $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
             const id = randomID(16);

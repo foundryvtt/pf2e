@@ -1,13 +1,14 @@
 import { AlignmentTrait } from "@actor/creature/types.ts";
 import { OtherArmorTag } from "@item/armor/types.ts";
-import { ClassTrait } from "@item/class/data.ts";
+import { BackgroundTrait } from "@item/background/types.ts";
+import { ClassTrait } from "@item/class/types.ts";
 import { OtherConsumableTag } from "@item/consumable/types.ts";
 import { RANGE_TRAITS } from "@item/data/values.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
-import * as R from "remeda";
 import { sluggify } from "@util";
+import * as R from "remeda";
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -249,6 +250,10 @@ const creatureTraits = {
     wyrwood: "PF2E.TraitWyrwood",
     xulgath: "PF2E.TraitXulgath",
     zombie: "PF2E.TraitZombie",
+};
+
+const backgroundTraits: Record<BackgroundTrait, string> = {
+    "pervasive-magic": "PF2E.TraitPervasiveMagic",
 };
 
 const classTraits: Record<ClassTrait, string> = {
@@ -1387,12 +1392,12 @@ const kingmakerTraits = {
 };
 
 export {
-    type ElementTrait,
     actionTraits,
     alignmentTraits,
     ancestryItemTraits,
     ancestryTraits,
     armorTraits,
+    backgroundTraits,
     classTraits,
     consumableTraits,
     creatureTraits,
@@ -1415,4 +1420,5 @@ export {
     traitDescriptions,
     vehicleTraits,
     weaponTraits,
+    type ElementTrait,
 };
