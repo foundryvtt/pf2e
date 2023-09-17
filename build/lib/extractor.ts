@@ -448,7 +448,9 @@ class PackExtractor {
                             }
                         }
 
-                        if (docSource.type === "npc") {
+                        if (docSource.type === "character") {
+                            delete (docSource.system.details.biography as { visibility?: unknown }).visibility;
+                        } else if (docSource.type === "npc") {
                             const source: Partial<NPCSystemSource["details"]["source"]> =
                                 docSource.system.details.source;
                             if (!source.author?.trim()) delete source.author;
