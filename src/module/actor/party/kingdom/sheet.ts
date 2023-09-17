@@ -10,7 +10,7 @@ import { ValueAndMax } from "@module/data.ts";
 import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import type { Statistic } from "@system/statistic/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
     createHTMLElement,
@@ -24,21 +24,33 @@ import {
 import * as R from "remeda";
 import { KingdomBuilder } from "./builder.ts";
 import { Kingdom } from "./model.ts";
-import { KingdomAbilityData, KingdomData, KingdomLeadershipData, KingdomSource } from "./types.ts";
+import {
+    KingdomAbilityData,
+    KingdomData,
+    KingdomLeadershipData,
+    KingdomSettlementData,
+    KingdomSource,
+} from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
+    KINGDOM_COMMODITY_LABELS,
     KINGDOM_LEADERSHIP,
     KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
+    KINGDOM_SETTLEMENT_TYPE_DATA,
+    KINGDOM_SETTLEMENT_TYPE_LABELS,
 } from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
 
 class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
+    /** The current selected activity filter, which doubles as an active kingdom phase */
     protected selectedFilter: string | null = null;
+
+    #editingSettlements: Record<string, boolean> = {};
 
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
@@ -123,10 +135,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             commodities: KINGDOM_COMMODITIES.map((type) => ({
                 ...kingdom.resources.commodities[type],
                 type,
-                label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`),
+                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
                 workSites: {
-                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Name`),
-                    description: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Description`),
+                    label: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Name`),
+                    description: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Description`),
                     hasResource: ["lumber", "ore", "stone"].includes(type),
                     value: kingdom.resources.workSites[type].value,
                     resource: kingdom.resources.workSites[type].resource,
@@ -163,6 +175,47 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 label: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[trait]),
                 value: trait,
                 selected: false, // selected is handled without re-render
+            })),
+            settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
+            settlements: await Promise.all(
+                Object.entries(kingdom.settlements).map(async ([id, data]) => {
+                    return this.#prepareSettlement(id, data!);
+                })
+            ),
+            eventText: await TextEditor.enrichHTML(kingdom.event.text, {
+                async: true,
+                rollData: this.actor.getRollData(),
+            }),
+        };
+    }
+
+    async #prepareSettlement(id: string, settlement: KingdomSettlementData): Promise<SettlementSheetData> {
+        const data = KINGDOM_SETTLEMENT_TYPE_DATA[settlement.type];
+
+        const levelRange =
+            data.level[1] === Infinity
+                ? `${data.level[0]}+`
+                : data.level[0] === data.level[1]
+                ? String(data.level[0])
+                : data.level.join("-");
+        const populationRange = data.population[1] === Infinity ? `${data.population[0]}+` : data.population.join("-");
+
+        return {
+            ...settlement,
+            id,
+            description: await TextEditor.enrichHTML(settlement.description, {
+                async: true,
+                rollData: this.actor.getRollData(),
+            }),
+            editing: this.#editingSettlements[id] ?? false,
+            blocks: data.blocks === Infinity ? "10+" : data.blocks,
+            populationRange,
+            levelRange,
+            typeLabel: KINGDOM_SETTLEMENT_TYPE_LABELS[settlement.type],
+            storage: KINGDOM_COMMODITIES.map((type) => ({
+                type,
+                value: settlement.storage[type],
+                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
             })),
         };
     }
@@ -292,6 +345,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
+        // Add settlement and individual settlement actions
+        htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
+            const id = randomID(16);
+            this.#editingSettlements[id] = true;
+            this.kingdom.update({ [`settlements.${id}`]: {} });
+        });
+        for (const settlementElement of htmlQueryAll(html, ".settlement")) {
+            this.#activateSettlementEvents(settlementElement);
+        }
+
         for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             const maxLevel = Number(link.dataset.level) || this.kingdom.level;
 
@@ -312,6 +375,65 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 compendiumTab.open(filter);
             });
         }
+
+        htmlQuery(html, "[data-action=random-event]")?.addEventListener("click", () => {
+            const stat = new Statistic(this.actor, {
+                slug: "random-event",
+                label: "Random Kingdom Event",
+                check: {
+                    type: "flat-check",
+                },
+            });
+
+            stat.roll({ dc: this.kingdom.event.dc });
+        });
+
+        htmlQuery(html, "[data-action=reset-event-dc]")?.addEventListener("click", () => {
+            this.kingdom.update({ event: { dc: 16 } });
+        });
+    }
+
+    #activateSettlementEvents(settlementElement: HTMLElement) {
+        const id = settlementElement.dataset.settlementId ?? null;
+        if (id === null) return;
+
+        const rerenderSettlement = async () => {
+            const settlement = this.kingdom.settlements[id];
+            if (!settlement) return;
+
+            const newHTML = await renderTemplate(
+                "systems/pf2e/templates/actors/party/kingdom/partials/settlement.hbs",
+                {
+                    ...(await this.getData()),
+                    settlement: await this.#prepareSettlement(id, settlement),
+                }
+            );
+
+            // Create the new settlement and replace the current one. We'll also need to re-listen to it.
+            // activateListeners() handles both rich text editing and expanding the item summary
+            const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstChild;
+            if (newElement instanceof HTMLElement) {
+                newElement.classList.toggle("expanded", settlementElement.classList.contains("expanded"));
+                settlementElement.replaceWith(newElement);
+                super.activateListeners($(newElement));
+                this.#activateSettlementEvents(newElement);
+                if (this.#editingSettlements[id] && !newElement.classList.contains("expanded")) {
+                    this.itemRenderer.toggleSummary(newElement, { visible: true });
+                }
+            }
+        };
+
+        htmlQuery(settlementElement, "[data-action=edit-settlement]")?.addEventListener("click", () => {
+            this.#editingSettlements[id] = true;
+            rerenderSettlement();
+        });
+        htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", () => {
+            this.#editingSettlements[id] = false;
+            rerenderSettlement();
+        });
+        htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", () => {
+            this.kingdom.update({ [`settlements.-=${id}`]: null });
+        });
     }
 
     protected filterActions(trait: string | null, options: { instant?: boolean } = {}): void {
@@ -462,6 +584,9 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOption[];
+    settlementTypes: Record<string, string>;
+    settlements: SettlementSheetData[];
+    eventText: string;
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
@@ -485,5 +610,19 @@ interface CommoditySheetData extends ValueAndMax {
         resource?: number;
     };
 }
+
+type SettlementSheetData = Omit<KingdomSettlementData, "storage"> & {
+    id: string;
+    editing: boolean;
+    blocks: number | string;
+    levelRange: string;
+    populationRange: string;
+    typeLabel: string;
+    storage: {
+        type: string;
+        label: string;
+        value: number;
+    }[];
+};
 
 export { KingdomSheetPF2e };

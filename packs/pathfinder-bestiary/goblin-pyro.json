@@ -665,7 +665,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
                 }
             },
-            "img": "systems/pf2e/icons/spells/tanglefoot.webp",
+            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
             "sort": 700000,
             "system": {
@@ -766,14 +766,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 800000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -823,6 +823,52 @@
                         }
                     },
                     {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.LitTorch",
@@ -834,7 +880,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",

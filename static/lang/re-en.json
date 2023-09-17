@@ -49,6 +49,25 @@
                     "Title": "Meteor Shot"
                 }
             },
+            "OozeAmmunition": {
+                "CriticalHitText": "On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round in addition to the other effects.",
+                "Greater": {
+                    "Text": "The creature takes a -10-foot penalty to Speed and @Damage[3d4[persistent,acid]] damage until it ends the effects. The target can end the effects by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} (DC 29) the sticky foam. Other creatures can provide the actions, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn. @UUID[Compendium.pf2e.equipment-effects.Item.6Pwdim01PH447CeS]{Effect: Ooze Ammunition (Greater)}",
+                    "Title": "Ooze Ammunition (Greater)"
+                },
+                "Lesser": {
+                    "Text": "The creature takes a -5-foot penalty to Speed and @Damage[1d4[persistent,acid]] damage until it ends the effects. The target can end the effects by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} (DC 16) the sticky foam. Other creatures can provide the actions, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn. @UUID[Compendium.pf2e.equipment-effects.Item.FPvMbKX8sXM9fGJT]{Effect: Ooze Ammunition (Lesser)}",
+                    "Title": "Ooze Ammunition (Lesser)"
+                },
+                "Major": {
+                    "Text": "The creature takes a -15-foot penalty to Speed and @Damage[4d4[persistent,acid]] damage until it ends the effects. The target can end the effects by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} (DC 38) the sticky foam. Other creatures can provide the actions, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn. @UUID[Compendium.pf2e.equipment-effects.Item.UjAJUFMfH0OWWwQS]{Effect: Ooze Ammunition (Major)}",
+                    "Title": "Ooze Ammunition (Major)"
+                },
+                "Moderate": {
+                    "Text": "The creature takes a -10-foot penalty to Speed and @Damage[2d4[persistent,acid]] damage until it ends the effects. The target can end the effects by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} (DC 20) the sticky foam. Other creatures can provide the actions, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn. @UUID[Compendium.pf2e.equipment-effects.Item.6c4o7ypWWnZKPy5b]{Effect: Ooze Ammunition (Moderate)}",
+                    "Title": "Ooze Ammunition (Moderate)"
+                }
+            },
             "ShiningAmmunition": {
                 "Text": "The ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. @UUID[Compendium.pf2e.equipment-effects.Item.Sf6UO6vgCeicggOK]{Effect: Shining Ammunition}",
                 "Title": "Shining Ammunition"
@@ -666,6 +685,10 @@
             "Seugathi": {
                 "MindfogSuppression": "Suppress Mindfog Aura"
             },
+            "Shell": {
+                "BrokenShell": "Broken Shell",
+                "CriticalHit": "Shell Broken by a Critical Hit"
+            },
             "SkyDragon": {
                 "DivineLightningGood": "Divine Lightning - Good Damage",
                 "DivineLightningPositive": "Divine Lightning - Positive Damage"
@@ -1159,6 +1182,7 @@
             "ImpersonateStumpOrLog": "To Impersonate a Stump or Log",
             "ImpersonateMound": "To Impersonate a Mound",
             "ImpersonatePastSelf": "To Impersonate a Past Self",
+            "Jar": "Inside a Jar",
             "JumpOrClimb": "To Jump or Climb",
             "JumpOrSwim": "To Jump or Swim",
             "Jungles": "In Jungles",
@@ -1218,6 +1242,7 @@
             "TrackHalfHealth": "To Track a Creature at Half its Hit Points or Fewer",
             "Traps": "Traps",
             "TrashAndRubbish": "In Trash and Rubbish",
+            "Treasure": "In Treasure",
             "Trip": "To Trip",
             "TripTangle": "To Trip and Tangle",
             "TumbleThrough": "To Tumble Through",
@@ -1752,6 +1777,12 @@
                         "FearLabel": "Moderate Bravo's Brew (Vs. Fear)"
                     }
                 },
+                "BroadleafShield": {
+                    "Void": "Pink (Void)",
+                    "Fire": "Green (Fire)",
+                    "Poison": "Orange (Poison)",
+                    "Cold": "Brown (Cold)"
+                },
                 "DeckOfDestiny": {
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
@@ -2048,6 +2079,9 @@
                     "Saws": "Saws (Slashing)",
                     "Spike": "Spike (Piercing)",
                     "Vitriol": "Vitriol (Acid)"
+                },
+                "Overdrive": {
+                    "DamageTypePrompt": "Deal fire damage with overdrive?"
                 }
             },
             "Investigator": {
@@ -2142,9 +2176,11 @@
                     "Note": "The creature is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] save against your spell DC."
                 }
             },
+            "LitAlicornLance": "Alicorn Lance is lit",
             "LitCandle": "Candle is lit",
             "LitCandlecap": "Candlecap is lit",
             "LitFirePoi": "Fire Poi is lit",
+            "LitFulminatingSpear": "Fulminating Spear is lit",
             "LitTorch": "Torch is lit",
             "Lizardfolk": {
                 "GuidedByTheStars": {
@@ -2390,6 +2426,7 @@
                 "PathToPerfection": "Select a path to perfection.",
                 "Rune": "Select a Rune.",
                 "SecondImplement": "Select a second implement.",
+                "Shield": "Select a shield.",
                 "Shillelagh": "Select a club or staff.",
                 "Skill": "Select a skill.",
                 "SkillFeat": "Select a skill feat.",
@@ -2524,6 +2561,13 @@
             },
             "SpellEffectProtection": {
                 "Prompt": "Choose which alignment trait you are protecting against."
+            },
+            "SpellEffectThermalRemedy": {
+                "BonusVsDisease": "Bonus vs. Disease",
+                "FireResistance": "Fire Resistance",
+                "Prompt": "Select a benefit.",
+                "PromptTwo": "Select a 2nd benefit.",
+                "TempHP": "Temporary Hit Points"
             },
             "Spellheart": {
                 "BeastmastersSigil": {
@@ -2789,8 +2833,12 @@
             "RuleElements": {
                 "ChoiceSet": {
                     "Decline": "Decline",
-                    "DragHomebrewItem": "Drag a homebrew item here if using one instead of the above options",
+                    "DragHomebrewItem": "Drag a homebrew item here if using one instead of the above options.",
                     "HomebrewItem": "Homebrew Item",
+                    "ViewItem": {
+                        "Tooltip": "View Item",
+                        "Disabled": "Selected choice has no item sheet"
+                    },
                     "NoLabel": "No",
                     "Prompt": "Make a selection.",
                     "SaveLabel": "Save",

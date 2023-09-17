@@ -84,7 +84,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
     override activateListeners($html: JQuery): void {
         const html = $html[0];
 
-        for (const element of htmlQueryAll(html, "a[data-choice], button[type=button]")) {
+        for (const element of htmlQueryAll(html, "a[data-choice], button[data-action=pick]")) {
             element.addEventListener("click", (event) => {
                 this.selection = this.getSelection(event) ?? null;
                 this.close();

@@ -164,7 +164,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Rogue's Racket",
             "sort": 0,
             "system": {
@@ -497,7 +497,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "517c6": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 9,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
@@ -551,7 +551,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Debilitating Strikes"
                     },
                     "odz8x": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Rogue's Racket",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Rogue's Racket"
@@ -569,7 +569,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack"
                     },
                     "sjjee": {
-                        "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+                        "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
                         "level": 3,
                         "name": "Deny Advantage",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Deny Advantage"
@@ -1130,7 +1130,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 0,
             "system": {
@@ -1376,7 +1376,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools",
             "sort": 0,
             "system": {
@@ -1440,14 +1440,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1509,7 +1509,29 @@
                         "otherTags": [
                             "improvised"
                         ],
-                        "range": null
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
                     },
                     {
                         "damageType": "fire",
@@ -1532,7 +1554,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -1813,7 +1835,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
             "name": "Deny Advantage",
             "sort": 0,
             "system": {
@@ -3030,7 +3052,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "ethnicity": {
                 "value": ""

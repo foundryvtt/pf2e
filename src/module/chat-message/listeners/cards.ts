@@ -69,12 +69,11 @@ class ChatCards {
                 case "strike-attack3":
                     strikeAction.variants[2].roll(rollArgs);
                     return;
-                case "strike-damage":
-                    strikeAction.damage?.(rollArgs);
+                case "strike-damage": {
+                    const method = button.dataset.outcome === "success" ? "damage" : "critical";
+                    strikeAction[method]?.(rollArgs);
                     return;
-                case "strike-critical":
-                    strikeAction.critical?.(rollArgs);
-                    return;
+                }
             }
         }
 
@@ -211,7 +210,7 @@ class ChatCards {
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;
                     const roll = message.rolls.find(
-                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.action === "elemental-blast"
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
                     );
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =

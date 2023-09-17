@@ -604,19 +604,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Resolve"
                     },
                     "ed5t5": {
-                        "img": "systems/pf2e/icons/equipment/adventuring-gear/spellbook.webp",
+                        "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
                         "level": 1,
                         "name": "Spell Repertoire (Bard)",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Spell Repertoire (Bard)"
                     },
                     "en1lf": {
-                        "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
+                        "img": "icons/tools/instruments/pipe-flue-tan.webp",
                         "level": 1,
                         "name": "Composition Spells",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Composition Spells"
                     },
                     "iipml": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 9,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
@@ -628,7 +628,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Signature Spells"
                     },
                     "oyw8v": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Muses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Muses"
@@ -808,7 +808,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Muses",
             "sort": 0,
             "system": {
@@ -885,7 +885,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.s0VbbQJNlSgPocui"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
             "name": "Composition Spells",
             "sort": 100,
             "system": {
@@ -978,7 +978,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.6FsusoMYxxjyIkVh"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/spellbook.webp",
+            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
             "name": "Spell Repertoire (Bard)",
             "sort": 300,
             "system": {
@@ -2625,7 +2625,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
             "sort": 200000,
             "system": {
@@ -2717,7 +2717,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp",
+            "img": "icons/containers/bags/pouch-gold-green.webp",
             "name": "Healer's Tools",
             "sort": 300000,
             "system": {
@@ -2781,7 +2781,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
             "name": "Musical Instrument - Ocarina (Handheld)",
             "sort": 400000,
             "system": {
@@ -2846,7 +2846,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools",
             "sort": 500000,
             "system": {
@@ -3177,7 +3177,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 1000000,
             "system": {
@@ -3593,7 +3593,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 1700000,
             "system": {
@@ -3660,6 +3660,29 @@
                         "key": "Strike",
                         "otherTags": [
                             "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
                         ]
                     },
                     {
@@ -3683,7 +3706,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -3712,7 +3735,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 1050000,
             "system": {
@@ -3835,7 +3858,7 @@
         },
         {
             "_id": "qsvFkBz8yZbg5yBR",
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/basic-crafters-book.webp",
+            "img": "icons/sundries/books/book-worn-blue.webp",
             "name": "Damaged Children's Book",
             "sort": 0,
             "system": {
@@ -4079,7 +4102,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "class": {
                 "value": ""
@@ -4141,7 +4164,7 @@
             },
             "heroPoints": {
                 "max": 3,
-                "value": 0
+                "value": 1
             }
         },
         "saves": {

@@ -325,7 +325,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
                     },
                     "80cqf": {
-                        "img": "systems/pf2e/icons/features/classes/wild-empathy.webp",
+                        "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
                         "level": 1,
                         "name": "Wild Empathy",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Wild Empathy"
@@ -343,13 +343,13 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
                     },
                     "cfonk": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 3,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
                     },
                     "g63pa": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Druidic Order",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Druidic Order"
@@ -379,7 +379,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
                     },
                     "qvz7x": {
-                        "img": "systems/pf2e/icons/features/classes/primal-spellcasting.webp",
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
                         "level": 1,
                         "name": "Primal Spellcasting",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Primal Spellcasting"
@@ -498,7 +498,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Druidic Order",
             "sort": 0,
             "system": {
@@ -685,7 +685,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.b8pnRxGuNzG0buuh"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/primal-spellcasting.webp",
+            "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
             "name": "Primal Spellcasting",
             "sort": 300,
             "system": {
@@ -785,7 +785,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.d5BFFHXFJYKs5LXr"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/wild-empathy.webp",
+            "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
             "name": "Wild Empathy",
             "sort": 500,
             "system": {
@@ -1628,7 +1628,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
                 }
             },
-            "img": "systems/pf2e/icons/spells/tanglefoot.webp",
+            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
             "sort": 0,
             "system": {
@@ -2426,7 +2426,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/hide.webp",
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
             "name": "Hide Armor",
             "sort": 200000,
             "system": {
@@ -2518,7 +2518,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.ezVp13Uw8cWW08Da"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/shields/wooden-shield.webp",
+            "img": "icons/equipment/shield/round-wooden-boss-steel-yellow-blue.webp",
             "name": "Mushroom-Covered Log (Wooden Shield)",
             "sort": 300000,
             "system": {
@@ -3075,7 +3075,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 900000,
             "system": {
@@ -3491,7 +3491,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 1600000,
             "system": {
@@ -3558,6 +3558,29 @@
                         "key": "Strike",
                         "otherTags": [
                             "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
                         ]
                     },
                     {
@@ -3581,7 +3604,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -3610,7 +3633,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 950000,
             "system": {
@@ -4083,7 +4106,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "class": {
                 "value": ""

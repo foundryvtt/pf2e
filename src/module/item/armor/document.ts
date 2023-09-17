@@ -1,10 +1,19 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, getResilientBonus } from "@item/physical/index.ts";
+import {
+    PhysicalItemHitPoints,
+    PhysicalItemPF2e,
+    RUNE_DATA,
+    getPropertySlots,
+    prunePropertyRunes,
+    resilientRuneValues,
+} from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
+import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
 import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
 
@@ -55,9 +64,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     get acBonus(): number {
-        const potencyRune = this.isArmor && this.isInvested ? this.system.runes.potency : 0;
-        const baseArmor = Number(this.system.acBonus) || 0;
-        return this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
+        return this.system.acBonus;
     }
 
     get hitPoints(): PhysicalItemHitPoints {
@@ -66,6 +73,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     get hardness(): number {
         return this.system.hardness;
+    }
+
+    override get isSpecific(): boolean {
+        return this.system.specific?.value ?? false;
     }
 
     get isBroken(): boolean {
@@ -89,15 +100,21 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "armor"): string[] {
-        return super.getRollOptions(prefix).concat(
+        return [
+            super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
+                [`rune:potency`]: this.system.runes.potency > 0,
+                [`rune:resilient`]: this.system.runes.resilient > 0,
             })
                 .filter(([, isTrue]) => isTrue)
-                .map(([key]) => `${prefix}:${key}`)
-        );
+                .map(([key]) => `${prefix}:${key}`),
+            this.system.runes.property.map((r) => `${prefix}:rune:property:${sluggify(r)}`),
+        ]
+            .flat()
+            .sort();
     }
 
     override prepareBaseData(): void {
@@ -105,36 +122,47 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
-        ABP.cleanupRunes(this);
 
-        // Add traits from potency rune
+        this.prepareRunes();
+
+        // Add traits from fundamental runes
         const baseTraits = this.system.traits.value;
         const fromRunes: ("invested" | "abjuration")[] =
-            this.system.potencyRune.value || this.system.resiliencyRune.value ? ["invested", "abjuration"] : [];
+            this.system.runes.potency || this.system.runes.resilient ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
 
-        const { traits } = this.system;
-        traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+        this.system.traits.value = R.uniq([baseTraits, fromRunes, magicTraits].flat()).sort();
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.system;
-        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
-        this.system.runes = {
+        const potencyRune =
+            this.isArmor && this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
+        const baseArmor = Number(this.system.acBonus) || 0;
+        this.system.acBonus = this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
+    }
+
+    private prepareRunes(): void {
+        ABP.cleanupRunes(this);
+
+        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
+
+        // Derived rune data structure
+        const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResilientBonus({ resiliencyRune }),
-            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (rune): rune is string => !!rune
+            resilient: resilientRuneValues.get(resiliencyRune.value) ?? 0,
+            property: prunePropertyRunes(
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
+                RUNE_DATA.armor.property
             ),
-        };
+            effects: [],
+        });
 
         // Limit property rune slots
         const maxPropertySlots = getPropertySlots(this);
-        this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
+        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
@@ -143,44 +171,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!this.isEquipped) return;
 
         if (this.isArmor) {
-            // Set some roll options for this armor
-            actor.rollOptions.all[`armor:id:${this.id}`] = true;
-            actor.rollOptions.all[`armor:category:${this.category}`] = true;
-            if (this.group) {
-                actor.rollOptions.all[`armor:group:${this.group}`] = true;
-            }
-
-            if (this.baseType) {
-                actor.rollOptions.all[`armor:base:${this.baseType}`] = true;
-            }
-
-            if (this.system.runes.potency > 0) {
-                actor.rollOptions.all[`armor:rune:potency:${this.system.runes.potency}`] = true;
-            }
-
-            if (this.system.runes.resilient > 0) {
-                actor.rollOptions.all[`armor:rune:resilient:${this.system.runes.resilient}`] = true;
-            }
-
-            for (const rune of this.system.runes.property) {
-                const slug = sluggify(rune);
-                actor.rollOptions.all[`armor:rune:property:${slug}`] = true;
-            }
-
-            // Set roll options for certain armor traits
-            const traits = this.traits;
-            for (const [trait, domains] of [
-                ["bulwark", ["reflex"]],
-                ["flexible", ["acrobatics", "athletics"]],
-                ["noisy", ["stealth"]],
-            ] as const) {
-                if (traits.has(trait)) {
-                    for (const domain of domains) {
-                        const checkOptions = (actor.rollOptions[domain] ??= {});
-                        checkOptions[`armor:trait:${trait}`] = true;
-                        checkOptions[`self:armor:trait:${trait}`] = true;
-                    }
-                }
+            for (const rollOption of this.getRollOptions("armor")) {
+                actor.rollOptions.all[rollOption] = true;
             }
         }
 
@@ -242,29 +234,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         });
     }
 
-    override generateModifiedName(): string {
-        const baseArmors: Record<string, string | undefined> = CONFIG.PF2E.baseArmorTypes;
-        const { material } = this;
-        const storedName = this._source.name;
-        const baseName = game.i18n.localize(baseArmors[this.baseType ?? ""] ?? "");
-        if (!baseName || !material.type || storedName !== baseName) {
-            return this.name;
-        }
-
-        const materialName = game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
-
-        // Special case: avoid armor names like "Dragonhide Hide Armor"
-        if (this.baseType === "hide-armor" && material.type.includes("hide")) {
-            const genericName = game.i18n.localize("TYPES.Item.armor");
-            return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", {
-                base: genericName,
-                material: materialName,
-            });
-        }
-
-        return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", { base: baseName, material: materialName });
-    }
-
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
@@ -292,10 +261,27 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        const category = changed.system?.category;
-        if (changed.system && category) {
-            const usage = { value: category === "shield" ? "held-in-one-hand" : "wornarmor" };
+        if (changed.system?.category) {
+            const usage = { value: changed.system.category === "shield" ? "held-in-one-hand" : "wornarmor" };
             changed.system = mergeObject(changed.system, { usage });
+        }
+        if (changed.system?.acBonus !== undefined) {
+            changed.system.acBonus ||= 0;
+        }
+        if (changed.system?.group !== undefined) {
+            changed.system.group ||= null;
+        }
+
+        const changedSpecific: ChangedSpecificData = changed.system?.specific ?? {};
+        if (changedSpecific.value === true) {
+            changedSpecific.material = deepClone(this._source.system.material);
+            changedSpecific.runes = {
+                potency: (Number(this._source.system.potencyRune.value) || 0) as ZeroToFour,
+                resilient: resilientRuneValues.get(this._source.system.resiliencyRune.value) || 0,
+            };
+        } else if (changedSpecific.value === false) {
+            changedSpecific["-=material"] = null;
+            changedSpecific["-=runes"] = null;
         }
 
         return super._preUpdate(changed, options, user);
@@ -305,6 +291,14 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 interface ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ArmorSource;
     system: ArmorSystemData;
+}
+
+interface ChangedSpecificData {
+    value?: unknown;
+    material?: object;
+    runes?: object;
+    "-=material"?: null;
+    "-=runes"?: null;
 }
 
 export { ArmorPF2e };

@@ -106,9 +106,8 @@
                 <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
                 <select name="system.potencyRune.value" data-dtype="Number">
                     {{#select data.potencyRune.value}}
-                        <option value="0"></option>
-                        {{#each weaponPotencyRunes as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
+                        {{#each fundamentalRunes.potency as |rune|}}
+                            <option value="{{rune.value}}">{{localize rune.name}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
@@ -117,9 +116,8 @@
                 <label>{{localize "PF2E.StrikingRuneLabel"}}</label>
                 <select name="system.strikingRune.value">
                     {{#select data.strikingRune.value}}
-                        <option value=""></option>
-                        {{#each weaponStrikingRunes as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
+                        {{#each fundamentalRunes.striking as |rune|}}
+                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
@@ -134,13 +132,14 @@
                 <select{{#if (not @root.data.specific.value)}} name="{{slot.name}}"{{/if}} {{disabled @root.data.specific.value}}>
                     {{#select slot.value}}
                         <option value=""></option>
-                        {{#each @root.weaponPropertyRunes as |label type|}}
-                            <option value="{{type}}">{{localize label}}</option>
+                        {{#each @root.propertyRunes as |rune|}}
+                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
             </div>
         {{/each}}
+
         <div class="form-group">
             <label class="large">
                 {{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Label"}}
@@ -162,7 +161,12 @@
         </label>
 
         <div class="dice-data">
-            <input type="number"{{#if adjustedDiceHint}} class="adjusted"{{/if}} data-property="system.damage.dice" data-value-base="{{baseDice}}" value="{{data.damage.dice}}" />
+            <input type="number"
+                {{#if adjustedDiceHint}} class="adjusted"{{/if}}
+                data-property="system.damage.dice"
+                data-value-base="{{item._source.system.damage.dice}}"
+                value="{{data.damage.dice}}"
+            />
             <select name="system.damage.die">
                 {{#select data.damage.die}}
                     <option value=""></option>
@@ -221,7 +225,7 @@
 <ol class="form-list">
     <h3>
         {{localize "PF2E.WeaponCustomDamageLabel"}}
-        <i class="fas fa-info-circle large" title="{{localize "PF2E.WeaponCustomDamageTitle"}}"></i>
+        <i class="fa-solid fa-info-circle large" title="{{localize "PF2E.WeaponCustomDamageTitle"}}"></i>
     </h3>
     <li class="form-group">
         <label>{{localize "PF2E.ItemDescription"}}</label>
@@ -354,7 +358,7 @@
             <label>
                 {{localize "PF2E.TraitsLabel"}}
                 <a class="tag-selector" data-tag-selector="basic" data-config-types="weaponTraits" data-property="system.meleeUsage.traits" data-no-custom="true" data-flat="true">
-                    <i class="fas fa-edit"></i>
+                    <i class="fa-solid fa-edit"></i>
                 </a>
             </label>
             <ul class="traits-list tags">

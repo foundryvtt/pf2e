@@ -358,7 +358,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "517c6": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 9,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
@@ -412,7 +412,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Debilitating Strikes"
                     },
                     "odz8x": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Rogue's Racket",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Rogue's Racket"
@@ -430,7 +430,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack"
                     },
                     "sjjee": {
-                        "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+                        "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
                         "level": 3,
                         "name": "Deny Advantage",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Deny Advantage"
@@ -581,15 +581,58 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Trap Finder (detecting or defending against traps)",
+                        "label": "PF2E.SpecificRule.TrapFinder.SearchLabel",
                         "option": "trap-finder",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Trap Finder (to find traps)",
                         "predicate": [
-                            "trap-finder"
+                            {
+                                "or": [
+                                    "origin:trait:trap",
+                                    "trap"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "saving-throw",
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 2,
+                                    "start": 0,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 4,
+                                    "start": 3,
+                                    "value": 2
+                                }
+                            ],
+                            "field": "actor|system.skills.thi.rank"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TrapFinder.DefendingLabel",
+                        "option": "origin:trait:trap",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "origin:trait:trap",
+                                    "trap",
+                                    "trap-finder"
+                                ]
+                            }
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -597,55 +640,7 @@
                             "brackets": [
                                 {
                                     "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                }
-                            ],
-                            "field": "actor|system.skills.thi.rank"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Trap Finder (against traps)",
-                        "predicate": [
-                            "trap-finder"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                }
-                            ],
-                            "field": "actor|system.skills.thi.rank"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Trap Finder (against traps)",
-                        "predicate": [
-                            "trap-finder"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
+                                    "start": 0,
                                     "value": 1
                                 },
                                 {
@@ -660,7 +655,7 @@
                 ],
                 "slug": "trap-finder",
                 "source": {
-                    "value": "Pathfinder Advanced Player's Guide"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "rarity": "common",
@@ -1057,7 +1052,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 0,
             "system": {
@@ -1149,7 +1144,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp",
+            "img": "icons/containers/bags/pouch-gold-green.webp",
             "name": "Healer's Tools",
             "sort": 0,
             "system": {
@@ -1213,7 +1208,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools",
             "sort": 0,
             "system": {
@@ -1277,7 +1272,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Sw7MBLASN3xK4Y44"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools (Replacement Picks)",
             "sort": 0,
             "system": {
@@ -1405,7 +1400,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 0,
             "system": {
@@ -1821,7 +1816,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
@@ -1888,6 +1883,29 @@
                         "key": "Strike",
                         "otherTags": [
                             "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
                         ]
                     },
                     {
@@ -1911,7 +1929,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -1940,7 +1958,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 0,
             "system": {
@@ -2076,7 +2094,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/rogues-racket.webp",
+            "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Rogue's Racket",
             "sort": 0,
             "system": {
@@ -2452,7 +2470,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "class": {
                 "value": ""

@@ -7,11 +7,11 @@ import {
 } from "@module/apps/pick-a-thing-prompt.ts";
 import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery, sluggify } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
 /** Prompt the user for a selection among a set of options */
-export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
+class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     /** The prompt statement to present the user in this application's window */
     prompt: string;
 
@@ -41,10 +41,16 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     override async getData(options: Partial<ApplicationOptions> = {}): Promise<ChoiceSetTemplateData> {
         return {
             ...(await super.getData(options)),
+            choices: this.choices.map((c, index) => ({
+                ...c,
+                value: index,
+                hasUUID: UUIDUtils.isItemUUID(c.value),
+            })),
             prompt: this.prompt,
             includeDropZone: !!this.allowedDrops,
             allowNoSelection: this.allowNoSelection,
             selectMenu: this.choices.length > 9,
+            containsItems: this.containsItems,
         };
     }
 
@@ -63,6 +69,55 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => {
             this.close();
         });
+
+        const renderItemSheet = async (choice: ChoiceSetChoice | null): Promise<void> => {
+            if (!choice || !UUIDUtils.isItemUUID(choice.value)) return;
+            const item = await fromUuid(choice.value);
+            item?.sheet.render(true);
+        };
+
+        if (this.containsItems) {
+            if (this.selectMenu) {
+                const itemInfoAnchor = htmlQuery(html, "a.item-info");
+                if (!itemInfoAnchor) return;
+
+                const updateAnchor = (disable: boolean, value = ""): void => {
+                    itemInfoAnchor.dataset.value = value;
+                    itemInfoAnchor.classList.toggle("disabled", disable);
+                    itemInfoAnchor.dataset.tooltip = game.i18n.localize(
+                        disable
+                            ? "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
+                            : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
+                    );
+                };
+
+                itemInfoAnchor.addEventListener("click", (event) => {
+                    renderItemSheet(this.getSelection(event));
+                });
+
+                this.selectMenu.on("change", (event) => {
+                    const data = event.detail.tagify.value.at(0);
+                    if (!data) {
+                        return updateAnchor(true);
+                    }
+                    const index = Number(data.value);
+                    if (!isNaN(index)) {
+                        const choice = this.choices.at(index);
+                        if (UUIDUtils.isItemUUID(choice?.value)) {
+                            updateAnchor(false, data.value);
+                        } else {
+                            updateAnchor(true);
+                        }
+                    }
+                });
+            } else {
+                for (const anchor of htmlQueryAll(html, "a.item-info")) {
+                    anchor.addEventListener("click", (event) => {
+                        renderItemSheet(this.getSelection(event));
+                    });
+                }
+            }
+        }
     }
 
     /** Return early if there is only one choice */
@@ -157,6 +212,10 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     }
 }
 
+interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
+    getSelection: (event: MouseEvent) => ChoiceSetChoice | null;
+}
+
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
     prompt: string;
     choices?: PickableThing[];
@@ -164,9 +223,16 @@ interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number 
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
 }
 
+interface ChoiceSetChoice extends PickableThing {
+    hasUUID: boolean;
+}
+
 interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
-    choices: PickableThing[];
+    choices: ChoiceSetChoice[];
     includeDropZone: boolean;
     allowNoSelection: boolean;
+    containsItems: boolean;
 }
+
+export { ChoiceSetPrompt };

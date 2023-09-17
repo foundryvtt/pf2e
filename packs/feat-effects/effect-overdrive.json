@@ -55,6 +55,7 @@
             {
                 "key": "FlatModifier",
                 "selector": "strike-damage",
+                "slug": "overdrive",
                 "value": "@actor.flags.pf2e.overdriveBaseDamage+ternary(gte(@item.origin.level,15), 3, ternary(gte(@item.origin.level,7), 2, ternary(gte(@item.origin.level,3),1,0)))"
             },
             {
@@ -72,6 +73,37 @@
                 "predicate": [
                     "overdrive:critical-success"
                 ]
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "normal"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:weapon-innovation"
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Overdrive.DamageTypePrompt",
+                "rollOption": "weapon-innovation-overdrive-damage"
+            },
+            {
+                "damageType": "fire",
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "weapon-innovation-overdrive-damage:fire"
+                ],
+                "selector": "strike-damage",
+                "slug": "overdrive",
+                "value": 0
             }
         ],
         "source": {

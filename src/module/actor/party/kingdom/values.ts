@@ -6,21 +6,12 @@ import {
     KingdomGovernment,
     KingdomLeadershipRole,
     KingdomNationType,
+    KingdomSettlementType,
     KingdomSkill,
 } from "./types.ts";
 import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;
-const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
-
-/** Ruin label by ability slug */
-const KINGDOM_RUIN_LABELS = {
-    culture: "PF2E.Kingmaker.Kingdom.Ruin.corruption",
-    economy: "PF2E.Kingmaker.Kingdom.Ruin.crime",
-    stability: "PF2E.Kingmaker.Kingdom.Ruin.decay",
-    loyalty: "PF2E.Kingmaker.Kingdom.Ruin.strife",
-};
-
 const KINGDOM_LEADERSHIP = [
     "ruler",
     "counselor",
@@ -31,20 +22,7 @@ const KINGDOM_LEADERSHIP = [
     "viceroy",
     "warden",
 ] as const;
-
-const KINGDOM_LEADERSHIP_ABILITIES: Record<KingdomLeadershipRole, KingdomAbility> = {
-    ruler: "loyalty",
-    counselor: "culture",
-    general: "stability",
-    emissary: "loyalty",
-    magister: "culture",
-    treasurer: "economy",
-    viceroy: "economy",
-    warden: "stability",
-};
-
 const KINGDOM_COMMODITIES = ["food", "luxuries", "lumber", "ore", "stone"] as const;
-
 const KINGDOM_SKILLS = [
     "agriculture",
     "arts",
@@ -64,7 +42,16 @@ const KINGDOM_SKILLS = [
     "wilderness",
 ] as const;
 
-const KINGDOM_SKILL_LABELS = R.mapToObj(KINGDOM_SKILLS, (a) => [a, `PF2E.Kingmaker.Skills.${a}`]);
+const KINGDOM_LEADERSHIP_ABILITIES: Record<KingdomLeadershipRole, KingdomAbility> = {
+    ruler: "loyalty",
+    counselor: "culture",
+    general: "stability",
+    emissary: "loyalty",
+    magister: "culture",
+    treasurer: "economy",
+    viceroy: "economy",
+    warden: "stability",
+};
 
 const KINGDOM_SKILL_ABILITIES: Record<KingdomSkill, KingdomAbility> = {
     agriculture: "stability",
@@ -85,6 +72,20 @@ const KINGDOM_SKILL_ABILITIES: Record<KingdomSkill, KingdomAbility> = {
     wilderness: "stability",
 };
 
+const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
+
+const KINGDOM_COMMODITY_LABELS = R.mapToObj(KINGDOM_COMMODITIES, (c) => [c, `PF2E.Kingmaker.Kingdom.Commodity.${c}`]);
+
+/** Ruin label by ability slug */
+const KINGDOM_RUIN_LABELS = {
+    culture: "PF2E.Kingmaker.Kingdom.Ruin.corruption",
+    economy: "PF2E.Kingmaker.Kingdom.Ruin.crime",
+    stability: "PF2E.Kingmaker.Kingdom.Ruin.decay",
+    loyalty: "PF2E.Kingmaker.Kingdom.Ruin.strife",
+};
+
+const KINGDOM_SKILL_LABELS = R.mapToObj(KINGDOM_SKILLS, (a) => [a, `PF2E.Kingmaker.Skills.${a}`]);
+
 interface KingdomSizeData {
     faces: number;
     type: KingdomNationType;
@@ -100,6 +101,35 @@ const KINGDOM_SIZE_DATA = {
     50: { faces: 10, type: "country", controlMod: 3, storage: 16 },
     100: { faces: 12, type: "dominion", controlMod: 4, storage: 20 },
 } satisfies Record<number, KingdomSizeData>;
+
+const KINGDOM_SETTLEMENT_TYPES = ["village", "town", "city", "metropolis"] as const;
+const KINGDOM_SETTLEMENT_TYPE_LABELS = R.mapToObj(KINGDOM_SETTLEMENT_TYPES, (size) => [
+    size,
+    `PF2E.Kingmaker.Settlement.Type.${size}`,
+]);
+
+interface KingdomSettlementTypeData {
+    blocks: number;
+    population: [number, number];
+    level: [number, number];
+    consumption: number;
+    maxItemBonus: number;
+    influence: number;
+}
+
+const KINGDOM_SETTLEMENT_TYPE_DATA = {
+    village: { blocks: 1, population: [0, 400], level: [1, 1], consumption: 1, maxItemBonus: 1, influence: 0 },
+    town: { blocks: 4, population: [401, 2000], level: [2, 4], consumption: 2, maxItemBonus: 1, influence: 1 },
+    city: { blocks: 9, population: [2001, 25000], level: [5, 9], consumption: 4, maxItemBonus: 2, influence: 2 },
+    metropolis: {
+        blocks: Infinity,
+        population: [25001, Infinity],
+        level: [10, Infinity],
+        consumption: 6,
+        maxItemBonus: 3,
+        influence: 3,
+    },
+} satisfies Record<KingdomSettlementType, KingdomSettlementTypeData>;
 
 const vacancyLabel = (role: KingdomLeadershipRole) =>
     game.i18n.format("PF2E.Kingmaker.Kingdom.VacantRole", {
@@ -332,16 +362,20 @@ function getKingdomABCData(): {
 
 export {
     CONTROL_DC_BY_LEVEL,
+    getKingdomABCData,
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
+    KINGDOM_COMMODITY_LABELS,
+    KINGDOM_LEADERSHIP_ABILITIES,
+    KINGDOM_LEADERSHIP,
+    KINGDOM_RUIN_LABELS,
+    KINGDOM_SETTLEMENT_TYPE_DATA,
+    KINGDOM_SETTLEMENT_TYPE_LABELS,
+    KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SIZE_DATA,
-    KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
-    KINGDOM_LEADERSHIP,
-    KINGDOM_LEADERSHIP_ABILITIES,
-    KINGDOM_RUIN_LABELS,
+    KINGDOM_SKILLS,
     VACANCY_PENALTIES,
-    getKingdomABCData,
 };

@@ -188,7 +188,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sudden-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sudden-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sudden-retreat"
+                        ],
+                        "selector": "swim-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

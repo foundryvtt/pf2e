@@ -181,7 +181,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
+        const template = `systems/pf2e/templates/chat/${sluggify(this.type)}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = event?.currentTarget.closest(".item") ?? {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
@@ -227,8 +227,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         super._initialize(options);
     }
 
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
     override prepareData(): void {
-        // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
         if (this.parent && !this.parent.flags?.pf2e) return;
 
         super.prepareData();

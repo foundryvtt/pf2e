@@ -2,8 +2,13 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { OneToFour } from "@module/data.ts";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
+import { BackgroundTrait } from "./types.ts";
 
 class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    get traits(): Set<BackgroundTrait> {
+        return new Set(this.system.traits.value);
+    }
+
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
     override prepareSiblingData(this: BackgroundPF2e<ActorPF2e>): void {
         if (Object.keys(this.system.items).length > 0) return;

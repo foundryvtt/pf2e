@@ -61,7 +61,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Swashbuckler's Style",
             "sort": 0,
             "system": {
@@ -143,7 +143,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.LzYi0OuOoypNb6jd"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/panache.webp",
+            "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
             "name": "Panache",
             "sort": 0,
             "system": {
@@ -435,7 +435,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
                     },
                     "2v2xl": {
-                        "img": "systems/pf2e/icons/features/classes/panache.webp",
+                        "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
                         "level": 1,
                         "name": "Panache",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Panache"
@@ -489,13 +489,13 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "jlyi1": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Swashbuckler's Style",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Swashbuckler's Style"
                     },
                     "k2fub": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 3,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
@@ -927,7 +927,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 0,
             "system": {
@@ -1335,7 +1335,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 700000,
             "system": {
@@ -1529,7 +1529,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/shields/buckler.webp",
+            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
             "name": "Buckler",
             "sort": 0,
             "system": {
@@ -1797,7 +1797,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-fine.webp",
+            "img": "icons/equipment/chest/breastplate-purple.webp",
             "name": "Clothing (Fine)",
             "sort": 400000,
             "system": {
@@ -1946,7 +1946,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 0,
             "system": {
@@ -2447,7 +2447,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.F57Na5VxfBp56kke"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+            "img": "icons/magic/life/cross-explosion-burst-green.webp",
             "name": "Great Fortitude",
             "sort": 0,
             "system": {
@@ -3245,7 +3245,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools",
             "sort": 0,
             "system": {
@@ -3387,7 +3387,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
@@ -3455,6 +3455,29 @@
                         "key": "Strike",
                         "otherTags": [
                             "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
                         ]
                     },
                     {
@@ -3478,7 +3501,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -3627,7 +3650,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "deity": {
                 "image": "systems/pf2e/icons/default-icons/deity.svg",

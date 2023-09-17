@@ -9,9 +9,12 @@ import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, RolledCombatant, type CombatantPF2e } from "./combatant.ts";
+import * as R from "remeda";
+import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
+    declare metrics: EncounterMetrics | null;
+
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
     protected override _sortCombatants(
         a: CombatantPF2e<this, TokenDocumentPF2e>,
@@ -39,26 +42,57 @@ class EncounterPF2e extends Combat {
     }
 
     /** Determine threat rating and XP award for this encounter */
-    analyze(): { threat: ThreatRating; xp: number } | null {
+    analyze(): EncounterMetrics | null {
+        if (!game.ready) return null;
+
         const { party } = game.actors;
-        const partyMembers: ActorPF2e[] = party?.members.filter((a) => isReallyPC(a)) ?? [];
-        const enemies =
+        const partyMembers: ActorPF2e[] = party?.members.filter((a) => a.alliance === "party" && isReallyPC(a)) ?? [];
+        // If no party members are in the encounter yet, show threat/XP as though all are.
+        const fightyPartyMembers = ((): ActorPF2e[] => {
+            const inEncounter = partyMembers.filter((m) => m.combatant?.encounter === this);
+            return inEncounter.length > 0 ? inEncounter : partyMembers;
+        })();
+
+        const opposition = R.uniq(
             this.combatants
                 .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
-                .flatMap((c) => c.actor ?? []) ?? [];
-        if (!party || enemies.length === 0) {
+                .flatMap((c) => c.actor ?? [])
+        );
+        if (!party || fightyPartyMembers.length === 0 || opposition.length === 0) {
             return null;
         }
 
-        const result = calculateXP(
-            party.level,
-            party.members.length,
-            enemies.filter((e) => !e.isOfType("hazard")).map((e) => e.level),
-            enemies.filter((e): e is HazardPF2e => e.isOfType("hazard")),
-            { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
+        const partyLevel = Math.round(
+            R.meanBy(
+                fightyPartyMembers.filter((m) => m.isOfType("character")),
+                (m) => m.level
+            )
         );
 
-        return { threat: result.rating, xp: result.xpPerPlayer };
+        const result = calculateXP(
+            partyLevel,
+            fightyPartyMembers.length,
+            opposition.filter((e) => e.isOfType("character", "npc")).map((e) => e.level),
+            opposition.filter((e): e is HazardPF2e => e.isOfType("hazard")),
+            { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
+        );
+        const threat = result.rating;
+        const budget = { spent: result.totalXP, max: result.encounterBudgets[threat], partyLevel };
+        // "Any XP awarded goes to all members of the group. For instance, if the party wins a battle worth 100 XP, they
+        // each get 100 XP, even if the party's rogue was off in a vault stealing treasure during the battle."
+        // - CRB pg. 507
+        const award = {
+            xp: Math.floor(result.xpPerPlayer * (fightyPartyMembers.length / partyMembers.length)),
+            recipients: partyMembers,
+        };
+        const participants = { party: fightyPartyMembers, opposition };
+
+        return { threat, budget, award, participants };
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        this.metrics = this.analyze();
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
@@ -304,6 +338,13 @@ interface EncounterPF2e extends Combat {
     readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
+}
+
+interface EncounterMetrics {
+    threat: ThreatRating;
+    budget: { spent: number; max: number; partyLevel: number };
+    award: { xp: number; recipients: ActorPF2e[] };
+    participants: { party: ActorPF2e[]; opposition: ActorPF2e[] };
 }
 
 interface SetInitiativeData {

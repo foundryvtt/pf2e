@@ -81,11 +81,11 @@ declare global {
 
         protected override _canDragDrop(selector: string): boolean;
 
-        protected override _onDragStart(event: ElementDragEvent): void;
+        protected override _onDragStart(event: DragEvent): void;
 
-        protected override _onDrop(event: ElementDragEvent): Promise<boolean | void>;
+        protected override _onDrop(event: DragEvent): Promise<boolean | void>;
 
-        protected override _onDragOver(event: ElementDragEvent): boolean;
+        protected override _onDragOver(event: DragEvent): boolean;
 
         /**
          * Handle dropping of an Actor data onto another Actor sheet
@@ -94,7 +94,7 @@ declare global {
          * @return A data object which describes the result of the drop
          */
         protected _onDropActiveEffect<TDocument extends ActiveEffect<TActor>>(
-            event: ElementDragEvent,
+            event: DragEvent,
             data?: DropCanvasData<"ActiveEffect", TDocument>
         ): Promise<TDocument | void>;
 
@@ -104,7 +104,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropActor(event: ElementDragEvent, data: DropCanvasData<"Actor", TActor>): Promise<false | void>;
+        protected _onDropActor(event: DragEvent, data: DropCanvasData<"Actor", TActor>): Promise<false | void>;
 
         /**
          * Handle dropping of an item reference or item data onto an Actor Sheet
@@ -112,7 +112,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropItem(event: ElementDragEvent, data: DropCanvasData<"Item", TItem>): Promise<TItem[]>;
+        protected _onDropItem(event: DragEvent, data: DropCanvasData<"Item", TItem>): Promise<TItem[]>;
 
         /**
          * Handle dropping of a Folder on an Actor Sheet.
@@ -121,7 +121,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropFolder(event: ElementDragEvent, data: DropCanvasData<"Folder", Folder>): Promise<TItem[]>;
+        protected _onDropFolder(event: DragEvent, data: DropCanvasData<"Folder", Folder>): Promise<TItem[]>;
 
         /**
          * Handle the final creation of dropped Item data on the Actor.
@@ -138,8 +138,8 @@ declare global {
          * @param itemData
          */
         protected _onSortItem(
-            event: ElementDragEvent,
+            event: DragEvent,
             itemData: CollectionValue<TActor["items"]>["_source"]
-        ): Promise<Item<TActor>[]>;
+        ): Promise<CollectionValue<TActor["items"]>[]>;
     }
 }

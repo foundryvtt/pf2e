@@ -382,7 +382,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "517c6": {
-                        "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
                         "level": 9,
                         "name": "Great Fortitude",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Great Fortitude"
@@ -436,7 +436,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Debilitating Strikes"
                     },
                     "odz8x": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Rogue's Racket",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Rogue's Racket"
@@ -454,7 +454,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack"
                     },
                     "sjjee": {
-                        "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+                        "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
                         "level": 3,
                         "name": "Deny Advantage",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Deny Advantage"
@@ -593,7 +593,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Rogue's Racket",
             "sort": 0,
             "system": {
@@ -832,7 +832,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
             "name": "Deny Advantage",
             "sort": 900,
             "system": {
@@ -2345,7 +2345,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 300000,
             "system": {
@@ -2589,7 +2589,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools",
             "sort": 600000,
             "system": {
@@ -2956,7 +2956,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 1100000,
             "system": {
@@ -3376,7 +3376,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 1800000,
             "system": {
@@ -3444,6 +3444,29 @@
                         "key": "Strike",
                         "otherTags": [
                             "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
                         ]
                     },
                     {
@@ -3467,7 +3490,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -3496,7 +3519,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 1200000,
             "system": {
@@ -3683,7 +3706,7 @@
             },
             "biography": {
                 "allies": "",
-                "appearance": "<p>Born on the storm-tossed seas, the life of a pirate is the only one Kaako has ever known. Hatched under an auspicious sign, Kaako's parents pronounced her a jinx-eater, one who might consume the ill fortune falling over the crew and bring them good luck. Unsurprisingly, the crew took an instant liking to her mischievous antics. Growing up aboard a ship, Kaako spent her formative years meeting all sorts of folks from the wider world, sailing up and down the coasts of Avistan and Garund. They were good years and ones that she looks back upon with fond nostalgia.</p>\n<p>Years later, Kaako left her parents to join the crew of Captain Renlock aboard the Brass Bird. For some time, she remained happy there. The crew of the Brass Bird made names for themselves as pirates aboard one of the most feared vessels to sail the coasts. When the Bird overtook a small merchant vessel off the coast of Varisia, Kaako encountered a jinx that even she could not prevent. Having no desire to take the ship or hostages, the Bird's crew raided the vessel for valuables before setting it free. One passenger-a Varisian witch-took umbrage to the theft and bestowed a curse upon the Bird and its crew. After that fateful day, the ship was continually beset by storms and bad winds. The Brass Bird constantly ran afoul of patrols of various navies ready to apprehend the ship. All this led to the fateful encounter with the Andoran navy. Chased back to the Shackles, the Brass Bird and its crew were finally overcome. Wanting no more bloodshed, Captain Renlock surrendered and the crew of the Brass Bird scattered.</p>\n<p>Fortunately, Kaako was released only a few months later and returned to a life on the open ocean. Though she joined crews aboard other ships, Kaako never truly found a home again. Five years later, Kaako still enjoys the life of a pirate, but grows weary of lining other peoples' pockets with gold while leaving little for herself. Then word came that Captain Renlock had passed away in prison. And his mysterious clockwork parrot, Cawlo, arrived at the window of Kaako's cabin to deliver a message&hellip</p>\n<p><strong>Goals</strong> Kaako dreams of a future in which she might captain her own ship or at least find a crew that she can call a family. Life on the high seas can be tiring, especially when there is little to show for it after years of work.</p>\n<p><strong>Personality</strong> Kaako is inquisitive, but quick to startle. She has a penchant for dressing flamboyantly, adorning herself with shiny trinkets and baubles that she claims help her ward off foul spirits and curses. In reality, she just likes the way these accessories look. Kaako is not above playing up her \"mystical\" connection, despite not really having much control over such matters. Among friends though, she is much more laid back and can be a prankster.</p>\n<p><strong>Relationships</strong> Most see Kaako as a strange and mysterious person who has many secrets. As a result, few try to become close to her. Those who do get to know the young tengu find that she can be a caring friend, even though she tends to be a bit awkward around other humanoids.</p>",
+                "appearance": "<p>Born on the storm-tossed seas, the life of a pirate is the only one Kaako has ever known. Hatched under an auspicious sign, Kaako's parents pronounced her a jinx-eater, one who might consume the ill fortune falling over the crew and bring them good luck. Unsurprisingly, the crew took an instant liking to her mischievous antics. Growing up aboard a ship, Kaako spent her formative years meeting all sorts of folks from the wider world, sailing up and down the coasts of Avistan and Garund. They were good years and ones that she looks back upon with fond nostalgia.</p>\n<p>Years later, Kaako left her parents to join the crew of Captain Renlock aboard the Brass Bird. For some time, she remained happy there. The crew of the Brass Bird made names for themselves as pirates aboard one of the most feared vessels to sail the coasts. When the Bird overtook a small merchant vessel off the coast of Varisia, Kaako encountered a jinx that even she could not prevent. Having no desire to take the ship or hostages, the Bird's crew raided the vessel for valuables before setting it free. One passenger-a Varisian witch-took umbrage to the theft and bestowed a curse upon the Bird and its crew. After that fateful day, the ship was continually beset by storms and bad winds. The Brass Bird constantly ran afoul of patrols of various navies ready to apprehend the ship. All this led to the fateful encounter with the Andoran navy. Chased back to the Shackles, the Brass Bird and its crew were finally overcome. Wanting no more bloodshed, Captain Renlock surrendered and the crew of the Brass Bird scattered.</p>\n<p>Fortunately, Kaako was released only a few months later and returned to a life on the open ocean. Though she joined crews aboard other ships, Kaako never truly found a home again. Five years later, Kaako still enjoys the life of a pirate, but grows weary of lining other peoples' pockets with gold while leaving little for herself. Then word came that Captain Renlock had passed away in prison. And his mysterious clockwork parrot, Cawlo, arrived at the window of Kaako's cabin to deliver a message…</p>\n<p><strong>Goals</strong> Kaako dreams of a future in which she might captain her own ship or at least find a crew that she can call a family. Life on the high seas can be tiring, especially when there is little to show for it after years of work.</p>\n<p><strong>Personality</strong> Kaako is inquisitive, but quick to startle. She has a penchant for dressing flamboyantly, adorning herself with shiny trinkets and baubles that she claims help her ward off foul spirits and curses. In reality, she just likes the way these accessories look. Kaako is not above playing up her \"mystical\" connection, despite not really having much control over such matters. Among friends though, she is much more laid back and can be a prankster.</p>\n<p><strong>Relationships</strong> Most see Kaako as a strange and mysterious person who has many secrets. As a result, few try to become close to her. Those who do get to know the young tengu find that she can be a caring friend, even though she tends to be a bit awkward around other humanoids.</p>",
                 "attitude": "",
                 "backstory": "",
                 "beliefs": "",
@@ -3693,7 +3716,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "class": {
                 "value": ""

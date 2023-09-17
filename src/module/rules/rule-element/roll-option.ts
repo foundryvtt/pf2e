@@ -11,11 +11,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
  * @category RuleElement
  */
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
-    /**
-     * Whether this roll option can be toggled by the user on an actor sheet: "totm" indicates it will only be present
-     * if the Theather of the Mind Toggles setting is enabled
-     */
-    toggleable: boolean | "totm";
+    declare toggleable: boolean | "totm";
 
     constructor(source: RollOptionSource, options: RuleElementOptions) {
         const sourceValue = source.value;
@@ -23,16 +19,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, options);
 
-        this.toggleable = source.toggleable === "totm" ? "totm" : !!source.toggleable;
+        this.toggleable ??= false;
         this.value = typeof sourceValue === "string" ? sourceValue : !!(source.value ?? !this.toggleable);
-
-        if (!["boolean", "string", "undefined"].includes(typeof sourceValue)) {
-            this.failValidation('The "value" property must be a boolean, string, or otherwise omitted.');
-        }
-
-        if ("toggleable" in source && typeof source.toggleable !== "boolean" && source.toggleable !== "totm") {
-            this.failValidation('The "togglable" property must be a boolean, the string "totm", or otherwise omitted.');
-        }
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
@@ -95,7 +83,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     validationError: "must have zero or 2+ suboptions",
                 }
             ),
-            value: new ResolvableValueField({ required: false, initial: undefined }),
+            value: new ResolvableValueField({
+                required: false,
+                initial: undefined,
+                validate: (v) => ["boolean", "string"].includes(typeof v),
+                validationError: "must be a boolean, string, or otherwise omitted",
+            }),
             toggleable: new DataUnionField(
                 [
                     new StrictStringField<"totm">({
@@ -115,7 +108,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             placement: new fields.StringField({
                 required: false,
                 nullable: false,
-                initial: "actions-tab",
+                initial: undefined,
             }),
             disabledIf: new PredicateField({ required: false, initial: undefined }),
             disabledValue: new fields.BooleanField({ required: false, initial: undefined }),
@@ -141,14 +134,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
 
         if (typeof source.disabledValue === "boolean" && (!source.toggleable || !source.disabledIf)) {
-            throw Error(
-                'The "disabledValue" property may only be included if "toggeable" is true and there is a ' +
-                    '"disabledIf" predicate.'
-            );
+            throw Error("  disabledValue: may only be included if toggeable and there is a disabledIf predicate.");
         }
 
         if (source.alwaysActive && (!source.toggleable || source.suboptions.length === 0)) {
             throw Error("  alwaysActive: must be false unless toggleable and containing suboptions");
+        }
+
+        if (source.placement && !source.toggleable) {
+            throw Error("  placement: may only be present if toggleable");
         }
     }
 
@@ -249,7 +243,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label: this.getReducedLabel(),
-                    placement: this.placement,
+                    placement: this.placement ?? "actions-tab",
                     domain: this.domain,
                     option: baseOption,
                     suboptions,
@@ -377,7 +371,7 @@ type RollOptionSchema = RuleElementSchema & {
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
     toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, false>;
     /** If toggleable, the location to be found in an interface */
-    placement: StringField<string, string, false, false, true>;
+    placement: StringField<string, string, false, false, false>;
     /** An optional predicate to determine whether the toggle is interactable by the user */
     disabledIf: PredicateField<false, false, false>;
     /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */

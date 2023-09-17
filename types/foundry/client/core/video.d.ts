@@ -11,17 +11,55 @@ declare class VideoHelper {
      */
     pending: Set<HTMLVideoElement>;
 
+    /** A mapping of base64 video thumbnail images */
+    thumbs: Map<string, string>;
+
     /** A flag for whether video playback is currently locked by awaiting a user gesture */
     locked: boolean;
 
-    static hasVideoExtension(src: string): boolean;
+    /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
+
+    /**
+     * Return the HTML element which provides the source for a loaded texture.
+     * @param mesh The rendered mesh
+     * @returns The source HTML element
+     */
+    getSourceElement(mesh: PIXI.Sprite | SpriteMesh): HTMLImageElement | HTMLVideoElement | null;
+
+    /**
+     * Get the video element source corresponding to a Sprite or SpriteMesh.
+     * @param object The PIXI source
+     * @returns The source video element or null
+     */
+    getVideoSource(object: PIXI.Sprite | SpriteMesh | PIXI.Texture): HTMLVideoElement | null;
+
+    /**
+     * Clone a video texture so that it can be played independently of the original base texture.
+     * @param {HTMLVideoElement} source     The video element source
+     * @returns {Promise<PIXI.Texture>}     An unlinked PIXI.Texture which can be played independently
+     */
+    cloneTexture(source: HTMLVideoElement): Promise<PIXI.Texture>;
+
+    /**
+     * Check if a source has a video extension.
+     * @param src The source.
+     * @returns If the source has a video extension or not.
+     */
+    static hasVideoExtension(src: string): src is VideoFilePath;
 
     /**
      * Play a single video source
      * If playback is not yet enabled, add the video to the pending queue
-     * @param video The VIDEO element to play
+     * @param video        The VIDEO element to play
+     * @param [options={}] Additional options for modifying video playback
+     * @param [options.playing] Should the video be playing? Otherwise, it will be paused
+     * @param [options.loop]    Should the video loop?
+     * @param [options.offset]  A specific timestamp between 0 and the video duration to begin playback
+     * @param [options.volume]  Desired volume level of the video's audio channel (if any)
      */
-    play(video: HTMLVideoElement): void;
+    play(video: HTMLVideoElement, options?: VideoPlayOptions): Promise<void>;
 
     /**
      * Stop a single video source
@@ -36,6 +74,11 @@ declare class VideoHelper {
      */
     awaitFirstGesture(): void;
 
+    /**
+     * Handle the first observed user gesture
+     * We need a slight delay because unfortunately Chrome is stupid and doesn't always acknowledge the gesture fast enough.
+     * @param event The mouse-move event which enables playback
+     */
     protected _onFirstGesture(event: Event): void;
 
     /**
@@ -47,6 +90,13 @@ declare class VideoHelper {
      *         disabled and no thumbnail can be generated.
      */
     createThumbnail(src: string, options: CreateThumbnailOptions): Promise<string>;
+}
+
+interface VideoPlayOptions {
+    playing?: boolean;
+    loop?: boolean;
+    offset?: number;
+    volume?: number;
 }
 
 interface CreateThumbnailOptions {

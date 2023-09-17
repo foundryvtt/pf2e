@@ -44,6 +44,7 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
+    tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -61,6 +62,7 @@ import {
     craftSpellConsumable,
 } from "./crafting/index.ts";
 import {
+    CharacterBiography,
     CharacterProficiency,
     CharacterSaveData,
     CharacterSkillData,
@@ -105,6 +107,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
         const { actor } = this;
+
+        // If the user only has limited permission, the main tab will be the biography
+        if (this.actor.limited) {
+            const tab = options?.tabs.find((t) => t.navSelector === ".sheet-navigation");
+            if (tab) tab.initial = "biography";
+        }
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -315,7 +323,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Enrich content
         const rollData = actor.getRollData();
-        const { biography } = actor.system.details;
+        const biography = (sheetData.biography = actor.system.details.biography);
         sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
             rollData,
             async: true,
@@ -336,7 +344,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             rollData,
             async: true,
         });
-        sheetData.enrichedContent.organaizations = await TextEditor.enrichHTML(biography.organaizations, {
+        sheetData.enrichedContent.organizations = await TextEditor.enrichHTML(biography.organizations, {
             rollData,
             async: true,
         });
@@ -562,12 +570,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         // MAIN
-
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
-        if (!mainPanel) throw ErrorPF2e("Unexpected failure finding main panel");
 
         // Ancestry/Heritage/Class/Background/Deity context menu
-        if (this.isEditable) {
+        if (mainPanel && this.isEditable) {
             new ContextMenu(
                 mainPanel,
                 ".detail-item-control",
@@ -1058,6 +1064,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
+
+        // BIOGRAPHY
+        const bioPanel = htmlQuery(html, ".tab[data-tab=biography]");
+
+        // Biography section visibility toggles
+        bioPanel?.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
+            const section = anchor?.dataset.section;
+            if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
+                event.stopPropagation();
+                const { biography } = this.actor.system.details;
+                const path = `system.details.biography.visibility.${section}`;
+                this.actor.update({ [path]: !biography.visibility[section] });
+            }
+        });
     }
 
     protected override activateInventoryListeners(panel: HTMLElement | null): void {
@@ -1268,9 +1289,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    #getNearestFeatSlotId(event: ElementDragEvent) {
-        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
-        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+    #getNearestFeatSlotId(event: DragEvent) {
+        const categoryId = htmlClosest(event.target, "[data-category-id]")?.dataset.categoryId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
         return typeof categoryId === "string" ? { slotId, categoryId } : null;
     }
 
@@ -1429,9 +1450,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         itemSource: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]> {
+    ): Promise<CollectionValue<TActor["items"]>[]>;
+    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         const item = this.actor.items.get(itemSource._id);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getNearestFeatSlotId(event);
@@ -1523,6 +1545,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
     attributeBoostsAllocated: boolean;
+    biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];

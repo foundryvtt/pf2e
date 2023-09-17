@@ -71,14 +71,11 @@ export async function rollActionMacro(
         return undefined;
     }
 
-    const templateData = {
-        actor,
-        strike,
-        strikeIndex: strikes.indexOf(strike),
-        strikeDescription: await TextEditor.enrichHTML(game.i18n.localize(strike.description), {
-            async: true,
-        }),
-    };
+    const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
+    const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
+    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description), { async: true });
+
+    const templateData = { actor, strike, identifier, description };
 
     const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;

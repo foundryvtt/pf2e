@@ -1,4 +1,4 @@
-import { AuraColors, AuraData } from "@actor/types.ts";
+import { AuraAppearanceData, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/index.ts";
@@ -19,17 +19,17 @@ class TokenAura implements TokenAuraData {
 
     traits: Set<ItemTrait>;
 
-    colors: AuraColors | null;
+    appearance: AuraAppearanceData;
 
     #squares?: EffectAreaSquare[];
 
-    constructor(args: TokenAuraParams) {
-        this.slug = args.slug;
-        this.token = args.token;
-        this.level = args.level;
-        this.radius = args.radius;
-        this.traits = args.traits;
-        this.colors = args.colors ?? null;
+    constructor(params: TokenAuraParams) {
+        this.slug = params.slug;
+        this.token = params.token;
+        this.level = params.level;
+        this.radius = params.radius;
+        this.traits = params.traits;
+        this.appearance = params.appearance;
     }
 
     /** The aura radius from the center in pixels */

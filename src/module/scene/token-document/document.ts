@@ -82,19 +82,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
-    protected override _initialize(options?: Record<string, unknown>): void {
-        this.constructed ??= false;
-        this.auras = new Map();
-
-        this._source.flags.pf2e ??= {};
-        this._source.flags.pf2e.linkToActorSize ??= true;
-        this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
-            ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
-            : false;
-
-        super._initialize(options);
-    }
-
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
         return this.light.bright < 0;
@@ -146,6 +133,26 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         };
     }
 
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.constructed ??= false;
+        this.auras = new Map();
+
+        this._source.flags.pf2e ??= {};
+        this._source.flags.pf2e.linkToActorSize ??= true;
+        this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
+            ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
+            : false;
+
+        super._initialize(options);
+    }
+
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    override prepareData(): void {
+        if (this.parent && !this.parent.flags?.pf2e) return;
+
+        super.prepareData();
+    }
+
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -165,7 +172,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     radius: data.radius,
                     token: this,
                     traits: new Set(data.traits),
-                    colors: data.colors,
+                    appearance: data.appearance,
                 })
             );
         }

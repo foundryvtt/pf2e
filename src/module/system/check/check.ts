@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { StrikeData, TraitViewData } from "@actor/data/base.ts";
+import { TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
@@ -32,7 +32,6 @@ import {
 import { TextEditorPF2e } from "../text-editor.ts";
 import { CheckModifiersDialog } from "./dialog.ts";
 import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
-import { StrikeAttackRoll } from "./strike/attack-roll.ts";
 import { CheckRollContext } from "./types.ts";
 
 interface RerollOptions {
@@ -129,49 +128,21 @@ class CheckPF2e {
                 return ["1d20", []];
             }
         })();
-
         extraTags.push(...tagsFromDice);
-
-        const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
-        const RollCls = isStrike ? StrikeAttackRoll : CheckRoll;
-
-        // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
-        const strike = (() => {
-            const contextItem = context.item;
-            if (isStrike && contextItem && context.actor) {
-                const strikes: StrikeData[] = context.actor?.system.actions ?? [];
-                const strike = strikes.find((a) => a.item?.id === contextItem.id && a.item.slug === contextItem.slug);
-
-                if (strike) {
-                    return {
-                        actor: context.actor.uuid,
-                        index: strikes.indexOf(strike),
-                        damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
-                        name: strike.item.name,
-                        altUsage: context.altUsage,
-                    };
-                }
-            }
-
-            return null;
-        })();
-
-        const actionSlug = context.action ? sluggify(context.action) || null : null;
 
         const options: CheckRollDataPF2e = {
             type: context.type,
             identifier: context.identifier,
-            action: actionSlug,
+            action: context.action ? sluggify(context.action) || null : null,
             rollerId: game.userId,
             isReroll,
             totalModifier: check.totalModifier,
-            damaging: strike?.damaging ?? context.damaging ?? false,
+            damaging: !!context.damaging,
             domains: context.domains,
         };
-        if (strike) options.strike = strike;
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
+        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
@@ -234,7 +205,6 @@ class CheckPF2e {
             ...context,
             type: context.type ?? "check",
             identifier: context.identifier ?? null,
-            action: actionSlug,
             item: undefined,
             dosAdjustments,
             actor: context.actor?.id ?? null,
@@ -262,11 +232,9 @@ class CheckPF2e {
                 core: context.type === "initiative" ? { initiativeRoll: true } : {},
                 pf2e: {
                     context: contextFlag,
-                    unsafe: flavor,
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
                     origin: item?.getOriginData(),
-                    strike,
                 },
             };
 
@@ -444,6 +412,31 @@ class CheckPF2e {
             keptRoll = oldRoll;
         }
 
+        const degree = ((): DegreeOfSuccess | null => {
+            const { dc } = context;
+            if (!dc) return null;
+            if (dc.slug === "armor") {
+                const targetActor = ((): ActorPF2e | null => {
+                    const { target } = context;
+                    if (!target?.actor) return null;
+
+                    const maybeActor = fromUuidSync(target.actor);
+                    return maybeActor instanceof ActorPF2e
+                        ? maybeActor
+                        : maybeActor instanceof TokenDocumentPF2e
+                        ? maybeActor.actor
+                        : null;
+                })();
+                dc.statistic = targetActor?.armorClass;
+            }
+            return new DegreeOfSuccess(newRoll, dc, context.dosAdjustments);
+        })();
+        const useNewRoll = keptRoll === newRoll && !!degree;
+
+        if (useNewRoll && degree) {
+            newRoll.options.degreeOfSuccess = degree.value;
+        }
+
         const renders = {
             old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
             new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
@@ -453,10 +446,7 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
-        const degree = dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
-        const useNewRoll = keptRoll === newRoll && !!degree;
         context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
         const newFlavor = useNewRoll

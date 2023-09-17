@@ -293,9 +293,11 @@ declare global {
 
         /**
          * Get the hex color that should be used to render the Token border
-         * @return The hex color used to depict the border color
+         * @param [options]
+         * @param [options.hover]  Return a border color for this hover state, otherwise use the token's current state.
+         * @returns The hex color used to depict the border color
          */
-        protected _getBorderColor(): number | null;
+        protected _getBorderColor(options?: { hover?: boolean }): number | null;
 
         /** Refresh the display of the Token HUD interface. */
         refreshHUD(): void;

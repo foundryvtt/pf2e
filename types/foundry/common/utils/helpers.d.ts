@@ -313,6 +313,9 @@ declare global {
          * @param src       The requested texture source
          * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
          */
-        function loadTexture(src: string, { fallback }?: { fallback?: ImageFilePath }): Promise<PIXI.Texture>;
+        function loadTexture(
+            src: string,
+            { fallback }?: { fallback?: ImageFilePath }
+        ): Promise<PIXI.Texture | PIXI.Spritesheet | null>;
     }
 }

@@ -1,10 +1,10 @@
 {
     "_id": "8y6Ap9xIsnseYYvk",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/magic/air/wind-vortex-swirl-blue.webp",
     "name": "Spell Effect: Tempest Cloak",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Tempest Cloak]</em></p>\n<p>The twisting shield of wind creates difficult terrain in a 5-foot burst surrounding the target. The target also gains a +2 circumstance bonus to its AC against physical ranged attacks, such as attacks made with bows, javelins, or slings. In addition, the sound of the swirling storms makes it easier for the target to ignore anything it doesn't want to hear, granting the target a +2 circumstance bonus to all defenses against auditory effects.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -13,9 +13,15 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 3
         },
         "rules": [
+            {
+                "key": "Aura",
+                "radius": 5,
+                "slug": "tempest-cloak",
+                "traits": []
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
@@ -28,11 +34,14 @@
             },
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "reflex",
-                    "will",
-                    "fortitude"
+                "predicate": [
+                    "auditory"
                 ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "auditory-defenses",
                 "type": "circumstance",
                 "value": 2
             }

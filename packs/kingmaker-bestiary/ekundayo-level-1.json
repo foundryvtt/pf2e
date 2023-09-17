@@ -94,7 +94,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Hunter's Edge",
             "sort": 0,
             "system": {
@@ -328,7 +328,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
                     },
                     "bhe5z": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Hunter's Edge",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Hunter's Edge"
@@ -1222,7 +1222,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 0,
             "system": {
@@ -1638,14 +1638,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
                 "baseItem": null,
                 "containerId": "5VTOTZkceOWlAUjJ",
                 "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1707,7 +1707,29 @@
                         "otherTags": [
                             "improvised"
                         ],
-                        "range": null
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
                     },
                     {
                         "damageType": "fire",
@@ -1730,7 +1752,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -1759,7 +1781,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 0,
             "system": {
@@ -1952,7 +1974,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.w4Hd6nunVVqw3GWj"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/basic-crafters-book.webp",
+            "img": "icons/sundries/books/book-worn-blue.webp",
             "name": "Basic Woodworker's Book",
             "sort": 0,
             "system": {
@@ -2017,7 +2039,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 0,
             "system": {
@@ -2296,8 +2318,8 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-explorers.webp",
-            "name": "Clothing (Explorer's)",
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
             "sort": 0,
             "system": {
                 "acBonus": 0,
@@ -2359,7 +2381,7 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": "clothing-explorers",
+                "slug": "explorers-clothing",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -2554,7 +2576,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "ethnicity": {
                 "value": ""

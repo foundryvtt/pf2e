@@ -201,9 +201,14 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const initiativeRank = participants.indexOf(participant) + 1;
     const { initiativeStatistic } = participant.flags.pf2e;
 
+    const threat = encounter.metrics?.threat;
+    const numericThreat = { trivial: 0, low: 1, moderate: 2, severe: 3, extreme: 4 }[threat ?? "trivial"];
+
     const entries = (
         [
             ["encounter", true],
+            [`encounter:threat:${numericThreat}`, !!threat],
+            [`encounter:threat:${threat}`, !!threat],
             [`encounter:round:${encounter.round}`, true],
             [`encounter:turn:${encounter.turn + 1}`, true],
             ["self:participant:own-turn", encounter.combatant?.actor === actor],
@@ -236,12 +241,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     }
 
     // Conditions and Custom modifiers to attack rolls
-    const slug = item.slug ?? sluggify(item.name);
+    const attackSlug = item.slug ?? sluggify(item.name);
     const unarmedOrWeapon = item.system.traits.value.includes("unarmed") ? "unarmed" : "weapon";
     const meleeOrRanged = isMelee ? "melee" : "ranged";
 
     const domains = [
-        `${slug}-attack`,
+        `${attackSlug}-attack`,
         `${item.id}-attack`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
@@ -288,7 +293,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         ...item.getRollOptions("item"),
     ]);
 
-    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, initialRollOptions);
+    const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
     const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,
@@ -389,13 +394,14 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 check,
                 {
                     type: "attack-roll",
-                    identifier: item.id,
+                    identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
                     action: "strike",
                     title,
                     actor: context.self.actor,
                     token: context.self.token,
                     item: context.self.item,
                     target: context.target,
+                    damaging: item.dealsDamage,
                     domains,
                     options: context.options,
                     traits: [attackTrait],
@@ -429,7 +435,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = ["all", `${item.id}-damage`, "strike-damage", "damage-roll"];
+            const domains = ["all", `${item.id}-damage`, "attack-damage", "strike-damage", "damage-roll"];
             const targetToken = params.target ?? game.user.targets.first() ?? null;
 
             const context = await actor.getDamageRollContext({

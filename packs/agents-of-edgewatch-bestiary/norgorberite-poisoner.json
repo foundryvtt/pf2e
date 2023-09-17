@@ -215,7 +215,7 @@
         },
         {
             "_id": "lrQx6RT7d3Q7yuPs",
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 300000,
             "system": {
@@ -336,7 +336,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.6nrCxNQFycUVFOV2"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
             "name": "Thieves' Tools (Infiltrator)",
             "sort": 400000,
             "system": {
@@ -755,7 +755,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": "nimble-dodge",
                 "source": {
                     "value": ""

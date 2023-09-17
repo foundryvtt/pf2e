@@ -19,7 +19,21 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

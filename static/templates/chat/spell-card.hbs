@@ -72,7 +72,7 @@
                             </button>
                         </div>
                     {{/if}}
-                    {{#if item.isVariant}}
+                    {{#if (gt item.appliedOverlays.size 0)}}
                         <button type="button" data-action="spell-variant" data-visibility="owner" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
                     {{/if}}
                 </section>

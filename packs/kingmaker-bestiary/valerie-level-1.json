@@ -748,7 +748,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 0,
             "system": {
@@ -927,7 +927,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 0,
             "system": {
@@ -1213,7 +1213,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/scale-mail.webp",
+            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
             "name": "Scale Mail",
             "sort": 0,
             "system": {
@@ -1492,7 +1492,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
+            "img": "icons/equipment/shield/heater-steel-boss-red.webp",
             "name": "Steel Shield",
             "sort": 0,
             "system": {
@@ -1582,14 +1582,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
                 "baseItem": null,
                 "containerId": "4JuIj0SwrZRWDuYj",
                 "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1651,7 +1651,29 @@
                         "otherTags": [
                             "improvised"
                         ],
-                        "range": null
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
                     },
                     {
                         "damageType": "fire",
@@ -1674,7 +1696,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -2028,7 +2050,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "ethnicity": {
                 "value": ""

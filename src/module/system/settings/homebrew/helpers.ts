@@ -109,9 +109,9 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
             switch (listKey) {
                 // Creature traits can be on many items
                 case "creatureTraits": {
-                    if (source.system.traits) {
-                        const traits = source.system.traits;
-                        traits.value = traits.value?.filter((t) => !deletions.includes(t));
+                    if (source.system.traits?.value) {
+                        const traits: { value: string[] } = source.system.traits;
+                        traits.value = traits.value.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }

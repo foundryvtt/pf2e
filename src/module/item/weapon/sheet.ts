@@ -1,15 +1,16 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import {
-    CoinsPF2e,
+    MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
-    MaterialSheetData,
+    RUNE_DATA,
     WEAPON_MATERIAL_VALUATION_DATA,
     getPropertySlots,
 } from "@item/physical/index.ts";
-import { OneToFour, Rarity } from "@module/data.ts";
+import { OneToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { ComboWeaponMeleeUsage, WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data.ts";
 import { type WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
@@ -27,12 +28,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             [3, sheetData.data.propertyRune3],
             [4, sheetData.data.propertyRune4],
         ] as const;
+        const lastDisplayedPropertySlot = Math.min(
+            maxPropertySlots,
+            propertyRuneSlotsData.findLastIndex(([, slot]) => !!slot?.value) + 2
+        );
         const propertyRuneSlots = propertyRuneSlotsData
             .filter(
-                ([slotNumber, slot], idx) =>
-                    slotNumber <= maxPropertySlots &&
-                    (slotNumber === 1 || !!sheetData.data[`propertyRune${idx as OneToFour}` as const]?.value) &&
-                    !(sheetData.data.specific?.value && slot.value === null)
+                ([slotNumber, slot]) =>
+                    slotNumber <= lastDisplayedPropertySlot && !(sheetData.data.specific?.value && slot.value === null)
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,
@@ -41,48 +44,27 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 number: slotNumber,
             }));
 
+        const fundamentalRunes = R.pick(RUNE_DATA.weapon, ["potency", "striking"]);
+        const propertyRunes = Object.values(RUNE_DATA.weapon.property)
+            .map((r) => ({ slug: r.slug, name: game.i18n.localize(r.name) }))
+            .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
-        const baseData = weapon.toObject();
-        sheetData.data.traits.rarity = baseData.system.traits.rarity;
         const abpEnabled = ABP.isEnabled(this.actor);
         const hintText = abpEnabled ? "PF2E.Item.Weapon.FromABP" : "PF2E.Item.Weapon.FromMaterialAndRunes";
 
         const adjustedDiceHint =
-            weapon.system.damage.dice !== baseData.system.damage.dice
+            weapon.system.damage.dice !== weapon._source.system.damage.dice
                 ? game.i18n.format(game.i18n.localize(hintText), {
                       property: game.i18n.localize("PF2E.Item.Weapon.Damage.DiceNumber"),
                       value: weapon.system.damage.dice,
                   })
                 : null;
 
-        const adjustedLevelHint =
-            weapon.level !== baseData.system.level.value
-                ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.LevelLabel"),
-                      value: weapon.level,
-                  })
-                : null;
-        const adjustedPriceHint = (() => {
-            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
-            const derivedPrice = weapon.assetValue.copperValue;
-            return basePrice !== derivedPrice
-                ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.PriceLabel"),
-                      value: weapon.price.value.toString(),
-                  })
-                : null;
-        })();
-
         const damageDieFaces = Object.fromEntries(
             Object.entries(CONFIG.PF2E.damageDie)
                 .map(([num, label]): [number, string] => [Number(num.replace("d", "")), label])
                 .sort(([numA], [numB]) => numA - numB)
-        );
-
-        const weaponPropertyRunes = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.runes.weapon.property)
-                .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
-                .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
         const traitSet = weapon.traits;
@@ -120,18 +102,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             hasDetails: true,
             hasSidebar: true,
             preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
-            weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
-            weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
-            weaponPropertyRunes,
+            fundamentalRunes,
+            propertyRunes,
             otherTags,
             adjustedDiceHint,
-            adjustedLevelHint,
-            adjustedPriceHint,
             abpEnabled,
-            baseDice: baseData.system.damage.dice,
-            baseLevel: baseData.system.level.value,
-            rarity: baseData.system.traits.rarity,
-            basePrice: new CoinsPF2e(baseData.system.price.value),
             categories: sortStringRecord(CONFIG.PF2E.weaponCategories),
             groups: sortStringRecord(CONFIG.PF2E.weaponGroups),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
@@ -156,7 +131,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         type InputOrSelect = HTMLInputElement | HTMLSelectElement;
         const pdElements = htmlQueryAll<InputOrSelect>(html, "[data-action=update-persistent]");
@@ -250,35 +225,30 @@ interface PropertyRuneSheetSlot extends WeaponPropertyRuneSlot {
 interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     propertyRuneSlots?: PropertyRuneSheetSlot[];
     preciousMaterials: MaterialSheetData;
-    weaponPotencyRunes: ConfigPF2e["PF2E"]["weaponPotencyRunes"];
-    weaponStrikingRunes: ConfigPF2e["PF2E"]["weaponStrikingRunes"];
-    weaponPropertyRunes: Record<string, string>;
+    fundamentalRunes: Pick<typeof RUNE_DATA.weapon, "potency" | "striking">;
+    propertyRunes: { slug: string; name: string }[];
     otherTags: SheetOptions;
     adjustedDiceHint: string | null;
     adjustedLevelHint: string | null;
     adjustedPriceHint: string | null;
     abpEnabled: boolean;
-    baseDice: number;
-    baseLevel: number;
-    rarity: Rarity;
-    basePrice: CoinsPF2e;
-    categories: ConfigPF2e["PF2E"]["weaponCategories"];
-    groups: ConfigPF2e["PF2E"]["weaponGroups"];
-    baseTypes: ConfigPF2e["PF2E"]["baseWeaponTypes"];
-    itemBonuses: ConfigPF2e["PF2E"]["itemBonuses"];
+    categories: typeof CONFIG.PF2E.weaponCategories;
+    groups: typeof CONFIG.PF2E.weaponGroups;
+    baseTypes: typeof CONFIG.PF2E.baseWeaponTypes;
+    itemBonuses: typeof CONFIG.PF2E.itemBonuses;
     damageDieFaces: Record<string, string>;
-    damageDie: ConfigPF2e["PF2E"]["damageDie"];
-    damageDice: ConfigPF2e["PF2E"]["damageDice"];
-    conditionTypes: ConfigPF2e["PF2E"]["conditionTypes"];
-    damageTypes: ConfigPF2e["PF2E"]["damageTypes"];
+    damageDie: typeof CONFIG.PF2E.damageDie;
+    damageDice: typeof CONFIG.PF2E.damageDice;
+    conditionTypes: typeof CONFIG.PF2E.conditionTypes;
+    damageTypes: typeof CONFIG.PF2E.damageTypes;
     weaponRanges: Record<number, string>;
     mandatoryMelee: boolean;
     mandatoryRanged: boolean;
-    weaponReload: ConfigPF2e["PF2E"]["weaponReload"];
-    weaponMAP: ConfigPF2e["PF2E"]["weaponMAP"];
+    weaponReload: typeof CONFIG.PF2E.weaponReload;
+    weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     isBomb: boolean;
     isComboWeapon: boolean;
-    meleeGroups: ConfigPF2e["PF2E"]["meleeWeaponGroups"];
+    meleeGroups: typeof CONFIG.PF2E.meleeWeaponGroups;
     meleeUsage: ComboWeaponMeleeUsage | undefined;
     meleeUsageTraits: SheetOptions;
 }

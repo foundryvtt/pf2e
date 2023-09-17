@@ -5,7 +5,7 @@ import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupOptions } from "@actor/character/feats.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
-import type { ItemPF2e } from "@item";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { CoinsPF2e } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -94,6 +94,7 @@ interface GamePF2e
             moduleArt: ModuleArt;
             remigrate: typeof remigrate;
             sluggify: typeof sluggify;
+            generateItemName: (item: PhysicalItemPF2e) => string;
         };
         variantRules: {
             AutomaticBonusProgression: typeof AutomaticBonusProgression;

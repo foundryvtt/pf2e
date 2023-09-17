@@ -1,4 +1,5 @@
 import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Normalize "cold-iron" slug in armor, weapon and melee items */
@@ -30,7 +31,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
                 r.key === "ChoiceSet" &&
                 "choices" in r &&
                 Array.isArray(r.choices) &&
-                r.choices.every((c) => c instanceof Object && "value" in c && typeof c.value === "string")
+                r.choices.every((c) => isObject(c) && "value" in c && typeof c.value === "string")
         );
         for (const choiceSet of choiceSets) {
             this.#updateChoiceSet(choiceSet);
@@ -39,10 +40,11 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 
     #updateWeaponMaterialData(source: WeaponSource): void {
         // Material was logged in specific-magic-item data but ended up not being needed
-        const systemData = source.system;
-        if (!(systemData.specific instanceof Object)) return;
+        if (source.type !== "weapon" || !isObject(source.system.specific)) {
+            return;
+        }
 
-        const specificData: SpecificMagicData = systemData.specific;
+        const specificData: SpecificMagicData = source.system.specific;
         if (!specificData.value) {
             delete specificData.material;
             delete specificData.price;

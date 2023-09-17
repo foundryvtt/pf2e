@@ -415,7 +415,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
                     },
                     "8ndxn": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Gunslinger's Way",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Gunslinger's Way"
@@ -597,7 +597,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Gunslinger's Way",
             "sort": 0,
             "system": {
@@ -853,14 +853,21 @@
                 "actions": {
                     "value": null
                 },
-                "category": "defensive",
+                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You can posture defensively with firearms or crossbows, acting like a walking tower. Interact to draw a firearm or crossbow. You then position that weapon defensively, gaining a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.</p>"
+                    "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You can posture defensively with firearms or crossbows, acting like a walking tower. Interact to draw a firearm or crossbow. You then position that weapon defensively, gaining a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification (Parry Trait)]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "<span class=\"pf2-icon\">F</span> {item|name}"
+                    }
+                ],
                 "slug": "living-fortification",
                 "source": {
                     "value": "Pathfinder Guns & Gears"
@@ -1628,7 +1635,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
             "sort": 0,
             "system": {
@@ -1878,7 +1885,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp",
+            "img": "icons/containers/bags/pouch-gold-green.webp",
             "name": "Healer's Tools",
             "sort": 0,
             "system": {
@@ -2415,7 +2422,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "deity": {
                 "image": "systems/pf2e/assets/sheet/deity.webp",

@@ -23,7 +23,128 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:composite",
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "piercing",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:leather",
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "bludgeoning",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:plate",
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "slashing",
+                "value": "1 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:skeletal",
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "precision",
+                "value": "3 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:composite",
+                    {
+                        "gte": [
+                            "defense:heavy:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "piercing",
+                "value": "2 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:leather",
+                    {
+                        "gte": [
+                            "defense:heavy:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "bludgeoning",
+                "value": "2 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:plate",
+                    {
+                        "gte": [
+                            "defense:heavy:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "slashing",
+                "value": "2 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:skeletal",
+                    {
+                        "gte": [
+                            "defense:heavy:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type": "precision",
+                "value": "5 + @armor.system.runes.potency"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Highhelm"
         },

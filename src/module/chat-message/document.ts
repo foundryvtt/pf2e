@@ -6,12 +6,13 @@ import { UserPF2e } from "@module/user/index.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
-import { CheckRoll } from "@system/check/index.ts";
+import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { ChatInspectRoll } from "./chat-inspect-roll.ts";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
-import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data.ts";
+import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 
 class ChatMessagePF2e extends ChatMessage {
@@ -134,26 +135,26 @@ class ChatMessagePF2e extends ChatMessage {
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
         const { actor } = this;
-        if (!actor?.system.actions) return null;
 
-        // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
-        const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {
-            if (this.flags.pf2e.strike) return this.flags.pf2e.strike;
-            const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
-            const chatCard = htmlQuery(messageHTML, ".chat-card");
-            const index = chatCard?.dataset.strikeIndex === undefined ? null : Number(chatCard?.dataset.strikeIndex);
-            return typeof index === "number" ? { index } : null;
-        })();
-
-        if (strikeData) {
-            const { index, altUsage } = strikeData;
-            const action = actor.system.actions.at(index) ?? null;
-            return altUsage
-                ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
-                : action;
+        // Get strike data from the roll identifier
+        const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
+        const identifier =
+            roll?.options.identifier ??
+            htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
+        const [itemId, slug, meleeOrRanged] = identifier?.split(".") ?? [null, null, null];
+        if (!meleeOrRanged || !["melee", "ranged"].includes(meleeOrRanged)) {
+            return null;
         }
 
-        return null;
+        const strikeData = actor?.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
+        const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
+
+        return meleeOrRanged === itemMeleeOrRanged
+            ? strikeData ?? null
+            : strikeData?.altUsages?.find((u) => {
+                  const altUsageMeleeOrRanged = u.item.isMelee ? "melee" : "ranged";
+                  return meleeOrRanged === altUsageMeleeOrRanged;
+              }) ?? null;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
@@ -203,7 +204,11 @@ class ChatMessagePF2e extends ChatMessage {
         // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
             const rollData = this.getRollData();
-            this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
+            this.flavor = await TextEditorPF2e.enrichHTML(this.flavor, {
+                async: true,
+                rollData,
+                processVisibility: false,
+            });
         }
 
         const $html = await super.getHTML();
@@ -215,6 +220,7 @@ class ChatMessagePF2e extends ChatMessage {
             });
         }
 
+        UserVisibilityPF2e.process(html, { message: this });
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
         Listeners.ChatCards.listen(this, html);

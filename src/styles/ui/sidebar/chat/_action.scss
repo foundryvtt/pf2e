@@ -67,15 +67,20 @@
         margin: 0.35em 0 2px;
 
         button {
+            align-items: center;
+            display: flex;
+            justify-content: center;
             position: relative;
 
-            i.cue {
-                --fa-primary-color: var(--color-border-dark);
-                --fa-secondary-color: var(--primary);
-                --fa-secondary-opacity: 0.6;
+            .cue {
                 position: absolute;
                 right: 0.5rem;
-                top: 26%;
+
+                i {
+                    --fa-primary-color: var(--color-border-dark);
+                    --fa-secondary-color: var(--primary);
+                    --fa-secondary-opacity: 0.6;
+                }
             }
         }
 

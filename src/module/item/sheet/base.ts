@@ -1,11 +1,14 @@
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
     maintainFocusInRender,
     processTagifyInSubmitData,
+    SheetOptions,
+    TraitTagifyEntry,
 } from "@module/sheet/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
@@ -27,10 +30,9 @@ import {
 } from "@util";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
-import { ItemSheetDataPF2e } from "./data-types.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
 
-export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
+class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
         options.width = 695;
@@ -145,15 +147,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
-                labels: rules.map((ruleData: RuleElementSource) => {
-                    const localization = CONFIG.PF2E.ruleElement;
-                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = game.i18n.localize(
-                        localization[key as keyof typeof localization] ?? localization.Unrecognized
-                    );
-                    const recognized = label !== game.i18n.localize(localization.Unrecognized);
-                    return { label, recognized };
-                }),
                 selection: {
                     selected: this.selectedRuleElementType,
                     types: sortStringRecord(
@@ -165,10 +158,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     ),
                 },
                 elements: await Promise.all(
-                    rules.map(async (rule, index) => ({
-                        template: await this.ruleElementForms[index].render(),
-                        index,
-                        rule,
+                    Object.values(this.ruleElementForms).map(async (form) => ({
+                        template: await form.render(),
                     }))
                 ),
             },
@@ -394,6 +385,27 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             tagElement.append(traitsPrepend.content);
         }
 
+        // Handle select and input elements that show modified prepared values until focused
+        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        for (const input of modifiedPropertyFields) {
+            const propertyPath = input.dataset.property ?? "";
+            const baseValue =
+                input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
+
+            input.addEventListener("focus", () => {
+                input.dataset.value = input.value;
+                input.value = baseValue;
+                input.name = propertyPath;
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                if (input.value === baseValue) {
+                    input.value = input.dataset.value ?? "";
+                }
+            });
+        }
+
         // Update Tab visibility (in case this is a tab without a sidebar)
         this.updateSidebarVisibility(this._tabs[0].active);
 
@@ -571,3 +583,42 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         await maintainFocusInRender(this, () => super._render(force, options));
     }
 }
+
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
+    itemType: string | null;
+    showTraits: boolean;
+    /** Whether the sheet should have a sidebar at all */
+    hasSidebar: boolean;
+    /** Whether the sheet should have a details tab (some item types don't have one) */
+    hasDetails: boolean;
+    /** The sidebar's current title */
+    sidebarTitle: string;
+    sidebarTemplate?: () => string;
+    detailsTemplate?: () => string;
+    item: TItem;
+    data: TItem["system"];
+    enrichedContent: Record<string, string>;
+    isPhysical: boolean;
+    user: { isGM: boolean };
+    enabledRulesUI: boolean;
+    ruleEditing: boolean;
+    rarity: Rarity | null;
+    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
+    traits: SheetOptions | null;
+    traitTagifyData: TraitTagifyEntry[] | null;
+    rules: {
+        selection: {
+            selected: string | null;
+            types: Record<string, string>;
+        };
+        elements: {
+            template: string;
+        }[];
+    };
+    /** Lore only, will be removed later */
+    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+}
+
+export { ItemSheetPF2e };
+export type { ItemSheetDataPF2e };

@@ -61,27 +61,26 @@
     <nav class="sub-nav">
         <a data-tab="main">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Main"}}</a>
         <a data-tab="activities">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Activities"}}</a>
-        <a data-tab="advancement">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Advancement"}}</a>
-        <a data-tab="effects">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Effects"}}</a>
+        <a data-tab="world">{{localize "PF2E.Kingmaker.Kingdom.Tabs.World"}}</a>
+        <a data-tab="features">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Features"}}</a>
+        <a data-tab="ongoing">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Ongoing"}}</a>
     </nav>
 
     <section class="container">
         <section class="tab" data-tab="main">
-            {{> "systems/pf2e/templates/actors/party/kingdom/main.hbs"}}
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/main.hbs"}}
         </section>
         <section class="tab" data-tab="activities">
-            {{> "systems/pf2e/templates/actors/party/kingdom/activities.hbs"}}
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/activities.hbs"}}
         </section>
-        <section class="tab" data-tab="advancement">
-            {{> "systems/pf2e/templates/actors/party/kingdom/advancement.hbs"}}
+        <section class="tab" data-tab="world">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/world.hbs"}}
         </section>
-        <section class="tab" data-tab="effects">
-            <div class="content">
-                <h3 class="header">{{localize "PF2E.EffectsLabel"}}</h3>
-                <ol class="effects-list directory-list item-list">
-                    {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=actor.itemTypes.effect}}
-                </ol>
-            </div>
+        <section class="tab" data-tab="features">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/features.hbs"}}
+        </section>
+        <section class="tab" data-tab="ongoing">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/ongoing.hbs"}}
         </section>
     </section>
 </form>

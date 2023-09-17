@@ -16,15 +16,15 @@
 
             {{#if itemType}}
                 <span class="level">
-                    {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
                     <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}} name="system.level.value"{{/if}} value="{{data.level.value}}" />
                 </span>
             {{/if}}
             <template class="traits-extra">
-                {{#if rarity}}
-                    <select class="tag rarity" name="system.traits.rarity" value="{{rarity}}">
-                        {{#select rarity}}
+                {{#if item.rarity}}
+                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity" data-base-value="{{item._source.system.traits.rarity}}">
+                        {{#select item.rarity}}
                             {{#each rarities as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}

@@ -21,7 +21,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>This white +1 striking lance is made from the horn of a unicorn, willingly granted at the end of its lifetime. In addition to its normal damage, it deals 1 good damage on successful attacks. You can make the lance glow like a torch or suppress its light by using an action, which has the concentrate trait.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">3</span> Interact (magical, necromancy)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You evoke the spirit of the unicorn that donated the alicorn lance's horn, which you ride in a shining charge. Move up to twice your Speed and make a Strike with the alicorn lance; you gain the effects of the lance's jousting trait on this Strike. If you were already mounted when you Activate the horn, the unicorn spirit takes shape around your steed, granting it a +10–foot status bonus to its Speed for the charge.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include a horn willingly gifted by a unicorn. In rare instances, an alicorn lance can be made with a forcibly taken horn. However this heinous act pollutes the horn's magic, causing it to glow with a sickly red light, deal evil damage instead of good damage, and make the unicorn spirit evoked in the charge to whinny visibly in pain.</p>"
+            "value": "<p>This white <em>+1 striking lance</em> is made from the horn of a unicorn, willingly granted at the end of its lifetime. In addition to its normal damage, it deals 1 good damage on successful attacks. You can make the lance glow like a torch or suppress its light by using an action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Interact (magical, necromancy)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You evoke the spirit of the unicorn that donated the <em>alicorn lance</em>'s horn, which you ride in a shining charge. Move up to twice your Speed and make a Strike with the <em>alicorn lance</em>; you gain the effects of the lance's jousting trait on this Strike. If you were already mounted when you Activate the horn, the unicorn spirit takes shape around your steed, granting it a +10–foot status bonus to its Speed for the charge.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include a horn willingly gifted by a unicorn. In rare instances, an <em>alicorn lance</em> can be made with a forcibly taken horn. However this heinous act pollutes the horn's magic, causing it to glow with a sickly red light, deal evil damage instead of good damage, and make the unicorn spirit evoked in the charge to whinny visibly in pain.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -77,7 +77,7 @@
             {
                 "key": "TokenLight",
                 "predicate": [
-                    "lit-torch"
+                    "lit-alicorn-lance"
                 ],
                 "value": {
                     "animation": {
@@ -94,9 +94,16 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Light the Alicorn Lance",
-                "option": "lit-torch",
+                "label": "PF2E.SpecificRule.LitAlicornLance",
+                "option": "lit-alicorn-lance",
                 "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-alicorn-lance"
+                ],
+                "value": "systems/pf2e/icons/equipment/weapons/lance.webp"
             }
         ],
         "size": "med",

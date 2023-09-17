@@ -9,13 +9,8 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { setHasElement, sluggify } from "@util";
-import {
-    ClassAttackProficiencies,
-    ClassDefenseProficiencies,
-    ClassSource,
-    ClassSystemData,
-    ClassTrait,
-} from "./data.ts";
+import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
+import { ClassTrait } from "./types.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {

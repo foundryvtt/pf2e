@@ -1,2 +1,2 @@
 export { ItemSheetPF2e } from "./base.ts";
-export * from "./data-types.ts";
+export type { ItemSheetDataPF2e } from "./base.ts";

@@ -4,6 +4,7 @@
     --paper-bg: rgba(221, 216, 200, 0.4);
     --drop-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     --gold: #ffd700;
+    --color-divider: rgba(68, 55, 48, 0.2);
 
     form {
         display: flex;
@@ -447,17 +448,16 @@
             @import "activities";
         }
 
-        &[data-tab="advancement"] {
-            @import "advancement";
+        &[data-tab="world"] {
+            @import "world";
         }
 
-        &[data-tab="effects"] {
-            .content {
-                padding: 12px;
-            }
-            .effects-list {
-                @include effects-list;
-            }
+        &[data-tab="features"] {
+            @import "features";
+        }
+
+        &[data-tab="ongoing"] {
+            @import "ongoing";
         }
     }
 }

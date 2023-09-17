@@ -1,5 +1,11 @@
 import { isObject, tupleHasValue } from "@util";
-import { isSystemDamageTerm, markAsCrit, renderComponentDamage, simplifyTerm } from "./helpers.ts";
+import {
+    isFlavoredArithmetic,
+    isSystemDamageTerm,
+    markAsCrit,
+    renderComponentDamage,
+    simplifyTerm,
+} from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -78,8 +84,13 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
      * Multiplication is almost always going to be critical-hit doubling, which must be preserved for IWR analysis.
      */
     get expression(): string {
-        // If this expression is deterministic, return the total as the expression
-        if (this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)) {
+        // If this expression is deterministic and neither operand has its own flavor, return the stringified total
+        if (
+            this.isDeterministic &&
+            typeof this.total === "number" &&
+            !Number.isNaN(this.total) &&
+            !isFlavoredArithmetic(this)
+        ) {
             return this.total.toString();
         }
         const { operator, operands } = this;
@@ -245,9 +256,15 @@ class Grouping extends RollTerm<GroupingData> {
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)
-            ? this.total.toString()
-            : this.term instanceof DiceTerm || this.term instanceof MathTerm
+        if (
+            this.isDeterministic &&
+            typeof this.total === "number" &&
+            !Number.isNaN(this.total) &&
+            !isFlavoredArithmetic(this.term)
+        ) {
+            return this.total.toString();
+        }
+        return this.term instanceof DiceTerm || this.term instanceof MathTerm
             ? this.term.expression
             : `(${this.term.expression})`;
     }

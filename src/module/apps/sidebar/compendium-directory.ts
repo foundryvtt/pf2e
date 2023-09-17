@@ -63,7 +63,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const options = super._getEntryContextOptions();
 
-        if (BUILD_MODE === "development") {
+        if (BUILD_MODE === "development" || game.settings.get("pf2e", "dataTools")) {
             options.push({
                 name: "COMPENDIUM.Migrate",
                 icon: fontAwesomeIcon("crow").outerHTML,

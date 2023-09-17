@@ -6,7 +6,7 @@ import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
 
 type AncestrySource = BaseItemSourcePF2e<"ancestry", AncestrySystemSource>;
 
-export type CreatureTraits = TraitsWithRarity<CreatureTrait>;
+type CreatureTraits = TraitsWithRarity<CreatureTrait>;
 
 interface AncestrySystemSource extends ABCSystemSource {
     traits: CreatureTraits;
@@ -34,4 +34,4 @@ interface AncestrySystemSource extends ABCSystemSource {
 
 interface AncestrySystemData extends Omit<AncestrySystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export type { AncestrySource, AncestrySystemData };
+export type { AncestrySource, AncestrySystemData, CreatureTraits };

@@ -228,7 +228,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 300000,
             "system": {
@@ -1027,12 +1027,28 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Nairu is targeted with a melee or ranged attack by an attacker they can see.</p>\n<hr />\n<p><strong>Effect</strong> Nairu gains a +2 ciurcumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Nairu is targeted with a melee or ranged attack by an attacker they can see.</p>\n<hr />\n<p><strong>Effect</strong> Nairu gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": "nimble-dodge",
                 "source": {
                     "value": ""

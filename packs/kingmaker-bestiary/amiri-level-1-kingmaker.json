@@ -216,7 +216,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Fury"
                     },
                     "p941e": {
-                        "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+                        "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
                         "level": 3,
                         "name": "Deny Advantage",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Deny Advantage"
@@ -246,7 +246,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Raging Resistance"
                     },
                     "uhbeo": {
-                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
                         "level": 1,
                         "name": "Instinct",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Instinct"
@@ -840,7 +840,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
             "name": "Backpack",
             "sort": 0,
             "system": {
@@ -1255,14 +1255,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
                 }
             },
-            "img": "icons/sundries/lights/torch-purple.webp",
+            "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
             "sort": 0,
             "system": {
                 "baseItem": null,
                 "containerId": "1xgbuOQrdM3cq0YB",
                 "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1323,7 +1323,29 @@
                         "otherTags": [
                             "improvised"
                         ],
-                        "range": null
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
                     },
                     {
                         "damageType": "fire",
@@ -1346,7 +1368,7 @@
                         "predicate": [
                             "lit-torch"
                         ],
-                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
                     }
                 ],
                 "size": "med",
@@ -1375,7 +1397,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
             "sort": 0,
             "system": {
@@ -1936,7 +1958,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/hide.webp",
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
             "name": "Hide Armor",
             "sort": 0,
             "system": {
@@ -2144,7 +2166,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
             "name": "Instinct",
             "sort": 0,
             "system": {
@@ -2588,7 +2610,7 @@
                 "dislikes": "",
                 "enemies": "",
                 "likes": "",
-                "organaizations": ""
+                "organizations": ""
             },
             "ethnicity": {
                 "value": ""

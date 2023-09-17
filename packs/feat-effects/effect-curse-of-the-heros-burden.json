@@ -62,6 +62,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",
@@ -78,8 +79,14 @@
                 "details": "",
                 "key": "FastHealing",
                 "predicate": [
-                    "encounter:non-trivial",
-                    "parent:badge:value:2"
+                    "class:oracle",
+                    "parent:badge:value:2",
+                    {
+                        "gt": [
+                            "encounter:threat",
+                            0
+                        ]
+                    }
                 ],
                 "type": "fast-healing",
                 "value": "floor(@actor.level/2)"
@@ -88,31 +95,21 @@
                 "details": "",
                 "key": "FastHealing",
                 "predicate": [
-                    "encounter:non-trivial",
                     {
                         "gte": [
                             "parent:badge:value",
                             3
                         ]
+                    },
+                    {
+                        "gt": [
+                            "encounter:threat",
+                            0
+                        ]
                     }
                 ],
                 "type": "fast-healing",
                 "value": "@actor.level"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
-                "option": "encounter:non-trivial",
-                "predicate": [
-                    {
-                        "gte": [
-                            "parent:badge:value",
-                            2
-                        ]
-                    }
-                ],
-                "toggleable": true
             },
             {
                 "key": "AdjustModifier",

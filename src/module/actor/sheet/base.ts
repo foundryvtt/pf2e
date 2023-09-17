@@ -233,7 +233,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // Item summaries
         this.itemRenderer.activateListeners(html);
@@ -400,26 +400,29 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Remove Spell Slot
-        $html.find(".item-unprepare").on("click", (event) => {
-            const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);
-            const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
-            const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
-            const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.unprepareSpell(slotLevel, slotId);
-        });
+        for (const anchor of htmlQueryAll(html, ".item-unprepare")) {
+            anchor.addEventListener("click", () => {
+                const row = htmlClosest(anchor, ".item");
+                const slotLevel = Number(row?.dataset.slotLevel) || 0;
+                const slotId = Number(row?.dataset.slotId) || 0;
+                const entryId = row?.dataset.entryId ?? "";
+                const collection = this.actor.spellcasting.collections.get(entryId);
+                collection?.unprepareSpell(slotLevel, slotId);
+            });
+        }
 
         // Set Expended Status of Spell Slot
-        $html.find(".item-toggle-prepare").on("click", (event) => {
-            const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);
-            const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
-            const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
-            const expendedState = ((): boolean => {
-                const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
-                return expendedString !== "true";
-            })();
-            const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
-        });
+        for (const anchor of htmlQueryAll(html, ".item-toggle-prepare")) {
+            anchor.addEventListener("click", () => {
+                const row = htmlClosest(anchor, ".item");
+                const slotLevel = Number(row?.dataset.slotLevel) || 0;
+                const slotId = Number(row?.dataset.slotId) || 0;
+                const entryId = row?.dataset.entryId ?? "";
+                const expendedState = row?.dataset.expendedState !== "true";
+                const collection = this.actor.spellcasting.collections.get(entryId);
+                collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
+            });
+        }
 
         // Trait Selector
         for (const link of htmlQueryAll(html, ".tag-selector")) {
@@ -432,11 +435,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Update an embedded item
-        $html.find(".item-edit").on("click", (event) => {
-            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
-            const item = this.actor.items.get(itemId ?? "");
-            item?.sheet.render(true, { focus: true });
-        });
+        for (const anchor of htmlQueryAll(html, ".item-edit")) {
+            anchor.addEventListener("click", () => {
+                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId ?? "");
+                item?.sheet.render(true, { focus: true });
+            });
+        }
 
         // Decrease effect value
         for (const effectDecrement of htmlQueryAll(html, ".effects-list .decrement")) {
@@ -495,19 +500,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             });
         }
-
-        // Modify select element
-        $html.find<HTMLSelectElement>(".ability-select").on("change", async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId,
-                    "system.ability.value": event.target.value,
-                },
-            ]);
-        });
 
         // Select all text in an input field on focus
         for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
@@ -631,22 +623,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         });
 
-        if (panel) {
-            $(panel)
-                .find(".carry-type-hover")
-                .tooltipster({
-                    animation: "fade",
-                    delay: 200,
-                    animationDuration: 10,
-                    trigger: "click",
-                    arrow: false,
-                    contentAsHTML: true,
-                    debug: BUILD_MODE === "development",
-                    interactive: true,
-                    side: ["bottom"],
-                    theme: "crb-hover",
-                    minWidth: 120,
-                });
+        for (const anchor of htmlQueryAll(panel, ".carry-type-hover")) {
+            $(anchor).tooltipster({
+                animation: "fade",
+                delay: 200,
+                animationDuration: 10,
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side: ["bottom"],
+                theme: "crb-hover",
+                minWidth: 120,
+            });
         }
     }
 
@@ -929,7 +919,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Add support for dropping actions and toggles */
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.target instanceof HTMLElement) || !event.dataTransfer) {
+            return;
+        }
+
         // Avoid intercepting content-link drag targets
         const isContentLink = event.target.classList.contains("content-link");
         const isPersistent = "persistent" in event.target.dataset;
@@ -1000,26 +994,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
-    /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: ElementDragEvent,
-        itemSource: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]>;
-    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<Item<TActor>[]> {
-        return super._onSortItem(event, itemSource);
-    }
-
     /** Emulate a sheet item drop from the canvas */
     async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
+        const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt") });
+        return this._onDropItem(event, data);
     }
 
     protected override async _onDropItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         event.preventDefault();
-
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
 
@@ -1048,12 +1033,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * that isn't already on the actor or transferring to another actor.
      */
     protected async _handleDroppedItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e<ActorPF2e | null>[]>;
     protected async _handleDroppedItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e
     ): Promise<Item<ActorPF2e | null>[]> {
@@ -1074,8 +1059,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Get the item type of the drop target
-        const $containerEl = $(event.target).closest(".item-container");
-        const containerAttribute = $containerEl.attr("data-container-type");
+        const containerAttribute = htmlClosest(event.target, ".item-container")?.dataset.containerType;
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
         const craftingTab = this._tabs[0]?.active === "crafting";
@@ -1146,7 +1130,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         if (isPhysicalData(itemSource)) {
             const containerId =
-                $(event.target).closest('[data-item-is-container="true"]').attr("data-item-id")?.trim() || null;
+                htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
                 itemSource.system.containerId = containerId;
@@ -1168,11 +1152,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected override async _onDropFolder(
-        _event: ElementDragEvent,
+        _event: DragEvent,
         data: DropCanvasData<"Folder", Folder>
     ): Promise<ItemPF2e<TActor>[]>;
     protected override async _onDropFolder(
-        _event: ElementDragEvent,
+        _event: DragEvent,
         data: DropCanvasData<"Folder", Folder>
     ): Promise<Item<TActor>[]> {
         if (!(this.actor.isOwner && data.documentName === "Item")) return [];
@@ -1190,7 +1174,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * @param itemId           ID of the item to move between the two actors.
      */
     async moveItemBetweenActors(
-        event: ElementDragEvent,
+        event: DragEvent,
         sourceActorId: string,
         sourceTokenId: string | null,
         targetActorId: string,
@@ -1208,8 +1192,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const container = $(event.target).parents("[data-item-is-container=true]");
-        const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
+        const containerId = htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.containerId?.trim();
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;

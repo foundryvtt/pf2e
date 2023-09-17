@@ -194,6 +194,32 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
+    /**
+     * Use border color corresponding with disposition even when the token's actor is player-owned.
+     * @see https://github.com/foundryvtt/foundryvtt/issues/9993
+     */
+    protected override _getBorderColor(options?: { hover?: boolean }): number | null {
+        const isHovered = options?.hover ?? (this.hover || this.layer.highlightObjects);
+        const isControlled = this.controlled || (!game.user.isGM && this.isOwner);
+        const isFriendly = this.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        if (!isHovered || isControlled || isFriendly || !this.actor?.hasPlayerOwner) {
+            // Upstream will do the right thing in these cases
+            return super._getBorderColor();
+        }
+
+        const colors = CONFIG.Canvas.dispositionColors;
+        switch (this.document.disposition) {
+            case CONST.TOKEN_DISPOSITIONS.NEUTRAL:
+                return colors.NEUTRAL;
+            case CONST.TOKEN_DISPOSITIONS.HOSTILE:
+                return colors.HOSTILE;
+            case CONST.TOKEN_DISPOSITIONS.SECRET:
+                return this.isOwner ? colors.SECRET : null;
+            default:
+                return super._getBorderColor(options);
+        }
+    }
+
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
@@ -252,7 +278,31 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
         await this._animation;
-        this.auras.reset();
+
+        if (this.auras.size === 0) {
+            return this.auras.reset();
+        }
+
+        // Determine whether a redraw is warranted by comparing current and updated radius/appearance data
+        const changedAndDeletedAuraSlugs = Array.from(this.auras.entries())
+            .filter(([slug, aura]) => {
+                const properties = ["radius", "appearance"] as const;
+                const sceneData = R.pick(
+                    this.document.auras.get(slug) ?? { radius: null, appearance: null },
+                    properties
+                );
+                const canvasData = R.pick(aura, properties);
+                if (sceneData.radius === null) return true;
+
+                const diffCount =
+                    Object.keys(diffObject(canvasData, sceneData)).length +
+                    Object.keys(diffObject(sceneData, canvasData)).length;
+                return diffCount > 0;
+            })
+            .map(([slug]) => slug);
+        const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));
+
+        return this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
     }
 
     /** Emulate a pointer hover ("pointerover") event */

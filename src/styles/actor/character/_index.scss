@@ -45,11 +45,10 @@ nav.sheet-navigation {
         flex-grow: 1;
         min-height: 0;
         overflow: hidden scroll;
-        margin-left: 8px;
     }
 
     nav + .tab-content {
-        padding-top: 12px;
+        padding-top: 0.75rem;
     }
 
     h3.header {
@@ -61,7 +60,8 @@ nav.sheet-navigation {
         color: var(--primary);
         line-height: 1;
         border-bottom: 1px solid var(--color-border-divider);
-        & > button, & > .controls {
+        & > button,
+        & > .controls {
             position: absolute;
             bottom: -1px;
             right: 0;
@@ -127,7 +127,8 @@ nav.sheet-navigation {
     // character specific item-image properties
     .item-image.framed {
         background-color: var(--tertiary);
-        &, i {
+        &,
+        i {
             @include frame-icon;
         }
     }
@@ -135,7 +136,8 @@ nav.sheet-navigation {
     .tab {
         flex-direction: column;
 
-        @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "bio", "inventory", "pfs", "crafting";
+        @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "biography", "inventory",
+            "pfs", "crafting";
     }
 
     .directory-list {

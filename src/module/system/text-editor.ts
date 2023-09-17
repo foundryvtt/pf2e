@@ -51,8 +51,9 @@ class TextEditorPF2e extends TextEditor {
             // Remove tags
             content = content.substring(3, content.length - 4);
         }
+
         const enriched = superEnrichHTML.apply(this, [content, options]);
-        if (typeof enriched === "string") {
+        if (typeof enriched === "string" && (options.processVisibility ?? true)) {
             return TextEditorPF2e.processUserVisibility(enriched, options);
         }
 
@@ -136,7 +137,8 @@ class TextEditorPF2e extends TextEditor {
                 return [message.actor, message.getRollData()];
             }
             if (app instanceof ActorSheetPF2e) {
-                [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()];
+                const itemId = anchor.dataset.pf2ItemId;
+                return [app.actor, app.actor.items.get(itemId)?.getRollData() ?? app.actor.getRollData()];
             }
             if (app instanceof ItemSheetPF2e) {
                 return [app.actor, app.item.getRollData()];
@@ -224,7 +226,7 @@ class TextEditorPF2e extends TextEditor {
     static convertXMLNode(
         html: HTMLElement,
         name: string,
-        { visible = undefined, visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
+        { visible, visibility, whose, tooltip, classes }: ConvertXMLNodeOptions
     ): HTMLElement | null {
         const node = html.querySelector(name);
         if (!node) return null;
@@ -232,11 +234,14 @@ class TextEditorPF2e extends TextEditor {
         const span = document.createElement("span");
         const { dataset, classList } = span;
 
-        if (visible !== undefined) visibility = visible ? "all" : "gm";
+        if (typeof visible === "boolean") visibility = visible ? "all" : "gm";
         if (visibility) dataset.visibility = visibility;
         if (whose) dataset.whose = whose;
-        for (const cssClass of classes) {
-            classList.add(cssClass);
+        if (tooltip) dataset.tooltip = tooltip.trim();
+        if (classes) {
+            for (const cssClass of classes) {
+                classList.add(cssClass);
+            }
         }
 
         span.append(...Array.from(node.childNodes));
@@ -793,6 +798,8 @@ async function augmentInlineDamageRoll(
 
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
+    /** Whether to run the enriched string through `UserVisiblity.process` */
+    processVisibility?: boolean;
 }
 
 interface RollDataPF2e {
@@ -815,6 +822,8 @@ interface ConvertXMLNodeOptions {
     whose?: "self" | "target" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
+    /** An optional tooltip to apply to the converted node */
+    tooltip?: string;
 }
 
 interface CheckLinkParams {

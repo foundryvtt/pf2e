@@ -1,0 +1,57 @@
+{
+    "_id": "1cBl1gVcpzOqlluC",
+    "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+    "name": "Spell Effect: Flame Dancer",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Flame Dancer]</em></p>\n<p>The target's unarmed Strikes deal additional fire damage. Critical hits with these Strikes also deal persistent fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": "ternary(gte(@item.level,7),3,2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": "ternary(gte(@item.level,7),3,2)",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

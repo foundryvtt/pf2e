@@ -45,7 +45,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (!this.predicate.test(rollOptions)) {
+        if (!this.test(rollOptions)) {
             return;
         }
 
@@ -73,7 +73,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (!this.predicate.test(rollOptions)) {
+        if (!this.test(rollOptions)) {
             return;
         }
 
