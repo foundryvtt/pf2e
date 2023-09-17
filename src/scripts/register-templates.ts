@@ -9,23 +9,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
         // PC Sheet Tooltips and Section Partials
-        "systems/pf2e/templates/actors/character/partials/attributes.hbs",
-        "systems/pf2e/templates/actors/character/partials/background.hbs",
-        "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs",
         "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
+        "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs",
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
-        "systems/pf2e/templates/actors/character/partials/traits.hbs",
-
-        // PC Sheet Sidebar
-        "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/class-dc.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/health.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/initiative.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/iwr.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/perception.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/saves.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/stamina.hbs",
+        "systems/pf2e/templates/actors/character/partials/sidebar.hbs",
 
         // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.hbs",
@@ -140,10 +128,7 @@ export function registerTemplates(): void {
 
         // Vehicle partials
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/iwr.hbs",
+        "systems/pf2e/templates/actors/vehicle/sidebar.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
