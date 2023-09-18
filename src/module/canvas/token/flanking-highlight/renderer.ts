@@ -1,8 +1,10 @@
 import { TokenPF2e } from "../index.ts";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 
 /** Visual rendering of lines from token to flanking buddies token on highlight */
-class FlankingHighlightRenderer extends PIXI.Graphics {
+class FlankingHighlightRenderer {
+    /** Layer graphics object to which flanking highlight lines and text will be drawn */
+    _layer: PIXI.Graphics | null;
+
     /** The token from which the line is extended */
     token: TokenPF2e;
 
@@ -10,10 +12,14 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
     lineColor: number;
 
     constructor(token: TokenPF2e) {
-        super();
-
+        this._layer = null;
         this.token = token;
         this.lineColor = CONFIG.Canvas.dispositionColors.CONTROLLED;
+    }
+
+    /** Get existing layer graphics object or create one if one does not exist */
+    get layer(): PIXI.Graphics {
+        return this._layer ?? this.addLayer();
     }
 
     /**
@@ -22,15 +28,17 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
      * and the token must not be a preview or animating.
      */
     get shouldRender(): boolean {
-        return canvas.ready && !!canvas.scene?.isInFocus && this.tokenActorIsSelectedOrOwn && this.tokenIsReady;
+        return canvas.ready && !!canvas.scene?.isInFocus && this.tokenIsSelectedOrOwn && this.tokenIsReady;
     }
 
     /**
-     * To be valid, this token must be selected or belong to player
+     * To be valid, token must be selected by owner or be user's character
      */
-    get tokenActorIsSelectedOrOwn(): boolean {
-        const actors = getSelectedOrOwnActors();
-        return !!actors.length && !!this.token.actor && actors[0].id === this.token.actor.id;
+    get tokenIsSelectedOrOwn(): boolean {
+        return (
+            (this.token.controlled && this.token.isOwner) ||
+            (!!this.token.actor && this.token.actor?.id === game.user.character?.id)
+        );
     }
 
     /**
@@ -45,10 +53,9 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
      */
     draw(): void {
         if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
-            if (!this.parent) this.token.layer.addChild(this);
             game.user.targets.forEach((target) => this.drawForTarget(target));
         } else {
-            if (this.geometry.drawCalls.length > 0) this.clear();
+            if (this.layer.geometry.drawCalls.length > 0) this.clear();
         }
     }
 
@@ -79,16 +86,21 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
         const c = Math.round(t * 2);
 
         // Draw line
-        this.lineStyle(o, 0x000000, 0.5)
+        this.layer
+            .lineStyle(o, 0x000000, 0.5)
             .moveTo(this.token.center.x, this.token.center.y)
             .lineTo(buddy.center.x, buddy.center.y);
-        this.lineStyle(t, this.lineColor, 0.5)
+        this.layer
+            .lineStyle(t, this.lineColor, 0.5)
             .moveTo(this.token.center.x, this.token.center.y)
             .lineTo(buddy.center.x, buddy.center.y);
 
         // Draw circles on tokens
-        this.beginFill(this.lineColor).lineStyle(1, 0x000000).drawCircle(this.token.center.x, this.token.center.y, c);
-        this.beginFill(this.lineColor).lineStyle(1, 0x000000).drawCircle(buddy.center.x, buddy.center.y, c);
+        this.layer
+            .beginFill(this.lineColor)
+            .lineStyle(1, 0x000000)
+            .drawCircle(this.token.center.x, this.token.center.y, c);
+        this.layer.beginFill(this.lineColor).lineStyle(1, 0x000000).drawCircle(buddy.center.x, buddy.center.y, c);
 
         // Add text indicator
         this.drawLabel(buddy);
@@ -138,29 +150,24 @@ class FlankingHighlightRenderer extends PIXI.Graphics {
         text.rotation = rotation;
 
         text.position.set(perp_x, perp_y);
-        this.addChild(text);
+        this.layer.addChild(text);
     }
 
-    /**
-     * Clear graphics while ensuring that child text objects get destroyed to avoid memory leaks
-     */
-    override clear(): this {
-        const children = [...this.children];
-        for (const child of children) {
-            if (!child.destroyed) child.destroy();
-        }
-        return super.clear();
+    /** Destroys and removes layer graphics, incuding any text children */
+    clear(): void {
+        this._layer?.destroy({ children: true });
+        this._layer = null;
     }
 
-    /**
-     * Destroy graphics while ensuring that child text objects get destroyed to avoid memory leaks
-     */
-    override destroy(): void {
-        const children = [...this.children];
-        for (const child of children) {
-            if (!child.destroyed) child.destroy();
-        }
-        return super.destroy();
+    /** Alias of `clear` */
+    destroy(): void {
+        this.clear();
+    }
+
+    /** Creates layer graphics object */
+    protected addLayer(): PIXI.Graphics {
+        this._layer = new PIXI.Graphics();
+        return this.token.layer.addChild(this._layer);
     }
 }
 

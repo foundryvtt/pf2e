@@ -182,16 +182,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
-    /** Draw flankingHighlights when position updates */
-    override _applyRenderFlags(flags: Record<string, boolean>): void {
-        super._applyRenderFlags(flags);
-        if (flags.refreshPosition) this.flankingHighlight.draw();
-    }
-
-    /** Draw auras if certain conditions are met */
+    /** Draw auras and flanking highlight lines if certain conditions are met */
     protected override _refreshVisibility(): void {
         super._refreshVisibility();
         this.auras.draw();
+        this.flankingHighlight.draw();
     }
 
     /**
@@ -504,14 +499,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        this.flankingHighlight.draw();
         return super._onControl(options);
     }
 
     /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-        this.flankingHighlight.draw();
         super._onRelease(options);
     }
 
