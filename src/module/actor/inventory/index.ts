@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
 import { ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 
 class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
@@ -36,6 +37,24 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
 
     get bulk(): InventoryBulk {
         return new InventoryBulk(this.actor);
+    }
+
+    /** Find an item already owned by the actor that can stack with the given item */
+    findStackableItem(item: PhysicalItemPF2e | ItemSourcePF2e): PhysicalItemPF2e<TActor> | null {
+        // Prevent upstream from mutating property descriptors
+        const testItem = item instanceof PhysicalItemPF2e ? item.clone() : new ItemProxyPF2e(deepClone(item));
+        if (!testItem.isOfType("physical")) return null;
+
+        const stackCandidates = this.filter((i) => !i.isInContainer && i.isStackableWith(testItem));
+        if (stackCandidates.length === 0) {
+            return null;
+        } else if (stackCandidates.length > 1) {
+            // Prefer stacking with unequipped items
+            const notEquipped = stackCandidates.filter((item) => !item.isEquipped);
+            return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
+        } else {
+            return stackCandidates[0];
+        }
     }
 
     async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}): Promise<void> {
@@ -188,7 +207,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
     /** Adds an item to this inventory without removing from its original location */
     async add(item: PhysicalItemPF2e | KitPF2e, options: AddItemOptions = {}): Promise<void> {
         if (options.stack && item.isOfType("physical")) {
-            const stackableItem = this.actor.findStackableItem(this.actor, item._source);
+            const stackableItem = this.findStackableItem(item._source);
             if (stackableItem) {
                 await stackableItem.update({ "system.quantity": stackableItem.quantity + item.quantity });
                 return;
