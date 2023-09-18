@@ -205,11 +205,6 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 });
             }
 
-            htmlQuery(categoryEl, "[data-action=unset]")?.addEventListener("click", () => {
-                this.selected[category] = null;
-                this.render();
-            });
-
             const saveCategory = async (): Promise<void> => {
                 const database = getKingdomABCData();
                 const selected = database[category][this.selected[category] ?? ""];
