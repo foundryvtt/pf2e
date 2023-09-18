@@ -96,14 +96,25 @@
                 "actions": {
                     "value": null
                 },
-                "category": "defensive",
+                "category": "interaction",
                 "description": {
-                    "value": "<p>A giant gecko's feet allow it to climb virtually any surface, no matter how slick or sheer. If a giant gecko attempts an Athletics check to climb and critically fails, it gets a failure instead.</p>"
+                    "value": "<p>A giant gecko's feet allow it to climb virtually any surface, no matter how slick or sheer. If a giant gecko attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Climb] and critically fails, it gets a failure instead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:climb"
+                        ],
+                        "selector": "athletics"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
