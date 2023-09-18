@@ -28,6 +28,13 @@ class RuleElementForm<
     readonly object: TObject | null;
     schema: LaxSchemaField<RuleElementSchema> | null;
 
+    /** Valid tab names for this form */
+    protected tabNames: string[] = [];
+    /** The display style applied to active tabs */
+    protected tabDisplayStyle = "block";
+    /** The currently active tab */
+    #activeTab: Maybe<string> = null;
+
     /** Base proprety path for the contained rule */
     get basePath(): string {
         return `system.rules.${this.options.index}`;
@@ -174,6 +181,38 @@ class RuleElementForm<
                 }
             });
         }
+
+        if (this.tabNames.length > 0) {
+            for (const anchor of htmlQueryAll(html, "a[data-rule-tab]")) {
+                anchor.addEventListener("click", () => {
+                    this.activateTab(html, anchor.dataset.ruleTab);
+                });
+            }
+            this.activateTab(html, this.#activeTab);
+        }
+    }
+
+    protected activateTab(html: HTMLElement, tabName: Maybe<string>): void {
+        const activeTab = tabName ?? this.tabNames.at(0);
+        if (!activeTab || !this.tabNames.includes(activeTab)) return;
+        this.#activeTab = activeTab;
+
+        for (const anchor of htmlQueryAll(html, "a[data-rule-tab]")) {
+            if (anchor.dataset.ruleTab === activeTab) {
+                anchor.classList.add("active");
+            } else {
+                anchor.classList.remove("active");
+            }
+        }
+        for (const element of htmlQueryAll(html, "div[data-rule-tab]")) {
+            if (element.dataset.ruleTab === activeTab) {
+                element.style.display = this.tabDisplayStyle;
+                element.classList.add("active");
+            } else {
+                element.style.display = "none";
+                element.classList.remove("active");
+            }
+        }
     }
 
     updateObject(formData: Partial<RuleElementSource> & Record<string, unknown>): void {
@@ -214,7 +253,12 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         }
 
         if ("fields" in field) {
-            cleanDataUsingSchema(field.fields as Record<string, DataField>, data);
+            const maybeObject = data[key];
+            if (R.isObject(maybeObject)) {
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, maybeObject);
+            } else {
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, data);
+            }
             continue;
         }
 
@@ -277,4 +321,4 @@ interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject ex
 }
 
 export { RuleElementForm };
-export type { RuleElementFormSheetData };
+export type { RuleElementFormOptions, RuleElementFormSheetData };

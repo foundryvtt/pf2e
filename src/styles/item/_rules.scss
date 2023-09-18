@@ -235,5 +235,64 @@
             flex-direction: column;
             gap: 2px;
         }
+
+        &[data-key="TokenLight"] {
+            nav.rule-tabs {
+                border-bottom: 1px solid var(--secondary-background);
+
+                h4 {
+                    display: flex;
+                    justify-content: space-evenly;
+                    width: 100%;
+                    margin-top: 0.5em;
+                    font-weight: 200;
+                }
+
+                a.active {
+                    font-weight: 600;
+                    text-decoration: underline;
+                }
+            }
+
+            div[data-rule-tab] {
+                display: grid;
+                grid: "label content" 1fr/1fr 1fr;
+                column-gap: 5px;
+
+                fieldset.radii {
+                    display: flex;
+                    flex-direction: column;
+                    grid-column: span 2;
+
+                    border-radius: 5px;
+                    border: 1px solid var(--secondary-background);
+                    margin: 0.5em 0;
+                    padding: 0.25em;
+
+                    legend {
+                        font-weight: 500;
+                    }
+
+                    .brackets {
+                        margin-left: 6.5em;
+                    }
+                }
+
+                label {
+                    display: flex;
+                    flex: unset;
+                    margin-left: 5px;
+                    margin-right: 5px;
+
+                    &.short {
+                        min-width: 5em;
+                    }
+                }
+
+                .column-span-two {
+                    grid-column: span 2;
+                }
+            }
+        }
     }
 }
