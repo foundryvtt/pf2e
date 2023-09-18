@@ -11,9 +11,9 @@ export const TargetToken = {
             const actors = getSelectedOrOwnActors();
             if (actors.length === 1 && tokenDocument.object) {
                 const actor = actors[0];
-                const actorToken = actor.getActiveTokens(false, true).shift();
-                if (canvas.tokens.highlightObjects && user === game.user && actorToken) {
-                    actorToken.object?.flankingHighlight.draw();
+                const actorToken = actor.getActiveTokens(false, false).shift();
+                if (canvas.tokens.highlightObjects && user === game.user) {
+                    actorToken?.flankingHighlight.draw();
                 }
             }
         });
