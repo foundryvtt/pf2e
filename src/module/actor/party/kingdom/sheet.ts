@@ -232,8 +232,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         for (const button of htmlQueryAll(html, "[data-action=builder]")) {
+            const tab = button.dataset.tab ?? null;
             button.addEventListener("click", () => {
-                new KingdomBuilder(this.kingdom).render(true);
+                new KingdomBuilder(this.kingdom).render(true, { tab });
             });
         }
 

@@ -292,6 +292,21 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         if (!this.actor.id) return;
         return this.object.update(formData);
     }
+
+    protected override async _render(force?: boolean, options?: KingdomBuilderRenderOptions): Promise<void> {
+        await super._render(force, options);
+        if (options?.tab) {
+            this._tabs.at(0)?.activate(options.tab, { triggerCallback: true });
+        }
+    }
+}
+
+interface KingdomBuilder extends FormApplication<Kingdom> {
+    render(force?: boolean, options?: KingdomBuilderRenderOptions): this | Promise<this>;
+}
+
+interface KingdomBuilderRenderOptions extends RenderOptions {
+    tab?: string | null;
 }
 
 interface KingdomBuilderSheetData {
