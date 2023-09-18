@@ -496,16 +496,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
     }
 
-    /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
+    /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         return super._onControl(options);
     }
 
-    /** Refresh vision, the `EffectsPanel`, and flankingHighlight */
+    /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-        super._onRelease(options);
+        return super._onRelease(options);
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
