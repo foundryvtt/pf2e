@@ -36,6 +36,17 @@
             color: var(--text-dark);
         }
 
+        &.appearance-details {
+            display: grid;
+            grid-template:
+                "bio bio" 1fr
+                "height weight" min-content
+                / 1fr 1fr;
+            .bio {
+                grid-area: bio;
+            }
+        }
+
         &.personality {
             display: flex;
             flex-wrap: wrap;
