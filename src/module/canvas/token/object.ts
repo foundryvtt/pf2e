@@ -480,6 +480,25 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             this.mesh.refresh();
         }
     }
+
+    /** Reset aura renders when token size changes. */
+    override _onUpdate(
+        changed: DeepPartial<TDocument["_source"]>,
+        options: DocumentModificationContext<TDocument["parent"]>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        if (changed.width) {
+            if (this._animation) {
+                this._animation.then(() => {
+                    this.auras.reset();
+                });
+            } else {
+                this.auras.reset();
+            }
+        }
+    }
 }
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
