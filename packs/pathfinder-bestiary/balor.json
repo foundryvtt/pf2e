@@ -1765,50 +1765,72 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon a balor wields becomes a <em>+3 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking } @UUID[Compendium.pf2e.equipment-srd.Item.Vorpal] weapon</em> made of cold iron and silver while the demon holds it. A weapon that isn't eligible for the vorpal rune doesn't gain its effects. The balor can change its evil damage to chaotic whenever it attacks. The demon can conjure a whip made of flames with an Interact action. This whip gains the same benefits as other weapons the balor wields.</p>"
+                    "value": "<p>Any weapon a balor wields becomes a <em>+3 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking} @UUID[Compendium.pf2e.equipment-srd.Item.Vorpal] weapon</em> made of cold iron and silver while the demon holds it. A weapon that isn't eligible for the vorpal rune doesn't gain its effects. The balor can change its evil damage to chaotic whenever it attacks. The demon can conjure a whip made of flames with an Interact action. This whip gains the same benefits as other weapons the balor wields.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "alwaysActive": true,
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.DemonInfuseWeapons",
-                        "option": "infuse-weapons-chaotic",
+                        "option": "infuse-weapons",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitEvil",
+                                "value": "evil"
+                            },
+                            {
+                                "label": "PF2E.TraitChaotic",
+                                "value": "chaotic"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
-                        "damageType": "evil",
+                        "damageType": "{item|flags.pf2e.rulesSelections.infuseWeapons}",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "not": "infuse-weapons-chaotic"
-                            }
-                        ],
                         "selector": "strike-damage"
                     },
                     {
-                        "damageType": "chaotic",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "infuse-weapons-chaotic"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "strike-damage"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
                     },
                     {
                         "key": "Note",
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "vorpal-cold-iron-silver-longsword-attack",
+                        "predicate": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
                         "text": "PF2E.WeaponPropertyRune.vorpal.Note.criticalSuccess",
                         "title": "{item|name}",
-                        "visibility": "gm"
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
