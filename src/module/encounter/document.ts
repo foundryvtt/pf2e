@@ -55,7 +55,11 @@ class EncounterPF2e extends Combat {
 
         const opposition = R.uniq(
             this.combatants
-                .filter((c) => c.actor?.alliance === "opposition" && !partyMembers.includes(c.actor))
+                .filter(
+                    (c) =>
+                        !!(c.actor?.alliance === "opposition" || c.actor?.isOfType("hazard")) &&
+                        !partyMembers.includes(c.actor)
+                )
                 .flatMap((c) => c.actor ?? [])
         );
         if (!party || fightyPartyMembers.length === 0 || opposition.length === 0) {

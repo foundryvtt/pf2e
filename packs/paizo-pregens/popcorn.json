@@ -547,532 +547,6 @@
             "type": "class"
         },
         {
-            "_id": "oY5ZK0mX9jEDUsPC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.dU7xRpg4kFd01hwZ"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "dragonInstinct": {
-                            "id": "SMcqHrXXDBt8MU0F",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Instinct",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You channel your rage through an instinct. You decide what your instinct means to you. It could be a creature or symbol beloved by your clan, or a purely internal source or filter of your rage, such as a belief, curse, heritage, or state of mind. Each instinct grants an instinct ability, plus more abilities you can gain via feats that list that instinct as a prerequisite. It also determines what damage you resist with raging resistance and, at higher levels, increases the additional damage you deal when you @UUID[Compendium.pf2e.classfeatures.Item.Rage].</p>\n<p>Each instinct lists acts that are anathema to it. Whenever you perform such acts, you lose the instinct's abilities and any feats that list your instinct as a prerequisite until you spend 1 day of downtime re-centering yourself, though you keep all of your other barbarian abilities.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "5LpGxzoJIuXpJHUd",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.Barbarian.Instinct.Drops",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:barbarian",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Animal Instinct"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Fury Instinct"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Giant Instinct"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Spirit Instinct"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Superstition Instinct"
-                            }
-                        ],
-                        "flag": "instinct",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Barbarian.Instinct.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
-                    },
-                    {
-                        "flag": "dragonInstinct",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
-                    }
-                ],
-                "slug": "instinct",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "barbarian"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Lj8udwhzp8U3SWVa",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.WZUCvxqbigXos1L9"
-                }
-            },
-            "img": "icons/skills/wounds/injury-face-impact-orange.webp",
-            "name": "Rage",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You aren't fatigued or raging.</p>\n<p><strong>Grants</strong> @UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall unconscious, whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage on melee Strikes. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can Seek while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "5LpGxzoJIuXpJHUd",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "hideIfDisabled": true,
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitRage",
-                        "predicate": [
-                            "self:effect:rage",
-                            {
-                                "or": [
-                                    {
-                                        "not": "ranged"
-                                    },
-                                    {
-                                        "and": [
-                                            "feat:raging-thrower",
-                                            "thrown"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "rage",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "multiply",
-                        "predicate": [
-                            "item:trait:agile"
-                        ],
-                        "priority": 95,
-                        "selector": "strike-damage",
-                        "slug": "rage",
-                        "value": 0.5
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitRage",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    }
-                ],
-                "slug": "rage",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "barbarian",
-                        "concentrate",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "SMcqHrXXDBt8MU0F",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.VDot7CDcXElxmkkz"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "oY5ZK0mX9jEDUsPC",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/dragon-instinct.webp",
-            "name": "Dragon Instinct (Red Dragon)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon's blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3-4: Dragon Instincts to be your instinct's dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Type</th>\n<th>Breath Weapon</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Chromatic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Chromatic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Chromatic</td>\n<td>Cone of Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Chromatic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Chromatic</td>\n<td>Cone of Cold</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Metallic</td>\n<td>Line of Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Metallic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Metallic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Metallic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Metallic</td>\n<td>Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon's breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing damage and the damage type of your dragon's breath weapon.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
-                                "value": {
-                                    "breath": {
-                                        "size": 60,
-                                        "type": "line"
-                                    },
-                                    "category": "chromatic",
-                                    "color": "black",
-                                    "damageType": "acid"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
-                                "value": {
-                                    "breath": {
-                                        "size": 60,
-                                        "type": "line"
-                                    },
-                                    "category": "chromatic",
-                                    "color": "blue",
-                                    "damageType": "electricity"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
-                                "value": {
-                                    "breath": {
-                                        "size": 60,
-                                        "type": "line"
-                                    },
-                                    "category": "metallic",
-                                    "color": "brass",
-                                    "damageType": "fire"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
-                                "value": {
-                                    "breath": {
-                                        "size": 60,
-                                        "type": "line"
-                                    },
-                                    "category": "metallic",
-                                    "color": "bronze",
-                                    "damageType": "electricity"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
-                                "value": {
-                                    "breath": {
-                                        "size": 60,
-                                        "type": "line"
-                                    },
-                                    "category": "metallic",
-                                    "color": "copper",
-                                    "damageType": "acid"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
-                                "value": {
-                                    "breath": {
-                                        "size": 30,
-                                        "type": "cone"
-                                    },
-                                    "category": "metallic",
-                                    "color": "gold",
-                                    "damageType": "fire"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
-                                "value": {
-                                    "breath": {
-                                        "size": 30,
-                                        "type": "cone"
-                                    },
-                                    "category": "chromatic",
-                                    "color": "green",
-                                    "damageType": "poison"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
-                                "value": {
-                                    "breath": {
-                                        "size": 30,
-                                        "type": "cone"
-                                    },
-                                    "category": "metallic",
-                                    "color": "silver",
-                                    "damageType": "cold"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
-                                "value": {
-                                    "breath": {
-                                        "size": 30,
-                                        "type": "cone"
-                                    },
-                                    "category": "chromatic",
-                                    "color": "red",
-                                    "damageType": "fire"
-                                }
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
-                                "value": {
-                                    "breath": {
-                                        "size": 30,
-                                        "type": "cone"
-                                    },
-                                    "category": "chromatic",
-                                    "color": "white",
-                                    "damageType": "cold"
-                                }
-                            }
-                        ],
-                        "flag": "dragon",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt",
-                        "selection": {
-                            "breath": {
-                                "size": 30,
-                                "type": "cone"
-                            },
-                            "category": "chromatic",
-                            "color": "red",
-                            "damageType": "fire"
-                        }
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.size",
-                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.size}"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.type",
-                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.type}"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.barbarian.instinct.dragon.category",
-                        "value": "{item|flags.pf2e.rulesSelections.dragon.category}"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.barbarian.instinct.dragon.color",
-                        "value": "{item|flags.pf2e.rulesSelections.dragon.color}"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.barbarian.instinct.dragon.damageType",
-                        "value": "{item|flags.pf2e.rulesSelections.dragon.damageType}"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Barbarian.Dragon.ToggleLabel",
-                        "option": "draconic-rage",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "class:barbarian",
-                                    "feat:instinct-ability"
-                                ]
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "draconic-rage"
-                        ],
-                        "selectors": [
-                            "strike-damage"
-                        ],
-                        "slug": "rage",
-                        "value": 4
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "draconic-rage",
-                            "class:barbarian",
-                            {
-                                "gte": [
-                                    "self:level",
-                                    7
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-damage"
-                        ],
-                        "slug": "rage",
-                        "value": 8
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "draconic-rage",
-                            "class:barbarian",
-                            "feature:greater-weapon-specialization"
-                        ],
-                        "selectors": [
-                            "strike-damage"
-                        ],
-                        "slug": "rage",
-                        "value": 16
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "self:effect:rage",
-                            "feature:raging-resistance"
-                        ],
-                        "type": "piercing",
-                        "value": "@actor.abilities.con.mod+3"
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "self:effect:rage",
-                            "feature:raging-resistance"
-                        ],
-                        "type": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
-                        "value": "@actor.abilities.con.mod+3"
-                    }
-                ],
-                "slug": "dragon-instinct",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "barbarian"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "DvKeCqqQ41iPDMwk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
-                }
-            },
-            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
-            "name": "Deny Advantage",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "5LpGxzoJIuXpJHUd",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": "@actor.level"
-                    }
-                ],
-                "slug": "deny-advantage",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "barbarian",
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "hFM7x40mSdEsSfyb",
             "flags": {
                 "core": {
@@ -2046,6 +1520,604 @@
                 }
             },
             "type": "lore"
+        },
+        {
+            "_id": "shOdgWkM39tzHlIm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.dU7xRpg4kFd01hwZ"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "dragonInstinct": {
+                            "id": "zZPSSD1cqi0i1vJ7",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Instinct",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You channel your rage through an instinct. You decide what your instinct means to you. It could be a creature or symbol beloved by your clan, or a purely internal source or filter of your rage, such as a belief, curse, heritage, or state of mind. Each instinct grants an instinct ability, plus more abilities you can gain via feats that list that instinct as a prerequisite. It also determines what damage you resist with raging resistance and, at higher levels, increases the additional damage you deal when you @UUID[Compendium.pf2e.classfeatures.Item.Rage].</p>\n<p>Each instinct lists acts that are anathema to it. Whenever you perform such acts, you lose the instinct's abilities and any feats that list your instinct as a prerequisite until you spend 1 day of downtime re-centering yourself, though you keep all of your other barbarian abilities.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "5LpGxzoJIuXpJHUd",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "PF2E.SpecificRule.Barbarian.Instinct.Drops",
+                            "predicate": [
+                                "item:level:1",
+                                "item:trait:barbarian",
+                                "item:type:feature"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Animal Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Fury Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Giant Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Spirit Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Superstition Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Elemental Instinct"
+                            }
+                        ],
+                        "flag": "instinct",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Barbarian.Instinct.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "dragonInstinct",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
+                    }
+                ],
+                "slug": "instinct",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "kYGTHWWHovtZFSxC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.WZUCvxqbigXos1L9"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "rage": {
+                            "id": "ZMbZeZqXW2jnpJ7C",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/skills/wounds/injury-face-impact-orange.webp",
+            "name": "Rage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Rage] action, which lets you fly into a frenzy.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "5LpGxzoJIuXpJHUd",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "flag": "rage",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Rage"
+                    }
+                ],
+                "slug": "rage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8QBchgIo3GgapN4u",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
+                }
+            },
+            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
+            "name": "Deny Advantage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "5LpGxzoJIuXpJHUd",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": "deny-advantage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "zZPSSD1cqi0i1vJ7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.VDot7CDcXElxmkkz"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "shOdgWkM39tzHlIm",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/dragon-instinct.webp",
+            "name": "Dragon Instinct (Red Dragon)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon's blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3-4: Dragon Instincts to be your instinct's dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Type</th>\n<th>Breath Weapon</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Chromatic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Chromatic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Chromatic</td>\n<td>Cone of Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Chromatic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Chromatic</td>\n<td>Cone of Cold</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Metallic</td>\n<td>Line of Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Metallic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Metallic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Metallic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Metallic</td>\n<td>Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon's breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing damage and the damage type of your dragon's breath weapon.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "black",
+                                    "damageType": "acid"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "blue",
+                                    "damageType": "electricity"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "brass",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "bronze",
+                                    "damageType": "electricity"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "copper",
+                                    "damageType": "acid"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "metallic",
+                                    "color": "gold",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "green",
+                                    "damageType": "poison"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "metallic",
+                                    "color": "silver",
+                                    "damageType": "cold"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "red",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "white",
+                                    "damageType": "cold"
+                                }
+                            }
+                        ],
+                        "flag": "dragon",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt",
+                        "selection": {
+                            "breath": {
+                                "size": 30,
+                                "type": "cone"
+                            },
+                            "category": "chromatic",
+                            "color": "red",
+                            "damageType": "fire"
+                        }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.size",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.size}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.type",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.type}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.category",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.category}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.color",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.color}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.damageType",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.damageType}"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Barbarian.Dragon.ToggleLabel",
+                        "option": "draconic-rage",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:barbarian",
+                                    "feat:instinct-ability"
+                                ]
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage"
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage",
+                            "class:barbarian",
+                            {
+                                "gte": [
+                                    "self:level",
+                                    7
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 8
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage",
+                            "class:barbarian",
+                            "feature:greater-weapon-specialization"
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 16
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "self:effect:rage",
+                            "feature:raging-resistance"
+                        ],
+                        "type": "piercing",
+                        "value": "@actor.abilities.con.mod+3"
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "self:effect:rage",
+                            "feature:raging-resistance"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
+                        "value": "@actor.abilities.con.mod+3"
+                    }
+                ],
+                "slug": "dragon-instinct",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ZMbZeZqXW2jnpJ7C",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.Ah5g9pDwWF9b9VW9"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "kYGTHWWHovtZFSxC",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/skills/wounds/injury-face-impact-orange.webp",
+            "name": "Rage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging.</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "or": [
+                                    {
+                                        "not": "item:ranged"
+                                    },
+                                    {
+                                        "and": [
+                                            "feat:raging-thrower",
+                                            "item:thrown"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "rage",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "multiply",
+                        "predicate": [
+                            "item:trait:agile"
+                        ],
+                        "priority": 95,
+                        "selector": "strike-damage",
+                        "slug": "rage",
+                        "value": 0.5
+                    },
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "slug": "rage",
+                        "value": -1
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rage",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
+                },
+                "slug": "rage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Popcorn",
