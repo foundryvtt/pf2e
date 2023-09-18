@@ -2,7 +2,6 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Renderer } from "pixi.js";
-import { pick } from "@util";
 import * as R from "remeda";
 import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
@@ -145,7 +144,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Return true if a flanking buddy is found
         const { flanking } = this.actor.attributes;
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"]))
+            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"]))
         );
         if (flankingBuddies.length === 0) return false;
 
@@ -178,7 +177,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (!this.actor || !this.canFlank(flankee, context)) return [];
 
         return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, pick(context, ["ignoreFlankable"])))
+            .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
