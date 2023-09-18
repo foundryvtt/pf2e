@@ -35,6 +35,7 @@ import {
     VACANCY_PENALTIES,
 } from "./values.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { ZeroToFour } from "@module/data.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -177,17 +178,18 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     prepareBaseData(): void {
         const { synthetics } = this.actor;
+        const { build } = this;
 
         // Calculate Ability Boosts (if calculated automatically)
-        if (!this.build.manual) {
+        if (!build.manual) {
             for (const ability of KINGDOM_ABILITIES) {
                 this.abilities[ability].value = 10;
             }
 
             // Charter/Heartland/Government boosts
             for (const category of ["charter", "heartland", "government"] as const) {
-                const data = this.build[category];
-                const chosen = this.build.boosts[category];
+                const data = build[category];
+                const chosen = build.boosts[category];
                 if (!data) continue;
 
                 if (data.flaw) {
@@ -203,7 +205,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             // Level boosts
             const activeLevels = ([1, 5, 10, 15, 20] as const).filter((l) => this.level >= l);
             for (const level of activeLevels) {
-                const chosen = this.build.boosts[level].slice(0, 2);
+                const chosen = build.boosts[level].slice(0, 2);
                 for (const ability of chosen) {
                     this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
                 }
@@ -213,6 +215,13 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         // Assign Ability modifiers base on values
         for (const ability of KINGDOM_ABILITIES) {
             this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
+        }
+
+        // Government skills
+        if (build.government && build.government.skills.length > 0) {
+            for (const skill of build.government.skills) {
+                build.skills[skill].rank = Math.max(1, build.skills[skill].rank) as ZeroToFour;
+            }
         }
 
         // Bless raw custom modifiers as `ModifierPF2e`s

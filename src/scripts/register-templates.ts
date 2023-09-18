@@ -37,6 +37,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/party/kingdom/tabs/world.hbs",
         "systems/pf2e/templates/actors/party/kingdom/tabs/features.hbs",
         "systems/pf2e/templates/actors/party/kingdom/tabs/ongoing.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/partials/build-entry-boosts.hbs",
         "systems/pf2e/templates/actors/party/kingdom/partials/settlement.hbs",
 
         // Shared Actor Sheet Partials

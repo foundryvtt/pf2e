@@ -11,7 +11,7 @@
                 </a>
                 <span class="name">{{skill.label}}</span>
                 <div class="button-group">
-                    {{> proficiencySelect name=(concat "build.skills." skill.slug ".rank") rank=skill.rank}}
+                    {{> proficiencySelect property=(concat "build.skills." skill.slug ".rank") rank=skill.rank}}
                     <button type="button" class="hover small-button modifiers" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
                         <i class="fa-solid fa-cog"></i>
                     </button>
@@ -90,7 +90,7 @@
 
 {{#*inline "proficiencySelect"}}
     {{#if @root.options.editable}}
-        <select name="{{name}}" class="proficiency" data-rank="{{rank}}">
+        <select data-property="{{property}}" class="proficiency" data-rank="{{rank}}">
             {{#select rank}}
                 {{#if (not excludeUntrained)}}<option value="0" {{#if (eq proflevel 0)}}selected{{/if}}>{{localize "PF2E.ProficiencyLevel0"}}</option>{{/if}}
                 <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>

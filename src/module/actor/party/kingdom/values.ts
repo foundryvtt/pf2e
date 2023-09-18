@@ -314,7 +314,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/pyramid.webp",
                 boosts: ["stability", "economy", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["intrigue", "warfare"],
             },
             feudalism: {
                 name: localize("Government.feudalism.Name"),
@@ -322,7 +322,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/watchtower-cliff.webp",
                 boosts: ["stability", "culture", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["defense", "trade"],
             },
             oligarchy: {
                 name: localize("Government.oligarchy.Name"),
@@ -330,7 +330,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/house-manor.webp",
                 boosts: ["loyalty", "economy", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["arts", "industry"],
             },
             republic: {
                 name: localize("Government.republic.Name"),
@@ -338,7 +338,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/gazebo.webp",
                 boosts: ["stability", "economy", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["engineering", "politics"],
             },
             thaumocracy: {
                 name: localize("Government.thaumocracy.Name"),
@@ -346,7 +346,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/wizard-castle.webp",
                 boosts: ["economy", "culture", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["folklore", "magic"],
             },
             yeomanry: {
                 name: localize("Government.yeomanry.Name"),
@@ -354,7 +354,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/house-farmland-small.webp",
                 boosts: ["loyalty", "culture", "free"],
                 flaw: null,
-                skills: [],
+                skills: ["agriculture", "wilderness"],
             },
         },
     };

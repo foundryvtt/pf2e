@@ -16,7 +16,7 @@ interface KingdomCHG {
 }
 
 interface KingdomGovernment extends KingdomCHG {
-    skills: string[];
+    skills: KingdomSkill[];
 }
 
 type KingdomAbility = (typeof KINGDOM_ABILITIES)[number];

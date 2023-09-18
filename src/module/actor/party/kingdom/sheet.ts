@@ -41,6 +41,7 @@ import {
     KINGDOM_RUIN_LABELS,
     KINGDOM_SETTLEMENT_TYPE_DATA,
     KINGDOM_SETTLEMENT_TYPE_LABELS,
+    KINGDOM_SKILL_LABELS,
 } from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
@@ -176,7 +177,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 value: trait,
                 selected: false, // selected is handled without re-render
             })),
-            settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
             settlements: await Promise.all(
                 Object.entries(kingdom.settlements).map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
@@ -186,6 +186,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 async: true,
                 rollData: this.actor.getRollData(),
             }),
+            settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
+            abilityLabels: KINGDOM_ABILITY_LABELS,
+            skillLabels: KINGDOM_SKILL_LABELS,
         };
     }
 
@@ -585,9 +588,12 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOption[];
-    settlementTypes: Record<string, string>;
     settlements: SettlementSheetData[];
     eventText: string;
+
+    settlementTypes: Record<string, string>;
+    abilityLabels: Record<string, string>;
+    skillLabels: Record<string, string>;
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
