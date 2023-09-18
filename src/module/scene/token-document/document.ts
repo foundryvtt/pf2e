@@ -383,7 +383,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     whisper: this.actor?.hasPlayerOwner
                         ? []
                         : game.users.contents.flatMap((user) => (user.isGM ? user.id : [])),
-                    content: game.i18n.format("PF2E.InitativeIsNow", { name: this.name, value: initiative }),
+                    content: game.i18n.format("PF2E.InitiativeIsNow", { name: this.name, value: initiative }),
                 },
             ]);
         }
