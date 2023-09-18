@@ -207,6 +207,11 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         existing.effects.push(effect);
                     }
                 }
+
+                // Only merge appearance data from this aura if it has been explicitly set by the user
+                if (this._source.appearance) {
+                    existing.appearance = mergeObject(existing.appearance, data.appearance);
+                }
             } else {
                 this.actor.auras.set(this.slug, data);
             }
