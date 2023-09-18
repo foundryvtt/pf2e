@@ -1655,6 +1655,12 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 {
                     outcome: ["criticalSuccess"],
+                    predicate: ["item:group:pick"],
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
+                    text: "PF2E.WeaponPropertyRune.grievous.Note.Pick",
+                },
+                {
+                    outcome: ["criticalSuccess"],
                     predicate: ["item:group:polearm"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Polearm",
