@@ -39,17 +39,19 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.token = params.token;
         this.appearance = params.appearance;
         this.radius = params.radius;
-        this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
+        this.radiusPixels =
+            0.5 * this.token.mechanicalBounds.width +
+            (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
         this.addChild(this.border);
     }
 
     get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
-
+        const bounds = token.mechanicalBounds;
         return new PIXI.Rectangle(
-            token.bounds.x - (radiusPixels - token.bounds.width / 2),
-            token.bounds.y - (radiusPixels - token.bounds.width / 2),
+            bounds.x - (radiusPixels - bounds.width / 2),
+            bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
             radiusPixels * 2
         );
@@ -67,6 +69,13 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     /** Draw the aura's border and texture */
     async draw(showBorder: boolean): Promise<void> {
+        // Offset if its a tiny token that isn't at the topleft position
+        if (this.token.actor?.size === "tiny") {
+            const { bounds, mechanicalBounds } = this.token;
+            this.x = mechanicalBounds.x - bounds.x;
+            this.y = mechanicalBounds.y - bounds.y;
+        }
+
         this.#drawBorder();
         this.border.visible = showBorder;
         return this.#drawTexture();
@@ -79,7 +88,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             return;
         }
 
-        const [x, y, radius] = [this.token.w / 2, this.token.h / 2, this.radiusPixels];
+        const bounds = this.token.mechanicalBounds;
+        const [x, y, radius] = [bounds.width / 2, bounds.height / 2, this.radiusPixels];
         this.border.lineStyle(AuraRenderer.LINE_THICKNESS, data.color, data.alpha).drawCircle(x, y, radius);
     }
 
@@ -104,10 +114,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             game.video.play(video, { volume: 0, offset, loop: data.loop });
         }
 
+        const bounds = this.token.mechanicalBounds;
         const radius = data.scale * this.radiusPixels;
         const diameter = radius * 2;
         const scale = { x: diameter / this.texture.width, y: diameter / this.texture.height };
-        const center = { x: Math.round(this.token.w / 2), y: Math.round(this.token.h / 2) };
+        const center = { x: Math.round(bounds.width / 2), y: Math.round(bounds.height / 2) };
         const translation = data.translation ?? { x: radius + center.x, y: radius + center.y };
         const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, translation.x, translation.y);
         this.beginTextureFill({ texture: this.texture, alpha: data.alpha, matrix })
@@ -143,10 +154,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 
+        const bounds = this.token.mechanicalBounds;
         const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
         const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
-        const { center } = this.token;
+        const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
         const textOffset = Math.sqrt(style.fontSize);
         text.position.set(center.x + textOffset, center.y - this.radiusPixels - style.fontSize - textOffset);
 
