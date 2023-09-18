@@ -1,6 +1,4 @@
-import { RawModifier } from "@actor/modifiers.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { RecordField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { type ArrayField, type StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility, KingdomSettlementType } from "./types.ts";
@@ -11,6 +9,8 @@ import {
     KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SKILLS,
 } from "./values.ts";
+import { RawModifier } from "@actor/modifiers.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 
@@ -30,18 +30,6 @@ function buildKingdomCHGSchema(): {
         ),
         flaw: new fields.StringField({ choices: KINGDOM_ABILITIES, required: true, nullable: true }),
     };
-}
-
-function getXp(): Record<string, unknown> | null {
-    if (game.settings.get("pf2e", "levelingType") === "ExperiencePoints") {
-        return {
-            xp: new fields.SchemaField({
-                value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
-            }),
-        };
-    }
-
-    return null;
 }
 
 const KINGDOM_BUILD_SCHEMA = {
@@ -218,7 +206,14 @@ const KINGDOM_SCHEMA = {
         max: 20,
         initial: 1,
     }),
-    ...getXp,
+    xp: new fields.SchemaField({
+        value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
+        max: new fields.NumberField({
+            required: true,
+            nullable: false,
+            initial: 1000,
+        }),
+    }),
     aspiration: new fields.StringField({
         choices: ["fame", "infamy"],
         required: true,

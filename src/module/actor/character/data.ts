@@ -143,11 +143,13 @@ interface CharacterDetailsSource extends CreatureDetailsSource {
     biography: CharacterBiography;
 
     /** The amount of experience this character has. */
-    xp?: {
+    xp: {
         /** The current experience value.  */
         value: number;
         /** The minimum amount of experience (almost always '0'). */
         min: number;
+        /** The maximum amount of experience before level up (usually '1000', but may differ.) */
+        max: number;
         /** COMPUTED: The percentage completion of the current level (value / max). */
         pct: number;
     };

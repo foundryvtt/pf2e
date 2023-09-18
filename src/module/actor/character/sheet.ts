@@ -254,9 +254,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
-        sheetData.hasExperience = game.settings.get("pf2e", "levelingType") === "ExperiencePoints";
-        sheetData.baseExpToNextLevel = game.settings.get("pf2e", "expPointsPerLevel");
-
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.unorganized];
@@ -1562,9 +1559,6 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;
     hasStamina: boolean;
-    /** Experience Points stuff */
-    hasExperience: boolean;
-    baseExpToNextLevel: number | null;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
     magicTraditions: Record<MagicTradition, string>;

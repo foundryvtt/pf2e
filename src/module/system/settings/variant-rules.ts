@@ -7,25 +7,6 @@ const SETTINGS: Record<string, SettingRegistration> = {
         default: false,
         type: Boolean,
     },
-    levelingType: {
-        name: "PF2E.SETTINGS.Variant.Experience.LevelingType.Name",
-        hint: "PF2E.SETTINGS.Variant.Experience.LevelingType.Hint",
-        default: "ExperiencePoints",
-        type: String,
-        choices: {
-            ExperiencePoints: "PF2E.SETTINGS.Variant.Experience.LevelingType.Choices.ExperiencePoints",
-            StoryTelling: "PF2E.SETTINGS.Variant.Experience.LevelingType.Choices.StoryTelling",
-        },
-    },
-    expPointsPerLevel: {
-        name: "PF2E.SETTINGS.Variant.Experience.ExpPointsPerLevel.Name",
-        hint: "PF2E.SETTINGS.Variant.Experience.ExpPointsPerLevel.Hint",
-        default: 1000,
-        type: Number,
-        onChange: () => {
-            resetActors(game.actors.filter((a) => a.type === "character"));
-        },
-    },
     staminaVariant: {
         name: "PF2E.SETTINGS.Variant.Stamina.Name",
         hint: "PF2E.SETTINGS.Variant.Stamina.Hint",
