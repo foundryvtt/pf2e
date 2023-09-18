@@ -1,0 +1,84 @@
+{
+    "_id": "Tw9MjeQHL3qFY1PO",
+    "img": "systems/pf2e/icons/spells/fiery-body.webp",
+    "name": "Effect: Furnace Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Furnace Form]</p>\n<p>You become living flame, giving you fire immunity, resistance 10 to precision damage, and weakness 5 to cold and to water. Your unarmed attacks deal 1d4 additional fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses). Your fire Elemental Blasts deal an additional die of damage. In fire form, you have a fly Speed of 40 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "fire"
+            },
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": 10
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "cold",
+                    "water"
+                ],
+                "value": 5
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 40
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:fire"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:fire"
+                ],
+                "selector": "elemental-blast-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
