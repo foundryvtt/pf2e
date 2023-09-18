@@ -73,7 +73,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = super.bounds;
-        if (this.actor?.size === "tiny") {
+        if (this.document.width < 1) {
             const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
             return new PIXI.Rectangle(
                 position[0],
