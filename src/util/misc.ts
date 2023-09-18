@@ -420,13 +420,11 @@ function configFromLocalization<T extends Record<string, TranslationDictionaryVa
     localization: T,
     prefix: string
 ): T {
-    return Object.entries(localization).reduce(
-        (map, [key, value]) => ({
-            ...map,
-            [key]: typeof value === "string" ? `${prefix}.${key}` : configFromLocalization(value, `${prefix}.${key}`),
-        }),
-        {} as T
-    );
+    return Object.entries(localization).reduce((result: Record<string, unknown>, [key, value]) => {
+        result[key] =
+            typeof value === "string" ? `${prefix}.${key}` : configFromLocalization(value, `${prefix}.${key}`);
+        return result;
+    }, {}) as T;
 }
 
 /** Does the parameter look like an image file path? */

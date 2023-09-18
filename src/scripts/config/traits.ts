@@ -565,10 +565,7 @@ const otherWeaponTags: Record<OtherWeaponTag, string> = {
     shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
-const rangeTraits = RANGE_TRAITS.reduce(
-    (descriptions, trait) => ({ ...descriptions, [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
-    {} as Record<(typeof RANGE_TRAITS)[number], string>
-);
+const rangeTraits = R.mapToObj(RANGE_TRAITS, (trait) => [trait, `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}`]);
 
 const npcAttackTraits = {
     ...weaponTraits,
@@ -923,10 +920,7 @@ const armorTraits = {
     ponderous: "PF2E.TraitPonderous",
 };
 
-const rangeDescriptions = RANGE_TRAITS.reduce((descriptions, trait) => {
-    descriptions[trait] = "PF2E.TraitDescriptionRange";
-    return descriptions;
-}, {} as Record<(typeof RANGE_TRAITS)[number], string>);
+const rangeDescriptions = R.mapToObj(RANGE_TRAITS, (trait) => [trait, "PF2E.TraitDescriptionRange"]);
 
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
