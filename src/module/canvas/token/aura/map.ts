@@ -40,6 +40,11 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
     /** Whether auras' borders and highlights should be shown to the present user */
     get #showBordersHighlights(): boolean {
+        const inEncounter = () =>
+            !!(this.token.actor?.isOfType("familiar")
+                ? this.token.actor.master?.combatant?.encounter.active
+                : this.token.combatant?.encounter.active);
+
         return (
             canvas.scene?.grid.type === CONST.GRID_TYPES.SQUARE &&
             // Assume if token vision is disabled then the scene is not intended for play.
@@ -48,12 +53,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             canvas.scene.isInFocus &&
             // To be rendered to a player, the aura must emanate from an ally.
             (game.user.isGM || this.token.actor?.alliance === "party") &&
-            !!(
-                this.token.controlled ||
-                this.token.hover ||
-                this.token.layer.highlightObjects ||
-                this.token.combatant?.encounter.active
-            )
+            (this.token.controlled || this.token.hover || this.token.layer.highlightObjects || inEncounter())
         );
     }
 

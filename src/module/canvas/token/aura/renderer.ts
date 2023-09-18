@@ -65,11 +65,6 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return getAreaSquares(this);
     }
 
-    /** Whether this aura's parent token is in an active encounter */
-    get inEncounter(): boolean {
-        return !!this.token.combatant?.encounter.started;
-    }
-
     /** Draw the aura's border and texture */
     async draw(showBorder: boolean): Promise<void> {
         this.#drawBorder();
@@ -128,7 +123,10 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.#drawLabel();
 
         // For now, only highlight if there is an active combat
-        if (this.inEncounter) {
+        const inEncounter = !!(this.token.actor?.isOfType("familiar")
+            ? this.token.actor.master?.combatant?.encounter.active
+            : this.token.combatant?.encounter.active);
+        if (inEncounter) {
             const { highlightLayer } = this;
             if (!highlightLayer) return;
 
