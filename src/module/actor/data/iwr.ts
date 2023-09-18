@@ -80,6 +80,8 @@ abstract class IWRData<TType extends IWRType> {
                 return ["item:rune:property:ghost-touch"];
             case "magical":
                 return ["item:magical"];
+            case "magical silver":
+                return [{ and: ["item:magical", { or: ["damage:material:silver", "damage:material:mithral"] }] }];
             case "mental":
                 return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
             case "non-magical":
