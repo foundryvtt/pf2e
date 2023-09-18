@@ -8,12 +8,16 @@ class FlankingHighlightRenderer {
     /** The token from which the line is extended */
     token: TokenPF2e;
 
+    /** Text label floating above highlight line */
+    labelText: string;
+
     /** Color for highlight line */
     lineColor: number;
 
     constructor(token: TokenPF2e) {
         this._layer = null;
         this.token = token;
+        this.labelText = game.i18n.localize("PF2E.Token.Flanking");
         this.lineColor = CONFIG.Canvas.dispositionColors.CONTROLLED;
     }
 
@@ -52,10 +56,9 @@ class FlankingHighlightRenderer {
      * Draw flanking highlight if conditions are met
      */
     draw(): void {
+        this.clear();
         if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
             game.user.targets.forEach((target) => this.drawForTarget(target));
-        } else {
-            if (this.layer.geometry.drawCalls.length > 0) this.clear();
         }
     }
 
@@ -137,7 +140,7 @@ class FlankingHighlightRenderer {
         style.fill = this.lineColor;
         style.stroke = 0x000000;
 
-        const text = new PreciseText("Flanking", style);
+        const text = new PreciseText(this.labelText, style);
         text.anchor.set(0.5, 0.5);
 
         // Rotate text to match line, ensuring it is not upside-down
