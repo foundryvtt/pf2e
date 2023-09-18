@@ -7,7 +7,7 @@ import { resolveKingdomBoosts } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import { KingdomAbility, KingdomCHG } from "./types.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, getKingdomABCData } from "./values.ts";
+import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_SKILL_LABELS, getKingdomABCData } from "./values.ts";
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
@@ -125,7 +125,8 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             kingdom: this.kingdom,
             database,
             categories,
-            abilities: KINGDOM_ABILITY_LABELS,
+            abilityLabels: KINGDOM_ABILITY_LABELS,
+            skillLabels: KINGDOM_SKILL_LABELS,
             build: this.#prepareAbilityBuilder(),
             finished,
         };
@@ -311,7 +312,8 @@ interface KingdomBuilderSheetData {
     kingdom: Kingdom;
     database: ReturnType<typeof getKingdomABCData>;
     categories: Record<KingdomBuildCategory, CategorySheetData>;
-    abilities: Record<string, string>;
+    abilityLabels: Record<string, string>;
+    skillLabels: Record<string, string>;
     build: KingdomAbilityBuilderData;
     finished: boolean;
 }

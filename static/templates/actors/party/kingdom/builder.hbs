@@ -31,7 +31,7 @@
                         <h3>{{localize "PF2E.Kingmaker.KingdomBuilder.AssignBoostsHeader"}}</h3>
                     </div>
                     <div class="abilities">
-                        {{#each abilities as |ability|}}
+                        {{#each abilityLabels as |ability|}}
                             <div class="row-column">
                                 <h3>{{localize ability}}</h3>
                             </div>
@@ -112,7 +112,7 @@
                                 {{else}}
                                     <div class="value">{{ability.value}}</div>
                                 {{/if}}
-                                <h4>{{localize (lookup ../abilities key)}}</h4>
+                                <h4>{{localize (lookup ../abilityLabels key)}}</h4>
                             </div>
                         {{/each}}
                         <div class="complete">
@@ -156,26 +156,7 @@
             </div>
             <footer>
                 <div class="boosts">
-                    <section>
-                        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.BoostsLabel"}}:</strong>
-                        <div class="abilities">
-                            {{#each buildEntry.boosts as |boost|}}
-                                {{#if (eq boost "free")}}
-                                    <span>{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
-                                {{else}}
-                                    <span>{{localize (lookup @root.abilities boost)}}</span>
-                                {{/if}}
-                            {{/each}}
-                        </div>
-                    </section>
-                    <section>
-                        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
-                        {{#if buildEntry.flaw}}
-                            <span>{{localize (lookup @root.abilities buildEntry.flaw)}}</span>
-                        {{else}}
-                            <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
-                        {{/if}}
-                    </section>
+                    {{> "systems/pf2e/templates/actors/party/kingdom/partials/build-entry-boosts.hbs"}}
                 </div>
                 <button class="complete" data-action="save-and-continue" type="button">
                     {{localize "PF2E.Kingmaker.KingdomBuilder.SaveAndContinue"}}
