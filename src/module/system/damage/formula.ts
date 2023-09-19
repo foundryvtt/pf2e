@@ -109,7 +109,15 @@ function createDamageFormula(
 
     // Add modifiers
     for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
-        const matchingBase = damage.base.find((b) => b.damageType === modifier.damageType) ?? damage.base[0];
+        // A genuine bonus must match against both damage type and category: e.g., a bonus to flat damage must
+        // not be applied to persistent damage--nor vice versa
+        const matchingBase =
+            modifier.kind === "bonus"
+                ? damage.base.find(
+                      (b) => b.damageType === (modifier.damageType ?? b.damageType) && b.category === modifier.category
+                  )
+                : damage.base.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ?? damage.base.at(0);
+        if (!matchingBase) continue;
         const damageType = modifier.damageType ?? matchingBase.damageType;
 
         const list = typeMap.get(damageType) ?? [];
