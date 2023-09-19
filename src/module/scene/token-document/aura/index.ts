@@ -1,4 +1,4 @@
-import { AuraAppearanceData, AuraData } from "@actor/types.ts";
+import { AuraAppearanceData, AuraData, AuraEffectData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/index.ts";
@@ -17,7 +17,9 @@ class TokenAura implements TokenAuraData {
     /** The radius of the aura in feet */
     radius: number;
 
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
+
+    effects: AuraEffectData[];
 
     appearance: AuraAppearanceData;
 
@@ -29,6 +31,7 @@ class TokenAura implements TokenAuraData {
         this.level = params.level;
         this.radius = params.radius;
         this.traits = params.traits;
+        this.effects = params.effects;
         this.appearance = params.appearance;
     }
 
@@ -102,7 +105,8 @@ interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     level: number | null;
     radius: number;
     token: TokenDocumentPF2e;
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
+    effects: AuraEffectData[];
 }
 
 export { TokenAura, TokenAuraData };

@@ -19,7 +19,7 @@ interface TokenAuraData {
     appearance: AuraAppearanceData;
 
     /** Traits (especially "visual" and "auditory") associated with this aura */
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
 }
 
 export type { TokenAuraData };
