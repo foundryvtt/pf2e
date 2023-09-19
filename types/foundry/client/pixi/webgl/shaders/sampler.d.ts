@@ -43,4 +43,12 @@ declare global {
      * @todo Fill in
      */
     class OcclusionSamplerShader extends BaseSamplerShader {}
+
+    /**
+     * This class defines an interface which all adaptive lighting shaders extend.
+     * @todo Fill in
+     */
+    class AdaptiveLightingShader extends AbstractBaseShader {
+        static SHADER_TECHNIQUES: Record<string, { label: string }>;
+    }
 }
