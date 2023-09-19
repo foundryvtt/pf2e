@@ -369,9 +369,6 @@ class ElementalBlast {
             options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...item.traits]),
         });
 
-        const damageSynthetics = extractDamageSynthetics(this.actor, domains, { test: context.options });
-        const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
-        const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         const baseDamage: BaseDamageData = {
             category: null,
             damageType: params.damageType,
@@ -382,6 +379,9 @@ class ElementalBlast {
                 },
             ],
         };
+        const damageSynthetics = extractDamageSynthetics(this.actor, [baseDamage], domains, { test: context.options });
+        const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
+        const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);
 
         const damageData = createDamageFormula(

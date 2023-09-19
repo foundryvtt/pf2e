@@ -739,7 +739,7 @@ async function augmentInlineDamageRoll(
 
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
-            return extractDamageSynthetics(actor, domains, {
+            return extractDamageSynthetics(actor, base, domains, {
                 resolvables: rollData ?? {},
                 test: options,
             });

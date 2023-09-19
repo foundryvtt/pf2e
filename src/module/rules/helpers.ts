@@ -16,6 +16,7 @@ import { isObject, pick } from "@util";
 import * as R from "remeda";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
+import { BaseDamageData } from "@system/damage/index.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -58,9 +59,12 @@ function extractDamageDice(
 
 function extractDamageSynthetics(
     actor: ActorPF2e,
+    base: BaseDamageData[],
     selectors: string[],
     options: TestableDeferredValueParams & { extraModifiers?: ModifierPF2e[] }
 ): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
+    const allPersistent = base.length > 0 && base.every((b) => b.category === "persistent");
+
     const extractedModifiers = extractModifiers(actor.synthetics, selectors, options);
     const dice = extractDamageDice(actor.synthetics.damageDice, selectors, options);
 
@@ -73,7 +77,10 @@ function extractDamageSynthetics(
         ...new StatisticModifier("persistent", groupedModifiers.persistent ?? [], options.test).modifiers,
     ];
 
-    return { modifiers, dice };
+    return {
+        modifiers: allPersistent ? modifiers.filter((m) => m.category === "persistent") : modifiers,
+        dice: allPersistent ? dice.filter((m) => m.category === "persistent") : dice,
+    };
 }
 
 async function extractEphemeralEffects({
