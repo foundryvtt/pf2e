@@ -53,7 +53,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 selector,
                 title: title ? this.getReducedLabel(title) : null,
                 text,
-                predicate: this.predicate,
+                predicate: this.resolveInjectedProperties(this.predicate),
                 outcome: this.outcome,
                 visibility: this.visibility,
                 rule: this,
