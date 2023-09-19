@@ -34,7 +34,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
             ? "sound"
             : "move";
 
-    const tokenBounds = data.token.bounds;
+    const tokenBounds = data.token.mechanicalBounds;
     const tokenCenter = data.token.center;
     const tokenCenters = [
         tokenCenter,

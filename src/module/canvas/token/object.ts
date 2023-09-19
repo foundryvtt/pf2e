@@ -70,6 +70,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return `Token.${this.id}`;
     }
 
+    /** Bounds used for mechanics, such as flanking and drawing auras */
+    get mechanicalBounds(): PIXI.Rectangle {
+        const bounds = super.bounds;
+        if (this.document.width < 1) {
+            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            return new PIXI.Rectangle(
+                position[0],
+                position[1],
+                Math.max(canvas.grid.size, bounds.width),
+                Math.max(canvas.grid.size, bounds.height)
+            );
+        }
+
+        return bounds;
+    }
+
     /** Short-circuit calculation for long sight ranges */
     override get sightRange(): number {
         return this.document.sight.range >= canvas.dimensions!.maxR ? canvas.dimensions!.maxR : super.sightRange;

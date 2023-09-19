@@ -124,6 +124,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return new PIXI.Rectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
     }
 
+    /** Bounds used for mechanics, such as flanking and drawing auras */
+    get mechanicalBounds(): PIXI.Rectangle {
+        const bounds = this.bounds;
+        if (this.width < 1) {
+            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            return new PIXI.Rectangle(
+                position[0],
+                position[1],
+                Math.max(canvas.grid.size, bounds.width),
+                Math.max(canvas.grid.size, bounds.height)
+            );
+        }
+
+        return bounds;
+    }
+
     /** The pixel-coordinate pair constituting this token's center */
     get center(): Point {
         const { bounds } = this;
