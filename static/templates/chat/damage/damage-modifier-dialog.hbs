@@ -4,7 +4,7 @@
         <span class="mod">{{localize "PF2E.Roll.Modifier"}}</span>
         <span class="exclude"></span>
     </div>
-    <div class="modifier-container">
+    <div class="modifier-container modifiers">
         {{#if hasVisibleModifiers}}
             {{#each modifiers as |modifier idx|}}
                 {{#if modifier.show}}
@@ -51,7 +51,7 @@
         <span class="mod">{{localize "PF2E.Damage.Dialog.BonusDice"}}</span>
         <span class="exclude"></span>
     </div>
-    <div class="modifier-container">
+    <div class="modifier-container dice">
         {{#if hasVisibleDice}}
             {{#each dice as |die idx|}}
                 {{#if die.show}}
@@ -106,33 +106,13 @@
     <button type="button" class="roll">{{{formula}}}</button>
 </form>
 
-{{#*inline "icon-container"}}
-    <div class="icon-container">
-        {{#if (eq modifier.category "splash")}}
-            {{#if modifier.icon}}
-                <i class="{{modifier.icon}}"></i>
-            {{/if}}
-            {{#if modifier.categoryIcon}}
-                <i class="{{modifier.categoryIcon}} category"></i>
-            {{/if}}
-        {{else}}
-            {{#if modifier.categoryIcon}}
-                <i class="{{modifier.categoryIcon}} category"></i>
-            {{/if}}
-            {{#if modifier.icon}}
-                <i class="{{modifier.icon}}"></i>
-            {{/if}}
-        {{/if}}
-    </div>
-{{/inline}}
-
 {{#*inline "modifier-row"}}
     <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span>
         <div class="modifier-type{{#if modifier.damageType}} damage color {{modifier.damageType}}{{/if}}" title="{{modifier.typeLabel}}">
             <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-            {{> icon-container modifier=modifier}}
+            {{{modifier.icon}}}
         </div>
         <label class="exclude toggle">
             <input type="checkbox" id="{{@root.appId}}-modifier-{{idx}}" data-modifier-index="{{idx}}" {{checked (not modifier.ignored)}} />
@@ -143,10 +123,11 @@
 
 {{#*inline "dice-row"}}
     <div class="dialog-row{{#unless dice.enabled}} disabled{{/unless}}">
+        {{log dice}}
         <span class="mod">{{dice.label}}</span>
-        <div class="dice-type value{{#if dice.damageType}} {{dice.damageType}}{{/if}}" title="{{dice.typeLabel}}">
+        <div class="dice-type damage color value{{#if dice.damageType}} {{dice.damageType}}{{/if}}" title="{{dice.typeLabel}}">
             <span class="value">{{dice.diceLabel}}</span>
-            {{> icon-container modifier=dice}}
+            {{{dice.icon}}}
         </div>
         <label class="exclude toggle">
             <input type="checkbox" id="{{@root.appId}}-dice-{{idx}}" data-dice-index="{{idx}}" data-slug="{{dice.slug}}" {{checked (not dice.ignored)}} />
