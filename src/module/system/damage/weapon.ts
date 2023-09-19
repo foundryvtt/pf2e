@@ -460,7 +460,7 @@ class WeaponDamagePF2e {
         };
 
         // Extract damage modifiers and dice respecting stacking rules processing
-        const extracted = extractDamageSynthetics(actor, selectors, {
+        const extracted = extractDamageSynthetics(actor, [base], selectors, {
             resolvables,
             injectables,
             test: options,
