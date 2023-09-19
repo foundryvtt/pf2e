@@ -1,7 +1,7 @@
 import { RollNoteRuleElement, RollNoteSource } from "@module/rules/rule-element/roll-note.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { htmlQuery, tagify } from "@util";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.js";
 
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> {

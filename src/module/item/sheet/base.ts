@@ -31,7 +31,7 @@ import {
 import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
-import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
+import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
