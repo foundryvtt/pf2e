@@ -80,7 +80,9 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
 /** Review `removeOnExit` aura effects and remove any that no longer apply */
 async function checkAreaEffects(this: ActorPF2e): Promise<void> {
-    if (!canvas.ready || game.user !== this.primaryUpdater) return;
+    if (!canvas.ready || game.user !== this.primaryUpdater || this.isOfType("party")) {
+        return;
+    }
 
     const thisTokens = this.getActiveTokens(true, true);
     const toDelete: string[] = [];
