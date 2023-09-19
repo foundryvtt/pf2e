@@ -8,12 +8,20 @@
                 </a>
             {{/if}}
         </h3>
-        <section{{#if editable}} class="editable"{{/if}}>
+        <section class="appearance-details{{#if editable}} editable{{/if}}">
             <div class="bio appearance">
                 <div class="biography-content">
                     {{editor enrichedContent.appearance target="system.details.biography.appearance" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            <label class="pc pc_height">
+                <span class="details-label">{{localize "PF2E.Height"}}</span>
+                <input type="text" class="details-input" title="{{localize "PF2E.HeightTitle"}}" id="{{options.id}}-pc-height" name="system.details.height.value" value="{{data.details.height.value}}" />
+            </label>
+            <label class="pc pc_weight">
+                <span class="details-label">{{localize "PF2E.Weight"}}</span>
+                <input type="text" class="details-input" title="{{localize "PF2E.WeightTitle"}}" id="{{options.id}}-pc-weight" name="system.details.weight.value" value="{{data.details.weight.value}}" />
+            </label>
         </section>
     {{/if}}
 
