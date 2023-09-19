@@ -3,23 +3,23 @@
         <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
         {{#each totalCoinage as |value denomination|}}
             <li class="denomination {{denomination}}">
-                <div class="currency-image" title="{{localize value.label}}"></div>
+                <div class="currency-image" data-tooltip="{{localize value.label}}"></div>
                 <span>{{value.value}}</span>
             </li>
         {{/each}}
         {{#if editable}}
             <li>
-                <button type="button" data-action="add-coins" title="{{localize "PF2E.AddCoinsTitle"}}">
+                <button type="button" data-action="add-coins" data-tooltip="{{localize "PF2E.AddCoinsTitle"}}">
                     <i class="fa-solid fa-plus fa-fw"></i>
                 </button>
             </li>
             <li>
-                <button type="button" data-action="remove-coins" title="{{localize "PF2E.RemoveCoinsTitle"}}">
+                <button type="button" data-action="remove-coins" data-tooltip="{{localize "PF2E.RemoveCoinsTitle"}}">
                     <i class="fa-solid fa-minus fa-fw"></i>
                 </button>
             </li>
             {{#if (or isLoot (eq @root.document.type "character"))}}
-                <li title="{{localize "PF2E.SellAllTreasureTitle"}}">
+                <li data-tooltip="{{localize "PF2E.SellAllTreasureTitle"}}">
                     <button type="button" data-action="sell-all-treasure">
                         <i class="fa-solid fa-coins fa-fw"></i>
                     </button>
@@ -27,7 +27,7 @@
             {{/if}}
             {{#if canDistributeCoins}}
                 <li>
-                    <button type="button" data-action="distribute-coins" title="{{localize "PF2E.Actor.Inventory.DistributeCoins"}}">
+                    <button type="button" data-action="distribute-coins" data-tooltip="{{localize "PF2E.Actor.Inventory.DistributeCoins"}}" {{disabled (not canDistributeCoins.enabled)}}>
                         <i class="fa-solid fa-share-all fa-fw"></i>
                     </button>
                 </li>

@@ -88,15 +88,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const base = await super.getData(options);
         const members = this.actor.members;
         const canDistributeCoins =
-            game.user.isGM &&
-            this.isEditable &&
-            this.actor.inventory.coins.copperValue > 0 &&
-            members.some(
-                (m) =>
-                    m.hasPlayerOwner &&
-                    m.isOfType("character") &&
-                    !m.system.traits.value.some((t) => ["minion", "eidolon"].includes(t))
-            );
+            game.user.isGM && this.isEditable
+                ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
+                : null;
 
         return {
             ...base,
