@@ -1,3 +1,34 @@
+## 5.5.3
+
+### Bugfixes
+
+-   (In3luki) Fix "view item" buttons on choice set prompt
+-   (stwlam) Fix handling of rarity updates on non-physical items
+-   (stwlam) Include hazards in encounter metrics
+-   (stwlam) Remove coloration of common-rarity inventory items
+-   (stwlam) Render highlights for auras on familiars
+-   (stwlam) Reset aura renders when token size changes
+-   (Supe) Fix aura rendering and detection for tiny tokens
+-   (Supe) Don't add non-persistent damage dice and modifiers to purely persistent damage
+-   (Supe) Resolve injected properties in roll note predicates
+
+### Data Updates
+
+-   (Dire Weasel) Add automation for Giant Gecko's Uncanny Climber
+-   (Dire Weasel) Add effects for Codex of Destruction and Renewal, Knock, Repel Metal fix level
+-   (Dire Weasel) Add materials to several NPC attacks
+-   (Dire Weasel) Brush up and homogenize automation for Evasion and Deft Evasion
+-   (Dire Weasel) Fix effect link name in Runic Weapon spell
+-   (Dire Weasel) Fix Overpowering Jaws' Note visibility
+-   (dogstarrb) Remove unneeded will save button from Nudge Fate
+-   (Drental) Fix hardwood scamp attack bonus
+-   (Abaddon) Fix Entities from Afar prerequisites
+-   (shemetz) Fix handful of typos in en.json
+-   (Supe) Add effect for furnace form
+-   (Tikael) Add missing feat from EC player's guide
+-   (Tikael) Data Entry World Fixes September 16 2023
+-   (websterguy) Fix reference to master ability in Skilled familiar ability flat modifier
+
 ## 5.5.2
 
 ### System Improvements
