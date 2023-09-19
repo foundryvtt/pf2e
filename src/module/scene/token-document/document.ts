@@ -445,10 +445,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
-        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["token"]));
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
         this.reset();
         const postUpdate = this.toObject(false);
-        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["token"]));
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
         const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
