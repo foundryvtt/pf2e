@@ -3,9 +3,9 @@
     <div class="abilities">
         {{#each buildEntry.boosts as |boost|}}
             {{#if (eq boost "free")}}
-                <span>{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
+                <span class="tag">{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
             {{else}}
-                <span>{{localize (lookup @root.abilityLabels boost)}}</span>
+                <span class="tag">{{localize (lookup @root.abilityLabels boost)}}</span>
             {{/if}}
         {{/each}}
     </div>
@@ -13,7 +13,7 @@
 <section>
     <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
     {{#if buildEntry.flaw}}
-        <span>{{localize (lookup @root.abilityLabels buildEntry.flaw)}}</span>
+        <span class="tag">{{localize (lookup @root.abilityLabels buildEntry.flaw)}}</span>
     {{else}}
         <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
     {{/if}}
@@ -22,7 +22,7 @@
     <section>
         <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.Skills"}}:</strong>
         {{#each buildEntry.skills as |skill|}}
-            <span>{{localize (lookup @root.skillLabels skill)}}</span>
+            <span class="tag">{{localize (lookup @root.skillLabels skill)}}</span>
         {{/each}}
     </section>
 {{/if}}
