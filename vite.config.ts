@@ -48,26 +48,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     { src: "README.md", dest: "." },
                     { src: "CONTRIBUTING.md", dest: "." },
                 ],
-            }),
-            {
-                name: "hide-compendiums",
-                apply: "build",
-                writeBundle: {
-                    async handler() {
-                        const file = fs.openSync(path.resolve(outDir, "system.json"), "r+");
-                        const data = JSON.parse(fs.readFileSync(file, { encoding: "utf8" }));
-                        const pack = data.packs.find(
-                            (p: { name: string; ownership: object }) => p.name === "kingmaker-features"
-                        );
-                        if (pack) {
-                            pack.ownership = { GAMEMASTER: "NONE" };
-                            fs.ftruncateSync(file);
-                            fs.writeSync(file, JSON.stringify(data, null, 4), 0);
-                        }
-                        fs.closeSync(file);
-                    },
-                },
-            }
+            })
         );
     } else {
         plugins.push(
