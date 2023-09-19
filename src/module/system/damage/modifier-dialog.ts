@@ -1,6 +1,8 @@
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import {
     ErrorPF2e,
+    addSign,
+    fontAwesomeIcon,
     htmlQuery,
     htmlQueryAll,
     pick,
@@ -20,6 +22,7 @@ import {
     DamageType,
 } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
+import * as R from "remeda";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -70,26 +73,28 @@ class DamageModifierDialog extends Application {
             : game.i18n.localize("PF2E.Damage.Dialog.DamageRoll");
     }
 
-    #getDamageIcon(type: DamageType | null): string | null {
-        if (!type) return null;
-        const icon = DAMAGE_TYPE_ICONS[type];
-        if (icon) {
-            return `fa-fw fa-solid fa-${icon} icon`;
-        }
-        return null;
-    }
+    #getModifierIcon(object: { damageType: DamageType | null; category: DamageCategoryUnique | null }): string {
+        const damageTypeIconClass = object.damageType ? DAMAGE_TYPE_ICONS[object.damageType] : null;
+        const damageTypeIcon = damageTypeIconClass ? fontAwesomeIcon(damageTypeIconClass) : null;
 
-    #getCategoryIcon(category: DamageCategoryUnique | string | null, damageType: DamageType | null): string | null {
-        switch (category) {
-            case "persistent":
-                return damageType === "bleed" ? null : "fa-fw fa-duotone fa-hourglass icon";
-            case "precision":
-                return "fa-fw fa-solid fa-crosshairs icon";
-            case "splash":
-                return "fa-fw fa-solid fa-burst icon";
-            default:
-                return null;
-        }
+        const icons = (() => {
+            switch (object.category) {
+                case "splash":
+                    return R.compact([fontAwesomeIcon("fa-burst"), damageTypeIcon]);
+                case "persistent":
+                    if (object.damageType !== "bleed") {
+                        return [damageTypeIcon, fontAwesomeIcon("fa-hourglass", { style: "duotone" })];
+                    } else {
+                        return [damageTypeIcon];
+                    }
+                case "precision":
+                    return [damageTypeIcon, fontAwesomeIcon("fa-crosshairs")];
+                default:
+                    return [damageTypeIcon];
+            }
+        })();
+
+        return icons.map((i) => i?.outerHTML ?? "").join("");
     }
 
     #getTypeLabel(damageType: DamageType | null, category: DamageCategoryUnique | null): string | null {
@@ -107,13 +112,6 @@ class DamageModifierDialog extends Application {
             default:
                 return typeLabel;
         }
-    }
-
-    #getDiceLabel(dice: DamageDicePF2e): string {
-        if (!dice.diceNumber || !dice.dieSize) return "";
-
-        const facesLabel = game.i18n.localize(`PF2E.DamageDie${dice.dieSize.toUpperCase()}`);
-        return `${dice.diceNumber}${facesLabel}`;
     }
 
     override async getData(): Promise<DamageDialogData> {
@@ -141,8 +139,7 @@ class DamageModifierDialog extends Application {
                 ignored: m.ignored,
                 critical: m.critical,
                 show: showModifier(m),
-                icon: this.#getDamageIcon(damageType),
-                categoryIcon: this.#getCategoryIcon(m.category, damageType),
+                icon: this.#getModifierIcon(m),
             } satisfies ModifierData;
         });
 
@@ -151,13 +148,17 @@ class DamageModifierDialog extends Application {
             category: d.category,
             damageType: d.damageType,
             typeLabel: this.#getTypeLabel(d.damageType, d.category),
-            diceLabel: this.#getDiceLabel(d),
+            diceLabel:
+                d.diceNumber && d.dieSize
+                    ? `${d.diceNumber}${d.dieSize}`
+                    : d.diceNumber
+                    ? game.i18n.format("PF2E.Damage.Dialog.Bonus", { dice: addSign(d.diceNumber) })
+                    : "",
             enabled: d.enabled,
             ignored: d.ignored,
             critical: d.critical,
             show: !d.override && (this.isCritical || !d.critical),
-            icon: this.#getDamageIcon(d.damageType),
-            categoryIcon: this.#getCategoryIcon(d.category, d.damageType),
+            icon: this.#getModifierIcon(d),
         }));
 
         const hasVisibleModifiers = modifiers.filter((m) => m.show).length > 0;
@@ -234,7 +235,6 @@ class DamageModifierDialog extends Application {
             const category = (parent.querySelector<HTMLSelectElement>(".add-modifier-category")?.value ??
                 null) as DamageCategoryUnique;
 
-            let name = String(parent.querySelector<HTMLInputElement>(".add-modifier-name")?.value);
             const errors: string[] = [];
             if (Number.isNaN(value)) {
                 errors.push("Modifier value must be a number.");
@@ -245,9 +245,11 @@ class DamageModifierDialog extends Application {
                 // Select menu should make this impossible
                 throw ErrorPF2e("Unexpected invalid modifier type");
             }
-            if (!name || !name.trim()) {
-                name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
-            }
+
+            const name =
+                String(parent.querySelector<HTMLInputElement>(".add-modifier-name")?.value).trim() ||
+                game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
+
             if (errors.length > 0) {
                 ui.notifications.error(errors.join(" "));
             } else {
@@ -346,9 +348,8 @@ interface BaseData {
     damageType: string | null;
     typeLabel: string | null;
     category: DamageCategoryUnique | string | null;
-    categoryIcon: string | null;
     show: boolean;
-    icon: string | null;
+    icon: string;
 }
 
 interface DialogDiceData extends BaseData {
