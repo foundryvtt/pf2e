@@ -1194,7 +1194,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         const containerId = htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.containerId?.trim();
         const sourceItemQuantity = item.quantity;
-        const stackable = !!targetActor.findStackableItem(targetActor, item._source);
+        const stackable = !!targetActor.inventory.findStackableItem(item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
         const isAmmunition = item.isOfType("consumable") && item.isAmmunition;
 

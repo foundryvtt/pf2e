@@ -1507,7 +1507,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         newStack?: boolean
     ): Promise<PhysicalItemPF2e<this> | null> {
         // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(this, itemSource);
+        const stackItem = this.inventory.findStackableItem(itemSource);
         if (!newStack && stackItem && stackItem.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemSource.system.quantity;
             await stackItem.update({ "system.quantity": stackQuantity });
@@ -1524,28 +1524,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         await this.stowOrUnstow(movedItem, container);
 
         return movedItem;
-    }
-
-    /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    findStackableItem<TActor extends this>(actor: TActor, itemSource: ItemSourcePF2e): PhysicalItemPF2e<TActor> | null {
-        // Prevent upstream from mutating property descriptors
-        const testItem = new ItemProxyPF2e(deepClone(itemSource));
-        const stackCandidates = actor.inventory.filter(
-            (stackCandidate) =>
-                !stackCandidate.isInContainer &&
-                testItem instanceof PhysicalItemPF2e &&
-                stackCandidate.isStackableWith(testItem)
-        );
-
-        if (stackCandidates.length === 0) {
-            return null;
-        } else if (stackCandidates.length > 1) {
-            // Prefer stacking with unequipped items
-            const notEquipped = stackCandidates.filter((item) => !item.isEquipped);
-            return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
-        } else {
-            return stackCandidates[0];
-        }
     }
 
     /** Move an item into the inventory into or out of a container */

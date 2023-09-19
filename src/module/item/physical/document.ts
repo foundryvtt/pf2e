@@ -21,6 +21,7 @@ import {
 import { CoinsPF2e, computeLevelRarityPrice } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
+import * as R from "remeda";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
@@ -323,7 +324,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
 
-        return JSON.stringify(thisData) === JSON.stringify(otherData);
+        return R.equals(thisData, otherData);
     }
 
     /** Combine this item with a target item if possible */
