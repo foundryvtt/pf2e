@@ -28,10 +28,8 @@ class RuleElementForm<
     readonly object: TObject | null;
     schema: LaxSchemaField<RuleElementSchema> | null;
 
-    /** Valid tab names for this form */
-    protected tabNames: string[] = [];
-    /** The display style applied to active tabs */
-    protected tabDisplayStyle = "block";
+    /** Tab configuration data */
+    protected tabs: RuleElementFormTabData | null = null;
     /** The currently active tab */
     #activeTab: Maybe<string> = null;
 
@@ -49,7 +47,7 @@ class RuleElementForm<
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
-    #getInitialValue(): object {
+    protected getInitialValue(): object {
         // Only apply to real forms for now
         if (this.constructor.name === "RuleElementForm") return {};
 
@@ -79,7 +77,7 @@ class RuleElementForm<
         const label = game.i18n.localize(localization[key as keyof typeof localization] ?? localization.Unrecognized);
         const recognized = label !== game.i18n.localize(localization.Unrecognized);
 
-        const mergedRule = mergeObject(this.#getInitialValue(), this.rule);
+        const mergedRule = mergeObject(this.getInitialValue(), this.rule);
 
         return {
             ...this.options,
@@ -182,7 +180,7 @@ class RuleElementForm<
             });
         }
 
-        if (this.tabNames.length > 0) {
+        if (this.tabs) {
             for (const anchor of htmlQueryAll(html, "a[data-rule-tab]")) {
                 anchor.addEventListener("click", () => {
                     this.activateTab(html, anchor.dataset.ruleTab);
@@ -193,24 +191,22 @@ class RuleElementForm<
     }
 
     protected activateTab(html: HTMLElement, tabName: Maybe<string>): void {
-        const activeTab = tabName ?? this.tabNames.at(0);
-        if (!activeTab || !this.tabNames.includes(activeTab)) return;
+        if (!this.tabs) return;
+        const activeTab = tabName ?? this.tabs.names.at(0);
+        if (!activeTab || !this.tabs.names.includes(activeTab)) return;
         this.#activeTab = activeTab;
 
-        for (const anchor of htmlQueryAll(html, "a[data-rule-tab]")) {
-            if (anchor.dataset.ruleTab === activeTab) {
-                anchor.classList.add("active");
-            } else {
-                anchor.classList.remove("active");
-            }
-        }
-        for (const element of htmlQueryAll(html, "div[data-rule-tab]")) {
+        for (const element of htmlQueryAll(html, "[data-rule-tab]")) {
             if (element.dataset.ruleTab === activeTab) {
-                element.style.display = this.tabDisplayStyle;
                 element.classList.add("active");
+                if (element.tagName !== "A") {
+                    element.style.display = this.tabs.displayStyle;
+                }
             } else {
-                element.style.display = "none";
                 element.classList.remove("active");
+                if (element.tagName !== "A") {
+                    element.style.display = "none";
+                }
             }
         }
     }
@@ -246,19 +242,15 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
     const { fields } = foundry.data;
     for (const [key, field] of Object.entries(schema)) {
         if (!(key in data)) continue;
+        const value = data[key];
 
         if (field instanceof ResolvableValueField) {
-            data[key] = getCleanedResolvable(data[key]);
+            data[key] = getCleanedResolvable(value);
             continue;
         }
 
-        if ("fields" in field) {
-            const maybeObject = data[key];
-            if (R.isObject(maybeObject)) {
-                cleanDataUsingSchema(field.fields as Record<string, DataField>, maybeObject);
-            } else {
-                cleanDataUsingSchema(field.fields as Record<string, DataField>, data);
-            }
+        if ("fields" in field && R.isObject(value)) {
+            cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
             continue;
         }
 
@@ -266,11 +258,10 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
         // The most common benefit from clean() is handling things like the "blank" property
         if (field instanceof fields.StringField) {
-            data[key] = field.clean(data[key], {});
+            data[key] = field.clean(value, {});
         }
 
         // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
-        const value = data[key];
         const isBlank = typeof value === "string" && value.trim() === "";
         const isInitial = "initial" in field && R.equals(field.initial, value);
         if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
@@ -320,5 +311,12 @@ interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject ex
     form: Record<string, unknown>;
 }
 
+interface RuleElementFormTabData {
+    /** Valid tab names for this form */
+    names: string[];
+    /** The display style applied to active tabs */
+    displayStyle: "block" | "flex" | "grid";
+}
+
 export { RuleElementForm };
-export type { RuleElementFormOptions, RuleElementFormSheetData };
+export type { RuleElementFormSheetData, RuleElementFormTabData };

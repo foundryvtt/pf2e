@@ -194,6 +194,23 @@
             margin-left: 9.5em;
         }
 
+        nav.rule-tabs {
+            border-bottom: 1px solid var(--secondary-background);
+
+            h4 {
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
+                margin-top: 0.5em;
+                font-weight: 200;
+            }
+
+            a.active {
+                font-weight: 600;
+                text-decoration: underline;
+            }
+        }
+
         &[data-key="FastHealing"] {
             select {
                 flex: 0;
@@ -237,23 +254,6 @@
         }
 
         &[data-key="TokenLight"] {
-            nav.rule-tabs {
-                border-bottom: 1px solid var(--secondary-background);
-
-                h4 {
-                    display: flex;
-                    justify-content: space-evenly;
-                    width: 100%;
-                    margin-top: 0.5em;
-                    font-weight: 200;
-                }
-
-                a.active {
-                    font-weight: 600;
-                    text-decoration: underline;
-                }
-            }
-
             div[data-rule-tab] {
                 display: grid;
                 grid: "label content" 1fr/1fr 1fr;
