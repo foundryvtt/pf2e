@@ -22,6 +22,7 @@ import {
     setHasElement,
     tagify,
 } from "@util";
+import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import { NPCSkillData } from "./data.ts";
 import {
@@ -414,32 +415,36 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
-            free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
-            reaction: { label: game.i18n.localize("PF2E.ActionTypeReaction"), actions: [] },
-            action: { label: game.i18n.localize("PF2E.ActionTypeAction"), actions: [] },
+            active: { label: game.i18n.localize("PF2E.ActionTypeAction"), actions: [] },
         };
 
-        for (const item of this.actor.itemTypes.action) {
+        // By default when sort is tied, free comes before reaction which comes before action
+        const baseOrder = ["free", "reaction", "action"];
+        const abilities = R.sortBy(
+            this.actor.itemTypes.action,
+            (a) => a.sort,
+            (a) => baseOrder.indexOf(a.actionCost?.type ?? "action")
+        );
+
+        for (const item of abilities) {
             const itemData = item.toObject(false);
             const chatData = await item.getChatData();
             const traits = chatData.traits ?? [];
 
-            const actionType = item.actionCost?.type || "passive";
+            const actionGroup = !item.actionCost ? "passive" : "active";
 
             const hasAura =
-                actionType === "passive" &&
+                actionGroup === "passive" &&
                 (item.system.traits.value.includes("aura") || !!item.system.rules.find((r) => r.key === "Aura"));
 
-            if (objectHasKey(actions, actionType)) {
-                actions[actionType].actions.push({
-                    ...itemData,
-                    glyph: getActionGlyph(item.actionCost),
-                    imageUrl: getActionIcon(item.actionCost),
-                    chatData,
-                    traits,
-                    hasAura,
-                });
-            }
+            actions[actionGroup].actions.push({
+                ...itemData,
+                glyph: getActionGlyph(item.actionCost),
+                imageUrl: getActionIcon(item.actionCost),
+                chatData,
+                traits,
+                hasAura,
+            });
         }
 
         sheetData.actions = actions;
