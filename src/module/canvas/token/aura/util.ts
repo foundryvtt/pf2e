@@ -28,9 +28,9 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
 
     const topLeftSquare = new EffectAreaSquare(data.bounds.x, data.bounds.y, squareWidth, squareWidth);
     const collisionType =
-        data.traits?.has("visual") && !data.traits.has("auditory")
+        data.traits?.includes("visual") && !data.traits.includes("auditory")
             ? "sight"
-            : data.traits?.has("auditory") && !data.traits.has("visual")
+            : data.traits?.includes("auditory") && !data.traits.includes("visual")
             ? "sound"
             : "move";
 
@@ -79,5 +79,5 @@ interface GetAreaSquaresParams {
     bounds: PIXI.Rectangle;
     radius: number;
     token: TokenPF2e | TokenDocumentPF2e;
-    traits?: Set<string>;
+    traits?: string[];
 }

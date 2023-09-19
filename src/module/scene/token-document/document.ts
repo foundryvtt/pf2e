@@ -4,6 +4,7 @@ import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { objectHasKey, sluggify } from "@util";
+import * as R from "remeda";
 import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
 import type { ActorDeltaPF2e } from "./actor-delta.ts";
@@ -180,17 +181,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         TokenDocumentPF2e.assignDefaultImage(this);
 
         for (const [key, data] of this.actor.auras.entries()) {
-            this.auras.set(
-                key,
-                new TokenAura({
-                    slug: key,
-                    level: data.level,
-                    radius: data.radius,
-                    token: this,
-                    traits: new Set(data.traits),
-                    appearance: data.appearance,
-                })
-            );
+            this.auras.set(key, new TokenAura({ token: this, ...deepClone(data) }));
         }
 
         if (!this.constructed) return;
@@ -454,10 +445,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
-        const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["token"]));
         this.reset();
         const postUpdate = this.toObject(false);
-        const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["token"]));
         const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
@@ -465,12 +456,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = (): boolean => {
-            if (!this.scene?.isInFocus) return false;
-            const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
-            const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
-            return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
-        };
+        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
 
         if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
             this.scene?.checkAuras?.();

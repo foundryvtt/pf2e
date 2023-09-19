@@ -20,7 +20,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     radiusPixels: number;
 
     /** Traits associated with this aura: used to configure collision detection */
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
 
     /** Border, highlight, and texture data */
     appearance: AuraAppearanceData;
@@ -42,7 +42,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.radiusPixels =
             0.5 * this.token.mechanicalBounds.width +
             (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
-        this.traits = new Set(params.traits);
+        this.traits = params.traits;
         this.addChild(this.border);
     }
 
@@ -170,7 +170,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
     slug: string;
     token: TokenPF2e;
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
 }
 
 export { AuraRenderer };
