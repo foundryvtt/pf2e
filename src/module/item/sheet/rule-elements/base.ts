@@ -1,4 +1,3 @@
-import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item/base.ts";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
@@ -9,7 +8,7 @@ import * as R from "remeda";
 import { type DataField } from "types/foundry/common/data/fields.js";
 
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
-    item: ItemPF2e<ActorPF2e>;
+    item: ItemPF2e;
     index: number;
     rule: TSource;
     object: TObject | null;
@@ -22,18 +21,22 @@ class RuleElementForm<
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
-    readonly item: ItemPF2e<ActorPF2e>;
-    readonly index: number;
-    readonly rule: TSource;
-    readonly object: TObject | null;
-    schema: LaxSchemaField<RuleElementSchema> | null;
+    declare item: ItemPF2e;
+    declare index: number;
+    declare rule: TSource;
+    declare object: TObject | null;
+    declare schema: LaxSchemaField<RuleElementSchema> | null;
 
     /** Base proprety path for the contained rule */
     get basePath(): string {
-        return `system.rules.${this.options.index}`;
+        return `system.rules.${this.index}`;
     }
 
-    constructor(protected options: RuleElementFormOptions<TSource, TObject>) {
+    constructor(options: RuleElementFormOptions<TSource, TObject>) {
+        this.initialize(options);
+    }
+
+    initialize(options: RuleElementFormOptions<TSource, TObject>): void {
         this.item = options.item;
         this.index = options.index;
         this.rule = options.rule;
@@ -75,7 +78,7 @@ class RuleElementForm<
         const mergedRule = mergeObject(this.#getInitialValue(), this.rule);
 
         return {
-            ...this.options,
+            ...R.pick(this, ["item", "index", "rule", "object"]),
             label,
             recognized,
             basePath: this.basePath,
@@ -176,15 +179,15 @@ class RuleElementForm<
         }
     }
 
-    updateObject(formData: Partial<RuleElementSource> & Record<string, unknown>): void {
+    updateObject(source: TSource & Record<string, unknown>): void {
         // Predicate is special cased as always json. Later on extend such parsing to more things
-        const predicateValue = formData.predicate;
+        const predicateValue = source.predicate;
         if (typeof predicateValue === "string") {
             if (predicateValue.trim() === "") {
-                delete formData.predicate;
+                delete source.predicate;
             } else {
                 try {
-                    formData.predicate = JSON.parse(predicateValue);
+                    source.predicate = JSON.parse(predicateValue);
                 } catch (error) {
                     if (error instanceof Error) {
                         ui.notifications.error(
@@ -197,8 +200,12 @@ class RuleElementForm<
         }
 
         if (this.schema) {
-            cleanDataUsingSchema(this.schema.fields, formData);
+            cleanDataUsingSchema(this.schema.fields, source);
         }
+
+        // Update our reference so that equality matching works on the next data prep cycle
+        // This allows form reuse to occur
+        this.rule = source;
     }
 }
 
