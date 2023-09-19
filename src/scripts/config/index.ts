@@ -69,6 +69,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
+import * as R from "remeda";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -172,21 +173,9 @@ const weaponCategories = {
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
 
-const baseArmorTypes = Object.keys(enJSON.PF2E.Item.Armor.Base).reduce(
-    (map, slug) => ({
-        ...map,
-        [slug]: `PF2E.Item.Armor.Base.${slug}`,
-    }),
-    {} as Record<keyof typeof enJSON.PF2E.Item.Armor.Base, string>
-);
+const baseArmorTypes = R.mapValues(enJSON.PF2E.Item.Armor.Base, (_v, slug) => `PF2E.Item.Armor.Base.${slug}`);
 
-const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
-    (map, slug) => ({
-        ...map,
-        [slug]: `PF2E.Weapon.Base.${slug}`,
-    }),
-    {} as Record<keyof typeof enJSON.PF2E.Weapon.Base, string>
-);
+const baseWeaponTypes = R.mapValues(enJSON.PF2E.Weapon.Base, (_v, slug) => `PF2E.Weapon.Base.${slug}`);
 
 /** Base weapon types that are considered equivalent for all rules purposes */
 const equivalentWeapons = {
@@ -260,17 +249,11 @@ const alignments: Record<Alignment, string> = {
     CE: "PF2E.AlignmentCE",
 };
 
-const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains, key) => {
-    const slug = sluggify(key);
-    const casedKey = sluggify(key, { camel: "bactrian" });
-    return {
-        ...domains,
-        [slug]: {
-            label: `PF2E.Item.Deity.Domain.${casedKey}.Label`,
-            description: `PF2E.Item.Deity.Domain.${casedKey}.Description`,
-        },
-    };
-}, {} as Record<DeityDomain, { label: string; description: string }>);
+const deityDomains = R.mapToObj(Object.keys(enJSON.PF2E.Item.Deity.Domain), (key) => {
+    const label = `PF2E.Item.Deity.Domain.${key}.Label`;
+    const description = `PF2E.Item.Deity.Domain.${key}.Description`;
+    return [sluggify(key) as DeityDomain, { label, description }];
+});
 
 const weaponReload: Record<WeaponReloadTime, string> = {
     "-": "—", // Reload value for thrown weapons
