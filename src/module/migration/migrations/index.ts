@@ -261,3 +261,4 @@ export { Migration860RMGroup } from "./860-rm-group.ts";
 export { Migration861AuraColorsToAppearance } from "./861-aura-colors-to-appearance.ts";
 export { Migration862SpecificMagicArmor } from "./862-specific-magic-armor.ts";
 export { Migration863FixMisspelledOrganaizationsProperty } from "./863-fix-misspelled-organaizations-property.ts";
+export { Migration864RemoveWeaponMAP } from "./864-rm-weapon-map.ts";

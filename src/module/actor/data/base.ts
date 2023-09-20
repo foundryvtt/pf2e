@@ -236,7 +236,7 @@ interface StrikeData extends StatisticModifier {
     ready: boolean;
     /** Alias for `attack`. */
     roll?: RollFunction<AttackRollParams>;
-    /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
+    /** Roll to attack with the given strike (with no MAP; see `variants` for MAPs.) */
     attack?: RollFunction<AttackRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
     damage?: DamageRollFunction;

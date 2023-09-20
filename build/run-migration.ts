@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration844DeityDomainUUIDs } from "@module/migration/migrations/844-deity-domains-uuids.ts";
 import { Migration846SpellSchoolOptional } from "@module/migration/migrations/846-spell-school-optional.ts";
 import { Migration847TempHPRuleEvents } from "@module/migration/migrations/847-temp-hp-rule-events.ts";
 import { Migration848NumericArmorProperties } from "@module/migration/migrations/848-numeric-armor-properties.ts";
@@ -28,6 +27,7 @@ import { Migration859MaterialTypeGrade } from "@module/migration/migrations/859-
 import { Migration860RMGroup } from "@module/migration/migrations/860-rm-group.ts";
 import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862-specific-magic-armor.ts";
 import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
+import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -38,7 +38,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration844DeityDomainUUIDs(),
     new Migration846SpellSchoolOptional(),
     new Migration847TempHPRuleEvents(),
     new Migration848NumericArmorProperties(),
@@ -56,6 +55,7 @@ const migrations: MigrationBase[] = [
     new Migration860RMGroup(),
     new Migration862SpecificMagicArmor(),
     new Migration863FixMisspelledOrganaizationsProperty(),
+    new Migration864RemoveWeaponMAP(),
 ];
 
 global.deepClone = <T>(original: T): T => {

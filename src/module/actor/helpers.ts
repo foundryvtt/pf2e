@@ -146,8 +146,13 @@ function calculateMAPs(
     item: ItemPF2e,
     { domains, options }: { domains: string[]; options: Set<string> | string[] }
 ): MAPData {
+    const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
+    const baseMap =
+        item.isOfType("action", "melee", "weapon") && item.traits.has("agile")
+            ? { ...slugAndLabel, map1: -4, map2: -8 }
+            : { ...slugAndLabel, map1: -5, map2: -10 };
+
     const optionSet = options instanceof Set ? options : new Set(options);
-    const baseMap = calculateBaseMAP(item);
     const maps = item.actor?.synthetics.multipleAttackPenalties ?? {};
     const fromSynthetics = domains
         .flatMap((d) => maps[d] ?? [])
@@ -156,34 +161,6 @@ function calculateMAPs(
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
-}
-
-function calculateBaseMAP(item: ItemPF2e): MAPData {
-    const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
-
-    if (item.isOfType("action", "melee", "weapon")) {
-        // calculate multiple attack penalty tiers
-        const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
-        switch (alternateMAP) {
-            case "1":
-                return { ...slugAndLabel, map1: -1, map2: -2 };
-            case "2":
-                return { ...slugAndLabel, map1: -2, map2: -4 };
-            case "3":
-                return { ...slugAndLabel, map1: -3, map2: -6 };
-            case "4":
-                return { ...slugAndLabel, map1: -4, map2: -8 };
-            case "5":
-                return { ...slugAndLabel, map1: -5, map2: -10 };
-            default: {
-                return item.traits.has("agile")
-                    ? { ...slugAndLabel, map1: -4, map2: -8 }
-                    : { ...slugAndLabel, map1: -5, map2: -10 };
-            }
-        }
-    }
-
-    return { ...slugAndLabel, map1: -5, map2: -10 };
 }
 
 /** Create roll options pertaining to the active encounter and the actor's participant */

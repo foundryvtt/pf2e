@@ -67,17 +67,6 @@
     </div>
 {{/if}}
 
-<div class="form-group">
-    <label>{{localize "PF2E.WeaponMAPLabel"}}</label>
-    <select name="system.MAP.value">
-        {{#select data.MAP.value}}
-            <option value="">{{localize "PF2E.WeaponMAPDefaultOption"}}</option>
-            {{#each weaponMAP as |name type|}}
-                <option value="{{type}}">{{name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
 {{#unless isBomb}}
     <ol class="form-list">
         <h3>
