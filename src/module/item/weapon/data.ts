@@ -115,9 +115,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         canBeAmmo?: boolean;
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
     };
-    MAP: {
-        value: string;
-    };
     /** An optional override of the default ability modifier used in attack rolls with this weapon  */
     ability?: AttributeString | null;
     /** A combination weapon's melee usage */
