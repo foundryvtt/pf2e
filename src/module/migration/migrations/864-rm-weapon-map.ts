@@ -11,7 +11,7 @@ export class Migration864RemoveWeaponMAP extends MigrationBase {
 
         if (isObject<{ value: unknown }>(source.system.MAP)) {
             const mapValue = -1 * Number(source.system.MAP.value);
-            if (mapValue < 0) {
+            if (mapValue < 0 && mapValue !== -5) {
                 const rule = { key: "MultipleAttackPenalty", selector: "{item|id}-attack", value: mapValue };
                 source.system.rules.push(rule);
             }
