@@ -1,6 +1,6 @@
 import { FastHealingType, FastHealingRuleElement, FastHealingSource } from "@module/rules/rule-element/fast-healing.ts";
 import { htmlQuery, tagify } from "@util";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.js";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
     override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
