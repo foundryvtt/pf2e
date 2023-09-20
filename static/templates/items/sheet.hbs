@@ -6,7 +6,14 @@
         <img src="{{item._source.img}}" data-edit="img" />
         <div class="details">
             {{!-- Likewise with source name --}}
-            <input name="name" type="text" value="{{item._source.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
+            <input
+                name="name"
+                type="text"
+                value="{{item._source.name}}"
+                placeholder="{{localize "PF2E.ItemNamePlaceholder"}}"
+                spellcheck="false"
+                aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
+            />
 
             {{#if (and item.actionCost (not (eq item.type "action")))}}
                 <span class="feat-action-cost">
@@ -18,7 +25,15 @@
                 <span class="level">
                     {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
-                    <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}} name="system.level.value"{{/if}} value="{{data.level.value}}" />
+                    <input
+                        type="number"
+                        {{#if adjustedLevelHint}}class="adjusted"{{/if}}
+                        {{#if isPhysical}}data-property="system.level.value"{{else}}name="system.level.value"{{/if}}
+                        required="true"
+                        min="0"
+                        value="{{data.level.value}}"
+                        aria-label="{{localize "PF2E.LevelLabel"}}"
+                    />
                 </span>
             {{/if}}
             <template class="traits-extra">

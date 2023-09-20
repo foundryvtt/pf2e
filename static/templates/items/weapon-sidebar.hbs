@@ -1,11 +1,11 @@
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="number" name="system.quantity" value="{{data.quantity}}" />
+        <label for="{{item.uuid}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
+        <input type="number" name="system.quantity" id="{{item.uuid}}-quantity" value="{{data.quantity}}" />
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
-        <select name="system.usage.value">
+        <label for="{{item.uuid}}-usage">{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
+        <select name="system.usage.value" id="{{item.uuid}}-usage">
             {{#select data.usage.value}}
                 <option value="worngloves">0</option>
                 <option value="held-in-one-hand">1</option>
@@ -15,8 +15,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="system.weight.value">
+        <label for="{{item.uuid}}-bulk">{{localize "PF2E.BulkLabel"}}</label>
+        <select name="system.weight.value" id="{{item.uuid}}-bulk">
             {{#select data.weight.value}}
                 <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
                 {{#each bulkTypes as |name type|}}
@@ -26,8 +26,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select name="system.equippedBulk.value" {{disabled bulkDisabled}}>
+        <label for="{{item.uuid}}-bulk-worn">{{localize "PF2E.EquippedBulkLabel"}}</label>
+        <select name="system.equippedBulk.value" id="{{item.uuid}}-bulk-worn" {{disabled bulkDisabled}}>
             {{#select data.equippedBulk.value}}
                 <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
                 <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
