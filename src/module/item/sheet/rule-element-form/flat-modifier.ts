@@ -1,8 +1,8 @@
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
-import { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
+import type { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlQuery, pick, tupleHasValue } from "@util";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.js";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierRuleElement> {
