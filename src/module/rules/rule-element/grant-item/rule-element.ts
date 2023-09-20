@@ -167,6 +167,13 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor });
+
+        // Check for immunity and bail if a match
+        if (tempGranted.isOfType("affliction", "condition", "effect") && this.actor.isImmuneTo(tempGranted)) {
+            ruleSource.ignored = true;
+            return;
+        }
+
         tempGranted.prepareActorData?.();
         for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
             rule.onApplyActiveEffects?.();
