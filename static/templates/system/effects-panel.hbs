@@ -22,7 +22,10 @@
     <div class="effect-info">
         <h1>
             {{effect.name}}
-            <a data-action="send-to-chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-comment-alt" ></i></a>
+            <a data-action="send-to-chat" data-tooltip="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt" ></i></a>
+            {{#if (or (ne effect.type "condition") (eq effect.slug "persistent-damage"))}}
+                <a data-action="edit" data-tooltip="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-pencil" ></i></a>
+            {{/if}}
         </h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
             <div class="tags">

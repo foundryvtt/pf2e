@@ -4,6 +4,7 @@ import { ActorPF2e } from "@actor";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -95,15 +96,15 @@ export class EffectsPanel extends Application {
         InlineRollLinks.listen(html, this.actor);
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
-            const itemId = effectEl.dataset.itemId;
-            if (!itemId) continue;
+            const { actor } = this;
+            const itemId = effectEl.dataset.itemId ?? "";
+            const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+            if (!actor || !effect) continue;
 
             const iconElem = effectEl.querySelector(":scope > .icon");
             // Increase or render persistent-damage dialog on left click
             iconElem?.addEventListener("click", async () => {
-                const { actor } = this;
-                const effect = actor?.items.get(itemId);
-                if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
+                if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
                     await effect.onEndTurn({ token: this.token });
                 } else if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
@@ -112,8 +113,6 @@ export class EffectsPanel extends Application {
 
             // Remove effect or decrease its badge value on right-click
             iconElem?.addEventListener("contextmenu", async () => {
-                const { actor } = this;
-                const effect = actor?.items.get(itemId);
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 } else {
@@ -123,17 +122,22 @@ export class EffectsPanel extends Application {
             });
 
             effectEl.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                const item = this.actor?.items.get(itemId);
-                if (item?.isOfType("condition")) {
-                    item.rollRecovery();
+                if (effect.isOfType("condition")) {
+                    effect.rollRecovery();
+                }
+            });
+
+            effectEl.querySelector("[data-action=edit]")?.addEventListener("click", () => {
+                if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
+                    new PersistentDialog(actor, { editing: effect.id }).render(true);
+                } else {
+                    effect.sheet.render(true);
                 }
             });
 
             // Send effect to chat
             effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
-                const { actor } = this;
-                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
-                effect?.toMessage();
+                effect.toMessage();
             });
 
             // Uses a scale transform to fit the text within the box

@@ -6,8 +6,8 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
 import { PersistentDamagePF2e } from "./document.ts";
 
-class PersistentDamageDialog extends Application {
-    constructor(private actor: ActorPF2e, options: Partial<ApplicationOptions> = {}) {
+class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> {
+    constructor(private actor: ActorPF2e, options: Partial<PersistentDamageDialogOptions> = {}) {
         super(options);
         actor.apps[this.appId] = this;
     }
@@ -132,10 +132,16 @@ class PersistentDamageDialog extends Application {
     /** Overriden to autofocus on first render behavior */
     protected override _injectHTML($html: JQuery<HTMLElement>): void {
         super._injectHTML($html);
+        const html = $html[0];
 
-        // Since this is an initial render, focus the roll button
-        htmlQuery($html[0], ".new .formula")?.focus();
+        // Since this is an initial render, focus the formula
+        const existing = this.options.editing ? htmlQuery(html, `[data-id=${this.options.editing}] .formula`) : null;
+        (existing ?? htmlQuery(html, ".new .formula"))?.focus();
     }
+}
+
+interface PersistentDamageDialogOptions extends ApplicationOptions {
+    editing?: string;
 }
 
 interface PersistentDialogData {
