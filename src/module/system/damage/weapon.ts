@@ -589,6 +589,7 @@ class WeaponDamagePF2e {
             `${weapon.slug ?? sluggify(weapon.name)}-damage`,
             `${meleeOrRanged}-strike-damage`,
             `${meleeOrRanged}-damage`,
+            "attack-damage",
             "strike-damage",
             "damage",
         ];
