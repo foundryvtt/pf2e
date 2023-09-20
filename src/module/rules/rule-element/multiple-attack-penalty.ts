@@ -11,8 +11,16 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false }),
-            value: new ResolvableValueField({ required: true, initial: undefined }),
+            selector: new fields.StringField({
+                required: true,
+                blank: false,
+                label: "PF2E.RuleEditor.General.Selector",
+            }),
+            value: new ResolvableValueField({
+                required: true,
+                initial: undefined,
+                label: "PF2E.RuleEditor.General.Value",
+            }),
         };
     }
 
