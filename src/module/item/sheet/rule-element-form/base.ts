@@ -1,11 +1,11 @@
-import { ItemPF2e } from "@item/base.ts";
+import type { ItemPF2e } from "@item/base.ts";
 import { isBracketedValue } from "@module/rules/helpers.ts";
-import { RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
+import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
-import { LaxSchemaField } from "@system/schema-data-fields.ts";
+import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
-import { type DataField } from "types/foundry/common/data/fields.js";
+import type { DataField } from "types/foundry/common/data/fields.d.ts";
 
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
     item: ItemPF2e;
@@ -46,7 +46,7 @@ class RuleElementForm<
         this.index = options.index;
         this.rule = options.rule;
         this.object = options.object;
-        this.schema = RuleElements.all[String(this.rule.key)]?.schema ?? null;
+        this.schema = this.object?.constructor.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
@@ -88,6 +88,7 @@ class RuleElementForm<
             recognized,
             basePath: this.basePath,
             rule: mergedRule,
+            fields: this.schema?.fields,
             form: await this.#getFormHelpers(mergedRule),
         };
     }
@@ -105,9 +106,12 @@ class RuleElementForm<
         };
 
         return {
-            resolvableValue: (property: string) => {
-                return valueTemplate(getResolvableData(property));
-            },
+            resolvableValue: (property: string) =>
+                valueTemplate({
+                    ...getResolvableData(property),
+                    inputId: `${this.item.uuid}-${this.index}-${property}`,
+                }),
+
             resolvableAddBracket: (property: string) => {
                 const data = getResolvableData(property);
                 if (data.mode !== "brackets") return "";
@@ -314,6 +318,7 @@ interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject ex
     label: string;
     recognized: boolean;
     basePath: string;
+    fields: RuleElementSchema | undefined;
     /** A collection of additional handlebars functions */
     form: Record<string, unknown>;
 }

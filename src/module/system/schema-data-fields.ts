@@ -291,8 +291,8 @@ class PredicateField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends StrictArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
-    constructor(options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>) {
-        super(new PredicateStatementField(), options);
+    constructor(options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial> = {}) {
+        super(new PredicateStatementField(), { label: "PF2E.RuleEditor.General.Predicate", ...options });
     }
 
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */

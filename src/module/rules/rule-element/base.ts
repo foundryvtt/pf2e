@@ -81,8 +81,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const { fields } = foundry.data;
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
-            slug: new SlugField({ required: true, nullable: true }),
-            label: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
+            slug: new SlugField({ required: true, nullable: true, label: "PF2E.RuleEditor.General.Slug" }),
+            label: new fields.StringField({
+                required: true,
+                nullable: false,
+                blank: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.General.Label",
+            }),
             priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
             ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
