@@ -29,14 +29,15 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
 
         const selector = this.resolveInjectedProperties(this.selector);
         const value = Number(this.resolveValue(this.value)) || 0;
-        if (selector && value) {
-            const map: MAPSynthetic = { label: this.label, penalty: value, predicate: this.predicate };
+        if (selector && value && value < 0) {
+            const label = game.i18n.format("PF2E.UI.RuleElements.MultipleAttackPenalty.Breakdown", {
+                label: this.label,
+            });
+            const map: MAPSynthetic = { label, penalty: value, predicate: this.predicate };
             const penalties = (this.actor.synthetics.multipleAttackPenalties[selector] ??= []);
             penalties.push(map);
         } else {
-            this.failValidation(
-                "Multiple attack penalty requires at least a selector field and a non-empty value field"
-            );
+            this.failValidation("must have a negative value");
         }
     }
 }
