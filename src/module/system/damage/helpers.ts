@@ -71,6 +71,10 @@ function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]
                 const direction = adjustment.override.upgrade ? 1 : -1;
                 die.dice.faces = FACES[FACES.indexOf(die.dice.faces) + direction] ?? die.dice.faces;
             }
+
+            if (adjustment.override.damageType) {
+                data.damageType = adjustment.override.damageType;
+            }
         }
     }
 }
