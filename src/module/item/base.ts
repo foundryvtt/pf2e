@@ -654,6 +654,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.description.value = "";
         }
 
+        // Ensure level is a positive integer
+        if (changed.system?.level) {
+            changed.system.level.value = Math.max(0, Math.trunc(Number(changed.system.level.value) || 0));
+        }
+
         // Normalize the slug, setting to `null` if empty
         if (typeof changed.system?.slug === "string") {
             changed.system.slug = sluggify(changed.system.slug) || null;

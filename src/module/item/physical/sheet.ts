@@ -190,10 +190,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if (typeof formData["system.level.value"] === "number") {
-            formData["system.level.value"] = Math.trunc(Math.abs(formData["system.level.value"]));
-        }
-
         // Process precious-material selection
         const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
         const typeIsValid =

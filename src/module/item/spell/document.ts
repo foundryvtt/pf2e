@@ -950,6 +950,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const diff = (options.diff ??= true);
 
+        // Ensure level is a positive integer of at least 1
+        if (changed.system?.level) {
+            const { level } = changed.system;
+            level.value = Math.clamped(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
+        }
+
         const uses = changed.system?.location?.uses;
         if (uses) {
             const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
