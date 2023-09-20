@@ -17,9 +17,9 @@ import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
+import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization, applyDamageDiceOverrides } from "@system/damage/helpers.ts";
-import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -331,12 +331,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         })
                 );
 
-            // Separate damage modifiers into persistent and all others for stacking rules processing
-            const resolvables = { spell: this };
-
             const extracted = extractDamageSynthetics(actor, base, domains, {
                 extraModifiers: attributeModifiers,
-                resolvables,
+                resolvables: { spell: this },
                 test: options,
             });
 
