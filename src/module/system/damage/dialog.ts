@@ -60,9 +60,9 @@ class DamageModifierDialog extends Application {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/chat/damage/damage-modifier-dialog.hbs",
-            classes: ["damage-dialog", "dialog"],
+            classes: ["roll-modifiers-dialog", "damage-dialog", "dialog"],
             popOut: true,
-            width: 480,
+            width: 440,
             height: "auto",
         };
     }
@@ -124,24 +124,20 @@ class DamageModifierDialog extends Application {
             }
             return true;
         };
-        const modifiers: ModifierData[] = this.modifiers.map((m) => {
-            const damageType = m.damageType ?? this.baseDamageType;
-
-            return {
-                label: m.label,
-                category: m.category,
-                type: m.type,
-                modifier: m.modifier,
-                hideIfDisabled: m.hideIfDisabled,
-                damageType,
-                typeLabel: this.#getTypeLabel(damageType, m.damageCategory),
-                enabled: m.enabled,
-                ignored: m.ignored,
-                critical: m.critical,
-                show: showModifier(m),
-                icon: this.#getModifierIcon(m),
-            } satisfies ModifierData;
-        });
+        const modifiers: ModifierData[] = this.modifiers.map((m) => ({
+            label: m.label,
+            category: m.category,
+            type: m.type,
+            modifier: m.modifier,
+            hideIfDisabled: m.hideIfDisabled,
+            damageType: m.damageType,
+            typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
+            enabled: m.enabled,
+            ignored: m.ignored,
+            critical: m.critical,
+            show: showModifier(m),
+            icon: this.#getModifierIcon(m),
+        }));
 
         const dice: DialogDiceData[] = this.dice.map((d) => ({
             label: d.label,
@@ -152,7 +148,7 @@ class DamageModifierDialog extends Application {
                 d.diceNumber && d.dieSize
                     ? `${d.diceNumber}${d.dieSize}`
                     : d.diceNumber
-                    ? game.i18n.format("PF2E.Damage.Dialog.Bonus", { dice: addSign(d.diceNumber) })
+                    ? game.i18n.format("PF2E.Damage.Dialog.BonusDice", { dice: addSign(d.diceNumber) })
                     : "",
             enabled: d.enabled,
             ignored: d.ignored,

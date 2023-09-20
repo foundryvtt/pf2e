@@ -19,7 +19,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization, applyDamageDiceOverrides } from "@system/damage/helpers.ts";
-import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
+import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,

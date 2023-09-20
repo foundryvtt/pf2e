@@ -13,7 +13,7 @@ import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-succe
 import { mapValues, objectHasKey, setHasElement, sluggify } from "@util";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
-import { DamageModifierDialog } from "./modifier-dialog.ts";
+import { DamageModifierDialog } from "./dialog.ts";
 import {
     CreateDamageFormulaParams,
     DamageCategoryUnique,

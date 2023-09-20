@@ -49,7 +49,7 @@ export class CheckModifiersDialog extends Application {
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/chat/check-modifiers-dialog.hbs",
-            classes: ["dice-checks", "dialog"],
+            classes: ["roll-modifiers-dialog", "dice-checks", "dialog"],
             popOut: true,
             width: 380,
             height: "auto",
