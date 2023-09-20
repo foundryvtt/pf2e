@@ -24,7 +24,7 @@ import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { createDamageFormula } from "./damage/formula.ts";
 import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
-import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
+import { DamageModifierDialog } from "./damage/dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { CreateDamageFormulaParams, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
