@@ -1,5 +1,5 @@
-import { GrantItemRuleElement, GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element.ts";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.js";
+import type { GrantItemRuleElement, GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element.ts";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the GrantItem rule element */
 class GrantItemForm extends RuleElementForm<GrantItemSource, GrantItemRuleElement> {

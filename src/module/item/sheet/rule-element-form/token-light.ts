@@ -1,5 +1,5 @@
-import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.js";
-import { TokenLightRuleElement, TokenLightRuleSource } from "@module/rules/rule-element/token-light.ts";
+import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
+import type { TokenLightRuleElement, TokenLightRuleSource } from "@module/rules/rule-element/token-light.ts";
 import * as R from "remeda";
 
 class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRuleElement> {
