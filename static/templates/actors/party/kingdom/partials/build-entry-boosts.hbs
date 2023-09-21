@@ -10,14 +10,16 @@
         {{/each}}
     </div>
 </section>
-<section>
-    <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
-    {{#if buildEntry.flaw}}
-        <span class="tag">{{localize (lookup @root.abilityLabels buildEntry.flaw)}}</span>
-    {{else}}
-        <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
-    {{/if}}
-</section>
+{{#if (or buildEntry.flaw (eq category "charter"))}}
+    <section>
+        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
+        {{#if buildEntry.flaw}}
+            <span class="tag">{{localize (lookup @root.abilityLabels buildEntry.flaw)}}</span>
+        {{else}}
+            <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
+        {{/if}}
+    </section>
+{{/if}}
 {{#if buildEntry.skills}}
     <section>
         <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.Skills"}}:</strong>

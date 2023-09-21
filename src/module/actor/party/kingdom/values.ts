@@ -3,6 +3,7 @@ import { localizer } from "@util";
 import {
     KingdomAbility,
     KingdomCHG,
+    KingdomCharter,
     KingdomGovernment,
     KingdomLeadershipRole,
     KingdomNationType,
@@ -234,7 +235,7 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
 };
 
 function getKingdomABCData(): {
-    charter: Record<string, KingdomCHG | undefined>;
+    charter: Record<string, KingdomCharter | undefined>;
     heartland: Record<string, KingdomCHG | undefined>;
     government: Record<string, KingdomGovernment | undefined>;
 } {
@@ -283,28 +284,24 @@ function getKingdomABCData(): {
                 description: localize("Heartland.forestOrSwamp.Description"),
                 img: "/icons/environment/wilderness/tree-oak.webp",
                 boosts: ["culture"],
-                flaw: null,
             },
             hillOrPlain: {
                 name: localize("Heartland.hillOrPlain.Name"),
                 description: localize("Heartland.hillOrPlain.Description"),
                 img: "/icons/environment/creatures/horses.webp",
                 boosts: ["loyalty"],
-                flaw: null,
             },
             lakeOrRiver: {
                 name: localize("Heartland.lakeOrRiver.Name"),
                 description: localize("Heartland.lakeOrRiver.Description"),
                 img: "/icons/environment/settlement/bridge-stone.webp",
                 boosts: ["economy"],
-                flaw: null,
             },
             mountainOrRuins: {
                 name: localize("Heartland.mountainOrRuins.Name"),
                 description: localize("Heartland.mountainOrRuins.Description"),
                 img: "/icons/environment/wilderness/cave-entrance-mountain.webp",
                 boosts: ["stability"],
-                flaw: null,
             },
         },
         government: {
@@ -313,7 +310,6 @@ function getKingdomABCData(): {
                 description: localize("Government.despotism.Description"),
                 img: "/icons/environment/settlement/pyramid.webp",
                 boosts: ["stability", "economy", "free"],
-                flaw: null,
                 skills: ["intrigue", "warfare"],
             },
             feudalism: {
@@ -321,7 +317,6 @@ function getKingdomABCData(): {
                 description: localize("Government.feudalism.Description"),
                 img: "/icons/environment/settlement/watchtower-cliff.webp",
                 boosts: ["stability", "culture", "free"],
-                flaw: null,
                 skills: ["defense", "trade"],
             },
             oligarchy: {
@@ -329,7 +324,6 @@ function getKingdomABCData(): {
                 description: localize("Government.oligarchy.Description"),
                 img: "/icons/environment/settlement/house-manor.webp",
                 boosts: ["loyalty", "economy", "free"],
-                flaw: null,
                 skills: ["arts", "industry"],
             },
             republic: {
@@ -337,7 +331,6 @@ function getKingdomABCData(): {
                 description: localize("Government.republic.Description"),
                 img: "/icons/environment/settlement/gazebo.webp",
                 boosts: ["stability", "economy", "free"],
-                flaw: null,
                 skills: ["engineering", "politics"],
             },
             thaumocracy: {
@@ -345,7 +338,6 @@ function getKingdomABCData(): {
                 description: localize("Government.thaumocracy.Description"),
                 img: "/icons/environment/settlement/wizard-castle.webp",
                 boosts: ["economy", "culture", "free"],
-                flaw: null,
                 skills: ["folklore", "magic"],
             },
             yeomanry: {
@@ -353,7 +345,6 @@ function getKingdomABCData(): {
                 description: localize("Government.yeomanry.Description"),
                 img: "/icons/environment/settlement/house-farmland-small.webp",
                 boosts: ["loyalty", "culture", "free"],
-                flaw: null,
                 skills: ["agriculture", "wilderness"],
             },
         },

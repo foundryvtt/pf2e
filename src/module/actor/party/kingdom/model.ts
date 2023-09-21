@@ -14,6 +14,7 @@ import { KINGDOM_SCHEMA } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import {
     KingdomCHG,
+    KingdomCharter,
     KingdomGovernment,
     KingdomNationType,
     KingdomSchema,
@@ -64,7 +65,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         return this.actor.itemTypes.campaignFeature.filter((k) => k.category === "kingdom-activity");
     }
 
-    get charter(): KingdomCHG | null {
+    get charter(): KingdomCharter | null {
         return this.build.charter;
     }
 
@@ -192,7 +193,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 const chosen = build.boosts[category];
                 if (!data) continue;
 
-                if (data.flaw) {
+                if ("flaw" in data && data.flaw) {
                     this.abilities[data.flaw].value -= 2;
                 }
 
