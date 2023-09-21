@@ -154,7 +154,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 const selected = boosts.includes(ability);
 
                 // Kingmaker doesn't allow boosting a stat that has a flaw
-                if (ability === buildItem.flaw) {
+                if ("flaw" in buildItem && ability === buildItem.flaw) {
                     buttons[ability].flaw = { selected: true, locked: true };
                 } else if (selected || buildItem.boosts.includes("free")) {
                     buttons[ability].boost = {
@@ -246,12 +246,13 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 const object = this.kingdom[sectionId];
                 const current = this.kingdom.build.boosts[sectionId];
                 const maxBoosts = object?.boosts.length;
+                if (!object) return;
 
                 const updated = current.includes(ability)
                     ? current.filter((a) => a !== ability)
                     : [...current, ability];
                 const boosts = updated
-                    .filter((a) => !object?.boosts.includes(a) && object?.flaw !== a)
+                    .filter((a) => !object.boosts.includes(a) && (!("flaw" in object) || object.flaw !== a))
                     .slice(0, maxBoosts);
                 this.kingdom.update({ [`build.boosts.${sectionId}`]: boosts });
             });

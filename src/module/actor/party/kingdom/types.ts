@@ -12,6 +12,9 @@ interface KingdomCHG {
     img: ImageFilePath;
     description: string;
     boosts: (KingdomAbility | "free")[];
+}
+
+interface KingdomCharter extends KingdomCHG {
     flaw: KingdomAbility | null;
 }
 
@@ -40,6 +43,7 @@ export type {
     KingdomAbilityData,
     KingdomCommodity,
     KingdomCHG,
+    KingdomCharter,
     KingdomData,
     KingdomGovernment,
     KingdomLeadershipData,

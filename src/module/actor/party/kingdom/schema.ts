@@ -19,7 +19,6 @@ function buildKingdomCHGSchema(): {
     img: StringField<ImageFilePath, ImageFilePath, true, false>;
     description: StringField<string, string, true, false>;
     boosts: ArrayField<StringField<KingdomAbility | "free", KingdomAbility | "free", true, false>>;
-    flaw: StringField<KingdomAbility, KingdomAbility, true, true>;
 } {
     return {
         name: new fields.StringField({ blank: false, nullable: false }),
@@ -28,14 +27,23 @@ function buildKingdomCHGSchema(): {
         boosts: new fields.ArrayField(
             new fields.StringField({ choices: [...KINGDOM_ABILITIES, "free"], nullable: false })
         ),
-        flaw: new fields.StringField({ choices: KINGDOM_ABILITIES, required: true, nullable: true }),
     };
 }
 
 const KINGDOM_BUILD_SCHEMA = {
     /** Determines if the ability scores are manually set or automatically determined. */
     manual: new fields.BooleanField<boolean, boolean>({ required: true, nullable: false, initial: false }),
-    charter: new fields.SchemaField(buildKingdomCHGSchema(), { nullable: true, initial: null }),
+    charter: new fields.SchemaField(
+        {
+            ...buildKingdomCHGSchema(),
+            flaw: new fields.StringField<KingdomAbility, KingdomAbility, true, true>({
+                choices: KINGDOM_ABILITIES,
+                required: true,
+                nullable: true,
+            }),
+        },
+        { nullable: true, initial: null }
+    ),
     heartland: new fields.SchemaField(buildKingdomCHGSchema(), { nullable: true, initial: null }),
     government: new fields.SchemaField(
         {
