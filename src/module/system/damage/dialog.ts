@@ -3,6 +3,7 @@ import {
     ErrorPF2e,
     addSign,
     fontAwesomeIcon,
+    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     pick,
@@ -180,6 +181,7 @@ class DamageModifierDialog extends Application {
             damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
+            showRollDialogs: game.user.settings.showRollDialogs,
             formula: formulaTemplate,
         };
     }
@@ -307,6 +309,29 @@ class DamageModifierDialog extends Application {
             }
             this.context.rollMode = rollMode;
         });
+
+        // Dialog settings menu
+        const settingsButton = htmlQuery(htmlClosest(html, ".app"), "a.header-button.settings");
+        if (settingsButton && !settingsButton?.dataset.tooltipContent) {
+            settingsButton.dataset.tooltipContent = `#${this.id}-settings`;
+            const $tooltip = $(settingsButton).tooltipster({
+                animation: "fade",
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side: ["top"],
+                theme: "crb-hover",
+                minWidth: 165,
+            });
+
+            const toggle = htmlQuery<HTMLInputElement>(html, ".settings-list input.quick-rolls-submit");
+            toggle?.addEventListener("click", async () => {
+                await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
+                $tooltip.tooltipster("close");
+            });
+        }
     }
 
     /** Show the damage roll dialog and wait for it to close */
@@ -320,6 +345,17 @@ class DamageModifierDialog extends Application {
     override async close(options?: { force?: boolean }): Promise<void> {
         this.#resolve?.(this.isRolled);
         super.close(options);
+    }
+
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const settingsButton: ApplicationHeaderButton = {
+            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
+            class: `settings`,
+            icon: "fas fa-cog",
+            onclick: () => null,
+        };
+        return [settingsButton, ...buttons];
     }
 
     /** Overriden to add some additional first-render behavior */
@@ -369,6 +405,7 @@ interface DamageDialogData {
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
+    showRollDialogs: boolean;
     formula: string;
 }
 

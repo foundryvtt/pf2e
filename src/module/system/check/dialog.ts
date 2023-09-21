@@ -1,6 +1,6 @@
 import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import { CheckRollContext } from "./types.ts";
 import { RollTwiceOption } from "../rolls.ts";
 
@@ -159,9 +159,10 @@ export class CheckModifiersDialog extends Application {
         });
 
         // Dialog settings menu
-        const $settings = $html.closest(`#${this.id}`).find("a.header-button.settings");
-        if (!$settings[0].dataset.tooltipContent) {
-            const $tooltip = $settings.attr({ "data-tooltip-content": `#${this.id}-settings` }).tooltipster({
+        const settingsButton = htmlQuery(htmlClosest(html, ".app"), "a.header-button.settings");
+        if (settingsButton && !settingsButton?.dataset.tooltipContent) {
+            settingsButton.dataset.tooltipContent = `#${this.id}-settings`;
+            const $tooltip = $(settingsButton).tooltipster({
                 animation: "fade",
                 trigger: "click",
                 arrow: false,
@@ -172,9 +173,10 @@ export class CheckModifiersDialog extends Application {
                 theme: "crb-hover",
                 minWidth: 165,
             });
-            $html.find<HTMLInputElement>(".settings-list input.quick-rolls-submit").on("change", async (event) => {
-                const $checkbox = $(event.delegateTarget);
-                await game.user.setFlag("pf2e", "settings.showRollDialogs", $checkbox[0].checked);
+
+            const toggle = htmlQuery<HTMLInputElement>(html, ".settings-list input.quick-rolls-submit");
+            toggle?.addEventListener("click", async () => {
+                await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
                 $tooltip.tooltipster("close");
             });
         }

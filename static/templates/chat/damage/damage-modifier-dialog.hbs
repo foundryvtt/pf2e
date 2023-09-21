@@ -103,6 +103,16 @@
     <hr />
 
     <button type="button" class="roll">{{{formula}}}</button>
+
+    <!-- Settings Menu -->
+    <div class="hover-content" id="{{appId}}-settings">
+        <ul class="modifier-list settings-list">
+            <label class="item">
+                <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
+                <input class="quick-rolls-submit" type="checkbox" {{checked showRollDialogs}} />
+            </label>
+        </ul>
+    </div>
 </form>
 
 {{#*inline "modifier-row"}}
