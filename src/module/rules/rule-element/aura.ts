@@ -391,3 +391,4 @@ interface AuraRuleElementSource extends RuleElementSource {
 }
 
 export { AuraRuleElement };
+export type { AuraSchema as AuraRuleElementSchema };

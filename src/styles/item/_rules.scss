@@ -227,6 +227,147 @@
             }
         }
 
+        fieldset {
+            border-radius: 5px;
+            border: 1px solid var(--secondary-background);
+            margin: 0.5em 0;
+            padding: 0.25em;
+
+            legend {
+                font-weight: 500;
+            }
+        }
+
+        .rules-drop-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 4em;
+
+            .rules-drop-zone {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40%;
+                height: 3.5em;
+                border: 1px solid var(--color-border-light-primary);
+                border-radius: 3px;
+                color: #222;
+                background-color: #ddd;
+                cursor: default;
+                padding: 1px 6px;
+                font-family: var(--font-primary);
+                font-size: var(--font-size-14);
+                line-height: 28px;
+
+                i {
+                    border: 1px solid #bbb;
+                    border-radius: 2px;
+                    align-items: center;
+                    display: flex;
+                    height: 1.6em;
+                    justify-content: center;
+                    margin-right: 0.5em;
+                    width: 1.6em;
+
+                    &:after {
+                        font-size: var(--font-size-20);
+                    }
+                }
+
+                span {
+                    color: var(--text-dark);
+                }
+            }
+        }
+
+        &[data-key="Aura"] {
+            div[data-rule-tab] {
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    min-width: 5em;
+
+                    &.short {
+                        max-width: 5em;
+                    }
+                }
+
+                .brackets {
+                    margin-left: 6em;
+                }
+
+                .grid {
+                    display: grid;
+                    grid: "label content" 1fr/1fr 1fr;
+                    column-gap: 5px;
+                    margin-top: 0.5em;
+
+                    input[type="checkbox"] {
+                        margin-right: 3px;
+                    }
+
+                    .item-controls {
+                        justify-content: flex-end;
+
+                        a {
+                            margin: 2px 2px 0 0;
+                        }
+                    }
+
+                    .column-span-two {
+                        grid-column: span 2;
+                    }
+                }
+
+                hr {
+                    width: 100%;
+                }
+            }
+
+            div[data-rule-tab="effects"] {
+                height: 230px;
+                overflow-y: auto;
+
+                a.content-link {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                    min-width: 9rem;
+                    height: 2em;
+                    padding: 4px;
+
+                    img {
+                        border: 1px solid var(--color-border-dark);
+                        border-radius: 2px;
+                        box-sizing: border-box;
+                        display: block;
+                        float: left;
+                        height: 24px;
+                        width: 24px;
+                    }
+
+                    span {
+                        text-wrap: wrap;
+                    }
+                }
+
+                .saves-container {
+                    grid-column: span 2;
+                }
+            }
+
+            div[data-rule-tab="appearance"] {
+                .translation {
+                    input {
+                        width: 5em;
+                    }
+                }
+            }
+        }
+
         &[data-key="FastHealing"] {
             select {
                 flex: 0;
@@ -279,15 +420,6 @@
                     display: flex;
                     flex-direction: column;
                     grid-column: span 2;
-
-                    border-radius: 5px;
-                    border: 1px solid var(--secondary-background);
-                    margin: 0.5em 0;
-                    padding: 0.25em;
-
-                    legend {
-                        font-weight: 500;
-                    }
 
                     .brackets {
                         margin-left: 6.5em;
