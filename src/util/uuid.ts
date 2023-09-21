@@ -43,7 +43,9 @@ class UUIDUtils {
     }
 
     static isTokenUUID(uuid: unknown): uuid is TokenDocumentUUID {
-        return typeof uuid === "string" && foundry.utils.parseUuid(uuid).documentType === "Token";
+        if (typeof uuid !== "string") return false;
+        const parsed = foundry.utils.parseUuid(uuid);
+        return parsed.documentType === "Scene" && parsed.embedded[0] === "Token";
     }
 }
 
