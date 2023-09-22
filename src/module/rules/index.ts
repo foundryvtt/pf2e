@@ -27,7 +27,6 @@ import { ImmunityRuleElement } from "./rule-element/iwr/immunity.ts";
 import { ResistanceRuleElement } from "./rule-element/iwr/resistance.ts";
 import { WeaknessRuleElement } from "./rule-element/iwr/weakness.ts";
 import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points.ts";
-import { MarkTokenRuleElement } from "./rule-element/mark-token/rule-element.ts";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency.ts";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty.ts";
 import { RollNoteRuleElement } from "./rule-element/roll-note.ts";
@@ -42,6 +41,7 @@ import { TempHPRuleElement } from "./rule-element/temp-hp.ts";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon.ts";
 import { TokenImageRuleElement } from "./rule-element/token-image.ts";
 import { TokenLightRuleElement } from "./rule-element/token-light.ts";
+import { TokenMarkRuleElement } from "./rule-element/token-mark/rule-element.ts";
 import { TokenNameRuleElement } from "./rule-element/token-name.ts";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency.ts";
 export type { RuleElementSynthetics } from "./synthetics.ts";
@@ -74,7 +74,6 @@ class RuleElements {
         Immunity: ImmunityRuleElement,
         ItemAlteration: ItemAlterationRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
-        MarkToken: MarkTokenRuleElement,
         MartialProficiency: MartialProficiencyRuleElement,
         MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
@@ -90,6 +89,7 @@ class RuleElements {
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
         TokenLight: TokenLightRuleElement,
+        TokenMark: TokenMarkRuleElement,
         TokenName: TokenNameRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,

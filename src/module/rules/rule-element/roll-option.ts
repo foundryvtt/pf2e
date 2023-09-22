@@ -97,11 +97,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         choices: ["totm"],
                         initial: undefined,
                     }),
-                    new StrictBooleanField<boolean, boolean>({
-                        required: false,
-                        nullable: false,
-                        initial: undefined,
-                    }),
+                    new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
                 ],
                 { required: false, nullable: false, initial: undefined }
             ),

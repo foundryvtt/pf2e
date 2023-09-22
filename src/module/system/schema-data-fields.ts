@@ -86,12 +86,10 @@ class StrictNumberField<
 
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
-    TSourceProp extends boolean = boolean,
-    TModelProp = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends fields.BooleanField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends fields.BooleanField<boolean, boolean, TRequired, TNullable, THasInitial> {
     protected override _cast(value: unknown): unknown {
         return value;
     }

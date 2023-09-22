@@ -13,7 +13,7 @@ class MarkTargetPrompt {
     #resolve?: (value: Maybe<TokenDocumentPF2e>) => void;
 
     constructor(params: PromptParameters) {
-        this.prompt = params.prompt ?? "PF2E.UI.RuleElements.MarkTarget.TargetToken";
+        this.prompt = params.prompt ?? "PF2E.UI.RuleElements.TokenMark.TargetToken";
         this.requirements = params.requirements;
     }
 
@@ -58,7 +58,7 @@ class MarkTargetPrompt {
         const handler = (event: KeyboardEvent): void => {
             if (event.key !== "Escape") return;
             event.stopPropagation();
-            ui.notifications.info("PF2E.UI.RuleElements.MarkTarget.Timeout", { localize: true });
+            ui.notifications.info("PF2E.UI.RuleElements.TokenMark.Timeout", { localize: true });
             Hooks.off(...hookParams);
             document.removeEventListener("keyup", handler);
         };

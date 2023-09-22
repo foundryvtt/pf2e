@@ -5,7 +5,7 @@ import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckRoll } from "@system/check/index.ts";
+import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
@@ -480,9 +480,9 @@ namespace RuleElementPF2e {
     }
 
     export interface AfterRollParams {
-        roll: Rolled<CheckRoll> | null;
-        selectors: string[];
+        roll: Rolled<CheckRoll>;
         check: CheckModifier;
+        context: CheckRollContext;
         domains: string[];
         rollOptions: Set<string>;
     }

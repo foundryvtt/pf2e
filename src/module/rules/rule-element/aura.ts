@@ -360,7 +360,7 @@ type AuraTextureSchema = {
         false
     >;
     /** If the `src` is a video, whether to loop it */
-    loop: StrictBooleanField<boolean, boolean, false, false, false>;
+    loop: StrictBooleanField<false, false, false>;
     /** If the `src` is a video, the playback rate of resulting `HTMLVideoElement` */
     playbackRate: StrictNumberField<number, number, false, false, true>;
 };

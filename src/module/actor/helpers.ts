@@ -12,7 +12,7 @@ import {
     extractRollTwice,
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
@@ -369,37 +369,34 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             );
 
             const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
-            const roll = await CheckPF2e.roll(
-                check,
-                {
-                    type: "attack-roll",
-                    identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
-                    action: "strike",
-                    title,
-                    actor: context.self.actor,
-                    token: context.self.token,
-                    item: context.self.item,
-                    target: context.target,
-                    damaging: item.dealsDamage,
-                    domains,
-                    options: context.options,
-                    traits: [attackTrait],
-                    notes: rollNotes,
-                    dc: params.dc ?? context.dc,
-                    mapIncreases: mapIncreases as ZeroToTwo,
-                    rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
-                    substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
-                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                },
-                params.event
-            );
+            const checkContext: CheckRollContext = {
+                type: "attack-roll",
+                identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
+                action: "strike",
+                title,
+                actor: context.self.actor,
+                token: context.self.token,
+                item: context.self.item,
+                target: context.target,
+                damaging: item.dealsDamage,
+                domains,
+                options: context.options,
+                traits: [attackTrait],
+                notes: rollNotes,
+                dc: params.dc ?? context.dc,
+                mapIncreases: mapIncreases as ZeroToTwo,
+                rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
+                substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
+                dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+            };
+            const roll = await CheckPF2e.roll(check, checkContext, params.event);
 
             if (roll) {
                 for (const rule of actor.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({
                         roll,
                         check,
-                        selectors: domains,
+                        context: checkContext,
                         domains,
                         rollOptions: context.options,
                     });
@@ -423,6 +420,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 target: { token: targetToken },
                 viewOnly: params.getFormula ?? false,
                 domains,
+                checkContext: params.checkContext,
                 outcome,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });

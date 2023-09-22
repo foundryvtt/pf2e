@@ -1611,7 +1611,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                         await rule.afterRoll?.({
                             roll,
                             check,
-                            selectors,
+                            context: checkContext,
                             domains: selectors,
                             rollOptions: context.options,
                         });
@@ -1626,7 +1626,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 const domains = ["all", `${weapon.id}-damage`, "attack-damage", "strike-damage", "damage"];
-                params.options ??= [];
+                params.options = new Set(params.options ?? []);
                 const targetToken = params.target ?? game.user.targets.first() ?? null;
 
                 const context = await this.getDamageRollContext({
@@ -1637,6 +1637,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
+                    checkContext: params.checkContext,
                 });
 
                 if (!context.self.item.dealsDamage) {
