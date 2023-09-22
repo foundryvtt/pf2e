@@ -1,15 +1,16 @@
+{{log this}}
 <nav class="sheet-tabs tabs rule-tabs">
     <h4>
         <a data-rule-tab="basic"><i class="fas fa-cogs"></i> {{localize "PF2E.RuleEditor.Aura.Basic.Label"}}</a>
-        <a data-rule-tab="effects"><i class="fas fa-play"></i> {{localize "PF2E.RuleEditor.Aura.Effects.Label"}}</a>
-        <a data-rule-tab="appearance"><i class="fas fa-image"></i> {{localize "PF2E.RuleEditor.Aura.Appearance.Label"}}</a>
+        <a data-rule-tab="effects"><i class="fas fa-play"></i> {{localize fields.effects.label}}</a>
+        <a data-rule-tab="appearance"><i class="fas fa-image"></i> {{localize fields.appearance.label}}</a>
     </h4>
 </nav>
 
 <div data-rule-tab="basic">
     <div class="form-group">
         <div class="spaced-fields details-container-flex-row">
-            <label>{{localize "PF2E.RuleEditor.Aura.Basic.Radius"}}</label>
+            <label>{{localize fields.radius.label}}</label>
             {{{form.resolvableValue "radius"}}}
             {{{form.resolvableAddBracket "radius"}}}
         </div>
@@ -19,8 +20,8 @@
     <div class="form-group">
         <div class="spaced-fields details-container-flex-row">
             <label>
-                {{localize "PF2E.RuleEditor.Aura.Basic.Level"}}
-                <i class="fas fa-info-circle small" data-tooltip="PF2E.RuleEditor.Aura.Basic.Hints.Level"></i>
+                {{localize fields.level.label}}
+                <i class="fas fa-info-circle small" data-tooltip={{fields.level.hint}}></i>
             </label>
             {{{form.resolvableValue "level"}}}
             {{{form.resolvableAddBracket "level"}}}
@@ -30,14 +31,14 @@
 
     <div class="grid">
         <div class="form-group">
-            <label class="short">{{localize "PF2E.TraitsLabel"}}</label>
+            <label class="short">{{localize fields.traits.label}}</label>
             <input type="text" class="pf2e-tagify tagify-traits" name="system.rules.{{index}}.traits" value="{{json object.traits}}" data-dtype="JSON"/>
         </div>
 
         <div class="form-group">
             <label>
-                {{localize "PF2E.RuleEditor.Aura.Basic.MergeExisting"}}
-                <i class="fas fa-info-circle small" data-tooltip="PF2E.RuleEditor.Aura.Basic.Hints.MergeExisting"></i>
+                {{localize fields.mergeExisting.label}}
+                <i class="fas fa-info-circle small" data-tooltip={{fields.mergeExisting.hint}}></i>
             </label>
             <div class="form-fields">
                 <input type="checkbox" name="system.rules.{{index}}.mergeExisting" {{checked object.mergeExisting}}/>
@@ -62,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                <label>{{localize "PF2E.RuleEditor.Aura.Effects.Affects"}}</label>
+                <label>{{localize ../fields.effects.element.fields.affects.label}}</label>
                 <div class="form-fields">
                     <select name="system.rules.{{../index}}.effects.{{eid}}.affects">
                         {{selectOptions ../affectsOptions selected=effect.affects localize=true sort=true}}
@@ -71,29 +72,29 @@
             </div>
 
             <div class="form-group">
-                <label class="short">{{localize "PF2E.RuleEditor.Aura.Effects.Events"}}</label>
+                <label>{{localize ../fields.effects.element.fields.events.label}}</label>
                 <input type="text" class="pf2e-tagify tagify-events" name="system.rules.{{../index}}.effects.{{eid}}.events" value="{{json effect.events}}" data-dtype="JSON"/>
             </div>
 
             <div class="form-group">
-                <label>{{localize "PF2E.RuleEditor.Aura.Effects.RemoveOnExit"}}</label>
-                <div class="form-fields">
+                <label>{{localize ../fields.effects.element.fields.removeOnExit.label}}</label>
+                <div class="form-fields-checkbox">
                     <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.removeOnExit" {{checked (ne effect.removeOnExit false)}}/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>{{localize "PF2E.RuleEditor.Aura.Effects.IncludesSelf"}}</label>
-                <div class="form-fields">
+                <label>{{localize ../fields.effects.element.fields.includesSelf.label}}</label>
+                <div class="form-fields-checkbox">
                     <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf" {{checked (ne effect.includesSelf false)}}/>
                 </div>
             </div>
 
             <fieldset class="saves-container">
-                <legend>{{localize "PF2E.SavesHeader"}}</legend>
+                <legend>{{localize ../fields.effects.element.fields.save.label}}</legend>
 
                 <div class="form-group">
-                    <label class="short">{{localize "PF2E.RuleEditor.Aura.Effects.Type"}}</label>
+                    <label class="short">{{localize ../fields.effects.element.fields.save.type.label}}</label>
                     <div class="form-fields">
                         <select name="system.rules.{{../index}}.effects.{{eid}}.save.type">
                             {{selectOptions ../saveTypes selected=effect.save.type localize=true blank=""}}
@@ -103,7 +104,7 @@
 
                 <div class="form-group">
                     <div class="spaced-fields details-container-flex-row">
-                        <label class="short">{{localize "PF2E.Check.DC.Unspecific"}}</label>
+                        <label class="short">{{localize ../fields.effects.element.fields.save.dc.label}}</label>
                         {{{../form.resolvableValue (concat "effects." eid ".save.dc")}}}
                         {{{../form.resolvableAddBracket (concat "effects." eid ".save.dc")}}}
                     </div>
@@ -112,7 +113,7 @@
             </fieldset>
 
             <div class="spaced-fields column-span-two">
-                <label>{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+                <label>{{localize ../fields.effects.element.fields.predicate.label}}</label>
                 <input type="text" class="predicate" name="system.rules.{{../index}}.effects.{{eid}}.predicate" value="{{#if (ne (json effect.predicate) "[]")}}{{json effect.predicate}}{{/if}}" />
             </div>
         </div>
@@ -123,17 +124,17 @@
 
 <div data-rule-tab="appearance">
     <fieldset class="grid">
-        <legend>{{localize "PF2E.RuleEditor.Aura.Appearance.Border"}}</legend>
+        <legend>{{localize fields.appearance.fields.border.label}}</legend>
 
         <div class="form-group">
-            <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Color" }}</label>
+            <label>{{localize fields.appearance.fields.border.fields.color.label}}</label>
             <div class="form-fields">
                 {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=object.appearance.border.color}}
             </div>
         </div>
 
         <div class="form-group">
-            <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Alpha" }}</label>
+            <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
             <div class="form-fields">
                 {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=object.appearance.border.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
@@ -141,17 +142,17 @@
     </fieldset>
 
     <fieldset class="grid">
-        <legend>{{localize "PF2E.RuleEditor.Aura.Appearance.Highlight"}}</legend>
+        <legend>{{localize fields.appearance.fields.highlight.label}}</legend>
 
         <div class="form-group">
-            <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Color" }}</label>
+            <label>{{ localize fields.appearance.fields.highlight.fields.color.label }}</label>
             <div class="form-fields">
                 {{colorPicker name=(concat "system.rules." index ".appearance.highlight.color") value=object.appearance.highlight.color}}
             </div>
         </div>
 
         <div class="form-group">
-            <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Alpha" }}</label>
+            <label>{{ localize fields.appearance.fields.highlight.fields.alpha.label }}</label>
             <div class="form-fields">
                 {{rangePicker name=(concat "system.rules." index ".appearance.highlight.alpha") value=object.appearance.highlight.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
@@ -159,10 +160,10 @@
     </fieldset>
 
     <fieldset class="grid">
-        <legend>{{localize "PF2E.RuleEditor.Aura.Appearance.Texture"}}</legend>
+        <legend>{{localize fields.appearance.fields.texture.label}}</legend>
 
         <div class="form-group">
-            <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.File" }}</label>
+            <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
             <div class="form-fields">
                 <input type="text" name="system.rules.{{index}}.appearance.texture.src" value="{{object.appearance.texture.src}}">
                 {{filePicker target=(concat "system.rules." index ".appearance.texture.src") type="imagevideo"}}
@@ -171,14 +172,14 @@
 
         {{#if object.appearance.texture.src}}
             <div class="form-group">
-                <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Alpha" }}</label>
+                <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
                 <div class="form-fields">
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.alpha") value=object.appearance.texture.alpha placeholder="1" min="0" max="1" step="0.05"}}
                 </div>
             </div>
 
             <div class="form-group">
-                <label>{{ localize "PF2E.RuleEditor.Aura.Appearance.Scale" }}</label>
+                <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
                 <div class="form-fields">
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.scale") value=object.appearance.texture.scale placeholder="1" min="1" max="5" step="0.01"}}
                 </div>
@@ -186,14 +187,14 @@
 
             <div class="spaced-fields details-container-flex-row translation">
                 <label>
-                    {{ localize "PF2E.RuleEditor.Aura.Appearance.Translation.Label" }}
-                    <i class="fas fa-info-circle small" data-tooltip="PF2E.RuleEditor.Aura.Appearance.Hints.Translation"></i>
+                    {{localize fields.appearance.fields.texture.fields.translation.label}}
+                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.translation.hint}}></i>
                 </label>
                 <div class="form-fields">
                     <input type="number" 
                         name="system.rules.{{index}}.appearance.texture.translation.x"
                         data-translation="x"
-                        placeholder="{{localize "PF2E.RuleEditor.Aura.Appearance.Translation.X"}}"
+                        placeholder="{{localize fields.appearance.fields.texture.fields.translation.fields.x.label}}"
                         value="{{object.appearance.texture.translation.x}}"
                     >
                 </div>
@@ -201,7 +202,7 @@
                     <input type="number"
                         name="system.rules.{{index}}.appearance.texture.translation.y"
                         data-translation="y"
-                        placeholder="{{localize "PF2E.RuleEditor.Aura.Appearance.Translation.Y"}}"
+                        placeholder="{{localize fields.appearance.fields.texture.fields.translation.fields.y.label}}"
                         value="{{object.appearance.texture.translation.y}}"
                     >
                 </div>
@@ -209,8 +210,8 @@
 
             <div class="form-group">
                 <label>
-                    {{ localize "PF2E.RuleEditor.Aura.Appearance.PlaybackRate" }}
-                    <i class="fas fa-info-circle small" data-tooltip="PF2E.RuleEditor.Aura.Appearance.Hints.PlaybackRate"></i>
+                    {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
+                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.playbackRate.hint}}></i>
                 </label>
                 <div class="form-fields">
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.playbackRate") value=object.appearance.texture.playbackRate placeholder="1" min="1" max="4" step="0.5"}}
@@ -218,11 +219,11 @@
             </div>
 
             <div class="form-group">
-                <label>
-                    {{localize "PF2E.RuleEditor.Aura.Appearance.Loop"}}
-                    <i class="fas fa-info-circle small" data-tooltip="PF2E.RuleEditor.Aura.Appearance.Hints.Loop"></i>
+                <label class="with-hint">
+                    {{localize fields.appearance.fields.texture.fields.loop.label}}
+                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.loop.hint}}></i>
                 </label>
-                <div class="form-fields">
+                <div class="form-fields-checkbox">
                     <input type="checkbox" name="system.rules.{{index}}.appearance.texture.loop" {{checked object.appearance.texture.loop}}/>
                 </div>
             </div>

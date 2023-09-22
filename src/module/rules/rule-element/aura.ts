@@ -65,6 +65,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 blank: false,
                 initial: "all",
                 choices: ["allies", "enemies", "all"],
+                label: "PF2E.RuleEditor.Aura.Effects.Affects",
             }),
             events: new fields.ArrayField(
                 new fields.StringField({
@@ -74,7 +75,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     initial: undefined,
                     choices: ["enter", "turn-start", "turn-end"],
                 }),
-                { required: true, nullable: false, initial: ["enter"] }
+                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" }
             ),
             save: new fields.SchemaField(
                 {
@@ -84,14 +85,30 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         blank: false,
                         initial: undefined,
                         choices: SAVE_TYPES,
+                        label: "PF2E.RuleEditor.Aura.Effects.Type",
                     }),
-                    dc: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+                    dc: new ResolvableValueField({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                        label: "PF2E.Check.DC.Unspecific",
+                    }),
                 },
-                { required: true, nullable: true, initial: null }
+                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" }
             ),
             predicate: new PredicateField({ required: false, nullable: false }),
-            removeOnExit: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-            includesSelf: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            removeOnExit: new fields.BooleanField({
+                required: false,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Effects.RemoveOnExit",
+            }),
+            includesSelf: new fields.BooleanField({
+                required: false,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
+            }),
         });
 
         const xyPairSchema = ({ integer }: { integer: boolean }): XYPairSchema => ({
@@ -100,65 +117,154 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 integer,
                 nullable: false,
                 initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Appearance.Translation.X",
             }),
             y: new StrictNumberField({
                 required: true,
                 integer,
                 nullable: false,
                 initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Appearance.Translation.Y",
             }),
         });
 
         const appearanceSchema: AuraAppearanceSchema = {
             border: new fields.SchemaField(
                 {
-                    color: new fields.ColorField({ required: true, nullable: false, initial: "#000000" }),
-                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 0.75 }),
+                    color: new fields.ColorField({
+                        required: true,
+                        nullable: false,
+                        initial: "#000000",
+                        label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                    }),
+                    alpha: new fields.AlphaField({
+                        required: true,
+                        nullable: false,
+                        initial: 0.75,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Alpha",
+                    }),
                 } as const,
-                { required: false, nullable: true, initial: () => ({ alpha: 0.75, color: "#000000" }) } as const
+                {
+                    required: false,
+                    nullable: true,
+                    initial: () => ({ alpha: 0.75, color: "#000000" }),
+                    label: "PF2E.RuleEditor.Aura.Appearance.Border",
+                } as const
             ),
             highlight: new fields.SchemaField(
                 {
-                    color: new fields.ColorField({ required: false, nullable: false, initial: undefined }),
-                    alpha: new fields.AlphaField({ required: false, nullable: false, initial: 0.25 }),
+                    color: new fields.ColorField({
+                        required: false,
+                        nullable: false,
+                        initial: undefined,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                    }),
+                    alpha: new fields.AlphaField({
+                        required: false,
+                        nullable: false,
+                        initial: 0.25,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Alpha",
+                    }),
                 } as const,
-                { required: false, nullable: false, initial: () => ({ alpha: 0.25, color: undefined }) }
+                {
+                    required: false,
+                    nullable: false,
+                    initial: () => ({
+                        alpha: 0.25,
+                        color: undefined,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
+                    }),
+                }
             ),
             texture: new fields.SchemaField(
                 {
-                    src: new StrictStringField({ required: true, nullable: false, initial: undefined }),
-                    alpha: new fields.AlphaField({ required: true, nullable: false, initial: 1 }),
-                    scale: new StrictNumberField({ required: true, nullable: false, positive: true, initial: 1 }),
+                    src: new StrictStringField({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Src",
+                    }),
+                    alpha: new fields.AlphaField({
+                        required: true,
+                        nullable: false,
+                        initial: 1,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Alpha",
+                    }),
+                    scale: new StrictNumberField({
+                        required: true,
+                        nullable: false,
+                        positive: true,
+                        initial: 1,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Scale",
+                    }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
                         nullable: false,
                         initial: undefined,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Translation.Label",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.Hints.Translation",
                     } as const),
-                    loop: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+                    loop: new StrictBooleanField({
+                        required: false,
+                        nullable: false,
+                        initial: undefined,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Loop",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.Hints.Loop",
+                    }),
                     playbackRate: new StrictNumberField({
                         required: false,
                         nullable: false,
                         positive: true,
                         max: 4,
                         initial: 1,
+                        label: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.Hints.PlaybackRate",
                     }),
                 } as const,
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" }
             ),
         };
 
         return {
             ...super.defineSchema(),
-            radius: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
-            level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
-            traits: new StrictArrayField(auraTraitField, { required: true, nullable: false, initial: [] }),
-            effects: new StrictArrayField(effectSchemaField, { required: false, nullable: false, initial: [] }),
+            radius: new ResolvableValueField({
+                required: true,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Basic.Radius",
+            }),
+            level: new ResolvableValueField({
+                required: false,
+                nullable: true,
+                initial: null,
+                label: "PF2E.RuleEditor.Aura.Basic.Level",
+                hint: "PF2E.RuleEditor.Aura.Basic.Hints.Level",
+            }),
+            traits: new StrictArrayField(auraTraitField, {
+                required: true,
+                nullable: false,
+                initial: [],
+                label: "PF2E.TraitsLabel",
+            }),
+            effects: new StrictArrayField(effectSchemaField, {
+                required: false,
+                nullable: false,
+                initial: [],
+                label: "PF2E.RuleEditor.Aura.Effects.Label",
+            }),
             appearance: new fields.SchemaField(appearanceSchema, {
                 required: false,
                 nullable: false,
                 initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Appearance.Label",
             }),
-            mergeExisting: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            mergeExisting: new fields.BooleanField({
+                required: false,
+                nullable: false,
+                initial: true,
+                label: "PF2E.RuleEditor.Aura.Basic.MergeExisting",
+                hint: "PF2E.RuleEditor.Aura.Basic.Hints.MergeExisting",
+            }),
         };
     }
 
