@@ -353,8 +353,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             evil: traits.has("good"),
             lawful: traits.has("chaotic"),
             chaotic: traits.has("lawful"),
-            positive: !!this.attributes.hp?.negativeHealing,
-            negative: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
+            vitality: !!this.attributes.hp?.negativeHealing,
+            void: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
             bleed: this.modeOfBeing === "living",
             spirit: !(
                 (this.modeOfBeing === "undead" && traits.has("mindless")) ||
