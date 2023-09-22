@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { Language } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -464,27 +464,60 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return super._onDropItemCreate(itemData);
     }
 
-    /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
+    /* Overrides to allow divvying/outward transfer of items via party member blocks in inventory members sidebar and assignment of exploration activities. */
     protected override async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const droppedRegion = event.target?.closest<HTMLElement>("[data-region]")?.dataset.region;
-        const targetActor = event.target?.closest<HTMLElement>("[data-actor-uuid]")?.dataset.actorUuid;
-        if (droppedRegion === "inventoryMembers" && targetActor) {
+        const targetActorId = event.target?.closest<HTMLElement>("[data-actor-uuid]")?.dataset.actorUuid;
+        if (targetActorId) {
             const item = await ItemPF2e.fromDropData(data);
             if (!item) return [];
-            const actorUuid = foundry.utils.parseUuid(targetActor).documentId;
-            if (actorUuid && item.actor && item.isOfType("physical")) {
-                await this.moveItemBetweenActors(
-                    event,
-                    item.actor.id,
-                    item.actor.token?.id ?? null,
-                    actorUuid,
-                    null,
-                    item.id
-                );
-                return [item];
+            if (droppedRegion === "inventoryMembers") {
+                const parsedTargetID = foundry.utils.parseUuid(targetActorId);
+                if (parsedTargetID?.documentId && item.actor && item.isOfType("physical")) {
+                    await this.moveItemBetweenActors(
+                        event,
+                        item.actor.id,
+                        item.actor.token?.id ?? null,
+                        parsedTargetID.documentId,
+                        null,
+                        item.id
+                    );
+                    return [item];
+                }
+            } else if (droppedRegion === "exploration") {
+                if (item.isOfType("action") && item.traits.has("exploration")) {
+                    const targetActor = await fromUuid(targetActorId as ActorUUID);
+                    if (!(targetActor instanceof CharacterPF2e)) {
+                        console.error(
+                            `Attempted to drop exploration event on non-character ${targetActorId} (type ${targetActor?.type})`
+                        );
+                        return [];
+                    }
+
+                    let activity: ItemPF2e | undefined = targetActor.items.find(
+                        (i) => i.id === item.id || (i.sourceId !== null && i.sourceId === item.sourceId)
+                    );
+                    if (!activity) {
+                        const [createdActivity] = await targetActor.sheet.emulateItemDrop(data);
+                        if (!createdActivity) return [];
+                        activity = createdActivity;
+                    }
+
+                    if (event?.shiftKey) {
+                        // when shift is held, the new activity is treated as a replacement
+                        await targetActor.update({ "system.exploration": [activity.id] });
+                    } else {
+                        const active = targetActor.system.exploration;
+                        if (!active.includes(activity.id)) {
+                            await targetActor.update({ "system.exploration": active.concat([activity.id]) });
+                        }
+                    }
+
+                    return [activity];
+                }
             }
         }
         return super._onDropItem(event, data);
