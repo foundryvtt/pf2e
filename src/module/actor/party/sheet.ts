@@ -430,6 +430,17 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ui.notifications.info("PF2E.Actor.Party.ClearActivities.Complete", { localize: true });
         });
 
+        htmlQueryAll(html, "[data-action=clear-member-activity]").forEach((el) =>
+            el.addEventListener("click", async () => {
+                const toClear = this.actor.members.find((m) => m.id === el.dataset.actorId);
+                if (toClear) {
+                    await toClear.update({ "system.exploration": [] });
+                } else {
+                    console.error(`Could not clear activity for member ID ${el.dataset.actorId}`);
+                }
+            })
+        );
+
         htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
             game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
         });
