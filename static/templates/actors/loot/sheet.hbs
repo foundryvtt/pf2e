@@ -12,10 +12,10 @@
             {{else}}
                 <h1 class="charname">{{actor.name}}</h1>
             {{/if}}
-            <section class="sheet-type traits-bar">
+            <section class="sheet-type tags">
                 {{#if user.isGM}}
-                    <i class="fas fa-info-circle help" title="<p><strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}</p><p><strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}</p>"></i>
-                    <select name="system.lootSheetType" class="trait">
+                    <i class="fa-solid fa-info-circle help" title="<p><strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}</p><p><strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}</p>"></i>
+                    <select name="system.lootSheetType" class="tag">
                         {{#select data.lootSheetType}}
                             <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
                             <option value="Merchant">{{localize "PF2E.loot.MerchantLabel"}}</option>
