@@ -18,8 +18,8 @@ export class Migration865VitalityVoid extends MigrationBase {
                 // Inline damage types
                 .replace(/\bpositive\]/g, "vitality]")
                 .replace(/\bnegative\]/g, "void]")
-                .replace(/\[positive\b/g, "vitality]")
-                .replace(/\[negative\b/g, "void]")
+                .replace(/\[positive\b/g, "[vitality")
+                .replace(/\[negative\b/g, "[void")
                 // Localization keys
                 .replace(/\bTraitPositive\b/g, "TraitVitality")
                 .replace(/\bTraitNegative\b/g, "TraitVoid")
