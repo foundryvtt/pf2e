@@ -185,10 +185,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 const speaker = ChatMessage.getSpeaker({ actor });
 
                 if (this.formula) {
-                    const damageType = this.traits.has("positive")
-                        ? "positive"
-                        : this.traits.has("negative")
-                        ? "negative"
+                    const damageType = this.traits.has("vitality")
+                        ? "vitality"
+                        : this.traits.has("void")
+                        ? "void"
                         : "untyped";
                     new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
                 } else {

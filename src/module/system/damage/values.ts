@@ -1,7 +1,7 @@
 import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
-const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;
+const LIFE_ENERGY_DAMAGE_TYPES = ["vitality", "void"] as const;
 const ENERGY_DAMAGE_TYPES = [
     "acid",
     "cold",
@@ -63,8 +63,8 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null>
     electricity: "energy",
     fire: "energy",
     sonic: "energy",
-    positive: "energy",
-    negative: "energy",
+    vitality: "energy",
+    void: "energy",
     force: "energy",
 
     chaotic: "alignment",
@@ -91,13 +91,13 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     good: "face-smile-halo",
     lawful: "scale-balanced",
     mental: "brain",
-    negative: "skull",
     piercing: "bow-arrow",
     poison: "spider",
-    positive: "sun",
     slashing: "axe",
     sonic: "waveform-lines",
     spirit: "ghost",
+    vitality: "sun",
+    void: "skull",
     untyped: null,
 };
 
@@ -114,13 +114,13 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     good: "systems/pf2e/icons/damage/persistent/good.webp",
     lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
     mental: "systems/pf2e/icons/spells/modify-memory.webp",
-    negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
     poison: "systems/pf2e/icons/spells/acidic-burst.webp",
-    positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
     slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
     sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
     spirit: "icons/magic/unholy/hand-claw-fire-blue.webp",
+    vitality: "systems/pf2e/icons/spells/moment-of-renewal.webp",
+    void: "systems/pf2e/icons/spells/grim-tendrils.webp",
 };
 
 /** Whether and how damage should be included on a critical hit */
