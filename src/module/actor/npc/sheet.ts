@@ -44,7 +44,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         return {
             ...options,
             classes: [...options.classes, "pf2e", "npc"],
-            scrollY: [".side-bar"],
+            scrollY: [".sidebar", ".inventory-list"],
         };
     }
 

@@ -46,6 +46,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/coinage.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
         "systems/pf2e/templates/actors/partials/effects.hbs",
+        "systems/pf2e/templates/actors/partials/encumbrance.hbs",
         "systems/pf2e/templates/actors/partials/inventory.hbs",
         "systems/pf2e/templates/actors/partials/item-line.hbs",
         "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs",

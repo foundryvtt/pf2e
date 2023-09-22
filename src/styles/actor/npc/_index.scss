@@ -3,11 +3,6 @@ $faded-color: #7a7971;
 @import "forms";
 
 .npc-sheet {
-    @import "inventory";
-    @import "spells";
-    @import "effects";
-    @import "../red-action-boxes";
-
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -299,6 +294,7 @@ $faded-color: #7a7971;
 
     .sheet-body {
         flex: auto;
+
         .tab {
             @include scrollbar;
 
@@ -317,6 +313,11 @@ $faded-color: #7a7971;
                 }
             }
         }
+
+        @import "inventory";
+        @import "spells";
+        @import "effects";
+        @import "../red-action-boxes";
     }
 
     input.adjustable:not(:focus),
