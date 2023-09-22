@@ -59,7 +59,13 @@ class PartyClownCar {
 
         const newTokens = (
             await Promise.all(this.party.members.map((m) => m.getTokenDocument({ x: token.x, y: token.y })))
-        ).map((t) => ({ ...t.toObject(), x: token.x, y: token.y }));
+        ).filter((t) => {
+            if (t.actor?.isToken) {
+                ui.notifications.warn(game.i18n.format("PF2E.Actor.Party.ClownCar.DepositUnlinkedToken", {actor: t.actor.name}))
+                return false;
+            }
+            return true;
+        }).map((t) => ({ ...t.toObject(), x: token.x, y: token.y }));
         const createdTokens = await this.scene.createEmbeddedDocuments("Token", newTokens);
 
         const freeSpaces = this.#getDepositSpaces();
