@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
-import { ModifierPF2e } from "@actor/modifiers.js";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function demoralize(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
@@ -54,4 +54,4 @@ const action = new SingleCheckAction({
     traits: ["auditory", "concentrate", "emotion", "fear", "mental"],
 });
 
-export { demoralize as legacy, action };
+export { action, demoralize as legacy };

@@ -1,7 +1,6 @@
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import type { Renderer } from "pixi.js";
 import * as R from "remeda";
 import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
@@ -483,7 +482,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
-    override render(renderer: Renderer): void {
+    override render(renderer: PIXI.Renderer): void {
         super.render(renderer);
         if (!this.mesh) return;
 
