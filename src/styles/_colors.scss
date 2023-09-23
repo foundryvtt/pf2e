@@ -48,11 +48,14 @@ $adjusted-lower: #cc3311 !default;
 
 :root {
     /* Global */
-    --color-text-pf-primary: #{$primary-color};
-    --color-text-pf-primary-1: #{$dark-color};
-    --color-text-pf-primary-2: #{$dark-color};
-    --primary: var(--color-text-pf-primary);
-    --secondary: #{$secondary-color};
+    --color-pf-primary: #{$primary-color};
+    --color-pf-primary-light: #{$light-color};
+    --color-pf-primary-dark: #{$dark-color};
+    --color-pf-secondary: #{$secondary-color};
+    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
+    --color-pf-secondary-dark: #{darken($secondary-color, 10)};
+    --primary: var(--color-pf-primary);
+    --secondary: var(--color-pf-secondary);
     --tertiary: #{$tertiary-color};
 
     --alt: #{$alt-color};
