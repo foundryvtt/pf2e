@@ -11,6 +11,7 @@ import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -180,7 +181,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (!this.constructed) return;
 
         // Dimensions and scale
-        const linkDefault = !["hazard", "loot", "party"].includes(this.actor.type ?? "");
+        const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type);
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");

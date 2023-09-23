@@ -88,6 +88,9 @@ const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
 
 const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
 
+/** Actor types that are valid for token size linking */
+const SIZE_LINKABLE_ACTOR_TYPES = new Set([...CREATURE_ACTOR_TYPES, "vehicle"]);
+
 export {
     ATTRIBUTE_ABBREVIATIONS,
     CREATURE_ACTOR_TYPES,
@@ -101,6 +104,7 @@ export {
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
     SKILL_LONG_FORMS,
+    SIZE_LINKABLE_ACTOR_TYPES,
     UNAFFECTED_TYPES,
     WEAKNESS_TYPES,
 };

@@ -77,7 +77,7 @@ import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -529,13 +529,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Set additional defaults, some according to actor type
         for (const source of [...sources]) {
-            const linkToActorSize = ["hazard", "loot"].includes(source.type)
-                ? false
-                : source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
-            const autoscale = ["hazard", "loot"].includes(source.type)
-                ? false
-                : source.prototypeToken?.flags?.pf2e?.autoscale ??
-                  (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
+            const linkable = SIZE_LINKABLE_ACTOR_TYPES.has(source.type);
+            const linkToActorSize = linkable && (source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true);
+            const autoscale =
+                linkable &&
+                (source.prototypeToken?.flags?.pf2e?.autoscale ??
+                    (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
@@ -808,7 +807,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
         this.prototypeToken.flags = mergeObject(
-            { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
+            { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
             this.prototypeToken.flags
         );
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
