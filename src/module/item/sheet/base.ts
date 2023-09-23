@@ -82,6 +82,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
+        options.sheetConfig &&=
+            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
         const rules = item.toObject().system.rules;
@@ -507,28 +509,23 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return flattenedData;
     }
 
-    /** Hide the sheet-config button unless there is more than one sheet option. */
+    /** Add button to refresh from compendium if setting is enabled. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const hasMultipleSheets =
-            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
-        const sheetButton = buttons.find((button) => button.class === "configure-sheet");
-        if (!hasMultipleSheets && sheetButton) {
-            buttons.splice(buttons.indexOf(sheetButton), 1);
-        }
-        // Convenenience utility for data entry; may make available to general users in the future
+
         if (
             game.settings.get("pf2e", "dataTools") &&
-            this.item.isOwned &&
+            this.isEditable &&
             this.item.sourceId?.startsWith("Compendium.")
         ) {
             buttons.unshift({
                 label: "Refresh",
                 class: "refresh-from-compendium",
-                icon: "fas fa-sync-alt",
+                icon: "fa-solid fa-sync-alt",
                 onclick: () => this.item.refreshFromCompendium(),
             });
         }
+
         return buttons;
     }
 

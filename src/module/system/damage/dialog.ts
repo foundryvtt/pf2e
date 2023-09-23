@@ -351,8 +351,8 @@ class DamageModifierDialog extends Application {
         const buttons = super._getHeaderButtons();
         const settingsButton: ApplicationHeaderButton = {
             label: game.i18n.localize("PF2E.SETTINGS.Settings"),
-            class: `settings`,
-            icon: "fas fa-cog",
+            class: "settings",
+            icon: "fa-solid fa-cog",
             onclick: () => null,
         };
         return [settingsButton, ...buttons];

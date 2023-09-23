@@ -90,6 +90,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         options.editable = this.isEditable;
+        options.sheetConfig &&=
+            Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
 
         for (const item of [...this.actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
@@ -1339,18 +1341,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Opens a sheet tab by name. May be overriden to handle sub-tabs */
     protected openTab(name: string): void {
         this._tabs[0].activate(name);
-    }
-
-    /** Hide the sheet-config button unless there is more than one sheet option. */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-        const sheetButton = buttons.find((button) => button.class === "configure-sheet");
-        const hasMultipleSheets =
-            Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
-        if (!hasMultipleSheets && sheetButton) {
-            buttons.splice(buttons.indexOf(sheetButton), 1);
-        }
-        return buttons;
     }
 
     /** Override of inner render function to maintain item summary state */
