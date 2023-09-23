@@ -12,6 +12,8 @@ interface KingdomCHG {
     img: ImageFilePath;
     description: string;
     boosts: (KingdomAbility | "free")[];
+    flaw?: KingdomAbility | null;
+    feat?: CompendiumUUID | null;
 }
 
 interface KingdomCharter extends KingdomCHG {
@@ -20,6 +22,7 @@ interface KingdomCharter extends KingdomCHG {
 
 interface KingdomGovernment extends KingdomCHG {
     skills: KingdomSkill[];
+    feat: CompendiumUUID | null;
 }
 
 type KingdomAbility = (typeof KINGDOM_ABILITIES)[number];
