@@ -263,3 +263,4 @@ export { Migration862SpecificMagicArmor } from "./862-specific-magic-armor.ts";
 export { Migration863FixMisspelledOrganaizationsProperty } from "./863-fix-misspelled-organaizations-property.ts";
 export { Migration864RemoveWeaponMAP } from "./864-rm-weapon-map.ts";
 export { Migration865VitalityVoid } from "./865-vitality-void.ts";
+export { Migration866LinkToActorSizeAgain } from "./866-link-to-actor-size-again.ts";

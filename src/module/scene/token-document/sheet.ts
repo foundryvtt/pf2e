@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -26,7 +27,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
         return {
             ...(await super.getData(options)),
-            sizeLinkable: !!this.actor && !["hazard", "loot"].includes(this.actor.type),
+            sizeLinkable: !!this.actor && SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type),
             linkToSizeTitle: this.token.flags.pf2e.linkToActorSize ? "Unlink" : "Link",
             autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
         };
