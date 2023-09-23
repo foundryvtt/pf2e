@@ -4,6 +4,7 @@ import type { ItemPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
+import { CheckRollContextFlag } from "@module/chat-message/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
@@ -161,8 +162,13 @@ interface DamageRollContextParams<
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > extends RollContextParams<TStatistic, TItem> {
-    /** An outcome of a preceding check roll */
-    outcome?: DegreeOfSuccessString | null;
+    /** The context object of the preceding check roll */
+    checkContext: Maybe<CheckRollContextFlag>;
+    /**
+     * An outcome of a preceding check roll:
+     * This may be different than what is in the context object if the user rolled damage despite a failure
+     */
+    outcome: Maybe<DegreeOfSuccessString>;
 }
 
 interface CheckContext<

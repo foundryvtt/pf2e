@@ -527,7 +527,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 await rule.afterRoll?.({
                     roll,
                     check,
-                    selectors: domains,
+                    context,
                     domains,
                     rollOptions: options,
                 });

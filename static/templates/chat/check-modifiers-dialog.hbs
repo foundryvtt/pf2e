@@ -6,13 +6,13 @@
             <span class="exclude">Utilize?</span>
         </div>
         <div class="substitutions">
-            {{#each substitutions as |sub idx|}}
-                <div class="dialog-row{{#if sub.ignored}} disabled{{/if}}">
+            {{#each substitutions as |sub index|}}
+                <div class="dialog-row{{#if (and hasRequiredSubstitution (not sub.selected))}} disabled{{/if}}">
                     <span class="mod">{{sub.label}}</span>
                     <span class="type">{{sub.value}}</span>
                     <div class="exclude">
                         <label class="toggle">
-                            <input type="checkbox" data-sub-index="{{idx}}" {{checked (not sub.ignored)}} />
+                            <input type="checkbox" data-sub-index="{{index}}" {{checked sub.selected}} />
                             <span class="widget"></span>
                         </label>
                     </div>

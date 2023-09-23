@@ -90,14 +90,14 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                         choices: ["if-enabled"],
                         initial: undefined,
                     }),
-                    new StrictBooleanField<boolean, boolean>({
+                    new StrictBooleanField({
                         required: false,
                         nullable: false,
                         initial: undefined,
                     }),
                     new PredicateField({ required: false, nullable: false, initial: undefined }),
                 ],
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: false }
             ),
         };
     }
@@ -219,7 +219,7 @@ type FlatModifierSchema = RuleElementSchema & {
         StrictStringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
         false,
         false,
-        false
+        true
     >;
 };
 

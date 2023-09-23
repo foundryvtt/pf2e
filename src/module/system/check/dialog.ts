@@ -1,8 +1,8 @@
-import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
-import { CheckRollContext } from "./types.ts";
 import { RollTwiceOption } from "../rolls.ts";
+import { CheckRollContext } from "./types.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -71,6 +71,7 @@ export class CheckModifiersDialog extends Application {
             rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
             substitutions: this.substitutions,
+            hasRequiredSubstitution: !!this.substitutions.some((s) => s.required && s.selected),
             fortune,
             none,
             misfortune,
@@ -92,11 +93,11 @@ export class CheckModifiersDialog extends Application {
                 const substitution = this.substitutions.at(index);
                 if (!substitution) return;
 
-                substitution.ignored = !checkbox.checked;
+                substitution.required = !checkbox.checked;
                 const options = (this.context.options ??= new Set());
                 const option = `substitute:${substitution.slug}`;
 
-                if (substitution.ignored) {
+                if (substitution.required) {
                     options.delete(option);
                 } else {
                     options.add(option);
@@ -215,6 +216,7 @@ interface CheckDialogData {
     rollMode: RollMode | "roll" | undefined;
     showRollDialogs: boolean;
     substitutions: RollSubstitution[];
+    hasRequiredSubstitution: boolean;
     fortune: boolean;
     none: boolean;
     misfortune: boolean;

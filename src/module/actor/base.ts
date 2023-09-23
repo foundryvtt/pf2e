@@ -625,7 +625,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
-            targetMarks: new Map(),
+            tokenMarks: new Map(),
             toggles: [],
             tokenEffectIcons: [],
             tokenOverrides: {},
@@ -856,6 +856,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: [...params.options, ...(params.item?.getRollOptions("item") ?? [])],
         });
 
+        const tokenMarkOption = ((): string | null => {
+            const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
+            return tokenMark ? `target:mark:${tokenMark}` : null;
+        })();
+
         const selfActor =
             params.viewOnly || !targetToken?.actor
                 ? this
@@ -864,6 +869,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                           [
                               Array.from(params.options),
                               targetToken.actor.getSelfRollOptions("target"),
+                              tokenMarkOption,
                               isFlankingAttack ? "self:flanking" : null,
                           ].flat()
                       ),
@@ -944,8 +950,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
             if (targetToken) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
-                const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
-                if (mark) targetOptions.push(`target:mark:${mark}`);
+                if (tokenMarkOption) targetOptions.push(tokenMarkOption);
             }
             return targetOptions.sort();
         };
@@ -1044,11 +1049,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         TItem extends ItemPF2e<ActorPF2e> | null
     >(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
+        if (params.outcome) params.options.add(`check:outcome:${sluggify(params.outcome)}`);
+
+        const substitution = params.checkContext?.substitutions.find((s) => s.selected);
+        if (substitution) params.options.add(`check:substitution:${substitution.slug}`);
+
         const context = await this.getRollContext(params);
-        if (params.outcome) {
-            const outcome = sluggify(params.outcome);
-            context.options.add(`check:outcome:${outcome}`);
-        }
 
         return context;
     }
