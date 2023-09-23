@@ -21,10 +21,12 @@ export class Migration865VitalityVoid extends MigrationBase {
                 .replace(/\[positive\b/g, "vitality]")
                 .replace(/\[negative\b/g, "void]")
                 // Localization keys
+                .replace(/\bRollFlavor\.positive\b/g, "RollFlavor.vitality")
+                .replace(/\bRollFlavor\.negative\b/g, "RollFlavor.void")
                 .replace(/\bTraitPositive\b/g, "TraitVitality")
                 .replace(/\bTraitNegative\b/g, "TraitVoid")
-                .replace(/\bTraitVersatilePositive\b/g, "bTraitVersatileVitality")
-                .replace(/\bTraitVersatileNegative\b/g, "bTraitVersatileVoid")
+                .replace(/\bTraitVersatilePositive\b/g, "TraitVersatileVitality")
+                .replace(/\bTraitVersatileNegative\b/g, "TraitVersatileVoid")
                 // ???
                 .replace(/\bnegative negative damage\b/, "void damage")
         );
