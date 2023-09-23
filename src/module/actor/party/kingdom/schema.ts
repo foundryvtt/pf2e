@@ -1,6 +1,6 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import { type ArrayField, type StringField } from "types/foundry/common/data/fields.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { KingdomAbility, KingdomSettlementType, KingdomSkill } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
