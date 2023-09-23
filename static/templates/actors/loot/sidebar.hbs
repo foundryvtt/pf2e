@@ -3,7 +3,7 @@
         <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
         <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
     </div>
-    
+
     {{#if (and user.isGM isLoot)}}
         <section class="gm-settings">
             <section class="loot-distribution">
@@ -22,8 +22,4 @@
     {{else}}
         <div class="description">{{{enrichedContent.description}}}</div>
     {{/if}}
-
-    <section class="sidebar-meta">
-        <div class="bulk"><strong>{{localize "PF2E.BulkLabel"}}</strong> {{inventory.bulk.value}}</div>
-    </section>
 </section>

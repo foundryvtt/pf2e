@@ -51,6 +51,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/item-line.hbs",
         "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/partials/toggles.hbs",
+        "systems/pf2e/templates/actors/partials/total-bulk.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
         "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",

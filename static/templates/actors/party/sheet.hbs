@@ -57,10 +57,7 @@
             <section class="inventory">
                 {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
                 {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
-                <div class="total-bulk">
-                    <img src="icons/containers/bags/pack-leather-white-tan.webp">
-                    <span class="bar inventory-header">{{localize "PF2E.Actor.Party.Bulk" bulk=inventory.bulk.value}}</span>
-                </div>
+                {{> "systems/pf2e/templates/actors/partials/total-bulk.hbs"}}
             </section>
         </div>
 
