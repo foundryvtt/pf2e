@@ -29,6 +29,7 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     prepareBaseData?(): void;
     /** Executed during the actor's prepareDerivedData phase */
     prepareDerivedData?(): void;
+    _preUpdate?(changed: Record<string, unknown>): void;
 }
 
 export type { PartyCampaign, PartyUpdateContext };

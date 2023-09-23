@@ -1,6 +1,6 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import { type ArrayField, type StringField } from "types/foundry/common/data/fields.js";
+import { type ArrayField, type StringField } from "types/foundry/common/data/fields.ts";
 import { KingdomAbility, KingdomSettlementType, KingdomSkill } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
@@ -51,6 +51,10 @@ const KINGDOM_BUILD_SCHEMA = {
             skills: new fields.ArrayField<StringField<KingdomSkill, KingdomSkill, true, false>>(
                 new fields.StringField({ required: true, nullable: false, choices: KINGDOM_SKILLS })
             ),
+            feat: new fields.StringField<CompendiumUUID, CompendiumUUID, true, true>({
+                required: true,
+                nullable: true,
+            }),
         },
         { nullable: true, initial: null }
     ),

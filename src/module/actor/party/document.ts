@@ -9,7 +9,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
+import { DataModelValidationOptions } from "types/foundry/common/abstract/data.ts";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
@@ -249,6 +249,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Ensure the party campaign type is properly set if any data gets updated
         if (changed.system?.campaign && this.campaign && this.campaign.type !== "invalid") {
             changed.system.campaign.type = this.campaign.type;
+            this.campaign._preUpdate?.(changed.system.campaign);
         }
 
         return super._preUpdate(changed, options, user);

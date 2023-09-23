@@ -406,7 +406,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         this.feats = new FeatGroup(this.actor, {
             id: "kingdom",
             label: "Kingdom Feats",
-            slots: evenLevels,
+            slots: [{ id: "government", label: "G" }, ...evenLevels],
             featFilter: ["traits-kingdom"],
             level: this.level,
         });
@@ -534,6 +534,23 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             new KingdomBuilder(this).render(true);
         } else {
             new KingdomSheetPF2e(this.actor).render(true, { tab: options.tab });
+        }
+    }
+
+    _preUpdate(changed: DeepPartial<KingdomSource>): void {
+        const actor = this.actor;
+        const feat = changed.build?.government?.feat;
+        if (feat) {
+            console.log("Replacing feat");
+            fromUuid(feat).then(async (f) => {
+                if (!(f instanceof CampaignFeaturePF2e)) return;
+                const currentGovernmentFeat = actor.itemTypes.campaignFeature.find(
+                    (f) => f.system.location === "government"
+                );
+                const newFeat = f.clone({ "system.location": "government" });
+                await currentGovernmentFeat?.delete();
+                await actor.createEmbeddedDocuments("Item", [newFeat.toObject()]);
+            });
         }
     }
 }

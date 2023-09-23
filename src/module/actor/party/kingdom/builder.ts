@@ -7,7 +7,13 @@ import { resolveKingdomBoosts } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import { KingdomAbility, KingdomCHG } from "./types.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_SKILL_LABELS, getKingdomABCData } from "./values.ts";
+import {
+    KINGDOM_ABILITIES,
+    KINGDOM_ABILITY_LABELS,
+    KINGDOM_SKILL_LABELS,
+    KingdomCHGData,
+    getKingdomCHGData,
+} from "./values.ts";
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
@@ -89,7 +95,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     }
 
     override async getData(): Promise<KingdomBuilderSheetData> {
-        const database = getKingdomABCData();
+        const database = getKingdomCHGData();
 
         const getActiveForCategory = (category: KingdomBuildCategory) => {
             const active = this.kingdom.build[category];
@@ -101,19 +107,25 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             this.selected[category] ??= getActiveForCategory(category);
         }
 
-        const categories = KINGDOM_BUILD_CATEGORIES.reduce((result, category) => {
-            const selected = this.selected[category];
-            const entries = database[category];
-            const buildEntry =
-                (objectHasKey(entries, selected) ? entries[selected] : null) ?? Object.values(entries)[0];
-            result[category] = {
-                selected,
-                active: getActiveForCategory(category),
-                buildEntry,
-                stale: !R.equals(buildEntry, this.kingdom.build[category]),
-            };
-            return result;
-        }, {} as Record<KingdomBuildCategory, CategorySheetData>);
+        const categories = await R.pipe(
+            KINGDOM_BUILD_CATEGORIES,
+            R.map(async (category: KingdomBuildCategory): Promise<[KingdomBuildCategory, CategorySheetData]> => {
+                const selected = this.selected[category];
+                const entries = database[category];
+                const buildEntry = entries[selected ?? ""] ?? Object.values(entries)[0];
+                const featItem = buildEntry?.feat ? await fromUuid(buildEntry.feat) : null;
+
+                const result = {
+                    selected,
+                    active: getActiveForCategory(category),
+                    buildEntry,
+                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link, { async: true }) : null,
+                    stale: !R.equals(buildEntry, this.kingdom.build[category]),
+                };
+                return [category, result];
+            }),
+            (items) => Promise.all(items).then((result) => R.fromPairs(result))
+        );
 
         const { build } = this.kingdom;
         const finished = !!(build.charter && build.heartland && build.government);
@@ -154,7 +166,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 const selected = boosts.includes(ability);
 
                 // Kingmaker doesn't allow boosting a stat that has a flaw
-                if ("flaw" in buildItem && ability === buildItem.flaw) {
+                if (ability === buildItem.flaw) {
                     buttons[ability].flaw = { selected: true, locked: true };
                 } else if (selected || buildItem.boosts.includes("free")) {
                     buttons[ability].boost = {
@@ -192,6 +204,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Implement callbacks for each build category
         for (const categoryEl of htmlQueryAll(html, "[data-category]")) {
             const category = categoryEl.dataset.category ?? null;
             if (!tupleHasValue(KINGDOM_BUILD_CATEGORIES, category)) continue;
@@ -207,7 +220,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             }
 
             const saveCategory = async (): Promise<void> => {
-                const database = getKingdomABCData();
+                const database = getKingdomCHGData();
                 const selected = database[category][this.selected[category] ?? ""];
                 if (selected) {
                     this.selected[category] = null;
@@ -252,7 +265,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     ? current.filter((a) => a !== ability)
                     : [...current, ability];
                 const boosts = updated
-                    .filter((a) => !object.boosts.includes(a) && (!("flaw" in object) || object.flaw !== a))
+                    .filter((a) => !object.boosts.includes(a) && object.flaw !== a)
                     .slice(0, maxBoosts);
                 this.kingdom.update({ [`build.boosts.${sectionId}`]: boosts });
             });
@@ -311,7 +324,7 @@ interface KingdomBuilderSheetData {
         editable: boolean;
     };
     kingdom: Kingdom;
-    database: ReturnType<typeof getKingdomABCData>;
+    database: KingdomCHGData;
     categories: Record<KingdomBuildCategory, CategorySheetData>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
@@ -326,6 +339,8 @@ interface CategorySheetData {
     selected: string | null;
     /** The build entry currently being viewed (aka selected) */
     buildEntry?: KingdomCHG;
+    /** The feat item the selected build entry will grant */
+    featLink: string | null;
     stale: boolean;
 }
 
