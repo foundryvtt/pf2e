@@ -1,0 +1,80 @@
+<form>
+    <div class="scroll-container">
+        <ol class="skills-list">
+            <li class="skill header">
+                <div>{{localize "PF2E.SkillLabel"}}</div>
+                <div>{{localize "PF2E.ModifierTitle"}}</div>
+            </li>
+            {{#each trainedSkills as |skill|}}
+                {{#unless skill.isLore}}
+                    <li class="skill" data-item-id="{{skill.itemID}}">
+                        <label for="{{../actor.uuid}}-{{skill.itemID}}-modifier">{{skill.label}}</label>
+                        <input
+                            type="number"
+                            id="{{../actor.uuid}}-{{skill.itemID}}-modifier"
+                            value="{{#if skill.visible}}{{skill.base}}{{else}}0{{/if}}"
+                            placeholder="0"
+                            data-modifier
+                        />
+                        <div class="item-controls">
+                            <a class="item-control" data-action="edit-skill" data-tooltip="{{localize "PF2E.EditItemTitle"}}">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                            <a class="item-control" data-action="remove-skill" data-tooltip="{{localize "PF2E.NPC.Remove"}}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </li>
+                {{/unless}}
+            {{/each}}
+
+            <li class="skill-selector">
+                <select>
+                    {{#each untrainedSkills as |skill|}}
+                        <option value="{{skill.slug}}">{{skill.label}}</option>
+                    {{/each}}
+                </select>
+                <button type="button" data-action="add-skill">
+                    <i class="fa-solid fa-plus"></i> {{localize "PF2E.NPC.AddSkill"}}
+                </button>
+            </li>
+        </ol>
+
+        <ol class="skills-list">
+            <li class="skill header lore">
+                <div>{{localize "PF2E.Lore"}}</div>
+                <div>{{localize "PF2E.ModifierTitle"}}</div>
+            </li>
+
+            {{#each trainedSkills as |skill|}}
+                {{#if skill.isLore}}
+                    <li class="skill" data-item-id="{{skill.itemID}}">
+                        <label class="skill-name" for="{{../actor.uuid}}-{{skill.itemID}}-modifier">{{skill.label}}</label>
+                        <input
+                            type="number"
+                            id="{{../actor.uuid}}-{{skill.itemID}}-modifier"
+                            value="{{skill.base}}"
+                            placeholder="0"
+                            data-modifier
+                        />
+                        <div class="item-controls">
+                            <a class="item-control" data-action="edit-skill" data-tooltip="{{localize "PF2E.EditItemTitle"}}">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                            <a class="item-control" data-action="remove-skill" data-tooltip="{{localize "PF2E.NPC.Remove"}}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </li>
+                {{/if}}
+            {{/each}}
+
+            <li class="lore-skill-creator">
+                <input type="text" area-label="{{localize "Name"}}" placeholder="{{localize "PF2E.Actor.NPC.SkillsEditor.LorePlaceholder"}}" />
+                <button type="button" data-action="add-lore">
+                    <i class="fa-solid fa-plus"></i> {{localize "PF2E.NPC.AddSkill"}}
+                </button>
+            </li>
+        </ol>
+    </div>
+</form>
