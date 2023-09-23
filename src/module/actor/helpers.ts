@@ -1,5 +1,6 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
+import { CheckRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -24,7 +25,7 @@ import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
-import { AuraEffectData } from "./types.ts";
+import { AuraEffectData, DamageRollContextParams } from "./types.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -161,6 +162,13 @@ function calculateMAPs(
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
+}
+
+interface MAPData {
+    slug: "multiple-attack-penalty";
+    label: string;
+    map1: number;
+    map2: number;
 }
 
 /** Create roll options pertaining to the active encounter and the actor's participant */
@@ -510,11 +518,33 @@ function isReallyPC(actor: ActorPF2e): boolean {
     return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
 }
 
-interface MAPData {
-    slug: "multiple-attack-penalty";
-    label: string;
-    map1: number;
-    map2: number;
+/** Scan the last three chat messages for a check context to match the to-be-created damage context. */
+function findMatchingCheckContext(actor: ActorPF2e, params: DamageRollContextParams): CheckRollContextFlag | null {
+    if (params.viewOnly || !params.target?.token) return null;
+    const paramsItem = params.item;
+    if (!paramsItem?.isOfType("melee", "weapon")) return null;
+
+    const checkMessage = game.messages.contents
+        .slice(-3)
+        .reverse()
+        .find((message) => {
+            if (!message.rolls.some((r) => r instanceof CheckRoll)) return false;
+            if (message.actor?.uuid !== actor.uuid) return false;
+            if (params.target?.token !== message.target?.token.object) return false;
+
+            const messageItem = message.item;
+            if (!messageItem?.isOfType("melee", "weapon")) return false;
+            const paramsItemSlug = paramsItem.slug ?? sluggify(paramsItem.name);
+            const messageItemSlug = messageItem.slug ?? sluggify(messageItem.name);
+
+            return !!(
+                paramsItemSlug === messageItemSlug &&
+                paramsItem.uuid === messageItem.uuid &&
+                paramsItem.isMelee === messageItem.isMelee
+            );
+        });
+
+    return (checkMessage?.flags.pf2e.context ?? null) as CheckRollContextFlag | null;
 }
 
 export {
@@ -523,6 +553,7 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    findMatchingCheckContext,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
