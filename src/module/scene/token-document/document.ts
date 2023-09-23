@@ -153,13 +153,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
-
-        this._source.flags.pf2e ??= {};
-        this._source.flags.pf2e.linkToActorSize ??= true;
-        this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
-            ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
-            : false;
-
         super._initialize(options);
     }
 
