@@ -7,7 +7,9 @@
         <label class="dc">
             DC<input type="number" name="event.dc" value="{{kingdom.event.dc}}" step="5"/>
         </label>
-        <a data-action="reset-event-dc"><i class="fa-solid fa-redo"></i></a>
+        {{#if @root.options.editable}}
+            <a data-action="reset-event-dc"><i class="fa-solid fa-redo"></i></a>
+        {{/if}}
     </section>
     {{editor eventText target="event.text" button=true owner=@root.owner editable=@root.editable}}
 </section>

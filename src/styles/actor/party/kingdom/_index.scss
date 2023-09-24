@@ -380,10 +380,11 @@
     }
 
     button.small-button,
-    select.proficiency {
+    select.proficiency,
+    span.proficiency {
         @include micro;
         align-items: center;
-        background: #6c6b68;
+        background: var(--color-proficiency-untrained);
         border: 1px solid rgba(black, 0.5);
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(white, 0.1);
@@ -393,24 +394,14 @@
         height: unset;
         justify-content: center;
         line-height: unset;
-        padding-top: 1px;
-        padding-bottom: 1px;
+        padding: 1px 2px 1px 2px;
     }
 
-    select.proficiency {
-        background: var(--color-proficiency-untrained);
-        cursor: pointer;
+    .proficiency {
         text-align-last: center;
         appearance: none;
-        padding-left: 2px;
-        padding-right: 1px;
 
         &.readonly {
-            pointer-events: none;
-        }
-
-        span {
-            min-width: 61px;
             pointer-events: none;
         }
 
@@ -437,6 +428,10 @@
         option[value="4"] {
             background: var(--color-proficiency-legendary);
         }
+    }
+
+    select.proficiency {
+        cursor: pointer;
     }
 
     .tab.active {
