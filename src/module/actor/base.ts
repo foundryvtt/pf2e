@@ -65,6 +65,7 @@ import {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    findMatchingCheckContext,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
@@ -1048,14 +1049,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         TItem extends ItemPF2e<ActorPF2e> | null
     >(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
+        // In case the user rolled damage from their sheet, try to fish out the check context from chat
+        params.checkContext ??= findMatchingCheckContext(this, params);
+
         if (params.outcome) params.options.add(`check:outcome:${sluggify(params.outcome)}`);
 
         const substitution = params.checkContext?.substitutions.find((s) => s.selected);
         if (substitution) params.options.add(`check:substitution:${substitution.slug}`);
 
-        const context = await this.getRollContext(params);
-
-        return context;
+        return this.getRollContext(params);
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
