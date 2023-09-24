@@ -5,7 +5,6 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
-import { isRelevantEvent } from "@scripts/sheet-util.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -104,21 +103,17 @@ export class EffectsPanel extends Application {
 
             const iconElem = effectEl.querySelector(":scope > .icon");
             // Increase or render persistent-damage dialog on left click
-            iconElem?.addEventListener("click", async (event) => {
+            iconElem?.addEventListener("click", async () => {
                 if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
                     await effect.onEndTurn({ token: this.token });
-                } else if (effect instanceof AfflictionPF2e && isRelevantEvent(event)) {
-                    await effect.increase({ by: event.shiftKey ? 2 : 1 });
                 } else if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
                 }
             });
 
             // Remove effect or decrease its badge value on right-click
-            iconElem?.addEventListener("contextmenu", async (event) => {
-                if (effect instanceof AfflictionPF2e && isRelevantEvent(event)) {
-                    await effect.decrease({ by: event.shiftKey ? 2 : 1 });
-                } else if (effect instanceof AbstractEffectPF2e) {
+            iconElem?.addEventListener("contextmenu", async () => {
+                if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 } else {
                     // Failover in case of a stale effect
