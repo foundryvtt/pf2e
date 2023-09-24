@@ -1,0 +1,124 @@
+{
+    "_id": "iIWnR3Fnzbr4UPPF",
+    "img": "icons/creatures/abilities/paw-print-orange.webp",
+    "name": "Effect: Tiger Form",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "36"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 26
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 16
+                            },
+                            "modifier": 25,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d6",
+                                "modifier": 16
+                            },
+                            "modifier": 25,
+                            "traits": [
+                                "unarmed",
+                                "grab"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "large"
+                    ]
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "jaws-attack",
+                "text": "@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                "title": "@Localize[PF2E.AttackEffectGrab] <span class=\"pf2-icon\">1</span>"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Reposition Chains"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Rallying Display"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Wrestle"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,94 @@
+{
+    "_id": "kJ5xdIfvmRLw0KaB",
+    "img": "icons/creatures/abilities/fang-tooth-blood-red.webp",
+    "name": "Effect: Boar Form",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "36"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 26
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "tusk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 16
+                            },
+                            "modifier": 25,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "large"
+                    ]
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Rallying Display"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Reposition Chains"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Chained Charge"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
