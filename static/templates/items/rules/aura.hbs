@@ -1,4 +1,3 @@
-{{log this}}
 <nav class="sheet-tabs tabs rule-tabs">
     <h4>
         <a data-rule-tab="basic"><i class="fas fa-cogs"></i> {{localize "PF2E.RuleEditor.Aura.Basic.Label"}}</a>
@@ -8,39 +7,43 @@
 </nav>
 
 <div data-rule-tab="basic">
-    <div class="form-group">
-        <div class="spaced-fields details-container-flex-row">
-            <label>{{localize fields.radius.label}}</label>
+    <div class="grid-item">
+        <label>{{localize fields.radius.label}}</label>
+        <div class="resolvable">
             {{{form.resolvableValue "radius"}}}
             {{{form.resolvableAddBracket "radius"}}}
         </div>
+        <div class="brackets-container">
+            {{{form.resolvableBrackets "radius"}}}
+        </div>
     </div>
-    {{{form.resolvableBrackets "radius"}}}
 
-    <div class="form-group">
-        <div class="spaced-fields details-container-flex-row">
-            <label>
-                {{localize fields.level.label}}
-                <i class="fas fa-info-circle small" data-tooltip={{fields.level.hint}}></i>
-            </label>
+    <div class="grid-item">
+        <label>
+            {{localize fields.level.label}}
+            <i class="fas fa-info-circle small" data-tooltip={{fields.level.hint}}></i>
+        </label>
+        <div class="resolvable">
             {{{form.resolvableValue "level"}}}
             {{{form.resolvableAddBracket "level"}}}
         </div>
+        <div class="brackets-container">
+            {{{form.resolvableBrackets "level"}}}
+        </div>
     </div>
-    {{{form.resolvableBrackets "level"}}}
 
-    <div class="grid">
-        <div class="form-group">
-            <label class="short">{{localize fields.traits.label}}</label>
+    <div class="stacked">
+        <div class="grid-item">
+            <label>{{localize fields.traits.label}}</label>
             <input type="text" class="pf2e-tagify tagify-traits" name="system.rules.{{index}}.traits" value="{{json object.traits}}" data-dtype="JSON"/>
         </div>
 
-        <div class="form-group">
+        <div class="grid-item long-label">
             <label>
                 {{localize fields.mergeExisting.label}}
                 <i class="fas fa-info-circle small" data-tooltip={{fields.mergeExisting.hint}}></i>
             </label>
-            <div class="form-fields">
+            <div class="checkbox">
                 <input type="checkbox" name="system.rules.{{index}}.mergeExisting" {{checked object.mergeExisting}}/>
             </div>
         </div>
@@ -49,71 +52,64 @@
 
 <div data-rule-tab="effects">
     {{#each effects as |effect eid|}}
-        <div class="grid">
-            <div class="form-group">
-                <label class="short">{{localize "PF2E.ItemTitle"}}</label>
-                <a class="content-link" data-uuid="{{effect.uuid}}">
-                    <img src="{{effect.item.img}}">
-                    <span class="name">{{effect.item.name}}</span>
-                </a>
-            </div>
+        <div class="item-container">
+            <label>{{localize "PF2E.ItemTitle"}}</label>
+            <a class="content-link" data-uuid="{{effect.uuid}}">
+                <img src="{{effect.item.img}}">
+                <span class="name">{{effect.item.name}}</span>
+            </a>
 
             <div class="item-controls">
                 <a class="remove-aura-effect" data-rule-index="{{../index}}" data-effect-id="{{eid}}" data-action="remove-effect" data-tooltip="PF2E.RuleEditor.Aura.Effects.RemoveEffect"><i class="fas fa-trash"></i></a>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label>{{localize ../fields.effects.element.fields.affects.label}}</label>
-                <div class="form-fields">
-                    <select name="system.rules.{{../index}}.effects.{{eid}}.affects">
-                        {{selectOptions ../affectsOptions selected=effect.affects localize=true sort=true}}
-                    </select>
+        <div class="three-items">
+            <label>{{localize ../fields.effects.element.fields.affects.label}}</label>
+            <select name="system.rules.{{../index}}.effects.{{eid}}.affects">
+                {{selectOptions ../affectsOptions selected=effect.affects localize=true sort=true}}
+            </select>
+
+            <label>{{localize ../fields.effects.element.fields.removeOnExit.label}}</label>
+            <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.removeOnExit" {{checked (ne effect.removeOnExit false)}}/>
+
+            <label>{{localize ../fields.effects.element.fields.includesSelf.label}}</label>
+            <div class="checkbox">
+                <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf" {{checked (ne effect.includesSelf false)}}/>
+            </div>
+        </div>
+
+        <!-- Not fully implemented
+        <div class="grid-item">
+            <label>{{localize ../fields.effects.element.fields.events.label}}</label>
+            <input type="text" class="pf2e-tagify tagify-events" name="system.rules.{{../index}}.effects.{{eid}}.events" value="{{json effect.events}}" data-dtype="JSON"/>
+        </div>
+
+        <fieldset>
+            <legend>{{localize ../fields.effects.element.fields.save.label}}</legend>
+            <div class="saves-container">
+                <label>{{localize ../fields.effects.element.fields.save.fields.type.label}}</label>
+                <select name="system.rules.{{../index}}.effects.{{eid}}.save.type">
+                    {{selectOptions ../saveTypes selected=effect.save.type localize=true blank=""}}
+                </select>
+
+                <div class="resolvable">
+                    <label>{{localize ../fields.effects.element.fields.save.fields.dc.label}}</label>
+                    {{{../form.resolvableValue (concat "effects." eid ".save.dc")}}}
+                    {{{../form.resolvableAddBracket (concat "effects." eid ".save.dc")}}}
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>{{localize ../fields.effects.element.fields.events.label}}</label>
-                <input type="text" class="pf2e-tagify tagify-events" name="system.rules.{{../index}}.effects.{{eid}}.events" value="{{json effect.events}}" data-dtype="JSON"/>
-            </div>
-
-            <div class="form-group">
-                <label>{{localize ../fields.effects.element.fields.removeOnExit.label}}</label>
-                <div class="form-fields-checkbox">
-                    <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.removeOnExit" {{checked (ne effect.removeOnExit false)}}/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>{{localize ../fields.effects.element.fields.includesSelf.label}}</label>
-                <div class="form-fields-checkbox">
-                    <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf" {{checked (ne effect.includesSelf false)}}/>
-                </div>
-            </div>
-
-            <fieldset class="saves-container">
-                <legend>{{localize ../fields.effects.element.fields.save.label}}</legend>
-
-                <div class="form-group">
-                    <label class="short">{{localize ../fields.effects.element.fields.save.type.label}}</label>
-                    <div class="form-fields">
-                        <select name="system.rules.{{../index}}.effects.{{eid}}.save.type">
-                            {{selectOptions ../saveTypes selected=effect.save.type localize=true blank=""}}
-                        </select>
+                {{#if effect.save.dc.brackets}}
+                    <div class="brackets-container">
+                        {{{../form.resolvableBrackets (concat "effects." eid ".save.dc")}}}
                     </div>
-                </div>
+                {{/if}}
+            </div>
+        </fieldset>
+        -->
 
-                <div class="form-group">
-                    <div class="spaced-fields details-container-flex-row">
-                        <label class="short">{{localize ../fields.effects.element.fields.save.dc.label}}</label>
-                        {{{../form.resolvableValue (concat "effects." eid ".save.dc")}}}
-                        {{{../form.resolvableAddBracket (concat "effects." eid ".save.dc")}}}
-                    </div>
-                </div>
-            {{{../form.resolvableBrackets (concat "effects." eid ".save.dc")}}}
-            </fieldset>
-
-            <div class="spaced-fields column-span-two">
-                <label>{{localize ../fields.effects.element.fields.predicate.label}}</label>
+        <div class="grid-item column-span-two">
+            <label>{{localize ../fields.effects.element.fields.predicate.label}}</label>
+            <div>
                 <input type="text" class="predicate" name="system.rules.{{../index}}.effects.{{eid}}.predicate" value="{{#if (ne (json effect.predicate) "[]")}}{{json effect.predicate}}{{/if}}" />
             </div>
         </div>
@@ -123,82 +119,66 @@
 </div>
 
 <div data-rule-tab="appearance">
-    <fieldset class="grid">
+    <fieldset>
         <legend>{{localize fields.appearance.fields.border.label}}</legend>
-
-        <div class="form-group">
-            <label>{{localize fields.appearance.fields.border.fields.color.label}}</label>
-            <div class="form-fields">
+        <div class="stacked">
+            <div class="two-items">
+                <label>{{localize fields.appearance.fields.border.fields.color.label}}</label>
                 {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=object.appearance.border.color}}
             </div>
-        </div>
-
-        <div class="form-group">
-            <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
-            <div class="form-fields">
+            <div class="two-items">
+                <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
                 {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=object.appearance.border.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
         </div>
     </fieldset>
 
-    <fieldset class="grid">
+    <fieldset>
         <legend>{{localize fields.appearance.fields.highlight.label}}</legend>
-
-        <div class="form-group">
-            <label>{{ localize fields.appearance.fields.highlight.fields.color.label }}</label>
-            <div class="form-fields">
+        <div class="stacked">
+            <div class="two-items">
+                <label>{{ localize fields.appearance.fields.highlight.fields.color.label }}</label>
                 {{colorPicker name=(concat "system.rules." index ".appearance.highlight.color") value=object.appearance.highlight.color}}
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>{{ localize fields.appearance.fields.highlight.fields.alpha.label }}</label>
-            <div class="form-fields">
+            <div class="two-items">
+                <label>{{ localize fields.appearance.fields.highlight.fields.alpha.label }}</label>
                 {{rangePicker name=(concat "system.rules." index ".appearance.highlight.alpha") value=object.appearance.highlight.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
         </div>
     </fieldset>
 
-    <fieldset class="grid">
+    <fieldset>
         <legend>{{localize fields.appearance.fields.texture.label}}</legend>
-
-        <div class="form-group">
-            <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
-            <div class="form-fields">
+        <div class="stacked">
+            <div class="two-items">
+                <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
                 <input type="text" name="system.rules.{{index}}.appearance.texture.src" value="{{object.appearance.texture.src}}">
                 {{filePicker target=(concat "system.rules." index ".appearance.texture.src") type="imagevideo"}}
             </div>
-        </div>
 
-        {{#if object.appearance.texture.src}}
-            <div class="form-group">
-                <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
-                <div class="form-fields">
+            {{#if object.appearance.texture.src}}
+                <div class="two-items long-label">
+                    <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.alpha") value=object.appearance.texture.alpha placeholder="1" min="0" max="1" step="0.05"}}
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
-                <div class="form-fields">
-                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.scale") value=object.appearance.texture.scale placeholder="1" min="1" max="5" step="0.01"}}
+                <div class="two-items long-label">
+                    <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
+                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.scale") value=object.appearance.texture.scale placeholder="1" min="0" max="5" step="0.01"}}
                 </div>
-            </div>
 
-            <div class="spaced-fields details-container-flex-row translation">
-                <label>
-                    {{localize fields.appearance.fields.texture.fields.translation.label}}
-                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.translation.hint}}></i>
-                </label>
-                <div class="form-fields">
+                <div class="two-items translation long-label">
+                    <label>
+                        {{localize fields.appearance.fields.texture.fields.translation.label}}
+                        <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.translation.hint}}></i>
+                    </label>
                     <input type="number" 
                         name="system.rules.{{index}}.appearance.texture.translation.x"
                         data-translation="x"
                         placeholder="{{localize fields.appearance.fields.texture.fields.translation.fields.x.label}}"
                         value="{{object.appearance.texture.translation.x}}"
                     >
-                </div>
-                <div class="form-fields">
                     <input type="number"
                         name="system.rules.{{index}}.appearance.texture.translation.y"
                         data-translation="y"
@@ -206,27 +186,23 @@
                         value="{{object.appearance.texture.translation.y}}"
                     >
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>
-                    {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
-                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.playbackRate.hint}}></i>
-                </label>
-                <div class="form-fields">
-                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.playbackRate") value=object.appearance.texture.playbackRate placeholder="1" min="1" max="4" step="0.5"}}
+                <div class="two-items long-label">
+                    <label>
+                        {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
+                        <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.playbackRate.hint}}></i>
+                    </label>
+                    {{rangePicker name=(concat "system.rules." index ".appearance.texture.playbackRate") value=object.appearance.texture.playbackRate placeholder="1" min="0" max="4" step="0.05"}}
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="with-hint">
-                    {{localize fields.appearance.fields.texture.fields.loop.label}}
-                    <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.loop.hint}}></i>
-                </label>
-                <div class="form-fields-checkbox">
+                <div class="grid-item long-label">
+                    <label>
+                        {{localize fields.appearance.fields.texture.fields.loop.label}}
+                        <i class="fas fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.loop.hint}}></i>
+                    </label>
                     <input type="checkbox" name="system.rules.{{index}}.appearance.texture.loop" {{checked object.appearance.texture.loop}}/>
                 </div>
-            </div>
-        {{/if}}
+            {{/if}}
+        </div>
     </fieldset>
 </div>

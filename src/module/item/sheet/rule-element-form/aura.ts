@@ -8,7 +8,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
     protected override tabs: RuleElementFormTabData = {
         names: ["basic", "effects", "appearance"],
-        displayStyle: "flex",
+        displayStyle: "grid",
     };
 
     #effectsMap: Map<string, AuraEffectSource> = new Map();

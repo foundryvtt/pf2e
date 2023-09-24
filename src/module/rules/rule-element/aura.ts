@@ -172,8 +172,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     initial: () => ({
                         alpha: 0.25,
                         color: undefined,
-                        label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
                     }),
+                    label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
                 }
             ),
             texture: new fields.SchemaField(

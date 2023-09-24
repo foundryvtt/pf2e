@@ -230,7 +230,6 @@
         fieldset {
             border-radius: 5px;
             border: 1px solid var(--secondary-background);
-            margin: 0.5em 0;
             padding: 0.25em;
 
             legend {
@@ -284,11 +283,51 @@
 
         &[data-key="Aura"] {
             div[data-rule-tab] {
-                display: flex;
-                flex-direction: column;
+                .grid-item {
+                    display: grid;
+                    grid: "label content" 1fr/4vw 10fr;
+
+                    &.long-label {
+                        grid: "label content" 1fr/7vw 10fr;
+                    }
+                }
+
+                .checkbox {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .item-controls {
+                    justify-content: flex-end;
+
+                    a {
+                        margin: 2px 5px 0 0;
+                    }
+                }
+
+                .stacked {
+                    display: grid;
+                    grid: "c c" 1fr/1fr 1fr;
+                    column-gap: 10px;
+                }
+
+                .column-span-two {
+                    grid-column: span 2;
+                }
+
+                .resolvable {
+                    grid-column: span 2;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .brackets-container {
+                    grid-column: span 3;
+                }
 
                 label {
                     min-width: 5em;
+                    font-weight: 500;
 
                     &.short {
                         max-width: 5em;
@@ -297,6 +336,10 @@
                     &.with-hint {
                         margin-right: 5px;
                     }
+                }
+
+                fieldset {
+                    grid-column: span 2;
                 }
 
                 .brackets {
@@ -308,62 +351,72 @@
                     margin: unset;
                 }
 
-                .grid {
-                    display: grid;
-                    grid: "label content" 1fr/1fr 1fr;
-                    column-gap: 5px;
-                    margin-top: 0.5em;
-
-                    input[type="checkbox"] {
-                        margin-right: 3px;
-                    }
-
-                    .item-controls {
-                        justify-content: flex-end;
-
-                        a {
-                            margin: 2px 2px 0 0;
-                        }
-                    }
-
-                    .column-span-two {
-                        grid-column: span 2;
-                    }
-                }
-
                 hr {
+                    grid-column: span 2;
                     width: 100%;
                 }
             }
 
             div[data-rule-tab="effects"] {
-                height: 230px;
+                height: 90px;
                 overflow-y: auto;
 
-                a.content-link {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5em;
-                    min-width: 9rem;
-                    height: 2em;
-                    padding: 4px;
+                .item-container {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: "label item trash" 1fr/4vw 10fr 1fr;
 
-                    img {
-                        border: 1px solid var(--color-border-dark);
-                        border-radius: 2px;
-                        box-sizing: border-box;
-                        display: block;
-                        float: left;
-                        height: 24px;
-                        width: 24px;
+                    a.content-link {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5em;
+                        width: fit-content;
+                        min-width: 12rem;
+                        height: 2em;
+                        padding: 4px;
+
+                        img {
+                            border: 1px solid var(--color-border-dark);
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            display: block;
+                            float: left;
+                            height: 24px;
+                            width: 24px;
+                        }
+
+                        span {
+                            text-wrap: wrap;
+                        }
                     }
+                }
 
-                    span {
-                        text-wrap: wrap;
+                .three-items {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: "l1 c1 l2 c2 l3 c3" 1fr/
+                    4vw 8fr 6vw 5fr 5vw 1fr;
+                    margin-top: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
                     }
                 }
 
                 .saves-container {
+                    display: grid;
+                    grid: "l c" 1fr/4vw 8.8fr;
+                    align-items: center;
+                    row-gap: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
+                    }
+                }
+
+                .rules-drop-container {
                     grid-column: span 2;
                 }
             }
@@ -372,6 +425,25 @@
                 .translation {
                     input {
                         width: 5em;
+                    }
+                }
+
+                input[type="checkbox"] {
+                    margin-left: unset;
+                }
+
+                .two-items {
+                    display: grid;
+                    grid: "l1 c1 c2" 1fr/
+                    4vw 2.5fr 1fr;
+                    align-items: center;
+
+                    &.long-label {
+                        grid: "label content" 1fr/7vw 2.5fr 1fr;
+                    }
+
+                    input[type="color"] {
+                        min-width: 7em;
                     }
                 }
             }
