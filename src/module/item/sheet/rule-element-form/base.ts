@@ -253,26 +253,30 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
     const { fields } = foundry.data;
     for (const [key, field] of Object.entries(schema)) {
         if (!(key in data)) continue;
-        const value = data[key];
 
         if (field instanceof ResolvableValueField) {
-            data[key] = getCleanedResolvable(value);
+            data[key] = getCleanedResolvable(data[key]);
             continue;
         }
 
-        if ("fields" in field && R.isObject(value)) {
-            cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
-            continue;
+        if ("fields" in field) {
+            const value = data[key];
+            if (R.isObject(value)) {
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
+                continue;
+            }
         }
 
         // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
         // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
         // The most common benefit from clean() is handling things like the "blank" property
         if (field instanceof fields.StringField) {
-            data[key] = field.clean(value, {});
+            data[key] = field.clean(data[key], {});
         }
 
         // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
+        // Retrieve value here instead of earlier, since it may have been cleaned
+        const value = data[key];
         const isBlank = typeof value === "string" && value.trim() === "";
         const isInitial = "initial" in field && R.equals(field.initial, value);
         if (isInitial || (field instanceof fields.ArrayField && isBlank)) {

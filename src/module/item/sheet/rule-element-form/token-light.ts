@@ -14,7 +14,7 @@ class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRul
 
         if (!this.object) {
             // If we are dealing with an unowned item get initial data from LightData
-            const data = duplicate(this.rule.value);
+            const data = duplicate(this.rule.value ?? {});
             try {
                 // Override brackets to construct LightData
                 if (R.isObject(data.dim)) {
