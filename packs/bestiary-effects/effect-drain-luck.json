@@ -1,6 +1,6 @@
 {
     "_id": "fGI77mVeCQKBAP0f",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/magic/fire/orb-vortex.webp",
     "name": "Effect: Drain Luck",
     "system": {
         "badge": {
@@ -8,7 +8,7 @@
             "value": 1
         },
         "description": {
-            "value": "<p>The creature must succeed at a @Check[type:will|dc:48] save or gain a -1 status penalty to all checks; it is then temporarily immune to Drain Luck for 1 round. Further damage dealt by the Lantern King's searing rune Strikes increases the status penalty by 1 on a failed save to a maximum status penalty of -4. This status penalty is reduced by one every time the affected creature achieves a critical success on a die roll against a creature that is at least equal to them in level, but otherwise is permanent until removed.</p>"
+            "value": "<p>The creature gains a status penalty to all checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,7 +22,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "skill-check",
+                "selector": [
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": "-1*min(4,@item.system.badge.value)"
             }
