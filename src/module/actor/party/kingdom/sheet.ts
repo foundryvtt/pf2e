@@ -555,6 +555,17 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return typeof categoryId === "string" ? { slotId, categoryId } : null;
     }
 
+    /** Override to not auto-disable fields on a thing meant to be used by players */
+    protected override _disableFields(form: HTMLElement): void {
+        for (const gmOnlyField of htmlQueryAll(form, "input, textarea, [data-access=owner]")) {
+            if (gmOnlyField instanceof HTMLTextAreaElement) {
+                gmOnlyField.readOnly = true;
+            } else if (gmOnlyField instanceof HTMLInputElement || gmOnlyField instanceof HTMLButtonElement) {
+                gmOnlyField.disabled = true;
+            }
+        }
+    }
+
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         if (!this.actor.id) return;
 
