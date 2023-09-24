@@ -1,23 +1,4 @@
 .sheet.actor.loot {
-    .inventory .inventory-list {
-        --border-color: var(--secondary-background);
-        margin-bottom: 2px;
-
-        .item-controls {
-            flex: 0 0 4rem;
-        }
-
-        .inventory-header {
-            background: var(--primary-background);
-            color: var(--text-light);
-        }
-    }
-
-    .inventory-list .item .item-controls a.item-toggle-equip,
-    .pf2e.actor .item.action-header .item-controls a.item-toggle-equip {
-        display: none;
-    }
-
     form {
         display: flex;
         flex-direction: row;
@@ -29,7 +10,7 @@
         flex-direction: column;
         width: 200px;
         height: 100%;
-        border-right: 1px solid #888;
+        border-right: 1px solid var(--color-text-light-7);
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 
         > * {
@@ -41,7 +22,7 @@
             > img.actor-image {
                 flex: none;
                 border: none;
-                border-bottom: 1px solid #888;
+                border-bottom: 1px solid var(--color-text-light-7);
             }
             [data-action="show-image"] {
                 bottom: 3px;
@@ -49,19 +30,17 @@
             }
         }
 
-        .gm-settings,
-        .sidebar-meta {
+        .gm-settings {
+            border-bottom: 1px solid var(--color-text-light-7);
             display: flex;
             flex-direction: column;
             padding: 0.25rem;
-        }
 
-        .gm-settings {
-            border-bottom: 1px solid #888;
             .loot-distribution {
                 @include button;
                 background-color: var(--tertiary);
             }
+
             label {
                 display: flex;
                 align-items: center;
@@ -70,7 +49,7 @@
         }
 
         .sidebar-meta {
-            border-top: 1px solid #888;
+            border-top: 1px solid var(--color-text-light-7);
         }
 
         .hidden-when-empty,
@@ -105,13 +84,6 @@
         }
     }
 
-    section.content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        height: 100%;
-    }
-
     .sheet-header {
         display: flex;
         flex-direction: row;
@@ -119,7 +91,7 @@
         gap: 0.2rem;
 
         padding-top: 0.25rem;
-        border-bottom: 1px solid #888;
+        border-bottom: 1px solid var(--color-text-light-7);
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 
         h1 {
@@ -179,7 +151,35 @@
 
     .sheet-body {
         padding: 0.5rem;
-        @include scrollbar;
+    }
+
+    section.content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+
+        .inventory {
+            overflow: hidden;
+
+            .inventory-list {
+                --border-color: var(--secondary-background);
+                margin-bottom: 2px;
+
+                .item-controls {
+                    flex: 0 0 4rem;
+
+                    a.item-toggle-equip {
+                        display: none;
+                    }
+                }
+            }
+
+            .inventory-header {
+                background: var(--primary-background);
+                color: var(--text-light);
+            }
+        }
     }
 }
 
