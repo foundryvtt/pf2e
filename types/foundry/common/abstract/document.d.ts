@@ -610,7 +610,7 @@ type _Document = Document<_Document | null>;
 
 declare global {
     type PreCreate<T extends object> = T extends { name: string; type: string }
-        ? Omit<DeepPartial<T>, "name" | "type"> & { name: string; type: T["type"] }
+        ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 
     type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: null };

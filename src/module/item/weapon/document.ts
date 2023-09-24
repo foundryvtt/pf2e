@@ -542,7 +542,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: WeaponPF2e<ActorPF2e>): MeleePF2e<ActorPF2e>[] {
+    toNPCAttacks(this: WeaponPF2e<ActorPF2e>, { keepId = false } = {}): MeleePF2e<ActorPF2e>[] {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -669,6 +669,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             : [];
 
         const source: PreCreate<MeleeSource> = {
+            _id: keepId ? this.id : null,
             name: this._source.name,
             type: "melee",
             system: {

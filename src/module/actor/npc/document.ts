@@ -133,7 +133,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, strikes } = synthetics;
+        const { modifierAdjustments } = synthetics;
         const baseLevel = this.system.details.level.base;
         this.synthetics.modifiers.hp ??= [];
 
@@ -249,7 +249,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.skills = this.prepareSkills();
 
         // process strikes.
-        const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
+        const generatedMelee = Array.from(synthetics.strikes.values()).flatMap((w) => w.toNPCAttacks({ keepId: true }));
         for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
             system.actions.push(strikeFromMeleeItem(item));
         }
