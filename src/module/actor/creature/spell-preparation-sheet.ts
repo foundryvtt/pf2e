@@ -25,6 +25,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         options.height = 600;
         options.template = "systems/pf2e/templates/actors/spellcasting-prep-sheet.hbs";
         options.scrollY = [".sheet-content"];
+        options.sheetConfig = false;
         return options;
     }
 
@@ -40,18 +41,9 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
     /**
      * This being an actor sheet saves us from most drag and drop re-implementation,
      * but we still have a gotcha in the form of the header buttons.
-     * Reimplement to avoid sheet configuration and token options.
      */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = [
-            {
-                label: "Close",
-                class: "close",
-                icon: "fas fa-times",
-                onclick: () => this.close(),
-            },
-        ];
-        return buttons;
+        return super._getHeaderButtons().filter((b) => b.class === "close");
     }
 
     override async getData(): Promise<SpellPreparationSheetData<TActor>> {

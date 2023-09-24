@@ -28,6 +28,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
             closeOnSubmit: false,
             classes: ["iwr-editor"],
             template: "systems/pf2e/templates/actors/iwr-editor.hbs",
+            sheetConfig: false,
             width: 500,
             height: "auto",
         };
