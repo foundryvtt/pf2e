@@ -254,6 +254,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.activateInventoryListeners(inventoryPanel);
 
+        // Item chat cards
+        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
+            element.addEventListener("click", async (event) => {
+                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
+                const [item, fromFormula] = (() => {
+                    // Handle formula UUIDs
+                    if (UUIDUtils.isItemUUID(itemId)) {
+                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
+                            const formula = this.knownFormulas[itemId] as CraftingFormula;
+                            if (formula) {
+                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
+                            }
+                        }
+                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
+                    }
+                    return [this.actor.items.get(itemId, { strict: true }), false];
+                })();
+
+                if (!item.isOfType("physical") || item.isIdentified) {
+                    await item.toMessage(event, { create: true, data: { fromFormula } });
+                }
+            });
+        }
+
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
@@ -475,30 +499,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 if (effect.isOfType("effect")) {
                     const isUnidentified = effect.system.unidentified;
                     await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
-        }
-
-        // Item chat cards
-        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
-            element.addEventListener("click", async (event) => {
-                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
-                const [item, fromFormula] = (() => {
-                    // Handle formula UUIDs
-                    if (UUIDUtils.isItemUUID(itemId)) {
-                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
-                            const formula = this.knownFormulas[itemId] as CraftingFormula;
-                            if (formula) {
-                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
-                            }
-                        }
-                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
-                    }
-                    return [this.actor.items.get(itemId, { strict: true }), false];
-                })();
-
-                if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(event, { create: true, data: { fromFormula } });
                 }
             });
         }
