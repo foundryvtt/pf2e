@@ -1,6 +1,6 @@
 {
     "_id": "EwhWYPCNM8bIIYEI",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/skills/melee/hand-grip-sword-red.webp",
     "name": "Effect: Defensive Slice",
     "system": {
         "description": {
@@ -17,24 +17,13 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "defensive-slice",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
-                "predicate": [
-                    "defensive-slice"
-                ],
                 "selector": "ac",
+                "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "defensive-slice"
-                ],
                 "selector": "attack",
                 "type": "status",
                 "value": -2
