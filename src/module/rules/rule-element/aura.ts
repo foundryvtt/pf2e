@@ -237,8 +237,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 required: false,
                 nullable: true,
                 initial: null,
-                label: "PF2E.RuleEditor.Aura.Basic.Level",
-                hint: "PF2E.RuleEditor.Aura.Basic.Hints.Level",
+                label: "PF2E.RuleEditor.Aura.Basic.Level.Label",
+                hint: "PF2E.RuleEditor.Aura.Basic.Level.Hint",
             }),
             traits: new StrictArrayField(auraTraitField, {
                 required: true,
@@ -262,8 +262,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 required: false,
                 nullable: false,
                 initial: true,
-                label: "PF2E.RuleEditor.Aura.Basic.MergeExisting",
-                hint: "PF2E.RuleEditor.Aura.Basic.Hints.MergeExisting",
+                label: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Label",
+                hint: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Hint",
             }),
         };
     }
