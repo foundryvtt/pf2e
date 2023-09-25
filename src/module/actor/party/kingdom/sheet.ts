@@ -499,6 +499,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const active = choice.dataset.slug ? choice.dataset.slug === trait : trait === null;
             choice.classList.toggle("active", active);
         }
+
+        // Scroll to top so that the Activity Phase summary is visible
+        const actionsList = htmlQuery(html, ".actions-list");
+        if (actionsList) {
+            actionsList.scrollTop = 0;
+        }
     }
 
     protected override async _onDropItem(

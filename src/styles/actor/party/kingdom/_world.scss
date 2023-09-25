@@ -19,7 +19,7 @@ input[type="number"] {
     align-items: center;
     flex-wrap: wrap;
     gap: 0 1rem;
-    padding: 0.25rem 0;
+    padding: 0.25rem 0.25rem 0.25rem 0;
 
     &:not(:last-child) {
         border-bottom: 1px solid var(--color-divider);
@@ -67,14 +67,18 @@ input[type="number"] {
     }
 
     .settlement-data {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
         display: flex;
         justify-content: space-between;
-        margin: 0.5rem 0;
+        margin: 0.5rem 0.125rem 0.5rem 0;
 
         & > section {
-            background: var(--paper-bg);
-            box-shadow: var(--drop-shadow);
+            flex: 1 0 auto;
             padding: 0.5rem;
+            & + section {
+                border-left: 1px solid var(--color-divider);
+            }
         }
 
         input[type="number"] {
