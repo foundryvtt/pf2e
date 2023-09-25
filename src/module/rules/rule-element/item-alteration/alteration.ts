@@ -27,6 +27,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "rarity",
         "frequency-max",
         "frequency-per",
+        "other-tags",
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
@@ -221,6 +222,17 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     throw newValue.asError();
                 }
                 data.item.system.frequency.per = newValue;
+                return;
+            }
+            case "other-tags": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const traits: { otherTags: string[] } = data.item.system.traits;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, traits.otherTags, data.alteration.value);
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                traits.otherTags = newValue;
                 return;
             }
         }
