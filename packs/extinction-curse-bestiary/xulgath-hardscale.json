@@ -559,8 +559,8 @@
                 },
                 "damageRolls": {
                     "666mk8esy5rmiun6d49e": {
-                        "damage": "3d8+11",
-                        "damageType": "piercing"
+                        "damage": "2d8+11",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -574,7 +574,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "deadly-2d8",
                         "magical",
                         "shove"
                     ]
@@ -1097,12 +1096,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hardscale deals an extra [[/r {1d8}]]{1d8 damage} with weapons with the shove trait, and weapons with the shove trait gain the deadly 2d8 trait when the hardscale uses them (both the extra weapon damage die and the deadly trait have already been included in the hardscale's warhammer Strike above).</p>"
+                    "value": "<p>The hardscale deals an extra 1d8 damage with weapons with the shove trait, and weapons with the shove trait gain the deadly 2d8 trait when the hardscale uses them (both the extra weapon damage die and the deadly trait have already been included in the hardscale's warhammer Strike above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:trait:shove"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:shove"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "deadly-2d8"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
