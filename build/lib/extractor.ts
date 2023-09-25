@@ -491,7 +491,7 @@ class PackExtractor {
             delete (source.system.description as { gm?: unknown }).gm;
         }
 
-        if (source.system.traits.otherTags?.length === 0) {
+        if (source.system.traits?.otherTags?.length === 0) {
             delete (source.system.traits as { otherTags?: unknown }).otherTags;
         }
 
