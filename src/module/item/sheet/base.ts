@@ -24,6 +24,7 @@ import {
     htmlQueryAll,
     objectHasKey,
     sluggify,
+    SORTABLE_DEFAULTS,
     sortStringRecord,
     tagify,
     tupleHasValue,
@@ -32,6 +33,7 @@ import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
+import Sortable from "sortablejs";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -477,6 +479,33 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             addGMNotesLink.addEventListener("click", () => {
                 htmlQuery(descriptionEditors, ".gm-notes")?.classList.add("has-content");
                 this.activateEditor("system.description.gm");
+            });
+        }
+
+        // Allow drag/drop sorting of rule elements
+        const rules = htmlQuery(html, ".rule-element-forms");
+        if (rules) {
+            Sortable.create(rules, {
+                ...SORTABLE_DEFAULTS,
+                handle: ".drag-handle",
+                onEnd: (event) => {
+                    const currentIndex = event.oldDraggableIndex;
+                    const newIndex = event.newDraggableIndex;
+                    if (currentIndex === undefined || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
+
+                    const rules = this.item.toObject().system.rules;
+                    const movingRule = rules.at(currentIndex);
+                    if (movingRule && newIndex <= rules.length) {
+                        rules.splice(currentIndex, 1);
+                        rules.splice(newIndex, 0, movingRule);
+                        this.item.update({ "system.rules": rules });
+                    } else {
+                        this.render();
+                    }
+                },
             });
         }
     }

@@ -27,6 +27,7 @@ import {
 } from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
+    SORTABLE_DEFAULTS,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -64,12 +65,11 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
-        const itemDrag = options.dragDrop.find((d) => d.dragSelector === ".item-list .item");
-        if (itemDrag) {
-            // Inventory items are handled by Sortable
-            itemDrag.dragSelector = ".item-list .item:not(.inventory-list *)";
-        }
+        options.dragDrop = [
+            { dragSelector: "[data-foundry-list] .drag-handle" },
+            { dragSelector: ".item[draggable=true]" },
+            { dragSelector: ".item-list .item:not(.inventory-list *)" },
+        ];
         return mergeObject(options, {
             classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
@@ -647,17 +647,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
         if (!inventoryList) return;
         const sortableOptions: Sortable.Options = {
-            animation: 200,
-            direction: "vertical",
-            dragClass: "drag-preview",
-            dragoverBubble: true,
+            ...SORTABLE_DEFAULTS,
             filter: "div.item-summary",
             preventOnFilter: false,
-            easing: "cubic-bezier(1, 0, 0, 1)",
-            ghostClass: "drag-gap",
             scroll: inventoryList,
-            scrollSensitivity: 30,
-            scrollSpeed: 15,
             setData: (dataTransfer, dragEl) => {
                 const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
                     strict: true,
