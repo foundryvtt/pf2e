@@ -117,10 +117,11 @@ class RuleElementForm<
         };
 
         return {
-            resolvableValue: (property: string) =>
+            resolvableValue: (property: string, options: { hash?: { fileInput?: boolean } } = {}) =>
                 valueTemplate({
                     ...getResolvableData(property),
                     inputId: `${this.fieldIdPrefix}${property}`,
+                    fileInput: options.hash?.fileInput ?? false,
                 }),
 
             resolvableAddBracket: (property: string) => {
