@@ -120,7 +120,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 points: roll.total,
                 commodities: R.mapValues(commodities, (incoming, type) => {
                     const current = this.resources.commodities[type];
-                    return { value: Math.max(current.value + incoming, current.max) };
+                    return { value: Math.min(current.value + incoming, current.max) };
                 }),
             },
         });
