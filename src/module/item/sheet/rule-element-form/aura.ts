@@ -1,8 +1,12 @@
 import { type ActorPF2e, ActorProxyPF2e } from "@actor";
 import { type ItemPF2e, ItemProxyPF2e } from "@item";
-import { AuraRuleElement, type AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
+import {
+    AuraRuleElement,
+    AuraRuleElementTextureSchema,
+    type AuraRuleElementSchema,
+} from "@module/rules/rule-element/aura.ts";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, isVideoFilePath, tagify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
@@ -12,7 +16,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         displayStyle: "grid",
     };
 
-    #effectsMap: Map<string, AuraEffectSource> = new Map();
+    #effectsMap: Map<number, AuraEffectSource> = new Map();
 
     get effectsArray(): AuraEffectSource[] {
         return [...this.#effectsMap.values()];
@@ -25,13 +29,13 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         if (!this.object) {
             const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
             const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor }) as ItemPF2e<ActorPF2e>;
-            this.object = new AuraRuleElement(this.rule, { parent: item });
+            this.object = new AuraRuleElement(this.rule, { parent: item, suppressWarnings: true });
         }
 
         this.#effectsMap.clear();
-        this.object.toObject().effects.forEach((effect, index) => {
-            this.#effectsMap.set(`${index}`, effect);
-        });
+        this.#effectsMap = new Map(
+            this.object.toObject().effects.map((e, index): [number, AuraEffectSource] => [index, e])
+        );
 
         return data;
     }
@@ -102,7 +106,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 item: fromUuidSync(e.uuid),
             })),
             saveTypes: CONFIG.PF2E.saves,
-            isVideoFile: isVideoFilePath(this.rule.appearance?.texture?.src),
+            isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),
         };
     }
 
@@ -131,15 +135,24 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
         // Clean up texture data
         const appearance: DeepPartial<AuraRuleElementSource["appearance"]> = source.appearance;
-        const texture = appearance?.texture;
-        if (texture?.translation) {
-            const { x, y } = texture.translation;
-            if (!x && !y) {
-                delete texture.translation;
+        const texture: Maybe<DeepPartial<SourceFromSchema<AuraRuleElementTextureSchema>>> = appearance?.texture;
+        if (texture) {
+            if (texture.translation) {
+                const { x, y } = texture.translation;
+                if (!x && !y) {
+                    delete texture.translation;
+                }
             }
-        }
-        if (texture && !texture.src) {
-            delete appearance.texture;
+            if (!texture.src) {
+                delete appearance?.texture;
+            } else if (
+                texture.src &&
+                texture.src !== this.rule.appearance?.texture?.src &&
+                isImageFilePath(texture.src)
+            ) {
+                delete texture?.playbackRate;
+                delete texture?.loop;
+            }
         }
 
         super.updateObject(source);
@@ -147,7 +160,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
     #addEffect(uuid: ItemUUID): void {
         const index = this.#effectsMap.size + 1;
-        this.#effectsMap.set(`${index}`, { uuid } as AuraEffectSource);
+        this.#effectsMap.set(index, { uuid } as AuraEffectSource);
         this.updateItem({ effects: this.effectsArray });
     }
 
@@ -157,7 +170,9 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         const effectData = duplicate(source.effects ?? null);
         if (R.isObject<Maybe<EffectObject>>(effectData)) {
             for (const [id, effectUpdate] of Object.entries(effectData)) {
-                const currentData = this.#effectsMap.get(id);
+                const index = Number(id);
+                if (isNaN(index)) continue;
+                const currentData = this.#effectsMap.get(index);
                 if (!currentData) continue;
 
                 // Clean up save data
@@ -188,8 +203,11 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     #deleteEffect(id?: string): void {
-        this.#effectsMap.delete(id ?? "");
-        this.updateItem({ effects: this.effectsArray });
+        const index = Number(id);
+        if (isNaN(index)) return;
+        if (this.#effectsMap.delete(index)) {
+            this.updateItem({ effects: this.effectsArray });
+        }
     }
 }
 
@@ -200,7 +218,7 @@ interface AuraSheetData extends RuleElementFormSheetData<AuraRuleElementSource, 
             item: ClientDocument | CompendiumIndexData | null;
         }[];
     saveTypes: ConfigPF2e["PF2E"]["saves"];
-    isVideoFile: boolean;
+    isImageFile: boolean;
 }
 
 type AuraEffectSource = AuraRuleElementSource["effects"][number];
