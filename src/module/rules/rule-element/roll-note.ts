@@ -15,7 +15,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
                 { required: true, nullable: false }
             ),
-            title: new fields.StringField({ required: true, nullable: true, blank: false, initial: null }),
+            title: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             visibility: new fields.StringField({
                 required: true,
                 nullable: true,
@@ -70,7 +70,7 @@ type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
     selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, true>;
     /** An optional title prepended to the note */
-    title: StringField<string, string, true, true, true>;
+    title: StringField<string, string, false, true, true>;
     /** An optional limitation of the notes visibility to GMs */
     visibility: StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
