@@ -147,8 +147,18 @@
             align-items: center;
             display: flex;
             flex: 2;
-            gap: 0.25em;
             justify-content: center;
+
+            .attachment,
+            input,
+            .tags {
+                z-index: 0;
+
+                &:hover,
+                &:focus {
+                    z-index: 1;
+                }
+            }
 
             .attachment {
                 display: flex;
@@ -166,6 +176,11 @@
                 border-right: none;
                 border-radius: 3px 0 0 3px;
             }
+
+            .file-picker {
+                line-height: unset;
+            }
+
             input,
             tags {
                 border-top-left-radius: 0;
