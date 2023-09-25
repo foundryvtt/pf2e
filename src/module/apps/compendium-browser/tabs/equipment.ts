@@ -1,7 +1,7 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { localizer, sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
 
@@ -89,11 +89,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const priceCoins =
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
-
-                    // add item.type into the correct format for filtering
-                    itemData.system.itemTypes = { value: itemData.type };
-                    itemData.system.rarity = itemData.system.traits.rarity;
-                    itemData.filters = {};
 
                     // Prepare source
                     const source = itemData.system.source.value;
