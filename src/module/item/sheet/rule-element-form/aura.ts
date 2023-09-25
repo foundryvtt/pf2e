@@ -2,7 +2,7 @@ import { type ActorPF2e, ActorProxyPF2e } from "@actor";
 import { type ItemPF2e, ItemProxyPF2e } from "@item";
 import { AuraRuleElement, type AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, isVideoFilePath, tagify } from "@util";
 import * as R from "remeda";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
@@ -102,6 +102,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 item: fromUuidSync(e.uuid),
             })),
             saveTypes: CONFIG.PF2E.saves,
+            isVideoFile: isVideoFilePath(this.rule.appearance?.texture?.src),
         };
     }
 
@@ -199,6 +200,7 @@ interface AuraSheetData extends RuleElementFormSheetData<AuraRuleElementSource, 
             item: ClientDocument | CompendiumIndexData | null;
         }[];
     saveTypes: ConfigPF2e["PF2E"]["saves"];
+    isVideoFile: boolean;
 }
 
 type AuraEffectSource = AuraRuleElementSource["effects"][number];
