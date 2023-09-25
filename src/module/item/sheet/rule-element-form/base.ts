@@ -6,25 +6,26 @@ import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
 import type { DataField } from "types/foundry/common/data/fields.d.ts";
+import type { ItemSheetPF2e } from "../index.ts";
 
-interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
-    item: ItemPF2e;
+interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null> {
+    sheet: ItemSheetPF2e<ItemPF2e>;
     index: number;
     rule: TSource;
-    object: TObject | null;
+    object: TObject;
 }
 
 /** Base Rule Element form handler. Form handlers intercept sheet events to support new UI */
 class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
-    TObject extends RuleElementPF2e = RuleElementPF2e
+    TObject extends RuleElementPF2e | null = RuleElementPF2e | null
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
-    declare item: ItemPF2e;
+    declare sheet: ItemSheetPF2e<ItemPF2e>;
     declare index: number;
     declare rule: TSource;
-    declare object: TObject | null;
+    declare object: TObject;
     declare schema: LaxSchemaField<RuleElementSchema> | null;
 
     /** Tab configuration data */
@@ -42,11 +43,19 @@ class RuleElementForm<
     }
 
     initialize(options: RuleElementFormOptions<TSource, TObject>): void {
-        this.item = options.item;
+        this.sheet = options.sheet;
         this.index = options.index;
         this.rule = options.rule;
         this.object = options.object;
         this.schema = this.object?.constructor.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
+    }
+
+    get item(): ItemPF2e {
+        return this.sheet.item;
+    }
+
+    get fieldIdPrefix(): string {
+        return `field-${this.sheet.appId}-${this.index}-`;
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
@@ -83,8 +92,10 @@ class RuleElementForm<
         const mergedRule = mergeObject(this.getInitialValue(), this.rule);
 
         return {
-            ...R.pick(this, ["item", "index", "rule", "object"]),
+            ...R.pick(this, ["index", "rule", "object"]),
+            item: this.item,
             label,
+            fieldIdPrefix: this.fieldIdPrefix,
             recognized,
             basePath: this.basePath,
             rule: mergedRule,
@@ -109,18 +120,15 @@ class RuleElementForm<
             resolvableValue: (property: string) =>
                 valueTemplate({
                     ...getResolvableData(property),
-                    inputId: `${this.item.uuid}-${this.index}-${property}`,
+                    inputId: `${this.fieldIdPrefix}${property}`,
                 }),
 
             resolvableAddBracket: (property: string) => {
                 const data = getResolvableData(property);
                 if (data.mode !== "brackets") return "";
                 return createHTMLElement("a", {
-                    children: [fontAwesomeIcon("fa-plus", { fixedWidth: true })],
-                    dataset: {
-                        action: "add-bracket",
-                        property,
-                    },
+                    children: [fontAwesomeIcon("plus", { fixedWidth: true })],
+                    dataset: { action: "add-bracket", property },
                 }).outerHTML;
             },
             resolvableBrackets: (property: string) => {
@@ -141,10 +149,10 @@ class RuleElementForm<
      * Helper to update the item with the new rule data.
      * This function exists because array updates in foundry are currently clunky
      */
-    updateItem(updates: Partial<TSource> | Record<string, unknown>): void {
+    async updateItem(updates: Partial<TSource> | Record<string, unknown>): Promise<void> {
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
         rules[this.index] = mergeObject(this.rule, updates, { performDeletions: true });
-        this.item.update({ [`system.rules`]: rules });
+        await this.item.update({ "system.rules": rules });
     }
 
     activateListeners(html: HTMLElement): void {
@@ -317,9 +325,12 @@ function getCleanedResolvable(value: unknown) {
     return value;
 }
 
-interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e>
-    extends RuleElementFormOptions<TSource, TObject> {
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null>
+    extends Omit<RuleElementFormOptions<TSource, TObject>, "sheet"> {
+    item: ItemPF2e;
     label: string;
+    /** A prefix for use in label-input/select pairs */
+    fieldIdPrefix: string;
     recognized: boolean;
     basePath: string;
     fields: RuleElementSchema | undefined;

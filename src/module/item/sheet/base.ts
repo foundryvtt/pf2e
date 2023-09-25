@@ -115,7 +115,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const previousForms = this.#ruleElementForms;
         this.#ruleElementForms = rules.map((rule, index) => {
             const options = {
-                item: this.item,
+                sheet: this,
                 index,
                 rule,
                 object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
