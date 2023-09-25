@@ -9,7 +9,7 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
-import { resolveKingdomBoosts } from "./helpers.ts";
+import { calculateKingdomCollectionData, resolveKingdomBoosts } from "./helpers.ts";
 import { KINGDOM_SCHEMA } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import {
@@ -37,6 +37,7 @@ import {
 } from "./values.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ZeroToFour } from "@module/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -100,37 +101,26 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     /** Perform the collection portion of the upkeep phase */
-    async collect(options: { skipDialog?: boolean } = {}): Promise<void> {
-        const commodityTypes = ["luxuries", "lumber", "ore", "stone"] as const;
-
-        const dice = `${this.resources.dice.number}d${this.resources.dice.faces}`;
-        const commodities = R.mapToObj(commodityTypes, (type) => {
-            const value = this.resources.workSites[type];
-            return [type, value.value + value.resource * 2];
-        });
-
-        if (!options.skipDialog) {
-            const content = await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
-                dice,
-                commodities,
-            });
-            const result = await Dialog.confirm({
-                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.Title"),
-                content,
-            });
-            if (!result) return;
-        }
-
-        const roll = await new Roll(dice).evaluate({ async: true });
-        await roll.toMessage();
+    async collect(): Promise<void> {
+        const { formula, commodities } = calculateKingdomCollectionData(this);
+        const roll = await new Roll(formula).evaluate({ async: true });
+        await roll.toMessage(
+            {
+                flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.Resources.Points"),
+                speaker: {
+                    ...ChatMessagePF2e.getSpeaker(this.actor),
+                    alias: this.name,
+                },
+            },
+            { rollMode: "publicroll" }
+        );
 
         this.update({
             resources: {
                 points: roll.total,
-                commodities: R.mapToObj(commodityTypes, (type) => {
+                commodities: R.mapValues(commodities, (incoming, type) => {
                     const current = this.resources.commodities[type];
-                    const incoming = commodities[type];
-                    return [type, { value: Math.max(current.value + incoming, current.max) }];
+                    return { value: Math.max(current.value + incoming, current.max) };
                 }),
             },
         });
