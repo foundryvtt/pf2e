@@ -716,7 +716,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A nuglub's Strikes deal an additional 1d6 precision damage to off-guard targets, or 1d10 precision damage if the target is @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>A nuglub's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] targets, or 1d10 precision damage if the target is @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -730,13 +730,6 @@
                         "predicate": [
                             "target:condition:off-guard",
                             {
-                                "or": [
-                                    "finesse",
-                                    "agile",
-                                    "ranged"
-                                ]
-                            },
-                            {
                                 "not": "target:condition:prone"
                             }
                         ],
@@ -748,14 +741,7 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:prone",
-                            {
-                                "or": [
-                                    "finesse",
-                                    "agile",
-                                    "ranged"
-                                ]
-                            }
+                            "target:condition:prone"
                         ],
                         "selector": "strike-damage"
                     },
@@ -764,6 +750,13 @@
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
                         "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.Prone",
+                        "option": "target:condition:prone",
                         "toggleable": "totm"
                     }
                 ],

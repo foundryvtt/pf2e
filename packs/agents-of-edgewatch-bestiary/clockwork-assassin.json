@@ -335,7 +335,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6 precision damage to off-guard creatures.</p>"
+                    "value": "<p>The clockwork assassin's Strikes deal an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -347,21 +347,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "finesse",
-                                    "agile",
-                                    {
-                                        "and": [
-                                            "ranged",
-                                            {
-                                                "not": "thrown"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     }
