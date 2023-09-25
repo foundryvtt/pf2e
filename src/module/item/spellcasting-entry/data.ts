@@ -1,5 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/data/base.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
@@ -37,6 +37,7 @@ interface SpellSlotData {
 }
 
 interface SpellcastingEntrySystemSource extends ItemSystemSource {
+    traits: OtherTagsOnly;
     ability: { value: AttributeString | "" };
     spelldc: {
         value: number;
@@ -56,7 +57,6 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         value: OneToTen | null;
     };
     level?: never;
-    traits?: never;
 }
 
 interface SpellCollectionTypeSource {

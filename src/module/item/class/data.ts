@@ -1,12 +1,12 @@
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ABCSystemSource } from "@item/abc/data.ts";
-import { BaseItemSourcePF2e, RarityTraitOnly } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, RarityTraitAndOtherTags } from "@item/data/base.ts";
 import { ZeroToFour } from "@module/data.ts";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 
 interface ClassSystemSource extends ABCSystemSource {
-    traits: RarityTraitOnly;
+    traits: RarityTraitAndOtherTags;
     keyAbility: { value: AttributeString[]; selected: AttributeString | null };
     hp: number;
     perception: ZeroToFour;
