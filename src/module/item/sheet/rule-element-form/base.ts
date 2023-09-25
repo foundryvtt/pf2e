@@ -158,7 +158,7 @@ class RuleElementForm<
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
         const result = mergeObject(this.rule, updates, { performDeletions: true });
         if (this.schema) {
-            this.cleanDataUsingSchema(this.schema.fields, result);
+            cleanDataUsingSchema(this.schema.fields, result);
         }
         rules[this.index] = result;
         await this.item.update({ [`system.rules`]: rules });
@@ -250,73 +250,69 @@ class RuleElementForm<
 
     updateObject(source: TSource & Record<string, unknown>): void {
         // Predicate is special cased as always json. Later on extend such parsing to more things
-        this.cleanPredicate(source);
+        cleanPredicate(source);
 
         if (this.schema) {
-            this.cleanDataUsingSchema(this.schema.fields, source);
+            cleanDataUsingSchema(this.schema.fields, source);
         }
 
         // Update our reference so that equality matching works on the next data prep cycle
         // This allows form reuse to occur
         this.rule = source;
     }
+}
 
-    protected cleanPredicate(source: { predicate?: unknown }): void {
-        cleanPredicate(source);
-    }
+/** Recursively clean and remove all fields that have a default value */
+function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
+    const { fields } = foundry.data;
+    for (const [key, field] of Object.entries(schema)) {
+        if (!(key in data)) continue;
 
-    /** Recursively clean and remove all fields that have a default value */
-    protected cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
-        const { fields } = foundry.data;
-        for (const [key, field] of Object.entries(schema)) {
-            if (!(key in data)) continue;
+        if (field instanceof ResolvableValueField) {
+            data[key] = getCleanedResolvable(data[key]);
+            continue;
+        }
 
-            if (field instanceof ResolvableValueField) {
-                data[key] = getCleanedResolvable(data[key]);
+        if ("fields" in field) {
+            const value = data[key];
+            if (R.isObject(value)) {
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
                 continue;
             }
+        }
 
-            if ("fields" in field) {
-                const value = data[key];
-                if (R.isObject(value)) {
-                    this.cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
-                    continue;
-                }
-            }
-
-            if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
-                const value = data[key];
-                if (Array.isArray(value)) {
-                    // Recursively clean schema fields inside an array
-                    for (const data of value) {
-                        if (R.isObject(data)) {
-                            if (data.predicate) {
-                                cleanPredicate(data);
-                            }
-                            this.cleanDataUsingSchema(field.element.fields, data);
-                        }
-                    }
-                    continue;
-                }
-            }
-
-            // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
-            // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
-            // The most common benefit from clean() is handling things like the "blank" property
-            if (field instanceof fields.StringField) {
-                data[key] = field.clean(data[key], {});
-            }
-
-            // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
-            // Retrieve value here instead of earlier, since it may have been cleaned
+        if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
             const value = data[key];
-            const isInitial = "initial" in field && R.equals(field.initial, value);
-            const isBlank =
-                (typeof value === "string" && value.trim() === "") ||
-                (!isInitial && Array.isArray(value) && value.length === 0);
-            if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
-                delete data[key];
+            if (Array.isArray(value)) {
+                // Recursively clean schema fields inside an array
+                for (const data of value) {
+                    if (R.isObject(data)) {
+                        if (data.predicate) {
+                            cleanPredicate(data);
+                        }
+                        cleanDataUsingSchema(field.element.fields, data);
+                    }
+                }
+                continue;
             }
+        }
+
+        // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
+        // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
+        // The most common benefit from clean() is handling things like the "blank" property
+        if (field instanceof fields.StringField) {
+            data[key] = field.clean(data[key], {});
+        }
+
+        // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
+        // Retrieve value here instead of earlier, since it may have been cleaned
+        const value = data[key];
+        const isInitial = "initial" in field && R.equals(field.initial, value);
+        const isBlank =
+            (typeof value === "string" && value.trim() === "") ||
+            (!isInitial && Array.isArray(value) && value.length === 0);
+        if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
+            delete data[key];
         }
     }
 }

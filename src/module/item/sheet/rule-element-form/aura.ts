@@ -1,4 +1,5 @@
-import { ItemPF2e } from "@item";
+import { type ActorPF2e, ActorProxyPF2e } from "@actor";
+import { type ItemPF2e, ItemProxyPF2e } from "@item";
 import { AuraRuleElement, type AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
@@ -20,8 +21,15 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     protected override getInitialValue(): object {
         const data = super.getInitialValue();
 
+        // If this rule element is on an unowned item get full initial data by creating a fake actor
+        if (!this.object) {
+            const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
+            const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor }) as ItemPF2e<ActorPF2e>;
+            this.object = new AuraRuleElement(this.rule, { parent: item });
+        }
+
         this.#effectsMap.clear();
-        (this.object?.toObject().effects ?? this.rule.effects).forEach((effect, index) => {
+        this.object.toObject().effects.forEach((effect, index) => {
             this.#effectsMap.set(`${index}`, effect);
         });
 
@@ -59,11 +67,9 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
             const fieldset = htmlClosest(button, "fieldset");
             const select = htmlQuery<HTMLSelectElement>(fieldset, "select");
             const input = htmlQuery<HTMLInputElement>(fieldset, "input");
-            if (select && input) {
-                if (!select.value) {
-                    button.disabled = true;
-                    input.disabled = true;
-                }
+            if (select && input && !select.value) {
+                button.disabled = true;
+                input.disabled = true;
             }
         }
 
@@ -109,21 +115,13 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         return item;
     }
 
-    override updateItem(updates: Partial<AuraRuleElementSource> | Record<string, unknown>): void {
+    override async updateItem(updates: Partial<AuraRuleElementSource> | Record<string, unknown>): Promise<void> {
         const expanded = expandObject<Partial<AuraRuleElementSource>>(updates);
         if (expanded.effects) {
             // Restore clobbered effects array and perform updates
             expanded.effects = this.#updateEffectsMap(expanded);
-            const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
-            if (this.schema) {
-                this.cleanDataUsingSchema(this.schema.fields, expanded);
-            }
-            const result = mergeObject(this.rule, expanded, { performDeletions: true });
-            rules[this.index] = result;
-            this.item.update({ [`system.rules`]: rules });
-            return;
         }
-        super.updateItem(updates);
+        return super.updateItem(expanded);
     }
 
     override updateObject(source: AuraRuleElementSource & Record<string, unknown>): void {
