@@ -27,8 +27,8 @@ import {
 import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
-import { ItemInstances } from "./types.ts";
 import { MAGIC_TRADITIONS } from "./spell/values.ts";
+import { ItemInstances } from "./types.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -124,7 +124,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
 
-        const traits = this.system.traits?.value ?? [];
+        const { value: traits = [], otherTags } = this.system.traits;
         const traitOptions = ((): string[] => {
             // Additionally include annotated traits without their annotations
             const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
@@ -141,6 +141,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...traitOptions.map((t) => `${prefix}:${t}`),
+            ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
 
         if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {

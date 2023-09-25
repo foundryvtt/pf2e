@@ -1,7 +1,7 @@
 import { SaveType } from "@actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
-import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data.ts";
-import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base.ts";
+import { OneToTen, ValueAndMax } from "@module/data.ts";
+import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import { EffectAreaSize, EffectAreaType, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
@@ -76,7 +76,7 @@ interface SpellSystemSource extends ItemSystemSource {
 
 interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
 
-export type SpellTraits = TraitsWithRarity<SpellTrait>;
+export type SpellTraits = ItemTraits<SpellTrait>;
 
 export interface SpellDamageType {
     value: DamageType;
@@ -123,4 +123,4 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export type { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };
+export type { SpellOverlay, SpellOverlayOverride, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource };

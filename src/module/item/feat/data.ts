@@ -1,7 +1,14 @@
 import { AttributeString } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
-import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@item/data/base.ts";
-import { OneToThree, TraitsWithRarity } from "@module/data.ts";
+import {
+    ActionType,
+    BaseItemSourcePF2e,
+    Frequency,
+    FrequencySource,
+    ItemSystemSource,
+    ItemTraits,
+} from "@item/data/base.ts";
+import { OneToThree } from "@module/data.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
@@ -48,6 +55,6 @@ interface FeatSubfeatures {
     keyOptions: AttributeString[];
 }
 
-type FeatTraits = TraitsWithRarity<FeatTrait>;
+type FeatTraits = ItemTraits<FeatTrait>;
 
 export type { FeatSource, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };
