@@ -1,6 +1,6 @@
-import { isBlank, localizer, sluggify } from "@util";
-import { CompendiumBrowserSources } from "./index.ts";
 import { Progress } from "@system/progress.ts";
+import { localizer, sluggify } from "@util";
+import { CompendiumBrowserSources } from "./index.ts";
 
 class PackLoader {
     loadedPacks: {
@@ -97,12 +97,11 @@ class PackLoader {
 
         for (const document of index) {
             const source = this.#getSourceFromDocument(document);
-            const blank = isBlank(source);
 
             if (
-                (blank && this.sourcesSettings.showEmptySources) ||
+                (!source && this.sourcesSettings.showEmptySources) ||
                 sources.has(source) ||
-                (this.sourcesSettings.showUnknownSources && !blank && !knownSources.includes(source))
+                (this.sourcesSettings.showUnknownSources && !!source && !knownSources.includes(source))
             ) {
                 filteredIndex.set(document._id, document);
             }

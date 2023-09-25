@@ -1,14 +1,17 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType } from "@item/data/base.ts";
+import { ItemType } from "@item/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, setHasElement } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
 import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
+import { PackLoader } from "./loader.ts";
 import {
     ActionFilters,
     BestiaryFilters,
@@ -23,8 +26,6 @@ import {
     SpellFilters,
 } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
-import { PackLoader } from "./loader.ts";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 
 class CompendiumBrowser extends Application {
     settings: CompendiumBrowserSettings;
@@ -126,25 +127,41 @@ class CompendiumBrowser extends Application {
             "pf2e.kingmaker-features": true,
         };
 
+        const browsableTypes = new Set([
+            "action",
+            "campaignFeature",
+            "feat",
+            "kit",
+            "hazard",
+            "npc",
+            "spell",
+            ...PHYSICAL_ITEM_TYPES,
+        ] as const);
+        type BrowsableType = SetElement<typeof browsableTypes>;
+        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
+            ["action", "action"],
+            ["campaignFeature", "campaignFeature"],
+            ["feat", "feat"],
+            ["kit", "equipment"],
+            ["hazard", "hazard"],
+            ["npc", "bestiary"],
+            ["spell", "spell"],
+            ...Array.from(PHYSICAL_ITEM_TYPES).map((t): [ItemType, "equipment"] => [t, "equipment"]),
+        ]);
+
         for (const pack of game.packs) {
-            const types = new Set(pack.index.map((entry) => entry.type));
-            if (types.size === 0) continue;
+            const tabNames = R.uniq(
+                R.uniq(pack.index.map((entry) => entry.type))
+                    .filter((t): t is BrowsableType => setHasElement(browsableTypes, t))
+                    .flatMap((t) => typeToTab.get(t) ?? [])
+            );
 
-            const type = (() => {
-                if (types.has("npc")) return "bestiary";
-
-                if ([...PHYSICAL_ITEM_TYPES, "kit"].some((type) => types.has(type))) {
-                    return "equipment";
-                }
-
-                const validTypes = ["hazard", "action", "feat", "campaignFeature", "spell"] as const;
-                return validTypes.find((v) => types.has(v)) ?? null;
-            })();
-
-            if (type) {
+            for (const tabName of tabNames) {
                 const load =
-                    this.settings[type]?.[pack.collection]?.load ?? loadDefault[type] ?? !!loadDefault[pack.collection];
-                settings[type]![pack.collection] = {
+                    this.settings[tabName]?.[pack.collection]?.load ??
+                    loadDefault[tabName] ??
+                    !!loadDefault[pack.collection];
+                settings[tabName]![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                     package: pack.metadata.packageName,
@@ -271,11 +288,7 @@ class CompendiumBrowser extends Application {
     }
 
     loadedPacksAll(): string[] {
-        const loadedPacks = new Set<string>();
-        for (const tabName of this.dataTabsList) {
-            this.loadedPacks(tabName).forEach((item) => loadedPacks.add(item));
-        }
-        return Array.from(loadedPacks).sort();
+        return R.uniq(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
     }
 
     override activateListeners($html: JQuery): void {
