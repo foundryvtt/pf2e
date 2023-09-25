@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
 import { ArmorPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas/index.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
@@ -72,6 +73,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         });
                     }
                 }
+            }
+
+            // Handle any kingdom events if this message contains any
+            if (message && messageEl) {
+                handleKingdomChatMessageEvents({ event, message, messageEl });
             }
         });
     }

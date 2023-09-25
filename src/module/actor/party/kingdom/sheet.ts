@@ -43,6 +43,8 @@ import {
     KINGDOM_SETTLEMENT_TYPE_LABELS,
     KINGDOM_SKILL_LABELS,
 } from "./values.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { calculateKingdomCollectionData } from "./helpers.ts";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -290,8 +292,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
-        htmlQuery(html, "[data-action=collect]")?.addEventListener("click", () => {
-            this.kingdom.collect();
+        htmlQuery(html, "[data-action=collect]")?.addEventListener("click", async () => {
+            ChatMessagePF2e.create({
+                speaker: {
+                    ...ChatMessagePF2e.getSpeaker(this.actor),
+                    alias: this.kingdom.name,
+                },
+                content: await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
+                    ...calculateKingdomCollectionData(this.kingdom),
+                }),
+            });
         });
 
         // Handle action filters
