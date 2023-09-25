@@ -491,11 +491,12 @@ class PackExtractor {
             delete (source.system.description as { gm?: unknown }).gm;
         }
 
+        if (source.system.traits?.otherTags?.length === 0) {
+            delete (source.system.traits as { otherTags?: unknown }).otherTags;
+        }
+
         if (isPhysicalData(source)) {
             delete (source.system as { identification?: unknown }).identification;
-            if (source.system.traits.otherTags?.length === 0) {
-                delete (source.system.traits as { otherTags?: unknown }).otherTags;
-            }
 
             if (source.type === "consumable" && !source.system.spell) {
                 delete (source.system as { spell?: unknown }).spell;
