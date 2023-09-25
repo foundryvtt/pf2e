@@ -1,4 +1,4 @@
-import type { ItemPF2e } from "@item/base.ts";
+import { ItemPF2e } from "@item/base.ts";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
@@ -109,6 +109,7 @@ class RuleElementForm<
         const bracketsTemplate = await getTemplate(
             "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs"
         );
+        const dropZoneTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/drop-zone.hbs");
 
         const getResolvableData = (property: string) => {
             const value = getProperty(rule, property);
@@ -135,6 +136,9 @@ class RuleElementForm<
             resolvableBrackets: (property: string) => {
                 return bracketsTemplate(getResolvableData(property));
             },
+            dropZone: (dropId: string, dropText: string, dropTooltip?: string) => {
+                return dropZoneTemplate({ dropId, dropText, dropTooltip });
+            },
         };
     }
 
@@ -152,8 +156,12 @@ class RuleElementForm<
      */
     async updateItem(updates: Partial<TSource> | Record<string, unknown>): Promise<void> {
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
-        rules[this.index] = mergeObject(this.rule, updates, { performDeletions: true });
-        await this.item.update({ "system.rules": rules });
+        const result = mergeObject(this.rule, updates, { performDeletions: true });
+        if (this.schema) {
+            cleanDataUsingSchema(this.schema.fields, result);
+        }
+        rules[this.index] = result;
+        await this.item.update({ [`system.rules`]: rules });
     }
 
     activateListeners(html: HTMLElement): void {
@@ -204,6 +212,19 @@ class RuleElementForm<
             }
             this.activateTab(html, this.#activeTab);
         }
+
+        for (const dropZone of htmlQueryAll(html, "div.rules-drop-zone")) {
+            dropZone.addEventListener("drop", (event) => {
+                this.onDrop(event, dropZone);
+            });
+        }
+    }
+
+    protected async onDrop(event: DragEvent, _element: HTMLElement): Promise<ItemPF2e | null> {
+        const data = event.dataTransfer?.getData("text/plain");
+        if (!data) return null;
+        const item = await ItemPF2e.fromDropData(JSON.parse(data));
+        return item ?? null;
     }
 
     protected activateTab(html: HTMLElement, tabName: Maybe<string>): void {
@@ -229,23 +250,7 @@ class RuleElementForm<
 
     updateObject(source: TSource & Record<string, unknown>): void {
         // Predicate is special cased as always json. Later on extend such parsing to more things
-        const predicateValue = source.predicate;
-        if (typeof predicateValue === "string") {
-            if (predicateValue.trim() === "") {
-                delete source.predicate;
-            } else {
-                try {
-                    source.predicate = JSON.parse(predicateValue);
-                } catch (error) {
-                    if (error instanceof Error) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                        );
-                        throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                    }
-                }
-            }
-        }
+        cleanPredicate(source);
 
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, source);
@@ -258,7 +263,7 @@ class RuleElementForm<
 }
 
 /** Recursively clean and remove all fields that have a default value */
-function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>) {
+function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
     const { fields } = foundry.data;
     for (const [key, field] of Object.entries(schema)) {
         if (!(key in data)) continue;
@@ -276,6 +281,22 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
             }
         }
 
+        if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
+            const value = data[key];
+            if (Array.isArray(value)) {
+                // Recursively clean schema fields inside an array
+                for (const data of value) {
+                    if (R.isObject(data)) {
+                        if (data.predicate) {
+                            cleanPredicate(data);
+                        }
+                        cleanDataUsingSchema(field.element.fields, data);
+                    }
+                }
+                continue;
+            }
+        }
+
         // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
         // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
         // The most common benefit from clean() is handling things like the "blank" property
@@ -286,10 +307,32 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
         // Retrieve value here instead of earlier, since it may have been cleaned
         const value = data[key];
-        const isBlank = typeof value === "string" && value.trim() === "";
         const isInitial = "initial" in field && R.equals(field.initial, value);
+        const isBlank =
+            (typeof value === "string" && value.trim() === "") ||
+            (!isInitial && Array.isArray(value) && value.length === 0);
         if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
             delete data[key];
+        }
+    }
+}
+
+function cleanPredicate(source: { predicate?: unknown }) {
+    const predicateValue = source.predicate;
+    if (typeof predicateValue === "string") {
+        if (predicateValue.trim() === "") {
+            delete source.predicate;
+        } else {
+            try {
+                source.predicate = JSON.parse(predicateValue);
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                }
+            }
         }
     }
 }
@@ -347,4 +390,4 @@ interface RuleElementFormTabData {
 }
 
 export { RuleElementForm };
-export type { RuleElementFormSheetData, RuleElementFormTabData };
+export type { RuleElementFormOptions, RuleElementFormSheetData, RuleElementFormTabData };

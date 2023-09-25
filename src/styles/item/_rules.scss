@@ -227,6 +227,231 @@
             }
         }
 
+        fieldset {
+            border-radius: 5px;
+            border: 1px solid var(--secondary-background);
+            padding: 0.25em;
+
+            legend {
+                font-weight: 500;
+            }
+        }
+
+        .rules-drop-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 4em;
+
+            .rules-drop-zone {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40%;
+                height: 3.5em;
+                border: 1px solid var(--color-border-light-primary);
+                border-radius: 3px;
+                color: #222;
+                background-color: #ddd;
+                cursor: default;
+                padding: 1px 6px;
+                font-family: var(--font-primary);
+                font-size: var(--font-size-14);
+                line-height: 28px;
+
+                i {
+                    border: 1px solid #bbb;
+                    border-radius: 2px;
+                    align-items: center;
+                    display: flex;
+                    height: 1.6em;
+                    justify-content: center;
+                    margin-right: 0.5em;
+                    width: 1.6em;
+
+                    &:after {
+                        font-size: var(--font-size-20);
+                    }
+                }
+
+                span {
+                    color: var(--text-dark);
+                }
+            }
+        }
+
+        &[data-key="Aura"] {
+            div[data-rule-tab] {
+                .grid-item {
+                    display: grid;
+                    grid: 1fr/5em 1fr;
+
+                    &.long-label {
+                        grid: 1fr/9em 1fr;
+                    }
+                }
+
+                .checkbox {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .item-controls {
+                    justify-content: flex-end;
+
+                    a {
+                        margin: 2px 5px 0 0;
+                    }
+                }
+
+                .stacked {
+                    display: grid;
+                    grid: 1fr/1fr 1fr;
+                    column-gap: 10px;
+                }
+
+                .column-span-two {
+                    grid-column: span 2;
+                }
+
+                .resolvable {
+                    grid-column: span 2;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .brackets-container {
+                    grid-column: span 3;
+                }
+
+                label {
+                    min-width: 5em;
+                    font-weight: 500;
+
+                    &.short {
+                        max-width: 5em;
+                    }
+
+                    &.with-hint {
+                        margin-right: 5px;
+                    }
+                }
+
+                fieldset {
+                    grid-column: span 2;
+                }
+
+                .brackets {
+                    margin-left: 6em;
+                }
+
+                hr {
+                    grid-column: span 2;
+                    width: 100%;
+                }
+            }
+
+            div[data-rule-tab="effects"] {
+                height: 90px;
+                overflow-y: auto;
+
+                .item-container {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: 1fr/5em 10fr 1fr;
+
+                    a.content-link {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5em;
+                        width: fit-content;
+                        min-width: 12rem;
+                        height: 2em;
+                        padding: 4px;
+
+                        img {
+                            border: 1px solid var(--color-border-dark);
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            display: block;
+                            float: left;
+                            height: 24px;
+                            width: 24px;
+                        }
+
+                        span {
+                            text-wrap: wrap;
+                        }
+                    }
+                }
+
+                .three-items {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: 1fr/5em 8fr 7em 5fr 6em 1fr;
+                    margin-top: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
+                    }
+                }
+
+                .saves-container {
+                    display: grid;
+                    grid: 1fr/5em 8.8fr;
+                    align-items: center;
+                    row-gap: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
+                    }
+                }
+
+                .rules-drop-container {
+                    grid-column: span 2;
+                }
+            }
+
+            div[data-rule-tab="appearance"] {
+                .translation {
+                    input {
+                        width: 5em;
+                    }
+                }
+
+                input[type="checkbox"] {
+                    margin-left: unset;
+                }
+
+                .two-items {
+                    display: grid;
+                    grid: 1fr/5em 2.5fr 1fr;
+                    align-items: center;
+                    margin-bottom: 5px;
+
+                    &.long-label {
+                        grid: 1fr/9em 2.5fr 1fr;
+                    }
+
+                    input[type="color"] {
+                        min-width: 7em;
+                    }
+
+                    &.image-path {
+                        grid-column: span 2;
+                        grid: 1fr/9em 8fr 1fr;
+
+                        button.file-picker {
+                            margin: unset;
+                        }
+                    }
+                }
+            }
+        }
+
         &[data-key="FastHealing"] {
             select {
                 flex: 0;
@@ -279,15 +504,6 @@
                     display: flex;
                     flex-direction: column;
                     grid-column: span 2;
-
-                    border-radius: 5px;
-                    border: 1px solid var(--secondary-background);
-                    margin: 0.5em 0;
-                    padding: 0.25em;
-
-                    legend {
-                        font-weight: 500;
-                    }
 
                     .brackets {
                         margin-left: 6.5em;
