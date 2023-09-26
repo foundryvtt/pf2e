@@ -10,9 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration846SpellSchoolOptional } from "@module/migration/migrations/846-spell-school-optional.ts";
-import { Migration847TempHPRuleEvents } from "@module/migration/migrations/847-temp-hp-rule-events.ts";
-import { Migration848NumericArmorProperties } from "@module/migration/migrations/848-numeric-armor-properties.ts";
 import { Migration849DeleteBrokenThreshold } from "@module/migration/migrations/849-delete-broken-threshold.ts";
 import { Migration850FlatFootedToOffGuard } from "@module/migration/migrations/850-flat-footed-to-off-guard.ts";
 import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
@@ -29,6 +26,8 @@ import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862
 import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
 import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
 import { Migration865VitalityVoid } from "@module/migration/migrations/865-vitality-void.ts";
+import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
+import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -39,9 +38,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration846SpellSchoolOptional(),
-    new Migration847TempHPRuleEvents(),
-    new Migration848NumericArmorProperties(),
     new Migration849DeleteBrokenThreshold(),
     new Migration850FlatFootedToOffGuard(),
     new Migration851JustInnovationId(),
@@ -58,6 +54,8 @@ const migrations: MigrationBase[] = [
     new Migration863FixMisspelledOrganaizationsProperty(),
     new Migration864RemoveWeaponMAP(),
     new Migration865VitalityVoid(),
+    new Migration867DamageRollDomainFix(),
+    new Migration868StrikeRERange(),
 ];
 
 global.deepClone = <T>(original: T): T => {

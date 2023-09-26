@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
@@ -587,7 +587,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 })
             );
 
-        const npcReach = {
+        const reachTraitToNPCReach = {
             tiny: null,
             sm: "reach-10",
             med: "reach-10",
@@ -601,7 +601,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
-                        ? npcReach[this.size] ?? []
+                        ? reachTraitToNPCReach[this.size] ?? []
                         : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
                         ? (`thrown-${rangeIncrement}` as const)
                         : t
@@ -633,10 +633,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 newTraits.push(`${prefix}-${rangeIncrement}` as `range-increment-${WeaponRangeIncrement}`);
             }
 
-            const actorSize = new ActorSizePF2e({ value: actor.size });
-            if (this.isMelee && actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
-                actorSize.decrement();
-                newTraits.push(...[npcReach[actorSize.value] ?? []].flat());
+            const sizeToReach = SIZE_TO_REACH[actor.size];
+            if (this.isMelee && sizeToReach !== 5 && !newTraits.some((t) => t.startsWith("reach"))) {
+                newTraits.push(`reach-${sizeToReach}`);
             }
 
             const reloadTrait = `reload-${this.reload}`;

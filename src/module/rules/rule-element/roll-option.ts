@@ -48,8 +48,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 required: true,
                 nullable: false,
                 initial: "all",
-                validate: (v: unknown): boolean => typeof v === "string" && /^[-a-z0-9]+$/.test(v) && /[a-z]/.test(v),
-                validationError: "must be a string consisting of only lowercase letters, numbers, and hyphens.",
+                blank: false,
             }),
             option: new fields.StringField({ required: true, nullable: false, blank: false }),
             phase: new fields.StringField({
@@ -183,6 +182,16 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     #setRollOption(): void {
+        this.domain = this.resolveInjectedProperties(this.domain);
+        const isStandardDomain = /^[-a-z0-9]+$/.test(this.domain) && /[a-z]/.test(this.domain);
+        // Domains can be of the form "{id}-term"
+        const isIdDomain = /^[a-zA-Z0-9]{16}-[-a-z0-9]+[a-z0-9]$/.test(this.domain);
+        if (!isStandardDomain && !isIdDomain) {
+            return this.failValidation(
+                "domain must be a string consisting of only lowercase letters, numbers, and hyphens."
+            );
+        }
+
         const optionSet = new Set(
             [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
         );
