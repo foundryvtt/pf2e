@@ -1,13 +1,13 @@
-import { type ActorPF2e, ActorProxyPF2e } from "@actor";
-import { type ItemPF2e, ItemProxyPF2e } from "@item";
+import { ActorProxyPF2e } from "@actor";
+import { ItemProxyPF2e, type ItemPF2e } from "@item";
 import {
     AuraRuleElement,
     AuraRuleElementTextureSchema,
     type AuraRuleElementSchema,
 } from "@module/rules/rule-element/aura.ts";
-import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
+import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
@@ -28,7 +28,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         // If this rule element is on an unowned item get full initial data by creating a fake actor
         if (!this.object) {
             const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
-            const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor }) as ItemPF2e<ActorPF2e>;
+            const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
             this.object = new AuraRuleElement(deepClone(this.rule), { parent: item, suppressWarnings: true });
         }
 
@@ -165,46 +165,51 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     #updateEffectsMap(source: AuraRuleElementSource | Partial<AuraRuleElementSource>): AuraEffectSource[] {
-        type EffectObject = Record<string, Partial<AuraEffectSource & Record<string, null>>>;
+        type AuraREEffectSource = AuraRuleElementSource["effects"][number];
 
-        const effectData = duplicate(source.effects ?? null);
-        if (R.isObject<Maybe<EffectObject>>(effectData)) {
-            for (const [id, effectUpdate] of Object.entries(effectData)) {
-                const index = Number(id);
-                if (isNaN(index)) continue;
-                const currentData = this.#effectsMap.get(index);
-                if (!currentData) continue;
+        // Reconstruct the map with deleted defaults
+        this.#effectsMap = new Map(
+            Object.values(source.effects ?? {}).map((data, index): [number, AuraREEffectSource] => {
+                const updatedData = deepClone(data);
+                const deletions: { [K in `-=${keyof AuraREEffectSource}`]?: null | undefined } = {};
 
                 // Clean up save data
-                if (effectUpdate.save) {
-                    const type = effectUpdate.save.type ?? currentData.save?.type;
-                    if (type && !effectUpdate.save.dc) {
-                        effectUpdate.save.dc = "";
-                    } else if (!type) {
-                        delete effectUpdate.save;
-                        effectUpdate["-=save"] = null;
+                if (updatedData.save) {
+                    const type = updatedData.save.type ?? data.save?.type;
+                    if (!type) {
+                        deletions["-=save"] = null;
+                    } else {
+                        updatedData.save.dc ||= null;
                     }
                 }
 
-                // Clean up booleans that have an undefined initial value
-                if (effectUpdate.includesSelf === true) {
-                    delete effectUpdate.includesSelf;
-                    effectUpdate["-=includesSelf"] = null;
+                if (updatedData.affects !== "enemies" && updatedData.includesSelf) {
+                    deletions["-=includesSelf"] = null;
                 }
-                if (effectUpdate.removeOnExit === true) {
-                    delete effectUpdate.removeOnExit;
-                    effectUpdate["-=removeOnExit"] = null;
+                if (updatedData.removeOnExit) {
+                    deletions["-=removeOnExit"] = null;
+                }
+                if (updatedData.predicate) {
+                    try {
+                        const parsed = JSON.parse(String(updatedData.predicate));
+                        updatedData.predicate = Array.isArray(parsed) ? parsed : [];
+                    } catch {
+                        deletions["-=predicate"] = null;
+                    }
+                } else {
+                    deletions["-=predicate"] = null;
                 }
 
-                mergeObject(currentData, effectUpdate, { performDeletions: true });
-            }
-        }
+                return [index, mergeObject(updatedData, deletions, { performDeletions: true })];
+            })
+        );
+
         return this.effectsArray;
     }
 
     #deleteEffect(id?: string): void {
         const index = Number(id);
-        if (isNaN(index)) return;
+        if (Number.isNaN(index)) return;
         if (this.#effectsMap.delete(index)) {
             this.updateItem({ effects: this.effectsArray });
         }
