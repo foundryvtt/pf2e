@@ -23,8 +23,8 @@ import type {
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -103,10 +103,10 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             range: new fields.SchemaField(
                 {
                     increment: new fields.NumberField({
-                        required: true,
+                        required: false,
                         integer: true,
                         min: 5,
-                        nullable: false,
+                        nullable: true,
                         initial: 5,
                     }),
                     max: new fields.NumberField({
@@ -198,21 +198,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         } else {
             super._initialize(options);
         }
-    }
-
-    /** Temporary workaround until real migration */
-    static override migrateData<TSource extends { range?: unknown; maxRange?: unknown }>(source: TSource): TSource {
-        const premigrated = super.migrateData(source);
-
-        if (typeof premigrated.range === "number") {
-            const maxRange = typeof premigrated.maxRange === "number" ? premigrated.maxRange : null;
-            premigrated.range = { increment: premigrated.range, max: maxRange };
-        } else if ("maxRange" in premigrated && typeof premigrated.maxRange === "number") {
-            premigrated.range = { increment: premigrated.maxRange, max: premigrated.maxRange };
-        }
-        delete premigrated.maxRange;
-
-        return premigrated;
     }
 
     override beforePrepareData(): void {
@@ -369,11 +354,11 @@ type StrikeSchema = RuleElementSchema & {
     attackModifier: NumberField<number, number, false, true, true>;
     range: SchemaField<
         {
-            increment: NumberField<number, number, true, false, true>;
+            increment: NumberField<number, number, false, true, true>;
             max: NumberField<number, number, false, true, true>;
         },
-        { increment: number; max: number | null },
-        { increment: number; max: number | null } | null,
+        { increment: number | null; max: number | null },
+        { increment: number | null; max: number | null } | null,
         false,
         true,
         true
