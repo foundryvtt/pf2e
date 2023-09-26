@@ -3,11 +3,11 @@ import { ActorType } from "@actor/data/index.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
-import { ResolvableValueField } from "./data.ts";
 import { sluggify } from "@util";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -42,7 +42,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
         if (!this.test()) return;
 
         const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
-        this.actor.system.martial[this.slug] = {
+        this.actor.system.proficiencies.attacks[this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
             immutable: this.immutable,
             label: this.label,

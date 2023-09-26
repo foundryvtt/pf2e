@@ -28,6 +28,7 @@ import { Migration865VitalityVoid } from "@module/migration/migrations/865-vital
 import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
 import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
 import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
+import { Migration870MartialToProficiencies } from "@module/migration/migrations/869-martial-to-proficiencies.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration867DamageRollDomainFix(),
     new Migration868StrikeRERange(),
     new Migration869RefreshMightyBulwark(),
+    new Migration870MartialToProficiencies(),
 ];
 
 global.deepClone = <T>(original: T): T => {

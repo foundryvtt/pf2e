@@ -31,7 +31,7 @@
             {{localize "PF2E.LoreSkillsHeader"}}
             <div class="controls">
                 <button type="button" class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore">
-                    <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+                    <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
                 </button>
             </div>
         </h3>
@@ -51,7 +51,7 @@
                             </select>
                             {{#if ../editable}}
                                 <div class="item-controls">
-                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                                 </div>
                             {{/if}}
                         </div>
@@ -60,33 +60,64 @@
             {{/each}}
         </ol>
 
-        <!-- Combat Proficiencies Header -->
+        <!-- Attacks -->
         <h3 class="header attacks-defenses">
-            {{localize "PF2E.MartialSkillsHeader"}}
+            {{localize "PF2E.Actor.Character.Proficiency.Attack.Title"}}
             {{#if editable}}
                 <div class="controls">
                     <button type="button" class="item-control" data-action="add-attack-proficiency" title="{{localize "PF2E.AddCombatProficiency.Title"}}">
-                        <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+                        <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
                     </button>
                 </div>
             {{/if}}
         </h3>
         <ol class="combat-list">
-            <!-- Combat Proficiencies -->
-            {{#each data.martial as |proficiency key|}}
-                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-skill="{{key}}">
+            {{#each martialProficiencies.attacks as |proficiency key|}}
+                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
-                        <a class="delete" data-action="remove-attack-proficiency"><i class="fa fa-fw fa-trash"></i></a>
+                        <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
                     <span class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
-                    <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
+                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
-                        <select class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}" data-property="system.martial.{{key}}.rank" data-rank="{{proficiency.rank}}" data-dtype="Number">
+                        <select
+                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            data-property="system.proficiencies.{{proficiency.collection}}.{{key}}.rank"
+                            data-rank="{{proficiency.rank}}"
+                            data-dtype="Number"
+                        >
                             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
                         </select>
                     </div>
                 </li>
             {{/each}}
         </ol>
+
+        <!-- Defenses -->
+        <h3 class="header attacks-defenses">
+            {{localize "PF2E.Actor.Character.Proficiency.Defense.Title"}}
+        </h3>
+        <ol class="combat-list">
+            {{#each martialProficiencies.defenses as |proficiency key|}}
+                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                    {{#if (and proficiency.custom @root.editable)}}
+                        <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
+                    {{/if}}
+                    <span class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
+                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <select
+                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            data-property="system.proficiencies.{{proficiency.collection}}.{{key}}.rank"
+                            data-rank="{{proficiency.rank}}"
+                            data-dtype="Number"
+                        >
+                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
+                        </select>
+                    </div>
+                </li>
+            {{/each}}
+        </ol>
+
     </ol>
 </div>

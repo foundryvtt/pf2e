@@ -63,15 +63,7 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import {
-    ErrorPF2e,
-    setHasElement,
-    signedInteger,
-    sluggify,
-    sortedStringify,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
@@ -80,14 +72,11 @@ import {
     CharacterAbilities,
     CharacterAttributes,
     CharacterFlags,
-    CharacterProficiency,
     CharacterSource,
     CharacterStrike,
     CharacterSystemData,
     ClassDCData,
-    LinkedProficiency,
     MagicTraditionProficiencies,
-    MartialProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
 } from "./data.ts";
@@ -428,6 +417,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Spellcasting-tradition proficiencies
         systemData.proficiencies = {
+            ...systemData.proficiencies,
             classDCs: {},
             traditions: Array.from(MAGIC_TRADITIONS).reduce(
                 (accumulated: DeepPartial<MagicTraditionProficiencies>, t) => ({
@@ -453,26 +443,31 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Size
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
 
-        // Weapon and Armor category proficiencies
-        const martial: DeepPartial<MartialProficiencies> = (systemData.martial ??= {});
-        for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
-            const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
-            proficiency.rank = martial[category]?.rank ?? 0;
-
-            // These will only be trained under unusual circumstances, so make sure they never get stored
-            if (["light-barding", "heavy-barding"].includes(category)) {
-                proficiency.immutable = true;
-            }
-
-            martial[category] = proficiency;
+        // Attack and defense proficiencies
+        type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
+        const attacks: PartialMartialProficiency = (systemData.proficiencies.attacks ??= {});
+        for (const category of WEAPON_CATEGORIES) {
+            attacks[category] = {
+                rank: attacks[category]?.rank ?? 0,
+                custom: !!attacks[category]?.custom,
+                immutable: !!attacks[category]?.custom,
+            };
         }
-
         const homebrewCategories = game.settings.get("pf2e", "homebrew.weaponCategories").map((tag) => tag.id);
         for (const category of homebrewCategories) {
-            martial[category] ??= {
+            attacks[category] ??= {
                 rank: 0,
-                value: 0,
-                breakdown: "",
+                custom: !!attacks[category]?.custom,
+                immutable: !!attacks[category]?.custom,
+            };
+        }
+
+        const defenses: PartialMartialProficiency = (systemData.proficiencies.defenses ??= {});
+        for (const category of ARMOR_CATEGORIES) {
+            defenses[category] = {
+                rank: defenses[category]?.rank ?? 0,
+                // Barding will only be trained under unusual circumstances: make sure they never get stored
+                immutable: ["light-barding", "heavy-barding"].includes(category),
             };
         }
 
@@ -756,14 +751,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of ARMOR_CATEGORIES) {
-            const rank = this.system.martial[key].rank;
-            rollOptionsAll[`defense:${key}:rank:${rank}`] = true;
+        for (const key of WEAPON_CATEGORIES) {
+            const rank = this.system.proficiencies.attacks[key].rank;
+            rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of WEAPON_CATEGORIES) {
-            const rank = this.system.martial[key].rank;
-            rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
+        for (const key of ARMOR_CATEGORIES) {
+            const rank = this.system.proficiencies.defenses[key].rank;
+            rollOptionsAll[`defense:${key}:rank:${rank}`] = true;
         }
 
         for (const key of SAVE_TYPES) {
@@ -784,9 +779,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { synthetics, wornArmor } = this;
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
-        this.system.martial["light-barding"].rank ||=
+        this.system.proficiencies.defenses["light-barding"].rank ||=
             this.traits.has("animal") && !isReallyPC(this)
-                ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
+                ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ZeroToFour)
                 : 0;
 
         const modifiers: ModifierPF2e[] = [];
@@ -818,7 +813,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
 
         return new ArmorStatistic(this, {
-            rank: this.system.martial[proficiency]?.rank ?? 0,
+            rank: this.system.proficiencies.defenses[proficiency]?.rank ?? 0,
             attribute: abilityModifier.ability!,
             modifiers: [abilityModifier],
         });
@@ -1194,23 +1189,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
-        const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
-        const groupRank = systemData.martial[`weapon-group-${weapon.group}`]?.rank ?? 0;
+        const { proficiencies } = systemData;
+        const categoryRank = proficiencies.attacks[weapon.category]?.rank ?? 0;
+        const groupRank = proficiencies.attacks[`weapon-group-${weapon.group}`]?.rank ?? 0;
 
         // Weapons that are interchangeable for all rules purposes (e.g., longbow and composite longbow)
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+        const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
         // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
         // item roll options
-        const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
-            "sameAs" in p && p.definition.test(weaponRollOptions) ? `item:category:${p.sameAs}` : []
+        const equivalentCategories = Object.values(proficiencies.attacks).flatMap((p) =>
+            !!p && "sameAs" in p && (p.definition?.test(weaponRollOptions) ?? true) ? `item:category:${p.sameAs}` : []
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
-        const syntheticRanks = Object.values(systemData.martial)
-            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponProficiencyOptions))
+        const syntheticRanks = Object.values(proficiencies.attacks)
+            .filter((p): p is MartialProficiency => !!p && (p.definition?.test(weaponProficiencyOptions) ?? true))
             .map((p) => p.rank);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
@@ -1749,14 +1745,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Prepare stored and synthetic martial proficiencies */
     prepareMartialProficiencies(): void {
-        const systemData = this.system;
+        const { proficiencies } = this.system;
 
         // Set ranks of linked proficiencies to their respective categories
-        const linkedProficiencies = Object.values(systemData.martial).filter(
-            (p): p is LinkedProficiency => "sameAs" in p && String(p.sameAs) in systemData.martial
+        type LinkedProficiency = MartialProficiency & { sameAs: string };
+        const linkedProficiencies = Object.values(proficiencies.attacks).filter(
+            (p): p is LinkedProficiency => !!p?.sameAs && p.sameAs in proficiencies.attacks
         );
         for (const proficiency of linkedProficiencies) {
-            const category = systemData.martial[proficiency.sameAs ?? ""];
+            const category = proficiencies.attacks[proficiency.sameAs ?? ""];
             proficiency.rank = ((): ZeroToFour => {
                 const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
                 return Math.min(category.rank, maxRankIndex) as ZeroToFour;
@@ -1764,21 +1761,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Deduplicate proficiencies, set proficiency bonuses to all
-        const allProficiencies = Object.entries(systemData.martial);
+        const allProficiencies = Object.entries(proficiencies.attacks);
         for (const [_key, proficiency] of allProficiencies) {
-            const stringDefinition = "definition" in proficiency ? sortedStringify(proficiency.definition) : null;
+            if (!proficiency) continue;
             const duplicates = allProficiencies.flatMap(([k, p]) =>
+                p &&
                 proficiency !== p &&
                 proficiency.rank >= p.rank &&
                 "definition" in proficiency &&
                 "definition" in p &&
                 proficiency.sameAs === p.sameAs &&
-                sortedStringify(p.definition) === stringDefinition
+                R.equals(p.definition ?? [], [...(proficiency.definition ?? [])])
                     ? k
                     : []
             );
             for (const duplicate of duplicates) {
-                delete systemData.martial[duplicate];
+                delete proficiencies.attacks[duplicate];
             }
 
             const proficiencyBonus = createProficiencyModifier({ actor: this, rank: proficiency.rank, domains: [] });
@@ -1812,10 +1810,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Add a proficiency in a weapon group or base weapon */
     async addAttackProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        const currentProficiencies = this.system.martial;
+        const currentProficiencies = this.system.proficiencies.attacks;
         if (key in currentProficiencies) return;
-        const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
-        await this.update({ [`system.martial.${key}`]: newProficiency });
+        const newProficiency: Partial<MartialProficiency> = { rank: 1, custom: true };
+        await this.update({ [`system.proficiencies.attacks.${key}`]: newProficiency });
     }
 
     /* -------------------------------------------- */
