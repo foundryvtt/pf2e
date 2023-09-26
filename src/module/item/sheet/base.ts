@@ -29,11 +29,11 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
+import * as R from "remeda";
+import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
-import Sortable from "sortablejs";
-import * as R from "remeda";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
