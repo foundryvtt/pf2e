@@ -88,7 +88,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
-        const rules = item.toObject().system.rules;
+        this.#createRuleElementForms();
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
@@ -112,31 +112,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
-
-        // Create and activate rule element sub forms
-        const previousForms = this.#ruleElementForms;
-        this.#ruleElementForms = rules.map((rule, index) => {
-            const options = {
-                sheet: this,
-                index,
-                rule,
-                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
-            };
-
-            // If a form exists of the correct type with an exact match, reuse that one.
-            // Reusing forms allow internal variables to persist between updates
-            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            const existing = previousForms.find((f) => R.equals(f.rule, rule));
-            if (existing instanceof FormClass) {
-                // Prevent a form from getting reused twice
-                previousForms.splice(previousForms.indexOf(existing), 1);
-
-                existing.initialize(options);
-                return existing;
-            }
-
-            return new FormClass(options);
-        });
 
         return {
             itemType: null,
@@ -185,6 +160,47 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             detailsTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
+    }
+
+    /** Creates and activates rule element forms, reusing previous ones when possible to preserve form state */
+    #createRuleElementForms(): void {
+        const rules = this.item.toObject().system.rules;
+        const previousForms = [...this.#ruleElementForms];
+
+        // First pass, create options, and then look for exact matches of data and reuse those forms
+        // This is mostly to handle deletions and re-ordering of rule elements
+        const processedRules = rules.map((rule, index) => {
+            const options = {
+                sheet: this,
+                index,
+                rule,
+                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
+            };
+
+            // If a form exists of the correct type with an exact match, reuse that one.
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
+            const existing = previousForms.find((f) => R.equals(f.rule, rule));
+            return { options, FormClass, existing: existing instanceof FormClass ? existing : null };
+        });
+
+        // Second pass, if any unmatched rule has a form in the exact position that fits, reuse that one
+        // This handles the "frequent updates" case that would desync the other one
+        for (const rule of processedRules.filter((p) => !p.existing)) {
+            const existing = this.#ruleElementForms[rule.options.index];
+            if (existing instanceof rule.FormClass) {
+                rule.existing = existing;
+            }
+        }
+
+        // Create the forms, using the existing form or creating a new one if necessary
+        this.#ruleElementForms = processedRules.map((processed) => {
+            if (processed.existing) {
+                processed.existing.initialize(processed.options);
+                return processed.existing;
+            }
+
+            return new processed.FormClass(processed.options);
+        });
     }
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
