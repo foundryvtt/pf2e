@@ -264,3 +264,4 @@ export { Migration863FixMisspelledOrganaizationsProperty } from "./863-fix-missp
 export { Migration864RemoveWeaponMAP } from "./864-rm-weapon-map.ts";
 export { Migration865VitalityVoid } from "./865-vitality-void.ts";
 export { Migration866LinkToActorSizeAgain } from "./866-link-to-actor-size-again.ts";
+export { Migration867DamageRollDomainFix } from "./867-damage-roll-domain-fix.ts";

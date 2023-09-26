@@ -29,6 +29,7 @@ import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862
 import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
 import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
 import { Migration865VitalityVoid } from "@module/migration/migrations/865-vitality-void.ts";
+import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -58,6 +59,7 @@ const migrations: MigrationBase[] = [
     new Migration863FixMisspelledOrganaizationsProperty(),
     new Migration864RemoveWeaponMAP(),
     new Migration865VitalityVoid(),
+    new Migration867DamageRollDomainFix(),
 ];
 
 global.deepClone = <T>(original: T): T => {
