@@ -2718,7 +2718,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "3d6+4",
+                        "damage": "2d6+4",
                         "damageType": "piercing"
                     }
                 },
@@ -2733,7 +2733,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
                         "magical"
                     ]
                 },
@@ -2765,7 +2764,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "3d6+4",
+                        "damage": "2d6+4",
                         "damageType": "piercing"
                     }
                 },
@@ -2780,7 +2779,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
                         "magical",
                         "thrown-20"
                     ]
@@ -2889,12 +2887,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nyamat inflicts an extra [[/r {1d6}]]{1d6 damage} with his spear, and any spear gains the fatal d10 trait while Nyamat is using it (both the extra weapon damage die and the fatal trait have already been included in Nyamat's spear Strikes above).</p>"
+                    "value": "<p>Nyamat inflicts an extra 1d6 damage with his spear, and any spear gains the fatal d10 trait while Nyamat is using it (both the extra weapon damage die and the fatal trait have already been included in Nyamat's spear Strikes above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:spear"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:spear"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "fatal-d10"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

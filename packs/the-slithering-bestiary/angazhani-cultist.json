@@ -1899,7 +1899,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d6+6",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -1913,9 +1913,7 @@
                 },
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "fatal-d10"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1945,7 +1943,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d6+6",
+                        "damage": "1d6+6",
                         "damageType": "piercing"
                     }
                 },
@@ -1960,7 +1958,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
                         "thrown-20"
                     ]
                 },
@@ -2082,12 +2079,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Angazhani cultists inflict an extra [[/r {1d6}]]{1d6 damage} with their spears, and any spear gains the fatal d10 trait while the cultist is using it (both the extra weapon damage die and the fatal trait have already been included in the cultist's spear Strikes above).</p>"
+                    "value": "<p>Angazhani cultists inflict an extra 1d6 damage with their spears, and any spear gains the fatal d10 trait while the cultist is using it (both the extra weapon damage die and the fatal trait have already been included in the cultist's spear Strikes above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:spear"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:spear"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "fatal-d10"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
