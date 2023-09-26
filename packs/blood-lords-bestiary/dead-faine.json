@@ -873,9 +873,30 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard"
+                            "target:condition:off-guard",
+                            {
+                                "not": "target-feint-or-traitorous-betrayal"
+                            }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 6,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard",
+                            "target-feint-or-traitorous-betrayal"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.DeadFaine.TargetFeintOrTraitorousBetrayal",
+                        "option": "target-feint-or-traitorous-betrayal",
+                        "toggleable": true
                     },
                     {
                         "domain": "all",
