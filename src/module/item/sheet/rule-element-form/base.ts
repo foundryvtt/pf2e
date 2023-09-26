@@ -255,10 +255,6 @@ class RuleElementForm<
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, source);
         }
-
-        // Update our reference so that equality matching works on the next data prep cycle
-        // This allows form reuse to occur
-        this.rule = source;
     }
 }
 
