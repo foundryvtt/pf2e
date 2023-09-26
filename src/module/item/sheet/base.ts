@@ -29,7 +29,6 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
-import * as R from "remeda";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
@@ -114,7 +113,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             : null;
 
         // Create and activate rule element sub forms
-        const previousForms = this.#ruleElementForms;
+        const previousForms = new Map<string, RuleElementForm>(
+            this.#ruleElementForms.map((f, index) => [`${f.rule.key}-${index}`, f])
+        );
         this.#ruleElementForms = rules.map((rule, index) => {
             const options = {
                 sheet: this,
@@ -126,10 +127,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             // If a form exists of the correct type with an exact match, reuse that one.
             // Reusing forms allow internal variables to persist between updates
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            const existing = previousForms.find((f) => R.equals(f.rule, rule));
+            const id = `${rule.key}-${index}`;
+            const existing = previousForms.get(id);
             if (existing instanceof FormClass) {
                 // Prevent a form from getting reused twice
-                previousForms.splice(previousForms.indexOf(existing), 1);
+                previousForms.delete(id);
 
                 existing.initialize(options);
                 return existing;
