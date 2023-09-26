@@ -5,6 +5,8 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
+import { SlugField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
@@ -246,6 +248,22 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             nullable: false,
             choices: () => Object.keys(CONFIG.PF2E.frequencies),
+            initial: undefined,
+        } as const),
+    }),
+    "other-tags": new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "subtract", "remove"] as const,
+        }),
+        value: new SlugField({
+            required: true,
+            nullable: false,
+            blank: false,
             initial: undefined,
         } as const),
     }),
