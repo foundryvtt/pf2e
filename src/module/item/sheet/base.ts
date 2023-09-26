@@ -33,6 +33,7 @@ import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 import Sortable from "sortablejs";
+import * as R from "remeda";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -113,9 +114,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             : null;
 
         // Create and activate rule element sub forms
-        const previousForms = new Map<string, RuleElementForm>(
-            this.#ruleElementForms.map((f, index) => [`${f.rule.key}-${index}`, f])
-        );
+        const previousForms = this.#ruleElementForms;
         this.#ruleElementForms = rules.map((rule, index) => {
             const options = {
                 sheet: this,
@@ -127,11 +126,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             // If a form exists of the correct type with an exact match, reuse that one.
             // Reusing forms allow internal variables to persist between updates
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            const id = `${rule.key}-${index}`;
-            const existing = previousForms.get(id);
+            const existing = previousForms.find((f) => R.equals(f.rule, rule));
             if (existing instanceof FormClass) {
                 // Prevent a form from getting reused twice
-                previousForms.delete(id);
+                previousForms.splice(previousForms.indexOf(existing), 1);
 
                 existing.initialize(options);
                 return existing;
