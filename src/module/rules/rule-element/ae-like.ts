@@ -85,6 +85,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const actor = this.item.actor;
         return (
             path.length > 0 &&
+            !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
                     (path) => getProperty(actor, path) !== undefined
