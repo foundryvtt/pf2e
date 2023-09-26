@@ -2657,7 +2657,6 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "The Demonologist expouses on demonic power.",
                         "option": "abyssal-temptation",
                         "toggleable": true
                     },
@@ -2666,25 +2665,11 @@
                         "predicate": [
                             "abyssal-temptation"
                         ],
-                        "selector": "ac",
-                        "type": "status",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "abyssal-temptation"
+                        "selector": [
+                            "ac",
+                            "saving-throw",
+                            "skill-check"
                         ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "abyssal-temptation"
-                        ],
-                        "selector": "skill-check",
                         "type": "status",
                         "value": 1
                     }
@@ -2724,12 +2709,51 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<hr />\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra [[/r {2d6}]]{2d6 damage}.</p>\n<p>Roll [[/r 1d20 #Type]] to determine the type:</p>\n<ul>\n<li>1-7 @UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss - Acid]</li>\n<li>8-9 @UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss - Cold]</li>\n<li>10-11 @UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss - Electricity]</li>\n<li>12-18 @UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss - Fire]</li>\n<li>19-20 @UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss - Negative]</li>\n</ul>"
+                    "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<hr />\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra 2d6 damage.</p>\n<p>Roll [[/r 1d20 #Type]] to determine the type:</p>\n<ul>\n<li>1-7 acid</li>\n<li>8-9 cold</li>\n<li>10-11 electricity</li>\n<li>12-18 fire</li>\n<li>19-20 negative</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "breach-the-abyss",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.breachTheAbyss}",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "breach-the-abyss"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
