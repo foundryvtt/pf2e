@@ -1,7 +1,7 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { KingdomAbility, KingdomSettlementType, KingdomSkill } from "./types.ts";
+import type { ArrayField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { KingdomAbility, KingdomSettlementData, KingdomSettlementType, KingdomSkill } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_COMMODITIES,
@@ -286,7 +286,17 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
-    settlements: new RecordField(
+    /** A collection of settlements controlled by this kingdom, and its related data */
+    settlements: new RecordField<
+        StringField<string, string, true, false>,
+        SchemaField<
+            typeof KINGDOM_SETTLEMENT_SCHEMA,
+            SourceFromSchema<typeof KINGDOM_SETTLEMENT_SCHEMA>,
+            KingdomSettlementData
+        >,
+        false,
+        false
+    >(
         new fields.StringField({ required: true, nullable: false, blank: false }),
         new fields.SchemaField(KINGDOM_SETTLEMENT_SCHEMA, { required: true }),
         { required: false, nullable: false, initial: {} }

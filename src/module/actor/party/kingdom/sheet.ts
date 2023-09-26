@@ -13,6 +13,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
+    SORTABLE_DEFAULTS,
     createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
@@ -45,6 +46,7 @@ import {
 } from "./values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { calculateKingdomCollectionData } from "./helpers.ts";
+import Sortable from "sortablejs";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -122,6 +124,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const data = await super.getData(options);
         const kingdom = this.kingdom;
 
+        const settlementEntries = R.pipe(
+            Object.entries(this.kingdom.settlements),
+            R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
+            R.sortBy((entry) => entry[1].sort)
+        );
+
         return {
             ...data,
             actor: this.actor,
@@ -180,7 +188,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 selected: false, // selected is handled without re-render
             })),
             settlements: await Promise.all(
-                Object.entries(kingdom.settlements).map(async ([id, data]) => {
+                settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
                 })
             ),
@@ -405,8 +413,37 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=reset-event-dc]")?.addEventListener("click", () => {
             this.kingdom.update({ event: { dc: 16 } });
         });
+
+        // Sort settlements
+        const settlementList = htmlQuery(html, ".settlement-list");
+        if (settlementList) {
+            Sortable.create(settlementList, {
+                ...SORTABLE_DEFAULTS,
+                handle: ".drag-handle",
+                onEnd: (event) => {
+                    const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
+                    const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
+                    const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
+                    const newIndex = event.newDraggableIndex;
+                    if (!settlement || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
+
+                    // Perform the resort and update
+                    const siblings = R.sortBy(
+                        settlementsWithIds.filter((s) => s !== settlement),
+                        (s) => s.sort
+                    );
+                    siblings.splice(newIndex, 0, settlement);
+                    const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                    this.kingdom.update(updates);
+                },
+            });
+        }
     }
 
+    /** Activate sheet events for a signle settlement */
     #activateSettlementEvents(settlementElement: HTMLElement) {
         const id = settlementElement.dataset.settlementId ?? null;
         if (id === null) return;
