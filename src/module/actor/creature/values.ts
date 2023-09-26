@@ -20,7 +20,7 @@ const SIZE_TO_REACH = {
     lg: 5,
     huge: 10,
     grg: 15,
-};
+} as const;
 
 /** Sense types associated with a particular acuities by definition */
 const SENSES_WITH_MANDATORY_ACUITIES = {
