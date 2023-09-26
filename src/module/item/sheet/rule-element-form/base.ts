@@ -27,6 +27,7 @@ class RuleElementForm<
     declare rule: TSource;
     declare object: TObject;
     declare schema: LaxSchemaField<RuleElementSchema> | null;
+    declare element: HTMLElement;
 
     /** Tab configuration data */
     protected tabs: RuleElementFormTabData | null = null;
@@ -165,6 +166,8 @@ class RuleElementForm<
     }
 
     activateListeners(html: HTMLElement): void {
+        this.element = html;
+
         // Tagify selectors lists
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
         tagify(selectorElement);
@@ -249,12 +252,21 @@ class RuleElementForm<
     }
 
     updateObject(source: TSource & Record<string, unknown>): void {
+        // Prevent wheel events on the sliders from spamming updates
+        for (const slider of htmlQueryAll<HTMLInputElement>(this.element, "input[type=range")) {
+            slider.style.pointerEvents = "none";
+        }
+
         // Predicate is special cased as always json. Later on extend such parsing to more things
         cleanPredicate(source);
 
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, source);
         }
+
+        // Update our reference so that equality matching works on the next data prep cycle
+        // This allows form reuse to occur
+        this.rule = source;
     }
 }
 
