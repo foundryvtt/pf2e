@@ -183,7 +183,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
     #setRollOption(): void {
         this.domain = this.resolveInjectedProperties(this.domain);
-        if (typeof this.domain !== "string" || !(/^[-a-z0-9]+$/.test(this.domain) && /[a-z]/.test(this.domain))) {
+        const isStandardDomain = /^[-a-z0-9]+$/.test(this.domain) && /[a-z]/.test(this.domain);
+        // Domains can be of the form "{id}-term"
+        const isIdDomain = /^[a-zA-Z0-9]{16}-[-a-z0-9]+[a-z0-9]$/.test(this.domain);
+        if (!isStandardDomain && !isIdDomain) {
             return this.failValidation(
                 "domain must be a string consisting of only lowercase letters, numbers, and hyphens."
             );
