@@ -11,6 +11,16 @@
         }
     }
 
+    fieldset {
+        border-radius: 5px;
+        border: 1px solid var(--secondary-background);
+        padding: 0.25em;
+
+        legend {
+            font-weight: 500;
+        }
+    }
+
     .nerd-details {
         margin-bottom: 10px;
 
@@ -36,23 +46,6 @@
     .rules {
         padding-top: 7px;
         padding-right: 7px;
-
-        .rule-element-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.25rem;
-
-            h3 {
-                margin: 0;
-                &.unrecognized {
-                    color: #880000;
-                }
-            }
-
-            .item-controls {
-                margin-left: auto;
-            }
-        }
 
         .add-rule-element {
             text-align: right;
@@ -121,8 +114,44 @@
         }
     }
 
-    // Styles for the rule editor forms
+    // Style of a single rule editor form
     .rule-form {
+        border-bottom: 1px solid var(--color-border-light-primary);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        &.drag-preview {
+            background: url(../ui/parchment.jpg) repeat;
+        }
+
+        &.drag-gap {
+            visibility: hidden;
+        }
+
+        .rule-element-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+
+            .drag-handle {
+                cursor: grab;
+                font-weight: normal;
+                margin-right: 0.375rem;
+                padding: 0.125rem;
+            }
+
+            h3 {
+                margin: 0;
+                &.unrecognized {
+                    color: #880000;
+                }
+            }
+
+            .item-controls {
+                margin-left: auto;
+            }
+        }
+
         label,
         .labelled-element {
             display: flex;
@@ -224,16 +253,6 @@
             a.active {
                 font-weight: 600;
                 text-decoration: underline;
-            }
-        }
-
-        fieldset {
-            border-radius: 5px;
-            border: 1px solid var(--secondary-background);
-            padding: 0.25em;
-
-            legend {
-                font-weight: 500;
             }
         }
 
