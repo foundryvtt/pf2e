@@ -29,7 +29,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         if (!this.object) {
             const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
             const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor }) as ItemPF2e<ActorPF2e>;
-            this.object = new AuraRuleElement(this.rule, { parent: item, suppressWarnings: true });
+            this.object = new AuraRuleElement(deepClone(this.rule), { parent: item, suppressWarnings: true });
         }
 
         this.#effectsMap.clear();
