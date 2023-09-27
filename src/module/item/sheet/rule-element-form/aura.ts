@@ -146,6 +146,11 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         // Clean up appearance data
         const appearance: DeepPartial<AuraRuleElementSource["appearance"]> = source.appearance;
 
+        // Treat 0 opacity as null
+        if (appearance?.border?.alpha === 0) {
+            appearance.border = null;
+        }
+
         if (appearance?.highlight?.color === game.user.color) {
             appearance.highlight.color = undefined;
         }
