@@ -473,7 +473,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             // Create the new settlement and replace the current one. We'll also need to re-listen to it.
             // activateListeners() handles both rich text editing and expanding the item summary
-            const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstChild;
+            const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstElementChild;
             if (newElement instanceof HTMLElement) {
                 newElement.classList.toggle("expanded", settlementElement.classList.contains("expanded"));
                 settlementElement.replaceWith(newElement);
