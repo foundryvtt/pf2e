@@ -55,6 +55,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** The current selected activity filter, which doubles as an active kingdom phase */
     protected selectedFilter: string | null = null;
 
+    /** HTML element to focus on a re-render, such as when new elements are added */
+    protected focusElement: string | null = null;
+
     #editingSettlements: Record<string, boolean> = {};
 
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
@@ -237,6 +240,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // If a settlement name needs to be focused (such as when a new list item is created), do so
+        if (this.focusElement) {
+            htmlQuery(html, this.focusElement)?.focus();
+            this.focusElement = null;
+        }
+
         // Add open sheet links
         for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
             const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
@@ -251,6 +260,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
+        // Controls for Fame/Infamy editing
         const { fame } = this.kingdom.resources;
         const famePips = htmlQuery(html, "[data-action=adjust-fame]");
         famePips?.addEventListener("click", async () => {
@@ -371,6 +381,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
             const id = randomID(16);
             this.#editingSettlements[id] = true;
+            this.focusElement = `[name="settlements.${id}.name"]`;
             this.kingdom.update({ [`settlements.${id}`]: {} });
         });
         for (const settlementElement of htmlQueryAll(html, ".settlement")) {
@@ -482,8 +493,18 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.#editingSettlements[id] = false;
             rerenderSettlement();
         });
-        htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", () => {
-            this.kingdom.update({ [`settlements.-=${id}`]: null });
+        htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", async (event) => {
+            const settlement = this.kingdom.settlements[id];
+            if (!settlement) return;
+            const result =
+                event?.ctrlKey ||
+                (await Dialog.confirm({
+                    title: game.i18n.localize("PF2E.DeleteItemTitle"),
+                    content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
+                }));
+            if (result) {
+                this.kingdom.update({ [`settlements.-=${id}`]: null });
+            }
         });
     }
 
