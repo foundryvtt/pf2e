@@ -80,11 +80,7 @@ class ResolvableValueField<
             for (const bracket of brackets) {
                 if (bracket.start === null) delete bracket.start;
                 if (bracket.end === null) delete bracket.end;
-                bracket.value = isObject(bracket.value)
-                    ? ""
-                    : typeof bracket.value === "string"
-                    ? this.#coerceNumber(bracket.value)
-                    : bracket.value;
+                bracket.value = typeof bracket.value === "string" ? this.#coerceNumber(bracket.value) : bracket.value;
             }
         }
 
