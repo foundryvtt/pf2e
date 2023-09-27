@@ -1,3 +1,68 @@
+## 5.6.0
+
+### System Improvements
+
+-   (In3luki) Add forms for Aura and Token Light rule elementsRuleElement
+-   (In3luki) Stack item quantities of items looted with the Loot NPCs dialog
+-   (JellyfishJail) Add token-to-token visual flanking indicator when highlighting objects
+-   (stwlam) Add forms for MultipleAttackPenalty and Token Image rule elements
+-   (stwlam) Add support for spell damage dice type overrides
+-   (stwlam) Display carried bulk and encumbrance on NPC sheet
+-   (Supe) Add sheet and tooling for managing a Kingmaker kingdom
+-   (Supe) Allow opening sheet of effects from effects panel tooltip
+-   (Supe) Support reordering NPC abilities
+-   (Supe) Add drag/drop reordering of rule elements
+-   (Supe) Move character height/weight to biography
+
+### Bugfixes
+
+-   (In3luki) Fix overflow in Compendium Browser settings tab
+-   (MySurvive) Add set-as-initiative button to kept roll for rerolls
+-   (stwlam) Move on-update coercion of item-level values to document classes
+-   (stwlam) Check for immunities when granting effects and conditions
+-   (stwlam) Fix browsing compendiums with multiple actor/item subtypes
+-   (stwlam) Predicate-test MultipleAttackPenalty rule elements
+-   (stwlam) Restore rarity to spell sheet
+-   (stwlam) Fix issue causing spell ranks to not be transmitted via aura effects
+-   (Supe) Allow players to send loot and party (physical) items to chat
+-   (Supe) Fix party tokens being actor-size linked
+-   (Supe) Use thin scrollbar everywhere for Firefox
+
+### Data Updates
+
+-   (7H3LaughingMan) Fix saddlebags bulk reduction
+-   (7H3LaughingMan) Fix stealth bonus in air Gate junction
+-   (Dire Weasel) Add automation for Demonic Strength, Hammer Mastery, Open Mind item, Standard of the Primeval Howl
+-   (Dire Weasel) Add damage links to The Whispering Reeds and adjust formatting
+-   (Dire Weasel) Add inline check to Spellwrack
+-   (Dire Weasel) Add resonant effects for several Aeon Stones
+-   (Dire Weasel) Add spell effect for Endure and Foresight
+-   (Dire Weasel) Brush up Dead Faine's Sneak Attack
+-   (Dire Weasel) Brush up Demonologist and consolidate Breach the Abyss
+-   (Dire Weasel) Emphasize Magnificent Mansion in Remaster journal
+-   (Dire Weasel) Fix capitalization on Take its Course and Heightened Awareness
+-   (Dire Weasel) Fix Dead Faine's toggle label to off-guard
+-   (Dire Weasel) Fix labels on Spell Effect: Wish-Twisted Form
+-   (Dire Weasel) Fix level of Strigoi Servant
+-   (Dire Weasel) Fix predicate on Mighty Bulwark
+-   (Dire Weasel) Fix some incorrect remaster spell names and fix missing emphasis
+-   (Dire Weasel) Fix usage and bulk of Ring of Observation
+-   (Dire Weasel) Move Glutton's Jaw's temporary Hit Points roll to Note
+-   (Dire Weasel) Restore brawling group to Sharp Fangs
+-   (Dire Weasel) Update damage links in Worm's Repast to auto-scale
+-   (jfn4th) Fix skills, languages, items in A Few Flowers More pregens
+-   (stwlam) Brush up rule elements on Crimson Fulcrum Lens
+-   (stwlam) Migrate positive/negative damage types and traits to vitality/void
+-   (stwlam) Use Token Mark rule element in Devise a Stratagem
+-   (Supe) Fix Bond with Mortal Damage for Cunning Fox/Feathered Bear
+-   (Tikael) Add content from issues 2 and 3 of Pathfinder Wake the Dead
+-   (Tikael) Add remaster spells previewed in the Paizo blog
+-   (Tikael) Change NPC sneak attack entries to new rules
+-   (Tikael) Change NPC strike trait labels to use 'feet' instead of 'ft'
+-   (Tikael) Update Sneak Attack bestiary glossary ability to simplify rules
+-   (TMun) Add battleforms from Fist of the Ruby Phoenix
+-   (TMun) Update license text with recent and announced products
+
 ## 5.5.3
 
 ### Bugfixes
@@ -71,7 +136,7 @@
 -   (darvey) Add default filter to free archetype feat slots on PC sheets
 -   (darvey) Add property runes missing from armor and weapon dropdowns
 -   (In3luki) Add buttons to choice set prompts that open item sheets (given the choices are items)
--   (stwlam) Automatically price and rename armor with runes and precious materials
+-   (stwlam, Friz) Automatically price and rename armor with runes and precious materials
 -   (stwlam) Add a system tab to scene config windows, allowing hearing radius and rules-based vision to be managed per scene.
 -   (stwlam) Show basic threat/XP data in encounter tracker: will continue to refine by adding settings and ability to award XP from it.
 -   (stwlam) Add an "appearance" property to Aura rule element configuration, allowing for greatly expanded control over an aura's looks. Textures, including videos, are now supported. Border and fill colors have been moved to this property.
