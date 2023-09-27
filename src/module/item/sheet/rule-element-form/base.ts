@@ -273,12 +273,14 @@ class RuleElementForm<
 /** Recursively clean and remove all fields that have a default value */
 function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
     const { fields } = foundry.data;
-    // Remove the field if it is the initial value.
-    // Retrieve value here instead of earlier, since it may have been cleaned
+
+    // Removes the field if it is the initial value.
+    // It may merge with the initial value to handle cases where the values where cleaned recursively
     const deleteIfInitial = (key: string, field: DataField): boolean => {
         if (data[key] === undefined) return true;
-        const value = data[key];
         const initialValue = typeof field.initial === "function" ? field.initial() : field.initial;
+        const valueRaw = data[key];
+        const value = R.isObject(valueRaw) && R.isObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
         const isInitial = R.equals(initialValue, value);
         if (isInitial) delete data[key];
         return !(key in data);
@@ -297,6 +299,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
             const value = data[key];
             if (R.isObject(value)) {
                 cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
+                deleteIfInitial(key, field);
                 continue;
             }
         }
