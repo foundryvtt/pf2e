@@ -288,7 +288,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         if (deleteIfInitial(key, field)) continue;
 
         if (field instanceof ResolvableValueField) {
-            data[key] = getCleanedResolvable(data[key]);
+            data[key] = field.clean(data[key]);
             deleteIfInitial(key, field);
             continue;
         }
@@ -345,38 +345,6 @@ function cleanPredicate(source: { predicate?: unknown }) {
             }
         }
     }
-}
-
-/** Utility function to convert a value to a number if its a valid number */
-function coerceNumber<T extends string | unknown>(value: T): T | number {
-    if (value !== "" && !isNaN(Number(value))) {
-        return Number(value);
-    }
-
-    return value;
-}
-
-function getCleanedResolvable(value: unknown) {
-    // Convert brackets to array, and coerce the value types
-    if (isObject<{ brackets: object; field: string }>(value) && "brackets" in value) {
-        const brackets = (value.brackets = Array.from(Object.values(value.brackets ?? {})));
-
-        if (value.field === "") {
-            delete value.field;
-        }
-
-        for (const bracket of brackets) {
-            if (bracket.start === null) delete bracket.start;
-            if (bracket.end === null) delete bracket.end;
-            bracket.value = isObject(bracket.value) ? "" : coerceNumber(bracket.value);
-        }
-
-        return value;
-    } else if (!isObject(value)) {
-        return coerceNumber(value ?? "");
-    }
-
-    return value;
 }
 
 interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null>
