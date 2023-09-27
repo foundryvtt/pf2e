@@ -125,11 +125,15 @@
         <div class="stacked">
             <div class="two-items">
                 <label>{{localize fields.appearance.fields.border.fields.color.label}}</label>
-                {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=object.appearance.border.color}}
+                {{#if object.appearance.border}}
+                    {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=object.appearance.border.color}}
+                {{else}}
+                    <div>{{localize "PF2E.RuleEditor.Aura.Appearance.NotApplicable"}}</div>
+                {{/if}}
             </div>
             <div class="two-items">
                 <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
-                {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=object.appearance.border.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
+                {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=(coalesce object.appearance.border.alpha 0) placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
         </div>
     </fieldset>
