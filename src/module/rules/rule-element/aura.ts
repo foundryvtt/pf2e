@@ -8,7 +8,7 @@ import {
     StrictNumberField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import { isImageOrVideoPath, isVideoFilePath, sluggify } from "@util";
+import { isImageOrVideoPath, sluggify } from "@util";
 import * as R from "remeda";
 import type {
     AlphaField,
@@ -16,7 +16,6 @@ import type {
     BooleanField,
     ColorField,
     SchemaField,
-    StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
@@ -42,15 +41,12 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 actor.primaryUpdater;
             return user?.color ?? "#43dfdf";
         })();
-        if (this.appearance.texture) {
-            this.appearance.texture.loop ??= isVideoFilePath(this.appearance.texture.src);
-        }
     }
 
     static override defineSchema(): AuraSchema {
         const { fields } = foundry.data;
 
-        const auraTraitField = new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
+        const auraTraitField = new StrictStringField<EffectTrait, EffectTrait, true, false, false>({
             required: true,
             nullable: false,
             initial: undefined,
@@ -58,8 +54,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         });
 
         const effectSchemaField: SchemaField<AuraEffectSchema> = new fields.SchemaField({
-            uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
-            affects: new fields.StringField({
+            uuid: new StrictStringField({ required: true, blank: false, nullable: false, initial: undefined }),
+            affects: new StrictStringField({
                 required: true,
                 nullable: false,
                 blank: false,
@@ -68,7 +64,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 label: "PF2E.RuleEditor.Aura.Effects.Affects",
             }),
             events: new fields.ArrayField(
-                new fields.StringField({
+                new StrictStringField({
                     required: true,
                     blank: false,
                     nullable: false,
@@ -79,7 +75,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             ),
             save: new fields.SchemaField(
                 {
-                    type: new fields.StringField({
+                    type: new StrictStringField({
                         required: true,
                         nullable: false,
                         blank: false,
@@ -147,7 +143,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 {
                     required: false,
                     nullable: true,
-                    initial: () => ({ alpha: 0.75, color: "#000000" }),
+                    initial: () => ({ color: "#000000", alpha: 0.75 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Border",
                 } as const
             ),
@@ -169,10 +165,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 {
                     required: false,
                     nullable: false,
-                    initial: () => ({
-                        alpha: 0.25,
-                        color: undefined,
-                    }),
+                    initial: () => ({ color: undefined, alpha: 0.25 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
                 }
             ),
@@ -207,7 +200,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     loop: new StrictBooleanField({
                         required: false,
                         nullable: false,
-                        initial: undefined,
+                        initial: true,
                         label: "PF2E.RuleEditor.Aura.Appearance.Loop.Label",
                         hint: "PF2E.RuleEditor.Aura.Appearance.Loop.Hint",
                     }),
@@ -243,19 +236,21 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             traits: new StrictArrayField(auraTraitField, {
                 required: true,
                 nullable: false,
-                initial: [],
                 label: "PF2E.TraitsLabel",
             }),
             effects: new StrictArrayField(effectSchemaField, {
                 required: false,
                 nullable: false,
-                initial: [],
                 label: "PF2E.RuleEditor.Aura.Effects.Label",
             }),
             appearance: new fields.SchemaField(appearanceSchema, {
                 required: false,
-                nullable: false,
-                initial: undefined,
+                nullable: true,
+                initial: () => ({
+                    border: { color: "#000000", alpha: 0.75 },
+                    highlight: { color: undefined, alpha: 0.25 },
+                    texture: null,
+                }),
                 label: "PF2E.RuleEditor.Aura.Appearance.Label",
             }),
             mergeExisting: new fields.BooleanField({
@@ -361,7 +356,7 @@ type AuraSchema = RuleElementSchema & {
     level: ResolvableValueField<false, true, true>;
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
     traits: ArrayField<
-        StringField<EffectTrait, EffectTrait, true, false, false>,
+        StrictStringField<EffectTrait, EffectTrait, true, false, false>,
         EffectTrait[],
         EffectTrait[],
         true,
@@ -386,8 +381,8 @@ type AuraSchema = RuleElementSchema & {
         SourceFromSchema<AuraAppearanceSchema>,
         ModelPropsFromSchema<AuraAppearanceSchema>,
         false,
-        false,
-        false
+        true,
+        true
     >;
     /**
      * If another aura with the same slug is already being emitted, merge this aura's data in with the other's,
@@ -397,10 +392,10 @@ type AuraSchema = RuleElementSchema & {
 };
 
 type AuraEffectSchema = {
-    uuid: StringField<string, string, true, false, false>;
-    affects: StringField<"allies" | "enemies" | "all", "allies" | "enemies" | "all", true, false, true>;
+    uuid: StrictStringField<string, string, true, false, false>;
+    affects: StrictStringField<"allies" | "enemies" | "all", "allies" | "enemies" | "all", true, false, true>;
     events: ArrayField<
-        StringField<"enter" | "turn-start" | "turn-end", "enter" | "turn-start" | "turn-end", true, false, false>,
+        StrictStringField<"enter" | "turn-start" | "turn-end", "enter" | "turn-start" | "turn-end", true, false, false>,
         ("enter" | "turn-start" | "turn-end")[],
         ("enter" | "turn-start" | "turn-end")[],
         true,
@@ -408,7 +403,10 @@ type AuraEffectSchema = {
         true
     >;
     save: SchemaField<
-        { type: StringField<SaveType, SaveType, true, false, false>; dc: ResolvableValueField<true, false, false> },
+        {
+            type: StrictStringField<SaveType, SaveType, true, false, false>;
+            dc: ResolvableValueField<true, false, false>;
+        },
         { type: SaveType; dc: RuleValue },
         { type: SaveType; dc: RuleValue },
         true,
@@ -452,7 +450,7 @@ type AuraAppearanceSchema = {
 
 type AuraTextureSchema = {
     /** The path to the texture file: can be injected */
-    src: StringField<string, string, true, false, false>;
+    src: StrictStringField<string, string, true, false, false>;
     alpha: AlphaField<true, false, true>;
     /** A manual rescaling of the texture resource */
     scale: StrictNumberField<number, number, true, false, true>;
@@ -466,7 +464,7 @@ type AuraTextureSchema = {
         false
     >;
     /** If the `src` is a video, whether to loop it */
-    loop: StrictBooleanField<false, false, false>;
+    loop: StrictBooleanField<false, false, true>;
     /** If the `src` is a video, the playback rate of resulting `HTMLVideoElement` */
     playbackRate: StrictNumberField<number, number, false, false, true>;
 };
@@ -480,6 +478,7 @@ type AuraREAppearanceData = ModelPropsFromSchema<AuraAppearanceSchema> & {
     texture:
         | (ModelPropsFromSchema<AuraAppearanceSchema> & {
               loop: boolean;
+              playbackRate: number;
               translation: { x: number; y: number } | null;
           })
         | null;
