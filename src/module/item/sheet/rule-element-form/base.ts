@@ -273,11 +273,23 @@ class RuleElementForm<
 /** Recursively clean and remove all fields that have a default value */
 function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
     const { fields } = foundry.data;
+    // Remove the field if it is the initial value.
+    // Retrieve value here instead of earlier, since it may have been cleaned
+    const deleteIfInitial = (key: string, field: DataField): boolean => {
+        if (data[key] === undefined) return true;
+        const value = data[key];
+        const initialValue = typeof field.initial === "function" ? field.initial() : field.initial;
+        const isInitial = R.equals(initialValue, value);
+        if (isInitial) delete data[key];
+        return !(key in data);
+    };
+
     for (const [key, field] of Object.entries(schema)) {
-        if (!(key in data)) continue;
+        if (deleteIfInitial(key, field)) continue;
 
         if (field instanceof ResolvableValueField) {
             data[key] = getCleanedResolvable(data[key]);
+            deleteIfInitial(key, field);
             continue;
         }
 
@@ -310,17 +322,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         // The most common benefit from clean() is handling things like the "blank" property
         if (field instanceof fields.StringField) {
             data[key] = field.clean(data[key], {});
-        }
-
-        // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
-        // Retrieve value here instead of earlier, since it may have been cleaned
-        const value = data[key];
-        const isInitial = "initial" in field && R.equals(field.initial, value);
-        const isBlank =
-            (typeof value === "string" && value.trim() === "") ||
-            (!isInitial && Array.isArray(value) && value.length === 0);
-        if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
-            delete data[key];
+            deleteIfInitial(key, field);
         }
     }
 }
