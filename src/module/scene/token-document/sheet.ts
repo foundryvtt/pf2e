@@ -8,6 +8,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/scene/token/sheet.hbs",
+            sheetConfig: false,
         };
     }
 
