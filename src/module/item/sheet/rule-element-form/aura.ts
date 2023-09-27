@@ -1,10 +1,6 @@
 import { ActorProxyPF2e } from "@actor";
 import { ItemProxyPF2e, type ItemPF2e } from "@item";
-import {
-    AuraRuleElement,
-    AuraRuleElementTextureSchema,
-    type AuraRuleElementSchema,
-} from "@module/rules/rule-element/aura.ts";
+import { AuraRuleElement, type AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
@@ -133,9 +129,28 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         // Restore clobbered effects array and perform updates
         source.effects = this.#updateEffectsMap(source);
 
-        // Clean up texture data
+        for (const key of ["level", "radius"]) {
+            if (key in source && !source[key]) {
+                delete source[key];
+                continue;
+            }
+
+            const stringValue = source[key];
+            const maybeIntegerValue =
+                typeof stringValue === "string" && /^\d+$/.test(stringValue) ? Number(stringValue) : NaN;
+            if (Number.isInteger(maybeIntegerValue)) {
+                source[key] = maybeIntegerValue;
+            }
+        }
+
+        // Clean up appearance data
         const appearance: DeepPartial<AuraRuleElementSource["appearance"]> = source.appearance;
-        const texture: Maybe<DeepPartial<SourceFromSchema<AuraRuleElementTextureSchema>>> = appearance?.texture;
+
+        if (appearance?.highlight?.color === game.user.color) {
+            appearance.highlight.color = undefined;
+        }
+
+        const texture = appearance?.texture;
         if (texture) {
             if (texture.translation) {
                 const { x, y } = texture.translation;
@@ -143,15 +158,12 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                     delete texture.translation;
                 }
             }
+
             if (!texture.src) {
-                delete appearance?.texture;
-            } else if (
-                texture.src &&
-                texture.src !== this.rule.appearance?.texture?.src &&
-                isImageFilePath(texture.src)
-            ) {
-                delete texture?.playbackRate;
-                delete texture?.loop;
+                appearance.texture = null;
+            } else if (isImageFilePath(texture.src)) {
+                texture.loop = true;
+                texture.playbackRate = 1;
             }
         }
 
