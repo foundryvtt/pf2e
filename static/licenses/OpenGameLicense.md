@@ -197,6 +197,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #197: Let the Leaves Fall © 2023, Paizo Inc.; Author: Joan Hong.
 	*  Pathfinder Adventure Path #198: With No Breath to Cry © 2023, Paizo Inc.; Authors: Dan Cascone and Eleanor Ferron.
 	*  Pathfinder Adventure Path #199: To Bloom below the Web © 2024, Paizo Inc.; Author: Liane Merciel.	
+	*  Pathfinder Adventure Path #200: The Seven Dooms of Sandpoint © 2024, Paizo Inc.; Author: James Jacobs.
 
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
@@ -213,6 +214,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Quest #12: Putrid Seeds © 2020, Paizo Inc.; Author: Cass Reyfield and James Case.
     * Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
 	* Pathfinder Society Quest #14: The Swordlord's Challenge © 2023, Paizo Inc.; Author: Tineke Bolleman.
+	* Pathfinder Society Quest #15: In the Footsteps of Horror © 2023, Paizo Inc.; Author: Shan Wolf.
 
     * Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
     * Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
@@ -336,6 +338,12 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #4-99: Blessings of the Forest © 2023, Paizo Inc.; Authors: Ivis K. Flanagan and Dennis Muldoon.
 
     * Pathfinder Society Scenario #5-01: Intro: Year of Unfettered Exploration © 2023, Paizo Inc.; Author: Sen H.H.S.
+    * Pathfinder Society Scenario #5-02: The Blackwood Lost © 2023, Paizo Inc.; Author: Alison Cybe
+    * Pathfinder Society Scenario #5-03: Heidmarch Heist © 2023, Paizo Inc.; Author: Hilary Moon Murphy
+    * Pathfinder Society Scenario #5-04: Equal Exchanges – Necessary Introductions © 2023, Paizo Inc.; Author: Michelle Y. Kim
+    * Pathfinder Society Scenario #5-05: The Island of the Vibrant Dead © 2023, Paizo Inc.; Author: Joseph Blomquist
+    * Pathfinder Society Scenario #5-06: Ukuja, The First Wall © 2023, Paizo Inc.; Author: Shan Wolf
+    * Pathfinder Society Scenario #5-07: Sewer Dragon Crisis © 2023, Paizo Inc.; Author: Genevieve Olejnik
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
@@ -420,6 +428,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
     *  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
     *  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
+
 *   Other
     * Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente
     * Pathfinder: Wake the Dead #1 © 2023, Paizo Inc.; Authors: Mikhail Rekun and Fred Van Lente.
