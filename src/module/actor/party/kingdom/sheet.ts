@@ -489,8 +489,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.#editingSettlements[id] = true;
             rerenderSettlement();
         });
-        htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", () => {
+        htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", async () => {
             this.#editingSettlements[id] = false;
+            await this.saveEditor(`settlements.${id}.description`);
             rerenderSettlement();
         });
         htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", async (event) => {
