@@ -3,6 +3,17 @@ import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import { RollTwiceOption } from "../rolls.ts";
 import { CheckRollContext } from "./types.ts";
+import { RecallKnowledgeContextData } from "@module/recall-knowledge.ts";
+import {
+    DCAdjustment,
+    adjustDC,
+    calculateDC,
+    calculateSimpleDC,
+    combineDCAdjustments,
+    rarityToDCAdjustment,
+} from "@module/dc.ts";
+import { Rarity } from "@module/data.ts";
+import { ProficiencyRank } from "@item/data/index.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -13,6 +24,8 @@ export class CheckModifiersDialog extends Application {
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
     context: CheckRollContext;
+    /** */
+    recallKnowledge: RecallKnowledgeContextData | null;
     /** A Promise resolve method */
     resolve: (value: boolean) => void;
     /** Pre-determined D20 roll results */
@@ -40,6 +53,7 @@ export class CheckModifiersDialog extends Application {
         super({ title });
 
         this.check = check;
+        this.recallKnowledge = context.recallKnowledge ?? null;
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
         this.context = context;
@@ -62,6 +76,10 @@ export class CheckModifiersDialog extends Application {
         const none = fortune === misfortune;
         const rollMode =
             this.context.rollMode === "roll" ? game.settings.get("core", "rollMode") : this.context.rollMode;
+        const simpleDCs = ["untrained", "trained", "expert", "master", "legendary"];
+        const levelBasedDCs = [
+            -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+        ];
 
         return {
             appId: this.id,
@@ -70,6 +88,9 @@ export class CheckModifiersDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
+            recallKnowledge: this.recallKnowledge,
+            levelBasedDCs,
+            simpleDCs,
             substitutions: this.substitutions,
             hasRequiredSubstitution: !!this.substitutions.some((s) => s.required && s.selected),
             fortune,
@@ -82,6 +103,17 @@ export class CheckModifiersDialog extends Application {
         const html = $html[0];
 
         htmlQuery<HTMLButtonElement>(html, "button.roll")?.addEventListener("click", () => {
+            if (this.context?.recallKnowledge && this.context.dc)
+                this.context.dc.value = adjustDC(
+                    adjustDC(
+                        this.context.dc.value,
+                        combineDCAdjustments(
+                            rarityToDCAdjustment(this.context.recallKnowledge.rarity),
+                            this.context.recallKnowledge.applicableLore as DCAdjustment
+                        )
+                    ),
+                    this.context.recallKnowledge.difficulty
+                );
             this.resolve(true);
             this.isResolved = true;
             this.close();
@@ -150,6 +182,63 @@ export class CheckModifiersDialog extends Application {
             });
         }
 
+        for (const recallKnowledgeLore of htmlQueryAll<HTMLInputElement>(
+            html,
+            ".recall-knowledge-lore-panel input[type=radio]"
+        )) {
+            recallKnowledgeLore.addEventListener("click", () => {
+                this.context.recallKnowledge!.applicableLore = recallKnowledgeLore.value;
+            });
+        }
+
+        for (const recallKnowledgeRarity of htmlQueryAll<HTMLInputElement>(
+            html,
+            ".recall-knowledge-rarity-panel input[type=radio]"
+        )) {
+            recallKnowledgeRarity.addEventListener("click", () => {
+                this.context.recallKnowledge!.rarity = recallKnowledgeRarity.value as Rarity;
+            });
+        }
+
+        for (const recallKnowledgeDifficulty of htmlQueryAll<HTMLInputElement>(
+            html,
+            ".recall-knowledge-difficulty-panel input[type=radio]"
+        )) {
+            recallKnowledgeDifficulty.addEventListener("click", () => {
+                this.context.recallKnowledge!.difficulty = recallKnowledgeDifficulty.value as DCAdjustment;
+            });
+        }
+
+        const simpleDC = htmlQuery<HTMLSelectElement>(html, "select[name=simple-dcs]");
+        simpleDC?.addEventListener("change", () => {
+            if (
+                htmlQuery<HTMLInputElement>(html, ".recall-knowledge-no-target input[type=radio]:checked")?.value ===
+                "simple-dc"
+            )
+                this.context.dc!.value = calculateSimpleDC(simpleDC.value as ProficiencyRank);
+        });
+
+        const levelBasedDC = htmlQuery<HTMLSelectElement>(html, "select[name=level-based-dcs]");
+        levelBasedDC?.addEventListener("change", () => {
+            if (
+                htmlQuery<HTMLInputElement>(html, ".recall-knowledge-no-target input[type=radio]:checked")?.value ===
+                "level-based-dc"
+            )
+                this.context.dc!.value = calculateDC(parseInt(levelBasedDC.value));
+        });
+
+        for (const recallKnowledgeManualDCButton of htmlQueryAll<HTMLInputElement>(
+            html,
+            ".recall-knowledge-no-target input[type=radio]"
+        )) {
+            recallKnowledgeManualDCButton.addEventListener("click", () => {
+                this.context.dc!.value =
+                    recallKnowledgeManualDCButton.getAttribute("value") === "simple-dc"
+                        ? calculateSimpleDC(simpleDC?.value as ProficiencyRank)
+                        : calculateDC(parseInt(levelBasedDC!.value));
+            });
+        }
+
         const rollModeInput = htmlQuery<HTMLSelectElement>(html, "select[name=rollmode]");
         rollModeInput?.addEventListener("change", () => {
             const rollMode = rollModeInput.value;
@@ -212,6 +301,7 @@ interface CheckDialogData {
     appId: string;
     modifiers: readonly ModifierPF2e[];
     totalModifier: number;
+    recallKnowledge: RecallKnowledgeContextData | null;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
     showRollDialogs: boolean;
@@ -220,4 +310,6 @@ interface CheckDialogData {
     fortune: boolean;
     none: boolean;
     misfortune: boolean;
+    levelBasedDCs: number[];
+    simpleDCs: string[];
 }

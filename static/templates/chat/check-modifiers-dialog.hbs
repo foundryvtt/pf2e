@@ -56,8 +56,100 @@
         <input type="number" class="add-modifier-value" placeholder="+1">
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </section>
+    {{#if recallKnowledge}}
     <hr/>
-
+    <div class="recall-knowledge-panel">
+        <span class="label">{{recallKnowledge.type}}</span>
+        {{#ifCond recallKnowledge.type "Recall Knowledge"}}
+            <div class="recall-knowledge-no-target">
+                <label>
+                    <input type="radio" name="recall-knowledge-manual-dc" value="simple-dc" checked/> Simple DC
+                </label>
+                <select name="simple-dcs" id="simple-dcs">
+                    {{#each simpleDCs}}
+                    <option value="{{this}}" {{#ifCond this "untrained"}}selected{{/ifCond}}>{{this}}</option>
+                    {{/each}}
+                </select>
+                <label>
+                    <input type="radio" name="recall-knowledge-manual-dc" value="level-based-dc"/> Level-Based DC
+                </label>
+                <select name="level-based-dcs" id="level-based-dcs">
+                    {{#each levelBasedDCs}}
+                    <option value="{{this}}" {{#ifCond this "0"}}selected{{/ifCond}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{/ifCond}}
+        {{#if recallKnowledge.isLore}}
+        <div class="recall-knowledge-lore-panel">
+            <span class="label">Applicable Lore?: </span>
+            <label title="Normal">
+                <input type="radio" name="recall-knowledge-lore" value="normal" {{#ifCond recallKnowledge.applicableLore "normal"}}checked{{/ifCond}}/>
+                Normal
+            </label>
+            <label title="Easy Adjustment">
+                <input type="radio" name="recall-knowledge-lore" value="easy" {{#ifCond recallKnowledge.applicableLore "easy"}}checked{{/ifCond}}/>
+                Applicable
+            </label>
+            <label title="Very Easy Adjustment">
+                <input type="radio" name="recall-knowledge-lore" value="very-easy" {{#ifCond recallKnowledge.applicabaleLore "very-easy"}}checked{{/ifCond}}/>
+                Specific
+            </label>
+        </div>
+        {{/if}}
+        <div class="recall-knowledge-rarity-panel">
+            <span class="label">Rarity: </span>
+            <label title="Common">
+                <input type="radio" name="recall-knowledge-rarity" value="common" {{#ifCond recallKnowledge.rarity "common"}}checked{{/ifCond}}/>
+                Common
+            </label>
+            <label title="Hard Adjustment">
+                <input type="radio" name="recall-knowledge-rarity" value="uncommon" {{#ifCond recallKnowledge.rarity "uncommon"}}checked{{/ifCond}}/>
+                Uncommon
+            </label>
+            <label title="Very Hard Adjustment">
+                <input type="radio" name="recall-knowledge-rarity" value="rare" {{#ifCond recallKnowledge.rarity "rare"}}checked{{/ifCond}}/>
+                Rare
+            </label>
+            <label title="Incredibly Hard Adjustment">
+                <input type="radio" name="recall-knowledge-rarity" value="unique" {{#ifCond recallKnowledge.rarity "unique"}}checked{{/ifCond}}/>
+                Unique
+            </label>
+        </div>
+        <div class="recall-knowledge-difficulty-panel">
+            <span class="label">Difficulty: </span>
+            <label title="Incredibly Easy DC -10" >
+                <input type="radio" name="recall-knowledge-difficulty" value="incredibly-easy" {{#ifCond recallKnowledge.difficulty "incredibly-easy"}}checked{{/ifCond}}/>
+                IE
+            </label>
+            <label title="Very Easy DC -5" >
+                <input type="radio" name="recall-knowledge-difficulty" value="very-easy" {{#ifCond recallKnowledge.difficulty "very-easy"}}checked{{/ifCond}}/>
+                VE
+            </label>
+            <label title="Easy DC -2" >
+                <input type="radio" name="recall-knowledge-difficulty" value="easy" {{#ifCond recallKnowledge.difficulty "easy"}}checked{{/ifCond}}/>
+                E
+            </label>
+            <label title="Normal DC +0" >
+                <input type="radio" name="recall-knowledge-difficulty" value="normal" {{#ifCond recallKnowledge.difficulty "normal"}}checked{{/ifCond}}/>
+                N
+            </label>
+            <label title="Hard DC +2">
+                <input type="radio" name="recall-knowledge-difficulty" value="hard" {{#ifCond recallKnowledge.difficulty "hard"}}checked{{/ifCond}}/>
+                H
+            </label>
+            <label title="Very Hard DC +5">
+                <input type="radio" name="recall-knowledge-difficulty" value="very-hard" {{#ifCond recallKnowledge.difficulty "very-hard"}}checked{{/ifCond}}/>
+                VH
+            </label>
+            <label title="Incredibly Hard DC +10">
+                <input type="radio" name="recall-knowledge-difficulty" value="incredibly-hard" {{#ifCond recallKnowledge.difficulty "incredibly-hard"}}checked{{/ifCond}}/>
+                IH
+            </label>
+        </div>
+    </div>
+    {{/if}}
+    <hr/>
     <div class="fate">
         <label>
             <input type="radio" name="rollTwice" value="keep-higher" {{checked fortune}} />

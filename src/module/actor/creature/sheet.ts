@@ -17,6 +17,8 @@ import { CreatureConfig } from "./config.ts";
 import { SkillAbbreviation, SkillData } from "./data.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 import { CreatureSheetData } from "./types.ts";
+import { recallKnowledgeRollData } from "@module/recall-knowledge.ts";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -209,12 +211,29 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 this.actor.rollRecovery(event);
             });
 
+        // Recall Knowledge should be rolled by the GM. Hide the toggle for players.
+        UserVisibilityPF2e.process($html[0]);
+
+        // Toggle Recall Knowledge;
+        $html.find(".rk-toggle").on("click", (event) => {
+            $(event.currentTarget).toggleClass("selected");
+        });
+
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
             const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
             const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
             const rollParams = eventToRollParams(event);
-            this.actor.skills[key]?.check.roll(rollParams);
+
+            // Handle Recall Knowledge rolls when the button is toggled
+            if ($html.find(".rk-toggle").hasClass("selected")) {
+                const { rkSkill, rkRollParams } = recallKnowledgeRollData(this.actor, this.actor.skills[key]!);
+                rkSkill.check.roll(mergeObject({ ...rollParams }, rkRollParams));
+            }
+            // If the Recall Knowledge button isn't toggled, roll the skill check normally
+            else {
+                this.actor.skills[key]?.check.roll(rollParams);
+            }
         });
 
         // Roll perception checks

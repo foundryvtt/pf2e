@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { RollTarget } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
 import { ZeroToTwo } from "@module/data.ts";
+import { RecallKnowledgeContextData } from "@module/recall-knowledge.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
 import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
@@ -16,6 +17,7 @@ type CheckType =
     | "flat-check"
     | "initiative"
     | "perception-check"
+    | "recall-knowledge-check"
     | "saving-throw"
     | "skill-check";
 
@@ -46,6 +48,8 @@ interface CheckRollContext extends BaseRollContext {
     damaging?: boolean;
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** Whether the roll is a Recall Knowledge roll and associated data */
+    recallKnowledge?: RecallKnowledgeContextData | null;
     /** The number of MAP increases for this roll */
     mapIncreases?: Maybe<ZeroToTwo>;
     /** D20 results substituted for an actual roll */

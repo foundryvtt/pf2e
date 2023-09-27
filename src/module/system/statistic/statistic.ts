@@ -507,6 +507,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             damaging: args.damaging,
             rollMode,
             skipDialog,
+            recallKnowledge: args.recallKnowledge,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
@@ -576,6 +577,8 @@ interface StatisticRollParameters {
     rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */
     skipDialog?: boolean;
+    /** */
+    recallKnowledge?: RecallKnowledgeContextData | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** Any traits for the check */
@@ -591,6 +594,7 @@ interface StatisticRollParameters {
 }
 
 import { signedInteger } from "@util";
+import { RecallKnowledgeContextData } from "@module/recall-knowledge.ts";
 
 class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     parent: TParent;

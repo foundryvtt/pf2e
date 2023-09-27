@@ -111,4 +111,11 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
         return options.fn(this);
     });
+
+    Handlebars.registerHelper("ifCond", function (this: unknown, v1: unknown, v2: unknown, options) {
+        if (v1 === v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
 }

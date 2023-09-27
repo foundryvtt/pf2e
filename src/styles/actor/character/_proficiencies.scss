@@ -1,4 +1,26 @@
 &.proficiencies {
+    .header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        h3 {
+            text-align: left;
+        }
+        .rk-toggle {
+            margin-left: auto;
+            margin-right: 0;
+            text-align: left;
+            height: 30px;
+            width: 30px;
+            border: none;
+            background-image: url(/systems/pf2e/icons/default-icons/lore.svg);
+            background-size: contain;
+            box-shadow: none;
+            &.selected {
+                @include requires-user-attention;
+            }
+        }
+    }
     .proficiencies-pane {
         @include p-reset;
     }

@@ -1,4 +1,4 @@
-import { NPCPF2e } from "@actor";
+import { ActorPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SkillLongForm } from "@actor/types.ts";
 import { Rarity } from "@module/data.ts";
@@ -12,6 +12,8 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from "./dc.ts";
+import { Statistic, StatisticCheck, StatisticRollParameters } from "@system/statistic/statistic.ts";
+import { StatisticData } from "@system/statistic/data.ts";
 
 /**
  * Implementation of Creature Identification
@@ -70,6 +72,67 @@ function creatureIdentificationDCs(
     };
 }
 
+function recallKnowledgeRollData(
+    actor: ActorPF2e,
+    skill: Statistic
+): { rkSkill: Statistic; rkRollParams: StatisticRollParameters } {
+    /* 
+    Per guidance on CRB p 239, physical skills should typically use intelligence instead of the skill's 
+    normal physical ability score.
+    */
+    const physicalAttributes = ["str", "dex", "con"];
+    const attribute = physicalAttributes.includes(skill?.attribute ?? "int") ? "int" : skill?.attribute;
+
+    const target = Array.from(game.user.targets)[0]?.actor ?? undefined;
+    const dc = target ? calculateDC(target?.level) : 10;
+
+    const rkStatisticData: StatisticData = {
+        attribute: attribute,
+        rank: skill?.rank ?? "untrained-level",
+        slug: skill?.slug,
+        label: skill?.label,
+        check: { type: "recall-knowledge-check" },
+        domains: ["all", "recall-knowledge", `${attribute}-based`, `${attribute}-skill-check`, "skill-check"],
+    };
+    rkStatisticData.check = new StatisticCheck(skill, rkStatisticData);
+
+    const recallKnowledgeType =
+        target instanceof NPCPF2e
+            ? "Creature Identification"
+            : target instanceof HazardPF2e
+            ? "Trap Identification"
+            : "Recall Knowledge";
+    const targetRarity = target instanceof NPCPF2e || target instanceof HazardPF2e ? target.rarity : "common";
+    const rkContext: RecallKnowledgeContextData = {
+        type: recallKnowledgeType,
+        rarity: targetRarity,
+        difficulty: "normal",
+        isLore: skill.lore,
+        applicableLore: "normal",
+    };
+
+    const rkSkill = new Statistic(actor, { ...rkStatisticData });
+
+    const rkRollParams: StatisticRollParameters = {
+        action: "recall-knowledge",
+        label: "Recall Knowledge: " + rkSkill?.label,
+        extraRollOptions: ["secret", "action:recall-knowledge"],
+        dc: dc,
+        recallKnowledge: rkContext,
+        traits: ["concentrate", "secret"],
+    };
+
+    return { rkSkill, rkRollParams };
+}
+
+interface RecallKnowledgeContextData {
+    type: "Creature Identification" | "Trap Identification" | "Recall Knowledge";
+    rarity: "common" | "uncommon" | "rare" | "unique";
+    difficulty: DCAdjustment;
+    isLore: boolean | undefined;
+    applicableLore: Omit<DCAdjustment, "incredibly-easy" | "hard" | "very-hard" | "incredibly-hard">;
+}
+
 interface RecallKnowledgeDC {
     dc: number;
     progression: number[];
@@ -82,4 +145,9 @@ interface CreatureIdentificationData {
     lore: [RecallKnowledgeDC, RecallKnowledgeDC];
 }
 
-export { creatureIdentificationDCs, type CreatureIdentificationData };
+export {
+    creatureIdentificationDCs,
+    recallKnowledgeRollData,
+    type RecallKnowledgeContextData,
+    type CreatureIdentificationData,
+};

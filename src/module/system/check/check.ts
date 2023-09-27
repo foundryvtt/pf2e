@@ -220,6 +220,7 @@ class CheckPF2e {
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
             notes: notes.map((n) => n.toObject()),
+            recallKnowledge: context.recallKnowledge ?? null,
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
