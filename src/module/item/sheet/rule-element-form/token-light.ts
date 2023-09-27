@@ -43,6 +43,12 @@ class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRul
             lightAnimations: R.mapValues(CONFIG.Canvas.lightAnimations, (value) => value.label),
         };
     }
+
+    override updateObject(source: TokenLightRuleSource): void {
+        if (!source.value.bright) delete source.value.bright;
+        if (!source.value.dim) delete source.value.dim;
+        super.updateObject(source);
+    }
 }
 
 interface TokenLightSheetData extends RuleElementFormSheetData<TokenLightRuleSource, TokenLightRuleElement> {
