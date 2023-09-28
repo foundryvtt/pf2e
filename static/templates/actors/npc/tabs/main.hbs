@@ -45,7 +45,14 @@
                 <div class="perception labelled-field" data-attribute="perception">
                     <a class="attribute-label rollable">{{localize "PF2E.PerceptionLabel"}}</a>
                     {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
+                        <input
+                            type="text"
+                            value="{{numberFormat perception.value decimals=0 sign=true}}"
+                            class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}}adjusted-lower{{/if}}"
+                            data-property="system.attributes.perception.value"
+                            data-dtype="Number"
+                            placeholder="0"
+                        />
                     {{/with}}
                 </div>
                 {{# if options.editable}}

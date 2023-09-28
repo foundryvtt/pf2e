@@ -302,7 +302,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             input.addEventListener("blur", () => {
                 input.removeAttribute("name");
                 const propertyPath = input.dataset.property ?? "";
-                const preparedValue = getProperty(this.actor, propertyPath);
+                const preparedValue = Number(getProperty(this.actor, propertyPath)) || 0;
                 const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
                 const newValue = Math.trunc(Number(input.value));
                 if (input instanceof HTMLInputElement) {
@@ -311,8 +311,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     }
                     if (baseValue === newValue) {
                         input.value = input.classList.contains("modifier")
-                            ? signedInteger(Number(preparedValue) || 0)
-                            : String(newValue);
+                            ? signedInteger(preparedValue)
+                            : String(preparedValue);
                     }
                 }
             });
