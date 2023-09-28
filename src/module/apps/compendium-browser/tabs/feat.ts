@@ -13,15 +13,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "category", "skills", "traits", "rarity", "source"];
 
-    #ancestryTraits: string[];
+    #creatureTraits = CONFIG.PF2E.creatureTraits;
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
         // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
-
-        this.#ancestryTraits = Object.keys(CONFIG.PF2E.ancestryTraits);
     }
 
     protected override async loadData(): Promise<void> {
@@ -112,7 +110,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         type: featData.type,
                         name: featData.name,
                         img: featData.img,
-                        uuid: `Compendium.${pack.collection}.${featData._id}`,
+                        uuid: `Compendium.${pack.collection}.Item.${featData._id}`,
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
@@ -132,7 +130,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions({ ...CONFIG.PF2E.featTraits });
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
@@ -145,9 +143,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         // Pre-filter the selected traits if the current ancestry item has no ancestry traits
         if (
             this.filterData.checkboxes.category.selected.includes("ancestry") &&
-            !this.arrayIncludes(traits, this.#ancestryTraits)
+            !traits.some((t) => t in this.#creatureTraits)
         ) {
-            const withoutAncestryTraits = selected.filter((t) => !this.#ancestryTraits.includes(t.value));
+            const withoutAncestryTraits = selected.filter((t) => !(t.value in this.#creatureTraits));
             return super.filterTraits(traits, withoutAncestryTraits, condition);
         }
         return super.filterTraits(traits, selected, condition);
