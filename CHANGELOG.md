@@ -1,3 +1,22 @@
+## 5.6.1
+
+### Bugfixes
+
+-   (jfn4th) Ensure PC sheet navigation bar is always above panel content
+-   (stwlam) Fix issue preventing Battle Form attacks from appearing
+-   (stwlam) Fix issue causing some MAP rule elements to not apply
+
+### Data Updates
+
+-   (AFigureOfBlue) Fix typo in Id Ooze's puddled ambush ability
+-   (Dire Weasel) Add Grab ability to Id Ooze and unify some constrict damage
+-   (Dire Weasel) Add light automation to Reborn Sun Warrior's Flame Spike
+-   (Dire Weasel) Refresh copies of Crimson Fulcrum Lens and Mirror Image spell across compendiums
+-   (Dire Weasel) Add effect for Selfish Shield
+-   (Dire Weasel) Update localized strings with "positive" or "negative" to use "vitality" or "void"
+-   (stwlam) Set alliance of Ekundayo, Linzi, and Valerie to "party"
+-   (Tikael) Add automation to Sarenrae's moderate boon
+
 ## 5.6.0
 
 ### System Improvements
