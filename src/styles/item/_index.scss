@@ -274,6 +274,14 @@
             }
 
             .item-description {
+                // Allow editor scrolling to take over when editing
+                &.editing {
+                    overflow: hidden;
+                    .descriptions > section {
+                        flex: 1;
+                    }
+                }
+
                 .descriptions {
                     display: flex;
                     flex-direction: column;
@@ -282,14 +290,18 @@
                     padding: 0 0.25em;
 
                     > * {
-                        display: inherit;
-                        flex-direction: inherit;
+                        display: flex;
+                        overflow: hidden;
+                        .editor {
+                            flex: 1;
+                        }
                     }
 
                     .gm-notes {
                         background-color: var(--visibility-gm-bg);
                         border: 1px dotted rgba(75, 74, 68, 0.5);
                         padding: 0 0.25em;
+                        flex: 0 0 auto;
 
                         &:not(.has-content) {
                             display: none;
@@ -305,10 +317,6 @@
                     }
 
                     .editor {
-                        display: inherit;
-                        flex-direction: inherit;
-                        flex-grow: inherit;
-
                         a.add-gm-notes,
                         a.editor-edit {
                             font-size: 1.33em;

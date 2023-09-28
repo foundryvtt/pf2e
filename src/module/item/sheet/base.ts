@@ -20,6 +20,7 @@ import {
 import {
     ErrorPF2e,
     fontAwesomeIcon,
+    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
@@ -253,9 +254,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
 
-        // Remove toolbar options that are unsuitable for a smaller notes field
-        if (name === "system.description.gm") {
-            options.toolbar = "styles bullist numlist image hr link removeformat code save";
+        const mutuallyExclusive = ["system.description.gm", "system.description.value"];
+        if (mutuallyExclusive.includes(name)) {
+            const html = this.element[0];
+            for (const elementName of mutuallyExclusive.filter((n) => n !== name)) {
+                const element = htmlQuery(html, `[data-edit="${elementName}"]`);
+                const section = htmlClosest(element, ".editor-container");
+                if (section) {
+                    section.style.display = "none";
+                }
+            }
+
+            htmlQuery(html, ".item-description")?.classList.add("editing");
         }
 
         return super.activateEditor(name, options, sourceContent);
