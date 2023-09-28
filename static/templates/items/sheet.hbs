@@ -96,11 +96,11 @@
             <section class="tab item-description" data-tab="description">
                 <div class="descriptions">
                     {{#if user.isGM}}
-                        <section class="gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
+                        <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
                             {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
                         </section>
                     {{/if}}
-                    <section class="main">
+                    <section class="main editor-container">
                         {{#if (not isVariant)}}
                             {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
                         {{else}}
