@@ -329,12 +329,13 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         level.adjustedLower = level.value < Number(level.base);
         const { ac, hp, perception, hardness } = sheetData.data.attributes;
         const speedData = sheetData.data.attributes.speed;
-        ac.adjustedHigher = ac.value > Number(this.actor._source.system.attributes.ac.value);
-        ac.adjustedLower = ac.value < Number(this.actor._source.system.attributes.ac.value);
-        hp.adjustedHigher = hp.max > Number(hp.base);
-        hp.adjustedLower = hp.max < Number(hp.base);
-        perception.adjustedHigher = perception.totalModifier > Number(perception.base);
-        perception.adjustedLower = perception.totalModifier < Number(perception.base);
+        const sourceAttributes = this.actor._source.system.attributes;
+        ac.adjustedHigher = ac.value > sourceAttributes.ac.value;
+        ac.adjustedLower = ac.value < sourceAttributes.ac.value;
+        hp.adjustedHigher = hp.max > sourceAttributes.hp.max;
+        hp.adjustedLower = hp.max < sourceAttributes.hp.max;
+        perception.adjustedHigher = perception.totalModifier > sourceAttributes.perception.value;
+        perception.adjustedLower = perception.totalModifier < sourceAttributes.perception.value;
         sheetData.speeds = {
             land: {
                 label: speedData.label ?? "",
