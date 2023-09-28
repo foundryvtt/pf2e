@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>An acidic ooze coats your limbs. Your unarmed attacks deal an additional @Damage[1d4[persistent,acid]] damage on a critical hit.</p>"
+            "value": "<p>An acidic ooze coats your limbs. Your unarmed attacks deal an additional 1d4 persistent acid damage on a critical hit.</p>"
         },
         "level": {
             "value": 9
@@ -21,15 +21,16 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
+                "category": "persistent",
+                "critical": true,
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
                 "predicate": [
                     "unarmed"
                 ],
-                "selector": "damage",
-                "text": "{item|name} @Localize[PF2E.SpecificRule.Fleshwarp.CoatingOfSlime.CriticalHit]"
+                "selector": "strike-damage"
             }
         ],
         "source": {
