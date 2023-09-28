@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You aim for your victim's prominent arteries. Your fangs Strike deals an additional @Damage[1d6[bleed]] on a critical hit. At 14th level, the persistent bleed damage increases to @Damage[2d6[bleed]], and at 20th level, the persistent bleed damage increases to @Damage[3d6[bleed]].</p>"
+            "value": "<p>You aim for your victim's prominent arteries. Your fangs Strike deals an additional 1d6 persistent bleed damage on a critical hit. At 14th level, the persistent bleed damage increases to 2d6, and at 20th level, the persistent bleed damage increases to 3d6.</p>"
         },
         "level": {
             "value": 8
@@ -24,6 +24,14 @@
             ]
         },
         "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": "ternary(gte(@actor.level,20),3,ternary(gte(@actor.level,14),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "fangs-damage"
+            },
             {
                 "key": "Note",
                 "outcome": [
