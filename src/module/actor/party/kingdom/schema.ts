@@ -10,7 +10,7 @@ import {
     KINGDOM_SKILLS,
 } from "./values.ts";
 import { RawModifier } from "@actor/modifiers.ts";
-import { RecordField } from "@system/schema-data-fields.ts";
+import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 
@@ -200,8 +200,18 @@ const KINGDOM_SCHEMA = {
         nullable: false,
         initial: "kingmaker",
     }),
-    active: new fields.BooleanField<boolean, boolean, true, false>({ initial: false, required: true, nullable: false }),
-
+    active: new DataUnionField(
+        [
+            new StrictStringField<"building">({
+                required: false,
+                nullable: false,
+                choices: ["building"],
+                initial: undefined,
+            }),
+            new StrictBooleanField({ initial: false, required: false, nullable: false }),
+        ],
+        { required: false, nullable: false, initial: false }
+    ),
     name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
     img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
         categories: ["IMAGE"],

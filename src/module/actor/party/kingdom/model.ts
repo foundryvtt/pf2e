@@ -80,21 +80,37 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     /** Creates sidebar buttons to inject into the chat message sidebar */
     createSidebarButtons(): HTMLElement[] {
-        // Do not show kingdom to party members until it becomes activated.
+        // Do not show kingdom to party members until building starts or it becomes activated.
         if (!this.active && !game.user.isGM) return [];
 
+        const hoverIcon = this.active === "building" ? "wrench" : !this.active ? "plus" : null;
         const icon = createHTMLElement("a", {
             classes: ["create-button"],
-            children: R.compact([fontAwesomeIcon("crown"), !this.active ? fontAwesomeIcon("plus") : null]),
+            children: R.compact([fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null]),
             dataset: {
-                tooltip: game.i18n.localize(`PF2E.Kingmaker.SIDEBAR.${this.active ? "OpenSheet" : "CreateKingdom"}`),
+                tooltip: game.i18n.localize(
+                    `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`
+                ),
             },
         });
 
-        icon.addEventListener("click", (event) => {
+        icon.addEventListener("click", async (event) => {
             event.stopPropagation();
-            const type = this.active ? null : "builder";
-            this.renderSheet({ type });
+
+            if (!this.active) {
+                const startBuilding = await Dialog.confirm({
+                    title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
+                    content: `<p>${game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.ActivationMessage")}</p>`,
+                });
+                if (startBuilding) {
+                    await this.update({ active: "building" });
+                    KingdomBuilder.showToPlayers({ uuid: this.actor.uuid });
+                    new KingdomBuilder(this).render(true);
+                }
+            } else {
+                const type = this.active === true ? null : "builder";
+                this.renderSheet({ type });
+            }
         });
 
         return [icon];
