@@ -48,6 +48,19 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         };
     }
 
+    static showToPlayers(options: { uuid: string; tab?: string }): void {
+        const users = game.users.filter((u) => !u.isSelf);
+        game.socket.emit("system.pf2e", {
+            request: "showSheet",
+            users: users.map((u) => u.uuid),
+            document: options.uuid,
+            options: {
+                campaign: "builder",
+                tab: options.tab,
+            },
+        } satisfies SocketMessage);
+    }
+
     constructor(kingdom: Kingdom) {
         super(kingdom);
         kingdom.actor.apps[this.appId] = this;
@@ -75,20 +88,23 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
-                    const users = game.users.filter((u) => !u.isSelf);
-                    game.socket.emit("system.pf2e", {
-                        request: "showSheet",
-                        users: users.map((u) => u.uuid),
-                        document: this.actor.uuid,
-                        options: {
-                            campaign: "builder",
-                            tab: this._tabs[0].active,
-                        },
-                    } satisfies SocketMessage);
+                    KingdomBuilder.showToPlayers({ uuid: this.actor.uuid, tab: this._tabs[0].active });
                 },
             });
+
+            // Also add a cancel button for the gm if this is the building phase
+            if (this.kingdom.active === "building") {
+                buttons.unshift({
+                    label: "PF2E.Kingmaker.KingdomBuilder.CancelCreation",
+                    class: "cancel",
+                    icon: "fa-solid fa-times",
+                    onclick: async () => {
+                        await this.kingdom.update({ active: false });
+                    },
+                });
+            }
         }
 
         return buttons;
@@ -304,6 +320,12 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     }
 
     protected override async _render(force?: boolean, options?: KingdomBuilderRenderOptions): Promise<void> {
+        // First check if this is active. If its not, it should close. This may occur if the GM cancels creation
+        if (this.kingdom.active === false) {
+            this.close({ force: true });
+            return;
+        }
+
         await super._render(force, options);
         if (options?.tab) {
             this._tabs.at(0)?.activate(options.tab, { triggerCallback: true });
