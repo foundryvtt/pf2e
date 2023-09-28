@@ -7,7 +7,7 @@ import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -161,6 +161,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             resourceDice: {
                 ...kingdom.resources.dice,
                 icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
+                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus)
+                    .adjustmentClass,
+                penaltyAdjustment: getAdjustment(kingdom.resources.dice.penalty, kingdom._source.resources.dice.penalty)
+                    .adjustmentClass,
             },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];
@@ -668,7 +672,11 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
         ruinLabel: string;
     })[];
     commodities: CommoditySheetData[];
-    resourceDice: KingdomData["resources"]["dice"] & { icon: string };
+    resourceDice: KingdomData["resources"]["dice"] & {
+        icon: string;
+        bonusAdjustment: string | null;
+        penaltyAdjustment: string | null;
+    };
     leadership: LeaderSheetData[];
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];

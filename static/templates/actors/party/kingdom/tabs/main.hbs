@@ -51,8 +51,14 @@
             <section class="resource-dice">
                 {{localize "PF2E.Kingmaker.Kingdom.Resources.Dice"}}
                 <span class="rollable">{{{resourceDice.icon}}} {{resourceDice.number}}d{{resourceDice.faces}}</span>
-                <label>{{localize "PF2E.Bonus"}} <input type="number" value="{{resourceDice.bonus}}" name="resources.dice.bonus"/></label>
-                <label>{{localize "PF2E.Kingmaker.Penalty"}} <input type="number" value="{{resourceDice.penalty}}" name="resources.dice.penalty"/></label>
+                <label>
+                    {{localize "PF2E.Bonus"}}
+                    <input type="number" class="{{resourceDice.bonusAdjustment}}" value="{{resourceDice.bonus}}" data-property="system.campaign.resources.dice.bonus"/>
+                </label>
+                <label>
+                    {{localize "PF2E.Kingmaker.Penalty"}}
+                    <input type="number" class="{{resourceDice.penaltyAdjustment}}" value="{{resourceDice.penalty}}" data-property="system.campaign.resources.dice.penalty"/>
+                </label>
             </section>
             <section class="commodities">
                 {{#each commodities as |commodity|}}
