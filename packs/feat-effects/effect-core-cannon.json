@@ -4,7 +4,7 @@
     "name": "Effect: Core Cannon",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Core Cannon].</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Core Cannon]</p>\n<p>Your body transforms into a powerful magical cannon.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,6 +20,13 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "core-cannon"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
             }
         ],
         "source": {
