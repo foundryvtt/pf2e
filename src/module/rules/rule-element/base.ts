@@ -369,6 +369,8 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
         ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;
 
+    get schema(): LaxSchemaField<TSchema>;
+
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
      * elements

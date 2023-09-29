@@ -39,9 +39,8 @@
         {{/if}}
         <select name="{{basePath}}.type" class="type-input">
             {{#select rule.type}}
-                <option value="untyped">untyped</option>
-                {{#each types as |type|}}
-                    <option value="{{type}}">{{type}}</option>
+                {{#each types as |label slug|}}
+                    <option value="{{slug}}">{{label}}</option>
                 {{/each}}
             {{/select}}
         </select>
