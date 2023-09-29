@@ -1,6 +1,5 @@
-import { ActorProxyPF2e } from "@actor";
-import { ItemProxyPF2e, type ItemPF2e } from "@item";
-import { AuraRuleElement, type AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
+import type { ItemPF2e } from "@item";
+import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
@@ -19,21 +18,12 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     protected override getInitialValue(): object {
-        const data = super.getInitialValue();
-
-        // If this rule element is on an unowned item get full initial data by creating a fake actor
-        if (!this.object) {
-            const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
-            const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
-            this.object = new AuraRuleElement(deepClone(this.rule), { parent: item, suppressWarnings: true });
-        }
-
         this.#effectsMap.clear();
         this.#effectsMap = new Map(
-            this.object.toObject().effects.map((e, index): [number, AuraEffectSource] => [index, e])
+            this.object.effects.map((e, index): [number, AuraEffectSource] => [index, deepClone(e)])
         );
 
-        return data;
+        return super.getInitialValue();
     }
 
     override activateListeners(html: HTMLElement): void {
