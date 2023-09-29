@@ -2,8 +2,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DocumentSchemaRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
-import { ScenePF2e } from "@scene/document.ts";
-import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
 interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
     inserted: T[];
@@ -14,7 +13,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.868;
+    static LATEST_SCHEMA_VERSION = 0.869;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
