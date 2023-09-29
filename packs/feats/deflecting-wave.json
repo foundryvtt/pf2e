@@ -19,7 +19,64 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "deflecting-wave",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "deflecting-wave:bludgeoning",
+                            "deflecting-wave:slashing"
+                        ]
+                    },
+                    {
+                        "not": "self:condition:off-guard"
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.deflectingWave}",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "deflecting-wave:acid",
+                            "deflecting-wave:fire"
+                        ]
+                    },
+                    {
+                        "not": "self:condition:off-guard"
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.deflectingWave}",
+                "value": "@actor.level*2"
+            }
+        ],
         "source": {
             "value": "Pathfinder Rage of Elements"
         },
