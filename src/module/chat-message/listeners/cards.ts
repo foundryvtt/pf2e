@@ -39,7 +39,7 @@ class ChatCards {
         this.#lastClick = currentTime;
 
         // Extract card data
-        const action = button.dataset.action;
+        const action = button.dataset.action ?? "";
 
         // Get the actor and item from the chat message
         const item = message.item;
@@ -47,7 +47,9 @@ class ChatCards {
         if (!actor) return;
 
         // Confirm roll permission
-        if (!game.user.isGM && !actor.isOwner && action !== "spell-save") return;
+        if (!game.user.isGM && !actor.isOwner && !["spell-save", "expand-description"].includes(action)) {
+            return;
+        }
 
         // Handle strikes
         const strikeAction = message._strike;
