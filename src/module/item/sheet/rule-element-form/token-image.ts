@@ -1,7 +1,7 @@
 import { RuleElementSource } from "@module/rules/index.ts";
-import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
-import { TokenImageRuleElement } from "@module/rules/rule-element/token-image.ts";
+import type { TokenImageRuleElement } from "@module/rules/rule-element/token-image.ts";
 import { htmlQuery } from "@util";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleElement> {
     override template = "systems/pf2e/templates/items/rules/token-image.hbs";
@@ -9,7 +9,7 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
     override async getData(): Promise<TokenImageFormSheetData> {
         return {
             ...(await super.getData()),
-            scaleEnabled: this.object?.scale !== null,
+            scaleEnabled: this.object.scale !== null,
         };
     }
 

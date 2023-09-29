@@ -1,4 +1,5 @@
-import { ItemPF2e } from "@item/base.ts";
+import { ActorProxyPF2e } from "@actor";
+import { ItemPF2e, ItemProxyPF2e } from "@item/base.ts";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
@@ -47,7 +48,17 @@ class RuleElementForm<
         this.sheet = options.sheet;
         this.index = options.index;
         this.rule = options.rule;
-        this.object = options.object;
+        this.object =
+            options.object ??
+            // If this rule element is on an unowned item, create a temporary owned item for it
+            (() => {
+                const RuleElementClass = RuleElements.all[String(this.rule.key)];
+                if (!RuleElementClass) return null as TObject;
+                const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
+                const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
+                return new RuleElementClass(deepClone(this.rule), { parent: item, suppressWarnings: true }) as TObject;
+            })();
+
         this.schema = this.object?.constructor.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
     }
 
