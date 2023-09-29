@@ -115,6 +115,12 @@ class CheckPF2e {
             }
 
             if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
+                for (const sub of substitutions) {
+                    // Cancel all roll substitutions and recalculate
+                    rollOptions.delete(`substitute:${sub.slug}`);
+                    check.calculateTotal(rollOptions);
+                }
+
                 return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
             } else if (substitution) {
                 const effectType = {
