@@ -116,6 +116,8 @@
 
     // Style of a single rule editor form
     .rule-form {
+        --form-field-height: normal; // unset global styling
+
         border-bottom: 1px solid var(--color-border-light-primary);
         padding-bottom: 0.5rem;
         margin-bottom: 0.5rem;
@@ -126,6 +128,48 @@
 
         &.drag-gap {
             visibility: hidden;
+        }
+
+        label {
+            align-items: center;
+            display: flex;
+            gap: 4px;
+            font-weight: 500;
+            white-space: nowrap;
+            &:not(:first-child) {
+                padding-left: 2px;
+            }
+            input,
+            tags {
+                flex: 1;
+            }
+
+            input[type="checkbox"] {
+                width: 1rem;
+                height: 1rem;
+                flex-basis: auto;
+            }
+
+            input[type="checkbox"]:first-child:last-child {
+                margin-left: auto;
+                justify-self: flex-end;
+            }
+        }
+
+        select.short {
+            flex: 0 0 auto;
+        }
+
+        .content-link {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: row;
+            align-items: center;
+            gap: 3px;
+            img {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         .rule-element-header {
@@ -152,15 +196,9 @@
             }
         }
 
-        label,
-        .labelled-element {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            input,
-            tags {
-                flex: 1;
-            }
+        // Prevent certain buttons/links from resizing
+        .form-fields [data-action] {
+            flex: 0 0 auto;
         }
 
         .range {
@@ -219,24 +257,16 @@
             }
         }
 
-        // Main element for the value of a form group
-        // Flex row with gaps between items
-        .spaced-fields {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-
-            label {
-                font-weight: 500;
-                padding-right: 2px;
-                &:not(:first-child) {
-                    padding-left: 2px;
-                }
-            }
-        }
-
         .brackets {
             margin-left: 9.5em;
+            .bracket {
+                align-items: center;
+                display: flex;
+                gap: 4px;
+                .value {
+                    flex: 1;
+                }
+            }
         }
 
         nav.rule-tabs {
@@ -467,42 +497,6 @@
                             margin: unset;
                         }
                     }
-                }
-            }
-        }
-
-        &[data-key="FastHealing"] {
-            select {
-                flex: 0;
-            }
-
-            .details,
-            tags {
-                flex: 1;
-            }
-
-            .resolvable {
-                flex: 1;
-                min-width: 120px;
-            }
-        }
-
-        &[data-key="FlatModifier"] {
-            .type-input {
-                flex: 0;
-            }
-        }
-
-        &[data-key="GrantItem"] {
-            a.granted {
-                display: flex;
-                flex: 0 0 auto;
-                flex-direction: row;
-                align-items: center;
-                gap: 3px;
-                img {
-                    width: 16px;
-                    height: 16px;
                 }
             }
         }

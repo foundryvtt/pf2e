@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.Note.Title"}}</label>
-    <div class="spaced-fields details-container-flex-row">
+    <div class="form-fields">
         <input type="text" name="system.rules.{{index}}.title" value="{{rule.title}}" />
         <label>
             {{localize "PF2E.RuleEditor.Note.Hidden"}}
@@ -26,11 +26,11 @@
 <textarea name="system.rules.{{index}}.text" spellcheck="false" placeholder="{{localize "PF2E.RuleEditor.Note.Text"}}">{{rule.text}}</textarea>
 
 <div class="form-group">
-    <label>{{localize "PF2E.RuleEditor.Note.Outcome"}}</label>
+    <label class="short">{{localize "PF2E.RuleEditor.Note.Outcome"}}</label>
     <input class="pf2e-tagify outcomes" name="system.rules.{{index}}.outcome" value="{{json rule.outcome}}" data-dtype="JSON" />
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
     <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
 </div>
