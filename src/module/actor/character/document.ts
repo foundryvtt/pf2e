@@ -902,8 +902,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (typeof strengthRequirement === "number" && this.system.abilities.str.mod >= strengthRequirement) {
                 for (const selector of ["skill-check", "initiative"]) {
                     const rollOptions = (this.rollOptions[selector] ??= {});
-                    // Nullish assign to not overwrite setting by rule element
-                    rollOptions["self:armor:strength-requirement-met"] ??= true;
+                    rollOptions["armor:strength-requirement-met"] = true;
                 }
             }
 
@@ -921,14 +920,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 armorCheckPenalty.predicate.push({ nor: ["attack", "armor:ignore-check-penalty"] });
                 if (["acrobatics", "athletics"].includes(longForm)) {
                     armorCheckPenalty.predicate.push({
-                        nor: ["self:armor:strength-requirement-met", "armor:trait:flexible"],
+                        nor: ["armor:strength-requirement-met", "armor:trait:flexible"],
                     });
                 } else if (longForm === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.push({
-                        nand: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
+                        nand: ["armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
                 } else {
-                    armorCheckPenalty.predicate.push({ not: "self:armor:strength-requirement-met" });
+                    armorCheckPenalty.predicate.push({ not: "armor:strength-requirement-met" });
                 }
 
                 modifiers.push(armorCheckPenalty);
