@@ -197,7 +197,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
             [`encounter:threat:${numericThreat}`, !!threat],
             [`encounter:threat:${threat}`, !!threat],
             [`encounter:round:${encounter.round}`, true],
-            [`encounter:turn:${encounter.turn + 1}`, true],
+            [`encounter:turn:${Number(encounter.turn) + 1}`, true],
             ["self:participant:own-turn", encounter.combatant?.actor === actor],
             [`self:participant:initiative:roll:${initiativeRoll}`, true],
             [`self:participant:initiative:rank:${initiativeRank}`, true],

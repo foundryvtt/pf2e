@@ -212,23 +212,24 @@ export class DamagePF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
 
-        const messageData = await roll.toMessage(
-            {
-                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-                flavor,
-                flags: {
-                    pf2e: {
-                        context: contextFlag,
-                        target: targetFlag,
-                        modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
-                        origin: item?.getOriginData(),
-                        strike,
-                        preformatted: "both",
+        const messageData: Omit<foundry.documents.ChatMessageSource, "rolls"> & { rolls: (string | RollJSON)[] } =
+            await roll.toMessage(
+                {
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+                    flavor,
+                    flags: {
+                        pf2e: {
+                            context: contextFlag,
+                            target: targetFlag,
+                            modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
+                            origin: item?.getOriginData(),
+                            strike,
+                            preformatted: "both",
+                        },
                     },
                 },
-            },
-            { create: false }
-        );
+                { create: false }
+            );
 
         // If there is splash damage, include it as an additional roll for separate application
         const splashRolls = await (async (): Promise<RollJSON[]> => {

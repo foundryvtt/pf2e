@@ -86,7 +86,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override async _processDiceCommand(
         command: string,
         matches: RegExpMatchArray[],
-        chatData: DeepPartial<foundry.documents.ChatMessageSource>,
+        chatData: PreCreate<Omit<ChatMessagePF2e["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
         createOptions: ChatMessageModificationContext
     ): Promise<void> {
         const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
