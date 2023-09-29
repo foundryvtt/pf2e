@@ -390,7 +390,7 @@ class PackExtractor {
             } else if ("details" in docSource.system && "publicNotes" in docSource.system.details) {
                 docSource.system.details.publicNotes = cleanDescription(docSource.system.details.publicNotes);
             }
-        } else if ("content" in docSource) {
+        } else if ("content" in docSource && typeof docSource.content === "string") {
             docSource.content = cleanDescription(docSource.content);
         }
 
@@ -409,10 +409,12 @@ class PackExtractor {
                 }
                 delete (docSource as { _stats?: unknown })._stats;
 
-                docSource.img &&= docSource.img.replace(
-                    "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                    "systems/pf2e/"
-                ) as ImageFilePath;
+                if ("img" in docSource && typeof docSource.img === "string") {
+                    docSource.img = docSource.img.replace(
+                        "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
+                        "systems/pf2e/"
+                    ) as ImageFilePath;
+                }
 
                 if (isObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
                     delete docSource.flags.pf2e;

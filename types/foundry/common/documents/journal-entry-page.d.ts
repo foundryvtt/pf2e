@@ -3,7 +3,10 @@ import type * as fields from "../data/fields.d.ts";
 import type { BaseJournalEntry, BaseUser } from "./module.d.ts";
 
 /** The JournalEntryPage document model. */
-export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends abstract.Document<TParent> {
+export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends abstract.Document<
+    TParent,
+    JournalEntryPageSchema
+> {
     static override get metadata(): JournalEntryPageMetadata;
 
     static override defineSchema(): JournalEntryPageSchema;
@@ -12,7 +15,7 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 }
 
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
-    extends abstract.Document<TParent>,
+    extends abstract.Document<TParent, JournalEntryPageSchema>,
         ModelPropsFromSchema<JournalEntryPageSchema> {
     readonly _source: SourceFromSchema<JournalEntryPageSchema>;
 

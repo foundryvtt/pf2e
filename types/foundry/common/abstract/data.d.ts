@@ -204,15 +204,7 @@ export default abstract class DataModel<
     static migrateDataSafe(source: object): object;
 }
 
-export type RawObject<TModel extends _DataModel> = {
-    [P in keyof TModel]: TModel[P] extends EmbeddedCollection<infer U>
-        ? RawObject<U>[]
-        : TModel[P] extends DataModel
-        ? RawObject<TModel[P]>
-        : TModel[P] extends DataModel[]
-        ? RawObject<TModel[P][number]>[]
-        : TModel[P];
-};
+export type RawObject<TModel extends _DataModel> = TModel["_source"];
 
 export interface DataModelValidationOptions {
     changes?: object;
