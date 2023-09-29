@@ -175,11 +175,20 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
     }
 
+    /**
+     * Updates the party's campaign data. All data is scoped to system.campaign unless it is already in system.campaign.
+     * Scoping to system.campaign is necessary for certain sheet listeners such as data-property.
+     */
     async update(data: DeepPartial<KingdomSource> & Record<string, unknown>): Promise<void> {
-        await this.actor.update({ "system.campaign": data });
+        const expanded: DeepPartial<KingdomSource> & { system?: { campaign?: DeepPartial<KingdomSource> } } =
+            expandObject(data);
 
-        if (data.level) {
-            await this.updateFeatures(data.level);
+        const updateData = mergeObject(expanded, expanded.system?.campaign ?? {});
+        delete updateData.system;
+        await this.actor.update({ "system.campaign": updateData });
+
+        if (updateData.level) {
+            await this.updateFeatures(updateData.level);
         }
     }
 
@@ -245,12 +254,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             KINGDOM_SIZE_DATA[1];
 
         this.nationType = sizeData.type;
-
-        // Autocompute resource dice
-        this.resources.dice = mergeObject(this.resources.dice, {
-            faces: sizeData.faces,
-            number: Math.max(0, this.level + 4 + this.resources.dice.bonus - this.resources.dice.penalty),
-        });
+        this.resources.dice.faces = sizeData.faces;
 
         // Inject control dc size modifier
         if (sizeData.controlMod) {
@@ -354,10 +358,13 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     prepareDerivedData(): void {
         const { synthetics } = this.actor;
+        const { consumption, resources } = this;
+
+        // Autocompute resource dice
+        resources.dice.number = Math.max(0, this.level + 4 + resources.dice.bonus - resources.dice.penalty);
 
         // Compute consumption
         const settlements = R.compact(Object.values(this.settlements));
-        const consumption = this.consumption;
         consumption.settlement = R.sumBy(settlements, (s) => s.consumption.total);
         const computedConsumption =
             consumption.base + consumption.settlement + consumption.army - this.resources.workSites.food.value;

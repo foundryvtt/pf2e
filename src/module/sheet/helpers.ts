@@ -62,6 +62,20 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
+function getAdjustment(value: number, reference: number): AdjustedValue {
+    const adjustedHigher = value > reference;
+    const adjustedLower = value < reference;
+    const adjustmentClass = adjustedHigher ? "adjusted-higher" : adjustedLower ? "adjusted-lower" : null;
+    return { value, adjustmentClass, adjustedHigher, adjustedLower };
+}
+
+interface AdjustedValue {
+    value: number;
+    adjustedHigher: boolean;
+    adjustedLower: boolean;
+    adjustmentClass: "adjusted-higher" | "adjusted-lower" | null;
+}
+
 /** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
 async function maintainFocusInRender(sheet: Application, renderLogic: () => Promise<void>): Promise<void> {
     const element = sheet.element.get(0);
@@ -103,5 +117,12 @@ interface TraitTagifyEntry {
     readonly: boolean;
 }
 
-export { createSheetOptions, createSheetTags, createTagifyTraits, maintainFocusInRender, processTagifyInSubmitData };
-export type { SheetOption, SheetOptions, TraitTagifyEntry };
+export {
+    createSheetOptions,
+    createSheetTags,
+    createTagifyTraits,
+    getAdjustment,
+    maintainFocusInRender,
+    processTagifyInSubmitData,
+};
+export type { AdjustedValue, SheetOption, SheetOptions, TraitTagifyEntry };
