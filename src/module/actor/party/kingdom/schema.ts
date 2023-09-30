@@ -15,13 +15,15 @@ import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } fr
 const { fields } = foundry.data;
 
 function buildKingdomCHGSchema(): {
+    id: StringField<string, string, false, false>;
     name: StringField<string, string, true, false>;
     img: StringField<ImageFilePath, ImageFilePath, true, false>;
     description: StringField<string, string, true, false>;
     boosts: ArrayField<StringField<KingdomAbility | "free", KingdomAbility | "free", true, false>>;
 } {
     return {
-        name: new fields.StringField({ blank: false, nullable: false }),
+        id: new fields.StringField({ required: false, initial: undefined, blank: false }),
+        name: new fields.StringField({ required: true, nullable: false, blank: false }),
         img: new fields.StringField({ required: true, nullable: false }),
         description: new fields.StringField({ required: true, nullable: false }),
         boosts: new fields.ArrayField(
