@@ -1,4 +1,3 @@
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
@@ -55,11 +54,11 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponCategories": {
                     if (source.type === "character") {
-                        const martial = source.system.martial ?? {};
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of deletions) {
-                            if (martial[key]) {
-                                delete martial[key];
-                                (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            if (attacks[key]) {
+                                delete attacks[key];
+                                attacks[`-=${key}`] = null;
                             }
                         }
                     }
@@ -67,26 +66,22 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponGroups": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map(
-                            (deletion) => `weapon-group-${deletion}`
-                        ) as WeaponGroupProficiencyKey[];
-                        const martial = source.system.martial ?? {};
+                        const proficiencyKeys = deletions.map((deletion) => `weapon-group-${deletion}`);
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of proficiencyKeys) {
-                            delete martial[key];
-                            (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete attacks[key];
+                            attacks[`-=${key}`] = null;
                         }
                     }
                     break;
                 }
                 case "baseWeapons": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map(
-                            (deletion) => `weapon-base-${deletion}`
-                        ) as BaseWeaponProficiencyKey[];
-                        const martial = source.system.martial ?? {};
+                        const proficiencyKeys = deletions.map((deletion) => `weapon-base-${deletion}`);
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of proficiencyKeys) {
-                            delete martial[key];
-                            (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete attacks[key];
+                            attacks[`-=${key}`] = null;
                         }
                     }
                     break;

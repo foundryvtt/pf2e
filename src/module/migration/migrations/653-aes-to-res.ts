@@ -37,7 +37,7 @@ export class Migration653AEstoREs extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData = actorSource.system;
+        const systemData: { saves?: object; martial?: object } = actorSource.system;
         systemData.martial = {}; // Only remove on compendium JSON
 
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements

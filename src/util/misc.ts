@@ -389,10 +389,6 @@ function sortObjByKey(value: unknown): unknown {
         : value;
 }
 
-function sortedStringify(obj: object): string {
-    return JSON.stringify(sortObjByKey(obj));
-}
-
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
@@ -459,8 +455,6 @@ const SORTABLE_DEFAULTS: Sortable.Options = {
 
 export {
     ErrorPF2e,
-    type Fraction,
-    type SlugCamel,
     SORTABLE_DEFAULTS,
     addSign,
     applyNTimes,
@@ -491,8 +485,9 @@ export {
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
-    sortedStringify,
     sum,
     tupleHasValue,
     zip,
+    type Fraction,
+    type SlugCamel,
 };

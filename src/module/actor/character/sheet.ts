@@ -24,7 +24,6 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
-import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -44,6 +43,8 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
+    sluggify,
+    sortLabeledRecord,
     tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -63,13 +64,12 @@ import {
 } from "./crafting/index.ts";
 import {
     CharacterBiography,
-    CharacterProficiency,
     CharacterSaveData,
     CharacterSkillData,
     CharacterStrike,
     CharacterSystemData,
     ClassDCData,
-    MartialProficiencies,
+    MartialProficiency,
 } from "./data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
@@ -114,38 +114,49 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
-        // Martial Proficiencies
-        const proficiencies = Object.entries(sheetData.data.martial);
-        for (const [key, proficiency] of proficiencies) {
-            // Let's not clutter the list
-            if (["light-barding", "heavy-barding"].includes(key) && proficiency.rank === 0) {
-                delete sheetData.data.martial[key];
-                continue;
+        // Attacks and defenses
+        sheetData.martialProficiencies = {
+            attacks: sortLabeledRecord(
+                R.mapValues(sheetData.data.proficiencies.attacks as Record<string, MartialProficiency>, (data, key) => {
+                    const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
+                    const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
+                    if (key in CONFIG.PF2E.weaponCategories) {
+                        const locKey = sluggify(key, { camel: "bactrian" });
+                        data.label = `PF2E.Actor.Character.Proficiency.Attack.${locKey}`;
+                    } else if (Array.isArray(groupMatch)) {
+                        const weaponGroup = groupMatch[1] as WeaponGroup;
+                        data.label = CONFIG.PF2E.weaponGroups[weaponGroup];
+                    } else if (Array.isArray(baseWeaponMatch)) {
+                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
+                        data.label = CONFIG.PF2E.baseWeaponTypes[baseWeapon];
+                    }
+                    const rank = data.rank ?? 0;
+                    data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
+
+                    return data;
+                })
+            ),
+            defenses: sortLabeledRecord(
+                R.mapValues(
+                    sheetData.data.proficiencies.defenses as Record<string, MartialProficiency>,
+                    (data, key) => {
+                        if (key in CONFIG.PF2E.armorCategories) {
+                            const locKey = sluggify(key, { camel: "bactrian" });
+                            data.label = `PF2E.Actor.Character.Proficiency.Defense.${locKey}`;
+                        }
+                        const rank = data.rank ?? 0;
+                        data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
+                        return data;
+                    }
+                )
+            ),
+        };
+
+        // These are only relevant for companion compendium "PCs": don't clutter the list.
+        for (const key of ["light-barding", "heavy-barding"]) {
+            if (sheetData.martialProficiencies.defenses[key]?.rank === 0) {
+                delete sheetData.martialProficiencies.defenses[key];
             }
-
-            const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
-            const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
-            const label = ((): string => {
-                if (objectHasKey(CONFIG.PF2E.armorCategories, key)) {
-                    return CONFIG.PF2E.armorCategories[key];
-                }
-                if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
-                    return CONFIG.PF2E.weaponCategories[key];
-                }
-                if (Array.isArray(groupMatch)) {
-                    const weaponGroup = groupMatch[1] as WeaponGroup;
-                    return CONFIG.PF2E.weaponGroups[weaponGroup];
-                }
-                if (Array.isArray(baseWeaponMatch)) {
-                    const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
-                    return CONFIG.PF2E.baseWeaponTypes[baseWeapon];
-                }
-                return proficiency.label ?? key;
-            })();
-
-            proficiency.label = game.i18n.localize(label);
-            const rank = proficiency.rank ?? 0;
-            proficiency.value = createProficiencyModifier({ actor, rank, domains: [] }).modifier;
         }
 
         // A(H)BCD
@@ -281,27 +292,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }, {});
 
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
-
-        // Sort attack/defense proficiencies
-        const combatProficiencies: MartialProficiencies = sheetData.data.martial;
-
-        const isWeaponProficiency = (key: string): boolean =>
-            setHasElement(WEAPON_CATEGORIES, key) || /\bweapon\b/.test(key);
-        sheetData.data.martial = Object.entries(combatProficiencies)
-            .sort(([keyA, valueA], [keyB, valueB]) =>
-                isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
-                    ? -1
-                    : !isWeaponProficiency(keyA) && isWeaponProficiency(keyB)
-                    ? 1
-                    : (valueA.label ?? "").localeCompare(valueB.label ?? "")
-            )
-            .reduce(
-                (proficiencies: Record<string, CharacterProficiency>, [key, proficiency]) => ({
-                    ...proficiencies,
-                    [key]: proficiency,
-                }),
-                {}
-            ) as MartialProficiencies;
 
         // Sort skills by localized label
         sheetData.data.skills = Object.fromEntries(
@@ -1562,6 +1552,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
     magicTraditions: Record<MagicTradition, string>;
+    martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;
     options: CharacterSheetOptions;
     preparationType: Object;
     showPFSTab: boolean;
