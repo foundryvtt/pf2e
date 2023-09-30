@@ -1,6 +1,6 @@
 import type { ItemSourcePF2e } from "@item/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert `range` and `maxRange` properties of Strike rule elements to single `RangeData` object */
 export class Migration868StrikeRERange extends MigrationBase {
