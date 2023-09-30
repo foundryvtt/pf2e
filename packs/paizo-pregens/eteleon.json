@@ -1701,21 +1701,21 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.martial.heavy.rank",
+                        "path": "system.proficiencies.defenses.heavy.rank",
                         "priority": 41,
-                        "value": "max(min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank))"
+                        "value": "max(min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank))"
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.martial.medium.rank",
+                        "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
-                        "value": "min(1,@actor.system.martial.light.rank)"
+                        "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.martial.light.rank",
+                        "path": "system.proficiencies.defenses.light.rank",
                         "priority": 41,
                         "value": 1
                     }
@@ -6185,17 +6185,6 @@
             }
         },
         "exploration": [],
-        "martial": {
-            "light": {
-                "rank": 1
-            },
-            "weapon-base-sawtooth-saber": {
-                "breakdown": "",
-                "custom": true,
-                "rank": 1,
-                "value": 0
-            }
-        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -6211,6 +6200,19 @@
                 "VW": 0
             },
             "school": "none"
+        },
+        "proficiencies": {
+            "attacks": {
+                "weapon-base-sawtooth-saber": {
+                    "custom": true,
+                    "rank": 1
+                }
+            },
+            "defenses": {
+                "light": {
+                    "rank": 1
+                }
+            }
         },
         "resources": {
             "focus": {
