@@ -113,9 +113,16 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     override async getData(): Promise<KingdomBuilderSheetData> {
         const database = getKingdomCHGData();
 
+        // Returns the id of the active entry
+        // The name check is there for backwards compatibility, we should migrate later.
         const getActiveForCategory = (category: KingdomBuildCategory) => {
             const active = this.kingdom.build[category];
-            return Object.entries(database[category]).find(([_, entry]) => R.equals(active, entry))?.[0] ?? null;
+            if (!active) return null;
+            return (
+                active?.id ??
+                Object.entries(database[category]).find(([_, entry]) => entry?.name === active.name)?.[0] ??
+                null
+            );
         };
 
         // Preset selected for exact matches (if unset)
@@ -129,7 +136,14 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 const selected = this.selected[category];
                 const entries = database[category];
                 const buildEntry = entries[selected ?? ""] ?? Object.values(entries)[0];
-                const featItem = buildEntry?.feat ? await fromUuid(buildEntry.feat) : null;
+                const featItem = await (async () => {
+                    try {
+                        return buildEntry?.feat ? await fromUuid(buildEntry.feat) : null;
+                    } catch (ex) {
+                        console.error(ex);
+                        return null;
+                    }
+                })();
 
                 const result = {
                     selected,
@@ -237,11 +251,12 @@ class KingdomBuilder extends FormApplication<Kingdom> {
 
             const saveCategory = async (): Promise<void> => {
                 const database = getKingdomCHGData();
-                const selected = database[category][this.selected[category] ?? ""];
+                const id = this.selected[category] ?? "";
+                const selected = database[category][id];
                 if (selected) {
                     this.selected[category] = null;
                     await this.kingdom.update({
-                        [`build.${category}`]: selected,
+                        [`build.${category}`]: { id, ...selected },
                         [`build.boosts.${category}`]: [],
                     });
                 }
