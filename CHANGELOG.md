@@ -1,3 +1,25 @@
+## 5.6.2
+
+### System Improvements
+
+-   (Supe) Add new kingdom building phase and pop open sheet
+
+### Bugfixes
+
+-   (stwlam) Allow all users to expand collapsed action descriptions
+-   (stwlam) Fix assurance roll substitutions
+-   (stwlam) Fix processing of flexible trait on armor
+-   (stwlam) Fix rendering error on some rule element forms for unowned items
+-   (Supe) Fix scrolling quirks in item sheet description tabs
+-   (Supe) Fix detection of selected republic/thaumocracy in kingdom builder
+
+### Data Updates
+
+-   (Dire Weasel) Add automation for Coating Of Slime, Deflecting Wavem, and NPC Destructive Vengeance
+-   (Dire Weasel) Add Note RE to NPC Gardener's Resolve and fix formatting
+-   (Dire Weasel) Automate persistent damage for Accursed Touch, Core Cannon, and Vicious Fangs
+-   (Supe) Automate insider training kingdom feat
+
 ## 5.6.1
 
 ### Bugfixes
