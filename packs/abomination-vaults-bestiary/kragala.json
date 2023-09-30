@@ -1952,7 +1952,7 @@
                 },
                 "damageRolls": {
                     "29airauey7usooxsyag9": {
-                        "damage": "2d6+3",
+                        "damage": "1d6+3",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -1999,7 +1999,7 @@
                 },
                 "damageRolls": {
                     "q6fxv1h1it9asnyya4dc": {
-                        "damage": "2d6+3",
+                        "damage": "1d6+3",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -2272,12 +2272,22 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Kragala deals an additional [[/r {1d6}]]{1d6 damage} with hammers, including drumsticks (already included in the Strikes' damage).</p>"
+                    "value": "<p>Kragala deals an additional 1d6 damage with hammers, including drumsticks (already included in the Strikes' damage).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:group:hammer"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
