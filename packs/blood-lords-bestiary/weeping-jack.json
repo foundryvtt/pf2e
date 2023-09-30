@@ -878,12 +878,37 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<ul>\n<li><strong>Bat</strong> Jack changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Giant Bat]. He gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike ([[/r 1d20+25]]{+25}, [[/r 1d20+20]]{+20}, [[/r 1d20+15]]{+15}) @Damage[(2d8+13)[piercing]]</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul>\n<li><strong>Bat</strong> Jack changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Giant Bat]. He gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike +25 for 2d8+13 piercing</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": 25,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 13
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Fangs",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "slug": "fangs",
+                        "traits": []
+                    }
+                ],
                 "slug": "vampire-true-change-shape",
                 "source": {
                     "value": "Pathfinder Bestiary"
