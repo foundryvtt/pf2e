@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration866LinkToActorSizeAgain extends MigrationBase {
     static override version = 0.866;

@@ -1,5 +1,5 @@
 import type { ItemSourcePF2e } from "@item/data/index.ts";
-import { MigrationBase } from "../base.js";
+import { MigrationBase } from "../base.ts";
 
 /** Refresh rule elements on mighty bulwark feat. */
 export class Migration869RefreshMightyBulwark extends MigrationBase {
