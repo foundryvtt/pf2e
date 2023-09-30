@@ -805,7 +805,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "cruel-anatomist"
+                    ]
                 },
                 "bonus": {
                     "value": 31
@@ -860,32 +863,25 @@
                     "value": 31
                 },
                 "damageRolls": {
-                    "pKqJRHLW2J4bwD9V": {
+                    "0": {
                         "damage": "1",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "3d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "3",
                         "damageType": "acid"
                     }
                 },
                 "description": {
                     "value": "<p>10 foot splash</p>"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1106,12 +1102,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Thresholder Hermeticist deals an additional @Damage[2d8[bleed]] damage with melee Strikes. A creature who bleeds for 2 rounds from this becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for as long as it continues bleeding.</p>"
+                    "value": "<p>The Thresholder Hermeticist deals an additional 2d8 bleed damage with melee Strikes. A creature who bleeds for 2 rounds from this becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for as long as it continues bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
