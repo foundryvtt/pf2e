@@ -303,8 +303,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         traits: traitObjects,
         options: Array.from(baseOptions),
         variants: [],
-        success: "",
         ready: true,
+        success: "",
         criticalSuccess: "",
     });
 
@@ -320,7 +320,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     };
 
     // Multiple attack penalty
-    const maps = calculateMAPs(item, { domains, options: baseOptions });
+    const maps = calculateMAPs(item, { domains, options: initialRollOptions });
     const createMapModifier = (prop: "map1" | "map2") => {
         return new ModifierPF2e({
             slug: maps.slug,
