@@ -556,7 +556,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
     }
 
-    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    protected override _getSubmitData(updateData: Record<string, unknown> | null = null): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { system?: { rules?: string[] } } = updateData
@@ -606,41 +606,29 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
-        if (rulesVisible && expanded.system?.rules) {
-            const itemData = this.item.toObject();
-            const rules = itemData.system.rules ?? [];
-
-            for (const [key, value] of Object.entries(expanded.system.rules)) {
-                const idx = Number(key);
-
-                // If the entire thing is a string, this is a regular JSON textarea
-                if (typeof value === "string") {
-                    try {
-                        rules[idx] = JSON.parse(value as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, value);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                        }
-                    }
-                    continue;
-                }
-
-                if (!value) continue;
-
-                // Call any special handlers in the rule element forms
-                rules[idx] = mergeObject(rules[idx] ?? {}, value);
-                this.#ruleElementForms.at(idx)?.updateObject(rules[idx]);
+        // If the submission is coming from a rule element, update that rule element
+        // This avoids updates from forms if that form has a problematic implementation
+        const form = htmlClosest(event.target, ".rule-form[data-idx]");
+        if (form) {
+            const idx = Number(form.dataset.idx);
+            const ruleForm = this.#ruleElementForms[idx];
+            const itemRules = this.item.toObject().system.rules;
+            if (idx >= itemRules.length || !ruleForm) {
+                throw ErrorPF2e(`Invalid rule form update, no rule form available at index ${idx}`);
             }
 
-            expanded.system.rules = rules;
+            const incomingData = expanded.system?.rules?.[idx];
+            if (incomingData) {
+                ruleForm.updateObject(incomingData);
+                itemRules[idx] = ruleForm.rule;
+                this.item.update({ "system.rules": itemRules });
+            }
         }
+
+        // Remove rules from submit data, it should be handled by the previous check
+        delete expanded.system?.rules;
 
         return super._updateObject(event, flattenObject(expanded));
     }

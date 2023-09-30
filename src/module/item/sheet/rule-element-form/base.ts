@@ -263,6 +263,25 @@ class RuleElementForm<
     }
 
     updateObject(source: TSource & Record<string, unknown>): void {
+        // If the entire thing is a string, this is a regular JSON textarea
+        if (typeof source === "string") {
+            try {
+                this.rule = mergeObject(duplicate(this.rule), JSON.parse(source));
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    console.warn("Syntax error in rule element definition.", error.message, source);
+                    throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                }
+            }
+
+            return;
+        }
+
+        source = mergeObject(duplicate(this.rule), source);
+
         // Prevent wheel events on the sliders from spamming updates
         for (const slider of htmlQueryAll<HTMLInputElement>(this.element, "input[type=range")) {
             slider.style.pointerEvents = "none";
