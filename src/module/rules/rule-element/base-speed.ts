@@ -18,15 +18,15 @@ class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, nullable: false, blank: false }),
-            value: new ResolvableValueField({ required: true, nullable: false }),
+            selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
         };
     }
 
     constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
 
-        this.selector = this.selector.trim().replace(/-speed$/, "");
+        this.selector = this.selector?.trim().replace(/-speed$/, "");
 
         if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
             this.failValidation("A value must be a number, string, or bracketed value");
