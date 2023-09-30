@@ -266,7 +266,7 @@ class RuleElementForm<
         // If the entire thing is a string, this is a regular JSON textarea
         if (typeof source === "string") {
             try {
-                this.rule = mergeObject(duplicate(this.rule), JSON.parse(source));
+                this.rule = JSON.parse(source);
             } catch (error) {
                 if (error instanceof Error) {
                     ui.notifications.error(
