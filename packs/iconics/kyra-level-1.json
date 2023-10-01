@@ -3240,6 +3240,12 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": null,
+                        "onDelete": "cascade"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/deity/Sarenrae.webp",
@@ -3287,6 +3293,7 @@
                     "3": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
                     "4": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
                 },
+                "traits": {},
                 "weapons": [
                     "scimitar"
                 ]
@@ -3294,7 +3301,72 @@
             "type": "deity"
         },
         {
-            "_id": "mmQagy8NfAKdbv7V",
+            "_id": "TzNx7nOPZnIwu1qF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Armor Proficiency (Light)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor above.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": 3,
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.heavy.rank",
+                        "priority": 41,
+                        "value": "max(min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.medium.rank",
+                        "priority": 41,
+                        "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.light.rank",
+                        "priority": 41,
+                        "value": 1
+                    }
+                ],
+                "slug": "armor-proficiency",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "iHFobtJYSNYumgQo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.Item.EizrWvUPMS67Pahd"
@@ -3302,7 +3374,7 @@
             },
             "img": "systems/pf2e/icons/classes/cleric.webp",
             "name": "Cleric",
-            "sort": 0,
+            "sort": 2200000,
             "system": {
                 "ancestryFeatLevels": {
                     "value": [
@@ -3345,7 +3417,7 @@
                     "unarmored": 1
                 },
                 "description": {
-                    "value": "<p><em>Deities work their will upon the world in infinite ways, and you serve as one of their most stalwart mortal servants. Blessed with divine magic, you live the ideals of your faith, adorn yourself with the symbols of your church, and train diligently to wield your deity's favored weapon. Your spells might protect and heal your allies, or they might punish foes and enemies of your faith, as your deity wills. Yours is a life of devotion, spreading the teachings of your faith through both word and deed.</em></p>\n<p><strong>Key Ability: WISDOM</strong></p>\n<p>At 1st level, your class gives you an ability boost to Wisdom.</p>\n<p><strong>Hit Points: 8 plus your Constitution modifier</strong></p>\n<p>You increase your maximum number of HP by this number at 1st level and every level thereafter.</p>\n<h1>Roleplaying the Cleric</h1>\n<h2>During Combat Encounters...</h2>\n<p>If you're a warpriest, you balance between casting spells and attacking with weapons- typically the favored weapon of your deity. If you're a cloistered cleric, you primarily cast spells. Most of your spells can boost, protect, or heal your allies. Depending on your deity, you get extra spells to heal your allies or harm your enemies.</p>\n<h2>During Social Encounters...</h2>\n<p>You might make diplomatic overtures or deliver impressive speeches. Because you're wise, you also pick up on falsehoods others tell.</p>\n<h2>While Exploring...</h2>\n<p>You detect nearby magic and interpret any religious writing you come across. You might also concentrate on a protective spell for your allies in case of attack. After a battle or hazard, you might heal anyone who was hurt.</p>\n<h2>In Downtime...</h2>\n<p>You might perform services at a temple, travel to spread the word of your deity, research scripture, celebrate holy days, or even found a new temple.</p>\n<h2>You Might...</h2>\n<ul>\n<li>Visit the temples and holy places sacred to your faith, and have an immediate affinity with other worshippers of your deity.</li>\n<li>Know the teachings of your religion's holy texts and how they apply to a dilemma.</li>\n<li>Cooperate with your allies, provided they don't ask you to go against divine will.</li>\n</ul>\n<h2>Others Probably...</h2>\n<ul>\n<li>Find your devotion impressive, even if they don't understand it.</li>\n<li>Expect you to heal their wounds.</li>\n<li>Rely on you to interact with other religious figures.</li>\n</ul>\n<h1>Initial Proficiencies</h1>\n<p>At 1st level, you gain the listed proficiency ranks in the following statistics. You are untrained in anything not listed unless you gain a better proficiency rank in some other way.</p>\n<h2>Perception</h2>\n<p>Trained in Perception</p>\n<h2>Saving Throws</h2>\n<p>Trained in Fortitude</p>\n<p>Trained in Reflex</p>\n<p>Expert in Will</p>\n<h2>Skills</h2>\n<p>Trained in Religion</p>\n<p>Trained in one skill determined by your choice of deity</p>\n<p>Trained in a number of additional skills equal to 2 plus your Intelligence modifier</p>\n<h2>Attacks</h2>\n<p>Trained in simple weapons</p>\n<p>Trained in the favored weapon of your deity. If your deity's favored weapon is uncommon, you also gain access to that weapon.</p>\n<p>Trained in unarmed attacks</p>\n<h2>Defenses</h2>\n<p>Untrained in all armor, though your doctrine might alter this</p>\n<p>Trained in unarmored defense</p>\n<h2>Spells</h2>\n<p>Trained in divine spell attacks</p>\n<p>Trained in divine spell DCs</p>\n<h1>Class Features</h1>\n<p>You gain these features as a Cleric. Abilities gained at higher levels list the levels at which you gain them next to the features' names.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Class Features</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Ancestry and background, initial proficiencies, deity, divine spellcasting, divine font, doctrine</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>3</td>\n<td>2nd-level spells, general feat, second doctrine, skill increase</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>5</td>\n<td>3rd-level spells, ability boosts, alertness, ancestry feat, skill increase</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>7</td>\n<td>4th-level spells, general feat, skill increase, third doctrine</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5th-level spells, ancestry feat, resolve, skill increase</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Ability boosts, cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>11</td>\n<td>6th-level spells, fourth doctrine, general feat, lightning reflexes, skill increase</td>\n</tr>\n<tr>\n<td>12</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>13</td>\n<td>7th-level spells, ancestry feat, divine defense, skill increase, weapon specialization</td>\n</tr>\n<tr>\n<td>14</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>15</td>\n<td>8th-level spells, ability boosts, fifth doctrine, general feat, skill increase</td>\n</tr>\n<tr>\n<td>16</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>17</td>\n<td>9th-level spells, ancestry feat, skill increase</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Cleric feat, skill feat</td>\n</tr>\n<tr>\n<td>19</td>\n<td>Final doctrine, general feat, miraculous spell, skill increase</td>\n</tr>\n<tr>\n<td>20</td>\n<td>Ability boosts, cleric feat, skill feat</td>\n</tr>\n</tbody>\n</table>\n<h2>Ancestry and Background</h2>\n<p>In addition to the abilities provided by your class at 1st level, you have the benefits of your selected ancestry and background.</p>\n<h2>Deity</h2>\n<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Your alignment must be one allowed by your deity, as listed in their entry. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list, once you can prepare spells of their level as a cleric. Some of these spells aren't normally on the divine list, but they're divine spells if you prepare them this way.</p>\n<p>A list of all deities can be found in the Deities compendium.</p>\n<h3><strong>Anathema</strong></h3>\n<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>\n<h2>Divine Font</h2>\n<p>Through your deity's blessing, you gain additional spells that channel either the life force called positive energy or its counterforce, negative energy. When you prepare your spells each day, you can prepare additional <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spells, depending on your deity. The divine font spell your deity provides is listed in the Divine Font entry for your deity; if both are listed, you can choose between <em>heal</em> or <em>harm</em>. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<h2>Divine Spellcasting</h2>\n<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list or from other divine spells to which you gain access and learn via @UUID[Compendium.pf2e.actionspf2e.Item.Learn a Spell]. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast, as shown in Table 3-9: Cleric Spells per Day.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>\n<h3><strong>Heightening Spells</strong></h3>\n<p>When you get spell slots of 2nd level and higher, you can fill those slots with stronger versions of lower-level spells. This increases the spell's level, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain levels.</p>\n<h3><strong>Cantrips</strong></h3>\n<p>A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up-this is usually equal to the highest level of spell you can cast as a cleric. For example, as a 1st-level cleric, your cantrips are 1st-level spells, and as a 5th-level cleric, your cantrips are 3rd-level spells.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Cantrips</th>\n<th>1st</th>\n<th>2nd</th>\n<th>3rd</th>\n<th>4th</th>\n<th>5th</th>\n<th>6th</th>\n<th>7th</th>\n<th>8th</th>\n<th>9th</th>\n<th>10th</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>5</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>2</td>\n<td>5</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>3</td>\n<td>5</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>4</td>\n<td>5</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>5</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>8</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>10</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>11</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>12</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>13</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>14</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>15</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>16</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>17</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>2*</td>\n<td>-</td>\n</tr>\n<tr>\n<td>18</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3*</td>\n<td>-</td>\n</tr>\n<tr>\n<td>19</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>1*†</td>\n</tr>\n<tr>\n<td>20</td>\n<td>5</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>3</td>\n<td>1*†</td>\n</tr>\n<tr>\n<td style=\"color:white;width:120px;background-color:#522e2c;text-align:center;height:25px\" colspan=\"12\">* Your divine font gives you additional <em>heal</em> or <em>harm</em> spells of this level. The number is equal to 1 + your Charisma modifier.\n<p>† The miraculous spell class feature gives you a 10th-level spell slot that works a bit differently from other spell slots.</p>\n</td>\n</tr>\n</tbody>\n</table>\n<h2>Doctrine</h2>\n<p>Even among followers of the same deity, there are numerous doctrines and beliefs, which sometimes vary wildly between clerics. At 1st level, you select a doctrine and gain the benefits of its first doctrine. The doctrines presented in this book are cloistered cleric and warpriest. Each doctrine grants you initial benefits at 1st level. At 3rd, 7th, 11th, 15th, and 19th levels, you gain the benefits granted by your doctrine's second, third, fourth, fifth, and final doctrines respectively.</p>\n<p>Doctrines can be found here (@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric] and @UUID[Compendium.pf2e.classfeatures.Item.Warpriest]).</p>\n<h2>Initial Proficiencies</h2>\n<p>At 1st level, you gain a number of proficiencies that represent your basic training, noted at the start of this class.</p>\n<h2>Cleric Feats<span style=\"float:right\">Level 2</span></h2>\n<p>At 2nd level and every 2 levels thereafter, you gain a cleric class feat.</p>\n<h2>Skill Feats<span style=\"float:right\">Level 2</span></h2>\n<p>At 2nd level and every 2 levels thereafter, you gain a skill feat. You must be trained or better in the corresponding skill to select a skill feat.</p>\n<h2>General Feats<span style=\"float:right\">Level 3</span></h2>\n<p>At 3rd level and every 4 levels thereafter, you gain a general feat.</p>\n<h2>Skill Increases<span style=\"float:right\">Level 3</span></h2>\n<p>At 3rd level and every 2 levels thereafter, you gain a skill increase. You can use this increase to either become trained in one skill you're untrained in, or become an expert in one skill in which you're already trained.</p>\n<p>You can use any of these skill increases you gain at 7th level or higher to become a master in a skill in which you're already an expert, and any of these skill increases you gain at 15th level or higher to become legendary in a skill in which you're already a master.</p>\n<h2>Ability Boosts<span style=\"float:right\">Level 5</span></h2>\n<p>At 5th level and every 5 levels thereafter, you boost four different ability scores. You can use these ability boosts to increase your ability scores above 18. Boosting an ability score increases it by 1 if it's already 18 or above, or by 2 if it starts out below 18.</p>\n<h2>Alertness<span style=\"float:right\">Level 5</span></h2>\n<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>\n<h2>Ancestry Feats<span style=\"float:right\">Level 5</span></h2>\n<p>In addition to the ancestry feat you started with, you gain an ancestry feat at 5th level and every 4 levels thereafter.</p>\n<h2>Resolve<span style=\"float:right\">Level 9</span></h2>\n<p>You've steeled your mind with resolve. Your proficiency rank for Will saves increases to master. When you roll a success at a Will save, you get a critical success instead.</p>\n<h2>Lightning Reflexes<span style=\"float:right\">Level 11</span></h2>\n<p>Your reflexes are lightning fast. Your proficiency rank for Reflex saves increases to expert.</p>\n<h2>Divine Defense<span style=\"float:right\">Level 13</span></h2>\n<p>Your training and your deity protect you from harm. Your proficiency rank in unarmored defense increases to expert.</p>\n<h2>Weapon Specialization<span style=\"float:right\">Level 13</span></h2>\n<p>You've learned how to inflict greater injuries with the weapons you know best. You deal 2 additional damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 if you're a master, and to 4 if you're legendary.</p>\n<h2>Miraculous Spell<span style=\"float:right\">Level 19</span></h2>\n<p>You're exalted by your deity and gain truly incredible spells. You gain a single 10th-level spell slot and can prepare a spell in that slot using divine spellcasting. You don't gain more 10th-level spells as you level up, though you can take the @UUID[Compendium.pf2e.feats-srd.Item.Maker of Miracles] feat to gain a second slot.</p>"
+                    "value": "<p><em>Deities work their will upon the world in infinite ways, and you serve as one of their most stalwart mortal servants. Blessed with divine magic, you live the ideals of your faith, adorn yourself with the symbols of your church, and train diligently to wield your deity's favored weapon. Your spells might protect and heal your allies, or they might punish foes and enemies of your faith, as your deity wills. Yours is a life of devotion, spreading the teachings of your faith through both word and deed.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.N4ABcd6CcCbqmw3x]{Cleric}</em></p>"
                 },
                 "generalFeatLevels": {
                     "value": [
@@ -3525,7 +3597,7 @@
             "type": "class"
         },
         {
-            "_id": "BC0hDSFqXvyhuhI2",
+            "_id": "sBRU03AJ6Z66DWbd",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
@@ -3533,7 +3605,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "sarenrae": {
-                            "id": "f25fALRkgupZWgK4",
+                            "id": "nQbJvc8Qj0L5UzcR",
                             "onDelete": "detach"
                         }
                     }
@@ -3556,7 +3628,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3579,35 +3651,18 @@
                         "selection": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
                     },
                     {
+                        "allowDuplicate": false,
                         "flag": "sarenrae",
                         "key": "GrantItem",
                         "uuid": "{item|flags.pf2e.rulesSelections.deity}"
                     },
                     {
-                        "baseType": "fist",
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d4"
-                            }
-                        },
-                        "group": "brawling",
-                        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+                        "fist": true,
                         "key": "Strike",
-                        "label": "PF2E.Weapon.Base.fist",
                         "predicate": [
                             "deity:primary:favored-weapon:fist"
                         ],
-                        "range": null,
-                        "slug": "fist",
-                        "traits": [
-                            "agile",
-                            "finesse",
-                            "nonlethal",
-                            "unarmed"
-                        ]
+                        "priority": 99
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -3633,7 +3688,7 @@
             "type": "feat"
         },
         {
-            "_id": "8xvFicqe8s3TYuRN",
+            "_id": "O4EmvV2GU0wgMIav",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
@@ -3641,7 +3696,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "cloisteredCleric": {
-                            "id": "qrrkfRdCx6NIjIb6",
+                            "id": "MgS6gnV3ou8VJM1w",
                             "onDelete": "detach"
                         }
                     }
@@ -3664,7 +3719,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3672,7 +3727,7 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "label": "1st-level Cleric class feature",
+                            "label": "PF2E.SpecificRule.Cleric.Doctrine.AllowedDrops",
                             "predicate": [
                                 "item:level:1",
                                 "item:trait:cleric",
@@ -3712,7 +3767,7 @@
             "type": "feat"
         },
         {
-            "_id": "23SErI6UguMapQXx",
+            "_id": "zxNIOjuga55leZMz",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.UV1HlClbWCNcaKBZ"
@@ -3735,7 +3790,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3754,7 +3809,7 @@
             "type": "feat"
         },
         {
-            "_id": "mbtTlqmXDymlrEiT",
+            "_id": "Zf104O1xU8Mzed18",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
@@ -3777,7 +3832,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3796,7 +3851,7 @@
             "type": "feat"
         },
         {
-            "_id": "obE4Ux8RN0x2X0r1",
+            "_id": "nyz3fZ2TZxBTnz3o",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
@@ -3819,7 +3874,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3838,7 +3893,7 @@
             "type": "feat"
         },
         {
-            "_id": "W26tDzoRAUm6Sm5C",
+            "_id": "R5ev6bT0j9pjufPy",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
@@ -3846,7 +3901,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "firstDoctrineCloisteredCleric": {
-                            "id": "VU7SUDcnG7885YeA",
+                            "id": "I1WLwv941lMYH085",
                             "onDelete": "detach"
                         }
                     }
@@ -3869,7 +3924,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "mmQagy8NfAKdbv7V",
+                "location": "iHFobtJYSNYumgQo",
                 "prerequisites": {
                     "value": []
                 },
@@ -3877,18 +3932,7 @@
                     {
                         "flag": "firstDoctrineCloisteredCleric",
                         "key": "GrantItem",
-                        "predicate": [
-                            "feature:cloistered-cleric"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)"
-                    },
-                    {
-                        "flag": "firstDoctrineWarpriest",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:warpriest"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)"
+                        "uuid": "{actor|flags.pf2e.cleric.firstDoctrine}"
                     }
                 ],
                 "slug": "first-doctrine",
@@ -3905,78 +3949,14 @@
             "type": "feat"
         },
         {
-            "_id": "f25fALRkgupZWgK4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "BC0hDSFqXvyhuhI2",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/deity/Sarenrae.webp",
-            "name": "Sarenrae",
-            "sort": 0,
-            "system": {
-                "ability": [
-                    "con",
-                    "wis"
-                ],
-                "alignment": {
-                    "follower": [
-                        "LG",
-                        "NG",
-                        "CG"
-                    ],
-                    "own": "NG"
-                },
-                "category": "deity",
-                "description": {
-                    "value": "<p>Sarenrae is one of the most popular deities on Golarion by virtue of her association with the life-giving sun and her perpetual offer to help anyone be their best, even when they have made mistakes. Most people thank her for her kind work to channel the sun's power for everyone's safety and livelihood, and thank her clergy for granting her healing power to all who need it. Mortals look to the Dawnflower as an example of boundless love, exquisite kindness, and true patience. They pray to her to heal the sick, lift up the downtrodden, and illuminate darkness of circumstance as well as darkness of spirit. Her followers aspire to emulate her through generosity, nurturing, truthfulness, and selfless courage. They oppose evil everywhere with words first, and when necessary, with scimitar and flame.</p>\n<p><strong>Edicts</strong> destroy the Spawn of Rovagug, protect allies, provide aid to the sick and wounded, seek and allow redemption</p>\n<p><strong>Anathema</strong> create undead, lie, deny a repentant creature an opportunity for redemption, fail to strike down evil</p>\n<p><strong>Areas of Concern</strong> healing, honesty, redemption, and the sun</p>"
-                },
-                "domains": {
-                    "alternate": [
-                        "repose"
-                    ],
-                    "primary": [
-                        "fire",
-                        "healing",
-                        "sun",
-                        "truth"
-                    ]
-                },
-                "font": [
-                    "heal"
-                ],
-                "rules": [],
-                "skill": "med",
-                "slug": "sarenrae",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spells": {
-                    "1": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t",
-                    "3": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
-                    "4": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
-                },
-                "weapons": [
-                    "scimitar"
-                ]
-            },
-            "type": "deity"
-        },
-        {
-            "_id": "qrrkfRdCx6NIjIb6",
+            "_id": "MgS6gnV3ou8VJM1w",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.ZZzLMOUAtBVgV1DF"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "8xvFicqe8s3TYuRN",
+                        "id": "O4EmvV2GU0wgMIav",
                         "onDelete": "cascade"
                     }
                 }
@@ -4031,14 +4011,14 @@
             "type": "feat"
         },
         {
-            "_id": "btwUNQd9rG22GY38",
+            "_id": "va99HcUyJdURrXMI",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.Item.hT4INKGtly4QY8KN"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "VU7SUDcnG7885YeA",
+                        "id": "I1WLwv941lMYH085",
                         "onDelete": "cascade"
                     }
                 }
@@ -4094,19 +4074,19 @@
             "type": "feat"
         },
         {
-            "_id": "VU7SUDcnG7885YeA",
+            "_id": "I1WLwv941lMYH085",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "W26tDzoRAUm6Sm5C",
+                        "id": "R5ev6bT0j9pjufPy",
                         "onDelete": "cascade"
                     },
                     "itemGrants": {
                         "domainInitiate": {
-                            "id": "btwUNQd9rG22GY38",
+                            "id": "va99HcUyJdURrXMI",
                             "onDelete": "detach"
                         }
                     }
@@ -4148,71 +4128,6 @@
                     "rarity": "common",
                     "value": [
                         "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "TzNx7nOPZnIwu1qF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Armor Proficiency (Light)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor above.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "maxTakable": 3,
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.heavy.rank",
-                        "priority": 41,
-                        "value": "max(min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank))"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "priority": 41,
-                        "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
-                    }
-                ],
-                "slug": "armor-proficiency",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
                     ]
                 }
             },
