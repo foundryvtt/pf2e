@@ -32,8 +32,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.isRanged && this.system.traits.value.some((t) => t.startsWith("thrown"));
     }
 
-    /** The ability score this attack is based on: determines which of the Clumsy and Enfeebled conditions apply */
-    get ability(): "str" | "dex" {
+    /** The attribute this attack is based on: determines which of the Clumsy and Enfeebled conditions apply */
+    get defaultAttribute(): "str" | "dex" {
         const { traits } = this;
         return this.isMelee ? (traits.has("finesse") ? "dex" : "str") : traits.has("brutal") ? "str" : "dex";
     }
