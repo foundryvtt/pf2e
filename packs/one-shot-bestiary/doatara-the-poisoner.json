@@ -968,18 +968,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1027,18 +1016,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1087,18 +1065,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1286,7 +1253,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard",
+                            {
+                                "or": [
+                                    "item:damage:type:slashing",
+                                    "item:damage:type:piercing"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
