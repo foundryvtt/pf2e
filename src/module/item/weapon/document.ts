@@ -72,9 +72,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.system.category;
     }
 
-    /** The default ability used in attack rolls */
-    get defaultAbility(): AttributeString {
-        return this.system.ability ?? (this.isRanged ? "dex" : "str");
+    /** The default attribute used in attack rolls */
+    get defaultAttribute(): AttributeString {
+        return this.system.attribute ?? (this.isRanged ? "dex" : "str");
     }
 
     get hands(): "0" | "1" | "1+" | "2" {
@@ -286,8 +286,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.ability)) {
-            systemData.ability = null;
+        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.attribute)) {
+            systemData.attribute = null;
         }
 
         const reloadValue = (systemData.reload.value ||= null);

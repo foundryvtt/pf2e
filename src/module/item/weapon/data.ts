@@ -116,7 +116,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
     };
     /** An optional override of the default ability modifier used in attack rolls with this weapon  */
-    ability?: AttributeString | null;
+    attribute?: AttributeString | null;
     /** A combination weapon's melee usage */
     meleeUsage?: ComboWeaponMeleeUsage;
     /** Whether the weapon is a "specific magic weapon" */

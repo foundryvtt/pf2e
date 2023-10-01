@@ -268,7 +268,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 category: this.category,
                 group: this.group,
                 baseItem: this.baseType,
-                ability: this.ability,
+                attribute: this.ability,
                 bonus: {
                     value: actorIsNPC ? this.attackModifier ?? 0 : 0,
                 },

@@ -1,7 +1,7 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
-import { ItemPF2e, MeleePF2e } from "@item";
+import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { CheckRollContextFlag } from "@module/chat-message/index.ts";
-import { ZeroToTwo } from "@module/data.ts";
+import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import {
@@ -23,9 +23,15 @@ import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
+import {
+    CheckModifier,
+    ModifierPF2e,
+    StatisticModifier,
+    adjustModifiers,
+    createAttributeModifier,
+} from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
-import { AuraEffectData, DamageRollContextParams } from "./types.ts";
+import { AttributeString, AuraEffectData, DamageRollContextParams } from "./types.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -219,34 +225,130 @@ function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
         : flanking.offGuardable;
 }
 
-/** Create a strike statistic from a melee item: for use by NPCs and Hazards */
-function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
-    const { ability, isMelee, isThrown } = item;
-    const { actor } = item;
-    if (!actor.isOfType("npc", "hazard")) {
-        throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
-    }
-
-    // Conditions and Custom modifiers to attack rolls
-    const attackSlug = item.slug ?? sluggify(item.name);
-    const unarmedOrWeapon = item.system.traits.value.includes("unarmed") ? "unarmed" : "weapon";
-    const meleeOrRanged = isMelee ? "melee" : "ranged";
+function getStrikeAttackDomains(
+    weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
+    proficiencyRank: ZeroToFour | null,
+    baseRollOptions: string[] | Set<string>
+): string[] {
+    const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
+    const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+    const weaponSlug = weapon.slug ?? sluggify(weapon.name);
 
     const domains = [
-        `${attackSlug}-attack`,
-        `${item.id}-attack`,
+        weapon.baseType ? `${weapon.baseType}-base-attack-roll` : [],
+        weapon.group ? `${weapon.group}-group-attack-roll` : [],
+        weapon.system.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
+        `${weapon.id}-attack`,
+        `${weaponSlug}-attack`,
+        `${weaponSlug}-attack-roll`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
         `${meleeOrRanged}-strike-attack-roll`,
         "strike-attack-roll",
         "attack-roll",
         "attack",
+        "check",
         "all",
+    ].flat();
+
+    if (typeof proficiencyRank === "number") {
+        const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
+        domains.push(`${proficiencies[proficiencyRank]}-damage`);
+    }
+
+    const { actor } = weapon;
+    if (actor.isOfType("character", "npc")) {
+        const defaultAttributeModifier = createAttributeModifier({
+            actor,
+            attribute: weapon.defaultAttribute,
+            domains,
+        });
+        const rollOptions = [...baseRollOptions, actor.getRollOptions(domains), weapon.getRollOptions("item")].flat();
+
+        const attributeModifier = [
+            defaultAttributeModifier,
+            ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
+        ]
+            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability" && m.enabled)
+            .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
+        domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
+    }
+
+    return R.uniq(domains).sort();
+}
+
+function getStrikeDamageDomains(
+    weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
+    proficiencyRank: ZeroToFour | null
+): string[] {
+    const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+    const slug = weapon.slug ?? sluggify(weapon.name);
+    const { actor, traits } = weapon;
+    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const domains = [
+        `${weapon.id}-damage`,
+        `${slug}-damage`,
+        `${meleeOrRanged}-strike-damage`,
+        `${meleeOrRanged}-damage`,
+        `${unarmedOrWeapon}-damage`,
+        "attack-damage",
+        "strike-damage",
+        "damage",
     ];
 
-    if (actor.isOfType("npc")) {
-        domains.push(`${ability}-attack`, `${ability}-based`);
+    if (weapon.group) {
+        domains.push(`${weapon.group}-weapon-group-damage`);
     }
+
+    if (weapon.baseType) {
+        domains.push(`${weapon.baseType}-base-type-damage`);
+    }
+
+    if (typeof proficiencyRank === "number") {
+        const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
+        domains.push(`${proficiencies[proficiencyRank]}-damage`);
+    }
+
+    // Include selectors for "equivalent weapons": longbow for composite longbow, etc.
+    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+    const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
+    if (baseType && !domains.includes(`${baseType}-damage`)) {
+        domains.push(`${baseType}-damage`);
+    }
+
+    if (actor.isOfType("character", "npc")) {
+        const strengthBasedDamage =
+            weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
+
+        const attributeModifier = [
+            strengthBasedDamage ? createAttributeModifier({ actor, attribute: "str", domains }) : null,
+            ...extractModifiers(actor.synthetics, domains, {
+                resolvables: { weapon },
+                test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
+            }).filter((m) => m.type === "ability"),
+        ].reduce((best, candidate) =>
+            candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best
+        );
+
+        if (attributeModifier) {
+            domains.push(`${attributeModifier.ability}-damage`);
+        }
+    }
+
+    return R.uniq(domains).sort();
+}
+
+/** Create a strike statistic from a melee item: for use by NPCs and Hazards */
+function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
+    const { actor, isMelee, isThrown } = item;
+    if (!actor.isOfType("npc", "hazard")) {
+        throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
+    }
+
+    // Conditions and Custom modifiers to attack rolls
+    const meleeOrRanged = isMelee ? "melee" : "ranged";
+    const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
+    const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
     const { synthetics } = actor;
     const modifiers: ModifierPF2e[] = [
@@ -273,13 +375,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     for (const adjustment of synthetics.strikeAdjustments) {
         adjustment.adjustWeapon?.(item);
     }
-    const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
     const initialRollOptions = new Set([
         ...baseOptions,
         ...actor.getRollOptions(domains),
         ...item.getRollOptions("item"),
     ]);
 
+    const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
     const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
@@ -310,7 +412,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     strike.breakdown = strike.modifiers
         .filter((m) => m.enabled)
-        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+        .map((m) => `${m.label} ${signedInteger(m.value)}`)
         .join(", ");
 
     const attackTrait = {
@@ -419,7 +521,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = ["all", `${item.id}-damage`, "attack-damage", "strike-damage", "damage"];
+            const domains = getStrikeDamageDomains(item, actor.isOfType("npc") ? 1 : null);
             const targetToken = params.target ?? game.user.targets.first() ?? null;
 
             const context = await actor.getDamageRollContext({
@@ -461,8 +563,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
                 actor: context.self.actor,
+                domains,
                 actionTraits: [attackTrait],
-                proficiencyRank: 1,
                 context: damageContext,
             });
             if (!damage) return null;
@@ -555,6 +657,8 @@ export {
     createEncounterRollOptions,
     findMatchingCheckContext,
     getRangeIncrement,
+    getStrikeAttackDomains,
+    getStrikeDamageDomains,
     isOffGuardFromFlanking,
     isReallyPC,
     migrateActorSource,
