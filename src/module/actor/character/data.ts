@@ -347,7 +347,7 @@ interface MartialProficiency extends CharacterProficiency {
     /** A predicate to match against weapons and unarmed attacks */
     definition?: PredicatePF2e;
     /** The category to which this proficiency is linked */
-    sameAs?: WeaponCategory;
+    sameAs?: WeaponCategory | ArmorCategory;
     /** The maximum rank this proficiency can reach */
     maxRank?: Exclude<ProficiencyRank, "untrained">;
     /** Whether the proficiency was manually added by the user */

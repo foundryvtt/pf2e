@@ -2,14 +2,14 @@ import { CharacterSystemSource, MartialProficiency } from "@actor/character/data
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { isObject, recursiveReplaceString, tupleHasValue } from "@util";
+import { isObject, recursiveReplaceString, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Move data in `CharacterSystemSource#martial` to `#proficiencies`. */
 export class Migration870MartialToProficiencies extends MigrationBase {
     static override version = 0.87;
 
-    #defensePathPattern = new RegExp(String.raw`system\.martial\.(?:${ARMOR_CATEGORIES.join("|")})\.`);
+    #defensePathPattern = new RegExp(String.raw`system\.martial\.(?:${Array.from(ARMOR_CATEGORIES).join("|")})\.`);
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
@@ -24,7 +24,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             }
 
             systemSource.proficiencies ??= {};
-            if (tupleHasValue(ARMOR_CATEGORIES, key)) {
+            if (setHasElement(ARMOR_CATEGORIES, key)) {
                 systemSource.proficiencies.defenses ??= {};
                 systemSource.proficiencies.defenses[key] = { rank: data.rank };
             } else {
