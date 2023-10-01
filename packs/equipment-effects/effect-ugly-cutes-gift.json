@@ -1,0 +1,50 @@
+{
+    "_id": "6enQGnnlgGY6ZWgS",
+    "img": "icons/creatures/invertebrates/spider-pink-purple.webp",
+    "name": "Effect: Ugly Cute's Gift",
+    "system": {
+        "description": {
+            "value": "<p>Ugly Cute's gift gains the advantages of a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune and deals an additional 2 force damage on a successful Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:ugly-cutes-gift"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "damageType": "force",
+                "key": "FlatModifier",
+                "selector": "ugly-cutes-gift-damage",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #196: The Summer that Never Was"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
