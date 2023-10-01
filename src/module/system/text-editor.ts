@@ -798,7 +798,7 @@ async function augmentInlineDamageRoll(
 
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
-    /** Whether to run the enriched string through `UserVisiblity.process` */
+    /** Whether to run the enriched string through `UserVisibility.process` */
     processVisibility?: boolean;
 }
 
