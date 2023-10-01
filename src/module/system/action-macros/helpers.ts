@@ -195,7 +195,11 @@ export class ActionMacroHelpers {
                     });
                 } else {
                     const check = new CheckModifier(label, statistic, modifiers);
-                    const dc = this.#resolveCheckDC({ unresolvedDC: options.difficultyClass, fully: true });
+                    const dc = this.#resolveCheckDC({
+                        target: targetData.actor,
+                        unresolvedDC: options.difficultyClass,
+                        fully: true,
+                    });
                     const finalOptions = new Set(combinedOptions);
                     ensureProficiencyOption(finalOptions, statistic.rank ?? -1);
                     check.calculateTotal(finalOptions);
