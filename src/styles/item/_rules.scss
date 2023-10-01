@@ -356,8 +356,8 @@
 
                 .stacked {
                     display: grid;
-                    grid: 1fr/1fr 1fr;
-                    column-gap: 10px;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 0.5rem;
                 }
 
                 .column-span-two {
@@ -389,6 +389,7 @@
 
                 fieldset {
                     grid-column: span 2;
+                    padding-bottom: 0.4rem;
                 }
 
                 .brackets {
@@ -476,10 +477,58 @@
                 }
 
                 .two-items {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 0.5em;
+
+                    > label {
+                        min-width: unset;
+                        width: fit-content;
+                    }
+
+                    .color-picker {
+                        align-items: center;
+                        display: flex;
+                        width: 16rem;
+                        white-space: nowrap;
+
+                        input {
+                            &[type="text"] {
+                                flex: 1;
+                            }
+
+                            &[type="color"] {
+                                flex: 2;
+                                height: 94%;
+
+                                &:disabled {
+                                    background: rgba(black, 0.05);
+                                    border: 1px solid transparent;
+                                }
+                            }
+                        }
+
+                        .user {
+                            flex: 0;
+                            gap: 0;
+                            justify-content: start;
+
+                            input[type="checkbox"] {
+                                flex: 0;
+                                margin-left: 0;
+                            }
+
+                            span {
+                                font-size: small;
+                            }
+                        }
+                    }
+                }
+
+                .three-items {
                     display: grid;
-                    grid: 1fr/5em 2.5fr 1fr;
+                    grid-template-columns: 5em 2.5fr 1fr;
                     align-items: center;
-                    margin-bottom: 5px;
 
                     &.long-label {
                         grid: 1fr/9em 2.5fr 1fr;

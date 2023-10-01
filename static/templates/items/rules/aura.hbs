@@ -129,14 +129,28 @@
         <legend>{{localize fields.appearance.fields.border.label}}</legend>
         <div class="stacked">
             <div class="two-items">
-                <label>{{localize fields.appearance.fields.border.fields.color.label}}</label>
-                {{#if object.appearance.border}}
-                    {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=object.appearance.border.color}}
-                {{else}}
-                    <div>{{localize "PF2E.RuleEditor.Aura.Appearance.NotApplicable"}}</div>
-                {{/if}}
+                <label for="{{fieldIdPrefix}}border-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
+                <div class="color-picker">
+                    {{#if object.appearance.border}}
+                        {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=borderColor}}
+                    {{else}}
+                        <div>{{localize "PF2E.RuleEditor.Aura.Appearance.NotApplicable"}}</div>
+                    {{/if}}
+
+                    <label class="user">
+                        <input
+                            type="checkbox"
+                            name={{concat "system.rules." index ".appearance.border.color"}}
+                            data-dtype="String"
+                            value="user-color"
+                            {{checked (eq object.appearance.border.color "user-color")}}
+                        />
+                        <span>User</span>
+                    </label>
+                </div>
             </div>
-            <div class="two-items">
+
+            <div class="three-items">
                 <label>{{localize fields.appearance.fields.border.fields.alpha.label}}</label>
                 {{rangePicker name=(concat "system.rules." index ".appearance.border.alpha") value=(coalesce object.appearance.border.alpha 0) placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
@@ -147,12 +161,24 @@
         <legend>{{localize fields.appearance.fields.highlight.label}}</legend>
         <div class="stacked">
             <div class="two-items">
-                <label>{{ localize fields.appearance.fields.highlight.fields.color.label }}</label>
-                {{colorPicker name=(concat "system.rules." index ".appearance.highlight.color") value=object.appearance.highlight.color}}
-            </div>
+                <label for="{{fieldIdPrefix}}highlight-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
+                <div class="color-picker">
+                    {{colorPicker name=(concat "system.rules." index ".appearance.highlight.color") value=highlightColor}}
 
-            <div class="two-items">
-                <label>{{ localize fields.appearance.fields.highlight.fields.alpha.label }}</label>
+                    <label class="user">
+                        <input
+                            type="checkbox"
+                            name={{concat "system.rules." index ".appearance.highlight.color"}}
+                            data-dtype="String"
+                            value="user-color"
+                            {{checked (eq object.appearance.highlight.color "user-color")}}
+                        />
+                        <span>User</span>
+                    </label>
+                </div>
+            </div>
+            <div class="three-items">
+                <label>{{localize fields.appearance.fields.highlight.fields.alpha.label}}</label>
                 {{rangePicker name=(concat "system.rules." index ".appearance.highlight.alpha") value=object.appearance.highlight.alpha placeholder="0.75" min="0" max="1" step="0.05"}}
             </div>
         </div>
@@ -161,24 +187,24 @@
     <fieldset>
         <legend>{{localize fields.appearance.fields.texture.label}}</legend>
         <div class="stacked">
-            <div class="two-items image-path">
+            <div class="three-items image-path">
                 <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
                 <input type="text" name="system.rules.{{index}}.appearance.texture.src" value="{{object.appearance.texture.src}}">
                 {{filePicker target=(concat "system.rules." index ".appearance.texture.src") type="imagevideo"}}
             </div>
 
             {{#if object.appearance.texture.src}}
-                <div class="two-items long-label">
+                <div class="three-items long-label">
                     <label>{{localize fields.appearance.fields.texture.fields.alpha.label}}</label>
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.alpha") value=object.appearance.texture.alpha placeholder="1" min="0" max="1" step="0.05"}}
                 </div>
 
-                <div class="two-items{{#if (not isImageFile)}} long-label{{/if}}">
+                <div class="three-items{{#if (not isImageFile)}} long-label{{/if}}">
                     <label>{{localize fields.appearance.fields.texture.fields.scale.label}}</label>
                     {{rangePicker name=(concat "system.rules." index ".appearance.texture.scale") value=object.appearance.texture.scale placeholder="1" min="0" max="5" step="0.01"}}
                 </div>
 
-                <div class="two-items translation long-label">
+                <div class="three-items translation long-label">
                     <label>
                         {{localize fields.appearance.fields.texture.fields.translation.label}}
                         <i class="fa-solid fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.translation.hint}}></i>
@@ -198,7 +224,7 @@
                 </div>
 
                 {{#if (not isImageFile)}}
-                    <div class="two-items long-label">
+                    <div class="three-items long-label">
                         <label>
                             {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
                             <i class="fa-solid fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.playbackRate.hint}}></i>

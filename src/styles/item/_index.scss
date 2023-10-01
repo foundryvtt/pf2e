@@ -67,7 +67,7 @@
             display: block;
         }
 
-        input {
+        input:not(:disabled) {
             color: var(--color-text-dark-input);
         }
 
@@ -175,11 +175,9 @@
             input {
                 &[type="text"],
                 &[type="number"] {
-                    background: none;
                     border: 1px solid transparent;
                     height: calc(100% - 2px);
                     margin: 1px 0;
-                    padding: 0;
                     width: calc(100% - 2px);
                 }
             }
@@ -202,9 +200,12 @@
         section.sheet-body {
             input[type="text"],
             input[type="number"] {
-                background: rgba(255, 255, 255, 0.5);
-                border: 1px solid var(--color-text-light-5);
                 padding: 3px;
+
+                &:not(:disabled) {
+                    background: rgba(255, 255, 255, 0.5);
+                    border: 1px solid var(--color-text-light-5);
+                }
             }
 
             .tab {
