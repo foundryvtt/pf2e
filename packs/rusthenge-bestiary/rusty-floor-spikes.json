@@ -1,0 +1,178 @@
+{
+    "_id": "h6yNkGx8q5ITD3a3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "a5X5gNKg3MIEGsZ9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spring Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on the pressure plate</p>\n<hr />\n<p><strong>Effect</strong> The spikes spring up, Striking all creatures in the hallway. The floor becomes greater difficult terrain.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MCZLim5uCGG5bLkg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rusty Spike",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "tetanus"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "zBS6m33YcaGg5g3A": {
+                        "damage": "1d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tfriWcHgXqM6QLkB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tetanus",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An infection introduced through open wounds, tetanus can produce stiffness, muscle spasms strong enough to break bones, and ultimately death.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:14]</p>\n<p><strong>Onset</strong> 10 days</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and can't speak (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] with spasms (1 day)</p>\n<p><strong>Stage 4</strong> death</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rusty Floor Spikes",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Pressure plates on the floor near the north door cause rusty spikes to lance up out of the floor in area <strong>C3</strong>.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18] (trained) to disable the pressure plates.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>Turn the resetting wheel in the eastern Inner Guard Station (area <strong>C8b</strong>).</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Rusthenge"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
