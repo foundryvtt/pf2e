@@ -1,0 +1,43 @@
+{
+    "_id": "SRS8102DGTzJ4NmC",
+    "img": "icons/equipment/chest/breastplate-helmet-metal.webp",
+    "name": "Tensile Absorption",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've enhanced the tensile capabilities of your armor, enabling it to bend with bludgeoning attacks. While wearing your armor, you gain resistance to bludgeoning damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "type": "bludgeoning",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}
