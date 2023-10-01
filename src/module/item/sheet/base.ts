@@ -65,6 +65,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** If we are currently editing an RE, this is the index */
     #editingRuleElementIndex: number | null = null;
+    #rulesLastScrollTop: number | null = null;
 
     #ruleElementForms: RuleElementForm[] = [];
 
@@ -328,6 +329,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
                 this.#editingRuleElementIndex = index;
+                this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
                 this.render();
             });
         }
@@ -636,6 +638,16 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         await maintainFocusInRender(this, () => super._render(force, options));
+
+        // Maintain last rules panel scroll position when opening/closing the codemirror editor
+        if (this.#editingRuleElementIndex === null && this.#rulesLastScrollTop) {
+            const html = this.element[0];
+            const rulesTab = htmlQuery(html, ".tab[data-tab=rules]");
+            if (rulesTab) {
+                rulesTab.scrollTop = this.#rulesLastScrollTop;
+            }
+            this.#rulesLastScrollTop = null;
+        }
     }
 }
 
