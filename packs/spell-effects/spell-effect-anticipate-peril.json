@@ -18,6 +18,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "removeAfterRoll": [
+                    "check:type:initiative"
+                ],
                 "selector": "initiative",
                 "type": "status",
                 "value": "clamped(ceil(@item.level / 2), 1, 4)"
