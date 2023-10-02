@@ -15,7 +15,7 @@ type StackDefinitions = Record<string, StackDefinition | undefined>;
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-export const stackDefinitions: StackDefinitions = {
+const stackDefinitions: StackDefinitions = {
     bolts: {
         size: 10,
         lightBulk: 1,
@@ -62,7 +62,7 @@ export const stackDefinitions: StackDefinitions = {
     },
 };
 
-export class Bulk {
+class Bulk {
     normal: number;
 
     light: number;
@@ -228,7 +228,7 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight if not parseable will return null or undefined
  */
-export function weightToBulk(weight: Maybe<string | number>): Bulk | null {
+function weightToBulk(weight: Maybe<string | number>): Bulk | null {
     if (typeof weight !== "string" && typeof weight !== "number") {
         return null;
     }
@@ -250,3 +250,5 @@ export function weightToBulk(weight: Maybe<string | number>): Bulk | null {
     }
     return null;
 }
+
+export { Bulk, stackDefinitions, weightToBulk };

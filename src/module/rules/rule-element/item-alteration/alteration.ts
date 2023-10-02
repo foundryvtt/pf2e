@@ -18,7 +18,10 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "ac-bonus",
         "badge-max",
         "badge-value",
+        "bulk",
         "category",
+        "check-penalty",
+        "dex-cap",
         "hardness",
         "hp-max",
         "material-type",
@@ -28,6 +31,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "frequency-max",
         "frequency-per",
         "other-tags",
+        "speed-penalty",
+        "strength",
+        "traits",
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
@@ -120,11 +126,45 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 badge.value = Math.clamped(newValue, 1, max);
                 return;
             }
+            case "bulk": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                data.item.system.weight.value = data.alteration.value;
+                return;
+            }
             case "category": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
                     data.item.system.category = data.alteration.value;
                 }
+                return;
+            }
+            case "check-penalty": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.checkPenalty,
+                    data.alteration.value
+                );
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.checkPenalty = newValue === null ? null : Math.min(newValue, 0);
+                return;
+            }
+            case "dex-cap": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.dexCap,
+                    data.alteration.value
+                );
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.dexCap = Math.max(newValue, 0);
                 return;
             }
             case "hardness": {
@@ -233,6 +273,48 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     throw newValue.asError();
                 }
                 traits.otherTags = newValue;
+                return;
+            }
+            case "speed-penalty": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.speedPenalty,
+                    data.alteration.value
+                );
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.speedPenalty = newValue === null ? null : Math.min(newValue, 0);
+                return;
+            }
+            case "strength": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.strength,
+                    data.alteration.value
+                );
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.strength = newValue === null ? null : Math.max(newValue, 0);
+                return;
+            }
+            case "traits": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.traits.value,
+                    data.alteration.value
+                );
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.traits.value = newValue;
                 return;
             }
         }

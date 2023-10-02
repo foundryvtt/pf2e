@@ -1,3 +1,5 @@
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { objectHasKey } from "@util";
 import * as R from "remeda";
@@ -5,8 +7,6 @@ import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
-import { ActorPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {

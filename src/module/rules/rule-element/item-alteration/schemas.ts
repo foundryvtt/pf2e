@@ -1,11 +1,13 @@
 import { ItemPF2e } from "@item";
+import { ArmorTrait } from "@item/armor/types.ts";
 import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import { BulkValue } from "@item/physical/types.ts";
+import { BULK_VALUES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import { SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
@@ -116,6 +118,17 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         { validateForItem: itemHasCounterBadge }
     ),
+    bulk: new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
+            required: true,
+            nullable: false,
+            choices: BULK_VALUES,
+            initial: undefined,
+        } as const),
+    }),
+
     category: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["armor"] }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
@@ -123,6 +136,38 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             nullable: false,
             choices: ["light", "heavy", "medium"] as const,
+            initial: undefined,
+        } as const),
+    }),
+    "dex-cap": new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+        }),
+        value: new StrictNumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            initial: undefined,
+        } as const),
+    }),
+    "check-penalty": new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+        }),
+        value: new StrictNumberField({
+            required: true,
+            nullable: false,
+            integer: true,
             initial: undefined,
         } as const),
     }),
@@ -266,6 +311,55 @@ const ITEM_ALTERATION_VALIDATORS = {
             blank: false,
             initial: undefined,
         } as const),
+    }),
+    "speed-penalty": new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+        }),
+        value: new StrictNumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            initial: undefined,
+        } as const),
+    }),
+    strength: new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+        }),
+        value: new StrictNumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            positive: true,
+            initial: undefined,
+        } as const),
+    }),
+    traits: new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "remove", "subtract"] as const,
+        }),
+        value: new fields.StringField<ArmorTrait, ArmorTrait, true, false, false>({
+            required: true,
+            nullable: false,
+            choices: () => CONFIG.PF2E.armorTraits,
+            initial: undefined,
+        }),
     }),
 };
 
