@@ -24,7 +24,6 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
 
         return {
             ...(await super.getData(options)),
-            hasDetails: true,
             hasSidebar: true,
             itemType: game.i18n.localize(definingTrait ? CONFIG.PF2E.actionTraits[definingTrait] : "PF2E.LevelLabel"),
             conditionTypes: R.omit(CONFIG.PF2E.conditionTypes, ["persistent-damage"]),

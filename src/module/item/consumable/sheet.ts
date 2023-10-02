@@ -8,8 +8,6 @@ export class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
         const sheetData = await super.getData(options);
         return {
             ...sheetData,
-            hasDetails: true,
-            hasSidebar: true,
             consumableTypes: CONFIG.PF2E.consumableTypes,
             otherTags: createSheetTags(CONFIG.PF2E.otherConsumableTags, item.system.traits.otherTags),
         };

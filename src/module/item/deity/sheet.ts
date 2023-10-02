@@ -11,7 +11,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            scrollY: [".item-details"],
             dragDrop: [{ dropSelector: ".sheet-header, .sheet-content" }],
         };
     }
@@ -30,8 +29,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         return {
             ...sheetData,
-            hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/deity-details.hbs",
             alignments: CONFIG.PF2E.alignments,
             atheistic: this.item.category === "philosophy",
             skills: CONFIG.PF2E.skills,

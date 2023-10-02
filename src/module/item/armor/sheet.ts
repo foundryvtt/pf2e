@@ -31,8 +31,6 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
-            hasDetails: true,
-            hasSidebar: true,
             rarity: this.item._source.system.traits.rarity,
             fundamentalRunes,
             propertyRunes,

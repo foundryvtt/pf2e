@@ -63,15 +63,8 @@
         {{/if}}
 
         <h4 class="sheet-tabs tabs" data-tab-container="primary">
-            {{#if detailsActive}}
-                <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
-                <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
-            {{else}}
-                <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
-                {{#if hasDetails}}
-                    <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
-                {{/if}}
-            {{/if}}
+            <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+            <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
             {{#if (and isPhysical user.isGM)}}
                 <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
             {{/if}}
@@ -86,14 +79,14 @@
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
             <section class="sheet-sidebar">
-                {{> (sidebarTemplate)}}
+                {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
 
         <!-- ITEM SHEET BODY -->
         <section class="sheet-body">
             <!-- Item Description -->
-            <section class="tab item-description" data-tab="description">
+            <section class="tab description" data-tab="description">
                 <div class="descriptions">
                     {{#if user.isGM}}
                         <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
@@ -111,15 +104,13 @@
             </section>
 
             <!-- Item Details -->
-            {{#if hasDetails}}
-                <div class="tab item-details" data-tab="details">
-                    {{> (detailsTemplate)}}
-                    <div class="form-group">
-                        <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
-                        <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
-                    </div>
+            <div class="tab details" data-tab="details">
+                {{> (lookup . "detailsTemplate")}}
+                <div class="form-group">
+                    <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
+                    <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
                 </div>
-            {{/if}}
+            </div>
 
             <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}
@@ -128,7 +119,7 @@
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
-                <div class="tab item-rules" data-tab="rules">
+                <div class="tab rules" data-tab="rules">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
                     {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
                 </div>

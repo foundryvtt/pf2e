@@ -8,8 +8,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            scrollY: [".item-details"],
-            dragDrop: [{ dropSelector: ".item-details" }],
+            dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
         };
     }
 
@@ -23,10 +22,9 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
         return {
             ...(await super.getData(options)),
+            hasSidebar: true,
             priceString: this.item.price.value,
             items,
-            hasSidebar: true,
-            hasDetails: true,
         };
     }
 

@@ -78,6 +78,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
+            hasSidebar: true,
             baseLevel: baseData.system.level.value,
             adjustedLevelHint,
             basePrice,

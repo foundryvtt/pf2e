@@ -119,10 +119,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             itemType: null,
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
-            hasDetails: true,
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
                 type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
+            sidebarTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            detailsTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: item,
@@ -158,8 +159,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
@@ -271,7 +270,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 }
             }
 
-            htmlQuery(html, ".item-description")?.classList.add("editing");
+            htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
         return super.activateEditor(name, options, sourceContent);
@@ -658,12 +657,10 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     showTraits: boolean;
     /** Whether the sheet should have a sidebar at all */
     hasSidebar: boolean;
-    /** Whether the sheet should have a details tab (some item types don't have one) */
-    hasDetails: boolean;
     /** The sidebar's current title */
     sidebarTitle: string;
-    sidebarTemplate?: () => string;
-    detailsTemplate?: () => string;
+    sidebarTemplate: string;
+    detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
     enrichedContent: Record<string, string>;
