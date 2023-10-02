@@ -25,7 +25,6 @@ declare global {
 const { window } = new JSDOM();
 global.document = window.document;
 global.window = global.document.defaultView!;
-const $ = (await import("jquery")).default;
 
 interface ExtractArgs {
     packDb: string;
@@ -337,13 +336,14 @@ class PackExtractor {
                 return "";
             }
 
-            const $description = ((): JQuery => {
+            const container = (() => {
                 try {
-                    return $(
+                    const div = document.createElement("div");
+                    div.innerHTML =
                         description.startsWith("<p>") && /<\/(?:p|ol|ul|table)>$/.test(description)
                             ? description
-                            : `<p>${description}</p>`
-                    );
+                            : `<p>${description}</p>`;
+                    return div;
                 } catch (error) {
                     console.error(error);
                     throw PackError(
@@ -352,35 +352,50 @@ class PackExtractor {
                 }
             })();
 
-            // Strip out span tags from AoN copypasta
-            const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
-            for (const selector of selectors) {
-                $description.find(selector).each((_i, span) => {
-                    $(span)
-                        .contents()
-                        .unwrap(selector)
-                        .each((_j, node) => {
-                            if (node.nodeName === "#text") {
-                                node.textContent = node.textContent!.trim();
-                            }
-                        });
+            const textNodes: Text[] = [];
+            function pushTextNode(node: Node | null): void {
+                if (!node) return;
+                if (node.nodeName === "#text" && node.nodeValue) {
+                    textNodes.push(node as Text);
+                }
+                node.childNodes.forEach((n) => {
+                    pushTextNode(n);
                 });
             }
 
-            return $("<div>")
-                .append($description)
-                .html()
+            pushTextNode(container);
+            for (const node of textNodes) {
+                node.nodeValue =
+                    node.nodeValue
+                        ?.replace(/ {2,}/g, " ")
+                        .replace(/\u2011/g, "-")
+                        .trim() ?? null;
+            }
+
+            // Strip out span tags from AoN copypasta
+            const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
+            for (const selector of selectors) {
+                container.querySelectorAll(selector).forEach((span) => {
+                    span.replaceWith(span.innerHTML);
+                });
+            }
+
+            return container.innerHTML
                 .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
-                .replace(/&nbsp;/g, " ")
-                .replace(/ {2,}/g, " ")
-                .replace(/<p> ?<\/p>/g, "")
                 .replace(/<\/p> ?<p>/g, "</p>\n<p>")
                 .replace(/<p>[ \r\n]+/g, "<p>")
                 .replace(/[ \r\n]+<\/p>/g, "</p>")
                 .replace(/<(?:b|strong)>\s*/g, "<strong>")
                 .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
                 .replace(/(<\/strong>)(\w)/g, "$1 $2")
-                .replace(/(<p><\/p>)/g, "")
+                .replace(/\bpf2-icon\b/g, "action-glyph")
+                .replace(/<p>\s*<\/p>/g, "")
+                .replace(/<div>\s*<\/div>/g, "")
+                .replace(/&nbsp;/g, " ")
+                .replace(/\u2013/g, "&ndash;")
+                .replace(/\s*\u2014\s*/g, "&mdash;")
+                .trim()
+                .replace(/^<hr \/>/, "")
                 .trim();
         };
 
@@ -871,4 +886,4 @@ class PackExtractor {
     }
 }
 
-export { type ExtractArgs, PackExtractor };
+export { PackExtractor, type ExtractArgs };
