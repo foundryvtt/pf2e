@@ -1,0 +1,68 @@
+{
+    "_id": "xtqOIXCe0Nsd0QCt",
+    "img": "icons/skills/targeting/crosshair-bars-yellow.webp",
+    "name": "Effect: Lock On",
+    "system": {
+        "description": {
+            "value": "<p>The construct gains a +2 circumstance bonus to attack rolls against the designated enemy until the end of the turn. If you use 2 actions for the Command, the bonus is instead a +3 circumstance bonus, or a +4 circumstance bonus if you're legendary in Crafting.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "lock-on"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.OneAction",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Inventor.LockOn.TwoActionsLegendary",
+                        "value": 4
+                    }
+                ],
+                "flag": "number",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Actions.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:lock-on"
+                ],
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.number"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
