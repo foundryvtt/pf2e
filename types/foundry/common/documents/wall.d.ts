@@ -19,6 +19,7 @@ export default interface BaseWall<TParent extends BaseScene | null> extends Docu
 }
 
 interface WallSource {
+    _id: string | null;
     c: number[];
     move?: number;
     sense?: number;
