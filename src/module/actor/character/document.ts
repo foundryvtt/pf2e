@@ -818,12 +818,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
         const proficiency = Object.entries(this.system.proficiencies.defenses as Record<string, MartialProficiency>)
             .filter(([key, proficiency]) => {
-                if (!wornArmor) return key === "uarmored";
+                if (!wornArmor) return key === "unarmored";
                 if (wornArmor.category === key) return true;
                 return proficiency.definition?.test(wornArmor.getRollOptions("item")) ?? false;
             })
             .map(([_k, v]) => v)
-            .reduce((best, p) => (p.rank > best.rank ? p : best));
+            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
 
         return new ArmorStatistic(this, {
             rank: proficiency?.rank ?? 0,
