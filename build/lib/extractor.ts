@@ -373,27 +373,24 @@ class PackExtractor {
                 });
             }
 
-            return (
-                container.innerHTML
-                    .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
-                    .replace(/<\/p> ?<p>/g, "</p>\n<p>")
-                    .replace(/<p>[ \r\n]+/g, "<p>")
-                    .replace(/[ \r\n]+<\/p>/g, "</p>")
-                    .replace(/<(?:b|strong)>\s*/g, "<strong>")
-                    .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
-                    .replace(/(<\/strong>)(\w)/g, "$1 $2")
-                    // .replace(/\bpf2-icon\b/g, "action-glyph")
-                    .replace(/<p> *<\/p>/g, "")
-                    .replace(/<div> *<\/div>/g, "")
-                    .replace(/&nbsp;/g, " ")
-                    .replace(/\u2011/g, "-")
-                    .replace(/\u2013/g, "&ndash;")
-                    .replace(/\s*\u2014\s*/g, "&mdash;")
-                    .replace(/ {2,}/g, " ")
-                    .trim()
-                    .replace(/^<hr \/>/, "")
-                    .trim()
-            );
+            return container.innerHTML
+                .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
+                .replace(/<\/p> ?<p>/g, "</p>\n<p>")
+                .replace(/<p>[ \r\n]+/g, "<p>")
+                .replace(/[ \r\n]+<\/p>/g, "</p>")
+                .replace(/<(?:b|strong)>\s*/g, "<strong>")
+                .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
+                .replace(/(<\/strong>)(\w)/g, "$1 $2")
+                .replace(/\bpf2-icon\b/g, "action-glyph")
+                .replace(/<p> *<\/p>/g, "")
+                .replace(/<div> *<\/div>/g, "")
+                .replace(/&nbsp;/g, " ")
+                .replace(/\u2011/g, "-")
+                .replace(/\s*\u2014\s*/g, "\u2014") // em dash
+                .replace(/ {2,}/g, " ")
+                .trim()
+                .replace(/^<hr \/>/, "")
+                .trim();
         };
 
         if ("system" in docSource) {
