@@ -238,9 +238,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.alpha = tokenOverrides.alpha ?? this.alpha;
 
         if (tokenOverrides.light) {
-            this.light = new foundry.data.LightData(tokenOverrides.light, {
-                parent: this as unknown as foundry.abstract.DataModel,
-            });
+            this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
         }
 
         // Token dimensions from actor size
