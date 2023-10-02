@@ -355,7 +355,7 @@ class PackExtractor {
             const textNodes: Text[] = [];
             function pushTextNode(node: Node | null): void {
                 if (!node) return;
-                if (node.nodeName === "#text" && node.nodeValue) {
+                if (node.nodeName === "#text" && node.nodeValue && node.nodeValue !== "\n") {
                     textNodes.push(node as Text);
                 }
                 node.childNodes.forEach((n) => {
@@ -364,13 +364,6 @@ class PackExtractor {
             }
 
             pushTextNode(container);
-            for (const node of textNodes) {
-                node.nodeValue =
-                    node.nodeValue
-                        ?.replace(/ {2,}/g, " ")
-                        .replace(/\u2011/g, "-")
-                        .trim() ?? null;
-            }
 
             // Strip out span tags from AoN copypasta
             const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
@@ -380,23 +373,27 @@ class PackExtractor {
                 });
             }
 
-            return container.innerHTML
-                .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
-                .replace(/<\/p> ?<p>/g, "</p>\n<p>")
-                .replace(/<p>[ \r\n]+/g, "<p>")
-                .replace(/[ \r\n]+<\/p>/g, "</p>")
-                .replace(/<(?:b|strong)>\s*/g, "<strong>")
-                .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
-                .replace(/(<\/strong>)(\w)/g, "$1 $2")
-                .replace(/\bpf2-icon\b/g, "action-glyph")
-                .replace(/<p>\s*<\/p>/g, "")
-                .replace(/<div>\s*<\/div>/g, "")
-                .replace(/&nbsp;/g, " ")
-                .replace(/\u2013/g, "&ndash;")
-                .replace(/\s*\u2014\s*/g, "&mdash;")
-                .trim()
-                .replace(/^<hr \/>/, "")
-                .trim();
+            return (
+                container.innerHTML
+                    .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
+                    .replace(/<\/p> ?<p>/g, "</p>\n<p>")
+                    .replace(/<p>[ \r\n]+/g, "<p>")
+                    .replace(/[ \r\n]+<\/p>/g, "</p>")
+                    .replace(/<(?:b|strong)>\s*/g, "<strong>")
+                    .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
+                    .replace(/(<\/strong>)(\w)/g, "$1 $2")
+                    // .replace(/\bpf2-icon\b/g, "action-glyph")
+                    .replace(/<p> *<\/p>/g, "")
+                    .replace(/<div> *<\/div>/g, "")
+                    .replace(/&nbsp;/g, " ")
+                    .replace(/\u2011/g, "-")
+                    .replace(/\u2013/g, "&ndash;")
+                    .replace(/\s*\u2014\s*/g, "&mdash;")
+                    .replace(/ {2,}/g, " ")
+                    .trim()
+                    .replace(/^<hr \/>/, "")
+                    .trim()
+            );
         };
 
         if ("system" in docSource) {
