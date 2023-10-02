@@ -75,7 +75,7 @@
     </nav>
 
     <!-- ITEM SHEET CONTENT -->
-    <section class="sheet-content">
+    <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
             <section class="sheet-sidebar">
@@ -84,7 +84,7 @@
         {{/if}}
 
         <!-- ITEM SHEET BODY -->
-        <section class="sheet-body">
+        <div class="sheet-body">
             <!-- Item Description -->
             <section class="tab description" data-tab="description">
                 <div class="descriptions">
@@ -104,13 +104,13 @@
             </section>
 
             <!-- Item Details -->
-            <div class="tab details" data-tab="details">
+            <section class="tab details" data-tab="details">
                 {{> (lookup . "detailsTemplate")}}
                 <div class="form-group">
                     <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
                     <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
                 </div>
-            </div>
+            </section>
 
             <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}
@@ -119,11 +119,11 @@
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
-                <div class="tab rules" data-tab="rules">
+                <section class="tab rules" data-tab="rules">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
                     {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
-                </div>
+                </section>
             {{/if}}
-        </section>
-    </article>
+        </div>
+    </div>
 </form>
