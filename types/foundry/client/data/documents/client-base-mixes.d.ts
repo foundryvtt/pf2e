@@ -828,8 +828,8 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
 
 export class ClientBaseActiveEffect<
     TParent extends
-        | ClientBaseActor<ClientBaseToken<ClientBaseScene | null> | null>
-        | ClientBaseItem<ClientBaseActor<ClientBaseToken<ClientBaseScene | null> | null> | null>
+        | ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>
+        | ClientBaseItem<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null>
         | null
 > extends foundry.documents.BaseActiveEffect<TParent> {
     protected _sheet: FormApplication<this> | null;
@@ -1189,7 +1189,7 @@ export class ClientBaseActiveEffect<
     ): this["_source"];
 }
 
-export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | null> | null> extends foundry.documents
+export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | null> | null> extends foundry.documents
     .BaseActor<TParent> {
     protected _sheet: FormApplication<this> | null;
 
@@ -1548,7 +1548,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
     ): this["_source"];
 }
 
-export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScene | null> | null> extends foundry
+export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScene | null> | null> extends foundry
     .documents.BaseActorDelta<TParent> {
     protected _sheet: FormApplication<this> | null;
 
@@ -4828,7 +4828,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
 }
 
 export class ClientBaseItem<
-    TParent extends ClientBaseActor<ClientBaseToken<ClientBaseScene | null> | null> | null
+    TParent extends ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null
 > extends foundry.documents.BaseItem<TParent> {
     protected _sheet: FormApplication<this> | null;
 
