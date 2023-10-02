@@ -204,12 +204,9 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
     if (term instanceof IntermediateDie) {
         return term.die ?? term;
     }
-    if (!term.isDeterministic || term instanceof NumericTerm) {
-        return term;
-    }
 
-    // Skip a deterministic `ArithmeticExpression` if at least one operand has its own flavor
-    if (isFlavoredArithmetic(term) || (term instanceof Grouping && isFlavoredArithmetic(term.term))) {
+    const shouldPreserve = (t: RollTerm) => !t.isDeterministic || t instanceof NumericTerm || isFlavoredArithmetic(t);
+    if (shouldPreserve(term) || (term instanceof Grouping && shouldPreserve(term.term))) {
         return term;
     }
 
