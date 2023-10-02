@@ -2189,12 +2189,63 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ivarsa can enter this stance only if her most recent action was to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] or make a Spellstrike, but she can remain in the stance even if she no longer meets the requirements</p>\n<hr />\n<p><strong>Effect</strong> When she enters this stance and at the beginning of each of her turns while she's in it, Ivarsa gains 6 temporary Hit Points. While in this stance, Ivarsa's melee Strikes gain the arcane trait, deal [[/r {2}]]{2 extra fire damage}, and deal [[/r {4}]]{4 splash fire damage} to foes adjacent to her target.</p>"
+                    "value": "<p><strong>Requirements</strong> Ivarsa can enter this stance only if her most recent action was to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] or make a Spellstrike, but she can remain in the stance even if she no longer meets the requirements</p>\n<hr />\n<p><strong>Effect</strong> When she enters this stance and at the beginning of each of her turns while she's in it, Ivarsa gains 6 temporary Hit Points. While in this stance, Ivarsa's melee Strikes gain the arcane trait, deal 2 extra fire damage, and deal @Damage[(4[splash])[fire]]{4 splash fire} damage to foes adjacent to her target.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arcane-cascade",
+                        "toggleable": true
+                    },
+                    {
+                        "events": {
+                            "onTurnStart": true
+                        },
+                        "key": "TempHP",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "arcane"
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "arcane-cascade",
+                        "value": 2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.NPCAbility.Ivarsa.ArcaneCascade.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "arcane-cascade",
                 "source": {
                     "value": ""

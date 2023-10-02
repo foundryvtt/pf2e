@@ -2166,12 +2166,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Blade magi can enter this stance if their most recent action was to Cast a Spell or make a Spellstrike, but the Blade magi can remain in the stance even if they no longer meet the requirements</p>\n<hr />\n<p><strong>Effect</strong> When the Blade magi enters this stance and at the beginning of each of their turns while in it, the Blade magi gains 5 temporary Hit Points. While in this stance, the Blade magi's melee Strikes gain the arcane trait, deal an extra @Damage[2[force]], and deal [[/r (4[splash])[force]]]{4 splash force} damage to foes adjacent to the target.</p>"
+                    "value": "<p><strong>Requirements</strong> The Blade magi can enter this stance if their most recent action was to Cast a Spell or make a Spellstrike, but the Blade magi can remain in the stance even if they no longer meet the requirements</p>\n<hr />\n<p><strong>Effect</strong> When the Blade magi enters this stance and at the beginning of each of their turns while in it, the Blade magi gains 5 temporary Hit Points. While in this stance, the Blade magi's melee Strikes gain the arcane trait, deal an extra 2 force damage, and deal @Damage[(4[splash])[force]]{4 splash force} damage to foes adjacent to the target.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arcane-cascade",
+                        "toggleable": true
+                    },
                     {
                         "events": {
                             "onTurnStart": true
@@ -2183,20 +2189,38 @@
                         "value": 5
                     },
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "arcane-cascade",
-                        "toggleable": true
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "arcane"
                     },
                     {
                         "damageType": "force",
                         "key": "FlatModifier",
                         "predicate": [
-                            "arcane-cascade"
+                            "arcane-cascade",
+                            "item:melee"
                         ],
                         "selector": "strike-damage",
                         "slug": "arcane-cascade",
                         "value": 2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.NPCAbility.BladeMagus.ArcaneCascade.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
