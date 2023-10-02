@@ -10,8 +10,6 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
 
         return {
             ...sheetData,
-            hasDetails: true,
-            hasSidebar: true,
             isApex: item._source.system.traits.value.includes("apex"),
             attributes: CONFIG.PF2E.abilities,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),

@@ -11,14 +11,11 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            scrollY: [".item-details"],
-            dragDrop: [{ dropSelector: ".item-details" }],
+            dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
         };
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ABCSheetData<TItem>> {
-        const itemType = this.item.type;
-
         const sheetData = await super.getData(options);
         // Exclude any added during data preparation
         const features = Object.entries(this.item.toObject().system.items)
@@ -30,10 +27,6 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
         return {
             ...sheetData,
-            hasSidebar: itemType === "ancestry",
-            sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.hbs`,
-            hasDetails: true,
-            detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.hbs`,
             features,
         };
     }
@@ -124,7 +117,6 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 }
 
 interface ABCSheetData<TItem extends ABCItem> extends ItemSheetDataPF2e<TItem> {
-    hasDetails: true;
     features: { key: string; item: FeatureSheetData }[];
 }
 
