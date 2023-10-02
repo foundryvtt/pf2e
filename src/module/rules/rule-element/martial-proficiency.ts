@@ -1,29 +1,38 @@
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
+import { ArmorCategory } from "@item/armor/types.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { PredicateField } from "@system/schema-data-fields.ts";
+import { PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
+    declare slug: string;
+
     static override defineSchema(): MartialProficiencySchema {
-        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
+            kind: new StrictStringField({
+                required: true,
+                nullable: false,
+                choices: ["attack", "defense"],
+                initial: "attack",
+            }),
             definition: new PredicateField({ required: true, nullable: false }),
-            immutable: new fields.BooleanField({ required: false, initial: true }),
-            sameAs: new fields.StringField({
+            immutable: new StrictBooleanField({ required: false, initial: true }),
+            sameAs: new StrictStringField({
                 required: false,
                 nullable: false,
-                choices: ["simple", "martial", "advanced", "unarmed"],
+                choices: [...WEAPON_CATEGORIES, ...ARMOR_CATEGORIES],
             }),
-            maxRank: new fields.StringField({
+            maxRank: new StrictStringField({
                 required: false,
                 nullable: false,
                 choices: ["trained", "expert", "master", "legendary"],
@@ -42,7 +51,8 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
         if (!this.test()) return;
 
         const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
-        this.actor.system.proficiencies.attacks[this.slug] = {
+        const key = this.kind === "attack" ? "attacks" : "defenses";
+        this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
             immutable: this.immutable,
             label: this.label,
@@ -58,20 +68,20 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
 interface MartialProficiencyRuleElement
     extends RuleElementPF2e<MartialProficiencySchema>,
         ModelPropsFromSchema<MartialProficiencySchema> {
-    slug: string;
-
     get actor(): CharacterPF2e;
 }
 
 type MartialProficiencySchema = RuleElementSchema & {
+    /** Whether the proficiency is an attack or defense */
+    kind: StrictStringField<"attack" | "defense", "attack" | "defense", true, false, true>;
     /** The criteria for matching qualifying weapons and other attacks */
     definition: PredicateField<true, false, false>;
     /** Whether this proficiency's rank can be manually changed */
-    immutable: BooleanField<boolean, boolean, false, false, true>;
+    immutable: StrictBooleanField<false, false, true>;
     /** The attack category to which this proficiency's rank is linked */
-    sameAs: StringField<WeaponCategory, WeaponCategory, false, false, false>;
+    sameAs: StrictStringField<WeaponCategory | ArmorCategory, WeaponCategory | ArmorCategory, false, false, false>;
     /** The maximum rank this proficiency can reach, if any */
-    maxRank: StringField<
+    maxRank: StrictStringField<
         Exclude<ProficiencyRank, "untrained">,
         Exclude<ProficiencyRank, "untrained">,
         false,

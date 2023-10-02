@@ -1,4 +1,4 @@
-const ARMOR_CATEGORIES = ["unarmored", "light", "medium", "heavy", "light-barding", "heavy-barding"] as const;
+const ARMOR_CATEGORIES = new Set(["unarmored", "light", "medium", "heavy", "light-barding", "heavy-barding"] as const);
 
 const ARMOR_PROPERTY_RUNE_TYPES = new Set([
     "acidResistant",

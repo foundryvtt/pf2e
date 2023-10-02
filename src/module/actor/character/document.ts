@@ -795,7 +795,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { value: Infinity, source: "" },
             ...synthetics.dexterityModifierCaps,
         ];
-        const proficiency = wornArmor?.category ?? "unarmored";
 
         if (wornArmor) {
             dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
@@ -814,14 +813,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
         // which AC is based
-        const abilityModifier = modifiers
+        const attributeModifier = modifiers
             .filter((m) => m.type === "ability" && !!m.ability)
             .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
+        const proficiency = Object.entries(this.system.proficiencies.defenses as Record<string, MartialProficiency>)
+            .filter(([key, proficiency]) => {
+                if (!wornArmor) return key === "uarmored";
+                if (wornArmor.category === key) return true;
+                return proficiency.definition?.test(wornArmor.getRollOptions("item")) ?? false;
+            })
+            .map(([_k, v]) => v)
+            .reduce((best, p) => (p.rank > best.rank ? p : best));
 
         return new ArmorStatistic(this, {
-            rank: this.system.proficiencies.defenses[proficiency]?.rank ?? 0,
-            attribute: abilityModifier.ability!,
-            modifiers: [abilityModifier],
+            rank: proficiency?.rank ?? 0,
+            attribute: attributeModifier.ability!,
+            modifiers: [attributeModifier],
         });
     }
 
@@ -1706,44 +1713,49 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Prepare stored and synthetic martial proficiencies */
     prepareMartialProficiencies(): void {
-        const { proficiencies } = this.system;
-
-        // Set ranks of linked proficiencies to their respective categories
-        type LinkedProficiency = MartialProficiency & { sameAs: string };
-        const linkedProficiencies = Object.values(proficiencies.attacks).filter(
-            (p): p is LinkedProficiency => !!p?.sameAs && p.sameAs in proficiencies.attacks
-        );
-        for (const proficiency of linkedProficiencies) {
-            const category = proficiencies.attacks[proficiency.sameAs ?? ""];
-            proficiency.rank = ((): ZeroToFour => {
-                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                return Math.min(category.rank, maxRankIndex) as ZeroToFour;
-            })();
-        }
-
-        // Deduplicate proficiencies, set proficiency bonuses to all
-        const allProficiencies = Object.entries(proficiencies.attacks);
-        for (const [_key, proficiency] of allProficiencies) {
-            if (!proficiency) continue;
-            const duplicates = allProficiencies.flatMap(([k, p]) =>
-                p &&
-                proficiency !== p &&
-                proficiency.rank >= p.rank &&
-                "definition" in proficiency &&
-                "definition" in p &&
-                proficiency.sameAs === p.sameAs &&
-                R.equals(p.definition ?? [], [...(proficiency.definition ?? [])])
-                    ? k
-                    : []
+        for (const key of ["attacks", "defenses"] as const) {
+            const proficiencies = this.system.proficiencies[key];
+            // Set ranks of linked proficiencies to their respective categories
+            type LinkedProficiency = MartialProficiency & { sameAs: string };
+            const linkedProficiencies = Object.values(proficiencies).filter(
+                (p): p is LinkedProficiency => !!p?.sameAs && p.sameAs in proficiencies
             );
-            for (const duplicate of duplicates) {
-                delete proficiencies.attacks[duplicate];
+            for (const proficiency of linkedProficiencies) {
+                const category = proficiencies[proficiency.sameAs ?? ""];
+                proficiency.rank = ((): ZeroToFour => {
+                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                    return Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
+                })();
             }
 
-            const proficiencyBonus = createProficiencyModifier({ actor: this, rank: proficiency.rank, domains: [] });
-            proficiency.value = proficiencyBonus.modifier;
-            const sign = proficiencyBonus.modifier < 0 ? "" : "+";
-            proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
+            // Deduplicate proficiencies, set proficiency bonuses to all
+            const allProficiencies = Object.entries(proficiencies);
+            for (const [_key, proficiency] of allProficiencies) {
+                if (!proficiency) continue;
+                const duplicates = allProficiencies.flatMap(([k, p]) =>
+                    p &&
+                    proficiency !== p &&
+                    proficiency.rank >= p.rank &&
+                    "definition" in proficiency &&
+                    "definition" in p &&
+                    proficiency.sameAs === p.sameAs &&
+                    R.equals(p.definition ?? [], [...(proficiency.definition ?? [])])
+                        ? k
+                        : []
+                );
+                for (const duplicate of duplicates) {
+                    delete proficiencies[duplicate];
+                }
+
+                const proficiencyBonus = createProficiencyModifier({
+                    actor: this,
+                    rank: proficiency.rank,
+                    domains: [],
+                });
+                proficiency.value = proficiencyBonus.modifier;
+                const sign = proficiencyBonus.modifier < 0 ? "" : "+";
+                proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
+            }
         }
     }
 

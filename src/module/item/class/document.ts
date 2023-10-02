@@ -135,16 +135,16 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         for (const category of WEAPON_CATEGORIES) {
             attacks[category].rank = Math.max(attacks[category].rank, this.attacks[category]) as ZeroToFour;
-            this.logAutoChange(`system.martial.${category}.rank`, this.attacks[category]);
+            this.logAutoChange(`system.proficiencies.attacks.${category}.rank`, this.attacks[category]);
         }
 
-        const nonBarding = ARMOR_CATEGORIES.filter(
+        const nonBarding = Array.from(ARMOR_CATEGORIES).filter(
             (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
                 !["light-barding", "heavy-barding"].includes(c)
         );
         for (const category of nonBarding) {
             defenses[category].rank = Math.max(defenses[category].rank, this.defenses[category]) as ZeroToFour;
-            this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
+            this.logAutoChange(`system.proficiencies.defenses.${category}.rank`, this.defenses[category]);
         }
 
         for (const saveType of SAVE_TYPES) {
