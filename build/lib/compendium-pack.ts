@@ -248,7 +248,7 @@ class CompendiumPack {
         docSource.flags ??= {};
         if (isActorSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Actor" }) };
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id!, { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {

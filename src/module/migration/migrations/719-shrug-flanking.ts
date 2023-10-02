@@ -20,7 +20,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
                     const npcId = sourceId?.replace(/^Compendium\.[^.]+\./, "") ?? actorSource._id;
 
                     if (this.needsDenyAdvantage(source.system.rules)) {
-                        const rule = this.npcDenyAvantage(npcId);
+                        const rule = this.npcDenyAvantage(npcId!);
                         source.system.rules.push(rule);
                     }
                 }
