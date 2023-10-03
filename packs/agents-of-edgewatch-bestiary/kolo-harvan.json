@@ -439,17 +439,26 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "finesse",
-                            "upward-stab"
+                            "melee",
+                            {
+                                "or": [
+                                    "upward-stab",
+                                    {
+                                        "gte": [
+                                            "target:size",
+                                            2
+                                        ]
+                                    }
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     },
                     {
-                        "domain": "all",
+                        "domain": "damage",
                         "key": "RollOption",
-                        "label": "Target is Medium or larger",
                         "option": "upward-stab",
-                        "toggleable": true
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": null,
