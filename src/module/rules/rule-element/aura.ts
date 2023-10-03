@@ -1,7 +1,9 @@
+import { userColorForActor } from "@actor/helpers.ts";
 import { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
 import {
+    DataUnionField,
     PredicateField,
     StrictArrayField,
     StrictBooleanField,
@@ -22,8 +24,6 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
-    declare appearance: AuraREAppearanceData;
-
     constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
         super(source, options);
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
@@ -31,16 +31,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             effect.includesSelf ??= effect.affects !== "enemies";
             effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         }
-
-        this.appearance = mergeObject(this.schema.fields.appearance.clean({}) ?? {}, this.appearance ?? {});
-        this.appearance.highlight.color ??= ((): HexColorString => {
-            const { actor } = this;
-            const user =
-                game.users.find((u) => u.character === actor) ??
-                game.users.players.find((u) => actor.testUserPermission(u, "OWNER")) ??
-                actor.primaryUpdater;
-            return user?.color ?? "#43dfdf";
-        })();
     }
 
     static override defineSchema(): AuraSchema {
@@ -63,7 +53,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 choices: ["allies", "enemies", "all"],
                 label: "PF2E.RuleEditor.Aura.Effects.Affects",
             }),
-            events: new fields.ArrayField(
+            events: new StrictArrayField(
                 new StrictStringField({
                     required: true,
                     blank: false,
@@ -93,13 +83,13 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" }
             ),
             predicate: new PredicateField({ required: false, nullable: false }),
-            removeOnExit: new fields.BooleanField({
-                required: false,
+            removeOnExit: new StrictBooleanField({
+                required: true,
                 nullable: false,
-                initial: undefined,
+                initial: true,
                 label: "PF2E.RuleEditor.Aura.Effects.RemoveOnExit",
             }),
-            includesSelf: new fields.BooleanField({
+            includesSelf: new StrictBooleanField({
                 required: false,
                 nullable: false,
                 initial: undefined,
@@ -127,12 +117,22 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         const appearanceSchema: AuraAppearanceSchema = {
             border: new fields.SchemaField(
                 {
-                    color: new fields.ColorField({
-                        required: true,
-                        nullable: false,
-                        initial: "#000000",
-                        label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                    }),
+                    color: new DataUnionField(
+                        [
+                            new StrictStringField<"user-color", "user-color", true, false, false>({
+                                required: true,
+                                choices: ["user-color"],
+                                initial: undefined,
+                            }),
+                            new fields.ColorField({ required: true, nullable: false, initial: undefined }),
+                        ],
+                        {
+                            required: true,
+                            nullable: false,
+                            initial: "#000000",
+                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                        }
+                    ),
                     alpha: new fields.AlphaField({
                         required: true,
                         nullable: false,
@@ -149,12 +149,23 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             ),
             highlight: new fields.SchemaField(
                 {
-                    color: new fields.ColorField({
-                        required: false,
-                        nullable: false,
-                        initial: undefined,
-                        label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                    }),
+                    color: new DataUnionField(
+                        [
+                            new StrictStringField<"user-color", "user-color", true, false, false>({
+                                required: true,
+                                nullable: false,
+                                choices: ["user-color"],
+                                initial: undefined,
+                            }),
+                            new fields.ColorField({ required: true, nullable: false, initial: undefined }),
+                        ],
+                        {
+                            required: true,
+                            nullable: false,
+                            initial: "user-color",
+                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                        }
+                    ),
                     alpha: new fields.AlphaField({
                         required: false,
                         nullable: false,
@@ -165,7 +176,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 {
                     required: false,
                     nullable: false,
-                    initial: () => ({ color: undefined, alpha: 0.25 }),
+                    initial: () => ({ color: "user-color", alpha: 0.25 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
                 }
             ),
@@ -192,8 +203,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     }),
                     translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
                         required: false,
-                        nullable: false,
-                        initial: undefined,
+                        nullable: true,
+                        initial: null,
                         label: "PF2E.RuleEditor.Aura.Appearance.Translation.Label",
                         hint: "PF2E.RuleEditor.Aura.Appearance.Translation.Hint",
                     } as const),
@@ -223,7 +234,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             radius: new ResolvableValueField({
                 required: true,
                 nullable: false,
-                initial: undefined,
+                initial: 5,
                 label: "PF2E.RuleEditor.Aura.Basic.Radius",
             }),
             level: new ResolvableValueField({
@@ -239,22 +250,22 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 label: "PF2E.TraitsLabel",
             }),
             effects: new StrictArrayField(effectSchemaField, {
-                required: false,
+                required: true,
                 nullable: false,
                 label: "PF2E.RuleEditor.Aura.Effects.Label",
             }),
             appearance: new fields.SchemaField(appearanceSchema, {
-                required: false,
-                nullable: true,
+                required: true,
+                nullable: false,
                 initial: () => ({
                     border: { color: "#000000", alpha: 0.75 },
-                    highlight: { color: undefined, alpha: 0.25 },
+                    highlight: { color: "user-color", alpha: 0.25 },
                     texture: null,
                 }),
                 label: "PF2E.RuleEditor.Aura.Appearance.Label",
             }),
-            mergeExisting: new fields.BooleanField({
-                required: false,
+            mergeExisting: new StrictBooleanField({
+                required: true,
                 nullable: false,
                 initial: true,
                 label: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Label",
@@ -329,16 +340,20 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 
     #processAppearanceData(): AuraAppearanceData {
-        const { border, highlight, texture } = this.appearance;
+        const appearance = deepClone(this.appearance);
+        const { border, highlight, texture } = appearance;
         const textureSrc = ((): ImageFilePath | VideoFilePath | null => {
             if (!texture) return null;
             const maybeTextureSrc = this.resolveInjectedProperties(texture.src);
             return isImageOrVideoPath(maybeTextureSrc) ? maybeTextureSrc : "icons/svg/hazard.svg";
         })();
 
+        if (border) border.color = border.color === "user-color" ? userColorForActor(this.actor) : border.color;
+        highlight.color = highlight.color === "user-color" ? userColorForActor(this.actor) : highlight.color;
+
         return {
             border: border && { color: Number(Color.fromString(border.color)), alpha: border.alpha },
-            highlight: { color: Number(Color.fromString(highlight.color!)), alpha: highlight.alpha },
+            highlight: { color: Number(Color.fromString(highlight.color)), alpha: highlight.alpha },
             texture: texture?.alpha && textureSrc ? { ...texture, src: textureSrc } : null,
         };
     }
@@ -351,7 +366,7 @@ interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSch
 
 type AuraSchema = RuleElementSchema & {
     /** The radius of the order in feet, or a string that will resolve to one */
-    radius: ResolvableValueField<true, false, false>;
+    radius: ResolvableValueField<true, false, true>;
     /** An optional level for the aura, to be used to set the level of the effects it transmits */
     level: ResolvableValueField<false, true, true>;
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
@@ -364,11 +379,11 @@ type AuraSchema = RuleElementSchema & {
         true
     >;
     /** References to effects included in this aura */
-    effects: ArrayField<
+    effects: StrictArrayField<
         SchemaField<AuraEffectSchema>,
         SourceFromSchema<AuraEffectSchema>[],
         ModelPropsFromSchema<AuraEffectSchema>[],
-        false,
+        true,
         false,
         true
     >;
@@ -380,15 +395,15 @@ type AuraSchema = RuleElementSchema & {
         AuraAppearanceSchema,
         SourceFromSchema<AuraAppearanceSchema>,
         ModelPropsFromSchema<AuraAppearanceSchema>,
-        false,
         true,
+        false,
         true
     >;
     /**
      * If another aura with the same slug is already being emitted, merge this aura's data in with the other's,
      * combining traits and effects as well as merging `colors` data.
      */
-    mergeExisting: BooleanField<boolean, boolean, false, false, true>;
+    mergeExisting: BooleanField<boolean, boolean, true, false, true>;
 };
 
 type AuraEffectSchema = {
@@ -414,25 +429,41 @@ type AuraEffectSchema = {
         true
     >;
     predicate: PredicateField<false, false, true>;
-    removeOnExit: BooleanField<boolean, boolean, false, false, false>;
-    includesSelf: BooleanField<boolean, boolean, false, false, false>;
+    removeOnExit: StrictBooleanField<true, false, true>;
+    includesSelf: StrictBooleanField<false, false, false>;
 };
 
 type AuraAppearanceSchema = {
     /** Configuration of the border's color and alpha */
     border: SchemaField<
-        { color: ColorField<true, false, true>; alpha: AlphaField<true, false, true> },
-        { color: HexColorString; alpha: number },
-        { color: HexColorString; alpha: number },
+        {
+            color: DataUnionField<
+                StrictStringField<"user-color", "user-color", true, false, false> | ColorField<true, false, false>,
+                true,
+                false,
+                true
+            >;
+            alpha: AlphaField<true, false, true>;
+        },
+        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | HexColorString; alpha: number },
         false,
         true,
         true
     >;
     /** Configuration of the highlight's color and alpha */
     highlight: SchemaField<
-        { color: ColorField<false, false, false>; alpha: AlphaField<false, false, true> },
-        { color: HexColorString | undefined; alpha: number },
-        { color: HexColorString | undefined; alpha: number },
+        {
+            color: DataUnionField<
+                StrictStringField<"user-color", "user-color", true, false, false> | ColorField<true, false, false>,
+                true,
+                false,
+                true
+            >;
+            alpha: AlphaField<false, false, true>;
+        },
+        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | HexColorString; alpha: number },
         false,
         false,
         true
@@ -460,8 +491,8 @@ type AuraTextureSchema = {
         SourceFromSchema<XYPairSchema>,
         ModelPropsFromSchema<XYPairSchema>,
         false,
-        false,
-        false
+        true,
+        true
     >;
     /** If the `src` is a video, whether to loop it */
     loop: StrictBooleanField<false, false, true>;
@@ -472,16 +503,6 @@ type AuraTextureSchema = {
 type XYPairSchema = {
     x: StrictNumberField<number, number, true, false, false>;
     y: StrictNumberField<number, number, true, false, false>;
-};
-
-type AuraREAppearanceData = ModelPropsFromSchema<AuraAppearanceSchema> & {
-    texture:
-        | (ModelPropsFromSchema<AuraAppearanceSchema> & {
-              loop: boolean;
-              playbackRate: number;
-              translation: { x: number; y: number } | null;
-          })
-        | null;
 };
 
 interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {

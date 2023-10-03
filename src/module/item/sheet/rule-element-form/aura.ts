@@ -3,6 +3,7 @@ import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
+import { userColorForActor } from "@actor/helpers.ts";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
@@ -63,6 +64,41 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
             }
         }
 
+        // Ensure only one checkbox or text input for each color input group has a `name` attribute
+        for (const key of ["border", "highlight"] as const) {
+            const inputName = `system.rules.${this.index}.appearance.${key}.color`;
+            const textInput = htmlQuery<HTMLInputElement>(html, `input[type=text][name="${inputName}"]`);
+            const colorInput = htmlQuery<HTMLInputElement>(html, `input[type=color][data-edit="${inputName}"]`);
+            const checkbox = htmlQuery<HTMLInputElement>(html, `input[type=checkbox][name="${inputName}"]`);
+            if (!(textInput && colorInput && checkbox)) {
+                continue;
+            }
+
+            if (this.object.appearance[key]?.color === "user-color") {
+                textInput.removeAttribute("name");
+                textInput.disabled = true;
+                colorInput.disabled = true;
+            } else {
+                checkbox.removeAttribute("name");
+            }
+
+            checkbox.addEventListener("change", () => {
+                if (checkbox.checked) {
+                    checkbox.name = textInput.name;
+                    textInput.removeAttribute("name");
+                    textInput.disabled = true;
+                    colorInput.disabled = true;
+                    textInput.value = colorInput.value = userColorForActor(this.object.actor);
+                } else {
+                    textInput.name = checkbox.name;
+                    checkbox.removeAttribute("name");
+                    textInput.disabled = false;
+                    colorInput.disabled = false;
+                    textInput.value = colorInput.value = "#000000";
+                }
+            });
+        }
+
         const translationX = htmlQuery<HTMLInputElement>(html, "input[data-translation=x]");
         const translationY = htmlQuery<HTMLInputElement>(html, "input[data-translation=y]");
         if (translationX && translationY) {
@@ -80,6 +116,9 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     override async getData(): Promise<AuraSheetData> {
+        const { border, highlight } = this.object.appearance;
+        const userColor = userColorForActor(this.object.actor);
+
         return {
             ...(await super.getData()),
             affectsOptions: {
@@ -91,6 +130,8 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ...e,
                 item: fromUuidSync(e.uuid),
             })),
+            borderColor: border?.color === "user-color" ? userColor : border?.color ?? null,
+            highlightColor: highlight.color === "user-color" ? userColor : highlight?.color,
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),
         };
@@ -141,8 +182,12 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
             appearance.border = null;
         }
 
-        if (appearance?.highlight?.color === game.user.color) {
-            appearance.highlight.color = undefined;
+        // A color value will be `null` if a checkbox has be unchecked
+        if (appearance?.border?.color === null) {
+            appearance.border.color = "#000000";
+        }
+        if (appearance?.highlight?.color === null) {
+            appearance.highlight.color = "#000000";
         }
 
         const texture = appearance?.texture;
@@ -150,7 +195,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
             if (texture.translation) {
                 const { x, y } = texture.translation;
                 if (!x && !y) {
-                    delete texture.translation;
+                    texture.translation = null;
                 }
             }
 
@@ -229,6 +274,8 @@ interface AuraSheetData extends RuleElementFormSheetData<AuraRuleElementSource, 
         {
             item: ClientDocument | CompendiumIndexData | null;
         }[];
+    borderColor: HexColorString | null;
+    highlightColor: HexColorString;
     saveTypes: ConfigPF2e["PF2E"]["saves"];
     isImageFile: boolean;
 }
