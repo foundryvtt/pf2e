@@ -1,30 +1,29 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
+import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-    constructor(source: AELikeSource, options: RuleElementOptions) {
-        if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
-            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
-        }
-        super(source, options);
-    }
-
     static override defineSchema(): AELikeSchema {
         const { fields } = foundry.data;
+
+        const baseSchema = super.defineSchema();
+        const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;
+        baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
+
         return {
-            ...super.defineSchema(),
+            ...baseSchema,
             mode: new fields.StringField({
                 required: true,
-                choices: this.CHANGE_MODES,
+                choices: R.keys.strict(this.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
@@ -38,8 +37,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             merge: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
-
-    static CHANGE_MODES = ["multiply", "add", "subtract", "remove", "downgrade", "upgrade", "override"] as const;
 
     static CHANGE_MODE_DEFAULT_PRIORITIES = {
         multiply: 10,
@@ -275,7 +272,7 @@ type AELikeSchema = RuleElementSchema & {
     merge: BooleanField<boolean, boolean, false, false, false>;
 };
 
-type AELikeChangeMode = (typeof AELikeRuleElement.CHANGE_MODES)[number];
+type AELikeChangeMode = keyof typeof AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
 type AELikeDataPrepPhase = (typeof AELikeRuleElement.PHASES)[number];
 
 interface AELikeSource extends RuleElementSource {

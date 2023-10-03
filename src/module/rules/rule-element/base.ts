@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
@@ -89,7 +89,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 initial: undefined,
                 label: "PF2E.RuleEditor.General.Label",
             }),
-            priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
+            priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 100 }),
             ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),

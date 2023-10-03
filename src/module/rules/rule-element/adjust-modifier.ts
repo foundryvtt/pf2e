@@ -3,6 +3,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { StrictArrayField } from "@system/schema-data-fields.ts";
 import { objectHasKey } from "@util";
+import * as R from "remeda";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { ResolvableValueField } from "./data.ts";
@@ -15,10 +16,6 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
 
     constructor(source: AdjustModifierSource, options: RuleElementOptions) {
         if (source.suppress) source.mode = "override"; // Allow `suppress` as a shorthand without providing `mode`
-        if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
-            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
-        }
-
         super(source, options);
 
         if (typeof source.selector === "string" && this.selectors.length === 0) {
@@ -32,11 +29,15 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     static override defineSchema(): AdjustModifierSchema {
         const { fields } = foundry.data;
 
+        const baseSchema = super.defineSchema();
+        const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
+        baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
+
         return {
-            ...super.defineSchema(),
+            ...baseSchema,
             mode: new fields.StringField({
                 required: true,
-                choices: AELikeRuleElement.CHANGE_MODES,
+                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
