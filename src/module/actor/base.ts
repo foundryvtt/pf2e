@@ -773,7 +773,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected prepareRuleElements(): RuleElementPF2e[] {
-        return this.items.contents
+        // Ensure "temporary" items have their rule elements go last when priority is equal
+        return R.sortBy(this.items.contents, (i) => i instanceof AbstractEffectPF2e)
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
