@@ -38,7 +38,7 @@ type RuleElementSchema = {
     /** A label for use by any rule element for display in an interface */
     label: StringField<string, string, true, false, false>;
     /** The place in order of application (ascending), among an actor's list of rule elements */
-    priority: NumberField<number, number, false, false, true>;
+    priority: NumberField<number, number, true, false, true>;
     /** A test of whether the rules element is to be applied */
     predicate: PredicateField;
     /** Whether the rule element is ignored and deactivated */

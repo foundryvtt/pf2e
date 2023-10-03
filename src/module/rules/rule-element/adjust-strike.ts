@@ -1,11 +1,12 @@
 import { ActorType } from "@actor/data/index.ts";
-import { MeleePF2e, WeaponPF2e } from "@item";
+import type { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
+import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
@@ -33,7 +34,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
             ...super.defineSchema(),
             mode: new fields.StringField({
                 required: true,
-                choices: AELikeRuleElement.CHANGE_MODES,
+                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             property: new fields.StringField({

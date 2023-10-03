@@ -29,10 +29,17 @@ export interface DataFieldOptions<
     required?: TRequired;
     nullable?: TNullable;
     initial?: THasInitial extends true
-        ? TSourceProp | (() => TSourceProp) | null
+        ?
+              | TSourceProp
+              | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+              | null
         : THasInitial extends false
         ? undefined
-        : TSourceProp | (() => TSourceProp) | null | undefined;
+        :
+              | TSourceProp
+              | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+              | null
+              | undefined;
     validate?: (value: unknown) => DataModelValidationFailure | boolean | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
     readonly?: boolean;
