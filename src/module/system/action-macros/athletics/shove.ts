@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
 
-export function shove(options: SkillActionOptions) {
+export function shove(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:shove"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
@@ -27,12 +27,14 @@ export function shove(options: SkillActionOptions) {
         traits: ["attack"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.fortitude,
+        difficultyClass: options.difficultyClass ?? "fortitude",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -1,0 +1,45 @@
+{
+    "_id": "HaZ5LB1wh1LY5wUy",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-minute-echoes.webp",
+    "name": "Effect: Potion of Minute Echoes",
+    "system": {
+        "description": {
+            "value": "<p>For 1 minute after drinking this potion, you gain a +2 status bonus to Perception checks to hear. In addition, each time you Seek, your hearing becomes a precise sense until the beginning of your next turn, allowing you to pinpoint creatures' locations and otherwise perceive the world in detail by listening to the sound of echoes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

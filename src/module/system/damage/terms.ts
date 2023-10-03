@@ -1,6 +1,12 @@
 import { isObject, tupleHasValue } from "@util";
-import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers";
-import { DamageInstance } from "./roll";
+import {
+    isFlavoredArithmetic,
+    isSystemDamageTerm,
+    markAsCrit,
+    renderComponentDamage,
+    simplifyTerm,
+} from "./helpers.ts";
+import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
@@ -17,7 +23,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 CONFIG.Dice.termTypes[datum.class ?? ""] ??
                 Object.values(CONFIG.Dice.terms).find((t) => t.name === datum.class) ??
                 Die;
-            return TermCls.fromData(datum);
+            return simplifyTerm(TermCls.fromData(datum));
         }) as [RollTerm, RollTerm];
 
         if (
@@ -78,8 +84,15 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
      * Multiplication is almost always going to be critical-hit doubling, which must be preserved for IWR analysis.
      */
     get expression(): string {
-        // If this expression is deterministic, return the total as the expression
-        if (this.isDeterministic) return this.total!.toString();
+        // If this expression is deterministic and neither operand has its own flavor, return the stringified total
+        if (
+            this.isDeterministic &&
+            typeof this.total === "number" &&
+            !Number.isNaN(this.total) &&
+            !isFlavoredArithmetic(this)
+        ) {
+            return this.total.toString();
+        }
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
@@ -122,7 +135,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.operands.every((o) => o.isDeterministic && !(o instanceof MathTerm));
+        return this.operands.every((o) => o.isDeterministic);
     }
 
     get minimumValue(): number {
@@ -208,7 +221,7 @@ class Grouping extends RollTerm<GroupingData> {
             CONFIG.Dice.termTypes[termData.term.class ?? ""] ??
             Object.values(CONFIG.Dice.terms).find((t) => t.name === termData.term.class) ??
             NumericTerm;
-        const childTerm = TermCls.fromData(termData.term);
+        const childTerm = simplifyTerm(TermCls.fromData(termData.term));
 
         // Remove redundant groupings
         if (childTerm instanceof Grouping) {
@@ -243,9 +256,15 @@ class Grouping extends RollTerm<GroupingData> {
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic
-            ? this.total!.toString()
-            : this.term instanceof DiceTerm
+        if (
+            this.isDeterministic &&
+            typeof this.total === "number" &&
+            !Number.isNaN(this.total) &&
+            !isFlavoredArithmetic(this.term)
+        ) {
+            return this.total.toString();
+        }
+        return this.term instanceof DiceTerm || this.term instanceof MathTerm
             ? this.term.expression
             : `(${this.term.expression})`;
     }
@@ -268,7 +287,7 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.term.isDeterministic && !(this.term instanceof MathTerm);
+        return this.term.isDeterministic;
     }
 
     get minimumValue(): number {
@@ -324,104 +343,141 @@ interface GroupingData extends RollTermData {
     term: RollTermData;
 }
 
+/**
+ * A `Die` surrogate where the `number` or `faces` were not resolvable to numbers at parse time: serializes itself as a
+ * `Die` as soon it is able (guaranteed after evaluation)
+ */
 class IntermediateDie extends RollTerm<IntermediateDieData> {
-    number: NumericTerm | MathTerm | Grouping;
+    number: number | MathTerm | Grouping;
 
-    faces: NumericTerm | MathTerm | Grouping;
+    faces: number | MathTerm | Grouping;
 
-    die: Evaluated<Die> | null = null;
+    die: Die | null;
 
     constructor(data: IntermediateDieData) {
         super(data);
 
         const setTerm = (
-            termData: NumericTermData | MathTermData | GroupingData
-        ): NumericTerm | MathTerm | Grouping => {
-            const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
-            const term = TermCls.fromData(termData);
-            if (term instanceof Grouping) term.isIntermediate = true;
+            termData: number | NumericTermData | MathTermData | GroupingData
+        ): number | MathTerm | Grouping => {
+            if (typeof termData === "number") return termData;
 
-            return term as NumericTerm | MathTerm | Grouping;
+            const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
+            const term = simplifyTerm(TermCls.fromData(termData));
+            if (term instanceof NumericTerm) return term.number;
+
+            // Immediately evaluate deterministic number or faces
+            if (term.isDeterministic) return Roll.safeEval(term.formula);
+
+            // User is up to something weird
+            if (term instanceof Grouping) {
+                term.isIntermediate = true;
+                return term;
+            }
+
+            // User is up to something _really_ weird
+            if (!(term instanceof MathTerm)) {
+                console.warn(`Unexpected term type: ${term.constructor.name}`);
+            }
+
+            return term as MathTerm;
         };
 
-        this.die = data.die ? (Die.fromData({ ...data.die, class: "Die" }) as Evaluated<Die>) : null;
         this.number = setTerm(data.number);
         this.faces = setTerm(data.faces);
+        this.die = ((): Die | null => {
+            if (data.die) return Die.fromData({ ...data.die, class: "Die" });
+            if (typeof this.number === "number" && typeof this.faces === "number") {
+                return Die.fromData({
+                    number: this.number,
+                    faces: this.faces,
+                    evaluated: this._evaluated,
+                    options: this.options,
+                });
+            }
+            return null;
+        })();
     }
 
     static override SERIALIZE_ATTRIBUTES = ["number", "faces", "die"];
 
     get expression(): string {
-        return this.die?.expression ?? `${this.number.expression}d${this.faces.expression}`;
+        return this.die?.expression ?? `${this.number}d${this.faces}`;
     }
 
     override get total(): number | undefined {
-        return this.die?.total;
+        return this.isDeterministic ? Number(this.number) * Number(this.faces) : this.die?.total;
     }
 
-    get dice(): [Evaluated<Die>] | never[] {
+    get dice(): Die[] {
         return this.die ? [this.die] : [];
     }
 
-    /** `MathTerm` incorrectly reports as being deterministic, so consider them to always not be so */
-    override get isDeterministic() {
-        return (
-            this.number.isDeterministic &&
-            this.faces.isDeterministic &&
-            !(this.number instanceof MathTerm) &&
-            !(this.faces instanceof MathTerm)
-        );
+    override get isDeterministic(): boolean {
+        return this.number === 0 || this.faces === 0 || this.faces === 1;
     }
 
     get minimumValue(): number {
-        return this.isDeterministic
-            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }), "minimum")
-            : NaN;
+        return DamageInstance.getValue(
+            this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
+            "minimum"
+        );
     }
 
     /** Not able to get an expected value from a Math term */
     get expectedValue(): number {
-        return this.isDeterministic
-            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }))
-            : NaN;
+        return DamageInstance.getValue(this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }));
     }
 
     get maximumValue(): number {
-        return this.isDeterministic
-            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }), "maximum")
-            : NaN;
+        return DamageInstance.getValue(
+            this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
+            "maximum"
+        );
     }
 
-    protected override async _evaluate(): Promise<Evaluated<this>> {
-        await this.number.evaluate({ async: true });
-        this.number = NumericTerm.fromData({ class: "NumericTerm", number: this.number.total! } as NumericTermData);
-        await this.faces.evaluate({ async: true });
-        this.faces = NumericTerm.fromData({ class: "NumericTerm", number: this.faces.total! } as NumericTermData);
+    protected override async _evaluate(): Promise<Evaluated<this>>;
+    protected override async _evaluate(): Promise<this> {
+        if (typeof this.number !== "number") {
+            this.number = (await this.number.evaluate({ async: true })).total;
+        }
+        if (typeof this.faces !== "number") {
+            this.faces = (await this.faces.evaluate({ async: true })).total;
+        }
 
         this.die = await new Die({
-            number: this.number.total!,
-            faces: this.faces.total!,
+            number: this.number,
+            faces: this.faces,
             options: this.options,
         }).evaluate({ async: true });
         this._evaluated = true;
 
-        return this as Evaluated<this>;
+        return this;
     }
 
-    override toJSON(): IntermediateDieData {
+    override toJSON(): DieData | IntermediateDieData {
+        if (this.die) return this.die.toJSON();
+        if (typeof this.number === "number" && typeof this.faces === "number") {
+            return Die.fromData({
+                class: "Die",
+                number: this.number,
+                faces: this.faces,
+                evaluated: this._evaluated,
+                options: this.options,
+            });
+        }
         return {
             ...super.toJSON(),
-            number: this.number.toJSON(),
-            faces: this.faces.toJSON(),
-            die: this.die?.toJSON(),
+            number: typeof this.number === "number" ? this.number : this.number.toJSON(),
+            faces: typeof this.faces === "number" ? this.faces : this.faces.toJSON(),
         };
     }
 }
 
 interface IntermediateDieData extends RollTermData {
-    class?: "IntermediateDie";
-    number: NumericTermData | MathTermData | GroupingData;
-    faces: NumericTermData | MathTermData | GroupingData;
+    class?: string;
+    number: number | NumericTermData | MathTermData | GroupingData;
+    faces: number | NumericTermData | MathTermData | GroupingData;
     die?: DieData | null;
 }
 
@@ -449,4 +505,5 @@ interface InstancePool extends PoolTerm {
     rolls: DamageInstance[];
 }
 
-export { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie };
+export { ArithmeticExpression, Grouping, InstancePool, IntermediateDie };
+export type { GroupingData };

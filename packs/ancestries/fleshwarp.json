@@ -1,0 +1,101 @@
+{
+    "_id": "FXlXmNBFiiz9oasi",
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/fleshwarp.svg",
+    "name": "Fleshwarp",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": [
+                "aklo",
+                "draconic",
+                "dwarven",
+                "elven",
+                "goblin",
+                "undercommon"
+            ]
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": []
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Fleshwarps are people whose forms were created or radically transformed by magic, alchemy, or unnatural energies. Their unorthodox appearance can make it difficult for them to find a place for themselves in the world.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.vTB1bTYVE4onyyy1]{Fleshwarp}</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": []
+            }
+        },
+        "hp": 10,
+        "items": {
+            "31xm9": {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Unusual Anatomy",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Unusual Anatomy"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common"
+            ]
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": "sm"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": "med"
+                    }
+                ],
+                "flag": "fleshwarpSize",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.traits.size.value",
+                "value": "{item|flags.pf2e.rulesSelections.fleshwarpSize}"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "speed": 25,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aberration",
+                "humanoid"
+            ]
+        },
+        "vision": "lowLightVision"
+    },
+    "type": "ancestry"
+}

@@ -1,0 +1,308 @@
+{
+    "_id": "kJfLBPtiVi5LQu0v",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Nocturnal Charm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The supernatural charm of your vampiric progenitor hangs about you, and you've learned to use it on mortals. Against humanoids (or other creatures of your type, if you're not a humanoid), you gain a +1 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], and to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] and @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "target:trait:aberration",
+                                    "self:trait:aberration"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:animal",
+                                    "self:trait:animal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:astral",
+                                    "self:trait:astral"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:beast",
+                                    "self:trait:beast"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:celestial",
+                                    "self:trait:celestial"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:construct",
+                                    "self:trait:construct"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:dragon",
+                                    "self:trait:dragon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "self:trait:elemental"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:ethereal",
+                                    "self:trait:ethereal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fey",
+                                    "self:trait:fey"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fiend",
+                                    "self:trait:fiend"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fungus",
+                                    "self:trait:fungus"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:monitor",
+                                    "self:trait:monitor"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:ooze",
+                                    "self:trait:ooze"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:plant",
+                                    "self:trait:plant"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:spirit",
+                                    "self:trait:spirit"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:mode:undead",
+                                    "self:mode:undead"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "self:trait:humanoid"
+                    }
+                ],
+                "selector": "deception",
+                "slug": "nocturnal-charm-dec-non-humanoid",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:humanoid",
+                    "target:trait:humanoid",
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "slug": "nocturnal-charm-dec-humanoid",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:gather-information",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "target:trait:aberration",
+                                    "self:trait:aberration"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:animal",
+                                    "self:trait:animal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:astral",
+                                    "self:trait:astral"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:beast",
+                                    "self:trait:beast"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:celestial",
+                                    "self:trait:celestial"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:construct",
+                                    "self:trait:construct"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:dragon",
+                                    "self:trait:dragon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "self:trait:elemental"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:ethereal",
+                                    "self:trait:ethereal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fey",
+                                    "self:trait:fey"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fiend",
+                                    "self:trait:fiend"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:fungus",
+                                    "self:trait:fungus"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:monitor",
+                                    "self:trait:monitor"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:ooze",
+                                    "self:trait:ooze"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:plant",
+                                    "self:trait:plant"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:spirit",
+                                    "self:trait:spirit"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:mode:undead",
+                                    "self:mode:undead"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    },
+                    {
+                        "not": "self:trait:humanoid"
+                    }
+                ],
+                "selector": "diplomacy",
+                "slug": "nocturnal-charm-dip-non-humanoid",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:humanoid",
+                    "target:trait:humanoid",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "slug": "nocturnal-charm-dip-humanoid",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dhampir"
+            ]
+        }
+    },
+    "type": "feat"
+}

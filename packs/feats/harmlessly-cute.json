@@ -1,0 +1,48 @@
+{
+    "_id": "GYdLf1LhvSUeu95Y",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Harmlessly Cute",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your size and demeanor make it easy for you to convince others that you mean no harm. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shameless Request] skill feat as a bonus feat. Additionally, you gain a +1 circumstance bonus to initiative checks when you roll Deception for initiative.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deception"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shameless Request"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

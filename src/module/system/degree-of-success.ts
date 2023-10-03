@@ -1,9 +1,7 @@
-import { StatisticModifier } from "@actor/modifiers";
-import { DCSlug } from "@actor/types";
-import { ZeroToThree } from "@module/data";
-import { CheckRoll } from "./check";
-import { PredicatePF2e } from "./predication";
-import { StatisticDifficultyClass } from "./statistic";
+import { ZeroToThree } from "@module/data.ts";
+import type { CheckRoll } from "./check/roll.ts";
+import type { PredicatePF2e } from "./predication.ts";
+import type { StatisticDifficultyClass } from "./statistic/index.ts";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {
@@ -82,7 +80,18 @@ class DegreeOfSuccess {
         amount: DegreeAdjustmentAmount,
         degreeOfSuccess: DegreeOfSuccessIndex
     ): DegreeOfSuccessIndex {
-        return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
+        switch (amount) {
+            case "criticalFailure":
+                return 0;
+            case "failure":
+                return 1;
+            case "success":
+                return 2;
+            case "criticalSuccess":
+                return 3;
+            default:
+                return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
+        }
     }
 
     /**
@@ -121,6 +130,10 @@ const DEGREE_ADJUSTMENT_AMOUNTS = {
     LOWER: -1,
     INCREASE: 1,
     INCREASE_BY_TWO: 2,
+    TO_CRITICAL_FAILURE: "criticalFailure",
+    TO_FAILURE: "failure",
+    TO_SUCCESS: "success",
+    TO_CRITICAL_SUCCESS: "criticalSuccess",
 } as const;
 
 type DegreeAdjustmentAmount = (typeof DEGREE_ADJUSTMENT_AMOUNTS)[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];
@@ -135,8 +148,8 @@ interface DegreeOfSuccessAdjustment {
 }
 
 interface CheckDC {
-    slug?: DCSlug;
-    statistic?: StatisticDifficultyClass | StatisticModifier | null;
+    slug?: string | null;
+    statistic?: StatisticDifficultyClass | null;
     label?: string;
     scope?: "attack" | "check";
     value: number;
@@ -155,14 +168,11 @@ type DegreeOfSuccessIndex = ZeroToThree;
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
 type DegreeOfSuccessString = (typeof DEGREE_OF_SUCCESS_STRINGS)[number];
 
-export {
+export { DEGREE_ADJUSTMENT_AMOUNTS, DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccess };
+export type {
     CheckDC,
-    DEGREE_ADJUSTMENT_AMOUNTS,
-    DEGREE_OF_SUCCESS,
-    DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentAmount,
     DegreeAdjustmentsRecord,
-    DegreeOfSuccess,
     DegreeOfSuccessAdjustment,
     DegreeOfSuccessIndex,
     DegreeOfSuccessString,

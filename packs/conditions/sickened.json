@@ -1,0 +1,38 @@
+{
+    "_id": "fesd1n5eVhpCSS18",
+    "img": "systems/pf2e/icons/conditions/sickened.webp",
+    "name": "Sickened",
+    "system": {
+        "description": {
+            "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything-including elixirs and potions-while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a Fortitude save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all",
+                "slug": "sickened",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": true,
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

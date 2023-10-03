@@ -1,4 +1,4 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PERFORM_VARIANT_TRAITS = {
     acting: ["auditory", "linguistic", "visual"],
@@ -13,7 +13,7 @@ const PERFORM_VARIANT_TRAITS = {
 } as const;
 type PerformVariant = keyof typeof PERFORM_VARIANT_TRAITS;
 
-export function perform(options: { variant: PerformVariant } & SkillActionOptions) {
+export function perform(options: { variant: PerformVariant } & SkillActionOptions): void {
     const traits = PERFORM_VARIANT_TRAITS[options?.variant ?? ""];
     if (!traits) {
         const msg = game.i18n.format("PF2E.Actions.Perform.Warning.UnknownVariant", { variant: options.variant });
@@ -31,13 +31,15 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
         traits: ["concentrate", ...traits].sort(),
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -1,11 +1,10 @@
-import { ActorPF2e } from "@actor";
-import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
-import { ArmorPF2e, WeaponPF2e } from "@item";
-import { ZeroToThree } from "@module/data";
-import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
-import { PotencySynthetic } from "@module/rules/synthetics";
-import { PredicatePF2e } from "@system/predication";
-import { CharacterPF2e } from "./document";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import type { ArmorPF2e, WeaponPF2e } from "@item";
+import { ZeroToThree } from "@module/data.ts";
+import type { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
+import { PotencySynthetic } from "@module/rules/synthetics.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
@@ -37,40 +36,40 @@ class AutomaticBonusProgression {
         const setting = game.settings.get("pf2e", "automaticBonusVariant");
 
         if (save > 0) {
-            const modifiers = (synthetics.statisticsModifiers["saving-throw"] ??= []);
+            const modifiers = (synthetics.modifiers["saving-throw"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
                         slug: "save-potency",
                         label: "PF2E.AutomaticBonusProgression.savePotency",
                         modifier: save,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }
 
         if (ac > 0) {
-            const modifiers = (synthetics.statisticsModifiers["ac"] ??= []);
+            const modifiers = (synthetics.modifiers["ac"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
                         slug: "defense-potency",
                         label: "PF2E.AutomaticBonusProgression.defensePotency",
                         modifier: ac,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }
 
         if (perception > 0) {
-            const modifiers = (synthetics.statisticsModifiers["perception"] ??= []);
+            const modifiers = (synthetics.modifiers["perception"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
                         slug: "perception-potency",
                         label: "PF2E.AutomaticBonusProgression.perceptionPotency",
                         modifier: perception,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }
@@ -79,7 +78,7 @@ class AutomaticBonusProgression {
             const values = this.abpValues(level);
             const attack = values.attack;
             if (attack > 0) {
-                const modifiers = (synthetics.statisticsModifiers["strike-attack-roll"] ??= []);
+                const modifiers = (synthetics.modifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
                     () =>
                         new ModifierPF2e({

@@ -9,7 +9,7 @@ export const FoundryUtils = {
         return id.substr(0, length);
     },
 
-    duplicate: (data: object) => {
+    duplicate: (data: object): ReturnType<(typeof JSON)["parse"]> => {
         return JSON.parse(JSON.stringify(data));
     },
 };

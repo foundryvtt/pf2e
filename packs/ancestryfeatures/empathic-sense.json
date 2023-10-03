@@ -1,0 +1,48 @@
+{
+    "_id": "QyBfftocP1i43Qrp",
+    "img": "systems/pf2e/icons/spells/enthrall.webp",
+    "name": "Empathic Sense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Kashrishi are able to get a vague sense of the current emotional state of others within 15 feet of them. This manifests as a general feeling of happiness, anger, or fear, without any specific details. For those with whom kashrishi have an emotional connection, physical touch can heighten this sense to greater degrees of detail and understanding, increasing with the strength of their bond. This also functions as an imprecise sense alerting you to the presence, but not the precise location, of non-mindless creatures within the area. You gain a +2 circumstance bonus on Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] against non-mindless creatures within the area of your empathic sense.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive",
+                    {
+                        "lte": [
+                            "target:distance",
+                            15
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

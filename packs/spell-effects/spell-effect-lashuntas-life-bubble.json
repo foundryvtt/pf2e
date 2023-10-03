@@ -1,0 +1,45 @@
+{
+    "_id": "nUJSdm4fy6fcwsvv",
+    "img": "systems/pf2e/icons/spells/air-bubble.webp",
+    "name": "Spell Effect: Lashunta's Life Bubble",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to saves against inhaled dangers.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inhaled"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,42 @@
+{
+    "_id": "Mmezbef0c1fbJaVV",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Impersonator Android",
+    "system": {
+        "ancestry": {
+            "name": "Android",
+            "slug": "android",
+            "uuid": "Compendium.pf2e.ancestries.Item.GfLwE884NoRC7cRi"
+        },
+        "description": {
+            "value": "<p>Your body was augmented with processes and an appearance intended to blend in with humans more easily.</p>\n<p>You become trained in Deception (or another skill if you're already trained in Deception). You don't require a disguise kit when attempting Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] a human.</p>\n<p>In addition, you gain a +4 circumstance bonus to Impersonate checks to pretend that you're a human version of yourself, rather than an android. This bonus doesn't apply to other checks to Impersonate humans.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Impersonator Android (to Impersonate a human version of yourself)",
+                "predicate": [
+                    "action:impersonate",
+                    "disguise:human-self"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

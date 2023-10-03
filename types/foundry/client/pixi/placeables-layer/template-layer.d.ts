@@ -6,6 +6,8 @@ declare global {
 
         static documentName: "MeasuredTemplate";
 
+        override quadtree: CanvasQuadtree<TTemplate>;
+
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */

@@ -1,44 +1,49 @@
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElements, RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Rarity } from "@module/data.ts";
+import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
-    maintainTagifyFocusInRender,
+    maintainFocusInRender,
     processTagifyInSubmitData,
-} from "@module/sheet/helpers";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+    SheetOptions,
+    TraitTagifyEntry,
+} from "@module/sheet/helpers.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
-    SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SelectableTagField,
     TagSelectorBasic,
-} from "@system/tag-selector";
+} from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
-    sluggify,
-    sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
-    tagify,
-    htmlQueryAll,
-    htmlQuery,
     fontAwesomeIcon,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    sluggify,
+    SORTABLE_DEFAULTS,
+    sortStringRecord,
+    tagify,
+    tupleHasValue,
 } from "@util";
+import * as R from "remeda";
+import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
-import { CodeMirror } from "./codemirror";
-import { ItemSheetDataPF2e } from "./data-types";
-import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
+import { CodeMirror } from "./codemirror.ts";
+import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
-export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
+class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
-        options.width = 691;
+        options.width = 695;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
         options.template = "systems/pf2e/templates/items/sheet.hbs";
-        options.scrollY = [".tab.active"];
+        options.scrollY = [".tab.active", ".inventory-details", "div[data-rule-tab]"];
         options.tabs = [
             {
                 navSelector: ".tabs",
@@ -56,16 +61,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Maintain selected rule element at the sheet level (do not persist) */
-    private selectedRuleElementType: string | null = Object.keys(RuleElements.all).at(0) ?? null;
+    #selectedRuleElementType: string | null = Object.keys(RuleElements.all).at(0) ?? null;
 
     /** If we are currently editing an RE, this is the index */
-    private editingRuleElementIndex: number | null = null;
+    #editingRuleElementIndex: number | null = null;
+    #rulesLastScrollTop: number | null = null;
 
-    private ruleElementForms: Record<number, RuleElementForm> = {};
+    #ruleElementForms: RuleElementForm[] = [];
 
     get editingRuleElement(): RuleElementSource | null {
-        if (this.editingRuleElementIndex === null) return null;
-        return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
+        if (this.#editingRuleElementIndex === null) return null;
+        return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
     get validTraits(): Record<string, string> | null {
@@ -80,9 +86,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
+        options.sheetConfig &&=
+            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
-        const rules = item.toObject().system.rules;
+        this.#createRuleElementForms();
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
@@ -107,26 +115,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
 
-        // Activate rule element sub forms
-        this.ruleElementForms = {};
-        for (const [index, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            this.ruleElementForms[Number(index)] = new FormClass({
-                item: this.item,
-                index,
-                rule,
-                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
-            });
-        }
-
         return {
             itemType: null,
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
-            hasDetails: true,
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+                type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
+            sidebarTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            detailsTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: item,
@@ -146,15 +143,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
-                labels: rules.map((ruleData: RuleElementSource) => {
-                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = translations[key] ?? translations.Unrecognized;
-                    const recognized = label !== translations.Unrecognized;
-                    return { label, recognized };
-                }),
                 selection: {
-                    selected: this.selectedRuleElementType,
+                    selected: this.#selectedRuleElementType,
                     types: sortStringRecord(
                         Object.keys(RuleElements.all).reduce(
                             (result: Record<string, string>, key) =>
@@ -164,17 +154,59 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     ),
                 },
                 elements: await Promise.all(
-                    rules.map(async (rule, index) => ({
-                        template: await this.ruleElementForms[index].render(),
-                        index,
-                        rule,
+                    this.#ruleElementForms.map(async (form) => ({
+                        template: await form.render(),
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.hbs`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
+    }
+
+    /** Creates and activates rule element forms, reusing previous ones when possible to preserve form state */
+    #createRuleElementForms(): void {
+        const rules = this.item.toObject().system.rules;
+        const previousForms = [...this.#ruleElementForms];
+
+        // First pass, create options, and then look for exact matches of data and reuse those forms
+        // This is mostly to handle deletions and re-ordering of rule elements
+        const processedRules = rules.map((rule, index) => {
+            const options = {
+                sheet: this,
+                index,
+                rule,
+                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
+            };
+
+            // If a form exists of the correct type with an exact match, reuse that one.
+            // If we find a match, delete it so that we don't use the same form for two different REs
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
+            const existing =
+                previousForms.find((f) => R.equals(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
+            if (existing) {
+                previousForms.splice(previousForms.indexOf(existing), 1);
+            }
+            return { options, FormClass, existing };
+        });
+
+        // Second pass, if any unmatched rule has a form in the exact position that fits, reuse that one
+        // This handles the "frequent updates" case that would desync the other one
+        for (const rule of processedRules.filter((p) => !p.existing)) {
+            const existing = this.#ruleElementForms[rule.options.index];
+            if (existing instanceof rule.FormClass) {
+                rule.existing = existing;
+            }
+        }
+
+        // Create the forms, using the existing form or creating a new one if necessary
+        this.#ruleElementForms = processedRules.map((processed) => {
+            if (processed.existing) {
+                processed.existing.initialize(processed.options);
+                return processed.existing;
+            }
+
+            return new processed.FormClass(processed.options);
+        });
     }
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
@@ -209,15 +241,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string> {
         // Melee attack effects can be chosen from the NPC's actions and consumable items
-        const attackEffectOptions: Record<string, string> =
-            this.actor?.items
-                .filter((i) => i.type === "action" || i.type === "consumable")
-                .reduce((options, item) => {
-                    const key = item.slug ?? sluggify(item.name);
-                    return mergeObject(options, { [key]: item.name }, { inplace: false });
-                }, CONFIG.PF2E.attackEffects) ?? {};
-
-        return attackEffectOptions;
+        const items = this.actor?.items.contents ?? [];
+        return items
+            .filter((i) => i.isOfType("action", "consumable"))
+            .reduce((options, item) => {
+                const key = item.slug ?? sluggify(item.name);
+                return { ...options, [key]: item.name };
+            }, deepClone(CONFIG.PF2E.attackEffects));
     }
 
     override async activateEditor(
@@ -229,16 +259,25 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
 
-        // Remove toolbar options that are unsuitable for a smaller notes field
-        if (name === "system.description.gm") {
-            options.toolbar = "styles bullist numlist image hr link removeformat code save";
+        const mutuallyExclusive = ["system.description.gm", "system.description.value"];
+        if (mutuallyExclusive.includes(name)) {
+            const html = this.element[0];
+            for (const elementName of mutuallyExclusive.filter((n) => n !== name)) {
+                const element = htmlQuery(html, `[data-edit="${elementName}"]`);
+                const section = htmlClosest(element, ".editor-container");
+                if (section) {
+                    section.style.display = "none";
+                }
+            }
+
+            htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
         return super.activateEditor(name, options, sourceContent);
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.editingRuleElementIndex = null;
+        this.#editingRuleElementIndex = null;
         return super.close(options);
     }
 
@@ -273,14 +312,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
-            this.selectedRuleElementType = ruleElementSelect.value;
+            this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
         for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
-                const key = this.selectedRuleElementType ?? "NewRuleElement";
+                const key = this.#selectedRuleElementType ?? "NewRuleElement";
                 this.item.update({ "system.rules": rulesData.concat({ key }) });
             });
         }
@@ -289,7 +328,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             anchor.addEventListener("click", async () => {
                 if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
-                this.editingRuleElementIndex = index;
+                this.#editingRuleElementIndex = index;
+                this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
                 this.render();
             });
         }
@@ -334,7 +374,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
             closeBtn?.addEventListener("click", () => {
-                this.editingRuleElementIndex = null;
+                this.#editingRuleElementIndex = null;
                 this.render();
             });
             closeBtn?.removeAttribute("disabled");
@@ -345,16 +385,16 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
-                    if (this.editingRuleElementIndex === null) {
-                        this.editingRuleElementIndex = null;
+                    if (this.#editingRuleElementIndex === null) {
+                        this.#editingRuleElementIndex = null;
                         this.render();
                         return;
                     }
 
                     try {
                         const rules = this.item.toObject().system.rules;
-                        rules[this.editingRuleElementIndex] = JSON.parse(value as string);
-                        this.editingRuleElementIndex = null;
+                        rules[this.#editingRuleElementIndex] = JSON.parse(value as string);
+                        this.#editingRuleElementIndex = null;
                         this.item.update({ "system.rules": rules });
                     } catch (error) {
                         if (error instanceof Error) {
@@ -373,10 +413,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
         for (const ruleSection of Array.from(ruleSections)) {
             const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;
-            const form = this.ruleElementForms[idx];
-            if (form) {
-                form.activateListeners(ruleSection);
-            }
+            this.#ruleElementForms.at(idx)?.activateListeners(ruleSection);
         }
 
         InlineRollLinks.listen(html, this.item);
@@ -393,6 +430,27 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         } else if (tagElement && traitsPrepend) {
             // If there are no traits, we still need to show elements like rarity
             tagElement.append(traitsPrepend.content);
+        }
+
+        // Handle select and input elements that show modified prepared values until focused
+        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        for (const input of modifiedPropertyFields) {
+            const propertyPath = input.dataset.property ?? "";
+            const baseValue =
+                input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
+
+            input.addEventListener("focus", () => {
+                input.dataset.value = input.value;
+                input.value = baseValue;
+                input.name = propertyPath;
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                if (input.value === baseValue) {
+                    input.value = input.dataset.value ?? "";
+                }
+            });
         }
 
         // Update Tab visibility (in case this is a tab without a sidebar)
@@ -455,6 +513,33 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.activateEditor("system.description.gm");
             });
         }
+
+        // Allow drag/drop sorting of rule elements
+        const rules = htmlQuery(html, ".rule-element-forms");
+        if (rules) {
+            Sortable.create(rules, {
+                ...SORTABLE_DEFAULTS,
+                handle: ".drag-handle",
+                onEnd: (event) => {
+                    const currentIndex = event.oldDraggableIndex;
+                    const newIndex = event.newDraggableIndex;
+                    if (currentIndex === undefined || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
+
+                    const rules = this.item.toObject().system.rules;
+                    const movingRule = rules.at(currentIndex);
+                    if (movingRule && newIndex <= rules.length) {
+                        rules.splice(currentIndex, 1);
+                        rules.splice(newIndex, 0, movingRule);
+                        this.item.update({ "system.rules": rules });
+                    } else {
+                        this.render();
+                    }
+                },
+            });
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -473,7 +558,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
     }
 
-    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    protected override _getSubmitData(updateData: Record<string, unknown> | null = null): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { system?: { rules?: string[] } } = updateData
@@ -485,23 +570,23 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return flattenedData;
     }
 
-    /** Hide the sheet-config button unless there is more than one sheet option. */
+    /** Add button to refresh from compendium if setting is enabled. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
-        const sheetButton = buttons.find((button) => button.class === "configure-sheet");
-        if (!hasMultipleSheets && sheetButton) {
-            buttons.splice(buttons.indexOf(sheetButton), 1);
-        }
-        // Convenenience utility for data entry; may make available to general users in the future
-        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+
+        if (
+            game.settings.get("pf2e", "dataTools") &&
+            this.isEditable &&
+            this.item.sourceId?.startsWith("Compendium.")
+        ) {
             buttons.unshift({
                 label: "Refresh",
                 class: "refresh-from-compendium",
-                icon: "fas fa-sync-alt",
+                icon: "fa-solid fa-sync-alt",
                 onclick: () => this.item.refreshFromCompendium(),
             });
         }
+
         return buttons;
     }
 
@@ -523,66 +608,82 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
-        if (rulesVisible && expanded.system?.rules) {
-            const itemData = this.item.toObject();
-            const rules = itemData.system.rules ?? [];
-
-            for (const [key, value] of Object.entries(expanded.system.rules)) {
-                const idx = Number(key);
-
-                // If the entire thing is a string, this is a regular JSON textarea
-                if (typeof value === "string") {
-                    try {
-                        rules[idx] = JSON.parse(value as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, value);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                        }
-                    }
-                    continue;
-                }
-
-                if (!value) continue;
-
-                rules[idx] = mergeObject(rules[idx] ?? {}, value);
-
-                // Call any special handlers in the rule element forms
-                this.ruleElementForms[idx]?._updateObject(rules[idx]);
-
-                // predicate is special cased as always json. Later on extend such parsing to more things
-                const predicateValue = value.predicate as unknown;
-                if (typeof predicateValue === "string" && predicateValue.trim() === "") {
-                    delete rules[idx].predicate;
-                } else {
-                    try {
-                        rules[idx].predicate = JSON.parse(predicateValue as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, predicateValue);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                        }
-                    }
-                }
+        // If the submission is coming from a rule element, update that rule element
+        // This avoids updates from forms if that form has a problematic implementation
+        const form = htmlClosest(event.target, ".rule-form[data-idx]");
+        if (form) {
+            const idx = Number(form.dataset.idx);
+            const ruleForm = this.#ruleElementForms[idx];
+            const itemRules = this.item.toObject().system.rules;
+            if (idx >= itemRules.length || !ruleForm) {
+                throw ErrorPF2e(`Invalid rule form update, no rule form available at index ${idx}`);
             }
 
-            expanded.system.rules = rules;
+            const incomingData = expanded.system?.rules?.[idx];
+            if (incomingData) {
+                ruleForm.updateObject(incomingData);
+                itemRules[idx] = ruleForm.rule;
+                this.item.update({ "system.rules": itemRules });
+            }
         }
+
+        // Remove rules from submit data, it should be handled by the previous check
+        delete expanded.system?.rules;
 
         return super._updateObject(event, flattenObject(expanded));
     }
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        await maintainFocusInRender(this, () => super._render(force, options));
+
+        // Maintain last rules panel scroll position when opening/closing the codemirror editor
+        if (this.#editingRuleElementIndex === null && this.#rulesLastScrollTop) {
+            const html = this.element[0];
+            const rulesTab = htmlQuery(html, ".tab[data-tab=rules]");
+            if (rulesTab) {
+                rulesTab.scrollTop = this.#rulesLastScrollTop;
+            }
+            this.#rulesLastScrollTop = null;
+        }
     }
 }
+
+interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
+    itemType: string | null;
+    showTraits: boolean;
+    /** Whether the sheet should have a sidebar at all */
+    hasSidebar: boolean;
+    /** The sidebar's current title */
+    sidebarTitle: string;
+    sidebarTemplate: string;
+    detailsTemplate: string;
+    item: TItem;
+    data: TItem["system"];
+    enrichedContent: Record<string, string>;
+    isPhysical: boolean;
+    user: { isGM: boolean };
+    enabledRulesUI: boolean;
+    ruleEditing: boolean;
+    rarity: Rarity | null;
+    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
+    traits: SheetOptions | null;
+    traitTagifyData: TraitTagifyEntry[] | null;
+    rules: {
+        selection: {
+            selected: string | null;
+            types: Record<string, string>;
+        };
+        elements: {
+            template: string;
+        }[];
+    };
+    /** Lore only, will be removed later */
+    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+}
+
+export { ItemSheetPF2e };
+export type { ItemSheetDataPF2e };

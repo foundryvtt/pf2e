@@ -3,47 +3,47 @@
         <h1>{{localize "PF2E.identification.IdentifyMagicDCs"}}</h1>
         <table>
             <tbody>
-                <tr data-skill="arc" data-dc="{{dcs.arc}}">
+                <tr data-skill="arcana" data-dc="{{dcs.arcana}}">
                     <th>{{localize "PF2E.SkillArcana"}}</th>
-                    <td>{{dcs.arc}}</td>
+                    <td>{{dcs.arcana}}</td>
                 </tr>
-                <tr data-skill="nat" data-dc="{{dcs.nat}}">
+                <tr data-skill="nature" data-dc="{{dcs.nature}}">
                     <th>{{localize "PF2E.SkillNature"}}</th>
-                    <td>{{dcs.nat}}</td>
+                    <td>{{dcs.nature}}</td>
                 </tr>
-                <tr data-skill="occ" data-dc="{{dcs.occ}}">
+                <tr data-skill="occultism" data-dc="{{dcs.occultism}}">
                     <th>{{localize "PF2E.SkillOccultism"}}</th>
-                    <td>{{dcs.occ}}</td>
+                    <td>{{dcs.occultism}}</td>
                 </tr>
-                <tr data-skill="rel" data-dc="{{dcs.rel}}">
+                <tr data-skill="religion" data-dc="{{dcs.religion}}">
                     <th>{{localize "PF2E.SkillReligion"}}</th>
-                    <td>{{dcs.rel}}</td>
+                    <td>{{dcs.religion}}</td>
                 </tr>
         </table>
     {{else if isAlchemical}}
         <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
         <table>
             <tbody>
-                <tr data-skill="cra" data-dc="{{dcs.cra}}">
+                <tr data-skill="crafting" data-dc="{{dcs.crafting}}">
                     <th>{{localize "PF2E.SkillCrafting"}}</th>
-                    <td>{{dcs.cra}}</td>
+                    <td>{{dcs.crafting}}</td>
                 </tr>
         </table>
     {{else}}
         <h1>{{localize "PF2E.identification.IdentifyGenericDCs"}}</h1>
         <table>
             <tbody>
-                <tr data-skill="cra" data-dc="{{dcs.dc}}">
+                <tr data-skill="crafting" data-dc="{{dcs.dc}}">
                     <th>{{localize "PF2E.SkillCrafting"}}</th>
                     <td>{{dcs.dc}}</td>
                 </tr>
         </table>
     {{/if}}
     <button type="button" class="post-skill-checks">
-        <i class="far fa-save"></i>{{localize "PF2E.identification.PostSkillsToChat"}}
+        <i class="fa-solid fa-comment-alt fa-fw"></i>{{localize "PF2E.identification.PostSkillsToChat"}}
     </button>
     <button type="button" class="update-identification" value="identified">
-        <i class="far fa-save"></i>{{localize "PF2E.identification.Identify"}}
+        <i class="fa-regular fa-question-circle"></i>{{localize "PF2E.identification.Identify"}}
     </button>
     <!--
          <button type="submit" class="misidentify" name="system.identification.status" value="misidentified">

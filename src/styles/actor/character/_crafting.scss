@@ -23,7 +23,8 @@
         }
     }
 
-    .known-formulas, .crafting-entry {
+    .known-formulas,
+    .crafting-entry {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -57,7 +58,7 @@
                         flex: 1 0 auto;
                     }
 
-                    input[type=checkbox] {
+                    input[type="checkbox"] {
                         height: 1em;
                         width: 1em;
                     }
@@ -89,10 +90,12 @@
                 }
             }
 
-            .formula-level-header, .formula-item {
+            .formula-level-header,
+            .formula-item {
                 display: grid;
-                grid: "name dc price quantity controls" 1fr
-                      / 4fr 0.7fr 1fr 1fr 1fr;
+                grid:
+                    "name dc price quantity controls" 1fr
+                    / 4fr 0.7fr 1fr 1fr 1fr;
                 align-items: center;
                 justify-items: center;
 
@@ -118,15 +121,12 @@
                 &.formula-level-header {
                     background: rgba($sub-color, 0.25);
                     border: 1px solid var(--sub);
-                    @include p-reset;
                     padding: 4px;
-                    color: var(--body);
-                    font-family: var(--sans-serif);
-                    font-size: var(--font-size-8);
-                    font-weight: 700;
+                    color: var(--text-dark);
+                    font: 600 var(--font-size-12) var(--sans-serif);
                     line-height: 1;
-                    text-transform: uppercase;
                     letter-spacing: 0.25px;
+                    margin: 0;
 
                     h3 {
                         text-transform: capitalize;
@@ -147,7 +147,7 @@
                         background: var(--alt);
                         border: 1px solid var(--sub);
                         border-radius: 3px;
-                        color: white;
+                        color: var(--text-light);
                         font-size: var(--font-size-11);
                         height: 14px;
                         max-width: 22px;
@@ -166,7 +166,8 @@
                     min-height: 28px;
                 }
 
-                .level-name, .item-name {
+                .level-name,
+                .item-name {
                     justify-self: start;
                     display: flex;
                     align-items: center;
@@ -183,26 +184,8 @@
                     }
 
                     .item-image {
-                        @include frame-icon;
-                        height: 24px;
-                        width: 24px;
                         margin: 2px 0;
-                        border-radius: 2px;
                         margin-left: 4px;
-                        cursor: pointer;
-                        .item-icon {
-                            max-width: 24px;
-                            border: none;
-                        }
-
-                        &:hover {
-                            background: url("../../../icons/svg/d20-black.svg") no-repeat center, #f1eee9;
-                            background-size: contain;
-                            padding: 11px;
-                            img {
-                                display: none;
-                            }
-                        }
                     }
 
                     h4 {
@@ -215,14 +198,15 @@
                         }
                     }
 
-                    &.aa-level, &.reagent-resource {
+                    &.aa-level,
+                    &.reagent-resource {
                         justify-content: flex-end;
                     }
                 }
 
                 .item-controls {
                     justify-self: end;
-                    font-size: var(--font-size-10);
+                    font-size: var(--font-size-12);
                     margin-right: 4px;
 
                     .item-control.disabled {
@@ -245,67 +229,38 @@
                     }
                 }
 
-                .formula-quantity {
-                    display: flex;
-                    justify-content: center;
+                .quantity {
                     align-items: center;
+                    display: flex;
+                    gap: 3px;
+                    justify-content: center;
 
-                    .formula-quantity-adjust {
+                    .adjust {
+                        align-items: center;
+                        display: flex;
+                        font-size: var(--font-size-16);
                         font-family: var(--sans-serif-monospace);
-                        @include flex-center;
-                        height: 100%;
-                        width: 18px;
-                        text-align: center;
+                        justify-content: center;
+                        width: 1em;
                     }
 
                     input {
-                        width: 24px;
+                        width: 1.5rem;
                         text-align: center;
                     }
                 }
             }
 
             .empty {
-                display: flex;
                 align-items: center;
+                display: flex;
+                justify-content: space-between;
                 min-height: 28px;
-                justify-content: flex-end;
-                h4 {
-                    margin: 0;
+
+                > * {
                     white-space: nowrap;
-                    margin-right: auto;
-                }
-                a {
-                    flex: 0 1 0;
-                    white-space: nowrap;
-                    margin-left: 8px;
                 }
             }
-        }
-    }
-
-    button:not(.item-summary button, .daily-crafting), .empty .item-control {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 8px;
-        background: var(--secondary);
-        border-radius: 2px;
-        border: black;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
-        color: white;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 0.25px;
-        height: 18px;
-
-        font-family: var(--sans-serif);
-        font-size: var(--font-size-8);
-        font-weight: 700;
-        line-height: 1;
-
-        i {
-            margin-right: 4px;
         }
     }
 }

@@ -1,10 +1,11 @@
-import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
-import { AbilityString, ImmunityType, ResistanceType, WeaknessType } from "@actor/types";
-import { WeaponDamage } from "@item/weapon/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types";
-import { Size } from "@module/data";
-import { BracketedValue, RuleElementSource } from "../";
+import { CreatureTrait, SkillAbbreviation } from "@actor/creature/index.ts";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { AttributeString, MovementType } from "@actor/types.ts";
+import { WeaponDamage } from "@item/weapon/data.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
+import { Size } from "@module/data.ts";
+import { RuleElementSource } from "../index.ts";
+import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 
 interface BattleFormSource extends RuleElementSource {
     overrides?: BattleFormOverrides;
@@ -20,14 +21,14 @@ interface BattleFormOverrides {
     traits?: CreatureTrait[];
     armorClass?: BattleFormAC;
     tempHP?: number | null;
-    senses?: { [K in SenseType]?: BattleFormSense };
+    senses?: BattleFormSenses;
     size?: Size | null;
-    speeds?: { [K in MovementType]?: number };
+    speeds?: BattleFormSpeeds;
     skills?: BattleFormSkills;
     strikes?: Record<string, BattleFormStrike>;
-    immunities?: { type: ImmunityType; except?: ImmunityType }[];
-    weaknesses?: { type: WeaknessType; except?: WeaknessType; value: number | BracketedValue<number> }[];
-    resistances?: { type: ResistanceType; except?: ResistanceType; value: number | BracketedValue<number> }[];
+    immunities?: Omit<ImmunityRuleElement["_source"], "key">[];
+    weaknesses?: Omit<WeaknessRuleElement["_source"], "key">[];
+    resistances?: Omit<ResistanceRuleElement["_source"], "key">[];
 }
 
 interface BattleFormAC {
@@ -46,12 +47,14 @@ interface BattleFormSkill {
     ownIfHigher?: boolean;
 }
 
+type BattleFormSenses = { [K in SenseType]?: BattleFormSense };
 type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
+type BattleFormSpeeds = { [K in MovementType]?: number };
 
 interface BattleFormStrike {
     label: string;
     img?: ImageFilePath;
-    ability: AbilityString;
+    ability?: AttributeString;
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseType?: BaseWeaponType | null;
@@ -70,11 +73,13 @@ interface BattleFormStrikeQuery {
     ownIfHigher: boolean;
 }
 
-export {
+export type {
     BattleFormAC,
     BattleFormOverrides,
+    BattleFormSenses,
     BattleFormSkills,
     BattleFormSource,
+    BattleFormSpeeds,
     BattleFormStrike,
     BattleFormStrikeQuery,
 };

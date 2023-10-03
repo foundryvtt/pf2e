@@ -11,7 +11,11 @@
                 <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
             </div>
             <div class="armor-base labelled-field">
-                <input class="armor-value adjustable{{#if ac.adjustedHigher}} adjusted-higher{{else if ac.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.attributes.ac.value" value="{{ac.value}}" data-dtype="Number" placeholder="0"/>
+                <input type="number"
+                    class="armor-value adjustable{{#if ac.adjustedHigher}} adjusted-higher{{else if ac.adjustedLower}} adjusted-lower{{/if}}"
+                    data-property="system.attributes.ac.value"
+                    value="{{ac.value}}"
+                    placeholder="0" />
             </div>
         </div>
         <div class="side-bar-section-content">
@@ -160,14 +164,14 @@
 <div class="saves">
     {{#each data.saves as |save saveType|}}
         <div class="container" data-save="{{saveType}}">
-            <label class="attribute-label rollable" title="{{save.breakdown}}"><a>{{localize save.labelShort}}</a></label>
+            <a class="attribute-label rollable" title="{{save.breakdown}}">{{localize save.labelShort}}</a>
             <input type="text" value="{{numberFormat save.value decimals=0 sign=true}}" class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}" data-property="system.saves.{{saveType}}.value" data-dtype="Number" placeholder="0" />
         </div>
     {{/each}}
 </div>
 <div class="save-details side-bar-section">
     <div class="side-bar-section-content">
-        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
+        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}" />
     </div>
 </div>
 
@@ -180,20 +184,27 @@
         </div>
         {{#if options.editable}}
             <div class="speed-controls controls">
-                <a class="trait-edit edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fas fa-edit"></i></a>
+                <a class="tag-selector edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fas fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
     <div class="side-bar-section-content">
         <div class="land-speed flexrow">
-            <input type="number" class="land-speed-value" name="system.attributes.speed.value" value="{{data.attributes.speed.value}}" placeholder="0"/>
-            <input type="text" class="speed-details" name="system.attributes.speed.details" value="{{data.attributes.speed.details}}" placeholder="{{localize "PF2E.NPC.SpeedExtraInfoLabelPlaceholder"}}" />
+            <input type="number"
+                class="land-speed-value adjustable{{#if speeds.land.adjustedHigher}} adjusted-higher{{else if speeds.land.adjustedLower}} adjusted-lower{{/if}}"
+                data-property="system.attributes.speed.value"
+                value="{{speeds.land.value}}"
+                placeholder="0" />
+            <input type="text" class="speed-details" name="system.attributes.speed.details" value="{{speeds.land.details}}" placeholder="{{localize "PF2E.NPC.SpeedExtraInfoLabelPlaceholder"}}" />
         </div>
         <div class="other-speeds">
-            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
-                {{#if speed.value}}
-                    <div class="tag-legacy speed" data-speed="{{speed.type}}">
-                        {{localize speed.label}} {{speed.value}}
+            {{#each speeds as |speed type|}}
+                {{#if (and speed (not (eq type "land")))}}
+                    <div class="tag-legacy speed" data-speed="{{type}}">
+                        {{localize speed.label}}
+                        <span class="adjustable{{#if speed.adjustedHigher}} adjusted-higher{{else if speed.adjustedLower}} adjusted-lower{{/if}}">
+                            {{speed.value}}
+                        </span>
                     </div>
                 {{/if}}
             {{/each}}

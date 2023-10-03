@@ -1,10 +1,10 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.CreateADiversion";
 const CREATE_A_DIVERSION_VARIANTS = ["distracting-words", "gesture", "trick"] as const;
 type CreateADiversionVariant = (typeof CREATE_A_DIVERSION_VARIANTS)[number];
 
-export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions) {
+export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions): void {
     const { title, traits, variant } = (() => {
         switch (options?.variant) {
             case "distracting-words":
@@ -44,11 +44,13 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         traits,
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -5,8 +5,8 @@
 
 <div class="form-group form-group-trait">
     <label class="pf-title">
-        {{localize "PF2E.KeyAbilityLabel"}}
-        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.KeyAbilityLabel" data-config-types="abilities" data-property="system.keyAbility" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        {{localize "PF2E.Actor.Character.Attribute.Key"}}
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.Actor.Character.Attribute.Key" data-config-types="abilities" data-property="system.keyAbility" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -270,9 +270,9 @@
 {{~#*inline "abcItem"~}}
     <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
-        <div class="name">
+        <a class="name">
             {{item.name}}{{#if item.fromWorld}}<i class="fa fa-globe" title="{{localize "PF2E.Item.WorldItemWarning"}}"></i>{{/if}}
-        </div>
+        </a>
         <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
         <input value="{{item.uuid}}" name="system.items.{{i}}.uuid" type="hidden" data-dtype="String" />
         <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />

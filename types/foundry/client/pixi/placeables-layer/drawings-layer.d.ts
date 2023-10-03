@@ -4,4 +4,6 @@
  * @category - Canvas
  * @todo: fill in
  */
-declare class DrawingsLayer<TDrawing extends Drawing = Drawing> extends PlaceablesLayer<TDrawing> {}
+declare class DrawingsLayer<TDrawing extends Drawing = Drawing> extends PlaceablesLayer<TDrawing> {
+    override quadtree: CanvasQuadtree<TDrawing>;
+}

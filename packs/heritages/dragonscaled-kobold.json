@@ -1,0 +1,86 @@
+{
+    "_id": "P8BP1un5BTrwXoBy",
+    "img": "systems/pf2e/icons/features/ancestry/dragonscaled-kobold.webp",
+    "name": "Dragonscaled Kobold",
+    "system": {
+        "ancestry": {
+            "name": "Kobold",
+            "slug": "kobold",
+            "uuid": "Compendium.pf2e.ancestries.Item.7oQxL6wgsokD3QXG"
+        },
+        "description": {
+            "value": "<p>Your scales are especially colorful, possessing some of the same resistance a dragon possesses. You gain resistance equal to half your level (minimum 1) to the damage type associated with your draconic exemplar. Double this resistance against dragons' Breath Weapons.</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:feature:draconic-exemplar:black",
+                            "self:feature:draconic-exemplar:copper"
+                        ]
+                    }
+                ],
+                "type": "acid",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:feature:draconic-exemplar:blue",
+                            "self:feature:draconic-exemplar:bronze"
+                        ]
+                    }
+                ],
+                "type": "electricity",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:feature:draconic-exemplar:green"
+                ],
+                "type": "poison",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:feature:draconic-exemplar:red",
+                            "self:feature:draconic-exemplar:gold",
+                            "self:feature:draconic-exemplar:brass"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:feature:draconic-exemplar:white",
+                            "self:feature:draconic-exemplar:silver"
+                        ]
+                    }
+                ],
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

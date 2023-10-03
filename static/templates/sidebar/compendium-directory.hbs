@@ -1,47 +1,46 @@
 <section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
-    <header class="directory-header">
+    <!-- Directory Header -->
+    <header class="directory-header flexcol">
         <div class="header-actions action-buttons flexrow">
-            {{#if user.isGM}}
-                <button class="create-compendium" type="submit"><i class="fas fa-atlas"></i> {{localize "COMPENDIUM.Create"}}</button>
+            {{#if canCreateEntry}}
+            <button class="create-entry"><i class="{{sidebarIcon}}"></i> {{localize 'SIDEBAR.Create' type=label}}</button>
+            {{/if}}
+            {{#if canCreateFolder}}
+            <button class="create-folder"><i class="{{folderIcon}}"></i> {{localize 'FOLDER.Create'}}</button>
             {{/if}}
         </div>
         <div class="header-search flexrow">
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" autocomplete="off" spellcheck="false" placeholder="{{localize "COMPENDIUM.Search"}}" />
+            <i class="filter fa-solid {{#if filtersActive}}fa-filter-list{{else}}fa-filter{{/if}}"></i>
+            <i class="fa-solid fa-search"></i>
+            <input type="search" name="search" value="" placeholder="{{localize 'SIDEBAR.Search' types=labelPlural}}" autocomplete="off" />
+            <a class="header-control toggle-sort" data-tooltip="{{localize sortTooltip}}"><i class="fa-solid {{sortIcon}}"></i></a>
+            <a class="header-control collapse-all" data-tooltip="{{localize 'FOLDER.Collapse'}}"><i class="fa-duotone fa-folder-tree"></i></a>
         </div>
     </header>
 
+    <!-- Directory Contents -->
     <ol class="directory-list">
-        {{#each packs as |group type|}}
-            <li class="compendium-type" data-type="{{type}}">
-                <h3 class="noborder">{{localize (concat "DOCUMENT." type)}}</h3>
-                <ol class="compendium-list">
-                    {{#each group.packs as |pack|}}
-                        <li class="compendium-pack directory-item" data-collection="{{pack.collection}}" data-pack="{{pack.collection}}" data-open="0">
-                            <h4 class="pack-title">
-                                <a><i class="folder fas fa-folder"></i> {{pack.metadata.label}}</a>
-                                <div class="status-icons">
-                                    {{#if pack.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-                                    {{#if pack.locked}}<i class="fas fa-lock"></i>{{/if}}
-                                </div>
-                            </h4>
-                            <footer class="compendium-footer">
-                                <span class="document-type">{{localize pack.documentName}}</span>
-                                <span> ({{pack.metadata.packageName}})</span>
-                            </footer>
-                        </li>
-                    {{/each}}
-                    <ol class="document-matches"></ol>
-                </ol>
-            </li>
+        {{#each tree.children}}
+            {{> (lookup @root "folderPartial") node=this folder=this.folder}}
         {{/each}}
+        {{#each tree.entries}}
+            {{> (lookup @root "entryPartial")}}
+        {{/each}}
+        <ol class="document-matches"></ol>
     </ol>
 
-    <footer class="directory-footer">
-        <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> {{localize "PF2E.CompendiumBrowser.Title"}}</button>
+    <!-- Directory Footer -->
+    <footer class="directory-footer action-buttons {{#if unavailable}}warning{{/if}}">
+        {{~#if unavailable}}
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <a class="show-issues">{{localize "SUPPORT.UnavailableDocuments" count=unavailable document=label}}</a>
+        {{/if~}}
+        <button type="button" class="compendium-browser-btn">
+            <i class="fa-solid fa-magnifying-glass"></i> {{localize "PF2E.CompendiumBrowser.Title"}}
+        </button>
     </footer>
 
-    <template id="compendium-search-match">
+    <template class="compendium-search-match">
         <li class="match" >
             <div class="thumbnail"><img /></div>
             <a class="name"></a>

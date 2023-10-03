@@ -1,0 +1,44 @@
+{
+    "_id": "WZC2XXQo6Pu2GQeo",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Soaring Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your wings grow stronger. You gain the effects of @UUID[Compendium.pf2e.feats-srd.Item.Soaring Flight] at all times.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soaring Flight"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,(@actor.attributes.speed.total))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

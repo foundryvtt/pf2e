@@ -1,0 +1,49 @@
+{
+    "_id": "zYhcEX4JnrZ08HfV",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Healing Hands",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your positive energy is even more vibrant and restorative. When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>, you roll d10s instead of d8s.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "healing font"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:heal"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

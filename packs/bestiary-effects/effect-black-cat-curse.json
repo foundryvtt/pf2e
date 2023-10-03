@@ -1,0 +1,48 @@
+{
+    "_id": "8z4Q84UlS8cMYVWu",
+    "img": "systems/pf2e/icons/spells/fey-disapperance.webp",
+    "name": "Effect: Black Cat Curse",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect</strong> Mistress Dusklight spews a hatefully uttered curse at one creature within 30 feet that she can see. If the target fails a @Check[type:will|dc:32] save, whenever it attempts an attack roll or saving throw, it must roll twice and use the lower result. The target is then temporarily immune for 24 hours. The curse persists until it is removed or the target succeeds a later saving throw against it. The victim can attempt a new @Check[type:will|dc:32] save once per hour to end the curse.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "attack"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "saving-throw"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #152: Legacy of the Lost God"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,6 +1,5 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ErrorPF2e, sluggify } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
@@ -20,11 +19,9 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
         return {
             ...sheetData,
+            hasSidebar: true,
             ancestry,
             ancestryRefBroken: !!sheetData.data.ancestry && ancestry === null,
-            hasSidebar: true,
-            hasDetails: false,
-            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.hbs",
         };
     }
 

@@ -1,4 +1,22 @@
-<div class="form-fields">
-  {{filePicker target="deathIcon" type="imagevideo"}}
-  <input class="image" type="text" name="deathIcon" placeholder="path/image.png" value="{{value}}" />
-</div>
+<template>
+    <div class="form-group">
+        <label>{{localize "PF2E.SETTINGS.DeathIcon.Name"}}</label>
+        <div class="form-fields">
+            {{filePicker target="deathIcon" type="imagevideo"}}
+            <input class="image" type="text" name="deathIcon" placeholder="path/image.png" value="{{values.deathIcon}}" />
+        </div>
+        <p class="hint">{{localize "PF2E.SETTINGS.DeathIcon.Hint"}}</p>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name"}}</label>
+        <div class="form-fields">
+            <select name="actorsDeadAtZero">
+                {{#select values.actorsDeadAtZero}}
+                    <option value="neither">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither"}}</option>
+                    <option value="npcsOnly">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <p class="hint">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint"}}</p>
+    </div>
+</template>

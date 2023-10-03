@@ -1,0 +1,181 @@
+{
+    "_id": "ETL4tgrSRxPS5ooV",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "g6xEeSYSpribnN1m",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sur-Pies",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room</p>\n<hr />\n<p><strong>Effect</strong> A pie from the room magically hurls itself at the creature and attempts a pie Strike, then the hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3qVqQMzmnAUTJsEs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Continually Sur-piesed",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room, attempts an action with the concentrate trait for the first time this turn, or ends their turn</p>\n<hr />\n<p><strong>Effect</strong> The hazard makes a pie Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "evJIzx8gsZccQZOL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pie",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "69LAZOvG2F6DmFVY": {
+                        "damage": "1d10+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "nonlethal"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "House Spirits With an Absurd Number of Regenerating Pies",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "if the house spirits take this much damage, they aren’t killed, but they do flee the school and don’t return",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "stealth": {
+                "details": "",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A group of house spirits run around the lunchroom hurling pies at the walls and all the people in the room—and then the pies magically reconstitute and throw themselves again.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:23], @Check[type:deception|dc:23], or @Check[type:intimidation|dc:23] four times to convince the spirits to undo their spells, @Check[type:arcana|dc:21] or @Check[type:occultism|dc:21] to unravel a pie's enchantments, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd level; counteract DC 18) to undo one pies' worth of spells. Three successes are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The hazard regenerates any pies that it has thrown at a cost of one action per pie (to a maximum of 4 active pies). Each successful check to disable the hazard deactivates one of the pies, reducing the number of active pies by 1. After regenerating pies on its turn, the hazard throws pies whenever a creature triggers continually sur-piesed. For each pie Strike, roll [[/r 1d4]]. On a 1, the pie pan has nails driven into it by Numblekin and deals an additional @Damage[(2d8+7)[piercing]] damage. The nails make the pie's damage lethal, rather than nonlethal.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #4-16: Dacilane Academy's First Great Prank War"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

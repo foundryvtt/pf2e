@@ -1,0 +1,55 @@
+{
+    "_id": "QWXvksGJhOjXbBqi",
+    "img": "systems/pf2e/icons/features/classes/way-of-the-sniper.webp",
+    "name": "Way of the Sniper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You practice a style of shooting that relies on unerring accuracy and perfect placement of your first shot. You keep hidden or at a distance, staying out of the fray and bringing unseen death to your foes.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Covered Reload]</p>\n<p><strong>Deeds</strong> <em>Initial</em> @UUID[Compendium.pf2e.actionspf2e.Item.One Shot, One Kill]; <em>Advanced</em> @UUID[Compendium.pf2e.actionspf2e.Item.Vital Shot]; <em>Greater</em> @UUID[Compendium.pf2e.actionspf2e.Item.Ghost Shot]</p>\n<p><strong>Way Skill</strong> Stealth</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Covered Reload"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.One Shot, One Kill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ste.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

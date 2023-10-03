@@ -1,0 +1,88 @@
+#combat,
+#combat-popout {
+    nav.encounters {
+        line-height: 1.5rem;
+        padding-top: 0.25rem;
+    }
+
+    .threat-award {
+        color: var(--text-light);
+        display: flex;
+        font-size: var(--font-size-14);
+        gap: 1rem;
+        justify-content: center;
+        line-height: 1.5rem;
+        text-shadow: 1px 1px 4px var(--color-shadow-dark);
+        white-space: nowrap;
+
+        > * {
+            width: 6rem;
+        }
+
+        .threat .value {
+            &.trivial {
+                color: aqua;
+            }
+
+            &.low {
+                color: lime;
+            }
+
+            &.moderate {
+                color: yellow;
+            }
+
+            &.severe {
+                color: orange;
+            }
+
+            &.extreme {
+                color: red;
+            }
+        }
+    }
+
+    .encounter-controls {
+        padding: 0.25rem 0 0.5rem;
+    }
+
+    li.combatant {
+        cursor: default;
+        padding: 3px 0 3px 3px;
+
+        &.gm-draggable {
+            cursor: grab;
+        }
+
+        &.drag-preview {
+            background: rgba(0, 0, 0, 0.75);
+            box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+        }
+
+        // The gap left by a combatant being dragged to a new position
+        &.drag-gap {
+            visibility: hidden;
+        }
+
+        .hidden-name .token-name h4 {
+            color: var(--color-text-light-7);
+        }
+
+        .token-name h4 {
+            flex-direction: row;
+
+            .users-targeting {
+                display: inline-block;
+                font-size: x-small;
+                line-height: inherit;
+                padding: 0 0.3em;
+                text-shadow: none;
+                vertical-align: bottom;
+            }
+        }
+    }
+
+    a.combat-control.center {
+        white-space: nowrap;
+    }
+}

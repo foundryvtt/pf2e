@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor/base";
+import type { ActorPF2e } from "@actor/base.ts";
 import {
     Abilities,
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
-    CreatureHitPoints,
+    CreatureDetailsSource,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
@@ -16,22 +16,21 @@ import {
     HeldShieldData,
     LabeledSpeed,
     SaveData,
-    SkillData,
-} from "@actor/creature/data";
+} from "@actor/creature/data.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
-    ArmorClassData,
-    InitiativeData,
+    HitPointsStatistic,
     PerceptionData,
     StrikeData,
-} from "@actor/data/base";
-import { ActorSizePF2e } from "@actor/data/size";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
-import { MeleePF2e } from "@item";
-import { Rarity, Size } from "@module/data";
-import { IdentifyCreatureData } from "@module/recall-knowledge";
+} from "@actor/data/base.ts";
+import type { ActorSizePF2e } from "@actor/data/size.ts";
+import { InitiativeTraceData } from "@actor/initiative.ts";
+import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
+import type { MeleePF2e } from "@item";
+import { Rarity, Size } from "@module/data.ts";
+import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
@@ -92,7 +91,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     };
 }
 
-interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
+interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
@@ -161,11 +160,11 @@ interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSou
 interface NPCAttributes
     extends Omit<NPCAttributesSource, "initiative" | "immunities" | "weaknesses" | "resistances">,
         CreatureAttributes {
-    ac: NPCArmorClass;
+    ac: ArmorClassTraceData;
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-    initiative: InitiativeData;
+    initiative: InitiativeTraceData;
     speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
@@ -178,11 +177,17 @@ interface NPCAttributes
 
     /** A fake class DC (set to a level-based DC) for use with critical specialization effects that require it */
     classDC: { value: number };
+    /** The best spell DC */
+    spellDC: { value: number } | null;
     /** And a fake class-or-spell DC to go along with it */
     classOrSpellDC: { value: number };
+
+    /** Rarely needed for an NPC but always available! */
+    bonusEncumbranceBulk: number;
+    bonusLimitBulk: number;
 }
 
-interface NPCDetails extends NPCDetailsSource {
+interface NPCDetails extends NPCDetailsSource, CreatureDetails {
     level: {
         value: number;
         /** The presence of a `base` that is different from the `value` indicates the level was adjusted. */
@@ -190,8 +195,6 @@ interface NPCDetails extends NPCDetailsSource {
     };
 
     alliance: ActorAlliance;
-
-    identification: IdentifyCreatureData;
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */
@@ -207,15 +210,9 @@ interface NPCStrike extends StrikeData {
     altUsages?: never;
 }
 
-/** AC data with an additional "base" value */
-interface NPCArmorClass extends StatisticModifier, ArmorClassData {
-    base?: number;
-    details: string;
-}
-
 /** Save data with an additional "base" value */
 interface NPCSaveData extends SaveData {
-    ability: AbilityString;
+    ability: AttributeString;
     base?: number;
     saveDetail: string;
 }
@@ -226,33 +223,30 @@ interface NPCSaves {
     will: NPCSaveData;
 }
 
-interface NPCHitPoints extends CreatureHitPoints {
+interface NPCHitPoints extends HitPointsStatistic {
     base?: number;
 }
 
 /** Perception data with an additional "base" value */
 interface NPCPerception extends PerceptionData {
     rank?: number;
-    base?: number;
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
-interface NPCSkillData extends SkillData {
+interface NPCSkillData extends StatisticTraceData {
     base?: number;
     visible?: boolean;
     isLore?: boolean;
     itemID?: string;
-    ability: AbilityString;
-    label: string;
-    expanded: string;
+    ability: AttributeString;
+    variants: { label: string; options: string }[];
 }
 
 interface NPCSpeeds extends CreatureSpeeds {
     details: string;
 }
 
-export {
-    NPCArmorClass,
+export type {
     NPCAttributes,
     NPCAttributesSource,
     NPCFlags,

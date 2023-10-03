@@ -1,0 +1,50 @@
+{
+    "_id": "BmAw66zEkifSvOtg",
+    "img": "systems/pf2e/icons/spells/daydreamers-curse.webp",
+    "name": "Effect: Brand of the Impenitent",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -1 status penalty to AC and saves, reduces its resistances by 2, and gains weakness 2 to good damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "Weakness",
+                "type": "good",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

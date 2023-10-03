@@ -1,0 +1,87 @@
+{
+    "_id": "gQAQRHxpFKEkNQFs",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Thaumaturge Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've uncovered basic thaumaturgy. You become trained in thaumaturge class DC. Choose an implement; you can use it to Glimpse Vulnerability, but don't gain its benefits. You also gain a few esoterica, allowing you to use esoterica actions. You become trained in your choice of Arcana, Nature, Occultism, or Religion; if you were already trained in these, you become trained in a skill of your choice. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Glimpse Vulnerability] action.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.K9Krytj8OtUvQxoc]{Thaumaturge} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "rel"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "thaumaturge-dedication"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Glimpse Vulnerability"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.thaumaturge",
+                "priority": 39,
+                "value": {
+                    "ability": "cha",
+                    "label": "PF2E.TraitThaumaturge",
+                    "rank": 1
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

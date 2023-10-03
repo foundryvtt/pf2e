@@ -1,0 +1,55 @@
+{
+    "_id": "hAdyMxuWJu7piQSS",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/ichthyosis-mutagen.webp",
+    "name": "Effect: Ichthyosis Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ichthyosis Mutagen]</p>\n<p><strong>Benefit</strong> For 1 minute, you gain fast healing 2 and automatically succeed at flat checks to recover from persistent bleed damage.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Reflex saves for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "value": -2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-success",
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #164: Hands of the Devil"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

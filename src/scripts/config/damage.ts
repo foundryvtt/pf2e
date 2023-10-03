@@ -1,7 +1,7 @@
-import { DamageCategoryUnique, DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { pick } from "@util";
-import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import * as R from "remeda";
+import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",
@@ -9,11 +9,13 @@ const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     splash: "PF2E.TraitSplash",
 };
 
-const materialDamageEffects = pick(preciousMaterials, [
+const materialDamageEffects = R.pick(preciousMaterials, [
     "abysium",
     "adamantine",
     "cold-iron",
+    "darkwood",
     "djezet",
+    "keep-stone",
     "mithral",
     "noqual",
     "orichalcum",
@@ -46,6 +48,7 @@ const damageTypes: Record<DamageType, string> = {
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
     poison: "PF2E.TraitPoison",
+    spirit: "PF2E.TraitSpirit",
     untyped: "PF2E.TraitUntyped",
 };
 

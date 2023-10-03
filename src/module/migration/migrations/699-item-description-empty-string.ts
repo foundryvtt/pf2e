@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Fix item descriptions set to `null` by `TextEditor` */
 export class Migration699ItemDescriptionEmptyString extends MigrationBase {

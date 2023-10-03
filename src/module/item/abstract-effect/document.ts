@@ -1,18 +1,18 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { TokenDocumentPF2e } from "@scene";
+import { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
+import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
+import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
+import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { EffectBadge } from "./data";
-import { UUIDUtils } from "@util/uuid-utils";
-import { ShowFloatyEffectParams } from "@module/canvas/token/object";
-import { ConditionSource, ConditionSystemData } from "@item/condition";
-import { EffectSource, EffectSystemData } from "@item/effect";
-import { AfflictionSource, AfflictionSystemData } from "@item/affliction";
+import { EffectBadge } from "./data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** A normalized version of the slug that shows in roll options, removing certain prefixes */
-    rollOptionSlug!: string;
+    declare rollOptionSlug: string;
 
     abstract get badge(): EffectBadge | null;
 
@@ -21,9 +21,15 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
-        const actorOrToken = this.isOfType("affliction", "effect")
-            ? UUIDUtils.fromUuidSync(this.system.context?.origin.actor ?? "")
-            : null;
+        const requiresActorConstructed = !!(this.actor?._id && this.actor.isToken);
+        const requiresCanvasReady = !!this.system.context?.origin.actor.startsWith("Scene");
+        if ((requiresActorConstructed && !this.actor?.constructed) || (requiresCanvasReady && !canvas.ready)) {
+            return null;
+        }
+
+        const actorOrToken: unknown = this.system.context?.origin.actor
+            ? fromUuidSync(this.system.context.origin.actor)
+            : this.actor;
 
         return actorOrToken instanceof ActorPF2e
             ? actorOrToken
@@ -41,16 +47,30 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         return false;
     }
 
+    /** Whether this effect originated from a spell */
+    get fromSpell(): boolean {
+        return this.system.fromSpell;
+    }
+
     override getRollOptions(prefix = this.type): string[] {
-        const originRollOptions = new Set(
-            this.origin?.getRollOptions().map((o) => o.replace(/^(?:self:)?/, `${prefix}:origin:`)) ?? []
-        );
+        const { origin } = this;
+        // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
+        // has been initialized
+        const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
+        // If this effect came from another actor, get that actor's roll options as well
+        const originRollOptions = originIsInitialized
+            ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
+            : [];
+        const { badge } = this;
+        const itemOrigin = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
 
         return [
             ...super.getRollOptions(prefix),
+            ...itemOrigin,
             ...Object.entries({
-                [`badge:type:${this.badge?.type}`]: !!this.badge,
-                [`badge:value:${this.badge?.value}`]: !!this.badge,
+                [`badge:type:${badge?.type}`]: !!badge,
+                [`badge:value:${badge?.value}`]: !!badge,
+                "from-spell": this.fromSpell,
             })
                 .filter(([, isTrue]) => isTrue)
                 .map(([key]) => `${prefix}:${key}`),
@@ -63,6 +83,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
         const slug = this.slug ?? sluggify(this.name);
         this.rollOptionSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
+        this.system.fromSpell ??= false;
     }
 
     /** Set a self roll option for this effect */
@@ -86,6 +107,26 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
                 actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:${badge.value}`] = true;
             }
         }
+    }
+
+    /** Log whether this effect originated from a spell */
+    protected override _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        data.system.fromSpell ??= ((): boolean => {
+            const slug = this.slug ?? sluggify(this.name);
+            if (slug.startsWith("spell-effect-")) return true;
+            const originItem = fromUuidSync(this.system.context?.origin.item ?? "");
+            return (
+                originItem instanceof ItemPF2e &&
+                (originItem.isOfType("spell") ||
+                    (originItem.isOfType("affliction", "condition", "effect") && originItem.fromSpell))
+            );
+        })();
+
+        return super._preCreate(data, options, user);
     }
 
     protected override _onCreate(

@@ -1,0 +1,52 @@
+{
+    "_id": "4Bum44iMs6tQz90v",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Waking Dream",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While in your trance, you can blur the line between dreams and reality for others. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Waking Dream]</em> focus spell, which you can use only while you're in a Daydream Trance. You gain a pool of Focus Points with 1 Focus Point and you can Refocus by taking a nap for 10 minutes. You become trained in occult spell attack rolls and spell DCs, and your spellcasting ability for these spells is Wisdom.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sleepwalker Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.occult.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

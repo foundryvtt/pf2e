@@ -1,5 +1,5 @@
-import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data";
-import { BasePhysicalItemSource } from "@item/physical/data";
+import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data.ts";
+import { BasePhysicalItemSource } from "@item/physical/data.ts";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 
@@ -7,7 +7,7 @@ type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
 } & (FormulaBookData | SpellBookData);
 
-type BookSystemData = Omit<BookSystemSource, "price"> & EquipmentSystemData;
+type BookSystemData = Omit<BookSystemSource, "hp" | "price"> & EquipmentSystemData;
 
 interface FormulaBookData {
     subtype: "formula";
@@ -19,4 +19,4 @@ interface SpellBookData {
     item: object[];
 }
 
-export { BookSource, BookSystemData };
+export type { BookSource, BookSystemData };

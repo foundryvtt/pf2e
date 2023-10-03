@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Add rule elements to feats(ures) that increase range increments or allow one to ignore/mitigate range penalties */
 export class Migration714RangeIncrementREs extends MigrationBase {

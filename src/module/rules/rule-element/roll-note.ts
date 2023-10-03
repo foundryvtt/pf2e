@@ -1,20 +1,21 @@
-import { ItemPF2e } from "@item";
-import { RollNotePF2e } from "@module/notes";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { isObject } from "@util";
-import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
-import { ActorPF2e } from "@actor";
-
-const { fields } = foundry.data;
+import { RollNotePF2e } from "@module/notes.ts";
+import { UserVisibility } from "@scripts/ui/user-visibility.ts";
+import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
+import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
-            title: new fields.StringField({ required: true, nullable: true, initial: null }),
+            selector: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, initial: undefined }),
+                { required: true, nullable: false }
+            ),
+            title: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             visibility: new fields.StringField({
                 required: true,
                 nullable: true,
@@ -25,55 +26,40 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 new fields.StringField({ required: true, blank: false, choices: DEGREE_OF_SUCCESS_STRINGS }),
                 { required: false, nullable: false, initial: undefined }
             ),
+            text: new DataUnionField(
+                [
+                    new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
+                    new ResolvableValueField(),
+                ],
+                { required: true, nullable: false }
+            ),
         };
-    }
-
-    /** The main text of the note */
-    text: string | BracketedValue<string>;
-
-    constructor(source: RollNoteSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(source, item, options);
-
-        if (this.#isValid(source)) {
-            this.text = source.text;
-        } else {
-            this.text = "";
-        }
-    }
-
-    #isValid(source: RollNoteSource): source is RollNoteData {
-        const textIsValidBracket = isObject<{ brackets: unknown }>(source.text) && Array.isArray(source.text.brackets);
-
-        const tests = {
-            text: textIsValidBracket || (typeof source.text === "string" && source.text.length > 0),
-        };
-
-        for (const [property, result] of Object.entries(tests)) {
-            if (!result) this.failValidation(`"${property}" property is missing or invalid`);
-        }
-
-        return Object.values(tests).every((t) => t);
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const selector = this.resolveInjectedProperties(this.selector);
-        const title = this.resolveInjectedProperties(this.title);
-        const text = this.resolveInjectedProperties(String(this.resolveValue(this.text, "", { evaluate: false })));
-        if (selector && text) {
+        for (const selector of this.resolveInjectedProperties(this.selector)) {
+            if (selector === "null") continue;
+
+            const title = this.resolveInjectedProperties(this.title)?.trim() ?? null;
+            const text = this.resolveInjectedProperties(
+                String(this.resolveValue(this.text, "", { evaluate: false }))
+            ).trim();
+
+            if (!text) return this.failValidation("text field resolved empty");
+
             const note = new RollNotePF2e({
                 selector,
-                title,
+                title: title ? this.getReducedLabel(title) : null,
                 text,
-                predicate: this.predicate,
+                predicate: this.resolveInjectedProperties(this.predicate),
                 outcome: this.outcome,
                 visibility: this.visibility,
+                rule: this,
             });
             const notes = (this.actor.synthetics.rollNotes[selector] ??= []);
             notes.push(note);
-        } else {
-            console.warn("PF2E | Roll note requires at least a selector field and a non-empty text field");
         }
     }
 }
@@ -82,13 +68,17 @@ interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelProp
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
-    selector: StringField<string, string, true, false, false>;
+    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, true>;
     /** An optional title prepended to the note */
-    title: StringField<string, string, true, true, true>;
+    title: StringField<string, string, false, true, true>;
     /** An optional limitation of the notes visibility to GMs */
     visibility: StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
     outcome: ArrayField<StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>>;
+    /** The main text of the note */
+    text: DataUnionField<
+        StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>
+    >;
 };
 
 interface RollNoteSource extends RuleElementSource {
@@ -99,11 +89,4 @@ interface RollNoteSource extends RuleElementSource {
     visibility?: unknown;
 }
 
-interface RollNoteData extends RollNoteSource {
-    selector: string;
-    outcome: DegreeOfSuccessString[];
-    title?: string | null;
-    text: string | BracketedValue<string>;
-}
-
-export { RollNoteRuleElement };
+export { RollNoteRuleElement, type RollNoteSource };

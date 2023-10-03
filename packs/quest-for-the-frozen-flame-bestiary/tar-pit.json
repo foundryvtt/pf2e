@@ -1,0 +1,103 @@
+{
+    "_id": "kJlIPynpcH61F9Am",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "hhyqvvx658df1i5l",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Capture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Huge or smaller creature walks onto the tar pit</p><hr /><p><strong>Effect</strong> The triggering creature sinks into the tar pit up to its waist. The tar pit rolls initiative if it hasn't already.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Tar Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "(expert)",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "A 15-foot-wide patch of tar covered with dirt and leaves attempts to capture creatures that step onto it.",
+            "disable": "<p>@Check[type:survival|dc:25|name:Reveal the Tar Pit|traits:environmental,hazard] (expert) to disturb the surface and reveal the tar pit</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "Though the hazard still captures anyone who touches it, the surface doesn't become hidden again until it settles, which takes 24 hours.",
+            "routine": "<p>(1 action) On its initiative, the tar pit pulls down each creature within it, thick tar adhering to the creature's body. A creature that was submerged up to its waist becomes submerged up to its neck, and a creature that was submerged up to its neck is pulled under and must hold its breath to avoid suffocation. A creature in the tar pit can attempt a @Check[type:athletics|dc:33] check to @UUID[Compendium.pf2e.actionspf2e.Item.Climb] to either raise itself by one step (if it's submerged to its neck or full submerged) or to move 5 feet if it's submerged only up to its waist. On a critical failure, the creature is pulled down one step. Other creatures can Aid the creature, typically by using a rope or similar aid or by attempting to pull the creature out with their own @Check[type:athletics|dc:33] check, with the same results as if the creature attempted the check. In addition to the usual results, a character adjacent to the tar pit who critically fails while Aiding moves into the tar pit. A creature that Climbs out of the tar pit escapes the hazard and lands @UUID[Compendium.pf2e.conditionitems.Item.Prone] in an adjacent space.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #177: Burning Tundra"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

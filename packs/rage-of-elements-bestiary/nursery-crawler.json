@@ -1,0 +1,317 @@
+{
+    "_id": "bzMyAFhSQ1mfTNx9",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "PwoAYTwFf2RzdakE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Root",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "lRY1kUWtp18mnXQW": {
+                        "damage": "1d8+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7izpKuskd27DQuNj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Seed",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "germinate"
+                    ]
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "j6fBKGp99Jxzhufx": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "A9V1ie3haU4BJT0l",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Germinate",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the nursery crawler's seed Strike must, on its turn, spend an Interact action to remove the seed; any seeds still implanted at the end of the creature's turn begin to sprout, dealing @Damage[1d6[persistent,bleed]] damage and rendering the seeded creature @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]. Removing a seed after it's sprouted deals @Damage[1d4[piercing]] damage; removing it before it begins to sprout does no damage. Removed seeds that land in viable soil sprout immediately and grow into new saplings after 1 hour.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "plant"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lTNx3ghwV5YEM2Tc",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.ImpersonateStumpOrLog",
+                        "predicate": [
+                            "action:impersonate:log"
+                        ],
+                        "selector": "deception",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 when pretending to be a mundane stump or log",
+                        "options": "action:impersonate:log,action:impersonate"
+                    }
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Ttvj9SwE5O6Glm2J",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Nursery Crawler",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 48,
+                "temp": 0,
+                "value": 48
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 9
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "axe-vulnerability",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The vibrant elemental energy of the Plane of Wood imbues even the most rotten of fallen trees, empowering their remains to travel in search of the best locations for the next generation to put down roots. This mono-eyed, rotten stump launches seeds that begin to sprout the moment they're buried, whether in the ground or in a living creature's skin.</p>\n<hr />\n<p>At first glance, wood elementals might not seem to have the same destructive potential as their cousins from the Planes of Fire, Water, or Air, but don't be fooled. The woods can be a dangerous place.</p>\n<p>Though some resemble animals, the elemental beasts presented here are still plants, and their life cycles reflect it. Vegetable lambs grow on rooted stalks, from which they can't be removed until they've matured (or perhaps ripened), leaving them dependent on their immediate surroundings for food. Moss sloths are little more than lumps of green fluff for the first century of their existence, only gaining limited mobility once they can grow their defensive wooden claws.</p>\n<h2>Wild But Unwild</h2>\n<p>Many wood elementals are created by kizidhars and other powerful creatures on the Plane of Wood and placed in rote roles. Populating nature preserves and sprawling estates, they can be unsure how to behave if released into the wild. They're essentially born domesticated and will likely act far differently than the wild creatures they mimic, even in natural environments. Their natural predators are few, putting the elementals at less risk, although they're still sometimes eaten by giant termites or captured by some as pets.</p>\n<h2>A Brain By Any Other Name</h2>\n<p>Even if Lady Shumunue taught the wood elementals' ancestors to mimic animals, a wood elemental's consciousness is contained not in a brain but in its root system. Entities like nursery crawlers, living groves, and carved beasts use this to their advantage. That an elemental's wooden body can be carved and crafted, apparently without lasting harm, implies that they might not feel pain so long as their roots remain undamaged.</p>",
+            "source": {
+                "value": "Pathfinder Rage of Elements"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": ""
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "elemental",
+                "plant",
+                "wood"
+            ]
+        }
+    },
+    "type": "npc"
+}

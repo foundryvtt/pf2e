@@ -9,9 +9,9 @@ import {
     Terrain,
     TravelDuration,
     Trip,
-} from "./travel-speed";
+} from "./travel-speed.ts";
 import { Fraction, zip } from "@util";
-import { CharacterPF2e } from "@actor/character";
+import { CharacterPF2e } from "@actor/character/document.ts";
 
 type DetectionModeData = "none" | "everything" | "before";
 type SpeedUnitData = "feet" | "miles";

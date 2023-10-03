@@ -1,7 +1,7 @@
 <div class="details-container-flex-row">
     <label>
         {{localize "PF2E.RuleEditor.GrantItem.AllowDuplicate"}}
-        <input type="checkbox" name="system.rules.{{index}}.allowDuplicate" {{checked allowDuplicate}}>
+        <input type="checkbox" name="system.rules.{{index}}.allowDuplicate" {{checked rule.allowDuplicate}}>
     </label>
     <label>
         {{localize "PF2E.RuleEditor.GrantItem.ReplaceSelf"}}
@@ -14,12 +14,11 @@
 </div>
 <div class="form-group">
     <label class="short">{{localize "PF2E.UUID.Label"}}</label>
-    <div class="details-container-flex-row">
+    <div class="form-fields">
         <input type="text" name="system.rules.{{index}}.uuid" value="{{rule.uuid}}" />
         {{#if granted}}
-            <a class="granted content-link" data-uuid="{{granted.uuid}}">
-                <img src="{{granted.img}}"/>
-                {{granted.name}}
+            <a class="content-link" data-uuid="{{granted.uuid}}">
+                <img src="{{granted.img}}"/> {{granted.name}}
             </a>
         {{/if}}
     </div>

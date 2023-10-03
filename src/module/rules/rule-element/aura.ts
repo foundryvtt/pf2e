@@ -1,73 +1,303 @@
-import { AuraColors, AuraEffectData } from "@actor/types";
-import { ItemPF2e } from "@item";
-import { EffectTrait } from "@item/abstract-effect/data";
-import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
-import { UUIDUtils } from "@util/uuid-utils";
-import { ActorPF2e } from "@actor";
+import { userColorForActor } from "@actor/helpers.ts";
+import { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
+import { EffectTrait } from "@item/abstract-effect/data.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    StrictArrayField,
+    StrictBooleanField,
+    StrictNumberField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
+import { isImageOrVideoPath, sluggify } from "@util";
+import * as R from "remeda";
+import type {
+    AlphaField,
+    ArrayField,
+    BooleanField,
+    ColorField,
+    SchemaField,
+} from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
-export class AuraRuleElement extends RuleElementPF2e {
-    override slug: string;
-
-    /** The radius of the order in feet, or a string that will resolve to one */
-    radius: number | string;
-
-    /** References to effects included in this aura */
-    effects: AuraREEffectData[];
-
-    /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
-    traits: EffectTrait[];
-
-    /**
-     * Custom border and fill colors for the aura: if omitted, the border color will be black, and the fill color the
-     * user's assigned color
-     */
-    colors: AuraColors | null;
-
-    constructor(source: AuraRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        source.effects ??= [];
-        source.traits ??= [];
-
-        super(source, item, options);
-
+class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
+    constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
+        super(source, options);
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
-
-        if (this.#isValid(source)) {
-            this.radius = source.radius;
-            this.effects = deepClone(source.effects ?? []).map((e) => ({
-                ...e,
-                predicate: new PredicatePF2e(e.predicate ?? []),
-            }));
-            this.traits = deepClone(source.traits ?? []).filter((t) => t !== "aura");
-            this.colors = source.colors ?? null;
-        } else {
-            this.radius = 0;
-            this.effects = [];
-            this.traits = [];
-            this.colors = null;
+        for (const effect of this.effects) {
+            effect.includesSelf ??= effect.affects !== "enemies";
+            effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         }
+    }
+
+    static override defineSchema(): AuraSchema {
+        const { fields } = foundry.data;
+
+        const auraTraitField = new StrictStringField<EffectTrait, EffectTrait, true, false, false>({
+            required: true,
+            nullable: false,
+            initial: undefined,
+            choices: { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits },
+        });
+
+        const effectSchemaField: SchemaField<AuraEffectSchema> = new fields.SchemaField({
+            uuid: new StrictStringField({ required: true, blank: false, nullable: false, initial: undefined }),
+            affects: new StrictStringField({
+                required: true,
+                nullable: false,
+                blank: false,
+                initial: "all",
+                choices: ["allies", "enemies", "all"],
+                label: "PF2E.RuleEditor.Aura.Effects.Affects",
+            }),
+            events: new StrictArrayField(
+                new StrictStringField({
+                    required: true,
+                    blank: false,
+                    nullable: false,
+                    initial: undefined,
+                    choices: ["enter", "turn-start", "turn-end"],
+                }),
+                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" }
+            ),
+            save: new fields.SchemaField(
+                {
+                    type: new StrictStringField({
+                        required: true,
+                        nullable: false,
+                        blank: false,
+                        initial: undefined,
+                        choices: SAVE_TYPES,
+                        label: "PF2E.RuleEditor.Aura.Effects.Type",
+                    }),
+                    dc: new ResolvableValueField({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                        label: "PF2E.Check.DC.Unspecific",
+                    }),
+                },
+                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" }
+            ),
+            predicate: new PredicateField({ required: false, nullable: false }),
+            removeOnExit: new StrictBooleanField({
+                required: true,
+                nullable: false,
+                initial: true,
+                label: "PF2E.RuleEditor.Aura.Effects.RemoveOnExit",
+            }),
+            includesSelf: new StrictBooleanField({
+                required: false,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
+            }),
+        });
+
+        const xyPairSchema = ({ integer }: { integer: boolean }): XYPairSchema => ({
+            x: new StrictNumberField({
+                required: true,
+                integer,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Appearance.Translation.X",
+            }),
+            y: new StrictNumberField({
+                required: true,
+                integer,
+                nullable: false,
+                initial: undefined,
+                label: "PF2E.RuleEditor.Aura.Appearance.Translation.Y",
+            }),
+        });
+
+        const appearanceSchema: AuraAppearanceSchema = {
+            border: new fields.SchemaField(
+                {
+                    color: new DataUnionField(
+                        [
+                            new StrictStringField<"user-color", "user-color", true, false, false>({
+                                required: true,
+                                choices: ["user-color"],
+                                initial: undefined,
+                            }),
+                            new fields.ColorField({ required: true, nullable: false, initial: undefined }),
+                        ],
+                        {
+                            required: true,
+                            nullable: false,
+                            initial: "#000000",
+                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                        }
+                    ),
+                    alpha: new fields.AlphaField({
+                        required: true,
+                        nullable: false,
+                        initial: 0.75,
+                        label: "PF2E.RuleEditor.General.Opacity",
+                    }),
+                } as const,
+                {
+                    required: false,
+                    nullable: true,
+                    initial: () => ({ color: "#000000", alpha: 0.75 }),
+                    label: "PF2E.RuleEditor.Aura.Appearance.Border",
+                } as const
+            ),
+            highlight: new fields.SchemaField(
+                {
+                    color: new DataUnionField(
+                        [
+                            new StrictStringField<"user-color", "user-color", true, false, false>({
+                                required: true,
+                                nullable: false,
+                                choices: ["user-color"],
+                                initial: undefined,
+                            }),
+                            new fields.ColorField({ required: true, nullable: false, initial: undefined }),
+                        ],
+                        {
+                            required: true,
+                            nullable: false,
+                            initial: "user-color",
+                            label: "PF2E.RuleEditor.Aura.Appearance.Color",
+                        }
+                    ),
+                    alpha: new fields.AlphaField({
+                        required: false,
+                        nullable: false,
+                        initial: 0.25,
+                        label: "PF2E.RuleEditor.General.Opacity",
+                    }),
+                } as const,
+                {
+                    required: false,
+                    nullable: false,
+                    initial: () => ({ color: "user-color", alpha: 0.25 }),
+                    label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
+                }
+            ),
+            texture: new fields.SchemaField(
+                {
+                    src: new StrictStringField({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                        label: "TOKEN.ImagePath",
+                    }),
+                    alpha: new fields.AlphaField({
+                        required: true,
+                        nullable: false,
+                        initial: 1,
+                        label: "PF2E.RuleEditor.General.Opacity",
+                    }),
+                    scale: new StrictNumberField({
+                        required: true,
+                        nullable: false,
+                        positive: true,
+                        initial: 1,
+                        label: "Scale",
+                    }),
+                    translation: new fields.SchemaField(xyPairSchema({ integer: true }), {
+                        required: false,
+                        nullable: true,
+                        initial: null,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Translation.Label",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.Translation.Hint",
+                    } as const),
+                    loop: new StrictBooleanField({
+                        required: false,
+                        nullable: false,
+                        initial: true,
+                        label: "PF2E.RuleEditor.Aura.Appearance.Loop.Label",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.Loop.Hint",
+                    }),
+                    playbackRate: new StrictNumberField({
+                        required: false,
+                        nullable: false,
+                        positive: true,
+                        max: 4,
+                        initial: 1,
+                        label: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Label",
+                        hint: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Hint",
+                    }),
+                } as const,
+                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" }
+            ),
+        };
+
+        return {
+            ...super.defineSchema(),
+            radius: new ResolvableValueField({
+                required: true,
+                nullable: false,
+                initial: 5,
+                label: "PF2E.RuleEditor.Aura.Basic.Radius",
+            }),
+            level: new ResolvableValueField({
+                required: false,
+                nullable: true,
+                initial: null,
+                label: "PF2E.RuleEditor.Aura.Basic.Level.Label",
+                hint: "PF2E.RuleEditor.Aura.Basic.Level.Hint",
+            }),
+            traits: new StrictArrayField(auraTraitField, {
+                required: true,
+                nullable: false,
+                label: "PF2E.TraitsLabel",
+            }),
+            effects: new StrictArrayField(effectSchemaField, {
+                required: true,
+                nullable: false,
+                label: "PF2E.RuleEditor.Aura.Effects.Label",
+            }),
+            appearance: new fields.SchemaField(appearanceSchema, {
+                required: true,
+                nullable: false,
+                initial: () => ({
+                    border: { color: "#000000", alpha: 0.75 },
+                    highlight: { color: "user-color", alpha: 0.25 },
+                    texture: null,
+                }),
+                label: "PF2E.RuleEditor.Aura.Appearance.Label",
+            }),
+            mergeExisting: new StrictBooleanField({
+                required: true,
+                nullable: false,
+                initial: true,
+                label: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Label",
+                hint: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Hint",
+            }),
+        };
     }
 
     override afterPrepareData(): void {
         if (!this.test()) return;
 
-        const radius = Math.clamped(Number(this.resolveValue(this.radius)), 5, 240);
+        const radius = Math.clamped(Math.ceil(Number(this.resolveValue(this.radius)) / 5) * 5, 5, 240);
 
-        if (typeof Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
-            const data = {
+        if (Number.isInteger(radius) && radius > 0) {
+            const level = this.resolveValue(this.level, null);
+            const data: AuraData = {
                 slug: this.slug,
-                level: this.item.system.level?.value ?? null,
                 radius,
+                level:
+                    typeof level === "number"
+                        ? Math.trunc(level)
+                        : this.item.isOfType("effect")
+                        ? this.item.level
+                        : null,
                 effects: this.#processEffects(),
-                traits: this.traits,
-                colors: this.colors,
+                traits: R.uniq(this.traits.filter((t) => t !== "aura")).sort(),
+                appearance: this.#processAppearanceData(),
             };
 
             // Late validation check of effect UUID
             for (const effect of data.effects) {
-                const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
+                const indexEntry = fromUuidSync(effect.uuid);
                 if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
                     this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
                     return;
@@ -77,57 +307,27 @@ export class AuraRuleElement extends RuleElementPF2e {
                 }
             }
 
-            this.actor.auras.set(this.slug, data);
-        }
-    }
+            const existing = this.actor.auras.get(this.slug);
+            if (existing && this.mergeExisting) {
+                existing.radius = data.radius;
+                existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                for (const effect of data.effects) {
+                    const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);
+                    if (existingIndex !== -1) {
+                        existing.effects.splice(existingIndex, 1, effect);
+                    } else {
+                        existing.effects.push(effect);
+                    }
+                }
 
-    #isValid(data: AuraRuleElementSource): data is AuraRuleElementData {
-        const validations = {
-            traits:
-                Array.isArray(data.traits) &&
-                data.traits.every((t) => t in CONFIG.PF2E.spellTraits || t in CONFIG.PF2E.actionTraits),
-            radius: ["number", "string"].includes(typeof data.radius),
-            effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
-            colors: !("colors" in data) || data.colors === null || this.#isAuraColors(data.colors),
-            predicate: !("predicate" in data) || PredicatePF2e.isValid(data.predicate),
-        };
-        const properties = ["traits", "radius", "effects", "colors"] as const;
-        for (const property of properties) {
-            if (!validations[property]) {
-                this.failValidation(`"${property}" property is invalid.`);
+                // Only merge appearance data from this aura if it has been explicitly set by the user
+                if (this._source.appearance) {
+                    existing.appearance = mergeObject(existing.appearance, data.appearance);
+                }
+            } else {
+                this.actor.auras.set(this.slug, data);
             }
         }
-
-        return properties.every((p) => validations[p]);
-    }
-
-    #isAuraColors(colors: unknown): colors is AuraColors {
-        return (
-            isObject<AuraColors>(colors) &&
-            (["border", "fill"] as const).every((p) => {
-                const color = colors[p];
-                return typeof color === "string" && /#[a-f0-9]{6}/.test(color.toLowerCase());
-            })
-        );
-    }
-
-    #isEffectData(effect: unknown): effect is AuraREEffectData {
-        if (!isObject<AuraEffectData>(effect)) return false;
-        effect.affects ??= "all";
-        effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
-        effect.save ??= null;
-        effect.includesSelf ??= effect.affects !== "enemies";
-
-        return (
-            typeof effect.uuid === "string" &&
-            (!("level" in effect) || ["string", "number"].includes(typeof effect.level)) &&
-            typeof effect.affects === "string" &&
-            ["allies", "enemies", "all"].includes(effect.affects) &&
-            Array.isArray(effect.events) &&
-            effect.events.every((e) => typeof e === "string" && ["enter", "turn-start", "turn-end"].includes(e)) &&
-            typeof effect.removeOnExit === "boolean" &&
-            typeof effect.includesSelf === "boolean"
-        );
     }
 
     /** Resolve level values on effects */
@@ -135,25 +335,186 @@ export class AuraRuleElement extends RuleElementPF2e {
         return this.effects.map((e) => ({
             ...e,
             uuid: this.resolveInjectedProperties(e.uuid),
-            level: Number(this.resolveValue(e.level)) || null,
+            save: null,
         }));
     }
+
+    #processAppearanceData(): AuraAppearanceData {
+        const appearance = deepClone(this.appearance);
+        const { border, highlight, texture } = appearance;
+        const textureSrc = ((): ImageFilePath | VideoFilePath | null => {
+            if (!texture) return null;
+            const maybeTextureSrc = this.resolveInjectedProperties(texture.src);
+            return isImageOrVideoPath(maybeTextureSrc) ? maybeTextureSrc : "icons/svg/hazard.svg";
+        })();
+
+        if (border) border.color = border.color === "user-color" ? userColorForActor(this.actor) : border.color;
+        highlight.color = highlight.color === "user-color" ? userColorForActor(this.actor) : highlight.color;
+
+        return {
+            border: border && { color: Number(Color.fromString(border.color)), alpha: border.alpha },
+            highlight: { color: Number(Color.fromString(highlight.color)), alpha: highlight.alpha },
+            texture: texture?.alpha && textureSrc ? { ...texture, src: textureSrc } : null,
+        };
+    }
+}
+
+interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSchema<AuraSchema> {
+    slug: string;
+    effects: AuraEffectREData[];
+}
+
+type AuraSchema = RuleElementSchema & {
+    /** The radius of the order in feet, or a string that will resolve to one */
+    radius: ResolvableValueField<true, false, true>;
+    /** An optional level for the aura, to be used to set the level of the effects it transmits */
+    level: ResolvableValueField<false, true, true>;
+    /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
+    traits: ArrayField<
+        StrictStringField<EffectTrait, EffectTrait, true, false, false>,
+        EffectTrait[],
+        EffectTrait[],
+        true,
+        false,
+        true
+    >;
+    /** References to effects included in this aura */
+    effects: StrictArrayField<
+        SchemaField<AuraEffectSchema>,
+        SourceFromSchema<AuraEffectSchema>[],
+        ModelPropsFromSchema<AuraEffectSchema>[],
+        true,
+        false,
+        true
+    >;
+    /**
+     * Custom border, highlight, and texture for the aura: if omitted, the border color will be black, the fill
+     * color the user's configured color, and no texture.
+     */
+    appearance: SchemaField<
+        AuraAppearanceSchema,
+        SourceFromSchema<AuraAppearanceSchema>,
+        ModelPropsFromSchema<AuraAppearanceSchema>,
+        true,
+        false,
+        true
+    >;
+    /**
+     * If another aura with the same slug is already being emitted, merge this aura's data in with the other's,
+     * combining traits and effects as well as merging `colors` data.
+     */
+    mergeExisting: BooleanField<boolean, boolean, true, false, true>;
+};
+
+type AuraEffectSchema = {
+    uuid: StrictStringField<string, string, true, false, false>;
+    affects: StrictStringField<"allies" | "enemies" | "all", "allies" | "enemies" | "all", true, false, true>;
+    events: ArrayField<
+        StrictStringField<"enter" | "turn-start" | "turn-end", "enter" | "turn-start" | "turn-end", true, false, false>,
+        ("enter" | "turn-start" | "turn-end")[],
+        ("enter" | "turn-start" | "turn-end")[],
+        true,
+        false,
+        true
+    >;
+    save: SchemaField<
+        {
+            type: StrictStringField<SaveType, SaveType, true, false, false>;
+            dc: ResolvableValueField<true, false, false>;
+        },
+        { type: SaveType; dc: RuleValue },
+        { type: SaveType; dc: RuleValue },
+        true,
+        true,
+        true
+    >;
+    predicate: PredicateField<false, false, true>;
+    removeOnExit: StrictBooleanField<true, false, true>;
+    includesSelf: StrictBooleanField<false, false, false>;
+};
+
+type AuraAppearanceSchema = {
+    /** Configuration of the border's color and alpha */
+    border: SchemaField<
+        {
+            color: DataUnionField<
+                StrictStringField<"user-color", "user-color", true, false, false> | ColorField<true, false, false>,
+                true,
+                false,
+                true
+            >;
+            alpha: AlphaField<true, false, true>;
+        },
+        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | HexColorString; alpha: number },
+        false,
+        true,
+        true
+    >;
+    /** Configuration of the highlight's color and alpha */
+    highlight: SchemaField<
+        {
+            color: DataUnionField<
+                StrictStringField<"user-color", "user-color", true, false, false> | ColorField<true, false, false>,
+                true,
+                false,
+                true
+            >;
+            alpha: AlphaField<false, false, true>;
+        },
+        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | HexColorString; alpha: number },
+        false,
+        false,
+        true
+    >;
+    /** Configuration for a texture (image or video) drawn as part of the aura */
+    texture: SchemaField<
+        AuraTextureSchema,
+        SourceFromSchema<AuraTextureSchema>,
+        ModelPropsFromSchema<AuraTextureSchema>,
+        false,
+        true,
+        true
+    >;
+};
+
+type AuraTextureSchema = {
+    /** The path to the texture file: can be injected */
+    src: StrictStringField<string, string, true, false, false>;
+    alpha: AlphaField<true, false, true>;
+    /** A manual rescaling of the texture resource */
+    scale: StrictNumberField<number, number, true, false, true>;
+    /** A manual x/y translation of the texture resource */
+    translation: SchemaField<
+        XYPairSchema,
+        SourceFromSchema<XYPairSchema>,
+        ModelPropsFromSchema<XYPairSchema>,
+        false,
+        true,
+        true
+    >;
+    /** If the `src` is a video, whether to loop it */
+    loop: StrictBooleanField<false, false, true>;
+    /** If the `src` is a video, the playback rate of resulting `HTMLVideoElement` */
+    playbackRate: StrictNumberField<number, number, false, false, true>;
+};
+
+type XYPairSchema = {
+    x: StrictNumberField<number, number, true, false, false>;
+    y: StrictNumberField<number, number, true, false, false>;
+};
+
+interface AuraEffectREData extends ModelPropsFromSchema<AuraEffectSchema> {
+    includesSelf: boolean;
+    removeOnExit: boolean;
 }
 
 interface AuraRuleElementSource extends RuleElementSource {
     radius?: unknown;
     effects?: unknown;
     traits?: unknown;
-    colors?: unknown;
 }
 
-interface AuraRuleElementData extends RuleElementSource {
-    radius: string | number;
-    effects?: AuraREEffectData[];
-    traits?: EffectTrait[];
-    colors?: AuraColors | null;
-}
-
-interface AuraREEffectData extends Omit<AuraEffectData, "level"> {
-    level?: string | number;
-}
+export { AuraRuleElement };
+export type { AuraSchema as AuraRuleElementSchema, AuraTextureSchema as AuraRuleElementTextureSchema };

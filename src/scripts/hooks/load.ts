@@ -1,24 +1,25 @@
 import { ActorProxyPF2e } from "@actor";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemProxyPF2e } from "@item";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActorsPF2e } from "@module/collection/actors";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { MacroPF2e } from "@module/macro";
-import { UserPF2e } from "@module/user";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActorsPF2e } from "@module/collection/actors.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { MacroPF2e } from "@module/macro.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
-    TokenConfigPF2e,
     TokenDocumentPF2e,
-} from "@scene";
-import { monkeyPatchFoundry } from "@scripts/🐵🩹";
-import { CheckRoll, StrikeAttackRoll } from "@system/check";
-import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms";
+} from "@scene/index.ts";
+import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
+import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
+import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
+import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
+import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
+import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -27,6 +28,7 @@ export const Load = {
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;
         CONFIG.Actor.documentClass = ActorProxyPF2e;
+        CONFIG.ActorDelta.documentClass = ActorDeltaPF2e;
         CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
@@ -48,18 +50,41 @@ export const Load = {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 
+        // Add functions to the `Math` namespace for use in `Roll` formulas
+        Math.eq = (a: number, b: number): boolean => a === b;
+        Math.gt = (a: number, b: number): boolean => a > b;
+        Math.gte = (a: number, b: number): boolean => a >= b;
+        Math.lt = (a: number, b: number): boolean => a < b;
+        Math.lte = (a: number, b: number): boolean => a <= b;
+        Math.ne = (a: number, b: number): boolean => a !== b;
+        Math.ternary = (condition: boolean | number, ifTrue: number, ifFalse: number): number =>
+            condition ? ifTrue : ifFalse;
+
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
 
-        Roll.MATH_PROXY = mergeObject(Roll.MATH_PROXY, {
-            eq: (a: number, b: number) => a === b,
-            gt: (a: number, b: number) => a > b,
-            gte: (a: number, b: number) => a >= b,
-            lt: (a: number, b: number) => a < b,
-            lte: (a: number, b: number) => a <= b,
-            ne: (a: number, b: number) => a !== b,
-            ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => (condition ? ifTrue : ifFalse),
-        });
+        // Inline link icons
+        CONFIG.Actor.typeIcons = {
+            familiar: "fa-solid fa-cat",
+            hazard: "fa-solid fa-hill-rockslide",
+            loot: "fa-solid fa-treasure-chest",
+        };
+        CONFIG.Item.typeIcons = {
+            action: "fa-solid fa-person-running-fast",
+            affliction: "fa-solid fa-biohazard",
+            armor: "fa-solid fa-shirt-long-sleeve",
+            backpack: "fa-solid fa-sack",
+            book: "fa-solid fa-book",
+            condition: "fa-solid fa-face-zany",
+            consumable: "fa-solid fa-flask-round-potion",
+            deity: "fa-solid fa-hamsa",
+            effect: "fa-solid fa-person-rays",
+            equipment: "fa-solid fa-hat-cowboy",
+            feat: "fa-solid fa-medal",
+            spell: "fa-solid fa-sparkles",
+            treasure: "fa-solid fa-gem",
+            weapon: "fa-solid fa-sword",
+        };
 
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
@@ -74,5 +99,18 @@ export const Load = {
                 element.blur();
             }
         });
+
+        // HMR for template files
+        if (import.meta.hot) {
+            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+                delete _templateCache[path];
+                await getTemplate(path);
+                const apps = [...Object.values(ui.windows), ui.sidebar];
+                for (const app of apps) {
+                    app.render();
+                }
+                if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            });
+        }
     },
 };

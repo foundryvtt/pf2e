@@ -1,11 +1,19 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
-const ACTION_COST = ["free", "reaction", 1, 2, 3] as const;
-type ActionCost = (typeof ACTION_COST)[number];
+const ACTION_COSTS = ["free", "reaction", 1, 2, 3] as const;
+type ActionCost = (typeof ACTION_COSTS)[number];
+
+interface ActionMessageOptions {
+    blind: boolean;
+    variant: string;
+    whisper: string[];
+}
 
 interface ActionVariantUseOptions extends Record<string, unknown> {
-    actors?: ActorPF2e | ActorPF2e[];
+    actors: ActorPF2e | ActorPF2e[];
     event: Event;
+    traits: string[];
 }
 
 interface ActionVariant {
@@ -15,6 +23,7 @@ interface ActionVariant {
     name?: string;
     slug: string;
     traits: string[];
+    toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     use(options?: Partial<ActionVariantUseOptions>): Promise<unknown>;
 }
 
@@ -31,8 +40,9 @@ interface Action {
     slug: string;
     traits: string[];
     variants: Collection<ActionVariant>;
+    toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     /** Uses the default variant for this action, which will usually be the first one in the collection. */
     use(options?: Partial<ActionUseOptions>): Promise<unknown>;
 }
 
-export { ACTION_COST, Action, ActionCost, ActionUseOptions, ActionVariant, ActionVariantUseOptions };
+export type { Action, ActionCost, ActionMessageOptions, ActionUseOptions, ActionVariant, ActionVariantUseOptions };

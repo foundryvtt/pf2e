@@ -1,0 +1,45 @@
+{
+    "_id": "QrShJGrvmWPBj4oN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Arcane School Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain your school's initial school spell. If you don't already have one, you gain a focus pool of 1 Focus Point, which you can @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] by studying.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wizard Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

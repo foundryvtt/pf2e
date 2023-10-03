@@ -1,0 +1,48 @@
+{
+    "_id": "hJlLmjW0NNeV1Ous",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Cascade Countermeasure",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When in Arcane Cascade, you can make yourself resistant to magic. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Cascade Countermeasure]</em> conflux spell.</p>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Arcane Cascade"
+                },
+                {
+                    "value": "focus pool"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,66 @@
+{
+    "_id": "4bR1i7qzmSJ5No6O",
+    "img": "systems/pf2e/icons/spells/light.webp",
+    "name": "Effect: Bond in Light",
+    "system": {
+        "description": {
+            "value": "<p>The creature glows with bright light in a 20-foot emanation and dim light to 40 feet and has fast healing 10.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": 10
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.5,
+                    "angle": 0,
+                    "animation": {
+                        "intensity": 1,
+                        "reverse": false,
+                        "speed": 3,
+                        "type": "pulse"
+                    },
+                    "bright": 20,
+                    "color": "#fff9a3",
+                    "coloration": 1,
+                    "contrast": 0,
+                    "darkness": {
+                        "max": 1,
+                        "min": 0
+                    },
+                    "dim": 40,
+                    "gradual": true,
+                    "luminosity": 0.5,
+                    "saturation": 0,
+                    "shadows": 0
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

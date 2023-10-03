@@ -1,0 +1,56 @@
+{
+    "_id": "qM4bQfcwZ0EOS2M9",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Inspiring Resilience",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to their Will save against the triggering effect, or a +2 circumstance bonus if the effect originated from an undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "slug": "inspiring-resilience",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "origin:mode:undead"
+                ],
+                "selector": "saving-throw",
+                "slug": "inspiring-resilience",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

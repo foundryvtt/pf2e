@@ -1,5 +1,5 @@
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { ActionDefaultOptions } from "@system/action-macros";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 
 export async function editPersistent(options: ActionDefaultOptions): Promise<void> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];

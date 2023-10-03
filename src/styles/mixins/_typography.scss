@@ -7,6 +7,183 @@
     font-family: var(--sans-serif);
     font-size: var(--font-size-10);
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     text-rendering: optimizeLegibility;
+}
+
+@mixin journal-styling {
+    // todo: phase out
+    --space-s: 0.25em;
+    --space-m: 0.5em;
+    --space-l: 1em;
+    --space-xl: 1.5em;
+    --space-2xl: 2em;
+    --radius: 3px;
+
+    // Override so that empty <p> (and <p>s with empty <span>) do not take space
+    // This comes up for @Localize
+    p {
+        min-height: unset;
+    }
+
+    // Redeclared so that popout journals pages match embedded journal pages and item summaries
+    :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+        margin-top: 1em;
+    }
+
+    .inline-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-l);
+        background-color: var(--alt);
+        font-family: var(--sans-serif);
+        color: var(--text-light);
+        padding: 0;
+        font-size: 0.8em;
+        font-weight: 400;
+        border: none;
+
+        strong {
+            display: inline-flex;
+            padding: 0 var(--space-m);
+            background-color: var(--primary);
+            min-width: 15ch;
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+            font-weight: 400;
+        }
+
+        + p {
+            margin-top: var(--space-s);
+        }
+    }
+
+    .info {
+        background-color: var(--secondary);
+        padding: var(--space-m);
+        color: var(--text-light);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        border-radius: var(--radius);
+        font-family: var(--sans-serif);
+        padding-bottom: var(--space-m);
+
+        > * + * {
+            margin-top: var(--space-m);
+        }
+
+        & + * {
+            margin-top: var(--space-xl);
+        }
+
+        & + & {
+            margin-top: var(--space-s);
+        }
+
+        h4 {
+            font-size: 0.9em;
+            font-weight: 400;
+            line-height: 1.2;
+            font-family: var(--sans-serif);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+            padding: var(--space-m) var(--space-l);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-light);
+
+            &::after {
+                font-family: "Font Awesome 6";
+                content: "\f05a";
+                font-weight: 900;
+                margin-right: var(--space-s);
+            }
+        }
+
+        p {
+            font-size: 0.8em;
+            margin: 0;
+            padding: 0 var(--space-l);
+
+            &:first-of-type {
+                padding-top: var(--space-m);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+
+    .traits {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+
+        p {
+            display: inline-flex;
+            padding: 0.16rem 0.25rem;
+            margin: 0;
+
+            background-color: var(--primary);
+            border: 2px solid var(--color-border-trait);
+            color: var(--text-light);
+            font: 500 var(--font-size-10) var(--sans-serif);
+            text-transform: uppercase;
+        }
+    }
+
+    .statblock {
+        font-family: var(--sans-serif-condensed);
+        color: var(--text-dark);
+        line-height: 1.2;
+        margin-bottom: var(--space-m);
+
+        > * + * {
+            margin-top: var(--space-s);
+            margin-bottom: 0;
+        }
+
+        p {
+            --indent: var(--space-l);
+            margin-left: var(--indent);
+            position: relative;
+
+            strong:first-of-type {
+                margin-left: calc(var(--indent) * -1);
+            }
+
+            .trait:first-of-type {
+                margin-left: calc(var(--indent) * -1 - 2px);
+            }
+        }
+
+        span.pf2-icon {
+            line-height: 1;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--color-border-dark);
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-family: var(--sans-serif-condensed);
+            font-weight: 700;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+    }
+
+    .message {
+        font-family: var(--journal-cursive);
+        font-size: 2em;
+        line-height: 1.2;
+    }
 }

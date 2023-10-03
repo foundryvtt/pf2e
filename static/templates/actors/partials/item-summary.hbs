@@ -23,25 +23,26 @@
 
 <div class="item-description">
     {{{description}}}
+    {{#if selfEffect}}<p>{{{selfEffect}}}</p>{{/if}}
 </div>
 
 {{#if (and identified isCreature)}}
     <div class="item-buttons">
         {{#if chatData.save}}
-            <span>{{chatData.save.label}}</span>
+            <span>{{{chatData.save.label}}}</span>
         {{/if}}
 
         {{#unless item.hasVariants}}
             {{#if chatData.isAttack}}
-                <span><button class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                <span><button type="button" class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
             {{/if}}
             {{#if chatData.hasDamage}}
-                <span><button class="spell_damage" data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.formula}}</button></span>
+                <span><button type="button" class="spell_damage" data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.formula}}</button></span>
             {{/if}}
         {{/unless}}
 
         {{#if (and (eq item.type "consumable") item.uses.max)}}
-            <span><button class="consume" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.name}}</button></span>
+            <span><button type="button" class="consume" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.name}}</button></span>
         {{/if}}
     </div>
 {{/if}}

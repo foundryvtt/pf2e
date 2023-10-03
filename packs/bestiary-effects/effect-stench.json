@@ -1,0 +1,45 @@
+{
+    "_id": "wX9L6fbqVMLP05hn",
+    "img": "systems/pf2e/icons/spells/grease.webp",
+    "name": "Effect: Stench",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to saves against disease.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disease"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

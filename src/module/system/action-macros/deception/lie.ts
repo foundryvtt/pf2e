@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.Lie";
 
-export function lie(options: SkillActionOptions) {
+export function lie(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:lie"];
     const modifiers = options?.modifiers;
@@ -14,11 +14,13 @@ export function lie(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "linguistic", "mental", "secret"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

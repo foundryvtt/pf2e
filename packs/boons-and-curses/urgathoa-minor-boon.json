@@ -1,0 +1,52 @@
+{
+    "_id": "jfWeNqYj3rn9EysM",
+    "img": "systems/pf2e/icons/deity/Urgathoa.webp",
+    "name": "Urgathoa - Minor Boon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p><strong>Minor Boon</strong> You feast on the spoils of life and death. You gain the benefits of the @UUID[Compendium.pf2e.heritages.Item.Irongut Goblin] heritage, regardless of your ancestry. If you already have this heritage, the circumstance bonus increases to +4.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "heritage:irongut-goblin"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.heritages.Item.Irongut Goblin"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "heritage:irongut-goblin"
+                ],
+                "slug": "irongut-save-bonus",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

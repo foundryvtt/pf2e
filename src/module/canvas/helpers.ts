@@ -1,5 +1,5 @@
-import { MeasuredTemplatePF2e } from "./measured-template";
-import { TokenPF2e } from "./token";
+import { MeasuredTemplatePF2e } from "./measured-template.ts";
+import { TokenPF2e } from "./token/index.ts";
 
 /**
  * Measure the minimum distance between two rectangles
@@ -168,7 +168,7 @@ function measureDistanceOnGrid(
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
 function highlightGrid({
-    type,
+    areaType,
     object,
     colors,
     document,
@@ -193,7 +193,7 @@ function highlightGrid({
     const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
     const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
-
+    const snappedOrigin = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
     const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
@@ -205,32 +205,33 @@ function highlightGrid({
 
     // Offset measurement for cones to ensure that cones only start measuring from cell borders
     const coneOriginOffset = ((): Point => {
-        if (type !== "cone") return { x: 0, y: 0 };
+        if (areaType !== "cone") return { x: 0, y: 0 };
 
         // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
         const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
         // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
         const xOffset =
-            document.x % dimensions.size !== 0
+            snappedOrigin.x % dimensions.size !== 0
                 ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         // Same for Y, but cos Y goes down on screens, we invert
         const yOffset =
-            document.y % dimensions.size !== 0
+            snappedOrigin.y % dimensions.size !== 0
                 ? -Math.sign((1 * Math.round(Math.sin(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         return { x: xOffset * dimensions.size, y: yOffset * dimensions.size };
     })();
 
     // Point we are measuring distances from
-    const padding = Math.clamped(document.width, 1.5, 2);
-    const padded = (document.distance * padding) / dimensions.distance;
+    const padding = Math.clamped(document.width ?? 0, 1.5, 2);
+    const docDistance = document.distance ?? 0;
+    const padded = (docDistance * padding) / dimensions.distance;
     const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
     const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
 
     // If this is an emanation, measure from the outer squares of the token's space
     const offsetEmanationOrigin = (destination: Point): Point => {
-        if (!(type === "emanation" && object instanceof TokenPF2e)) {
+        if (!(areaType === "emanation" && object instanceof TokenPF2e)) {
             return { x: 0, y: 0 };
         }
 
@@ -261,12 +262,12 @@ function highlightGrid({
             // Determine point of origin
             const emanationOriginOffset = offsetEmanationOrigin(destination);
             const origin = {
-                x: document.x + coneOriginOffset.x + emanationOriginOffset.x,
-                y: document.y + coneOriginOffset.y + emanationOriginOffset.y,
+                x: snappedOrigin.x + coneOriginOffset.x + emanationOriginOffset.x,
+                y: snappedOrigin.y + coneOriginOffset.y + emanationOriginOffset.y,
             };
-            const ray = new Ray(origin, destination);
 
-            if (type === "cone") {
+            if (areaType === "cone") {
+                const ray = new Ray(origin, destination);
                 const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
                 if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
                     continue;
@@ -275,9 +276,14 @@ function highlightGrid({
 
             // Determine grid-square point to which we're measuring the distance
             const distance = measureDistance(destination, origin);
-            if (distance > document.distance) continue;
+            if (distance > docDistance) continue;
 
-            const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
+            const hasCollision =
+                canvas.ready &&
+                CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, {
+                    type: collisionType,
+                    mode: "any",
+                });
 
             if (hasCollision) {
                 grid.grid.highlightGridPosition(highlightLayer, {
@@ -304,7 +310,7 @@ function highlightGrid({
 }
 
 interface HighlightGridParams {
-    type: "burst" | "cone" | "emanation";
+    areaType: "burst" | "cone" | "emanation";
     object: MeasuredTemplatePF2e | TokenPF2e;
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };
@@ -312,10 +318,10 @@ interface HighlightGridParams {
     document: Readonly<{
         x: number;
         y: number;
-        distance: number;
+        distance: number | null;
         angle?: number;
         direction?: number;
-        width: number;
+        width: number | null;
     }>;
     collisionType?: WallRestrictionType;
     preview?: boolean;

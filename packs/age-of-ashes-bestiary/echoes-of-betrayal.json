@@ -1,0 +1,154 @@
+{
+    "_id": "ja9KowUPZjhwhJ1x",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dU7uiLZral2AnGbC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Confuse",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least three creatures enter area <strong>H10</strong>.</p>\n<hr />\n<p><strong>Effect</strong> The haunt takes control of all creatures in the prison, affecting them with <em>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</em> (8th level, @Check[type:will|dc:37] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TSSV8a0oKTioJrDT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Fist",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "chk2cry7mi9jqcfehyid5": {
+                        "damage": "5d10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>On hit the creature must attempt a new @Check[type:will|dc:37|name:Spectral Fist Confusion] save against <em>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</em> if it's not already @UUID[Compendium.pf2e.conditionitems.Item.Confused].</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Echoes of Betrayal",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master) to hear the quiet murmurs of angry spirits</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Malevolent spirits led by a ghostly image of Ludika rise and begin a deadly brawl. These spirits attempt to overwhelm living creatures, forcing them to join the battle.</p>",
+            "disable": "<p>@Check[type:religion|dc:35|name:Exorcise|traits:haunt,complex] (master) three times to exorcise the spirits or @Check[type:diplomacy|dc:39|name:Talk Down|traits:haunt,complex] (expert) three times to talk them down.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>After 24 hours, the haunt returns. The spirits are permanently put to rest only if a lawfully appointed judge from Saggorak (or Kovlar) comes into the prison, takes damage from the haunt, and survives the attack.</p>",
+            "routine": "<p>(1 action) As 1 action, the haunt causes a barrage of ghostly fists to lash from the walls, floors, and ceiling. The haunt attempts a spectral fist Strike against each creature in area <strong>H10</strong>.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

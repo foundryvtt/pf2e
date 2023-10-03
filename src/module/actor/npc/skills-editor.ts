@@ -1,182 +1,117 @@
 import type { NPCPF2e } from "@actor";
-import { NPCSkillData } from "@actor/npc/data";
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
-import { LorePF2e } from "@item";
-import { LoreSource } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { NPCSkillData } from "@actor/npc/data.ts";
+import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { LoreSource } from "@item/data/index.ts";
+import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
-export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
-    get npc(): NPCPF2e {
+export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
+    get actor(): NPCPF2e {
         return this.object;
     }
 
-    static override get defaultOptions(): FormApplicationOptions {
-        const options = super.defaultOptions;
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            classes: ["pf2e", "npc-skills-editor"],
+            template: "systems/pf2e/templates/actors/npc/skills-editor.hbs",
+            height: "auto",
+            scrollY: [".scroll-container"],
+            sheetConfig: false,
+            submitOnChange: false,
+            submitOnClose: false,
+            width: "400",
+        };
+    }
 
-        options.id = "npc-skills-selector";
-        options.classes = ["pf2e", "npc"];
-        options.title = game.i18n.localize("PF2E.NPC.SkillsEditor.TitleLabel");
-        options.template = "systems/pf2e/templates/actors/npc/forms/npc-skills-editor.hbs";
-        options.width = "auto";
-        options.height = 700;
-        options.scrollY = [".skills-list"]; // ???
-
-        return options;
+    override get title(): string {
+        return game.i18n.format("PF2E.Actor.NPC.SkillsEditor.Title", { actor: this.actor.name });
     }
 
     /** Prepare data to be sent to HTML. */
-    override getData() {
-        const trainedSkills: Record<string, NPCSkillData> = {};
-        const untrainedSkills: Record<string, NPCSkillData> = {};
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<EditorData> {
+        const allSkills = Object.values(this.actor.system.skills);
 
-        const { skills } = this.npc.system;
-        for (const [key, skill] of Object.entries(skills)) {
-            if (this.#isLoreSkill(key)) {
-                skill.isLore = true;
-                trainedSkills[key] = skill;
-            } else if (skill.visible) {
-                trainedSkills[key] = skill;
-            } else {
-                untrainedSkills[key] = skill;
-            }
-        }
-
-        return { ...super.getData(), trainedSkills, untrainedSkills };
+        return {
+            ...(await super.getData(options)),
+            actor: this.actor,
+            trainedSkills: allSkills.filter((s) => s.visible).sort((a, b) => a.label.localeCompare(b.label)),
+            untrainedSkills: allSkills.filter((s) => !s.visible).sort((a, b) => a.label.localeCompare(b.label)),
+        };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find(".delete").on("click", (event) => this.#onClickRemoveSkill(event));
-        $html.find(".add-lore-button").on("click", (event) => this.#onClickAddLoreSkill(event));
-        $html.find(".item-edit").on("click", (event) => this.#onClickEditSkill(event));
-        $html.find(".add-skill-button").on("click", (event) => this.#onClickAddSkill(event));
-    }
-
-    async #onClickAddSkill(eventData: JQuery.ClickEvent) {
-        eventData.preventDefault();
-
-        const skillSelector = $(eventData.currentTarget).parents("#skill-selector").find("select");
-        const skillId: string = skillSelector.val() as string;
-        const skillName = this.#findSkillName(skillId);
-        const itemName = skillName.replace(/-/g, " ").titleCase();
-        await this.npc.createEmbeddedDocuments("Item", [{ name: itemName, type: "lore" }]);
-
-        this.render();
-    }
-
-    async #onClickRemoveSkill(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const skillContainer = $(event.currentTarget).parents(".skill");
-        const skillId = skillContainer.attr("data-skill");
-
-        const skillItem = this.#findSkillItem(skillId ?? "");
-
-        if (skillItem) {
-            skillContainer.remove();
-            await skillItem.delete();
-
-            this.render(true);
-        } else {
-            console.error(`Unable to delete skill, couldn't find skill item.`);
-        }
-    }
-
-    async #onClickAddLoreSkill(event: JQuery.ClickEvent): Promise<void> {
-        event.preventDefault();
-
-        const loreNameField = $(event.currentTarget).parents("#lore-skill-creator").find("input");
-        const loreName = String(loreNameField.val());
-
-        const data: PreCreate<LoreSource> = {
-            name: loreName,
-            type: "lore",
-            system: { mod: { value: 0 } },
-        };
-        await this.npc.createEmbeddedDocuments("Item", [data]);
-
-        this.render();
-    }
-
-    #onClickEditSkill(event: JQuery.ClickEvent): void {
-        const skillId = $(event.currentTarget).parents(".skill").attr("data-skill");
-        const item = this.#findSkillItem(skillId ?? "");
-        if (!item) throw ErrorPF2e(`Unable to find item for skill ${skillId}.`);
-
-        item.sheet.render(true);
-    }
-
-    /**
-     * Apply changes to the actor based on the data in the form.
-     * @param event
-     * @param formData
-     */
-    override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
-        const updates = Object.entries(formData).flatMap(([key, modifier]) => {
-            const value = Number(modifier) || 0;
-            const skillItem = this.#findSkillItem(key);
-            if (!skillItem) return [];
-            return { _id: skillItem.id, "system.mod.value": value };
-        });
-        await this.npc.updateEmbeddedDocuments("Item", updates);
-    }
-
-    #isLoreSkill(skillId: string): boolean {
-        return !this.#isRegularSkill(skillId);
-    }
-
-    /**
-     * Checks if a skill is a regular skill or not.
-     * @param skillId ID of the skill to check.
-     */
-    #isRegularSkill(skillId: string): boolean {
-        for (const longForm of SKILL_LONG_FORMS) {
-            if (longForm === skillId) return true;
-            if (SKILL_EXPANDED[longForm].shortform === skillId) return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Converts from the 3-letter ID to the full, lower-letter name.
-     * @param skillId ID of the skill.
-     */
-    #findSkillName(skillId: string): string {
-        for (const longForm of SKILL_LONG_FORMS) {
-            const skillData = SKILL_EXPANDED[longForm];
-
-            if (skillData.shortform === skillId) {
-                return longForm;
+        htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
+            const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
+            if (setHasElement(SKILL_LONG_FORMS, slug)) {
+                await this.actor.createEmbeddedDocuments("Item", [{ name: slug.titleCase(), type: "lore" }]);
             }
+        });
+
+        htmlQuery(html, "button[data-action=add-lore]")?.addEventListener("click", async (event) => {
+            const loreName = htmlQuery(htmlClosest(event.currentTarget, ".lore-skill-creator"), "input")?.value.trim();
+            if (loreName) {
+                const data: PreCreate<LoreSource> = {
+                    name: loreName,
+                    type: "lore",
+                    system: { mod: { value: 0 } },
+                };
+                await this.actor.createEmbeddedDocuments("Item", [data]);
+            }
+        });
+
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-modifier]")) {
+            input.addEventListener("change", async () => {
+                const modifier = Math.clamped(Math.trunc(Number(input.value) || 0), -999, 999);
+                if (Number.isInteger(modifier)) {
+                    const itemId = htmlClosest(input, "[data-item-id]")?.dataset.itemId;
+                    const item = this.actor.items.get(itemId, { strict: true });
+                    await item.update({ "system.mod.value": modifier });
+                }
+            });
+
+            input.addEventListener("focus", () => {
+                input.select();
+            });
         }
 
-        // If not possible to find a short name, use the same
-        return skillId;
+        for (const anchor of htmlQueryAll(html, "a[data-action=edit-skill]")) {
+            anchor.addEventListener("click", () => {
+                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                item.sheet.render(true);
+            });
+        }
+
+        for (const anchor of htmlQueryAll(html, "a[data-action=remove-skill]")) {
+            anchor.addEventListener("click", async () => {
+                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                await item.delete();
+            });
+        }
     }
 
-    /**
-     * Finds the skill item related to the skill provided.
-     * Each skill in the characters has an item in the items collection
-     * defining the skill. They are of 'lore' type, even for non-lore skills.
-     * @param skillId ID of the skill to search for.
-     */
-    #findSkillItem(skillId: string): LorePF2e<NPCPF2e> | null {
-        const { skills } = this.npc.system;
-        const skillData = objectHasKey(skills, skillId) ? skills[skillId] : null;
+    /** Crude maintaining of focus to work around Tagify on NPC sheet stealing it */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        const focusedElement = htmlQuery<HTMLInputElement | HTMLSelectElement>(this.form, "input:focus, select:focus");
+        await super._render(force, options);
 
-        if (!skillData) {
-            console.error(`No skill found with skill id ${skillId}`);
-            return null;
+        if (focusedElement) {
+            const selector = ["input", "select"].map((s) => `${s}#${CSS.escape(focusedElement.id)}`).join(",");
+            const newInput = htmlQuery<HTMLInputElement | HTMLSelectElement>(this.form, selector);
+            window.setTimeout(() => {
+                newInput?.focus();
+            }, 0);
         }
-
-        const loreItem = this.npc.items.get(skillData.itemID ?? "");
-        if (!loreItem?.isOfType("lore")) {
-            console.error("Lore item not found");
-            return null;
-        }
-
-        return loreItem;
     }
+}
+
+interface EditorData extends DocumentSheetData<NPCPF2e> {
+    actor: NPCPF2e;
+    trainedSkills: NPCSkillData[];
+    untrainedSkills: NPCSkillData[];
 }

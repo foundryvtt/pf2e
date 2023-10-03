@@ -1,12 +1,12 @@
-import { ConsumablePF2e, SpellPF2e } from "@item";
-import { ConsumableSource } from "@item/data";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { traditionSkills } from "@item/spellcasting-entry/trick";
-import { calculateDC, DCOptions } from "@module/dc";
+import { ConsumablePF2e, type SpellPF2e } from "@item";
+import { ConsumableSource } from "@item/data/index.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
+import { DCOptions, calculateDC } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 
-const cantripDeckId = "tLa4bewBhyqzi6Ow";
+const CANTRIP_DECK_ID = "tLa4bewBhyqzi6Ow";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -44,7 +44,7 @@ const wandCompendiumIds: Record<number, string | undefined> = {
 function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
     switch (type) {
         case "cantripDeck5":
-            return cantripDeckId;
+            return CANTRIP_DECK_ID;
         case "scroll":
             return scrollCompendiumIds[heightenedLevel] ?? null;
         default:
@@ -59,16 +59,23 @@ function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: str
 
 function isSpellConsumable(itemId: string): boolean {
     return (
-        itemId === cantripDeckId ||
+        itemId === CANTRIP_DECK_ID ||
         Object.values(scrollCompendiumIds).includes(itemId) ||
         Object.values(wandCompendiumIds).includes(itemId)
     );
 }
 
 async function createConsumableFromSpell(
-    type: SpellConsumableItemType,
     spell: SpellPF2e,
-    heightenedLevel = spell.baseLevel
+    {
+        type,
+        heightenedLevel = spell.baseRank,
+        mystified = false,
+    }: {
+        type: SpellConsumableItemType;
+        heightenedLevel?: number;
+        mystified?: boolean;
+    }
 ): Promise<ConsumableSource> {
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
@@ -85,7 +92,7 @@ async function createConsumableFromSpell(
     consumableSource.system.description.value = (() => {
         const paragraphElement = document.createElement("p");
         const linkElement = document.createElement("em");
-        linkElement.append(spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description);
+        linkElement.append(spell.sourceId ? `@UUID[${spell.sourceId}]{${spell.name}}` : spell.description);
         paragraphElement.append(linkElement);
 
         const containerElement = document.createElement("div");
@@ -99,6 +106,10 @@ async function createConsumableFromSpell(
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
         consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+    }
+
+    if (mystified) {
+        consumableSource.system.identification.status = "unidentified";
     }
 
     return consumableSource;
@@ -125,10 +136,5 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export {
-    calculateTrickMagicItemCheckDC,
-    createConsumableFromSpell,
-    isSpellConsumable,
-    SpellConsumableItemType,
-    TrickMagicItemDifficultyData,
-};
+export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable };
+export type { SpellConsumableItemType, TrickMagicItemDifficultyData };

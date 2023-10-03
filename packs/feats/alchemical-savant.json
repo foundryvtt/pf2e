@@ -1,0 +1,59 @@
+{
+    "_id": "ypir96PNY6LBSIWT",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Alchemical Savant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can identify alchemical items quickly. When using the Crafting skill to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Alchemy] on an alchemical item you hold, you can do so as a single action, which has the concentrate and manipulate traits, instead of spending 10 minutes.</p>\n<p>If you have the formula for the item you are attempting to identify, you gain a +2 circumstance bonus to your check, and if you roll a critical failure, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Alchemical Savant (identify alchemical items with formula)",
+                "predicate": [
+                    "action:identify-alchemy",
+                    "have-formula"
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:identify-alchemy"
+                ],
+                "selector": "crafting",
+                "text": "If have the formula for the item you're identifying, and you roll a critical failure, you get a failure instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

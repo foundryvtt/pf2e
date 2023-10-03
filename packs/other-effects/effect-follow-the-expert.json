@@ -1,0 +1,147 @@
+{
+    "_id": "VCSpuc3Tf3XWMkd3",
+    "img": "systems/pf2e/icons/spells/favorable-review.webp",
+    "name": "Effect: Follow The Expert",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thievery"
+                    },
+                    {
+                        "label": "PF2E.SkillLore",
+                        "value": "lore"
+                    }
+                ],
+                "flag": "followTheExpertSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.ProficiencyLevel2",
+                        "sort": 1,
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel3",
+                        "sort": 2,
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel4",
+                        "sort": 3,
+                        "value": 4
+                    }
+                ],
+                "flag": "followTheExpertProficiency",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.FollowTheExpert.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.followTheExpertSkill}",
+                "slug": "followTheExpertProficiencyModifier",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.followTheExpertSkill}",
+                "slug": "followTheExpertCircumstanceModifier",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.followTheExpertProficiency}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

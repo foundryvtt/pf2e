@@ -1,0 +1,101 @@
+{
+    "_id": "B7RMnrHwQHlezlJT",
+    "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
+    "name": "Gymnast",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess.</p>\n<p>You are trained in Athletics. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a foe.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.ExemplaryFinisher.Name",
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained",
+                            "target:condition:prone"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "2* @weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

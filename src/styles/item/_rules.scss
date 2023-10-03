@@ -1,5 +1,5 @@
-.item-rules {
-    @include scrollbar;
+.tab.rules {
+    overflow: hidden scroll;
 
     select {
         font-size: var(--font-size-12);
@@ -8,6 +8,16 @@
 
         span {
             padding: 0;
+        }
+    }
+
+    fieldset {
+        border-radius: 5px;
+        border: 1px solid var(--secondary-background);
+        padding: 0.25em;
+
+        legend {
+            font-weight: 500;
         }
     }
 
@@ -36,15 +46,6 @@
     .rules {
         padding-top: 7px;
         padding-right: 7px;
-
-        .rule-element-header {
-            display: flex;
-            justify-content: space-between;
-
-            h3.unrecognized {
-                color: #880000;
-            }
-        }
 
         .add-rule-element {
             text-align: right;
@@ -77,7 +78,7 @@
             overflow: hidden;
 
             .cm-scroller {
-                @include scrollbar;
+                overflow: hidden scroll;
                 overflow: scroll;
             }
 
@@ -88,7 +89,7 @@
             }
 
             // Undo global style overrides
-            input[type=checkbox] {
+            input[type="checkbox"] {
                 width: auto;
                 height: auto;
             }
@@ -104,7 +105,7 @@
             }
 
             ::selection {
-                color: black;
+                color: var(--text-dark);
             }
         }
 
@@ -113,15 +114,103 @@
         }
     }
 
-    // Styles for the rule editor forms
+    // Style of a single rule editor form
     .rule-form {
-        label, .labelled-element {
-            display: flex;
+        --form-field-height: normal; // unset global styling
+
+        border-bottom: 1px solid var(--color-border-light-primary);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        &.drag-preview {
+            background: url(../ui/parchment.jpg) repeat;
+        }
+
+        &.drag-gap {
+            visibility: hidden;
+        }
+
+        input::placeholder {
+            opacity: 0.9;
+        }
+
+        label {
             align-items: center;
+            display: flex;
             gap: 4px;
-            input, tags {
+            font-weight: 500;
+            white-space: nowrap;
+            &:not(:first-child) {
+                padding-left: 2px;
+            }
+            input,
+            tags {
                 flex: 1;
             }
+
+            input[type="checkbox"] {
+                width: 1rem;
+                height: 1rem;
+                flex-basis: auto;
+            }
+
+            input[type="checkbox"]:first-child:last-child {
+                margin-left: auto;
+                justify-self: flex-end;
+            }
+        }
+
+        select.short {
+            flex: 0 0 auto;
+        }
+
+        .content-link {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: row;
+            align-items: center;
+            gap: 3px;
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .rule-element-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+
+            .drag-handle {
+                cursor: grab;
+                font-weight: normal;
+                margin-right: 0.375rem;
+                padding: 0.125rem;
+            }
+
+            h3 {
+                flex: 1;
+                margin: 0;
+                &.unrecognized {
+                    color: #880000;
+                }
+            }
+
+            .priority {
+                margin-right: 0.75rem;
+                input {
+                    width: 4ch;
+                }
+            }
+
+            .item-controls {
+                margin-left: auto;
+            }
+        }
+
+        // Prevent certain buttons/links from resizing
+        .form-fields [data-action] {
+            flex: 0 0 auto;
         }
 
         .range {
@@ -134,10 +223,21 @@
         }
 
         .attached-input {
-            display: flex;
             align-items: center;
+            display: flex;
+            flex: 2;
             justify-content: center;
-            flex: 1;
+
+            .attachment,
+            input,
+            .tags {
+                z-index: 0;
+
+                &:hover,
+                &:focus {
+                    z-index: 1;
+                }
+            }
 
             .attachment {
                 display: flex;
@@ -155,7 +255,13 @@
                 border-right: none;
                 border-radius: 3px 0 0 3px;
             }
-            input, tags {
+
+            .file-picker {
+                line-height: unset;
+            }
+
+            input,
+            tags {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
                 margin: 0;
@@ -163,53 +269,295 @@
             }
         }
 
-        // Main element for the value of a form group
-        // Flex row with gaps between items
-        .spaced-fields {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-
-            label {
-                font-weight: 500;
-                padding-right: 2px;
-                &:not(:first-child) {
-                    padding-left: 2px;
+        .brackets {
+            margin-left: 9.5em;
+            .bracket {
+                align-items: center;
+                display: flex;
+                gap: 4px;
+                .value {
+                    flex: 1;
                 }
             }
         }
 
-        .brackets {
-            margin-left: 9.5em;
-        }
+        nav.rule-tabs {
+            border-bottom: 1px solid var(--secondary-background);
 
-        &[data-key="FastHealing"] {
-            .details, tags {
-                flex: 3;
-            }
-
-            .value {
-                flex: 1;
-                min-width: 80px;
-            }
-        }
-
-        &[data-key="FlatModifier"] {
-            .type-input {
-                flex: 0;
-            }
-        }
-
-        &[data-key="GrantItem"] {
-            a.granted {
+            h4 {
                 display: flex;
-                flex: 0 0 auto;
-                flex-direction: row;
+                justify-content: space-evenly;
+                width: 100%;
+                margin-top: 0.5em;
+                font-weight: 200;
+            }
+
+            a.active {
+                font-weight: 600;
+                text-decoration: underline;
+            }
+        }
+
+        .rules-drop-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 4em;
+
+            .rules-drop-zone {
+                display: flex;
+                justify-content: center;
                 align-items: center;
-                gap: 3px;
-                img {
-                    width: 16px;
-                    height: 16px;
+                width: 40%;
+                height: 3.5em;
+                border: 1px solid var(--color-border-light-primary);
+                border-radius: 3px;
+                color: #222;
+                background-color: #ddd;
+                cursor: default;
+                padding: 1px 6px;
+                font-family: var(--font-primary);
+                font-size: var(--font-size-14);
+                line-height: 28px;
+
+                i {
+                    border: 1px solid #bbb;
+                    border-radius: 2px;
+                    align-items: center;
+                    display: flex;
+                    height: 1.6em;
+                    justify-content: center;
+                    margin-right: 0.5em;
+                    width: 1.6em;
+
+                    &:after {
+                        font-size: var(--font-size-20);
+                    }
+                }
+
+                span {
+                    color: var(--text-dark);
+                }
+            }
+        }
+
+        &[data-key="Aura"] {
+            div[data-rule-tab] {
+                .grid-item {
+                    display: grid;
+                    grid: 1fr/5em 1fr;
+
+                    &.long-label {
+                        grid: 1fr/9em 1fr;
+                    }
+                }
+
+                .checkbox {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                .item-controls {
+                    justify-content: flex-end;
+
+                    a {
+                        margin: 2px 5px 0 0;
+                    }
+                }
+
+                .stacked {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 0.5rem;
+                }
+
+                .column-span-two {
+                    grid-column: span 2;
+                }
+
+                .resolvable {
+                    grid-column: span 2;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .brackets-container {
+                    grid-column: span 3;
+                }
+
+                label {
+                    min-width: 5em;
+                    font-weight: 500;
+
+                    &.short {
+                        max-width: 5em;
+                    }
+
+                    &.with-hint {
+                        margin-right: 5px;
+                    }
+                }
+
+                fieldset {
+                    grid-column: span 2;
+                    padding-bottom: 0.4rem;
+                }
+
+                .brackets {
+                    margin-left: 6em;
+                }
+
+                hr {
+                    grid-column: span 2;
+                    width: 100%;
+                }
+            }
+
+            div[data-rule-tab="effects"] {
+                height: 90px;
+                overflow-y: auto;
+
+                .item-container {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: 1fr/5em 10fr 1fr;
+
+                    a.content-link {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5em;
+                        width: fit-content;
+                        min-width: 12rem;
+                        height: 2em;
+                        padding: 4px;
+
+                        img {
+                            border: 1px solid var(--color-border-dark);
+                            border-radius: 2px;
+                            box-sizing: border-box;
+                            display: block;
+                            float: left;
+                            height: 24px;
+                            width: 24px;
+                        }
+
+                        span {
+                            text-wrap: wrap;
+                        }
+                    }
+                }
+
+                .three-items {
+                    grid-column: span 2;
+                    display: grid;
+                    grid: 1fr/5em 8fr 7em 5fr 6em 1fr;
+                    margin-top: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
+                    }
+                }
+
+                .saves-container {
+                    display: grid;
+                    grid: 1fr/5em 8.8fr;
+                    align-items: center;
+                    row-gap: 5px;
+
+                    select {
+                        width: fit-content;
+                        min-width: 10em;
+                    }
+                }
+
+                .rules-drop-container {
+                    grid-column: span 2;
+                }
+            }
+
+            div[data-rule-tab="appearance"] {
+                .translation {
+                    input {
+                        width: 5em;
+                    }
+                }
+
+                input[type="checkbox"] {
+                    margin-left: unset;
+                }
+
+                .two-items {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 0.5em;
+
+                    > label {
+                        min-width: unset;
+                        width: fit-content;
+                    }
+
+                    .color-picker {
+                        align-items: center;
+                        display: flex;
+                        width: 16rem;
+                        white-space: nowrap;
+
+                        input {
+                            &[type="text"] {
+                                flex: 1;
+                            }
+
+                            &[type="color"] {
+                                flex: 2;
+                                height: 94%;
+
+                                &:disabled {
+                                    background: rgba(black, 0.05);
+                                    border: 1px solid transparent;
+                                }
+                            }
+                        }
+
+                        .user {
+                            flex: 0;
+                            gap: 0;
+                            justify-content: start;
+
+                            input[type="checkbox"] {
+                                flex: 0;
+                                margin-left: 0;
+                            }
+
+                            span {
+                                font-size: small;
+                            }
+                        }
+                    }
+                }
+
+                .three-items {
+                    display: grid;
+                    grid-template-columns: 5em 2.5fr 1fr;
+                    align-items: center;
+
+                    &.long-label {
+                        grid: 1fr/9em 2.5fr 1fr;
+                    }
+
+                    input[type="color"] {
+                        min-width: 7em;
+                    }
+
+                    &.image-path {
+                        grid-column: span 2;
+                        grid: 1fr/9em 8fr 1fr;
+
+                        button.file-picker {
+                            margin: unset;
+                        }
+                    }
                 }
             }
         }
@@ -218,6 +566,39 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
+        }
+
+        &[data-key="TokenLight"] {
+            div[data-rule-tab] {
+                display: grid;
+                grid: "label content" 1fr/1fr 1fr;
+                column-gap: 5px;
+
+                fieldset.radii {
+                    display: flex;
+                    flex-direction: column;
+                    grid-column: span 2;
+
+                    .brackets {
+                        margin-left: 6.5em;
+                    }
+                }
+
+                label {
+                    display: flex;
+                    flex: unset;
+                    margin-left: 5px;
+                    margin-right: 5px;
+
+                    &.short {
+                        min-width: 5em;
+                    }
+                }
+
+                .column-span-two {
+                    grid-column: span 2;
+                }
+            }
         }
     }
 }

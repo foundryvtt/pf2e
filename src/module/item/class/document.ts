@@ -1,15 +1,16 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ClassDCData } from "@actor/character/data";
-import { FeatSlotLevel } from "@actor/character/feats";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import { ClassDCData } from "@actor/character/data.ts";
+import { FeatSlotLevel } from "@actor/character/feats.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { ArmorCategory } from "@item/armor";
-import { ARMOR_CATEGORIES } from "@item/armor/values";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
-import { ZeroToFour } from "@module/data";
+import { ArmorCategory } from "@item/armor/index.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { setHasElement, sluggify } from "@util";
-import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data";
+import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
+import { ClassTrait } from "./types.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies {
@@ -101,13 +102,13 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         }
 
         this.actor.class = this;
-        const { attributes, build, details, martial, proficiencies, saves, skills } = this.actor.system;
+        const { attributes, build, details, proficiencies, saves, skills } = this.actor.system;
         const slug = this.slug ?? sluggify(this.name);
 
         // Add base key ability options
 
-        build.abilities.keyOptions = [...this.system.keyAbility.value];
-        build.abilities.boosts.class = this.system.keyAbility.selected;
+        build.attributes.keyOptions = [...this.system.keyAbility.value];
+        build.attributes.boosts.class = this.system.keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
@@ -116,7 +117,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         // Override the actor's key ability score if it's set
         details.keyability.value =
-            (build.abilities.manual ? details.keyability.value : build.abilities.boosts.class) ?? "str";
+            (build.attributes.manual ? details.keyability.value : build.attributes.boosts.class) ?? "str";
 
         // Set class DC
         type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
@@ -130,18 +131,20 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
 
-        const nonBarding = ARMOR_CATEGORIES.filter(
+        const { attacks, defenses } = proficiencies;
+
+        for (const category of WEAPON_CATEGORIES) {
+            attacks[category].rank = Math.max(attacks[category].rank, this.attacks[category]) as ZeroToFour;
+            this.logAutoChange(`system.proficiencies.attacks.${category}.rank`, this.attacks[category]);
+        }
+
+        const nonBarding = Array.from(ARMOR_CATEGORIES).filter(
             (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
                 !["light-barding", "heavy-barding"].includes(c)
         );
         for (const category of nonBarding) {
-            martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
-            this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
-        }
-
-        for (const category of WEAPON_CATEGORIES) {
-            martial[category].rank = Math.max(martial[category].rank, this.attacks[category]) as ZeroToFour;
-            this.logAutoChange(`system.martial.${category}.rank`, this.attacks[category]);
+            defenses[category].rank = Math.max(defenses[category].rank, this.defenses[category]) as ZeroToFour;
+            this.logAutoChange(`system.proficiencies.defenses.${category}.rank`, this.defenses[category]);
         }
 
         for (const saveType of SAVE_TYPES) {

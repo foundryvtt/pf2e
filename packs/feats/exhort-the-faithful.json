@@ -1,0 +1,81 @@
+{
+    "_id": "QvBIYW6aAqoiyim3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Exhort The Faithful",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your knowledge of the tenets of your faith gives you insight into the best ways to get others of your faith to help you or to follow your directions.</p>\n<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Request] something of or @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] members of your own faith, you can attempt a Religion check instead of Diplomacy or Intimidation, and you gain a +2 circumstance bonus to the check. On a critically failed attempt to make a Request, the target's attitude toward you doesn't worsen.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Religion"
+                },
+                {
+                    "value": "follower of a specific religion"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Exhort the Faithful (Request members of your faith)",
+                "predicate": [
+                    "action:request",
+                    "member-of-your-faith"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Exhort the Faithful (Coerce members of your faith)",
+                "predicate": [
+                    "action:coerce",
+                    "member-of-your-faith"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Exhort the Faithful (Request/Coerce members of your faith)",
+                "predicate": [
+                    "member-of-your-faith",
+                    {
+                        "or": [
+                            "action:request",
+                            "action:coerce"
+                        ]
+                    }
+                ],
+                "selector": "religion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

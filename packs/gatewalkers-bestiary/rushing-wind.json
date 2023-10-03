@@ -1,0 +1,100 @@
+{
+    "_id": "Q1HLeQDQdukZTYmu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qTqUJpgpWAgBfOA7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gale",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The aiudara appears here on Eox</p>\n<hr />\n<p><strong>Effect</strong> A jet of wind pulls creatures caught between the worlds toward the archway. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rushing Wind",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained) to detect the change in pressure</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A raging wind sucks creatures in the area toward the aiudara.</p>",
+            "disable": "<p>@Check[type:thievery|dc:20] (trained) or Arcana (trained) to recognize what's happening and craft a patch to block air from escaping through the portal</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The hazard uses its action to suck each creature (except the cairn wight) toward the aiudara. Each affected creature must attempt a @Check[type:fortitude|dc:18] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is pulled 5 feet toward the aiudara and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. If the creature is already adjacent to the aiudara, it doesn't move but is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is pulled 10 feet toward the aiudara, falls @UUID[Compendium.pf2e.conditionitems.Item.Prone], and is stunned 1. If the creature is already adjacent to the aiudara, it doesn't move but falls prone and is stunned 2.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,78 @@
+{
+    "_id": "wsq8nncD25Q1fRn2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Basic Lesson",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your patron grants you a special lesson, revealing a hidden facet of its nature. Choose a Basic Lesson. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "predicate": [
+                        "item:level:2",
+                        "item:trait:witch",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Calamity"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Dreams"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Life"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Protection"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Elements"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Vengeance"
+                    }
+                ],
+                "flag": "lesson",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Lesson"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.lesson}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

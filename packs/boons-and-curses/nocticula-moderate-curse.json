@@ -1,0 +1,117 @@
+{
+    "_id": "6Cpm04jBSzSwe2oC",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Nocticula - Moderate Curse",
+    "system": {
+        "description": {
+            "value": "<p><strong>Moderate Curse:</strong> You are plagued with doubt in your own skills. You are always untrained with Crafting, Performance, and one other skill (determined by the GM, but themed to the event that brought on your curse), regardless of any effect that would improve your proficiency. You can't retrain those skills.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.cra.rank",
+                "value": "0"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.prf.rank",
+                "value": "0"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thi"
+                    }
+                ],
+                "flag": "nocticulaSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.nocticulaSkill}.rank",
+                "value": 0
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

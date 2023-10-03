@@ -1,0 +1,19 @@
+{{#if (eq mode "brackets")}}
+    <div class="brackets">
+        {{#each value.brackets as |bracket idx|}}
+            <div class="bracket">
+                <label>{{localize "PF2E.RuleEditor.General.Range"}}</label>
+                <div class="range">
+                    <input type="number" name="{{@root.path}}.brackets.{{idx}}.start" value="{{bracket.start}}">
+                    -
+                    <input type="number" name="{{@root.path}}.brackets.{{idx}}.end" value="{{bracket.end}}">
+                </div>
+                <label class="value">
+                    {{localize "PF2E.RuleEditor.General.Value"}}
+                    <input type="text" name="{{@root.path}}.brackets.{{idx}}.value" value="{{bracket.value}}"/>
+                </label>
+                <a data-action="delete-bracket" data-idx="{{idx}}" data-property="{{@root.property}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+            </div>
+        {{/each}}
+    </div>
+{{/if}}

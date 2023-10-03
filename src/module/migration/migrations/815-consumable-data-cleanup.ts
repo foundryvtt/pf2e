@@ -1,7 +1,7 @@
-import { ConsumableSystemSource } from "@item/consumable/data";
-import { ItemSourcePF2e } from "@item/data";
+import { ConsumableSystemSource } from "@item/consumable/data.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Clean up entries of consumable system data */
 export class Migration815ConsumableDataCleanup extends MigrationBase {

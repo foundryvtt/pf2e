@@ -1,0 +1,48 @@
+{
+    "_id": "fU7d5P6WrfAirgip",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Tumble Behind (Swashbuckler)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your tumbling catches your foe off guard. When you @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] successfully, the foe you Tumbled Through is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the next attack you make before the end of your turn.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

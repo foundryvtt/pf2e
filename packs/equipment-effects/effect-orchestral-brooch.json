@@ -1,0 +1,50 @@
+{
+    "_id": "WHAp9cDOqnJ1VCcg",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/orchestral-brooch.webp",
+    "name": "Effect: Orchestral Brooch",
+    "system": {
+        "description": {
+            "value": "<p>You receive a +1 status bonus to your Performance check. If you roll a success, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "performance",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

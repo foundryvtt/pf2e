@@ -1,4 +1,4 @@
-export * from "./data";
-export { FeatPF2e } from "./document";
-export { FeatSheetPF2e } from "./sheet";
-export * from "./types";
+export * from "./data.ts";
+export { FeatPF2e } from "./document.ts";
+export { FeatSheetPF2e } from "./sheet.ts";
+export * from "./types.ts";

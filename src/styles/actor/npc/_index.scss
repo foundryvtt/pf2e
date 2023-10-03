@@ -1,24 +1,13 @@
 $faded-color: #7a7971;
-$color: $rarity-common;
-$color-disabled: $light-gray-color;
-$attack-button-color: $secondary-color;
-$damage-button-color: $primary-color;
-$primary-accent: $primary-color;
-$secondary-accent: $secondary-color;
-$light-text: #f5efe0;
 
-@import "forms";
-@import "data-entry";
+@import "skills-editor";
 
-.npc-sheet {
-    @import "inventory";
-    @import "spells";
-    @import "effects";
-
+.actor.npc.sheet form {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    color: $color;
+
+    @import "../spell-list";
 
     .npc-sheet-header {
         display: flex;
@@ -34,7 +23,7 @@ $light-text: #f5efe0;
 
             input {
                 font-weight: inherit;
-                height: 32px;
+                height: 2rem;
             }
 
             .name-value {
@@ -56,8 +45,13 @@ $light-text: #f5efe0;
             }
         }
 
+        .rarity-alignment-size {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         .paizo-style {
-            border: none;
             margin-top: 2px;
             padding-left: 0;
             padding-right: 0;
@@ -68,15 +62,15 @@ $light-text: #f5efe0;
         margin: 10px 6px 10px 0;
     }
 
-    .side-bar {
+    .sidebar {
         flex: 160px 0 0;
         height: 100%;
-        @include scrollbar;
+        overflow: hidden scroll;
 
         .image-container {
-            border: 1px solid var(--color-border-dark);
             img.actor-image {
                 border: none;
+                border-radius: 8px;
             }
         }
 
@@ -89,11 +83,8 @@ $light-text: #f5efe0;
             }
         }
 
-        .health-section, .shield-section {
-            .side-bar-label {
-                align-items: center;
-            }
-
+        .health-section,
+        .shield-section {
             .hit-points {
                 display: flex;
                 flex-direction: row;
@@ -106,7 +97,8 @@ $light-text: #f5efe0;
                     padding-right: 3px;
                 }
 
-                .slash, .max {
+                .slash,
+                .max {
                     align-items: center;
                     display: flex;
                 }
@@ -178,10 +170,9 @@ $light-text: #f5efe0;
             text-align: left;
 
             .land-speed {
-                font-size: 1em;
-
                 &-value {
                     flex: 0 0 30px;
+                    text-align: right;
                 }
 
                 .speed-details {
@@ -251,6 +242,15 @@ $light-text: #f5efe0;
                 text-transform: unset;
             }
         }
+
+        //Used to grey out empty values on the simple sheet
+        .value0 {
+            color: darkgrey;
+            border-bottom: 1px darkgrey solid;
+            input {
+                color: darkgrey;
+            }
+        }
     }
 
     .side-bar-section-content {
@@ -270,31 +270,35 @@ $light-text: #f5efe0;
         border-bottom: 1px solid;
         border-color: $faded-color;
         margin-top: 10px;
-        margin-bottom: 0px;
+        margin-bottom: 2px;
+        align-items: baseline;
 
         .side-bar-label {
             display: flex;
             flex: auto;
             flex-direction: row;
-            align-items: flex-start;
-
+            align-items: center;
             .fa {
                 font-size: 0.8rem;
             }
 
-            h4 {
+            h4,
+            label {
                 font-size: 0.8rem;
                 margin-bottom: 0px;
                 padding-left: 2px;
             }
+            input.modifier {
+                font-size: 0.9rem;
+            }
         }
     }
 
-
     .sheet-body {
         flex: auto;
+
         .tab {
-            @include scrollbar;
+            overflow: hidden scroll;
 
             .identification-skills {
                 ul {
@@ -311,10 +315,16 @@ $light-text: #f5efe0;
                 }
             }
         }
+
+        @import "inventory";
+        @import "spells";
+        @import "effects";
+        @import "../red-action-boxes";
     }
 
     input.adjustable:not(:focus),
-    span.adjustable {
+    span.adjustable,
+    div.adjustable {
         display: inline;
         text-align: right;
 
@@ -327,29 +337,13 @@ $light-text: #f5efe0;
         }
     }
 
-    .controls {
-        font-size: 0.8rem;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: baseline;
-        margin-left: auto;
-        gap: 1px;
-
-        .chat {
-            margin-right: 3px;
-            font-size: 0.9em;
-        }
-        > a.item-control {
-            padding-left: 4px;
-        }
-    }
-
     .disabled {
-        color: $color-disabled;
-        border-color: $color-disabled;
+        color: var(--color-disabled);
+        border-color: var(--color-disabled);
 
-        &:hover, &.active {
-            color: $color;
+        &:hover,
+        &.active {
+            color: var(--color-rarity-common);
             border-color: $faded-color;
         }
     }
@@ -376,7 +370,7 @@ $light-text: #f5efe0;
             flex: 0 0 1px;
             height: 32px;
             margin-right: 4px;
-            border-left: 2px solid $color;
+            border-left: 2px solid var(--color-rarity-common);
         }
 
         > .effect {
@@ -389,14 +383,14 @@ $light-text: #f5efe0;
 
             .item-image {
                 background-size: cover;
-                border: 1px solid $color;
-                border-bottom: 1px solid $color;
+                border: 1px solid var(--color-rarity-common);
+                border-bottom: 1px solid var(--color-rarity-common);
                 border-radius: 3px;
                 width: 32px;
             }
 
             .item-image:hover {
-                border: 1px solid $light-text;
+                border: 1px solid var(--text-light);
                 border-radius: 3px;
             }
         }
@@ -412,7 +406,6 @@ $light-text: #f5efe0;
                 width: 100%;
 
                 * {
-                    display: inline;
                     vertical-align: middle;
                 }
 
@@ -421,57 +414,23 @@ $light-text: #f5efe0;
                     padding: 0;
                 }
             }
+
+            select {
+                background: none;
+                margin-left: 0.25em;
+                text-transform: none;
+            }
         }
     }
 
     .actions-list {
-        align-items: baseline;
-        padding: 0px;
-        margin: 0px;
-        width: 97%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.1rem 0.25rem;
 
         .action {
-            display: flex;
-            flex: 1 0 46%;
-            margin-left: 6px;
-            margin-right: 6px;
-            flex-direction: column;
-            justify-content: flex-start;
             width: 100%;
-            margin-top: 6px;
-
-            &:not(:last-child) {
-                border-bottom: 1px solid $faded-color;
-            }
-
-            .action-header {
-                display: flex;
-                flex: 1 0 auto;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-
-                .action-name {
-                    display: flex;
-                    flex: auto;
-                    font-size: 0.9rem;
-
-                    h4 {
-                        margin: 0px;
-                        margin-bottom: 0px;
-                    }
-
-                    .action-traits {
-                        margin-left: 12px;
-                    }
-                }
-            }
-
-            .item-summary {
-                flex: 0 1 auto;
-                margin-top: 0.5em;
-            }
         }
     }
 
@@ -480,9 +439,10 @@ $light-text: #f5efe0;
         flex-direction: row;
         align-items: baseline;
 
-        label {
+        label,
+        .rollable {
             flex: 1;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         input[type="text"],
@@ -544,43 +504,10 @@ $light-text: #f5efe0;
     }
 
     .section-container {
-        display: flex;
-        flex-direction: column;
         padding: 4px 6px 0;
 
-        .section-header {
-            display: flex;
-            flex: 0;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline;
-            border: 1px solid $primary-accent;
-            border-radius: 3px 3px 0px 0px;
-            background: $primary-accent;
-            text-align: left;
-            color: $light-text;
-            font-size: 0.8rem;
-            padding: 4px 8px;
-
-            h4 {
-                flex: auto;
-                margin-bottom: 0px;
-                text-transform: uppercase;
-            }
-        }
-
         .section-body {
-            display: flex;
-            flex: auto;
-            flex-wrap: wrap;
-            width: 100%;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: baseline;
             padding: 4px;
-            border: 1px solid $primary-accent;
-            border-radius: 0px 0px 3px 3px;
         }
 
         &.headerless .section-body {
@@ -605,8 +532,8 @@ $light-text: #f5efe0;
                     font-size: var(--font-size-9);
                     line-height: 15px;
                     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    background: $secondary-color;
-                    color: $light-text;
+                    background: var(--secondary);
+                    color: var(--text-light);
                     font-family: var(--sans-serif);
                     text-transform: uppercase;
                     border-radius: 3px;
@@ -626,138 +553,6 @@ $light-text: #f5efe0;
         }
     }
 
-    .attacks {
-        .section-header .controls {
-            gap: 8px;
-        }
-
-        .section-body {
-            padding: 0 4px;
-
-            /** So it looks better empty since we removed vertical padding */
-            min-height: 10px;
-        }
-    }
-
-    .attacks-list {
-        width: 100%;
-        padding: 0px;
-        margin: 0px;
-
-        .attack {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-
-            margin: 8px 6px 0 6px;
-            border-bottom: 1px solid $faded-color;
-
-            &:last-child {
-                border-bottom: none;
-            }
-
-            .attack-header {
-                display: flex;
-                flex: 1 0 auto;
-                flex-direction: row;
-                align-items: baseline;
-                width: 100%;
-            }
-
-            .attack-name {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                gap: 2px;
-                white-space: nowrap;
-                margin: 0 4px 0 0;
-
-                font-size: 0.9rem;
-                font-weight: 500;
-
-                & > span {
-                    gap: 3px;
-                    margin-right: 4px;
-                    display: flex;
-                    align-items: baseline;
-                    line-height: 1.125rem;
-                }
-            }
-
-            .attack-body {
-                display: flex;
-                align-items: flex-start;
-                flex-direction: column;
-
-                width: 100%;
-                padding-top: 3px;
-
-                .flexrow,
-                .sub-section {
-                    gap: 2px;
-                }
-
-                .sub-section {
-                    align-items: flex-start;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    flex: auto;
-                    justify-content: flex-start;
-
-                    h4 {
-                        margin-left: 12px;
-                        margin-right: 12px;
-                    }
-                }
-
-                button {
-                    background: $attack-button-color;
-                    border-radius: 3px;
-                    border: none;
-                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    color: $light-text;
-                    cursor: pointer;
-                    font-size: var(--font-size-11);
-                    font-weight: 500;
-                    height: 18px;
-                    line-height: 18px;
-                    margin: 0;
-                    padding: 0 8px;
-                    text-align: center;
-                    white-space: nowrap;
-                    width: auto !important;
-
-                    &:first-child {
-                        margin-left: 0px;
-                    }
-
-                    &:hover {
-                        box-shadow: none;
-                        text-shadow: 0 0 2px white;
-                    }
-                }
-
-                .attack-button {
-                    background-color: $attack-button-color;
-                }
-
-                .damage-button,
-                .critical-button {
-                    background-color: $damage-button-color;
-                }
-
-                .attack-description {
-                    min-height: 10px;
-                }
-            }
-        }
-    }
-
-    .tag {
-        line-height: 0.8rem;
-    }
-
     select {
         flex: auto 0 0;
         padding: 4px !important;
@@ -772,21 +567,26 @@ $light-text: #f5efe0;
         }
     }
 
-    .adjustment-select {
+    .adjustments {
+        align-items: center;
+        display: flex;
+        justify-content: end;
+
         .adjustment {
             &.active {
-                background-color: $primary-accent;
-                color: $light-text;
+                background-color: var(--primary);
+                color: var(--text-light);
             }
 
             &:not(.active) {
-                background-color: $faded-color;
-                color: $light-text;
+                background-color: var(--color-disabled);
+                color: var(--color-text-trait);
             }
         }
     }
 
     .npc-body {
+        padding-left: 5px;
         display: flex;
         flex: auto;
         flex-direction: column;
@@ -796,11 +596,10 @@ $light-text: #f5efe0;
     }
 
     .notes {
-        padding-right: 15px;
-
         &.active {
             display: flex;
             flex-direction: column;
+            padding-right: 15px;
         }
 
         .details-label {
@@ -811,7 +610,6 @@ $light-text: #f5efe0;
             line-height: 1;
             text-transform: uppercase;
             color: var(--primary);
-
             margin-right: 2px;
             white-space: nowrap;
         }
@@ -823,7 +621,6 @@ $light-text: #f5efe0;
         }
 
         .notes-text {
-            margin-left: 8px;
             padding: 4px;
             color: #333;
             flex-grow: 1;
@@ -832,12 +629,17 @@ $light-text: #f5efe0;
                 height: 100%;
                 .editor-edit {
                     background: var(--primary);
-                    color: white;
+                    color: var(--text-light);
                 }
 
                 .editor-content {
+                    text-indent: 8px;
                     min-height: 75px;
                     height: 100%;
+                }
+
+                a.editor-edit {
+                    padding: 2px 2px 2px 4px;
                 }
             }
         }
@@ -853,6 +655,10 @@ $light-text: #f5efe0;
                 margin-right: 4px;
                 flex: 0;
                 font-weight: 700;
+            }
+
+            input::placeholder {
+                color: var(--color-text-dark-6);
             }
 
             .source-input {
@@ -874,10 +680,15 @@ $light-text: #f5efe0;
                 opacity: 0.33;
             }
         }
+
         h2.name {
             margin-top: 3px;
             text-align: center;
             border-bottom: none;
         }
+    }
+
+    &.simple .sheet-body {
+        overflow-y: auto;
     }
 }

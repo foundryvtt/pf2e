@@ -1,0 +1,80 @@
+{
+    "_id": "16MOW7deoOoDwE9z",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hazard Finder",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have an intuitive ability to sense hazards. You gain a +1 circumstance bonus to Perception checks to find traps and hazards, to AC against their attacks, and to saves against their effects. You can find hazards that would normally require you to @UUID[Compendium.pf2e.actionspf2e.Item.Search] even if you aren't Searching.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Hazard Finder (to find traps and hazards)",
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Hazard Finder (vs. attacks from traps and hazards)",
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Hazard Finder (saves vs. traps and hazards)",
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

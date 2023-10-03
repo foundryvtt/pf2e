@@ -11,11 +11,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
     readonly isValid: boolean;
 
     constructor(...statements: PredicateStatement[] | [PredicateStatement[]]) {
-        if (Array.isArray(statements[0])) {
-            super(...statements[0]);
-        } else {
-            super(...(statements as PredicateStatement[]));
-        }
+        super(...(Array.isArray(statements[0]) ? statements[0] : (statements as PredicateStatement[])));
         this.isValid = PredicatePF2e.isValid(this);
     }
 
@@ -36,36 +32,17 @@ class PredicatePF2e extends Array<PredicateStatement> {
             : new PredicatePF2e(...predicate).test(options);
     }
 
-    /** Create a predicate from unknown data, with deprecation support for legacy objects */
-    static create(data: unknown, warn = false): PredicatePF2e {
-        if (data instanceof PredicatePF2e) return data.clone();
-        if (Array.isArray(data)) return new PredicatePF2e(data);
-        if (isObject<OldRawPredicate>(data)) {
-            if (warn) {
-                foundry.utils.logCompatibilityWarning("Predicate data must be an array", {
-                    mode: CONST.COMPATIBILITY_MODES.WARNING,
-                    since: "4.2.0",
-                    until: "4.5.0",
-                });
-            }
-
-            return new PredicatePF2e(convertLegacyData(data));
-        }
-
-        return new PredicatePF2e();
-    }
-
     /** Test this predicate against a domain of discourse */
     test(options: Set<string> | string[]): boolean {
         if (this.length === 0) {
             return true;
         } else if (!this.isValid) {
-            console.error("PF2e System | The provided predicate set is malformed.");
+            console.warn("PF2e System | The provided predicate set is malformed.");
             return false;
         }
 
         const domain = options instanceof Set ? options : new Set(options);
-        return this.every((s) => this.isTrue(s, domain));
+        return this.every((s) => this.#isTrue(s, domain));
     }
 
     toObject(): RawPredicate {
@@ -77,15 +54,15 @@ class PredicatePF2e extends Array<PredicateStatement> {
     }
 
     /** Is the provided statement true? */
-    private isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
+    #isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
         return (
             (typeof statement === "string" && domain.has(statement)) ||
-            (StatementValidator.isBinaryOp(statement) && this.testBinaryOp(statement, domain)) ||
-            (StatementValidator.isCompound(statement) && this.testCompound(statement, domain))
+            (StatementValidator.isBinaryOp(statement) && this.#testBinaryOp(statement, domain)) ||
+            (StatementValidator.isCompound(statement) && this.#testCompound(statement, domain))
         );
     }
 
-    private testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
+    #testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
         if ("eq" in statement) {
             return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
         } else {
@@ -95,14 +72,17 @@ class PredicatePF2e extends Array<PredicateStatement> {
             // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-            const leftValues =
-                typeof left === "number" || !Number.isNaN(Number(left))
-                    ? [Number(left)]
-                    : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
-            const rightValues =
-                typeof right === "number" || !Number.isNaN(Number(right))
-                    ? [Number(right)]
-                    : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+            const getValues = (operand: string | number): number[] => {
+                const maybeNumber = Number(operand);
+                if (!Number.isNaN(maybeNumber)) return [maybeNumber];
+                const pattern = new RegExp(String.raw`^${operand}:([^:]+)$`);
+                const values = domainArray
+                    .map((s) => Number(pattern.exec(s)?.[1] || NaN))
+                    .filter((v) => !Number.isNaN(v));
+                return values.length > 0 ? values : [NaN];
+            };
+            const leftValues = getValues(left);
+            const rightValues = getValues(right);
 
             switch (operator) {
                 case "gt":
@@ -114,21 +94,22 @@ class PredicatePF2e extends Array<PredicateStatement> {
                 case "lte":
                     return leftValues.some((l) => rightValues.every((r) => l <= r));
                 default:
-                    console.warn("PF2e System | Malformed binary operation encounter");
+                    console.warn("PF2e System | Malformed binary operation encountered");
                     return false;
             }
         }
     }
 
     /** Is the provided compound statement true? */
-    private testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
+    #testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
         return (
-            ("and" in statement && statement.and.every((subProp) => this.isTrue(subProp, domain))) ||
-            ("nand" in statement && !statement.nand.every((subProp) => this.isTrue(subProp, domain))) ||
-            ("or" in statement && statement.or.some((subProp) => this.isTrue(subProp, domain))) ||
-            ("nor" in statement && !statement.nor.some((subProp) => this.isTrue(subProp, domain))) ||
-            ("not" in statement && !this.isTrue(statement.not, domain)) ||
-            ("if" in statement && !(this.isTrue(statement.if, domain) && !this.isTrue(statement.then, domain)))
+            ("and" in statement && statement.and.every((subProp) => this.#isTrue(subProp, domain))) ||
+            ("nand" in statement && !statement.nand.every((subProp) => this.#isTrue(subProp, domain))) ||
+            ("or" in statement && statement.or.some((subProp) => this.#isTrue(subProp, domain))) ||
+            ("xor" in statement && statement.xor.filter((subProp) => this.#isTrue(subProp, domain)).length === 1) ||
+            ("nor" in statement && !statement.nor.some((subProp) => this.#isTrue(subProp, domain))) ||
+            ("not" in statement && !this.#isTrue(statement.not, domain)) ||
+            ("if" in statement && !(this.#isTrue(statement.if, domain) && !this.#isTrue(statement.then, domain)))
         );
     }
 }
@@ -146,7 +127,7 @@ class StatementValidator {
         return (typeof statement === "string" && statement.length > 0) || this.isBinaryOp(statement);
     }
 
-    private static binaryOperators = new Set(["eq", "gt", "gte", "lt", "lte"]);
+    static #binaryOperators = new Set(["eq", "gt", "gte", "lt", "lte"]);
 
     static isBinaryOp(statement: unknown): statement is BinaryOperation {
         if (!isObject(statement)) return false;
@@ -154,7 +135,7 @@ class StatementValidator {
         if (entries.length > 1) return false;
         const [operator, operands]: [string, unknown] = entries[0];
         return (
-            this.binaryOperators.has(operator) &&
+            this.#binaryOperators.has(operator) &&
             Array.isArray(operands) &&
             operands.length === 2 &&
             typeof operands[0] === "string" &&
@@ -168,6 +149,7 @@ class StatementValidator {
             (this.isAnd(statement) ||
                 this.isOr(statement) ||
                 this.isNand(statement) ||
+                this.isXor(statement) ||
                 this.isNor(statement) ||
                 this.isNot(statement) ||
                 this.isIf(statement))
@@ -198,6 +180,14 @@ class StatementValidator {
         );
     }
 
+    static isXor(statement: { xor?: unknown }): statement is ExclusiveDisjunction {
+        return (
+            Object.keys(statement).length === 1 &&
+            Array.isArray(statement.xor) &&
+            statement.xor.every((subProp) => this.isStatement(subProp))
+        );
+    }
+
     static isNor(statement: { nor?: unknown }): statement is JointDenial {
         return (
             Object.keys(statement).length === 1 &&
@@ -217,36 +207,6 @@ class StatementValidator {
     }
 }
 
-function convertLegacyData(predicate: OldRawPredicate): RawPredicate {
-    const keys = Object.keys(predicate);
-    if (keys.length === 0) return [];
-    if (keys.length === 1 && Array.isArray(predicate.all)) {
-        return deepClone(predicate.all);
-    }
-    if (keys.length === 1 && Array.isArray(predicate.any) && predicate.any.length === 1) {
-        return deepClone(predicate.any);
-    }
-
-    return deepClone(
-        [
-            predicate.all ?? [],
-            Array.isArray(predicate.any) ? { or: predicate.any } : [],
-            Array.isArray(predicate.not)
-                ? predicate.not.length === 1
-                    ? { not: predicate.not[0]! }
-                    : { nor: predicate.not }
-                : [],
-        ].flat()
-    );
-}
-
-interface OldRawPredicate {
-    label?: unknown;
-    all?: PredicateStatement[];
-    any?: PredicateStatement[];
-    not?: PredicateStatement[];
-}
-
 type EqualTo = { eq: [string, string | number] };
 type GreaterThan = { gt: [string, string | number] };
 type GreaterThanEqualTo = { gte: [string, string | number] };
@@ -257,14 +217,23 @@ type Atom = string | BinaryOperation;
 
 type Conjunction = { and: PredicateStatement[] };
 type Disjunction = { or: PredicateStatement[] };
+type ExclusiveDisjunction = { xor: PredicateStatement[] };
 type Negation = { not: PredicateStatement };
 type AlternativeDenial = { nand: PredicateStatement[] };
 type JointDenial = { nor: PredicateStatement[] };
 type Conditional = { if: PredicateStatement; then: PredicateStatement };
-type CompoundStatement = Conjunction | Disjunction | AlternativeDenial | JointDenial | Negation | Conditional;
+type CompoundStatement =
+    | Conjunction
+    | Disjunction
+    | ExclusiveDisjunction
+    | AlternativeDenial
+    | JointDenial
+    | Negation
+    | Conditional;
 
 type PredicateStatement = Atom | CompoundStatement;
 
 type RawPredicate = PredicateStatement[];
 
-export { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator, convertLegacyData };
+export { PredicatePF2e, StatementValidator };
+export type { PredicateStatement, RawPredicate };

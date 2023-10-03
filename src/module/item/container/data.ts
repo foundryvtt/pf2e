@@ -1,11 +1,11 @@
-import { EquipmentTrait } from "@item/equipment/data";
+import { EquipmentTrait } from "@item/equipment/data.ts";
 import {
     BasePhysicalItemSource,
     Investable,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
+} from "@item/physical/data.ts";
 
 type ContainerSource = BasePhysicalItemSource<"backpack", ContainerSystemSource>;
 
@@ -21,7 +21,7 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 interface ContainerSystemData
-    extends Omit<ContainerSystemSource, "identification" | "price" | "temporary" | "usage">,
+    extends Omit<ContainerSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<Investable<PhysicalSystemData>, "traits"> {}
 
-export { ContainerSource, ContainerSystemData };
+export type { ContainerSource, ContainerSystemData };

@@ -3,7 +3,7 @@
 }
 
 aside .sidebar {
-    .save-roll input[type=number] {
+    .save-roll input[type="number"] {
         width: 3ch;
         font-size: var(--font-size-20);
         height: 24px;
@@ -20,7 +20,7 @@ aside .sidebar {
             padding: 18px 20px 0 20px;
         }
         .hardness {
-            background: url(../assets/sheet/shield-red.webp) no-repeat top center;
+            background: url("/assets/sheet/shield-red.webp") no-repeat top center;
         }
     }
 
@@ -42,11 +42,19 @@ header.char-header {
     }
 }
 
-.sheet-content > .tab {
-    &:not(.inventory), .inventory .inventory-list {
-        @include scrollbar;
+.sheet-body .sheet-content > .tab {
+    &:not(.inventory),
+    .inventory .inventory-list {
+        overflow: hidden scroll;
         flex-grow: 1;
         overflow: hidden scroll;
+    }
+
+    &.actions {
+        ol.actions-list li.action .icon {
+            height: var(--font-size-18);
+            width: var(--font-size-18);
+        }
     }
 
     &.details {
@@ -64,15 +72,16 @@ header.char-header {
                     object-fit: contain;
                     border-radius: 0;
                     border: none;
-                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39,
+                        inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
                 }
             }
 
             .image-container {
-                [data-action=show-image] {
+                [data-action="show-image"] {
                     bottom: 3px;
-                    right: 1px;    
-                } 
+                    right: 1px;
+                }
             }
 
             .detail-sheet {
@@ -111,8 +120,8 @@ header.char-header {
     }
 
     &.effects {
-        @import 'effects';
-        @import 'header';
+        @import "effects";
+        @import "header";
 
         ol.directory-list {
             @include p-reset;
@@ -145,19 +154,31 @@ span.adjustable {
     }
 }
 
+.inventory {
+    margin-bottom: 0.6rem;
+}
+
 // Grid-positions
-.row-nr-1 { grid-row: 1/2; }
-.row-nr-2 { grid-row: 2/3; }
-.row-nr-3 { grid-row: 3/4; }
-.span-2-columns { grid-column-end: span 2; }
+.row-nr-1 {
+    grid-row: 1/2;
+}
+.row-nr-2 {
+    grid-row: 2/3;
+}
+.row-nr-3 {
+    grid-row: 3/4;
+}
+.span-2-columns {
+    grid-column-end: span 2;
+}
 
 // Flex-positions
 .flexitem-1 {
-    flex: 1 1 10%
+    flex: 1 1 10%;
 }
 .flexitem-5 {
-    flex: 5 1 50%
+    flex: 5 1 50%;
 }
 .flexitem-full {
-    flex: 100%
+    flex: 100%;
 }

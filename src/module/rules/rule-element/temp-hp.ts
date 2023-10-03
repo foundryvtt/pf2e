@@ -1,31 +1,43 @@
-import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
-import { ItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ActorType } from "@actor/data/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { StrictSchemaField } from "@system/schema-data-fields.ts";
 import { isObject } from "@util";
-import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./";
-import { RuleElementOptions } from "./base";
+import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField, RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /**
  * @category RuleElement
  */
-class TempHPRuleElement extends RuleElementPF2e {
+class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: TempHPSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        /** Whether the temporary hit points are immediately applied */
-        this.data.onCreate = !!(this.data.onCreate ?? true);
-        /** Whether the temporary hit points renew each round */
-        this.data.onTurnStart = !!this.data.onTurnStart;
+    static override defineSchema(): TempHPRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: false }),
+            events: new StrictSchemaField(
+                {
+                    onCreate: new fields.BooleanField({ required: false, nullable: false }),
+                    onTurnStart: new fields.BooleanField({ required: false, nullable: false }),
+                },
+                {
+                    required: true,
+                    nullable: false,
+                    initial: {
+                        onCreate: true,
+                        onTurnStart: false,
+                    },
+                }
+            ),
+        };
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
-        if (this.ignored || !this.data.onCreate) return;
+        if (this.ignored || !this.events.onCreate) return;
 
         const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
-        const value = this.resolveValue(this.data.value);
+        const value = this.resolveValue(this.value);
 
         const rollOptions = Array.from(
             new Set([
@@ -33,12 +45,12 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (!this.predicate.test(rollOptions)) {
+        if (!this.test(rollOptions)) {
             return;
         }
 
         if (typeof value !== "number") {
-            return this.failValidation("Temporary HP requires a non-zero value field or a formula field");
+            return this.failValidation("Temporary HP requires a non-zero value field");
         }
 
         const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
@@ -53,7 +65,7 @@ class TempHPRuleElement extends RuleElementPF2e {
 
     /** Refresh the actor's temporary hit points at the start of its turn */
     override onTurnStart(actorUpdates: Record<string, unknown>): void {
-        if (this.ignored || !this.data.onTurnStart) return;
+        if (this.ignored || !this.events.onTurnStart) return;
 
         const rollOptions = Array.from(
             new Set([
@@ -61,14 +73,13 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (!this.predicate.test(rollOptions)) {
+        if (!this.test(rollOptions)) {
             return;
         }
 
-        const value = this.resolveValue(this.data.value);
+        const value = this.resolveValue(this.value);
         if (typeof value !== "number") {
-            this.failValidation("Temporary HP requires a non-zero value field or a formula field");
-            return;
+            return this.failValidation("Temporary HP requires a non-zero value field");
         }
 
         const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
@@ -107,18 +118,27 @@ class TempHPRuleElement extends RuleElementPF2e {
     }
 }
 
-interface TempHPRuleElement extends RuleElementPF2e {
-    data: TempHPData;
-}
+interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromSchema<TempHPRuleSchema> {}
 
-interface TempHPData extends RuleElementData {
-    onCreate: boolean;
-    onTurnStart: boolean;
-}
+type TempHPEventsSchema = {
+    /** Whether the temporary hit points are immediately applied */
+    onCreate: BooleanField<boolean, boolean, false, false, false>;
+    /** Whether the temporary hit points renew each round */
+    onTurnStart: BooleanField<boolean, boolean, false, false, false>;
+};
 
-interface TempHPSource extends RuleElementSource {
-    onCreate?: unknown;
-    onTurnStart?: unknown;
-}
+type TempHPRuleSchema = RuleElementSchema & {
+    /** The quantity of temporary hit points to add */
+    value: ResolvableValueField<true, false, false>;
+    /** World events in which temporary HP is added or renewed */
+    events: SchemaField<
+        TempHPEventsSchema,
+        SourceFromSchema<TempHPEventsSchema>,
+        ModelPropsFromSchema<TempHPEventsSchema>,
+        true,
+        false,
+        true
+    >;
+};
 
 export { TempHPRuleElement };

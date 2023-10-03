@@ -49,21 +49,28 @@ declare global {
          * @param html      The Application's rendered HTML.
          * @param selector  The target CSS selector which activates the menu.
          * @param menuItems The array of menu items being rendered.
-         * @param [hookName="EntryContext"]  The name of the hook to call.
+         * @param [options] Additional options to configure context menu initialization.
+         * @param [options.hookName="EntryContext"]  The name of the hook to call.
          */
         static create(
             app: Application,
             html: JQuery,
             selector: string,
             menuItems: ContextMenuEntry[],
-            hookName?: string
+            options?: { eventName?: string; hookName?: string }
         ): ContextMenu | void;
 
         /** Attach a ContextMenu instance to an HTML selector */
         bind(): void;
 
-        /** Animate closing the menu by sliding up and removing from the DOM */
-        close(): Promise<void>;
+        /**
+         * Closes the menu and removes it from the DOM.
+         * @param [options]              Options to configure the closing behavior.
+         * @param [options.animate=true] Animate the context menu closing.
+         */
+        close(options?: { animate?: boolean }): Promise<void>;
+
+        protected _close(): void;
 
         protected _animateOpen(menu: JQuery): Promise<void>;
 
@@ -75,6 +82,17 @@ declare global {
          * Attach a click handler to each item which is rendered
          */
         render(target: JQuery): Promise<void>;
+
+        /**
+         * Set the position of the context menu, taking into consideration whether the menu should expand upward or downward
+         */
+        protected _setPosition(html: JQuery, target: JQuery): void;
+
+        /** Local listeners which apply to each ContextMenu instance which is created. */
+        activateListeners(html: JQuery): void;
+
+        /** Global listeners which apply once only to the document. */
+        static eventListeners(): void;
     }
 
     interface ContextMenuEntry {

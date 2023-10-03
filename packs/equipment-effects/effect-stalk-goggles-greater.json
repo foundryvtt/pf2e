@@ -1,0 +1,51 @@
+{
+    "_id": "kyLLXUQ9zSEvC4py",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/day-goggles.webp",
+    "name": "Effect: Stalk Goggles (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 item bonus to Perception checks involving sight and can't be flanked.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "visual"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

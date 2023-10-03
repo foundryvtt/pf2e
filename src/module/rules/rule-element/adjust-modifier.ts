@@ -1,40 +1,28 @@
-import { ActorPF2e } from "@actor";
-import { ModifierAdjustment } from "@actor/modifiers";
-import { ItemPF2e } from "@item";
-import { DamageType } from "@system/damage/types";
-import { DAMAGE_TYPES } from "@system/damage/values";
-import { PredicatePF2e } from "@system/predication";
-import { setHasElement } from "@util";
-import {
-    ArrayField,
-    BooleanField,
-    ModelPropsFromSchema,
-    NumberField,
-    StringField,
-} from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions } from "./";
-import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
-
-const { fields } = foundry.data;
+import { ModifierAdjustment } from "@actor/modifiers.ts";
+import { DamageType } from "@system/damage/types.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { StrictArrayField } from "@system/schema-data-fields.ts";
+import { objectHasKey } from "@util";
+import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
+import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
-class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
+class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     /** The number of times this adjustment has been applied */
     applications = 0;
 
-    constructor(data: AdjustModifierSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        data.path = "ignore"; // Maybe this shouldn't subclass AELikeRuleElement
-
-        if (data.suppress) {
-            data.mode = "override";
-            data.value = 0;
-            data.priority ??= 99; // Try to apply last
+    constructor(source: AdjustModifierSource, options: RuleElementOptions) {
+        if (source.suppress) source.mode = "override"; // Allow `suppress` as a shorthand without providing `mode`
+        if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
+            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
 
-        super({ ...data, phase: "beforeDerived" }, item, options);
+        super(source, options);
 
-        if (typeof data.selector === "string" && this.selectors.length === 0) {
-            this.selectors = [data.selector];
+        if (typeof source.selector === "string" && this.selectors.length === 0) {
+            this.selectors = [source.selector];
         }
 
         this.suppress ??= false;
@@ -42,43 +30,59 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
     }
 
     static override defineSchema(): AdjustModifierSchema {
+        const { fields } = foundry.data;
+
         return {
             ...super.defineSchema(),
-            // `path` isn't used for AdjustModifier REs
-            path: new fields.StringField({ blank: true }),
+            mode: new fields.StringField({
+                required: true,
+                choices: AELikeRuleElement.CHANGE_MODES,
+                initial: undefined,
+            }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
-            relabel: new fields.StringField({ required: false, nullable: true, blank: false, initial: undefined }),
+            selectors: new StrictArrayField(new fields.StringField({ required: true, blank: false })),
+            relabel: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             damageType: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
-            suppress: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
-            maxApplications: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
+            suppress: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            maxApplications: new fields.NumberField({ required: false, nullable: true, initial: null }),
+            value: new ResolvableValueField({ required: false, nullable: true, initial: null }),
         };
     }
 
-    protected override _validateModel(data: Record<string, unknown>): void {
-        super._validateModel(data);
+    static override validateJoint(data: Record<string, unknown>): void {
+        super.validateJoint(data);
 
-        if (!["string", "number"].includes(typeof data.value) && !this.isBracketedValue(data.value)) {
-            throw Error("`value` must be a string, number, or bracketed value");
-        }
-
-        if (data.suppress === true && typeof data.maxApplications === "number") {
-            throw Error("use of `maxApplications` in combination with `suppress` is not currently supported");
+        const { DataModelValidationError } = foundry.data.validation;
+        if (data.suppress === true) {
+            if (typeof data.maxApplications === "number") {
+                throw new DataModelValidationError(
+                    "  use of `maxApplications` in combination with `suppress` is not currently supported"
+                );
+            }
+        } else if (data.value === null && !data.damageType) {
+            throw new DataModelValidationError(
+                "  value: must be provided unless damageType is provided or suppress is true"
+            );
         }
     }
 
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
-    override applyAELike(): void {
-        this.validateData();
+    override beforePrepareData(): void {
         if (this.ignored) return;
+
+        const predicate = new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate])));
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
-            predicate: new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate]))),
+            test: (options): boolean => {
+                return predicate.test([...options, ...this.item.getRollOptions("parent")]);
+            },
             suppress: this.suppress,
             getNewValue: (current: number): number => {
-                const change = this.resolveValue();
-                if (typeof change !== "number") {
+                if (this.value === null) return current;
+
+                const change = Number(this.resolveValue(this.value));
+                if (Number.isNaN(change)) {
                     this.failValidation("value does not resolve to a number");
                     return current;
                 } else if (this.ignored) {
@@ -90,13 +94,18 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
                     this.ignored = true;
                 }
 
-                return this.getNewValue(current, change);
+                const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
+                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    this.failValidation(newValue.asError().message);
+                    return current;
+                }
+                return newValue;
             },
             getDamageType: (current: DamageType | null): DamageType | null => {
                 if (!this.damageType) return current;
 
                 const damageType = this.resolveInjectedProperties(this.damageType);
-                if (!setHasElement(DAMAGE_TYPES, damageType)) {
+                if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                     this.failValidation(`${damageType} is an unrecognized damage type.`);
                     return current;
                 }
@@ -106,10 +115,12 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
         };
 
         if (this.relabel) {
-            adjustment.relabel = this.resolveInjectedProperties(this.relabel).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+            adjustment.relabel = this.getReducedLabel(this.resolveInjectedProperties(this.relabel));
         }
 
         for (const selector of this.selectors.map((s) => this.resolveInjectedProperties(s))) {
+            if (selector === "null") continue;
+
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
             adjustments.push(adjustment);
         }
@@ -117,27 +128,28 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 }
 
 interface AdjustModifierRuleElement
-    extends AELikeRuleElement<AdjustModifierSchema>,
+    extends RuleElementPF2e<AdjustModifierSchema>,
         ModelPropsFromSchema<AdjustModifierSchema> {
-    data: AELikeData;
-
     suppress: boolean;
     maxApplications: number;
 }
 
-type AdjustModifierSchema = AELikeSchema & {
+type AdjustModifierSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** An optional relabeling of the adjusted modifier */
-    relabel: StringField<string, string, false, true, false>;
+    relabel: StringField<string, string, false, true, true>;
     selector: StringField<string, string, false, false, false>;
     selectors: ArrayField<StringField<string, string, true, false, false>>;
     damageType: StringField<string, string, false, true, true>;
     /** Rather than changing a modifier's value, ignore it entirely */
-    suppress: BooleanField<boolean, boolean, false, true, false>;
+    suppress: BooleanField<boolean, boolean, false, false, true>;
     /** The maximum number of times this adjustment can be applied */
-    maxApplications: NumberField<number, number, false, true, false>;
+    maxApplications: NumberField<number, number, false, true, true>;
+    value: ResolvableValueField<false, true, true>;
 };
 
-interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
+interface AdjustModifierSource extends RuleElementSource {
+    mode?: unknown;
     selector?: unknown;
     selectors?: unknown;
     relabel?: unknown;

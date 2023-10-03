@@ -1,0 +1,70 @@
+{
+    "_id": "YIShkE3JCEuwCAxl",
+    "img": "systems/pf2e/icons/spells/face-in-the-crowd.webp",
+    "name": "Effect: Metallic Skin",
+    "system": {
+        "description": {
+            "value": "<p>You fortify your natural resistances with elemental metal, covering your skin with thick metal. You gain a +2 status bonus to AC and resistance 10 to physical damage (except adamantine), but you take a –10-foot penalty to Speed. If you take fire damage while this ability is active, until the end of your next turn, you deal an additional @Damage[2d6[fire]] damage with all your unarmed melee Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "value": -10
+            },
+            {
+                "exceptions": "adamantine",
+                "key": "Resistance",
+                "type": "physical",
+                "value": 10
+            },
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "metallic-skin-fire",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:category:unarmed",
+                    "item:melee",
+                    "metallic-skin-fire"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

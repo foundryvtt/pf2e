@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { Size } from "@module/data";
-import { BracketedValue, RuleElementSource } from "@module/rules/rule-element";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Size } from "@module/data.ts";
+import { BracketedValue, RuleElementSource } from "@module/rules/rule-element/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Combine AE-likes altering creature size and TokenSize RuleElements into CreatureSize RuleElements */
 export class Migration655CreatureTokenSizes extends MigrationBase {

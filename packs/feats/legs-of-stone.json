@@ -1,0 +1,59 @@
+{
+    "_id": "PeBz8f9h8Y4OFdws",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Legs of Stone",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a +2 status bonus to your Fortitude and Reflex DCs against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you. You can Shove creatures even if you don't have a hand free. When you successfully Shove a foe, you can Stride away from your opponent (instead of toward it), but you must move the same distance in the opposite direction from where you Shoved it.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Golem Grafter Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "vs. Shove (Legs of Stone)",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "vs. Trip (Legs of Stone)",
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": "reflex",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

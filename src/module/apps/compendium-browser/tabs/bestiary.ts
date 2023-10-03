@@ -1,8 +1,8 @@
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { ContentTabName } from "../data";
-import { CompendiumBrowserTab } from "./base";
-import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { BestiaryFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "bestiary";
@@ -44,7 +44,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
         const bestiaryActors: CompendiumBrowserIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "system.details.isComplex"];
+        const indexFields = [...this.index];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
@@ -52,34 +52,32 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
             indexFields
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const actorData of index) {
-                if (actorData.type === "npc") {
-                    if (!this.hasAllIndexFields(actorData, this.index)) {
-                        console.warn(
-                            `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // Prepare source
-                    const source = actorData.system.details.source.value;
-                    if (source) {
-                        sources.add(source);
-                        actorData.system.details.source.value = sluggify(source);
-                    }
-
-                    bestiaryActors.push({
-                        type: actorData.type,
-                        name: actorData.name,
-                        img: actorData.img,
-                        uuid: `Compendium.${pack.collection}.${actorData._id}`,
-                        level: actorData.system.details.level.value,
-                        alignment: actorData.system.details.alignment.value,
-                        actorSize: actorData.system.traits.size.value,
-                        traits: actorData.system.traits.value,
-                        rarity: actorData.system.traits.rarity,
-                        source: actorData.system.details.source.value,
-                    });
+            for (const actorData of index.filter((d) => d.type === "npc")) {
+                if (!this.hasAllIndexFields(actorData, this.index)) {
+                    console.warn(
+                        `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                    );
+                    continue;
                 }
+                // Prepare source
+                const source = actorData.system.details.source.value;
+                const sourceSlug = sluggify(source);
+                if (source) {
+                    sources.add(source);
+                }
+
+                bestiaryActors.push({
+                    type: actorData.type,
+                    name: actorData.name,
+                    img: actorData.img,
+                    uuid: `Compendium.${pack.collection}.${actorData._id}`,
+                    level: actorData.system.details.level.value,
+                    alignment: actorData.system.details.alignment.value,
+                    actorSize: actorData.system.traits.size.value,
+                    traits: actorData.system.traits.value,
+                    rarity: actorData.system.traits.rarity,
+                    source: sourceSlug,
+                });
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
         }

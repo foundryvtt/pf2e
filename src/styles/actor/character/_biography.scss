@@ -1,0 +1,247 @@
+&.biography {
+    h3.header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 0 1px;
+
+        a {
+            color: var(--color-text-dark-primary);
+            font-size: var(--font-size-12);
+
+            i.fa-eye-slash {
+                opacity: 75%;
+            }
+        }
+    }
+
+    section {
+        &.editable {
+            .editor-content,
+            input {
+                background: rgba(0, 0, 0, 5%);
+            }
+
+            .editor-content {
+                min-height: 4rem;
+            }
+        }
+
+        &:not(.editable) .editor-content {
+            min-height: 2rem;
+        }
+
+        // Override core input:disabled coloration
+        input:disabled {
+            color: var(--text-dark);
+        }
+
+        &.appearance-details {
+            display: grid;
+            grid-template:
+                "bio bio" 1fr
+                "height weight" min-content
+                / 1fr 1fr;
+            .bio {
+                grid-area: bio;
+            }
+        }
+
+        &.personality {
+            display: flex;
+            flex-wrap: wrap;
+
+            .bio {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex: 50%;
+                margin-bottom: 8px;
+
+                span {
+                    width: 100%;
+                }
+            }
+        }
+
+        &.campaign {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        input {
+            background: none;
+            border-bottom: 1px solid var(--color-border-input);
+            font-family: var(--body-serif);
+            width: calc(100% - 6px);
+
+            &::placeholder {
+                filter: opacity(0.5);
+                color: var(--text-dark);
+            }
+
+            &:focus {
+                border-bottom: 1px solid #644f33;
+                &::placeholder {
+                    color: transparent;
+                }
+            }
+
+            &[type="number"] {
+                padding-bottom: 0;
+                padding-left: 4px;
+            }
+        }
+
+        hr {
+            margin: 10px 6px 10px 0;
+        }
+
+        .bio {
+            h3 {
+                @include p-reset;
+                background-color: rgba($text-dark-color, 0.1);
+                border: none;
+                color: var(--text-dark);
+                font: 700 var(--font-size-14) var(--body-serif);
+                grid-area: mod;
+                height: 26px;
+                padding: 8px 4px 6px;
+                width: calc(100% - 6px);
+
+                i {
+                    position: relative;
+                    right: -2px;
+                    top: -2px;
+                    float: right;
+                }
+
+                span.value {
+                    display: inline-block;
+                    max-width: 87%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            h4.details-label {
+                margin-bottom: 0;
+                width: 100%;
+            }
+
+            .biography-content {
+                padding: 0 0 0.5rem;
+
+                /* Typography */
+                h1,
+                h2 {
+                    font-family: var(--serif);
+                    line-height: 1.1;
+                }
+                h1 {
+                    text-align: center;
+                    font-size: 2.5em;
+                    margin-bottom: 30px;
+                }
+
+                h2 {
+                    color: var(--secondary);
+                    font-size: 2.25em;
+                }
+
+                h3 {
+                    font-size: 2em;
+                    border-bottom: 0px;
+                }
+
+                h4 {
+                    color: var(--text-dark);
+                    border-bottom: 1px solid var(--color-border-dark-primary);
+                    margin-bottom: 0px;
+                    text-transform: uppercase;
+                }
+
+                h5 {
+                    text-transform: uppercase;
+                }
+
+                h6 {
+                    background-color: var(--header-bg);
+                    color: var(--header-color);
+                    margin-bottom: 5px;
+                    padding-left: 8px;
+                    padding-top: 5px;
+                    padding-bottom: 3px;
+                    font-size: 1.25em;
+                    text-transform: uppercase;
+                    border-radius: 12px 12px 0px 0px;
+                }
+
+                p,
+                p + p,
+                ul,
+                ol {
+                    font-family: var(--body-serif);
+                }
+
+                .editor {
+                    .editor-edit {
+                        background: var(--primary);
+                        color: var(--text-light);
+                    }
+
+                    // When the editor is open, fill more space so the user has something to work with
+                    .tox.tox-tinymce {
+                        // !important to work around tox's limitations and a foundry issue where initial height is overwritten
+                        height: 200px !important;
+                    }
+
+                    .tox {
+                        .tox-editor-container {
+                            .tox-editor-header {
+                                background: none;
+
+                                .tox-toolbar-overlord {
+                                    background-color: var(--secondary);
+
+                                    .tox-toolbar {
+                                        &__primary {
+                                            background-color: var(--alt);
+                                            box-shadow: inset 0 0 0 1px rgba(white, 0.3);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .tox-tbtn {
+                            color: #cdcdcd;
+                            border-radius: 1px;
+
+                            svg {
+                                fill: #cdcdcd;
+                            }
+
+                            &:hover {
+                                background: var(--secondary);
+                                color: var(--text-light);
+
+                                svg {
+                                    fill: white;
+                                }
+                            }
+                        }
+                    }
+
+                    .editor-content {
+                        overflow-y: inherit;
+                        padding: 0 0.25rem;
+                    }
+                }
+            }
+        }
+    }
+}

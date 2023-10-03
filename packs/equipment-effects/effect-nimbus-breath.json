@@ -1,0 +1,45 @@
+{
+    "_id": "fszJ9ZaslnrW5m5z",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/silversheen.webp",
+    "name": "Effect: Nimbus Breath",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Nimbus Breath]</p>\n<p>You gain resistance 5 to electricity and gain a fly speed equal to your land speed or 20, whichever is higher.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "wGzKq2cx1b2Ycl4u",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Kneel for No God",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> Vahird ethnicity</p>\n<hr />\n<p>Your ancestors' defiance of magic and your people's strictly egalitarian mindset mean that certain forms of magic have little effect on you. When you use your @UUID[Compendium.pf2e.actionspf2e.Item.Call on Ancient Blood] reaction against a divine spell and roll a critical failure on the saving throw against that spell, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ancient-blooded dwarf heritage"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "divine",
+                    "call-on-ancient-blood"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "divine",
+                    "call-on-ancient-blood"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Dwarf.KneelForNoGod.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

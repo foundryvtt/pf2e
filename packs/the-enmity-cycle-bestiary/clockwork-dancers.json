@@ -1,0 +1,155 @@
+{
+    "_id": "DG54oET4evjYUUrp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MCD0B0cSb8Ch2SKo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spring Attack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its turn in <strong>F2</strong></p>\n<hr />\n<p><strong>Effect</strong> Clockwork figures spring out from the pillars and attack anyone on the stage with a spinning blade Strike. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V4iUIyuyHcob97ps",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spinning Blade",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "ZvlNPZqYnu5laRNF": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Clockwork Dancers",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 6
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Several clockwork humanoid figures armed with spinning blades move throughout the area.</p>",
+            "disable": "<p>@Check[type:thievery|dc:25|traits:action:disable-a-device] (expert) to deactivate the clockworks from the control panel. Two successes are needed to deactivate the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap deactivates after 4 rounds and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The clockwork dancers target each creature on the stage within 10 feet of a pillar by a spinning blade Strike.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Enmity Cycle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,190 @@
+{
+    "_id": "UNXMz1Q7hinlaxek",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "KVrMIzW0i6AHJQvS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "The Maze Awakens",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the maze</p>\n<hr />\n<p><strong>Effect</strong> Creatures in the maze can't escape it except by use of teleportation magic or as described in Trapped in the Maze. The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yaYZxfRFuqY5ZKUv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Trapped in the Maze",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Once each turn after it has taken a move action within the maze, each target in the maze can spend 1 action to attempt a @Check[type:perception|dc:26|name:Escape the Maze|traits:hazard,complex,magical,mechanical,trap] or @Check[type:survival|dc:26|name:Escape the Maze|traits:hazard,complex,magical,mechanical,trap] check to escape it. A group traveling the maze together is treated as a single target; no more than one creature in the group can attempt this check each round, but accompanying creatures can Aid this check. The possible outcomes follow. A target attempting to leave the maze the same way it entered uses the outcome for one degree of success better than the result of its roll when attempting this check (failure to success, for example).</p>\n<hr />\n<p><strong>Critical Success</strong> The target escapes the maze.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BTkdHTwWzCskxz7S",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Gore",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "28d8zzwzplb7y2djjl3e8e": {
+                        "damage": "2d8+8",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Maze of Mirrors",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 64,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 64
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained) to detect the magical runes in the maze; noticing the maze itself has a DC of 0</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Invisible runes in the maze disorient those within it and cause its mirrored walls to shift about.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Stop the mirrors|traits:hazard,complex,magical,mechanical,trap] (expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level; counteract DC 28) to stop the mirrors' shuffling; @Check[type:occultism|dc:28|name:Dispel the minotaur|traits:hazard,complex,magical,mechanical,trap] or @Check[type:religion|dc:28|name:Dispel the minotaur|traits:hazard,complex,magical,mechanical,trap] (expert) to dispel the minotaur</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature in the maze.</p>",
+            "routine": "<p>(3 actions) The trap uses its first action to magically shuffle the mirrors, rendering markings or maps of the maze ineffective. Creatures in the maze that fail a @Check[type:will|dc:26|traits:hazard,complex,magical,mechanical,trap] save are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until they leave the maze. If the target fails additional saves against this ability, the condition value increases by 1 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}).</p>\n<p>For its second action, the trap's ghostly minotaur attacks a random creature in the maze with its spectral gore.</p>\n<p>For its third action, the trap makes another spectral gore attack against a random creature.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

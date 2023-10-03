@@ -1,0 +1,62 @@
+{
+    "_id": "Ze9vb0wlRmWWqnXC",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Jalmeri Heavenseeker Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in either Acrobatics or Occultism; if you were already trained in both these skills, you become an expert in one of them instead. You gain either the @UUID[Compendium.pf2e.feats-srd.Item.Ki Rush] or @UUID[Compendium.pf2e.feats-srd.Item.Ki Strike] monk feat, which grants you a ki spell and a focus pool of 1 Focus Point that you can recover using the @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] activity as a monk does. If you already have both feats, you can instead choose a single 1st‐level monk feat.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you gain two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.NaG4fy33coUdSFtH]{Jalmeri Heavenseeker} or @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.EwlYs1OzaMj9BB5I]{Student of Perfection} archetypes.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Student of Perfection Dedication, or you've trained with a champion of the Challenge of Sky and Heaven"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Ki Rush"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Ki Strike"
+                    }
+                ],
+                "flag": "jalmeriHeavenseekerDedication",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.jalmeriHeavenseekerDedication}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "selected": {
+                "archetype": "Archetype",
+                "dedication": "Dedication"
+            },
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

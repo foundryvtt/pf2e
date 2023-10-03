@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ActionTrait } from "@item/action";
-import { ArmorTrait } from "@item/armor";
-import { ItemSourcePF2e } from "@item/data";
-import { SpellTrait } from "@item/spell";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActionTrait } from "@item/ability/types.ts";
+import { ArmorTrait } from "@item/armor/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellTrait } from "@item/spell/index.ts";
 import {
     actionTraits,
     armorTraits,
@@ -16,8 +16,8 @@ import {
     spellTraits,
     vehicleTraits,
     weaponTraits,
-} from "@scripts/config/traits";
-import { MigrationBase } from "../base";
+} from "@scripts/config/traits.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Prune traits from actors and items that are invalid for the given type */
 export class Migration828PruneInvalidTraits extends MigrationBase {
@@ -45,8 +45,8 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const { traits } = source.system;
-        if (!traits) return;
+        const traits: { value?: string[] } | undefined = source.system.traits;
+        if (!traits?.value) return;
 
         switch (source.type) {
             case "action": {

@@ -1,0 +1,115 @@
+{
+    "_id": "mmYAiK3x0UMcgiNv",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dualborn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your suli heritage can be traced back to two geniekin ancestors of opposing elements, or to an elemental ancestor that embodied two combined elements. Choose two of the following elements: air, earth, fire, and water. Once made, this choice can't be changed. You gain resistance equal to half your level (minimum 1) to all damaging effects with the traits of either of your chosen elements.</p>\n<hr />\n<p><strong>Special</strong> If you take the Elemental Assault or Elemental Bulwark ancestry feats, you can use them only with your chosen elements. You can add your resistance from this feat to the resistance you gain from Elemental Bulwark against effects with your elements' traits, for a total of 5 + half your level, or 10 + half your level with Improved Elemental Bulwark. If you take the Tetraelemental Assault feat, you can choose each of your two elements twice each, instead of choosing each of the four elements once each.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Elemental Assault]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "flag": "firstEnergy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Suli.Dualborn.FirstElement",
+                "rollOption": "dualborn"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.firstEnergy}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "dualborn:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "not": "dualborn:earth"
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "not": "dualborn:air"
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "not": "dualborn:water"
+                            }
+                        ],
+                        "value": "water"
+                    }
+                ],
+                "flag": "secondEnergy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Suli.Dualborn.SecondElement",
+                "rollOption": "dualborn"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.secondEnergy}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "suli"
+            ]
+        }
+    },
+    "type": "feat"
+}

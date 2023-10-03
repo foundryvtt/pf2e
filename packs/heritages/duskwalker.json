@@ -1,0 +1,40 @@
+{
+    "_id": "ZZKZkeSP5TuT62IA",
+    "img": "systems/pf2e/icons/features/ancestry/duskwalker.webp",
+    "name": "Duskwalker",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>Thanks to an ancient bargain, your soul has been reborn as a duskwalker, a planar scion with a connection to psychopomps and the Boneyard. You gain the duskwalker trait in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. Neither your body nor your spirit can ever become undead. You can choose from duskwalker feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "add": [
+                    "duskwalker"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "heritage"
+}

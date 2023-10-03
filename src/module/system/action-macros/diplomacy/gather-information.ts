@@ -1,8 +1,8 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.GatherInformation";
 
-export function gatherInformation(options: SkillActionOptions) {
+export function gatherInformation(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:gather-information"];
     const modifiers = options?.modifiers;
@@ -19,5 +19,8 @@ export function gatherInformation(options: SkillActionOptions) {
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

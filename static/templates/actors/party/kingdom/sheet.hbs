@@ -1,0 +1,86 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header>
+        <div class="frame-container">
+            <div class="frame">
+                <img class="player-image" alt="{{kingdom.name}}" src="{{kingdom.img}}" title="{{kingdom.name}}" data-edit="img" />
+            </div>
+        </div>
+        <div class="details">
+            <div class="title">
+                <input name="name" class="name" type="text" value="{{kingdom.name}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.NamePlaceholder"}}"/>
+                <div class="nation-type">{{nationTypeLabel}}</div>
+            </div>
+
+            <label class="capital">
+                <span>{{localize "PF2E.Kingmaker.Kingdom.Capital"}}</span>
+                <input name="capital" type="text" value="{{kingdom.capital}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.CapitalPlaceholder"}}" />
+            </label>
+
+            <label class="size">
+                <span>{{localize "PF2E.Kingmaker.Kingdom.Size"}}</span>
+                <input name="size" type="number" value="{{kingdom.size}}" />
+            </label>
+
+            <label class="resource-points">
+                <span data-tooltip="PF2E.Kingmaker.Kingdom.Resources.Points">{{localize "PF2E.Kingmaker.Kingdom.Resources.RP"}}</span>
+                <input name="resources.points" type="number" value="{{kingdom.resources.points}}" />
+            </label>
+
+            <label class="fame" data-action="adjust-fame">
+                <span>{{localize (concat "PF2E.Kingmaker.Kingdom.Aspiration." kingdom.aspiration)}}</span>
+                <a class="pips {{#unless member.owner}}readonly{{/unless}}">
+                    {{#times kingdom.resources.fame.max}}
+                        {{#if (gt @root.kingdom.resources.fame.value this)}}
+                            <i class="fa-solid fa-circle"></i>
+                        {{else}}
+                            <i class="fa-regular fa-circle"></i>
+                        {{/if}}
+                    {{/times}}
+                </a>
+            </label>
+
+            <section class="level">
+                <div class="level">
+                    <label>{{localize "PF2E.LevelLabel"}}</label>
+                    <input name="level" type="number" value="{{kingdom.level}}" placeholder="1" size="2" />
+                </div>
+                <div class="exp-data">
+                    {{#with kingdom.xp as |xp|}}
+                        <div class="exp-input">
+                            <input name="xp.value" type="text" value="{{xp.value}}" data-dtype="Number" data-allow-delta placeholder="0" size="4" />
+                            <span class="max"> / </span>
+                            <input name="xp.max" type="text" value="{{xp.max}}" data-dtype="Number" placeholder="1000" size="4" />
+                        </div>
+                        <progress value="{{percentage xp.value xp.max}}" max="100"></progress>
+                    {{/with}}
+                </div>
+            </section>
+        </div>
+    </header>
+
+    <nav class="sub-nav">
+        <a data-tab="main">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Main"}}</a>
+        <a data-tab="activities">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Activities"}}</a>
+        <a data-tab="world">{{localize "PF2E.Kingmaker.Kingdom.Tabs.World"}}</a>
+        <a data-tab="features">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Features"}}</a>
+        <a data-tab="ongoing">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Ongoing"}}</a>
+    </nav>
+
+    <section class="container">
+        <section class="tab" data-tab="main">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/main.hbs"}}
+        </section>
+        <section class="tab" data-tab="activities">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/activities.hbs"}}
+        </section>
+        <section class="tab" data-tab="world">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/world.hbs"}}
+        </section>
+        <section class="tab" data-tab="features">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/features.hbs"}}
+        </section>
+        <section class="tab" data-tab="ongoing">
+            {{> "systems/pf2e/templates/actors/party/kingdom/tabs/ongoing.hbs"}}
+        </section>
+    </section>
+</form>

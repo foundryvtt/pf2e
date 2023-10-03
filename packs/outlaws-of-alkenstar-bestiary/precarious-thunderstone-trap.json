@@ -1,0 +1,111 @@
+{
+    "_id": "CMTeUYpFwhN0CKs2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "cAQyBjT2q2n4GYvk",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Thunderstone",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The front gate is opened</p>\n<hr />\n<p><strong>Effect</strong> A moderate thunderstone falls on the flagstones and activates, dealing [[/r (2[splash])[sonic]]]{2 sonic splash} damage to each creature within 10 feet of the gate. Creatures in the area must succeed at a @Check[type:fortitude|dc:17|traits:hazard,mechanical,trap] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round. Adjacent creatures can attempt to catch the falling thunderstone (see Disable).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Precarious Thunderstone Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 12
+            },
+            "hardness": 3,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A tripwire fastened to the gate snaps when the gate is opened, releasing a moderate thunderstone to the ground.</p>",
+            "disable": "<p>@Check[type:thievery|dc:15|name:Remove the thunderstone|traits:hazard,mechanical,trap] (trained) to remove the thunderstone or @Check[type:reflex|dc:18|name:Catch the falling thunderstone|traits:hazard,mechanical,trap] save to catch the falling thunderstone</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

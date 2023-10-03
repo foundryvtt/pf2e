@@ -1,0 +1,113 @@
+{
+    "_id": "xkqjwu1ox0pQLOnb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "WJtDPJzNrJO19H6k",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Infinite Pitfall",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling. The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bottomless Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 9,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 36,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 36
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(or 0 if the trapdoor is disabled or broken) or <i>detect magic</i></p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An iron trapdoor covers an infinitely deep 10-foot-square pit.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Remove Trapdoor|traits:action:disable-a-device] (trained) to remove the trapdoor</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap still causes creatures to fall forever if they fall in, but the trapdoor must be reset manually for the trap to become hidden again.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Core Rulebook"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

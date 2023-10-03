@@ -1,4 +1,4 @@
-import { SimpleAction } from "@actor/actions";
+import { SimpleAction } from "@actor/actions/index.ts";
 
 const takeCover = new SimpleAction({
     cost: 1,

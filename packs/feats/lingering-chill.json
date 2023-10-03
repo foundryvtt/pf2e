@@ -1,0 +1,45 @@
+{
+    "_id": "douVMHDuQQv8U8aq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Lingering Chill",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The chill of ice entered your veins and never left, adjusting the internal temperature of your body. Your breath comes out in puffs, and your skin is as cold and smooth as the ice in your veins. You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]</em> as a primal innate cantrip. You gain resistance to cold damage equal to half your level, and you're protected from severe cold temperatures.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've been brought to 0 Hit Points by an enemy that has the cold trait or an enemy's ability that has the cold trait."
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "cold"
+            ]
+        }
+    },
+    "type": "feat"
+}

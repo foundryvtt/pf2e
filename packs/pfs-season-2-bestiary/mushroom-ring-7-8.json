@@ -1,0 +1,113 @@
+{
+    "_id": "UtMuL2qXMHxt2ccB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XGHvG5nJL9DIIU2p",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Portal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs approach the <em>mushroom ring</em></p>\n<hr />\n<p><strong>Effect</strong> An @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Elananx] emerges from the portal to defend it, and the hazard then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mushroom Ring (7-8)",
+    "prototypeToken": {
+        "name": "Mushroom Ring"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 138,
+                "temp": 0,
+                "value": 138
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This <em>mushroom ring</em> forms a portal to the First World, allowing the Thorned Monarch's reinforcements into the Material Plane. When the PCs approach, a creature emerges. Creatures continue to emerge until the mushroom ring is disabled. Disabling the mushroom ring also causes any creatures that have emerged to disappear.</p>",
+            "disable": "<p>@Check[type:thievery|dc:24|traits:action:disable-a-device] (expert) or @Check[type:nature|dc:28] (expert) to rearrange the mushrooms to disrupt the portal (two actions) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level, counteract DC 26) to counteract the magical properties; three successes are required to disable the portal</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "",
+            "routine": "<p>(1 action) A @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Elananx] emerges from the <em>mushroom ring</em> and defends it. All elananxes use the <em>mushroom ring's</em> initiative.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-00: The King in Thorns"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

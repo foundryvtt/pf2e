@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 
 /** Remove manually set magic school and tradition traits from spells */
 export class Migration660DerivedSpellTraits extends MigrationBase {

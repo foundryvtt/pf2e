@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e } from "@item";
-import { Bulk } from "@item/physical/bulk";
-import { Size } from "@module/data";
+import { Bulk } from "@item/physical/bulk.ts";
+import { Size } from "@module/data.ts";
 import { groupBy } from "@util";
 
 export class InventoryBulk {
     /** The current bulk carried by the actor */
     value: Bulk;
-    /** The number of Bulk units the actor is encumbered at */
-    encumberedAt: number;
+    /** The number of Bulk units the actor can carry before being encumbered */
+    encumberedAfter: number;
     /** The maximum bulk the actor can carry */
     max: number;
 
@@ -18,19 +18,19 @@ export class InventoryBulk {
             actor.size
         );
 
-        const strengthModifier = actor.isOfType("character", "npc") ? actor.abilities.str.mod : Infinity;
-
-        const [bonusBulkLimit, bonusEncumbranceBulk] = actor.isOfType("character")
+        const actorIsPCOrNPC = actor.isOfType("character", "npc");
+        const strengthModifier = actorIsPCOrNPC ? actor.abilities.str.mod : Infinity;
+        const [bonusBulkLimit, bonusEncumbranceBulk] = actorIsPCOrNPC
             ? [actor.attributes.bonusLimitBulk, actor.attributes.bonusEncumbranceBulk]
             : [0, 0];
 
         this.max = Math.floor(strengthModifier + bonusBulkLimit + 10);
-        this.encumberedAt = Math.floor(strengthModifier + bonusEncumbranceBulk + 5);
+        this.encumberedAfter = Math.floor(strengthModifier + bonusEncumbranceBulk + 5);
     }
 
     get encumberedPercentage(): number {
         const totalTimes10 = this.value.toLightBulk();
-        const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
+        const encumberedAtTimes10 = this.encumberedAfter * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
@@ -48,7 +48,7 @@ export class InventoryBulk {
     }
 
     get isEncumbered(): boolean {
-        return this.value.normal > this.encumberedAt;
+        return this.value.normal > this.encumberedAfter;
     }
 
     get isOverMax(): boolean {
@@ -60,7 +60,7 @@ export class InventoryBulk {
     }
 
     static computeTotalBulk(items: PhysicalItemPF2e[], actorSize: Size): Bulk {
-        items = this.flattenNonStowing(items);
+        items = this.#flattenNonStowing(items);
 
         // Figure out which items have stack groups and which don't
         const nonStackingItems = items.filter(
@@ -92,11 +92,11 @@ export class InventoryBulk {
     }
 
     /** Non-stowing containers are not "real" and thus shouldn't split stack groups */
-    private static flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
+    static #flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
         return items
             .map((item) => {
                 if (item.isOfType("backpack") && !item.stowsItems) {
-                    return this.flattenNonStowing(item.contents.contents);
+                    return this.#flattenNonStowing(item.contents.contents);
                 }
                 return item;
             })

@@ -70,7 +70,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** Handle mousemove events on the game canvas to broadcast activity of the user's cursor position */
-        protected _onMouseMove(event: PIXI.InteractionEvent): void;
+        protected _onMouseMove(event: PIXI.FederatedEvent): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */

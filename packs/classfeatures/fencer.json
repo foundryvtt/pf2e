@@ -1,0 +1,94 @@
+{
+    "_id": "Jgid6Ja6Y879COlN",
+    "img": "systems/pf2e/icons/features/classes/fencer-style.webp",
+    "name": "Fencer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks.</p>\n<p>You are trained in Deception. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] against a foe.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:create-a-diversion"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "deception",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Fencer",
+                "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

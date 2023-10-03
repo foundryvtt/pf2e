@@ -32,7 +32,6 @@
             label.player-number {
                 grid-column: span 2;
             }
-
         }
 
         &.level-bump {
@@ -53,7 +52,7 @@
 
                 &::after {
                     content: "OFF";
-                    color: black;
+                    color: var(--text-dark);
                     position: absolute;
                     right: 5px;
                     z-index: 0;
@@ -62,7 +61,7 @@
 
                 &::before {
                     content: "ON";
-                    color: white;
+                    color: var(--text-light);
                     position: absolute;
                     left: 6px;
                     z-index: 0;
@@ -84,15 +83,9 @@
                     cursor: pointer;
                     background: #fcfff4;
                     z-index: 1;
-                    background: linear-gradient(
-                        to bottom,
-                        #fcfff4 0%,
-                        #dfe5d7 40%,
-                        #b3bead 100%
-                    );
+                    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
                     border-radius: 50%;
-                    box-shadow: 0 0 0 1px rgba(black, 0.2),
-                                0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0 0 0 1px rgba(black, 0.2), 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
                     transition: all 0.4s ease;
                 }
 

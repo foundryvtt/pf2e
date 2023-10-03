@@ -1,0 +1,44 @@
+<li class="action item" data-item-id="{{action.id}}" data-item-summary-id="action-{{action.id}}">
+    <div class="icon item-image framed">
+        <img src="{{action.img}}" />
+        <i class="fa-solid fa-message"></i>
+    </div>
+
+    <h4 class="name"><a data-action="toggle-summary">{{action.name}}</a></h4>
+
+    <div class="button-group">
+        {{#if action.hasEffect}}
+            <button type="button" class="use-action" data-action="use-action">
+                <span>{{localize "PF2E.Action.Use"}}</span>
+                <span class="action-glyph">{{action.glyph}}</span>
+            </button>
+        {{/if}}
+    </div>
+
+    {{#if action.frequency}}
+        <div class="tracking">
+            <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
+            <span>
+                /
+                {{action.frequency.max}}
+                {{localize "PF2E.Frequency.per"}}
+                {{localize (lookup @root.frequencies action.frequency.per)}}
+            </span>
+        </div>
+    {{/if}}
+
+    {{#if (and action.exploration @root.document.parties.size)}}
+        <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
+            {{localize "PF2E.Actor.Character.Active"}}
+        </button>
+    {{/if}}
+
+    <div class="item-controls">
+        {{#if @root.options.editable}}
+            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+            {{#unless action.feat}}
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+            {{/unless}}
+        {{/if}}
+    </div>
+</li>

@@ -1,5 +1,14 @@
-import { EffectAuraData, EffectBadge, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import {
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectBadge,
+    EffectBadgeSource,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
@@ -11,7 +20,7 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemSource {
+interface EffectSystemSource extends AbstractEffectSystemSource {
     level: { value: number };
     traits: EffectTraits;
     start: {
@@ -28,19 +37,19 @@ interface EffectSystemSource extends ItemSystemSource {
         show: boolean;
     };
     unidentified: boolean;
-    target: string | null;
     expired?: boolean;
     /** A numeric value or dice expression of some rules significance to the effect */
-    badge: EffectBadge | null;
+    badge: EffectBadgeSource | null;
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "level" | "traits"> {
+interface EffectSystemData extends Omit<EffectSystemSource, "fromSpell">, Omit<AbstractEffectSystemData, "level"> {
     expired: boolean;
+    badge: EffectBadge | null;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export type { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

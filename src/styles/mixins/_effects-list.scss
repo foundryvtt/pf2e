@@ -32,29 +32,16 @@ $-alt-color: #786452 !default;
             }
 
             .item-image {
-                @include flex-center;
-                @include frame-icon;
-                background-color: var(--secondary);
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-                color: transparent;
-                font-size: var(--font-size-18);
-                height: 24px;
                 margin-right: 8px;
-                padding: 14px;
-                width: 24px;
-
-                &:hover {
-                    background: none !important;
-                    color: var(--primary);
-                }
             }
         }
 
         .item-controls {
-            white-space: nowrap;
+            display: flex;
+            flex: 0;
             font-size: var(--font-size-12);
+            gap: 1px;
+            white-space: nowrap;
 
             a.info-only:hover {
                 cursor: default;
@@ -68,56 +55,6 @@ $-alt-color: #786452 !default;
 
         .item-summary {
             flex-basis: 100%;
-
-            .title,
-            .framing {
-                color: var(--primary);
-                @include p-reset;
-                margin-top: 1em;
-            }
-
-            .framing {
-                color: var(--secondary);
-                margin: 1em 0 0.25em;
-                strong {
-                    font-weight: 500;
-                }
-                & + p {
-                    margin-top: 0;
-                }
-            }
-
-            img {
-                border: none;
-                vertical-align: middle;
-
-                &.actionlight {
-                    background: var(--alt);
-                    vertical-align: middle;
-                    border: 1px solid var(--body);
-                }
-            }
-
-            .item-properties {
-                .tag {
-                    &.toggled-on:hover,
-                    &.toggled-off:hover {
-                        box-shadow: none;
-                        text-shadow: 0 0 2px white;
-                    }
-
-                    &.toggled-on,
-                    &.toggled-off {
-                        cursor: pointer;
-                    }
-
-                    &.toggled-on {
-                        background-color: rgba(23, 31, 105, 0.5);
-                        color: black;
-                        text-shadow: 0 0 2px white;
-                    }
-                }
-            }
         }
 
         &.unidentified {
@@ -139,7 +76,7 @@ $-alt-color: #786452 !default;
                 cursor: pointer;
                 @include micro;
                 padding: 5px;
-                color: white;
+                color: var(--text-light);
                 width: 70px;
                 @include button;
                 background: var(--secondary);

@@ -1,0 +1,41 @@
+{
+    "_id": "ITgkqfnAOJCbcIys",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Oread",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>An earth elemental ancestor has influenced your bloodline, and your features highlight this elemental planar connection. You might have a crystalline or metallic sheen to your skin or hair, rough and stony flesh, or glittering gemstone eyes. You gain the oread trait, in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. You can choose from oread feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "add": [
+                    "oread"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "geniekin",
+                "oread"
+            ]
+        }
+    },
+    "type": "heritage"
+}

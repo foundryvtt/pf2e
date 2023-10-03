@@ -1,0 +1,49 @@
+{
+    "_id": "Y46uZK6X7J7iMsgq",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Ulgrem-Axaan) Crocodile Tears",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Ulgrem-Axaan can mimic the sound of a wounded prey animal by attempting a Deception check to Lie. It has a +4 circumstance bonus to this check.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "deception",
+                "key": "RollOption",
+                "label": "Crocodile Tears",
+                "option": "crocodile-tears",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Monsters of Myth"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

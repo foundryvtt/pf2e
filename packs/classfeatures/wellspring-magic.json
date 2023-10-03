@@ -1,0 +1,80 @@
+{
+    "_id": "mRvyq7G0rqRP1EAr",
+    "img": "systems/pf2e/icons/features/classes/wellspring-magic.webp",
+    "name": "Wellspring Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You regain magic power quickly, but it can be difficult for you to control. You must select @UUID[Compendium.pf2e.feats-srd.Item.Wellspring Mage Dedication] as your 2nd-level class feat.</p>\n<p><strong>Prerequisites</strong> You must have a class that casts spells with a spell repertoire.</p>\n<p><strong>Wellspring Mage Adjustments</strong> You learn spells as normal for your class, but change your spontaneous spellcasting in the following ways.</p>\n<p>You can cast fewer spells each day unless you gain more spells thanks to your wellspring. Reduce your number of spell slots of each spell level by 1. Reduce the number of cantrips you gain from your class by 1.</p>\n<p>A wellspring of magic fills you with power that's not fully under your control. When you roll initiative for a non-trivial combat encounter, as well as in other high-stress situations of the GM's choice, magic wells up within you. Attempt a @Check[type:flat|dc:6] check.</p>\n<hr />\n<p><strong>Critical Success</strong> You temporarily recover an expended spell slot of any level of your choice. The temporary spell slot lasts for 1 minute, and if you don't use it by then, you experience an immediate @UUID[Compendium.pf2e.rollable-tables.RollTable.Wellspring Surges].</p>\n<p><strong>Success</strong> As critical success, except you randomly determine the level of spell slot from among your top three spell levels (or all your levels of spell slots if you have fewer than three). The slot lasts 3 rounds instead of 1 minute.</p>\n<p><strong>Failure</strong> You generate a <em>wellspring surge</em>, with a spell level chosen randomly among your top three levels of spell slots (or all your levels if you have fewer than three).</p>\n<p>You can gain a temporary spell slot no more than twice per day. If you would gain a temporary spell slot for a level that has no expended spell slots, there's no effect. If you use a temporary slot to cast a spell with a duration, the spell ends whenever you would have lost the slot if its duration hasn't yet elapsed. If you roll for <em>wellspring magic</em> while you currently have a temporary spell slot, you automatically fail the flat check.</p>\n<p><strong>Additional Feats</strong> 8th @UUID[Compendium.pf2e.feats-srd.Item.Energetic Resonance], @UUID[Compendium.pf2e.feats-srd.Item.Spell Relay], 10th @UUID[Compendium.pf2e.feats-srd.Item.Surging Might], 16th @UUID[Compendium.pf2e.feats-srd.Item.Scintillating Spell], 18th @UUID[Compendium.pf2e.feats-srd.Item.Echoing Spell]</p>\n<hr />\n<h3>WELLSPRING SURGES</h3>\n<p>When your wellspring magic goes out of control, it becomes a wellspring surge. Typically, this happens when you fail the flat check from wellspring magic, but other wellspring mage feats have effects that sometimes cause you to generate a wellspring surge, or might even cause your foes to do so.</p>\n<p>Roll [[/r 1d20]]{1d20} and use the <em>@UUID[Compendium.pf2e.rollable-tables.RollTable.Wellspring Surges]</em> rolltable to determine the surge's effect. If the effect calls for a damage type, the GM chooses the type based on the types of spells you know or your current location. The wellspring surge uses your spell DC. You have no control over the way your wellspring surge manifests. You are the point of origin for your wellspring surges, and you are not excluded from their effects. If you force a foe to generate a surge, they are the origin point of that surge instead.</p>\n<p>If your wellspring was granted by a being like a god or muse, the entity's intentions might sometimes alter the results of wellspring surges, or move the point of origin for an area to any point within 30 feet if the GM determines this fits the situation. For example, instead of uncontrolled damage, the entity might choose to damage only creatures opposing its plan, even if they are your allies.</p>\n<p>A wellspring surge always has the trait of your magical tradition, plus any traits that appear in parentheses at the end of the surge's effects.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You must have a class that casts spells with a spell repertoire."
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "PF2E.SpecificRule.WellspringMage.Initiative",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.Success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.Failure",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

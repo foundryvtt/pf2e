@@ -1,0 +1,164 @@
+{
+    "_id": "AmFv3ClkAVRowHLI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Tengu Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've trained with a blade and other tengu weapons ever since you hatched. You gain access to @UUID[Compendium.pf2e.equipment-srd.Item.Khakkhara]{Khakkharas}.</p>\n<p>Additionally, choose two weapons from the sword group. You can choose from among all common martial swords, plus the @UUID[Compendium.pf2e.equipment-srd.Item.Katana], @UUID[Compendium.pf2e.equipment-srd.Item.Temple Sword], and @UUID[Compendium.pf2e.equipment-srd.Item.Wakizashi]. For the purpose of determining your proficiency, that weapon is a simple weapon, and if the weapon isn't common, you gain access to it. If you are trained in all martial weapons, you add common advanced swords to the swords you can choose from.</p>\n<p>You also gain access to all uncommon tengu weapons. For the purpose of determining your proficiency, martial tengu weapons are simple weapons, and advanced tengu weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:tengu",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTenguWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-tengu-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:tengu",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTenguWeapons",
+                "sameAs": "simple",
+                "slug": "martial-tengu-weapons"
+            },
+            {
+                "choices": {
+                    "filter": [
+                        "item:group:sword",
+                        {
+                            "or": [
+                                "item:level:0",
+                                "item:level:1"
+                            ]
+                        },
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:category:martial",
+                                        "item:rarity:common"
+                                    ]
+                                },
+                                "item:base:katana",
+                                "item:base:temple-sword",
+                                "item:base:wakizashi",
+                                {
+                                    "and": [
+                                        {
+                                            "gte": [
+                                                "attack:martial:rank",
+                                                1
+                                            ]
+                                        },
+                                        "item:category:advanced"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "weapon",
+                    "slugsAsValues": true
+                },
+                "flag": "swordOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Tengu.WeaponFamiliarity.Prompt1"
+            },
+            {
+                "choices": {
+                    "filter": [
+                        "item:group:sword",
+                        {
+                            "or": [
+                                "item:level:0",
+                                "item:level:1"
+                            ]
+                        },
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:category:martial",
+                                        "item:rarity:common"
+                                    ]
+                                },
+                                "item:base:katana",
+                                "item:base:temple-sword",
+                                "item:base:wakizashi",
+                                {
+                                    "and": [
+                                        {
+                                            "gte": [
+                                                "attack:martial:rank",
+                                                1
+                                            ]
+                                        },
+                                        "item:category:advanced",
+                                        "item:rarity:common"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "not": "item:base:{item|flags.pf2e.rulesSelections.weaponFamiliarity1}"
+                        }
+                    ],
+                    "itemType": "weapon",
+                    "slugsAsValues": true
+                },
+                "flag": "swordTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Tengu.WeaponFamiliarity.Prompt2"
+            },
+            {
+                "definition": [
+                    "item:base:{item|flags.pf2e.rulesSelections.swordOne}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.swordOne}",
+                "sameAs": "simple",
+                "slug": "familiar-tengu-weapon-one"
+            },
+            {
+                "definition": [
+                    "item:base:{item|flags.pf2e.rulesSelections.swordTwo}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.swordTwo}",
+                "sameAs": "simple",
+                "slug": "familiar-tengu-weapon-two"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

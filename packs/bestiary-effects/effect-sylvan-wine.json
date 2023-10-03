@@ -1,0 +1,52 @@
+{
+    "_id": "QDs8t1U1IepzYlyi",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+    "name": "Effect: Sylvan Wine",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "slug": "sylvan-wine-fear",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

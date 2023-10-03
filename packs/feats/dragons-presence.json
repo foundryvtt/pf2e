@@ -1,0 +1,81 @@
+{
+    "_id": "SPyvwsiSghySIEw2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragon's Presence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As a member of dragonkind, you project unflappable confidence (that collapses catastrophically against the deadliest foes).</p>\n<p>When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead.</p>\n<p>In addition, when you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe of your level or lower, you gain a +1 circumstance bonus to the Intimidation check.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "lte": [
+                            "target:level",
+                            "self:level"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Kobold.DragonsPresence.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

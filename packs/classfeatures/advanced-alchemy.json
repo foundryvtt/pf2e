@@ -1,0 +1,49 @@
+{
+    "_id": "Pe0zmIqyTBc2Td0I",
+    "img": "systems/pf2e/icons/features/classes/advanced-alchemy.webp",
+    "name": "Advanced Alchemy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>During your daily preparations, after producing new @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents], you can spend batches of those infused reagents to create infused alchemical items.</p>\n<p>You don't need to attempt a Crafting check to do this, and you ignore both the number of days typically required to create the items and any alchemical reagent requirements.</p>\n<p>Your advanced alchemy level is equal to your level. For each batch of infused reagents you spend, choose an alchemical item of your advanced alchemy level or lower that's in your formula book, and make a batch of two of that item.</p>\n<p>These items have the infused trait and remain potent for 24 hours or until your next daily preparations, whichever comes first.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:alchemical"
+                ],
+                "isAlchemical": true,
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.TraitAlchemist",
+                "maxItemLevel": "@actor.level",
+                "predicate": [
+                    "class:alchemist"
+                ],
+                "selector": "alchemist"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

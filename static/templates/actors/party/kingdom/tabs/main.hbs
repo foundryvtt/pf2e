@@ -1,0 +1,119 @@
+<div class="content">
+    <section class="leaders">
+        <h3 class="header">{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</h3>
+        {{#each leadership as |leader|}}
+            <section class="leader" data-role="{{leader.slug}}" {{#if leader.uuid}}data-uuid="{{leader.uuid}}"{{/if}}>
+                {{#if leader.uuid}}
+                    <a class="image" data-action="open-sheet"><img src="{{leader.img}}"/></a>
+                {{else}}
+                    <div class="image"></div>
+                {{/if}}
+                <div class="name">
+                    {{#if leader.actor}}
+                        <span>
+                            <a data-action="open-sheet">{{leader.actor.name}}</a>
+                            {{#if @root.options.editable}}
+                                <a data-action="remove-leader"><i class="fa-solid fa-times"></i></a>
+                            {{/if}}
+                        </span>
+                        <label class="invested" data-tooltip="{{localize "PF2E.Kingmaker.Kingdom.InvestedBonus" ability=leader.abilityLabel}}">
+                            <input type="checkbox" name="leadership.{{leader.slug}}.invested" {{checked leader.invested}} />
+                            <span>{{localize "PF2E.Kingmaker.Kingdom.Invested"}}</span>
+                        </label>
+                    {{else}}
+                        {{localize "PF2E.Kingmaker.Kingdom.LeaderMissing"}}
+                    {{/if}}
+                </div>
+                <div class="details">
+                    <span class="role">{{label}}</span>
+                    {{#if leader.actor.hasPlayerOwner}}
+                        <label class="vacant" title="{{leader.penaltyLabel}}">
+                            <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}} />
+                            <span>{{localize "PF2E.Kingmaker.Kingdom.Vacant"}}</span>
+                        </label>
+                    {{else if leader.vacant}}
+                        <label class="vacant" title="{{leader.penaltyLabel}}">
+                            {{localize "PF2E.Kingmaker.Kingdom.Vacant"}} <i class="fa-solid fa-info-circle"></i>
+                        </label>
+                    {{/if}}
+                </div>
+            </section>
+        {{/each}}
+    </section>
+    <section class="resources">
+        <h3 class="header">
+            {{localize "PF2E.Kingmaker.Kingdom.Resources.Header"}}
+            <button type="button" data-action="collect">
+                {{localize "PF2E.Kingmaker.Kingdom.Resources.Collect"}}
+            </button>
+        </h3>
+        <div class="resource-data">
+            <section class="resource-dice">
+                {{localize "PF2E.Kingmaker.Kingdom.Resources.Dice"}}
+                <span class="rollable">{{{resourceDice.icon}}} {{resourceDice.number}}d{{resourceDice.faces}}</span>
+                <label>
+                    {{localize "PF2E.Bonus"}}
+                    <input type="number" class="{{resourceDice.bonusAdjustment}}" value="{{resourceDice.bonus}}" data-property="system.campaign.resources.dice.bonus"/>
+                </label>
+                <label>
+                    {{localize "PF2E.Kingmaker.Penalty"}}
+                    <input type="number" class="{{resourceDice.penaltyAdjustment}}" value="{{resourceDice.penalty}}" data-property="system.campaign.resources.dice.penalty"/>
+                </label>
+            </section>
+            <section class="commodities">
+                {{#each commodities as |commodity|}}
+                    <div class="commodity">
+                        <label class="type" for="commodity-{{commodity.type}}">{{commodity.label}}</label>
+                        <div class="value-max">
+                            <input id="commodity-{{commodity.type}}" type="number" value="{{commodity.value}}" name="resources.commodities.{{commodity.type}}.value" />
+                            / {{commodity.max}}
+                        </div>
+                    </div>
+                {{/each}}
+            </section>
+            <section class="stats">
+                <div>
+                    {{localize "PF2E.Kingmaker.Consumption.Label"}}
+                    <span class="number">{{kingdom.consumption.value}}</span>
+                </div>
+                <label>
+                    {{localize "PF2E.Kingmaker.Kingdom.Unrest"}}
+                    <input type="number" name="unrest.value" value="{{kingdom.unrest.value}}"/>
+                    /
+                    <span class="number">{{kingdom.unrest.anarchyThreshold}}</span>
+                </label>
+            </section>
+        </div>
+    </section>
+    <section class="ability-scores">
+        <h3 class="header">
+            {{localize "PF2E.Kingmaker.AbilityScores"}}
+            <button type="button" data-action="builder" data-tab="ability">
+                <i class="fa-solid fa-fw fa-crown"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
+            </button>
+        </h3>
+        {{#each abilities as |ability|}}
+            <section class="ability">
+                <div class="score">
+                    <label>{{ability.label}}</label>
+                    <div class="value">{{numberFormat ability.mod sign=true}}</div>
+                </div>
+                <div class="corruption-section">
+                    <div class="stat corruption">
+                        <label for="abilities.{{ability.slug}}.ruin.value">{{ability.ruinLabel}}</label>
+                        <section class="ruin-value">
+                            <input type="number" id="abilities.{{ability.slug}}.ruin.value" name="abilities.{{ability.slug}}.ruin.value" value="{{ability.ruin.value}}"/>
+                            /
+                            <input type="number" name="abilities.{{ability.slug}}.ruin.max" value="{{ability.ruin.max}}"/>
+                        </span>
+                    </div>
+                    <label class="stat penalty">
+                        <span>{{localize "PF2E.Kingmaker.Penalty"}}</span>
+                        <input type="number" name="abilities.{{ability.slug}}.penalty" value="{{numberFormat ability.penalty}}"/>
+                    </label>
+                    <div class="progress" style="--value:{{ability.ruin.value}}; --max:{{ability.ruin.max}};"></div>
+                </div>
+            </section>
+        {{/each}}
+    </section>
+</div>

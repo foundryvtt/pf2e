@@ -1,0 +1,65 @@
+{
+    "_id": "9dkyZ7r1z7loOxI7",
+    "folder": "p5NnHNepx1LSyHe5",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Insider Trading",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "campaign": "kingmaker",
+        "category": "kingdom-feat",
+        "description": {
+            "value": "<p>Your leading citizens share valuable business information with one another and with associates in other lands, and they hire one another’s workers to supply the labor they need to fuel their production. You gain a +1 status bonus to Establish Work Site, Establish Trade Agreement, and Trade Commodities activities. In addition, gain 1 bonus Resource Die at the start of each Kingdom turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Industry"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:establish-work-site",
+                            "action:establish-trade-agreement",
+                            "action:trade-commodities"
+                        ]
+                    }
+                ],
+                "selector": "kingdom-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.campaign.resources.dice.bonus",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Kingmaker"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "kingdom"
+            ]
+        }
+    },
+    "type": "campaignFeature"
+}

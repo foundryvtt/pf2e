@@ -1,0 +1,55 @@
+{
+    "_id": "XKsqQrabRlg9klGp",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/quicksilver-mutagen.webp",
+    "name": "Effect: Draft of Stellar Radiance",
+    "system": {
+        "description": {
+            "value": "<p>You emanate a field of bright light with a 20-foot radius (and dim light for another 20 feet, like a torch). You take a –20 penalty to Stealth checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "value": -20
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

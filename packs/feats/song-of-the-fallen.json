@@ -1,0 +1,45 @@
+{
+    "_id": "4E4121lbfWgxui4y",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Song of the Fallen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The moving power of your songs can stir the spirits of the dead to rise once more and fight alongside you. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Song of the Fallen]</em> composition spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "focus pool"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #150: Broken Promises"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bard"
+            ]
+        }
+    },
+    "type": "feat"
+}

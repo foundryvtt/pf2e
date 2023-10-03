@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor";
-import { resetActors } from "@actor/helpers";
-import type { EffectPF2e } from "@item/index";
-import { EncounterPF2e } from "@module/encounter";
+import type { ActorPF2e } from "@actor";
+import { resetActors } from "@actor/helpers.ts";
+import type { EffectPF2e } from "@item";
+import type { EncounterPF2e } from "@module/encounter/index.ts";
 
 export class EffectTracker {
     effects: EffectPF2e<ActorPF2e>[] = [];
@@ -9,7 +9,7 @@ export class EffectTracker {
     /** A separate collection of aura effects, including ones with unlimited duration */
     auraEffects: Collection<EffectPF2e<ActorPF2e>> = new Collection();
 
-    private insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
+    #insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.effects.length === 0) {
             this.effects.push(effect);
         } else {
@@ -60,13 +60,13 @@ export class EffectTracker {
                 const duration = effect.remainingDuration;
                 effect.system.expired = duration.expired;
                 if (this.effects.length === 0 || index < 0) {
-                    this.insert(effect, duration);
+                    this.#insert(effect, duration);
                 } else {
                     const existing = this.effects[index];
                     // compare duration and update if different
                     if (duration.remaining !== existing.remainingDuration.remaining) {
                         this.effects.splice(index, 1);
-                        this.insert(effect, duration);
+                        this.#insert(effect, duration);
                     }
                 }
             }
@@ -80,10 +80,11 @@ export class EffectTracker {
 
     /**
      * Check for expired effects, removing or disabling as appropriate according to world settings
-     * @param resetItemData Perform individual item data resets. This is only needed when the world time changes.
+     * @param [options.resetItemData] Perform individual item data resets. This is only needed when the world time
+     *                                changes.
      */
-    async refresh({ resetItemData = false } = {}): Promise<void> {
-        if (resetItemData) {
+    async refresh(options: { resetItemData?: boolean } = {}): Promise<void> {
+        if (options.resetItemData) {
             const actors = new Set(this.effects.flatMap((e) => e.actor ?? []));
             for (const actor of actors) {
                 actor.reset();

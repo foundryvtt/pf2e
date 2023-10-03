@@ -1,0 +1,158 @@
+{
+    "_id": "orjJjLdm4XNAcFi8",
+    "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+    "name": "Mark for Death",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You can see and hear the creature you intend to mark</p>\n<hr />\n<p><strong>Effect</strong> You designate a single creature as your mark. This lasts until the mark dies or you use Mark for Death again. You gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your mark and on Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against your mark.</p>\n<p>Your agile and finesse weapons and unarmed attacks gain the backstabber and deadly d6 weapon traits when you're attacking your mark.</p>\n<p>If the weapon or unarmed attack already has the deadly trait, increase the size of the deadly damage die by one step instead of giving it deadly d6.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.MarkForDeath.TargetMark",
+                "option": "marked-for-death",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.MarkForDeath.TargetMark",
+                "predicate": [
+                    "marked-for-death",
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:seek"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "definition": [
+                    "item:trait:deadly-d10",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            },
+            {
+                "definition": [
+                    "item:trait:deadly-d8",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d10"
+            },
+            {
+                "definition": [
+                    "item:trait:deadly-d6",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "item:trait:deadly-d6",
+                            "item:trait:deadly-d8",
+                            "item:trait:deadly-d10",
+                            "item:trait:deadly-d12"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d6"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:trait:finesse",
+                            "item:trait:agile"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "weapon-traits",
+                "value": "backstabber"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

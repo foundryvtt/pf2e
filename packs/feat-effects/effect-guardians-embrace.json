@@ -1,0 +1,66 @@
+{
+    "_id": "X19XgqqItqZ4tfmq",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Effect: Guardian's Embrace",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to AC against physical attacks and can use a reaction to gain resistance 10 to physical damage dealt by that attack, which ends this effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ScionOfDomora.GuardiansEmbrace.PhysicalAttackLabel",
+                "option": "guardians-embrace-ac",
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ScionOfDomora.GuardiansEmbrace.ProtectionLabel",
+                "option": "guardians-embrace-resist",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "guardians-embrace-ac"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "guardians-embrace-resist"
+                ],
+                "type": "physical",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,10 +1,15 @@
-import { VehiclePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from ".";
+import type { TokenDocumentPF2e } from "./index.ts";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
-    override get template(): string {
-        return "systems/pf2e/templates/scene/token/sheet.hbs";
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            template: "systems/pf2e/templates/scene/token/sheet.hbs",
+            sheetConfig: false,
+        };
     }
 
     /** Get this token's dimensions were they linked to its actor's size */
@@ -23,9 +28,16 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
         return {
             ...(await super.getData(options)),
-            sizeLinkable: !!this.actor && !["hazard", "loot"].includes(this.actor.type),
+            sizeLinkable: !!this.actor && SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type),
             linkToSizeTitle: this.token.flags.pf2e.linkToActorSize ? "Unlink" : "Link",
             autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
+        };
+    }
+
+    protected override _getFilePickerOptions(event: PointerEvent): FilePickerOptions {
+        return {
+            ...super._getFilePickerOptions(event),
+            redirectToRoot: this.actor ? [ActorPF2e.getDefaultArtwork(this.actor.toObject()).texture.src] : [],
         };
     }
 
@@ -161,9 +173,9 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         return super._getSubmitData(changes);
     }
 
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>) {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         if (formData["flags.pf2e.linkToActorSize"] === true) {
-            if (this.actor instanceof VehiclePF2e) {
+            if (this.actor?.isOfType("vehicle")) {
                 const { dimensions } = this.actor;
                 const width = Math.max(Math.round(dimensions.width / 5), 1);
                 const length = Math.max(Math.round(dimensions.length / 5), 1);

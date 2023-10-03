@@ -1,0 +1,53 @@
+{
+    "_id": "j1620BT5t0RLVB0C",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Grippli Weapon Innovator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned devious ways to make the most of your grippli weapons. Whenever you critically hit using a @UUID[Compendium.pf2e.equipment-srd.Item.Blowgun], @UUID[Compendium.pf2e.equipment-srd.Item.Hatchet], @UUID[Compendium.pf2e.equipment-srd.Item.Scythe], @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow], and @UUID[Compendium.pf2e.equipment-srd.Item.Composite Shortbow], or grippli weapon, you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Grippli Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:grippli",
+                            "item:base:blowgun",
+                            "item:base:hatchet",
+                            "item:base:scythe",
+                            "item:base:shortbow"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "grippli"
+            ]
+        }
+    },
+    "type": "feat"
+}

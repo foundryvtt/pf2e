@@ -1,0 +1,142 @@
+{
+    "_id": "QqWfKGhNB6xJu54F",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "PWz1TBb7NBXGqRa4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shadow Rush",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room</p>\n<hr />\n<p><strong>Effect</strong> After waiting 1 round, the trap animates its shadowy stick figures and makes a painted spear Strike against each creature in the room. The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UtgyJvBiPabL8sI4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Painted Spear",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "y215KPkMm7AW0POU": {
+                        "damage": "1d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shadow Guards",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "stealth": {
+                "details": "<p>(trained) to notice the runes concealed among the drawings</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Shadowy caricatures of elves peel themselves from the floor and attack everyone in the room.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:16] to move through the room without touching any of the runes, followed by @Check[type:thievery|dc:18] (trained) to carve them out of the wood without triggering them; or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 16) to counteract the runes</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute. The drawings cannot pursue characters out of the room.</p>",
+            "routine": "<p>(1 action) The drawings stab at each character in the room with spears drawn from sharp lines.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "evocation",
+                "magical",
+                "trap",
+                "shadow"
+            ]
+        }
+    },
+    "type": "hazard"
+}

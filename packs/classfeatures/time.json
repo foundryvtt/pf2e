@@ -1,0 +1,98 @@
+{
+    "_id": "EslxR2sbDK9XJaAl",
+    "img": "systems/pf2e/icons/spells/haste.webp",
+    "name": "Time",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether by accident, fate, or purposeful meddling, you exist slightly outside of time. While initially unmoored by moments, the countless march of milliseconds builds up to drift you further and further out of sync with your natural timeline, often in contradictory directions. You might view this as a blessing, perhaps as a sign you're somehow beyond mortality or you can't be contained within reality's limitations, or you might view it as a cruel curse that causes your own life to slip by adrift even as you gain power over time. Many oracles of time are without faith and either come to rely upon their own instincts to survive or else turn to strange rituals and forbidden magic in an attempt to break free of time's grasp. Those oracles who worship deities most often worship Pharasma, goddess of fate who sees all possible futures for all who ever lived, or Alseta, goddess of transitions and the passage through time.</p>\n<p><strong>Mystery Benefit</strong></p>\n<p>Time passes more swiftly for you than it does for those around you, enabling you to cover more distance in what others perceive as the same amount of time. You gain a +10-foot status bonus to your Speed. At 6th level, this increases to a +15-foot status bonus; at 10th level, this increases to a +20-foot status bonus; at 14th level, this increases to a +25-foot status bonus; and at 18th level, it increases to a +30-foot status bonus. Your disjointed movement makes it harder for creatures to hit you as you move. You gain a +1 status bonus to AC against attacks made against you from reactions or free actions while you're moving.</p>\n<p><strong>Trained Skill</strong> Occultism</p>\n<p><strong>Granted Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Time Sense]</em></p>\n<p><strong>Revelation Spells</strong></p>\n<ul>\n<li><strong>Initial</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Temporal Distortion]</em></li>\n<li><strong>Advanced</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Time Skip]</em></li>\n<li><strong>Greater</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Manifold Lives]</em></li>\n</ul>\n<p><strong>Related Domains</strong> fate, time</p>\n<h3>Curse of Turbulent Moments</h3>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of Turbulent Moments]</p>\n<p>Time passes differently for you than everyone else. You experience fluxes that might manifest as minor day-to-day changes in your apparent age, such as a gray lock of hair or a disappearing wrinkle, or as occasional ghostly temporal afterimages that slightly trail your movement.</p>\n<p><strong>Minor Curse</strong></p>\n<p>As you draw upon your mystery, time's passage becomes more disjointed, aging, regressing, or warping you out of sync. You become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. In addition, you take a -2 penalty to saving throws against effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or @UUID[Compendium.pf2e.conditionitems.Item.Slowed].</p>\n<p><strong>Moderate Curse</strong></p>\n<p>Time distorts further, increasing your muscular atrophy, age regression, or warping while making effects pass you by at an increased rate. The value of your enfeebled condition increases to @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and the penalty from your minor curse increases to -3. Your status bonus to AC against attacks made against you from reactions or free actions while you're moving increases to +2. In addition, spells affecting you last less time; their duration is reduced by half, to a minimum of 1 round. This doesn't reduce the spell's duration for other targets affected by the same spell. Finally, all non-permanent conditions affecting you that have a duration measured in rounds, minutes, or hours have their duration reduced by half, to a minimum of 1 round. Any afflictions (such as poisons, diseases, and curses) affecting you have their maximum duration, onset time, and time for each stage reduced by half. Spells, conditions, and afflictions that last \"until your next daily preparations\" last for 12 hours or until your next daily preparations, whichever comes first. This doesn't change the duration you're temporarily immune, the rate at which you can use abilities that have a frequency, or any other features based on the passage of time.</p>\n<p><strong>Major Curse (11th)</strong></p>\n<p>You become so out of sync with time that it's hard for you to act, but when you do act, you do so with incredible speed. You become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, the value of your enfeebled condition increases to 3, and the penalty from your minor curse increases to -4. Time passes so much faster for you that your steps appear as a blur of motion to others. You gain a +4 status bonus to initiative rolls. Whenever you move, you're @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while you're moving and until the start of your next turn. As normal for concealment where your location is still obvious, you can't use this concealment to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]. Your status bonus to AC against attacks made against you from reactions or free actions while you're moving increases to +4.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "selector": "land-speed",
+                "slug": "time-mystery",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 10
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 15
+                        },
+                        {
+                            "end": 13,
+                            "start": 10,
+                            "value": 20
+                        },
+                        {
+                            "end": 17,
+                            "start": 14,
+                            "value": 25
+                        },
+                        {
+                            "start": 18,
+                            "value": 30
+                        }
+                    ]
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Time.ACLabel",
+                "option": "time-curse-ac",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:oracle",
+                    "time-curse-ac"
+                ],
+                "selector": "ac",
+                "slug": "time-curse-ac-bonus",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

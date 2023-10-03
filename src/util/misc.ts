@@ -1,5 +1,5 @@
-import { ActionCost } from "@item/data/base";
-import { LocalizePF2e } from "@system/localize";
+import { ActionCost } from "@item/data/base.ts";
+import Sortable from "sortablejs";
 
 /**
  * Given an array and a key function, create a map where the key is the value that
@@ -55,12 +55,10 @@ function mapValues<K extends string | number | symbol, V, R>(
     }, {} as Record<K, R>);
 }
 
-type Optional<T> = T | null | undefined;
-
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
  */
-function isBlank(text: Optional<string>): text is null | undefined | "" {
+function isBlank(text: Maybe<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
@@ -125,7 +123,7 @@ function objectHasKey<O extends object>(obj: O, key: unknown): key is keyof O {
 }
 
 /** Check if a value is present in the provided array. Especially useful for checking against literal tuples */
-function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
+function tupleHasValue<const A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
     return array.includes(value);
 }
 
@@ -144,23 +142,13 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): P
     }, {} as Pick<T, K>);
 }
 
-/** Returns a subset of an object with explicitly excluded keys */
-function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Omit<T, K> {
-    const clone = deepClone(obj);
-    for (const key of keys) {
-        delete clone[key];
-    }
-
-    return clone;
-}
-
 let intlNumberFormat: Intl.NumberFormat;
 /**
  * Return an integer string of a number, always with sign (+/-)
  * @param value The number to convert to a string
  * @param [emptyStringZero] If the value is zero, return an empty string
  */
-function signedInteger(value: number, { emptyStringZero = true } = {}): string {
+function signedInteger(value: number, { emptyStringZero = false } = {}): string {
     if (value === 0 && emptyStringZero) return "";
 
     const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
@@ -242,11 +230,11 @@ function getActionTypeLabel(
 ): string | null {
     switch (type) {
         case "action":
-            return cost === 1 ? "PF2E.Action.Type.Single" : "PF2E.Action.Type.Activity";
+            return cost === 1 ? "PF2E.Item.Action.Type.Single" : "PF2E.Item.Action.Type.Activity";
         case "free":
-            return "PF2E.Action.Type.Free";
+            return "PF2E.Item.Action.Type.Free";
         case "reaction":
-            return "PF2E.Action.Type.Reaction";
+            return "PF2E.Item.Action.Type.Reaction";
         default:
             return null;
     }
@@ -296,7 +284,7 @@ const actionGlyphMap: Record<string, string> = {
  * Returns a character that can be used with the Pathfinder action font
  * to display an icon. If null it returns empty string.
  */
-function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
+function getActionGlyph(action: string | number | null | ActionCost): string {
     if (!action && action !== 0) return "";
 
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
@@ -312,31 +300,30 @@ function ErrorPF2e(message: string): Error {
 }
 
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-function ordinal(value: number) {
-    const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
+function ordinal(value: number): string {
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
-    const suffix = suffixes[pluralRules.select(value)];
+    const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
-/** Localizes a list of strings into a comma delimited list for the current language */
+/** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
 function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
-    const parts =
-        conjunction === "or" ? LocalizePF2e.translations.PF2E.ListPartsOr : LocalizePF2e.translations.PF2E.ListPartsAnd;
+    items = [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang));
+    const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];
     if (items.length === 2) {
-        return game.i18n.format(parts.two, { first: items[0], second: items[1] });
+        return game.i18n.format(`${parts}.two`, { first: items[0], second: items[1] });
     }
 
-    let result = game.i18n.format(parts.start, { first: items[0], second: "{second}" });
+    let result = game.i18n.format(`${parts}.start`, { first: items[0], second: "{second}" });
     for (let i = 1; i <= items.length - 2; i++) {
         if (i === items.length - 2) {
-            const end = game.i18n.format(parts.end, { first: items[i], second: items[items.length - 1] });
+            const end = game.i18n.format(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
             result = result.replace("{second}", end);
         } else {
-            const newSegment = game.i18n.format(parts.middle, { first: items[i], second: "{second}" });
+            const newSegment = game.i18n.format(`${parts}.middle`, { first: items[i], second: "{second}" });
             result = result.replace("{second}", newSegment);
         }
     }
@@ -402,29 +389,39 @@ function sortObjByKey(value: unknown): unknown {
         : value;
 }
 
-function sortedStringify(obj: object): string {
-    return JSON.stringify(sortObjByKey(obj));
-}
-
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = isObject(source) ? deepClone(source) : source;
+    const clone = Array.isArray(source) || isObject(source) ? deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
+    } else if (Array.isArray(clone)) {
+        return clone.map((e) => recursiveReplaceString(e, replace));
     } else if (isObject<Record<string, unknown>>(clone)) {
-        for (const [key, value] of Object.entries(clone)) {
-            if (Array.isArray(value)) {
-                clone[key] = value.map((e: unknown) =>
-                    typeof e === "string" || isObject(e) ? recursiveReplaceString(e, replace) : e
-                );
-            } else if (typeof value === "string" || isObject(value)) {
-                clone[key] = recursiveReplaceString(value, replace);
-            }
+        for (const key of Object.keys(clone)) {
+            clone[key] = recursiveReplaceString(clone[key], replace);
         }
     }
 
     return clone;
+}
+
+/** Create a localization function with a prefixed localization object path */
+function localizer(prefix: string): (...args: Parameters<Localization["format"]>) => string {
+    return (...[suffix, formatArgs]: Parameters<Localization["format"]>) =>
+        formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
+}
+
+/** Walk a localization object and recursively map the keys as localization strings starting with a given prefix */
+function configFromLocalization<T extends Record<string, TranslationDictionaryValue>>(
+    localization: T,
+    prefix: string
+): T {
+    return Object.entries(localization).reduce((result: Record<string, unknown>, [key, value]) => {
+        result[key] =
+            typeof value === "string" ? `${prefix}.${key}` : configFromLocalization(value, `${prefix}.${key}`);
+        return result;
+    }, {}) as T;
 }
 
 /** Does the parameter look like an image file path? */
@@ -441,13 +438,27 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
     return isImageFilePath(path) || isVideoFilePath(path);
 }
 
+const SORTABLE_DEFAULTS: Sortable.Options = {
+    animation: 200,
+    direction: "vertical",
+    dragClass: "drag-preview",
+    dragoverBubble: true,
+    easing: "cubic-bezier(1, 0, 0, 1)",
+    ghostClass: "drag-gap",
+
+    // These options are from the Autoscroll plugin and serve as a fallback on mobile/safari/ie/edge
+    // Other browsers use the native implementation
+    scroll: true,
+    scrollSensitivity: 30,
+    scrollSpeed: 15,
+};
+
 export {
     ErrorPF2e,
-    Fraction,
-    Optional,
-    SlugCamel,
+    SORTABLE_DEFAULTS,
     addSign,
     applyNTimes,
+    configFromLocalization,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
@@ -459,9 +470,9 @@ export {
     isObject,
     isVideoFilePath,
     localizeList,
+    localizer,
     mapValues,
     objectHasKey,
-    omit,
     ordinal,
     padArray,
     parseHTML,
@@ -474,8 +485,9 @@ export {
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
-    sortedStringify,
     sum,
     tupleHasValue,
     zip,
+    type Fraction,
+    type SlugCamel,
 };

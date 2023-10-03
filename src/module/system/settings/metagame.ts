@@ -1,4 +1,5 @@
-import { SettingsMenuPF2e } from "./menu";
+import { resetActors } from "@actor/helpers.ts";
+import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
@@ -40,6 +41,15 @@ const MetagameSettingsConfig = {
         default: false,
         type: Boolean,
     },
+    showPartyStats: {
+        name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
+        hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.isOfType("party")));
+        },
+    },
     partyVision: {
         name: "PF2E.SETTINGS.Metagame.PartyVision.Name",
         hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
@@ -64,7 +74,7 @@ class MetagameSettings extends SettingsMenuPF2e {
         return Object.keys(this.settings);
     }
 
-    static override get prefix() {
+    static override get prefix(): string {
         return `${this.namespace}_`;
     }
 }

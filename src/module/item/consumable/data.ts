@@ -3,9 +3,9 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
-import { SpellSource } from "@item/spell/data";
-import { ConsumableTrait, OtherConsumableTag } from "./types";
+} from "@item/physical/data.ts";
+import { SpellSource } from "@item/spell/data.ts";
+import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
@@ -35,7 +35,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
 }
 
 interface ConsumableSystemData
-    extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
+    extends Omit<ConsumableSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
-export { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };
+export type { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };

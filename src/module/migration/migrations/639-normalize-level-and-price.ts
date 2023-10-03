@@ -1,9 +1,9 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { Coins, PhysicalSystemSource } from "@item/physical/data";
-import { CoinsPF2e } from "@item/physical/helpers";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { Coins, PhysicalSystemSource } from "@item/physical/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Normalize stringy level and price values */
 export class Migration639NormalizeLevelAndPrice extends MigrationBase {

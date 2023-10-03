@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration624RemoveTokenEffectIconFlags extends MigrationBase {
     static override version = 0.624;
@@ -17,7 +17,7 @@ export class Migration624RemoveTokenEffectIconFlags extends MigrationBase {
 
     override async updateToken(tokenData: foundry.documents.TokenSource): Promise<void> {
         // remove deprecated rule element token effects
-        const flags = (tokenData.actorData.flags ?? {}) as TokenEffectsFlag;
+        const flags = (tokenData.delta?.flags ?? {}) as TokenEffectsFlag;
         if (flags.pf2e?.token?.effects) {
             delete flags.pf2e.token.effects;
             if ("game" in globalThis) {

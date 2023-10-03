@@ -1,6 +1,6 @@
-import { ConsumableSystemSource } from "@item/consumable/data";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ConsumableSystemSource } from "@item/consumable/data.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration804RemoveConsumableProperties extends MigrationBase {
     static override version = 0.804;

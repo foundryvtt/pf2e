@@ -1,0 +1,45 @@
+{
+    "_id": "FjuuX0vUWlYchRNM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Inspire Heroics",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your performances inspire even greater deeds in your allies. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Heroics]</em> metamagic focus spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "maestro muse"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard"
+            ]
+        }
+    },
+    "type": "feat"
+}

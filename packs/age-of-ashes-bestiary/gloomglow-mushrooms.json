@@ -1,0 +1,120 @@
+{
+    "_id": "oHUIqVPBpHAbN3qO",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Z6mjzInaKKCOyvbM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Glowing Spores",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the mushrooms' space or damages the mushrooms. The mushrooms can't use this reaction if the damage was cold damage.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 10 feet are sprayed with itchy, distracting, glowing spores and must attempt a @Check[type:reflex|dc:22|traits:environmental,fungus,hazard] save. On a failed save, the creatures become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) and take a -4 penalty to Stealth checks until the spores lose potency in 24 hours or are removed. This requires washing them off by bathing in water for a minute, a <em>@UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation]</em> spell, or a similar measure allowed by the GM.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Glowing Spores]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gloomglow Mushrooms",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 52,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 52
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 16
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A field of grass-like fungal filaments amid clusters of softly glowing, long-stalked mushrooms.</p>",
+            "disable": "<p>@Check[type:survival|dc:22|name:Clear Patch of Mushrooms|traits:environmental,fungus,hazard] (expert) to remove a 5-foot-patch without triggering the mushrooms.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #145: Hellknight Hill"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

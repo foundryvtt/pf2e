@@ -1,0 +1,58 @@
+{
+    "_id": "vVyX9IG8flxg81mc",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elude the Divine",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are able to escape inquisitions involving divine magic, allowing you to blend in well in Mzali but also to avoid unwanted attention in other oppressive theocracies. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Slippery Secrets] skill feat, and its benefits also apply against divination effects that attempt to discern your deity. When using Slippery Secrets against a divine divination, you gain a +2 circumstance bonus, and on a critical success, the divination reveals false information appropriate to your false persona, rather than nothing.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bright Lion Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Slippery Secrets vs. divine enchantment",
+                "predicate": [
+                    "divine",
+                    "enchantment",
+                    "slippery-secrets"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Slippery Secrets"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Legends"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype"
+            },
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

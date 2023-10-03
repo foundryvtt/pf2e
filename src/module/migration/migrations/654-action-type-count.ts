@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
-import { OneToThree } from "@module/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
+import { OneToThree } from "@module/data.ts";
 
 export class Migration654ActionTypeAndCount extends MigrationBase {
     static override version = 0.654;

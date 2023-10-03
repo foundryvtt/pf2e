@@ -1,0 +1,49 @@
+{
+    "_id": "Eh4ezYhfUlNc775v",
+    "img": "icons/consumables/food/steak-aged-brown.webp",
+    "name": "Effect: Grindlegrub Steak",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grindlegrub Steak]</p>\n<p>You do not need to eat for three days after consuming a grindlegrub steak, and for that duration you gain a +1 item bonus to Fortitude saving throws against fatigue and the drained condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 3
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:drained",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

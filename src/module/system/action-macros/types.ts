@@ -1,12 +1,13 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
+import { ActorPF2e } from "@actor";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DCSlug } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { WeaponTrait } from "@item/weapon/types";
-import { RollNotePF2e } from "@module/notes";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll, CheckType } from "@system/check";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { CheckRoll, CheckType } from "@system/check/index.ts";
+import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
@@ -19,15 +20,11 @@ class CheckContextError extends Error {
 interface BuildCheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     item?: ItemType;
-    rollOptions: {
-        contextual: string[];
-        generic: string[];
-    };
+    rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
 interface BuildCheckContextResult<ItemType extends ItemPF2e<ActorPF2e>> {
-    actor: ActorPF2e;
     item?: ItemType;
     rollOptions: string[];
     target?: ActorPF2e | null;
@@ -44,17 +41,17 @@ interface CheckContextData<ItemType extends ItemPF2e<ActorPF2e>> {
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
+    target?: ActorPF2e | null;
 }
 
 interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
-    actor: ActorPF2e;
+    type: CheckType;
     item?: ItemType;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
-    statistic: StatisticModifier & { rank?: number };
+    statistic: Statistic | (StatisticModifier & { rank?: number });
     subtitle: string;
-    type: CheckType;
 }
 
 interface CheckResultCallback {
@@ -75,8 +72,11 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     item?: (actor: ActorPF2e) => ItemType | undefined;
     traits: string[];
     event?: JQuery.TriggeredEvent | Event | null;
-    difficultyClass?: CheckDC;
-    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic | null;
+    /**
+     * A DC can be represented as a preassembled `CheckDC` object, a slug referencing a `Statistic`, or a function that
+     * returns a `CheckDC` or `null`.
+     */
+    difficultyClass?: UnresolvedCheckDC;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;
@@ -84,6 +84,8 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     weaponTraitWithPenalty?: WeaponTrait;
     target?: () => { token: TokenDocumentPF2e; actor: ActorPF2e } | null;
 }
+
+type UnresolvedCheckDC = CheckDC | DCSlug | ((actor: ActorPF2e | null) => CheckDC | null);
 
 interface ActionDefaultOptions {
     event?: JQuery.TriggeredEvent | Event | null;
@@ -98,14 +100,15 @@ interface SkillActionOptions extends ActionDefaultOptions {
     difficultyClass?: CheckDC;
 }
 
-export {
+export { CheckContextError };
+export type {
+    ActionDefaultOptions,
     ActionGlyph,
     CheckContext,
     CheckContextData,
-    CheckContextError,
     CheckContextOptions,
     CheckResultCallback,
     SimpleRollActionCheckOptions,
-    ActionDefaultOptions,
     SkillActionOptions,
+    UnresolvedCheckDC,
 };

@@ -1,0 +1,152 @@
+{
+    "_id": "8VAGXECLAk91hoAv",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "lHgISCDkIa7T34nH",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spawn Mirror Duplicate",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves between the two glass faces of Olansa Terimor</p>\n<hr />\n<p><strong>Effect</strong> The planar rift disgorges an evil mirror duplicate of the creature, and the duplicate rolls initiative.</p>\n<p>The field of opposition can use this reaction once per round but can't spawn a duplicate of a creature that already has a mirror duplicate in existence.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "divine",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TADC3gK2VlA4Jp9l",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mirror Duplicate",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A mirror duplicate rolls initiative with a +45 modifier. It uses the same statistics as the original creature, but with a +2 status bonus to AC, attacks, and saving throws. The duplicate is evil, and any abilities reliant on alignment change accordingly. The duplicate is also aggressive, attacking and taking other hostile actions available to it against anyone other than mirror duplicates.</p>\n<p>It has three actions and one reaction and can use any of the original creature's abilities. Any limited-use abilities (such as spell slots) are based on what the original had when duplicated and are used up separately from the original creature's. The duplicate also has duplicates of the creature's worn and held items, but not consumables.</p>\n<p>A duplicate is destroyed when reduced to 0 HP, when the trap is disabled or destroyed, or when the duplicate leaves area E2. Its duplicated items disappear when they leave its grip, though they last long enough for ranged Strikes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Field Of Opposition",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 45
+            },
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "stealth": {
+                "details": "",
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "type": "sonic",
+                    "value": 20
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A distortion in space spawns an aggressive, malevolent shadow duplicate of any characters who pass between Terimor's faces.</p>",
+            "disable": "<p>@Check[type:thievery|dc:42|name:Disable Thievery] (legendary) to permanently disable the planar distortion (DC increases by 2 for each duplicate still extant), or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (10th level; counteract DC 42) to destroy the planar distortion</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #162: Ruins of the Radiant Siege"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "illusion",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,156 @@
+{
+    "_id": "tbwGr6FIr5WpvQ6l",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "caUgV11OydLsLw1j",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Forbid Entry",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to enter through the entrance.</p>\n<hr />\n<p><strong>Effect</strong> The hammer swings down, making an attack against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "attack",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pLuxXYKq1Wi28Czn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hammer",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "7fjovgwbpdn68he8fl8i": {
+                        "damage": "6d8+20",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>On a hit, the target is knocked back 10 feet and must succeed at a @Check[type:will|dc:30] or be unable to enter the edifice through any entrance for 24 hours (on a critical hit, the target automatically fails the Will save); no multiple attack penalty</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Hammer Of Forbiddance",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 32
+            },
+            "hardness": 22,
+            "hasHealth": true,
+            "hp": {
+                "details": "<strong>Joint Hardness</strong> 16, <strong>Joint HP</strong> 64 (BT 32)",
+                "max": 88,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 88
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An enormous hammer at an edifice's entrance swings down in an attempt to damage a creature entering an area, push it back, and prevent it from going any further.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Prevent Hammer from Swinging|traits:action:disable-a-device] (expert) once on the hammer itself and once on its joint to prevent the hammer from swinging</p>",
+            "isComplex": false,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>The trap resets over the course of the round, and is ready to swing again 1 round later.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Core Rulebook"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

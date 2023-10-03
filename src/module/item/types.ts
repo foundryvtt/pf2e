@@ -2,13 +2,14 @@ import { ActorPF2e } from "@actor";
 import * as ItemInstance from "@item";
 
 interface ItemInstances<TParent extends ActorPF2e | null> {
-    action: ItemInstance.ActionItemPF2e<TParent>;
+    action: ItemInstance.AbilityItemPF2e<TParent>;
     affliction: ItemInstance.AfflictionPF2e<TParent>;
     ancestry: ItemInstance.AncestryPF2e<TParent>;
     armor: ItemInstance.ArmorPF2e<TParent>;
     background: ItemInstance.BackgroundPF2e<TParent>;
     backpack: ItemInstance.ContainerPF2e<TParent>;
     book: ItemInstance.BookPF2e<TParent>;
+    campaignFeature: ItemInstance.CampaignFeaturePF2e<TParent>;
     class: ItemInstance.ClassPF2e<TParent>;
     condition: ItemInstance.ConditionPF2e<TParent>;
     consumable: ItemInstance.ConsumablePF2e<TParent>;
@@ -26,4 +27,10 @@ interface ItemInstances<TParent extends ActorPF2e | null> {
     weapon: ItemInstance.WeaponPF2e<TParent>;
 }
 
-export { ItemInstances };
+/** Data describing the range restrictions of an action, weapon, spell, etc. */
+type RangeData = {
+    increment: number | null;
+    max: number;
+};
+
+export type { ItemInstances, RangeData };

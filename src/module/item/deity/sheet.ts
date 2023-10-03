@@ -1,17 +1,16 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { Alignment } from "@actor/creature/types";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { Alignment } from "@actor/creature/types.ts";
 import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/base.ts";
+import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
+import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            scrollY: [".item-details"],
             dragDrop: [{ dropSelector: ".sheet-header, .sheet-content" }],
         };
     }
@@ -30,8 +29,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         return {
             ...sheetData,
-            hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/deity-details.hbs",
             alignments: CONFIG.PF2E.alignments,
             atheistic: this.item.category === "philosophy",
             skills: CONFIG.PF2E.skills,
@@ -61,8 +58,10 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         if (this.item.category === "philosophy") return;
 
         tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
-        tagify(getInput("system.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
-        tagify(getInput("system.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+
+        const domainWhitelist = R.omitBy(CONFIG.PF2E.deityDomains, (_v, k) => k.endsWith("-apocryphal"));
+        tagify(getInput("system.domains.primary"), { whitelist: domainWhitelist, maxTags: 6 });
+        tagify(getInput("system.domains.alternate"), { whitelist: domainWhitelist, maxTags: 6 });
 
         const clericSpells = htmlQuery(html, ".cleric-spells");
         if (!clericSpells) return;
@@ -74,7 +73,8 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 const spell = await fromUuid(uuid);
                 if (!(spell instanceof SpellPF2e)) {
                     this.render(false);
-                    return ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
+                    ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
+                    return;
                 }
 
                 spell.sheet.render(true);
@@ -138,7 +138,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             return;
         }
 
-        await this.item.update({ [`system.spells.${item.level}`]: item.uuid });
+        await this.item.update({ [`system.spells.${item.rank}`]: item.uuid });
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */

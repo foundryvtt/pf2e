@@ -1,8 +1,8 @@
-import "./base";
-import "./client-settings";
-import "./document-sheet";
-import "./document-sheet-config";
-import "./image-popout";
-import "./other";
-import "./permission";
-import "./placeables-config";
+import "./base.d.ts";
+import "./client-settings.d.ts";
+import "./document-sheet/index.d.ts";
+import "./document-sheet-config.d.ts";
+import "./image-popout.d.ts";
+import "./other.d.ts";
+import "./permission.d.ts";
+import "./placeables-config.d.ts";

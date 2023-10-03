@@ -3,7 +3,7 @@
     <label>{{localize "PF2E.Item.Deity.Category.Label"}}</label>
     <select name="system.category">
         {{#select data.category}}
-            <option value="deity">{{localize "ITEM.TypeDeity"}}</option>
+            <option value="deity">{{localize "TYPES.Item.deity"}}</option>
             <option value="pantheon">{{localize "PF2E.Item.Deity.Category.Pantheon"}}</option>
             <option value="philosophy">{{localize "PF2E.Item.Deity.Category.Philosophy"}}</option>
         {{/select}}
@@ -89,7 +89,7 @@
                     <img class="icon" src="{{spell.img}}" />
                     <a class="name" data-action="view-spell">{{spell.name}}</a>
                     <input type="number" class="level" value="{{spell.level}}" data-level="{{spell.level}}" data-action="update-spell-level" />
-                    {{#if @root.options.editable}}<a class="remove" data-action="remove-spell"><i class="fa fa-times"></i></a>{{/if}}
+                    {{#if @root.options.editable}}<a class="remove" data-action="remove-spell"><i class="fa-solid fa-times"></i></a>{{/if}}
                 </li>
             {{/each}}
         </ul>

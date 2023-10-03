@@ -1,6 +1,6 @@
-import { Coins, PartialPrice } from "@item/physical/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { getActionGlyph, ordinal, sluggify } from "../util";
+import { Coins, PartialPrice } from "@item/physical/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { getActionGlyph, ordinal, sluggify } from "../util/index.ts";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
@@ -32,6 +32,10 @@ export function registerHandlebarsHelpers(): void {
         return String(str).toLowerCase();
     });
 
+    Handlebars.registerHelper("capitalize", (str: unknown): string => {
+        return String(str).capitalize();
+    });
+
     Handlebars.registerHelper("multiply", (a: unknown, b: unknown): number => {
         return Number(a) * Number(b);
     });
@@ -56,7 +60,7 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("actionGlyph", (value, options: Handlebars.HelperOptions): string | null => {
         const glyph = getActionGlyph(value ?? "");
         if (glyph) {
-            return `<span class="activity-icon">${glyph}</span>`;
+            return `<span class="action-glyph">${glyph}</span>`;
         } else if (options?.hash.fallback) {
             return Handlebars.escapeExpression(value);
         }
@@ -97,7 +101,14 @@ export function registerHandlebarsHelpers(): void {
         return new CoinsPF2e(value);
     });
 
-    Handlebars.registerHelper("contains", (arr: unknown, element: unknown): boolean => {
+    Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
         return Array.isArray(arr) && arr.includes(element);
+    });
+
+    // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented
+    // https://handlebarsjs.com/guide/expressions.html#escaping-handlebars-expressions
+    // https://stackoverflow.com/questions/33704495/how-to-use-raw-helper-in-a-handlebars-template
+    Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
+        return options.fn(this);
     });
 }

@@ -1,0 +1,46 @@
+{
+    "_id": "wFP3SqPoO0bCPmyK",
+    "img": "systems/pf2e/icons/equipment/shields/specific-shields/krakens-guard.webp",
+    "name": "Effect: Kraken's Guard",
+    "system": {
+        "description": {
+            "value": "<p>When you use the shield to Grapple, you gain a +3 item bonus to your Athletics check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Kraken's Guard (Grapple)",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

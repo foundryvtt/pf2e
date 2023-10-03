@@ -1,0 +1,31 @@
+{
+    "_id": "Mj7uHxxVkRUlOFwJ",
+    "img": "systems/pf2e/icons/features/ancestry/hillock-halfling.webp",
+    "name": "Hillock Halfling",
+    "system": {
+        "ancestry": {
+            "name": "Halfling",
+            "slug": "halfling",
+            "uuid": "Compendium.pf2e.ancestries.Item.GgZAHbrjnzWOZy2v"
+        },
+        "description": {
+            "value": "<p>Accustomed to a calm life in the hills, your people find rest and relaxation especially replenishing, particularly when indulging in creature comforts. When you regain Hit Points overnight, add [[/r @actor.level]]{add your level} to the Hit Points regained.</p>\n<p>When anyone uses the Medicine skill to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]{Treat your Wounds}, you can eat a snack to [[/r @actor.level]]{add your level} to the Hit Points you regain from their treatment.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.hp.recoveryAddend",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

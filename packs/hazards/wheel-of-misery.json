@@ -1,0 +1,113 @@
+{
+    "_id": "H2GX04CQXLPQHT8h",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZS4b3rYv9jOgbMzm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wheel Spin",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the sensor's detection area.</p>\n<hr />\n<p><strong>Effect</strong> The wheel begins to spin and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wheel Of Misery",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to detect the magical sensor; noticing the wheel has a DC of 0</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An ornate wheel set into a wall-divided into six segments with colored runes on each-is controlled by a magical sensor that detects any creature within 100 feet in front of it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Stop Wheel from Spinning|traits:action:disable-a-device] (expert) on the wheel to stop it from spinning, @Check[type:thievery|dc:22|name:Erase Rune|traits:action:disable-a-device] (master) to erase each rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 22) to counteract each rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature moving within range of its sensor.</p>",
+            "routine": "<p>(2 actions) On its initiative, the trap uses its first action to spin, then stops. Roll 1d6 to determine which segment is topmost when the wheel stops spinning. The wheel uses its second action to replicate the spell listed for that segment (3rd level, DC 24, spell attack roll +14). This spell's target is centered on or otherwise includes the nearest creature in the area. This increases the spell's range to 100 feet if necessary. Any spell cast by this trap is arcane.</p>\n<p><strong>1</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Sleep]</em></p>\n<p><strong>2</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Paralyze]</em></p>\n<p><strong>3</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Lightning Bolt]</em> (100-foot line)</p>\n<p><strong>4</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Blindness]</em></p>\n<p><strong>5</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow]</em></i></p>\n<p><strong>6</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Enfeeblement]</em></p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Core Rulebook"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

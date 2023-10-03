@@ -1,0 +1,78 @@
+{
+    "_id": "85tRKGZUTFa6pKpG",
+    "img": "systems/pf2e/icons/features/ancestry/oathkeeper-dwarf.webp",
+    "name": "Oathkeeper Dwarf",
+    "system": {
+        "ancestry": {
+            "name": "Dwarf",
+            "slug": "dwarf",
+            "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+        },
+        "description": {
+            "value": "<p>Growing up, you never tried to lie to get what you wanted, and even when necessary, lying makes you uncomfortable. The especially faithful might even have thought that you were blessed by the dwarven god of duty, @UUID[Compendium.pf2e.deities.Item.Kols].</p>\n<p>You gain a +1 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] and to Perception DCs against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to you.</p>\n<p>Furthermore, you gain a +2 circumstance bonus to Diplomacy checks to convince others you speak the truth when you are telling the truth, and you take a -4 circumstance penalty to lie and to your Deception DC against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.SenseMotive",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception",
+                "slug": "oathkeeper-dwarf-to-sense-motive",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.TellTheTruth",
+                "predicate": [
+                    "tell-truth"
+                ],
+                "selector": "diplomacy",
+                "slug": "oathkeeper-dwarf-tell-the-truth",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.Lie",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "slug": "oathkeeper-dwarf-lie",
+                "type": "circumstance",
+                "value": -4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

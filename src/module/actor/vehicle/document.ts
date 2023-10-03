@@ -1,14 +1,17 @@
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { ActorDimensions } from "@actor/types";
-import { ItemType } from "@item/data";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { Statistic } from "@system/statistic";
-import { ActorPF2e, HitPointsSummary } from "../base";
-import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data";
+import { setHitPointsRollOptions } from "@actor/helpers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActorDimensions } from "@actor/types.ts";
+import { ItemType } from "@item/data/index.ts";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { ArmorStatistic, HitPointsStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 
 class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "action"];
     }
@@ -22,6 +25,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         };
     }
 
+    override get hardness(): number {
+        return this.system.attributes.hardness;
+    }
+
     getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {
         return {
             width: Math.max(Math.round(dimensions.width / 5), 1),
@@ -32,10 +39,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Vehicles never have negative healing
-        const { attributes, details } = this.system;
-        attributes.hp.negativeHealing = false;
-        details.alliance = null;
+        this.system.details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
         const { size } = this.system.traits;
@@ -63,17 +67,15 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         super.prepareDerivedData();
         this.prepareSynthetics();
 
-        const { modifierAdjustments, statisticsModifiers } = this.synthetics;
-
         // If broken, inject some synthetics first
         if (this.hasCondition("broken")) {
             for (const selector of ["ac", "saving-throw"]) {
-                const modifiers = (statisticsModifiers[selector] ??= []);
+                const modifiers = (this.synthetics.modifiers[selector] ??= []);
                 const brokenModifier = new ModifierPF2e({
                     slug: "broken",
                     label: "PF2E.ConditionTypeBroken",
                     modifier: -2,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, [selector], "broken"),
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, [selector], "broken"),
                 });
 
                 modifiers.push(() => brokenModifier);
@@ -81,57 +83,24 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         }
 
         // Hit Points
-        {
-            const system = this.system;
-            const base = system.attributes.hp.max;
-            const modifiers: ModifierPF2e[] = [
-                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
-                extractModifiers(this.synthetics, ["hp-per-level"], {
-                    test: this.getRollOptions(["hp-per-level"]),
-                }).map((modifier) => {
-                    modifier.modifier *= this.level;
-                    return modifier;
-                }),
-            ].flat();
-
-            const hpData = deepClone(system.attributes.hp);
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
-            stat.max = stat.max + stat.totalModifier;
-            stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
-            stat.breakdown = [
-                game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
-                ...stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
-            ].join(", ");
-
-            system.attributes.hp = stat;
-
-            // Set a roll option for HP percentage
-            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
-            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
-            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
-
-            // Broken threshold is based on the maximum health
-            system.attributes.hp.brokenThreshold = Math.floor(system.attributes.hp.max / 2);
-        }
+        const { attributes } = this;
+        const hitPoints = new HitPointsStatistic(this, { baseMax: attributes.hp.max });
+        attributes.hp = mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
+        setHitPointsRollOptions(this);
 
         // Prepare AC
-        const ac = new Statistic(this, {
-            slug: "ac",
-            label: "PF2E.ArmorClassLabel",
-            domains: ["all", "ac"],
+        const armorStatistic = new ArmorStatistic(this, {
             modifiers: [
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
-                    modifier: this.system.attributes.ac.value,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac"], "base"),
+                    modifier: this.system.attributes.ac.value - 10,
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, ["all", "ac"], "base"),
                 }),
             ],
-            dc: { base: 0 },
         });
-        this.system.attributes.ac = ac.getTraceData({ value: "dc" });
+        this.armorClass = armorStatistic.dc;
+        this.system.attributes.ac = armorStatistic.getTraceData();
 
         this.prepareSaves();
     }
@@ -169,8 +138,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         changed: DeepPartial<VehicleSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        await super._preUpdate(changed, options, user);
+    ): Promise<boolean | void> {
+        const result = await super._preUpdate(changed, options, user);
+        if (result === false) return result;
+
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { space } = this.system.details;
             const spaceUpdates = {
@@ -178,7 +149,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                 length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
-            mergeObject(changed, { token: tokenDimensions });
+            changed.prototypeToken = mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
 
             if (canvas.scene) {
                 const updates = this.getActiveTokens()
@@ -192,7 +163,6 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
 interface VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: VehicleSource;
-    readonly abilities?: never;
     system: VehicleSystemData;
 
     get hitPoints(): HitPointsSummary;

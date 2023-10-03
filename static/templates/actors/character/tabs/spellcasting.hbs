@@ -1,5 +1,5 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
-    <ol class="spellcastingEntry-list directory-list">
+    <ol class="spellcastingEntry-list directory-list" data-foundry-list>
         {{#each spellcastingEntries as |entry eid|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
@@ -40,7 +40,7 @@
                             </section>
                             <section>
                                 (
-                                    <div class="skill-data spell-attack rollable" title="{{entry.statistic.check.breakdown}}">
+                                    <div class="skill-data rollable" title="{{entry.statistic.check.breakdown}}" data-action="spell-attack">
                                         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                                         <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
                                     </div>
@@ -50,7 +50,7 @@
 
                         {{#if entry.isPrepared}}
                             <button type="button" class="skill-name prepared-toggle blue-button">
-                                <i class="fas fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
+                                <i class="fa-solid fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
                             </button>
                         {{/if}}
 

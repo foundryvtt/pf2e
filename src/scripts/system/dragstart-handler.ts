@@ -1,5 +1,5 @@
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { CheckRoll } from "@system/check";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { CheckRoll } from "@system/check/index.ts";
 import { htmlClosest } from "@util";
 
 /**
@@ -28,15 +28,28 @@ export function extendDragData(): void {
 
             const messageId = htmlClosest(target, "li.chat-message")?.dataset.messageId;
             const message = game.messages.get(messageId ?? "");
+            const originItem = message?.item;
+
             if (message?.actor) {
                 const { actor, token, target } = message;
                 const roll = message.rolls.at(-1);
+                const spellcasting =
+                    originItem?.isOfType("spell") && originItem.spellcasting
+                        ? {
+                              attribute: {
+                                  type: originItem.attribute,
+                                  mod: originItem.spellcasting.statistic?.attributeModifier?.value ?? 0,
+                              },
+                              tradition: originItem.spellcasting.tradition,
+                          }
+                        : null;
 
                 data.context = {
                     origin: {
                         actor: actor.uuid,
                         token: token?.uuid ?? null,
-                        item: message.item?.uuid ?? null,
+                        item: originItem?.uuid ?? null,
+                        spellcasting,
                     },
                     target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
                     roll: roll

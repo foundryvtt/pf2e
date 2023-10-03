@@ -1,0 +1,51 @@
+{
+    "_id": "ZOlwVqWa4hfv44xX",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hero's Wings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have begun the final steps to reaching your full potential. Your wings are always in their majestic form without you needing to use @UUID[Compendium.pf2e.feats-srd.Item.Energize Wings], granting you a permanent fly Speed. Furthermore, sprites recognize you as a powerful hero (or villain) by your unique wings and are appropriately impressed. You gain a +2 circumstance bonus on all Diplomacy and Intimidation checks against sprites and gain the benefits of the @UUID[Compendium.pf2e.feats-srd.Item.Glad-Hand] skill feat against other sprites, without taking a -5 penalty to your Diplomacy check.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Energize Wings"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:sprite"
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

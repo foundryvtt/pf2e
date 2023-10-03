@@ -1,0 +1,56 @@
+{
+    "_id": "dmXd68ilbuGR6eUP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Archaeologist's Luck",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You fail a check against a trap, such as a Thievery check to @UUID[Compendium.pf2e.actionspf2e.Item.Disable Device]{Disable} the trap or a Reflex save to avoid its effects.</p>\n<hr />\n<p>You are more than just skillful; your drive to find the secrets of the past manifests as a strange kind of luck. Reroll the failed check and use the new result.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Archaeologist Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "trap"
+                ],
+                "selector": "all",
+                "text": "<em>Once per hour</em>: Reroll the failed check and use the new result.",
+                "title": "Failure"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "fortune"
+            ]
+        }
+    },
+    "type": "feat"
+}

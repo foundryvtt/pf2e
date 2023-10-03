@@ -1,0 +1,75 @@
+{
+    "_id": "xV8fmSn12652usGC",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Deadweight Mutagen (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Deadweight Mutagen (Moderate)]</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] and @UUID[Compendium.pf2e.actionspf2e.Item.Trip], to your Fortitude and Reflex DCs against attempts to Shove or Trip you, and to saving throws against effects that attempt to force you to move or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Drawback</strong> You gain the @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] condition and can't remove it while under the effects of the mutagen.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip",
+                            "inflicts:forced-movement",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Encumbered"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

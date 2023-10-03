@@ -1,0 +1,77 @@
+{
+    "_id": "PodajLVxqYSAqVox",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Natural Ambition",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:class",
+                        "item:trait:{actor|system.details.class.trait}",
+                        {
+                            "or": [
+                                "feature:dragon-instinct",
+                                {
+                                    "not": "item:draconic-arrogance"
+                                }
+                            ]
+                        },
+                        {
+                            "nor": [
+                                "item:animal-companion",
+                                "item:animal-companion-druid",
+                                "item:bardic-lore",
+                                "item:fire-lung",
+                                "item:lingering-composition",
+                                "item:leshy-familiar",
+                                "item:martial-performance",
+                                "item:shore-step",
+                                "item:steadying-stone",
+                                "item:storm-born",
+                                "item:versatile-performance",
+                                "item:wild-shape"
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "naturalAmbition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

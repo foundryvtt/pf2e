@@ -1,0 +1,45 @@
+{
+    "_id": "wtTye8OrC9cuK7YP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Beast Trainer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an impressive innate ability to tame and command ferocious beasts. You become trained in the Nature skill and gain the @UUID[Compendium.pf2e.feats-srd.Item.Train Animal] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Train Animal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

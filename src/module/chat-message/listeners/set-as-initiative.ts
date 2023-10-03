@@ -1,11 +1,9 @@
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e } from "@module/encounter/index.ts";
 import { fontAwesomeIcon } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
-    listen: ($li: JQuery) => {
-        const li = $li[0];
-
+    listen: (li: HTMLElement): void => {
         const message = game.messages.get(li.dataset.messageId ?? "", { strict: true });
         const { context } = message.flags.pf2e;
         if (
@@ -31,7 +29,8 @@ export const SetAsInitiative = {
             setInitiativeButton.title = game.i18n.localize("PF2E.ClickToSetInitiative");
             setInitiativeButton.appendChild(fontAwesomeIcon("fa-swords", { style: "solid" }));
             btnContainer.appendChild(setInitiativeButton);
-            li.querySelector(".dice-total")?.appendChild(btnContainer);
+            const selector = message.isReroll ? ".pf2e-reroll-second .dice-total" : ".dice-total";
+            li.querySelector(selector)?.appendChild(btnContainer);
 
             setInitiativeButton.addEventListener("click", async (event): Promise<void> => {
                 event.stopPropagation();

@@ -1,48 +1,48 @@
-import { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { getStrikingDice } from "@item/physical/runes";
-import { StrikingSynthetic } from "../synthetics";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { ActorType } from "@actor/data/index.ts";
+import { WeaponPF2e } from "@item";
+import { getStrikingDice } from "@item/physical/runes.ts";
+import { StrikingSynthetic } from "../synthetics.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
 
-export class StrikingRuleElement extends RuleElementPF2e {
+class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    selector: string;
-
-    constructor(data: StrikingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        if (typeof data.selector === "string") {
-            this.selector = data.selector;
-        } else {
-            this.failValidation("Missing string selector property");
-            this.selector = "";
-        }
+    static override defineSchema(): StrikingRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, blank: false }),
+            value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
+        };
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        const strikingValue =
-            "value" in this.data
-                ? this.data.value
-                : this.item instanceof WeaponPF2e
-                ? getStrikingDice(this.item.system)
-                : 0;
+        const strikingValue = this.value ?? (this.item instanceof WeaponPF2e ? getStrikingDice(this.item.system) : 0);
         const value = this.resolveValue(strikingValue);
         if (selector && typeof value === "number") {
-            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
-            const striking: StrikingSynthetic = { label, bonus: value, predicate: this.predicate };
+            const striking: StrikingSynthetic = {
+                label: this.getReducedLabel(),
+                bonus: value,
+                predicate: this.predicate,
+            };
             const strikings = (this.actor.synthetics.striking[selector] ??= []);
             strikings.push(striking);
         } else {
-            console.warn("PF2E | Striking requires at least a selector field and a non-empty value field");
+            this.failValidation("Striking requires at least a selector field and a non-empty resolved value");
         }
     }
 }
 
-interface StrikingSource extends RuleElementSource {
-    selector?: string;
-}
+interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromSchema<StrikingRuleSchema> {}
+
+type StrikingRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    value: ResolvableValueField<false, false, false>;
+};
+
+export { StrikingRuleElement };

@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { FeatSource, ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Don't store the max value of the focus pool */
 export class Migration651EphemeralFocusPool extends MigrationBase {
@@ -108,7 +108,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
-        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = source.system;
+        const systemData: { resources: { focus?: { max?: unknown; "-=max"?: null } } } = source.system;
         systemData.resources ??= {};
 
         const resources = systemData.resources;

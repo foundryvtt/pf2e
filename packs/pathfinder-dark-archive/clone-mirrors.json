@@ -1,0 +1,102 @@
+{
+    "_id": "Ldw3d0TYwtMywbM0",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "M6pVTXxAJ26CuNx5",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spawn Reflection",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature is reflected in the mirror</p>\n<hr />\n<p><strong>Effect</strong> The mirror creates a @UUID[Compendium.pf2e.pathfinder-dark-archive.Actor.Reflection] of the triggering creature, which Steps out of the mirror and into the hall. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clone Mirrors",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 13,
+            "hp": {
+                "details": "per mirror",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "stealth": {
+                "details": "",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Two opposing mirrors spawn illusory duplicates of creatures in the hall in an unending tide.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Reposition Mirror|traits:action:disable-a-device] (expert) to reposition each mirror, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 25) to counteract each mirror</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>1 day</p>",
+            "routine": "<p>(2 actions) This trap loses 1 action for each mirror disabled. Each mirror uses 1 action to Spawn a Reflection of a creature reflected in the mirror. The hazard can have a maximum of four reflections spawned at once.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Dark Archive"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

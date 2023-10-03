@@ -45,18 +45,19 @@
                     {{#each section as |craftedItem i|}}
                         <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{craftedItem.uuid}}" data-is-formula="true">
                             <div class="item-name rollable">
-                                <div class="item-image">
+                                <div class="item-image framed">
                                     <img class="item-icon" src="{{craftedItem.img}}" alt="{{craftedItem.name}}">
+                                    <i class="fa-solid fa-message"></i>
                                 </div>
                                 <h4>{{craftedItem.name}}</h4>
                             </div>
 
-                            <div class="formula-dc">{{craftedItem.dc}}</div>
-                            <div class="formula-cost">{{coinLabel craftedItem.cost}}</div>
-                            <div class="formula-quantity">
-                                <a class="formula-quantity-adjust" data-action="decrease-quantity">-</a>
+                            <div class="dc">{{craftedItem.dc}}</div>
+                            <div class="cost">{{coinLabel craftedItem.cost}}</div>
+                            <div class="quantity">
+                                <a class="adjust decrease" data-action="decrease-quantity">&ndash;</a>
                                 <input type="number" class="formula-number" data-action="enter-quantity" value="{{#if @root.crafting.noCost}}{{craftedItem.minimumBatchSize}}{{else}}{{craftedItem.batchSize}}{{/if}}" />
-                                <a class="formula-quantity-adjust" data-action="increase-quantity">+</a>
+                                <a class="adjust increase" data-action="increase-quantity">+</a>
                             </div>
 
                             {{#if @root.options.editable}}
@@ -78,8 +79,8 @@
                     {{#if @root.options.editable}}
                         <li class="formula-header empty">
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-level="{{lvl}}">
-                                <i class="fas fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
+                            <a class="blue-button inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-level="{{lvl}}">
+                                <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
                             </a>
                         </li>
                     {{/if}}

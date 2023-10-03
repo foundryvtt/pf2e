@@ -1,7 +1,12 @@
-import { CharacterPF2e } from "@actor";
-import { CreatureSheetPF2e } from "@actor/creature/sheet";
-import { FamiliarPF2e } from "@actor/familiar";
-import { FamiliarSheetData } from "./types";
+import type { CharacterPF2e } from "@actor";
+import { CreatureSheetData } from "@actor/creature/index.ts";
+import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
+import type { AbilityItemPF2e } from "@item";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { StatisticTraceData } from "@system/statistic/index.ts";
+import { htmlQuery } from "@util";
+import * as R from "remeda";
+import { FamiliarPF2e } from "./document.ts";
 
 /**
  * @category Actor
@@ -21,12 +26,12 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         return options;
     }
 
-    override get template() {
+    override get template(): string {
         return "systems/pf2e/templates/actors/familiar-sheet.hbs";
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
-        const baseData = await super.getData(options);
+        const sheetData = await super.getData(options);
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter(
@@ -37,37 +42,56 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
-        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities ?? { value: 0 };
+        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
 
         // Update save labels
-        if (baseData.data.saves) {
+        if (sheetData.data.saves) {
             for (const key of ["fortitude", "reflex", "will"] as const) {
-                const save = baseData.data.saves[key];
+                const save = sheetData.data.saves[key];
                 save.label = CONFIG.PF2E.saves[key];
             }
         }
 
+        const skills = Object.values(sheetData.data.skills).sort((a, b) =>
+            a.label.localeCompare(b.label, game.i18n.lang)
+        );
+
         return {
-            ...baseData,
+            ...sheetData,
             master: this.actor.master,
             masters,
             abilities,
             size,
-            familiarAbilities,
+            skills,
+            familiarAbilities: {
+                value: familiarAbilities?.value ?? 0,
+                items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
+            },
         };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("[data-action=perception-check]").on("click", (event) => {
-            const options = this.actor.getRollOptions(["all", "perception"]);
-            this.actor.attributes.perception.roll({ event, options });
+        htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
+            this.actor.perception.roll(eventToRollParams(event));
         });
 
-        $html.find("[data-attack-roll] *").on("click", (event) => {
-            const options = this.actor.getRollOptions(["all", "attack"]);
-            this.actor.system.attack.roll({ event, options });
+        htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
+            this.actor.attackStatistic.roll(eventToRollParams(event));
         });
     }
+}
+
+interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetData<TActor> {
+    master: CharacterPF2e | null;
+    masters: CharacterPF2e[];
+    abilities: ConfigPF2e["PF2E"]["abilities"];
+    size: string;
+    skills: StatisticTraceData[];
+    familiarAbilities: {
+        value: number;
+        items: AbilityItemPF2e[];
+    };
 }

@@ -1,0 +1,39 @@
+<template data-partial="tab">
+    <a class="item" data-tab="pf2e"><span class="action-glyph">1</span> {{localize "PF2E.Pathfinder"}}</a>
+</template>
+
+<template data-partial="panel">
+    <section class="tab" data-tab="pf2e">
+        <div class="form-group">
+            <label for="{{scene.uuid}}-rules-based-vision">{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.Name"}}</label>
+            <div class="form-fields">
+                <select id="{{scene.uuid}}-rules-based-vision" name="flags.pf2e.rulesBasedVision">
+                    {{#select scene.flags.pf2e.rulesBasedVision}}
+                        <option value="">{{localize "PF2E.SETTINGS.EnabledDisabled.Default" worldDefault=rbvWorldDefault}}</option>
+                        <option value="true">{{localize "PF2E.SETTINGS.EnabledDisabled.Enabled"}}</option>
+                        <option value="false">{{localize "PF2E.SETTINGS.EnabledDisabled.Disabled"}}</option>
+                    {{/select}}
+                </select>
+
+                <button type="button" class="automation-settings" data-action="world-rbv-setting"
+                    data-tooltip="{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.ViewWorldSetting"}}"
+                >
+                    <i class="fa-solid fa-globe fa-fw"></i>
+                </button>
+            </div>
+            <p class="hint">{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.Hint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label for="{{scene.uuid}}-hearing-range">{{localize "PF2E.Scene.HearingRange.Name"}}</label>
+            <div class="form-fields">
+                <input type="number" id="{{scene.uuid}}-hearing-range" name="flags.pf2e.hearingRange"
+                    value="{{scene.flags.pf2e.hearingRange}}"
+                    placeholder="{{localize "PF2E.Scene.HearingRange.Unlimited"}}"
+                />
+            </div>
+            <p class="hint">{{localize "PF2E.Scene.HearingRange.Hint"}}</p>
+            <p class="hint caveat">{{localize "PF2E.Scene.HearingRange.Caveat"}}</p>
+        </div>
+    </section>
+</template>

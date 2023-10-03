@@ -1,3 +1,3 @@
-export { ABCItemPF2e } from "./document";
-export * from "./sheet";
-export * from "./data";
+export { ABCItemPF2e } from "./document.ts";
+export * from "./sheet.ts";
+export * from "./data.ts";

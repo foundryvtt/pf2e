@@ -1,0 +1,59 @@
+{
+    "_id": "OXhrwQgnZdOi81Yi",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Defy Death",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're exceptionally difficult to kill. The DC of your recovery checks is equal to 9 + your dying value, or 8 + your dying value if you have the @UUID[Compendium.pf2e.feats-srd.Item.Toughness] general feat.</p>\n<p>In addition, whenever someone returns you to life using magic that would normally leave you debilitated for a week (such as raise dead or the resurrect ritual), you don't suffer that condition.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Orc Ferocity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "system.attributes.dying.recoveryDC",
+                "predicate": [
+                    {
+                        "not": "feat:toughness"
+                    }
+                ],
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "system.attributes.dying.recoveryDC",
+                "predicate": [
+                    "feat:toughness"
+                ],
+                "value": 8
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

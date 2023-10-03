@@ -1,8 +1,10 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
+import { onClickCreateSpell } from "@actor/sheet/helpers.ts";
+import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellcastingSheetData, SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { htmlQueryAll } from "@util";
 
 /**
  * Sheet used to render the the spell list for prepared casting.
@@ -23,6 +25,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         options.height = 600;
         options.template = "systems/pf2e/templates/actors/spellcasting-prep-sheet.hbs";
         options.scrollY = [".sheet-content"];
+        options.sheetConfig = false;
         return options;
     }
 
@@ -31,25 +34,16 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         return `${super.id}-spellprep-${this.item.id}`;
     }
 
-    override get title() {
+    override get title(): string {
         return game.i18n.format("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
     }
 
     /**
      * This being an actor sheet saves us from most drag and drop re-implementation,
      * but we still have a gotcha in the form of the header buttons.
-     * Reimplement to avoid sheet configuration and token options.
      */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = [
-            {
-                label: "Close",
-                class: "close",
-                icon: "fas fa-times",
-                onclick: () => this.close(),
-            },
-        ];
-        return buttons;
+        return super._getHeaderButtons().filter((b) => b.class === "close");
     }
 
     override async getData(): Promise<SpellPreparationSheetData<TActor>> {
@@ -92,20 +86,11 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
             }
         });
 
-        $html.find(".spell-create").on("click", (event) => {
-            const data = duplicate(event.currentTarget.dataset);
-            const level = Number(data.level ?? 1);
-            const newLabel = game.i18n.localize("PF2E.NewLabel");
-            const levelLabel = game.i18n.localize(`PF2E.SpellLevel${level}`);
-            const spellLabel = level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
-            data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
-            mergeObject(data, {
-                "system.level.value": level,
-                "system.location.value": this.item.id,
+        for (const link of htmlQueryAll(html, ".spell-create")) {
+            link.addEventListener("click", () => {
+                onClickCreateSpell(this.actor, { ...link.dataset, location: this.item.id });
             });
-
-            this.actor.createEmbeddedDocuments("Item", [data]);
-        });
+        }
 
         $html.find(".spell-browse").on("click", (event) => {
             const level = Number($(event.currentTarget).attr("data-level")) ?? null;
@@ -135,10 +120,10 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 
     /** Allow transferring spells between open windows */
     protected override async _onSortItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         itemData: ItemSourcePF2e
-    ): Promise<ItemPF2e<TActor>[]>;
-    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<Item<TActor>[]> {
+    ): Promise<CollectionValue<TActor["items"]>[]>;
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id);

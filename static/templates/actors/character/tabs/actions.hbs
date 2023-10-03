@@ -1,94 +1,111 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
-    <nav class="actions-nav" data-group="actions-tabs">
+    <nav class="actions-nav sub-nav" data-group="actions-tabs">
         <a class="tab" data-tab="encounter" data-group="actions-tabs">{{localize "PF2E.TabActionsEncounterLabel"}}</a>
         <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
         <a class="tab" data-tab="downtime" data-group="actions-tabs">{{localize "PF2E.TabActionsDowntimeLabel"}}</a>
     </nav>
+
     <div class="actions-container tab-content">
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
-                <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
-                    {{#if toggles}}
-                        <div class="actions-options item-list">
-                            {{#each toggles as |toggle idx|}}
-                                {{#if (or (not toggle.scope) (eq toggle.scope "actions-tab"))}}
-                                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" data-scope="{{toggle.scope}}">
-                                        <label>
-                                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                                            <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
-                                            {{#if toggle.suboptions}}
-                                                <select data-action="set-suboption">
-                                                    {{#each toggle.suboptions as |suboption|}}
-                                                        <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
-                                                    {{/each}}
-                                                </select>
-                                            {{/if}}
-                                        </label>
-                                    </div>
-                                {{/if}}
-                            {{/each}}
-                        </div>
-                    {{/if}}
+                <div class="actions-panel tab" data-tab="encounter" data-group="actions-tabs">
+                    {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
 
                     <h3 class="header">
-                        {{localize "PF2E.StrikesLabel"}}
+                        {{localize "PF2E.Actor.Attacks"}}
                         <button type="button" class="toggle-unready-strikes" title="{{localize "PF2E.ToggleUnreadyStrikes"}}">
-                            <i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
+                            <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
                         </button>
                     </h3>
+
+                    {{#if elementalBlasts}}
+                        <!-- ELEMENTAL BLASTS -->
+                        <ol class="actions-list directory-list elemental-blasts">
+                            {{#each elementalBlasts as |blast|}}
+                                {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast}}
+                            {{/each}}
+                        </ol>
+                    {{/if}}
+
                     <ol class="actions-list item-list directory-list strikes-list">
                         {{#each data.actions as |action ai|}}
-                            <li class="item action strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-action-index="{{ai}}">
+                            <li class="item strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike="" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
-                                    <div class="item-image variant-strike" data-action="strike-attack" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
-                                        <i class="fas fa-dice-d20"></i>
+                                    <div class="item-image variant-strike framed" data-action="strike-attack" data-variant-index="0">
+                                        <img src="{{action.imageUrl}}" />
+                                        <i class="fa-solid fa-dice-d20"></i>
                                     </div>
                                     <div class="actions-title">
                                         <div class="action-name">
                                             <h4>
                                                 {{action.label}}
-                                                {{#if action.item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
+                                                {{#if action.item.isTemporary}}<i class="fa-solid fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
                                             </h4>
-                                            {{#if action.item}}
-                                                <div class="action-options" data-item-id="{{action.item.id}}">
-                                                    {{#with action.item.ammo.uses}}
-                                                        {{#if (gt max 1)}}
-                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{value}}</span>
-                                                        {{/if}}
-                                                    {{/with}}
-                                                </div>
-                                            {{/if}}
                                         </div>
-                                        <!-- ATTACK/DAMAGE -->
+
                                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
+                                            <!-- ATTACK/DAMAGE -->
                                             {{#> attackDamage action}}{{/attackDamage}}
                                         {{/if}}
                                     </div>
                                 </div>
+
                                 {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
                                     {{#each action.altUsages as |usage|}}
                                         <div class="alt-usage">
                                             {{#if usage.item.isThrown}}
-                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" title="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
+                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                                             {{else}}
-                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" title="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                                             {{/if}}
                                             {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
                                         </div>
                                     {{/each}}
                                 {{/if}}
+
+                                {{#if (and action.ammunition (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+                                    <div class="ammo auxiliary-actions">
+                                        <select class="linked"
+                                            data-action="link-ammo"
+                                            {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
+                                            {{#select action.ammunition.selected.id}}
+                                                <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
+                                                {{#each action.ammunition.compatible as |ammo|}}
+                                                    <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
+                                                {{/each}}
+                                            {{/select}}
+                                        </select>
+
+                                        <span class="magazine" data-item-id="{{action.item.id}}">
+                                            {{#if (gt action.item.ammo.uses.max 1)}}
+                                                <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+                                            {{/if}}
+                                        </span>
+                                    </div>
+                                {{/if}}
+
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
-                                        <button type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                                            <span class="activity-icon">{{aux.img}}</span>
+                                        <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
                                             <span>{{aux.label}}</span>
+                                            <span class="action-glyph">{{aux.glyph}}</span>
+                                            {{#if aux.options}}
+                                            <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+                                                {{#each aux.options as |option|}}
+                                                    <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
+                                                        {{option.label}} {{#if option.selected}}✔️{{/if}}
+                                                    </option>
+                                                {{/each}}
+                                            </select>
+                                            {{/if}}
                                         </button>
                                     {{/each}}
                                 </div>
+
                                 <div class="item-summary">
                                     <div class="item-description">
                                         <p>{{{localize action.description}}}</p>
-                                        <hr/>
+                                        <hr />
                                         <dl>
                                             <dt>{{{localize "PF2E.CritSuccess"}}}</dt>
                                             <dd>{{{localize action.criticalSuccess}}}</dd>
@@ -103,10 +120,13 @@
                                         {{#each action.weaponTraits as |trait|}}
                                             <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
                                         {{/each}}
+                                        {{#if action.item.system.reload.label}}
+                                            <span class="tag tag_secondary">{{action.item.system.reload.label}}</span>
+                                        {{/if}}
                                         {{#if action.item.system.maxRange}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRange" action.item.system.maxRange)}}</span>
                                         {{else if action.item.system.range}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
+                                            <span class="tag tag_secondary">{{localize (concat "PF2E.TraitRangeIncrement" action.item.system.range)}}</span>
                                         {{/if}}
                                     </div>
                                 </div>
@@ -114,131 +134,89 @@
                         {{/each}}
                     </ol>
 
-                    {{#each actor.actions as |section sid|}}
+                    {{#each actions.encounter as |section sid|}}
                         <h3 class="header">
                             {{section.label}}
                             {{#if @root.options.editable}}
                                 <div class="controls">
                                     <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
-                                        <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
+                                        <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                     </button>
                                     <button type="button" class="item-control action-browse" data-type="action" data-action-type="{{sid}}">
-                                        <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                                        <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                     </button>
                                 </div>
                             {{/if}}
                         </h3>
 
                         <ol class="actions-list item-list directory-list">
-                            {{#each section.actions as |action aid|}}
-                                {{#if action.encounter}}
-                                    <li class="item action" data-item-id="{{action._id}}">
-                                        <div class="item-name rollable">
-                                            <div class="item-image" style="background-image: url({{action.img}})">
-                                                <i class="fas fa-comment-alt"></i>
-                                            </div>
-                                            <h4>{{action.name}}</h4>
-                                            {{#if action.system.frequency}}
-                                                <div class="action-tracking">
-                                                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                                    <span>
-                                                        /
-                                                        {{action.system.frequency.max}}
-                                                        {{localize "PF2E.Frequency.per"}}
-                                                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                                                    </span>
-                                                </div>
-                                            {{/if}}
-                                        </div>
-                                        {{#if @root.options.editable}}
-                                            <div class="item-controls">
-                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
-                                                {{#unless action.feat}}
-                                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
-                                                {{/unless}}
-                                            </div>
-                                        {{/if}}
-                                    </li>
-                                {{/if}}
+                            {{#each section.actions as |action|}}
+                                {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                             {{/each}}
                         </ol>
                     {{/each}}
                 </div>
 
-                <div class="actions-panel" data-tab="exploration" data-group="actions-tabs">
+                <div class="actions-panel tab" data-tab="exploration" data-group="actions-tabs">
+                    {{!# Active exploration activities are only shown if one exists}}
+                    {{#if actions.exploration.active}}
+                        <h3 class="header">
+                            {{localize "PF2E.Actor.Character.ActiveHeader"}}
+                            {{#if @root.options.editable}}
+                                <div class="controls">
+                                    <button type="button" class="item-control" data-action="clear-exploration">
+                                        <i class="fa-solid fa-fw fa-times"></i>{{localize "PF2E.Actor.Character.Clear"}}
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </h3>
+
+                        <ol class="actions-list item-list directory-list">
+                            {{#each actions.exploration.active as |action|}}
+                                {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                            {{/each}}
+                        </ol>
+                    {{/if}}
+
                     <h3 class="header">
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
-                                    <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
+                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="exploration">
+                                    <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="exploration">
-                                    <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-trait="exploration">
+                                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>
                         {{/if}}
                     </h3>
 
                     <ol class="actions-list item-list directory-list">
-                        {{#each actor.actions.free.actions as |action aid|}}
-                            {{#if action.exploration}}
-                                <li class="action item" data-item-id="{{action._id}}">
-                                    <div class="item-name rollable">
-                                        <div class="item-image" style="background-image: url({{action.img}})">
-                                            <i class="fas fa-comment-alt"></i>
-                                        </div>
-                                        <h4>{{action.name}}</h4>
-                                    </div>
-                                    {{#if @root.options.editable}}
-                                        <div class="item-controls">
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
-                                            {{#unless action.feat}}
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
-                                            {{/unless}}
-                                        </div>
-                                    {{/if}}
-                                </li>
-                            {{/if}}
+                        {{#each actions.exploration.other as |action|}}
+                            {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                         {{/each}}
                     </ol>
                 </div>
 
-                <div class="actions-panel" data-tab="downtime" data-group="actions-tabs">
+                <div class="actions-panel tab" data-tab="downtime" data-group="actions-tabs">
                     <h3 class="header">
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free">
-                                    <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
+                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="downtime">
+                                    <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="action" data-action-type="passive" data-action-trait="downtime">
-                                    <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                                <button type="button" class="item-control action-browse" data-type="action" data-action-trait="downtime">
+                                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>
                         {{/if}}
                     </h3>
 
                     <ol class="actions-list item-list directory-list">
-                        {{#each actor.actions.free.actions as |action aid|}}
-                            {{#if action.downtime}}
-                                <li class="action item" data-item-id="{{action._id}}">
-                                    <div class="item-name rollable">
-                                        <div class="item-image" style="background-image: url({{action.img}})">
-                                            <i class="fas fa-comment-alt"></i>
-                                        </div>
-                                        <h4>{{action.name}}</h4>
-                                    </div>
-                                    {{#if @root.options.editable}}
-                                        <div class="item-controls">
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
-                                            {{#unless action.feat}}
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
-                                            {{/unless}}
-                                        </div>
-                                    {{/if}}
-                                </li>
-                            {{/if}}
+                        {{#each actions.downtime as |action aid|}}
+                            {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                         {{/each}}
                     </ol>
                 </div>
@@ -249,11 +227,15 @@
 
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
-        {{#each variants as |variant vi|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
+        {{#each variants as |variant index|}}
+            <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
-                {{#if (eq vi 0)}}<span class="activity-icon">{{../glyph}}</span>{{/if}}
+                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+            >
+                {{#if (eq index 0)}}
+                    <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                    <span class="action-glyph">{{../glyph}}</span>
+                {{/if}}
                 {{variant.label}}
             </button>
         {{/each}}
@@ -264,18 +246,23 @@
             <button type="button" class="tag damage" data-action="strike-critical"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
-        {{/if}}
-        {{#if ammunition}}
-            <select name="ammo-used"{{#if ammunition.selected}} data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
-                {{#select ammunition.selected.id}}
-                    <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                    {{#each ammunition.compatible as |ammo|}}
-                        <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
+            {{#if (and versatileOptions (not (eq item.altUsageType "thrown")))}}
+                <div class="versatile-options">
+                    {{#each versatileOptions as |option|}}
+                        <button
+                            type="button"
+                            class="damage color {{option.value}}{{#if option.selected}} selected{{/if}}"
+                            data-tooltip="{{localize option.label}}"
+                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                            value="{{option.value}}"
+                            data-action="toggle-versatile"
+                            {{disabled option.selected}}
+                        >
+                            <i class="fa-solid fa-{{option.glyph}} fa-fw icon"></i>
+                        </button>
                     {{/each}}
-                {{/select}}
-            </select>
+                </div>
+            {{/if}}
         {{/if}}
     </div>
 {{/inline}}
-
-<!-- ********** ACTIONS ************ -->

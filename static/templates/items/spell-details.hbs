@@ -10,17 +10,6 @@
         </select>
     </li>
 
-
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.SpellSchoolLabel"}}</label>
-        <select name="system.school.value">
-            {{#select data.school.value}}
-                {{#each magicSchools as |name school|}}
-                    <option value="{{school}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </li>
     <li class="form-group">
         <label class="short">{{localize "PF2E.SpellTraditionsLabel"}}</label>
         <input class="tags paizo-style" name="system.traditions.value" value="{{json data.traditions.value}}" data-dtype="JSON" />
@@ -222,7 +211,7 @@
 
 {{#unless data.heightening.type}}
     {{#if canHeighten}}
-        <button data-action="heightening-interval-create"><i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
+        <button type="button" data-action="heightening-interval-create"><i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
     {{/if}}
 {{/unless}}
 
@@ -261,14 +250,14 @@
         {{> systems/pf2e/templates/items/spell-overlay.hbs this=this}}
     {{/each}}
     {{#if canHeighten}}
-        <button data-action="heightening-fixed-create" data-overlay-type="heightening">
+        <button type="button" data-action="heightening-fixed-create" data-overlay-type="heightening">
             <i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
         </button>
     {{/if}}
 {{/unless}}
 
 <div class="form-group">
-    <label>{{localize "PF2E.Counteract"}}</label>
+    <label>{{localize "PF2E.Item.Spell.Counteract.Label"}}</label>
     <input type="checkbox" name="system.hasCounteractCheck.value" {{checked data.hasCounteractCheck.value}} />
 </div>
 {{#if (not isVariant)}}
@@ -283,7 +272,7 @@
         {{#each variants as |variant|}}
             <div class="variant" data-variant-id="{{variant.id}}">
                 <label>{{variant.name}}</label>
-                <span class="activity-icon">{{variant.actions}}</span>
+                <span class="action-glyph">{{variant.actions}}</span>
                 <div class="item-controls">
                     <a data-action="variant-edit" data-id="{{variant.id}}"><i class="fas fa-fw fa-edit"></i></a>
                     <a data-action="variant-delete" data-id="{{variant.id}}"><i class="fas fa-fw fa-trash"></i></a>

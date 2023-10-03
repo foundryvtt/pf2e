@@ -1,0 +1,44 @@
+{
+    "_id": "ihv1azg80N3kj7Vo",
+    "img": "systems/pf2e/icons/spells/lift-natures-caul.webp",
+    "name": "Spell Effect: Lift Nature's Caul (Bonus)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lift Nature's Caul]</em></p>\n<p>The creature gains a +1 status bonus to Will saving throws and attack rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "will"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #165: Eyes of Empty Death"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

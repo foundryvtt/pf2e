@@ -51,9 +51,10 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
     /**
      * Render a batch of additional messages, prepending them to the top of the log
-     * @param size     The batch size to include
+     * @param html The rendered jQuery HTML object
+     * @param size The batch size to include
      */
-    protected _renderBatch(size: number): Promise<void>;
+    protected _renderBatch(html: JQuery, size: number): Promise<void>;
 
     override renderPopout(original: TChatMessage): void;
 
@@ -138,11 +139,25 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
         createOptions: ChatMessageModificationContext
     ): Promise<void>;
 
+    protected _contextMenu(html: JQuery): void;
+
     /**
      * Get the ChatLog entry context options
      * @return The sidebar entry context options
      */
     protected override _getEntryContextOptions(): EntryContextOption[];
+
+    /**
+     * Handle scroll events within the chat log container
+     * @param event The initial scroll event
+     */
+    protected _onScrollLog(event: JQuery.TriggeredEvent): void;
+
+    /**
+     * Update roll mode select dropdowns when the setting is changed
+     * @param {string} mode     The new roll mode setting
+     */
+    static _setRollMode(mode: RollMode): void;
 }
 
 declare interface ChatLogOptions extends ApplicationOptions {

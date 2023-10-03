@@ -1,0 +1,45 @@
+{
+    "_id": "mzpLIuRQ81DCYdKU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Force Fang",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can turn your attack into an unerring blur of force. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Fang]</em> conflux spell.</p>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "focus pool"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

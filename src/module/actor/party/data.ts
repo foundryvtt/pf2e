@@ -2,10 +2,12 @@ import {
     ActorAttributes,
     ActorAttributesSource,
     ActorDetails,
+    ActorDetailsSource,
     ActorSystemData,
     ActorSystemSource,
     BaseActorSourcePF2e,
-} from "@actor/data/base";
+} from "@actor/data/base.ts";
+import { PartyCampaign } from "./types.ts";
 
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
 
@@ -13,6 +15,7 @@ interface PartySystemSource extends ActorSystemSource {
     attributes: PartyAttributesSource;
     details: PartyDetailsSource;
     traits?: never;
+    campaign?: PartyCampaignSource;
 }
 
 interface PartyAttributesSource extends ActorAttributesSource {
@@ -24,17 +27,23 @@ interface PartyAttributesSource extends ActorAttributesSource {
     resistances?: never;
 }
 
-interface PartyDetailsSource {
+interface PartyDetailsSource extends ActorDetailsSource {
     description: string;
-    level: {
-        value: number;
-    };
-    members: ActorUUID[];
+    members: MemberData[];
+    readonly alliance?: never;
+    readonly level?: never;
 }
 
-interface PartySystemData extends Omit<PartySystemSource, "attributes">, Omit<ActorSystemData, "traits"> {
+interface MemberData {
+    uuid: ActorUUID;
+}
+
+interface PartySystemData
+    extends Omit<PartySystemSource, "attributes" | "campaign" | "details">,
+        Omit<ActorSystemData, "traits"> {
     attributes: PartyAttributes;
     details: PartyDetails;
+    campaign: PartyCampaign;
 }
 
 interface PartyAttributes
@@ -43,8 +52,13 @@ interface PartyAttributes
     immunities: never[];
     weaknesses: never[];
     resistances: never[];
+    speed: { total: number };
 }
 
-interface PartyDetails extends PartyDetailsSource, ActorDetails {}
+interface PartyDetails extends Omit<PartyDetailsSource, "alliance" | "level">, ActorDetails {
+    level: { value: number };
+}
 
-export { PartySource, PartySystemData };
+type PartyCampaignSource = { type: string } & Record<string, unknown>;
+
+export type { MemberData, PartyCampaignSource, PartySource, PartySystemData };

@@ -12,6 +12,10 @@
     animation-iteration-count: infinite;
 }
 
+@mixin requires-user-attention {
+    animation: glow 0.75s infinite alternate;
+}
+
 @mixin rotate {
     animation: rotation 2s infinite linear;
 }
@@ -33,5 +37,6 @@
 
 @mixin quick-transition {
     $transitionTime: 0.15s;
-    transition: text-shadow $transitionTime ease-in-out, background-color $transitionTime ease-in-out, border $transitionTime ease-in-out, color $transitionTime ease-in-out, box-shadow $transitionTime ease-in-out;
+    transition: text-shadow $transitionTime ease-in-out, background-color $transitionTime ease-in-out,
+        border $transitionTime ease-in-out, color $transitionTime ease-in-out, box-shadow $transitionTime ease-in-out;
 }

@@ -1,0 +1,41 @@
+{
+    "_id": "JUgx48XHMz4QM4Ir",
+    "img": "systems/pf2e/icons/spells/clairvoyance.webp",
+    "name": "Effect: Tactical Debilitations (No Flanking)",
+    "system": {
+        "description": {
+            "value": "<p>The target can't flank or contribute to allies' flanking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

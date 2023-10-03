@@ -1,0 +1,54 @@
+{
+    "_id": "ZZzgqFTOtUgnzSLZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Monstrous Peacemaker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your dual human and orc nature has given you a unique perspective, allowing you to bridge the gap between humans and the many intelligent creatures in the world that humans consider monsters. You gain a +1 circumstance bonus to Diplomacy checks against non-humanoid intelligent creatures and against humanoids that are marginalized in human society (at the GM's discretion, but typically at least including giants, goblins, kobolds, and orcs). You also gain this bonus on Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive]{Sense the Motives} of such creatures.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "monstrous-peacemaker"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive",
+                    "monstrous-peacemaker"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "half-orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

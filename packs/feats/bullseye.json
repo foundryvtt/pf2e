@@ -1,0 +1,51 @@
+{
+    "_id": "0XGLdVbEIISOOuuO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bullseye",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You carefully take aim before making your attack in order to avoid your foe's concealment and cover.</p>\n<p>On your next Strike with a thrown weapon before the end of your turn, you gain a +1 circumstance bonus to your attack roll and ignore your target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition, as well as the target's lesser cover or standard cover; if the target had greater cover, they instead have only standard cover against the Strike.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "Use Bullseye",
+                "option": "bullseye",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bullseye"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

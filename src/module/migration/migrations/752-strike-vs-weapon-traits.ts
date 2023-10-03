@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { weaponTraits } from "@scripts/config/traits";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { weaponTraits } from "@scripts/config/traits.ts";
 import { objectHasKey } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Change several AdjustStrike rule elements to modify weapon traits rather than action traits */
 export class Migration752StrikeVsWeaponTraits extends MigrationBase {

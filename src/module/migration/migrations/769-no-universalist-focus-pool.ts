@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Exclude the Universalist wizard feature from receiving an initial focus pool */
 export class Migration769NoUniversalistFocusPool extends MigrationBase {

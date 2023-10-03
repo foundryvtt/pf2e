@@ -1,0 +1,78 @@
+{
+    "_id": "4MUbwilvb9dI0X59",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Snarecrafter Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to create a limited number of snares at no cost. Each day during your daily preparations, you can prepare four snares from your formula book for quick deployment; if they normally take 1 minute to @UUID[Compendium.pf2e.actionspf2e.Item.Craft], you can Craft them with 3 @UUID[Compendium.pf2e.actionspf2e.Item.Interact] actions. The number of snares increases to six if you're a master in Crafting and eight if you're legendary.</p>\n<p>Snares prepared in this way don't cost you any resources to Craft.</p>\n<hr />\n<p><strong>Special</strong> The feat counts as @UUID[Compendium.pf2e.feats-srd.Item.Snare Specialist] for the purpose of feat prerequisites. If you also have the Snare Specialist ranger feat, the @UUID[Compendium.pf2e.feats-srd.Item.Quick Snares] from both feats are cumulative. You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.G9Fzy5ZK4KtAmcFb]{Snarecrafter} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting"
+                },
+                {
+                    "value": "Snare Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:snare"
+                ],
+                "isDailyPrep": false,
+                "isPrepared": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.SpecificRule.DedicationCraftingEntry.Snarecrafter",
+                "selector": "snareCrafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "phase": "beforeDerived",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 4
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 6
+                        },
+                        {
+                            "start": 4,
+                            "value": 8
+                        }
+                    ],
+                    "field": "actor|system.skills.cra.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

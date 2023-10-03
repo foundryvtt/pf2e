@@ -1,0 +1,51 @@
+{
+    "_id": "NLjxAO9Mhx3k7gpc",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Winter's Embrace",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your eyes are accustomed to the harsh glare of the sun on snow and ice. You gain a +1 status bonus to saving throws against effects that inflict the @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] condition. Snow doesn't impair your vision; you ignore concealment from snowfall. Your skin becomes cold to the touch, and sometimes frost forms on you. You are protected from severe cold and heat.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "winters-embrace",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Winter's Embrace (Dazzled)",
+                "predicate": [
+                    "winters-embrace"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

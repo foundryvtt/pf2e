@@ -1,12 +1,12 @@
-import { MystifiedTraits } from "@item/data/values";
-import { HotbarPF2e } from "@module/apps/hotbar";
+import { MystifiedTraits } from "@item/data/values.ts";
+import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
-    ItemDirectoryPF2e,
     ChatLogPF2e,
     CompendiumDirectoryPF2e,
     EncounterTrackerPF2e,
-} from "@module/apps/sidebar";
+    ItemDirectoryPF2e,
+} from "@module/apps/sidebar/index.ts";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -15,15 +15,16 @@ import {
     TemplateLayerPF2e,
     TokenLayerPF2e,
     TokenPF2e,
-} from "@module/canvas";
-import { setPerceptionModes } from "@module/canvas/perception/modes";
-import { PF2ECONFIG } from "@scripts/config";
-import { registerHandlebarsHelpers } from "@scripts/handlebars";
-import { registerFonts } from "@scripts/register-fonts";
-import { registerKeybindings } from "@scripts/register-keybindings";
-import { registerTemplates } from "@scripts/register-templates";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { registerSettings } from "@system/settings";
+} from "@module/canvas/index.ts";
+import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { PF2ECONFIG } from "@scripts/config/index.ts";
+import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
+import { registerFonts } from "@scripts/register-fonts.ts";
+import { registerKeybindings } from "@scripts/register-keybindings.ts";
+import { registerTemplates } from "@scripts/register-templates.ts";
+import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
+import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 
 export const Init = {
@@ -80,7 +81,7 @@ export const Init = {
 
             // configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
-            CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat("systems/pf2e/styles/main.css");
+            CONFIG.TinyMCE.content_css.push("systems/pf2e/styles/pf2e.css");
             CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
                 title: "PF2E",
                 items: [
@@ -142,7 +143,14 @@ export const Init = {
 
             // Register custom enricher
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp("@(Check|Localize|Template)\\[([^\\]]+)\\](?:{([^}]+)})?", "g"),
+                pattern: new RegExp(/@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/, "g"),
+                enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
+            });
+
+            // Register damage enricher, which is more complicated and needs an extra level of nesting
+            // Derived from https://stackoverflow.com/questions/17759004/how-to-match-string-within-parentheses-nested-in-java/17759264#17759264
+            CONFIG.TextEditor.enrichers.push({
+                pattern: new RegExp(/@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/, "g"),
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
@@ -169,6 +177,11 @@ export const Init = {
                     element.setAttribute("disabled", "");
                 }
             }
+
+            game.pf2e.StatusEffects.initialize();
+
+            // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+            new HomebrewElements().onInit();
         });
     },
 };

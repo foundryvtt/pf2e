@@ -1,0 +1,51 @@
+{
+    "_id": "rvyeOU7TQTLnKj03",
+    "img": "systems/pf2e/icons/features/ancestry/treedweller-goblin.webp",
+    "name": "Effect: Reckless Abandon (Goblin)",
+    "system": {
+        "description": {
+            "value": "<p>For the remainder of your turn, if you roll a failure or critical failure on a saving throw against a harmful effect, you get a success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Goblin.RecklessAbandon.Note",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-success",
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

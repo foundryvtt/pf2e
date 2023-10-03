@@ -1,0 +1,47 @@
+{
+    "_id": "irSKPLF5oLfnqUNW",
+    "img": "systems/pf2e/icons/spells/moonlight-ray.webp",
+    "name": "Effect: Spotlight",
+    "system": {
+        "description": {
+            "value": "<p>The target gains a +2 status bonus to Performance checks and resistance 10 to mental damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #185: A Taste of Ashes"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

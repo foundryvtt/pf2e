@@ -1,0 +1,52 @@
+{
+    "_id": "VruIzuysxw4tY6rk",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expert Poisoner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] level for poison increases to your level -3.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Poisoner Dedication"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.poisoner.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:poisoner"
+                ],
+                "value": "@actor.level - 3"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

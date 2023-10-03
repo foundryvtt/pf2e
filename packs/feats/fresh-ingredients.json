@@ -1,0 +1,68 @@
+{
+    "_id": "cmuvvPJvt2R16vGe",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fresh Ingredients",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>When using @UUID[Compendium.pf2e.feats-srd.Item.Natural Medicine] to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can spend a batch of herbs to gain the +2 circumstance bonus from having fresh ingredients, even if not in wilderness. If you spend a batch of herbs in wilderness, you gain a +4 circumstance bonus instead.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Herbalist Dedication"
+                },
+                {
+                    "value": "expert in Nature"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Spend a batch of herbs in wilderness",
+                "predicate": [
+                    "action:treat-wounds",
+                    "natural-medicine",
+                    "terrain:wilderness"
+                ],
+                "selector": "nature",
+                "slug": "fresh-herbs-wild",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Spend a batch of herbs",
+                "predicate": [
+                    "action:treat-wounds",
+                    "natural-medicine"
+                ],
+                "selector": "nature",
+                "slug": "fresh-herbs",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

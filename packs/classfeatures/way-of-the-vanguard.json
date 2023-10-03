@@ -1,0 +1,55 @@
+{
+    "_id": "vB0yVFxJVZwalt2g",
+    "img": "systems/pf2e/icons/features/classes/way-of-the-vanguard.webp",
+    "name": "Way of the Vanguard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You practice a unique combat style originated by dwarven siege engineers, using heavy weapons with wide attack areas to blast holes through enemy lines, clear an opening for your allies, and defend the conquered territory.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Clear a Path]</p>\n<p><strong>Deeds</strong> <em>Initial </em>@UUID[Compendium.pf2e.actionspf2e.Item.Living Fortification]; <em>Advanced</em> @UUID[Compendium.pf2e.actionspf2e.Item.Spinning Crush]; <em>Greater</em> @UUID[Compendium.pf2e.actionspf2e.Item.Siegebreaker]</p>\n<p><strong>Way Skill</strong> Athletics</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Clear a Path"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Living Fortification"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

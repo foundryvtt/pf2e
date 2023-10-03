@@ -1,0 +1,158 @@
+{
+    "_id": "AnNKQvx9HlUXN4bD",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5cVXZomdIKW8IUEF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spew Toxins",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A visible living creature enters the room, or a Stealthy creature fails to remain @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from the toxic furnace with a @Check[type:stealth|dc:25] check (the trap's sensors have darkvision and lifesense);</p>\n<p><strong>Effect</strong> One of the toxic furnace's vents swivels to aim at the triggering creature and then spews a gout of boiling toxin at the target. The toxic furnace then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O4lMLz9DR4DwR9Uy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Boiling Toxin",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "damage": "2d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Toxic Furnace",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "Furnace BT 28, Vent Hardness 10, Vent HP 18 (BT 9)",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The smoking furnace begins to hiss and click, and its vents swivel and adjust to spew toxic fumes in the direction of intruders.</p>",
+            "disable": "<p>@Check[type:thievery|dc:25] (trained) to render one of the vents useless, or @Check[type:athletics|dc:25] to wrench and bend a vent until it no longer functions</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The trap resets after 1 minute, during which it sees no creatures to target.</p>",
+            "routine": "<p>(3 actions) The trap loses 1 action for each disabled vent. On each of the trap's actions, a vent spews a gout of boiling toxin at a living creature in sight of it. It can't target a single creature more than once per round, so if there aren't enough viable targets for all 3 actions, the trap loses those unspent actions.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "hkdP5tsTAoqJDR8v",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Triple Shot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can quickly fire multiple shots with greater control.</p>\n<p>When you use @UUID[Compendium.pf2e.feats-srd.Item.Double Shot], you can make the attacks against the same target. You can add an additional action to Double Shot to make three ranged Strikes instead of two. If you do, the penalty is -4. All attacks count toward your multiple attack penalty, but the penalty doesn't increase until after you've made all of them.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Double Shot"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "double-shot"
+                    }
+                ],
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "triple-shot",
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "double-shot",
+                    "triple-shot"
+                ],
+                "relabel": "{item|name}",
+                "selector": "ranged-attack-roll",
+                "slug": "double-shot",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

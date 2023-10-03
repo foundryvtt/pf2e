@@ -1,8 +1,23 @@
-import { FeatPF2e } from "@item/feat";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet";
+import {
+    activateActionSheetListeners,
+    createSelfEffectSheetData,
+    handleSelfEffectDrop,
+} from "@item/ability/helpers.ts";
+import { SelfEffectReference } from "@item/ability/index.ts";
+import { FeatPF2e } from "@item/feat/document.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { htmlQuery, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
+import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
+        };
+    }
+
     override get validTraits(): Record<string, string> {
         return CONFIG.PF2E.featTraits;
     }
@@ -20,39 +35,48 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
-            damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.system.prerequisites?.value ?? []),
             isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
+            canHaveKeyOptions: featCanHaveKeyOptions(this.item),
+            selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+        activateActionSheetListeners(this.item, html);
 
-        const prerequisites = html.querySelector<HTMLInputElement>('input[name="system.prerequisites.value"]');
+        const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {
-            new Tagify(prerequisites, {
-                editTags: 1,
-            });
+            new Tagify(prerequisites, { editTags: 1 });
         }
 
-        html.querySelector<HTMLAnchorElement>("a[data-action=frequency-add]")?.addEventListener("click", () => {
-            const per = CONFIG.PF2E.frequencies.day;
-            this.item.update({ system: { frequency: { max: 1, per } } });
-        });
+        const keyOptionsInput = htmlQuery<HTMLInputElement>(html, 'input[name="system.subfeatures.keyOptions"]');
+        tagify(keyOptionsInput, { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
+    }
 
-        html.querySelector("a[data-action=frequency-delete]")?.addEventListener("click", () => {
-            this.item.update({ "system.-=frequency": null });
-        });
+    override async _onDrop(event: ElementDragEvent): Promise<void> {
+        return handleSelfEffectDrop(this, event);
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // This will be here until we migrate feat prerequisites to be a list of strings
         if (Array.isArray(formData["system.prerequisites.value"])) {
             formData["system.prerequisites.value"] = formData["system.prerequisites.value"].map((value) => ({ value }));
+        }
+
+        // Keep feat data tidy
+        const keyOptionsKey = "system.subfeatures.keyOptions";
+        const hasEmptyKeyOptions = Array.isArray(formData[keyOptionsKey]) && formData[keyOptionsKey].length === 0;
+        const hasNoKeyOptions = !(keyOptionsKey in formData);
+        if (hasEmptyKeyOptions || hasNoKeyOptions) {
+            delete formData[keyOptionsKey];
+            if (this.item._source.system.subfeatures) {
+                formData["system.subfeatures.-=keyOptions"] = null;
+            }
         }
 
         return super._updateObject(event, formData);
@@ -64,11 +88,12 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
     prerequisites: string;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
+    canHaveKeyOptions: boolean;
+    selfEffect: SelfEffectReference | null;
 }
 
 export { FeatSheetPF2e };

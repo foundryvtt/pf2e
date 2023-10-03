@@ -1,0 +1,46 @@
+{
+    "_id": "dCCVqIcYrhCp3Bzl",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sound Mirror",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You twist not just the visual, but the auditory as well, allowing you to pass without a sound and create minor noises as distractions-perfect for misdirection and infiltration. You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em> on yourself as a 2nd-level innate occult spell and <em>@UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism]</em> as a 1st-level innate occult spell, both once per day. You also can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]</em> as an innate occult cantrip. You become trained in occult spell attack rolls and spell DCs, and your key spellcasting ability is Charisma.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Alter Ego Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "field": "actor|system.details.level.value",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.occult.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,105 @@
+{
+    "_id": "9onf3uGvZRnNLPR6",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Order Explorer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have learned the secrets of another druidic order, passing whatever rites of initiation that order requires and gaining access to its secrets. Choose an order other than your own. You gain a 1st-level feat that lists that order as a prerequisite, and you are now a member of that order for the purpose of meeting feat prerequisites. If you commit acts anathema to your new order, you lose all feats and abilities requiring that order but retain your other druid feats and abilities. You don't gain any of the other benefits of the order you chose.</p>\n<p><strong>Special</strong> You can take this feat multiple times. Each time you do, you must choose a different order other than your own.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:animal-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Animal Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:flame-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Flame Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:leaf-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Leaf Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:stone-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Stone Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:storm-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Storm Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:wave-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Wave Order"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feature:wild-order"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Wild Order"
+                    }
+                ],
+                "flag": "order",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt",
+                "rollOption": "feat:order-explorer"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.order}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

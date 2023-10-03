@@ -1,21 +1,10 @@
-export type PartialSettingsData = Omit<SettingRegistration, "scope" | "config">;
-
-interface SettingsTemplateData extends PartialSettingsData {
-    key: string;
-    value: unknown;
-    isSelect: boolean;
-    isCheckbox: boolean;
-}
-
-interface MenuTemplateData extends FormApplicationData {
-    settings: Record<string, SettingsTemplateData>;
-}
+import { htmlClosest, htmlQuery } from "@util";
 
 abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
     cache: Record<string, unknown> = {};
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
@@ -70,6 +59,21 @@ abstract class SettingsMenuPF2e extends FormApplication {
         });
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        const html = $html[0];
+
+        const { highlightSetting } = this.options;
+        if (highlightSetting) {
+            const formGroup = htmlClosest(htmlQuery(html, `label[for="${highlightSetting}"]`), ".form-group");
+            if (formGroup) formGroup.style.animation = "glow 0.75s infinite alternate";
+        }
+    }
+
     protected override async _updateObject(event: Event, data: Record<string, unknown>): Promise<void> {
         for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
             const settingKey = `${this.prefix}${key}`;
@@ -101,6 +105,24 @@ abstract class SettingsMenuPF2e extends FormApplication {
 
 interface SettingsMenuPF2e extends FormApplication {
     constructor: typeof SettingsMenuPF2e;
+    options: SettingsMenuOptions;
+}
+
+type PartialSettingsData = Omit<SettingRegistration, "scope" | "config">;
+
+interface SettingsTemplateData extends PartialSettingsData {
+    key: string;
+    value: unknown;
+    isSelect: boolean;
+    isCheckbox: boolean;
+}
+
+interface MenuTemplateData extends FormApplicationData {
+    settings: Record<string, SettingsTemplateData>;
+}
+
+interface SettingsMenuOptions extends FormApplicationOptions {
+    highlightSetting?: string;
 }
 
 function settingsToSheetData(
@@ -124,4 +146,5 @@ function settingsToSheetData(
     }, {});
 }
 
-export { MenuTemplateData, SettingsMenuPF2e, SettingsTemplateData, settingsToSheetData };
+export { SettingsMenuPF2e, settingsToSheetData };
+export type { MenuTemplateData, PartialSettingsData, SettingsMenuOptions, SettingsTemplateData };

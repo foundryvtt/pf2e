@@ -1,0 +1,42 @@
+{
+    "_id": "e1XGnhKNSQIm5IXg",
+    "img": "systems/pf2e/icons/conditions/stupefied.webp",
+    "name": "Stupefied",
+    "system": {
+        "description": {
+            "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these ability scores. Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": "abilities",
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "cha-based",
+                    "int-based",
+                    "wis-based"
+                ],
+                "slug": "stupefied",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": true,
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

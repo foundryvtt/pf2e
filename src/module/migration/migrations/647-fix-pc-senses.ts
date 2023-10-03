@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Fix PC `senses` properties, misshapen by some mysterious source */
 export class Migration647FixPCSenses extends MigrationBase {

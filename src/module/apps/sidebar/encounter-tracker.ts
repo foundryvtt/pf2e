@@ -1,12 +1,61 @@
-import { combatantAndTokenDoc } from "@module/doc-helpers";
-import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll, localizeList } from "@util";
+import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
+import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlQuery,
+    htmlQueryAll,
+    localizeList,
+    localizer,
+    parseHTML,
+} from "@util";
 import Sortable, { SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
-    sortable!: Sortable;
+    declare sortable: Sortable;
+
+    /** Show encounter analysis data if obtainable */
+    protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
+        const $html = await super._renderInner(data, options);
+        if (!game.user.isGM) return $html;
+        const metrics = this.viewed?.metrics;
+        if (!metrics) return $html;
+
+        const localize = localizer("PF2E.Encounter.Metrics");
+        const threat = ((): { label: string; tooltip: string } => {
+            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
+            const tooltip = localize("Budget", metrics.budget);
+            const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
+            TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
+            return { label: tempContainer.innerHTML, tooltip };
+        })();
+
+        const award = ((): { label: string; tooltip: string } => {
+            const label = localize("Award.Label", { xp: metrics.award.xp });
+            const numRecipients = metrics.award.recipients.length;
+            const tooltip = localize(
+                numRecipients === 1
+                    ? "Award.Tooltip.Singular"
+                    : numRecipients === 4
+                    ? "Award.Tooltip.Four"
+                    : "Award.Tooltip.Plural",
+                { xpPerFour: metrics.budget.spent, recipients: numRecipients }
+            );
+            return { label, tooltip };
+        })();
+
+        const threatAward = parseHTML(
+            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", { threat, award })
+        );
+        const html = $html[0];
+        htmlQuery(html, "nav.encounters")?.after(threatAward);
+
+        return $(html);
+    }
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
@@ -227,7 +276,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const isTargeted = Array.from(game.user.targets).some((t) => t.document === tokenDoc);
         if (!tokenDoc.object?.visible) {
-            return ui.notifications.warn("COMBAT.PingInvisibleToken", { localize: true });
+            ui.notifications.warn("COMBAT.PingInvisibleToken", { localize: true });
+            return;
         }
 
         tokenDoc.object.setTarget(!isTargeted, { releaseOthers: !event?.shiftKey });

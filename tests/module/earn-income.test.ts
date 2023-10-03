@@ -1,5 +1,5 @@
-import { calculateDC, earnIncome } from "@scripts/macros/earn-income/calculate";
-import { DegreeOfSuccess } from "@system/degree-of-success";
+import { calculateDC, earnIncome } from "@scripts/macros/earn-income/calculate.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 
 const options = {
     useLoreAsExperiencedProfessional: false,

@@ -1,0 +1,91 @@
+{
+    "_id": "AimSmPyiMhJZVZRq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Mauler Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You specialize in weapons that require two hands. You become trained in all simple and martial melee weapons that require two hands to wield or have the two-hand trait.</p>\n<p>Whenever you gain a class feature that grants you expert or greater proficiency in weapons, you also gain that proficiency rank in these weapons. If you are at least an expert in such a weapon, you gain access to the critical specialization effect with that weapon.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.RoF5NOFBefXAPftS]{Mauler} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:melee",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:trait:two-hand-d6",
+                            "item:trait:two-hand-d8",
+                            "item:trait:two-hand-d10",
+                            "item:trait:two-hand-d12"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-two-hand-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:trait:two-hand-d6",
+                            "item:trait:two-hand-d8",
+                            "item:trait:two-hand-d10",
+                            "item:trait:two-hand-d12"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

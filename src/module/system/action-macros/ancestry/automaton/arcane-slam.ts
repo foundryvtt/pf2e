@@ -1,10 +1,10 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../..";
-import { RollNotePF2e } from "@module/notes";
-import { PredicatePF2e } from "@system/predication";
+import { ActionMacroHelpers, SkillActionOptions } from "../../index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { CreaturePF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
-export function arcaneSlam(options: SkillActionOptions) {
+export function arcaneSlam(options: SkillActionOptions): void {
     const { actor: target, token } = ActionMacroHelpers.target();
     const slug = options?.skill ?? "acrobatics";
     const rollOptions = ["action:arcane-slam"];
@@ -21,7 +21,7 @@ export function arcaneSlam(options: SkillActionOptions) {
                 const sizeModifier = new ModifierPF2e(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",
                     Math.clamped(2 * sizeDifference, -4, 4),
-                    MODIFIER_TYPE.CIRCUMSTANCE
+                    "circumstance"
                 );
                 if (sizeModifier.modifier) {
                     modifiers.push(sizeModifier);
@@ -32,8 +32,7 @@ export function arcaneSlam(options: SkillActionOptions) {
         traits: ["automaton"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.fortitude,
+        difficultyClass: options.difficultyClass ?? "fortitude",
         extraNotes: (selector: string) => {
             const notes = [
                 ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalSuccess"),
@@ -55,5 +54,8 @@ export function arcaneSlam(options: SkillActionOptions) {
             return notes;
         },
         target: () => (target && token ? { actor: target, token } : null),
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

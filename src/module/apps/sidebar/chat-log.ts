@@ -1,55 +1,48 @@
 import { ActorPF2e } from "@actor";
+import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
 import { ArmorPF2e } from "@item";
-import { TokenPF2e } from "@module/canvas";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { applyDamageFromMessage } from "@module/chat-message/helpers";
-import { CombatantPF2e } from "@module/encounter";
-import { CheckPF2e } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
+import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { CombatantPF2e } from "@module/encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene";
+import { CheckPF2e } from "@system/check/index.ts";
+import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
 
-export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
-    /** Replace parent method in order to use DamageRoll class as needed */
-    protected override async _processDiceCommand(
-        command: string,
-        matches: RegExpMatchArray[],
-        chatData: DeepPartial<foundry.documents.ChatMessageSource>,
-        createOptions: ChatMessageModificationContext
-    ): Promise<void> {
-        const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
-        const rollData = actor ? actor.getRollData() : {};
-        const rolls: Rolled<Roll>[] = [];
-        for (const match of matches.filter((m) => !!m)) {
-            const [formula, flavor] = match.slice(2, 4);
-            if (flavor && !chatData.flavor) chatData.flavor = flavor;
-            const RollCls = formula.includes("d20") || /[0-9]dc\b/.test(formula) ? Roll : DamageRoll;
-            const roll = await new RollCls(formula, rollData).evaluate({ async: true });
-            rolls.push(roll);
-        }
-        chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
-        chatData.rolls = rolls.map((r) => r.toJSON());
-        chatData.sound = CONFIG.sounds.dice;
-        chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
-        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "roll";
-    }
+class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
 
-        html.addEventListener("click", (event): void => {
-            const target = event.target;
-            if (!(target instanceof HTMLElement)) return;
-            const messageEl = htmlClosest<HTMLLIElement>(target, "li.chat-message");
-            if (!messageEl) return;
-            const message = game.messages.get(messageEl.dataset.messageId ?? "");
+        this.activateClickListener(html);
+
+        html.addEventListener("dblclick", async (event): Promise<void> => {
+            const { message } = ChatLogPF2e.#messageFromEvent(event);
+            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            if (senderEl && message) return this.#onClickSender(message, event);
+        });
+    }
+
+    /** Separate public method so as to be accessible from renderChatPopout hook */
+    activateClickListener(html: HTMLElement): void {
+        html.addEventListener("click", async (event): Promise<void> => {
+            const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
+
+            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            if (senderEl && message) return this.#onClickSender(message, event);
 
             if (message?.isDamageRoll) {
-                const button = htmlClosest(target, "button");
+                const button = htmlClosest(event.target, "button");
                 if (!button) return;
 
                 if (button.classList.contains("shield-block")) {
-                    return this.#handleShieldButtonClick(button, messageEl);
+                    return this.#onClickShieldBlock(button, messageEl);
                 }
                 const buttonClasses = [
                     "heal-damage",
@@ -61,14 +54,74 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 for (const cssClass of buttonClasses) {
                     if (button.classList.contains(cssClass)) {
                         const index = htmlClosest(button, ".damage-application")?.dataset.rollIndex;
-                        return this.#handleDamageButtonClick(message, cssClass, event.shiftKey, index);
+                        return this.#onClickDamageButton(message, cssClass, event.shiftKey, index);
                     }
                 }
+            }
+
+            const revertDamageButton = htmlClosest(event.target, "button[data-action=revert-damage]");
+            if (revertDamageButton) {
+                const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
+                if (appliedDamageFlag) {
+                    const reverted = await this.#onClickRevertDamage(appliedDamageFlag);
+                    if (reverted) {
+                        htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
+                        revertDamageButton.remove();
+                        await message.update({
+                            "flags.pf2e.appliedDamage.isReverted": true,
+                            content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
+                        });
+                    }
+                }
+            }
+
+            // Handle any kingdom events if this message contains any
+            if (message && messageEl) {
+                handleKingdomChatMessageEvents({ event, message, messageEl });
             }
         });
     }
 
-    #handleDamageButtonClick(
+    /** Replace parent method in order to use DamageRoll class as needed */
+    protected override async _processDiceCommand(
+        command: string,
+        matches: RegExpMatchArray[],
+        chatData: PreCreate<Omit<ChatMessagePF2e["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
+        createOptions: ChatMessageModificationContext
+    ): Promise<void> {
+        const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
+        const rollData = actor?.getRollData() ?? {};
+        const rolls: Rolled<Roll>[] = [];
+        for (const match of matches.filter((m) => !!m)) {
+            const [formula, flavor] = match.slice(2, 4);
+            if (flavor && !chatData.flavor) chatData.flavor = flavor;
+            const roll = ((): Roll => {
+                try {
+                    const damageRoll = new DamageRoll(formula, rollData);
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll : new Roll(formula, rollData);
+                } catch {
+                    return new Roll(formula, rollData);
+                }
+            })();
+            rolls.push(await roll.evaluate({ async: true }));
+        }
+        chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
+        chatData.rolls = rolls.map((r) => r.toJSON());
+        chatData.sound = CONFIG.sounds.dice;
+        chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
+        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "roll";
+    }
+
+    static #messageFromEvent(
+        event: Event
+    ): { element: HTMLLIElement; message: ChatMessagePF2e } | { element: null; message: null } {
+        const element = htmlClosest<HTMLLIElement>(event.target, "li[data-message-id]");
+        const messageId = element?.dataset.messageId ?? "";
+        const message = game.messages.get(messageId);
+        return element && message ? { element, message } : { element: null, message: null };
+    }
+
+    #onClickDamageButton(
         message: ChatMessagePF2e,
         cssClass: DamageButtonClass,
         shiftKey: boolean,
@@ -98,7 +151,27 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         });
     }
 
-    #handleShieldButtonClick(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
+    async #onClickRevertDamage(flag: AppliedDamageFlag): Promise<boolean> {
+        const actorOrToken = fromUuidSync(flag.uuid);
+        const actor =
+            actorOrToken instanceof ActorPF2e
+                ? actorOrToken
+                : actorOrToken instanceof TokenDocumentPF2e
+                ? actorOrToken.actor
+                : null;
+        if (actor) {
+            await actor.undoDamage(flag);
+            ui.notifications.info(
+                game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
+                    actor: actor.name,
+                })
+            );
+            return true;
+        }
+        return false;
+    }
+
+    #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
         const getTokens = (): TokenPF2e[] => {
             const tokens = canvas.tokens.controlled.filter((token) => token.actor);
             if (!tokens.length) {
@@ -180,11 +253,11 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                                 const shieldName = document.createElement("span");
                                 shieldName.classList.add("label");
                                 shieldName.innerHTML = shield.name;
+
                                 const hardness = document.createElement("span");
                                 hardness.classList.add("tag");
-                                hardness.innerHTML = `${game.i18n.localize("PF2E.ShieldHardnessLabel")}: ${
-                                    shield.hardness
-                                }`;
+                                const hardnessLabel = game.i18n.localize("PF2E.ShieldHardnessLabel");
+                                hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
                                 const itemLi = document.createElement("li");
                                 itemLi.classList.add("item");
                                 itemLi.append(input, shieldName, hardness);
@@ -196,6 +269,19 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     },
                 })
                 .tooltipster("open");
+        }
+    }
+
+    #onClickSender(message: ChatMessagePF2e, event: MouseEvent): void {
+        if (!canvas) return;
+        const token = message.token?.object;
+        if (token?.isVisible && token.isOwner) {
+            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            // If a double click, also pan to the token
+            if (event.type === "dblclick") {
+                const scale = Math.max(1, canvas.stage.scale.x);
+                canvas.animatePan({ ...token.center, scale, duration: 1000 });
+            }
         }
     }
 
@@ -226,7 +312,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const actor = message.actor;
+            const { actor } = message;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
@@ -337,21 +423,21 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepWorst",
+                name: "PF2E.RerollMenu.KeepLower",
                 icon: fontAwesomeIcon("dice-one").outerHTML,
                 condition: canReroll,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "worst" });
+                    CheckPF2e.rerollFromMessage(message, { keep: "lower" });
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepBest",
+                name: "PF2E.RerollMenu.KeepHigher",
                 icon: fontAwesomeIcon("dice-six").outerHTML,
                 condition: canReroll,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "best" });
+                    CheckPF2e.rerollFromMessage(message, { keep: "higher" });
                 },
             }
         );
@@ -361,3 +447,5 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 }
 
 type DamageButtonClass = "heal-damage" | "half-damage" | "full-damage" | "double-damage" | "triple-damage";
+
+export { ChatLogPF2e };

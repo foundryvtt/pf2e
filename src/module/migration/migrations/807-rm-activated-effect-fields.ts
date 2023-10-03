@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove properties from unused "activatedEffect" template defaults */
 export class Migration807RMActivatedEffectFields extends MigrationBase {

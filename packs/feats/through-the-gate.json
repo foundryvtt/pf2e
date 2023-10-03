@@ -1,0 +1,106 @@
+{
+    "_id": "6tDIVv2gafdO6GV4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Through the Gate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a 1st- or 2nd-level kineticist feat of your choice. Your options include impulse feats for your kinetic element, as normal for a kineticist.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Kineticist Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:kineticist",
+                        {
+                            "or": [
+                                {
+                                    "not": "item:trait:impulse"
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:air",
+                                        "kinetic-gate:air"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "throughTheGate",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.throughTheGate}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

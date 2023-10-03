@@ -1,0 +1,42 @@
+{
+    "_id": "1N28rGPbAl2IkGUf",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/slime-whip.webp",
+    "name": "Effect: Slime Whip",
+    "system": {
+        "description": {
+            "value": "<p>For 1 round, the slime whip deals acid damage rather than slashing damage. If the attack deals persistent damage, the persistent damage is also acid damage instead of its usual type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "acid"
+                },
+                "selector": "slime-whip-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Slithering"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

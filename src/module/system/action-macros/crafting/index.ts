@@ -1,2 +1,2 @@
-export { craft } from "./craft";
-export { repair } from "./repair";
+export { craft } from "./craft.ts";
+export { repair } from "./repair.ts";

@@ -1,7 +1,7 @@
-import { SlugField } from "@system/schema-data-fields";
-import { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.mjs";
-import { ItemAlterationField } from "../alter-item";
-import { RuleElementSchema } from "../data";
+import type { SlugField } from "@system/schema-data-fields.ts";
+import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { RuleElementSchema } from "../data.ts";
+import type { ItemAlteration } from "../item-alteration/alteration.ts";
 
 type GrantItemSchema = RuleElementSchema & {
     /** The UUID of the item to grant: must be a compendium or world item */
@@ -12,10 +12,15 @@ type GrantItemSchema = RuleElementSchema & {
     replaceSelf: BooleanField<boolean, boolean, false, false, true>;
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: BooleanField<boolean, boolean, false, false, true>;
+    /**
+     * Instead of creating a new item in the actor's embedded collection, add a "virtual" one. Usable only with
+     * conditions
+     */
+    inMemoryOnly: BooleanField<boolean, boolean, false, false, true>;
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     allowDuplicate: BooleanField<boolean, boolean, false, false, true>;
     /** A list of alterations to make on the item before granting it */
-    alterations: ArrayField<ItemAlterationField>;
+    alterations: ArrayField<EmbeddedDataField<ItemAlteration>>;
     /**
      * Track a granted physical item from roll options: the sluggified `flag` will serve as a prefix for item roll
      * options, which are added to the `all` domain.
@@ -23,4 +28,4 @@ type GrantItemSchema = RuleElementSchema & {
     track: BooleanField<boolean, boolean, false, false, false>;
 };
 
-export { GrantItemSchema };
+export type { GrantItemSchema };

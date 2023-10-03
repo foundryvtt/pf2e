@@ -1,80 +1,79 @@
-declare module foundry {
-    module documents {
-        /** The MeasuredTemplate embedded document model. */
-        class BaseMeasuredTemplate<TParent extends BaseScene | null> extends abstract.Document<TParent> {
-            static override get metadata(): MeasuredTemplateMetadata;
+import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type { BaseScene, BaseUser } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
-            readonly t: MeasuredTemplateType;
-            width: number;
-            distance: number;
-            direction: number;
+/**
+ * The data schema for a MeasuredTemplate embedded document.
+ * @see BaseMeasuredTemplate
+ *
+ * @param data                   Initial data used to construct the data object
+ * @param [document] The embedded document to which this data object belongs
+ */
+export default class BaseMeasuredTemplate<TParent extends BaseScene | null> extends Document<
+    TParent,
+    MeasuredTemplateSchema
+> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
 
-            override testUserPermission(
-                user: documents.BaseUser,
-                permission: DocumentOwnershipString | DocumentOwnershipLevel,
-                { exact }?: { exact?: boolean }
-            ): boolean;
+    static override get metadata(): MeasuredTemplateMetadata;
 
-            /** Is a user able to update or delete an existing MeasuredTemplate? */
-            protected static _canModify(
-                user: BaseUser,
-                doc: BaseMeasuredTemplate<BaseScene | null>,
-                data: MeasuredTemplateSource
-            ): boolean;
-        }
+    static override defineSchema(): MeasuredTemplateSchema;
 
-        interface BaseMeasuredTemplate<TParent extends BaseScene | null>
-            extends abstract.Document<TParent>,
-                MeasuredTemplateSource {
-            readonly _source: MeasuredTemplateSource;
-        }
+    /* -------------------------------------------- */
+    /*  Model Methods                               */
+    /* -------------------------------------------- */
 
-        /**
-         * The data schema for a MeasuredTemplate embedded document.
-         * @see BaseMeasuredTemplate
-         *
-         * @param data                   Initial data used to construct the data object
-         * @param [document] The embedded document to which this data object belongs
-         *
-         * @property _id                   The _id which uniquely identifies this BaseMeasuredTemplate embedded document
-         * @property [t=circle]            The value in CONST.MEASURED_TEMPLATE_TYPES which defines the geometry type of this template
-         * @property [x=0]                 The x-coordinate position of the origin of the template effect
-         * @property [y=0]                 The y-coordinate position of the origin of the template effect
-         * @property [distance]            The distance of the template effect
-         * @property [direction=0]         The angle of rotation for the measured template
-         * @property [angle=360]           The angle of effect of the measured template, applies to cone types
-         * @property [width]               The width of the measured template, applies to ray types
-         * @property [borderColor=#000000] A color string used to tint the border of the template shape
-         * @property [fillColor=#FF0000]   A color string used to tint the fill of the template shape
-         * @property [texture]             A repeatable tiling texture used to add a texture fill to the template shape
-         * @property [flags={}]            An object of optional key/value flags
-         */
-        interface MeasuredTemplateSource {
-            _id: string | null;
-            user: string;
-            t: MeasuredTemplateType;
-            x: number;
-            y: number;
-            distance: number;
-            direction: number;
-            angle: number;
-            width: number;
-            borderColor: HexColorString;
-            fillColor: HexColorString;
-            texture: ImageFilePath;
-            flags: DocumentFlags;
-        }
-
-        interface MeasuredTemplateMetadata extends abstract.DocumentMetadata {
-            name: "MeasuredTemplate";
-            collection: "templates";
-            label: "DOCUMENT.MeasuredTemplate";
-            isEmbedded: true;
-            permissions: {
-                create: "TEMPLATE_CREATE";
-                update: (typeof BaseMeasuredTemplate)["_canModify"];
-                delete: (typeof BaseMeasuredTemplate)["_canModify"];
-            };
-        }
-    }
+    override testUserPermission(
+        user: BaseUser,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean }
+    ): boolean;
 }
+
+export default interface BaseMeasuredTemplate<TParent extends BaseScene | null>
+    extends Document<TParent, MeasuredTemplateSchema>,
+        ModelPropsFromSchema<MeasuredTemplateSchema> {
+    readonly _source: SourceFromSchema<MeasuredTemplateSchema>;
+}
+
+interface MeasuredTemplateMetadata extends DocumentMetadata {
+    name: "MeasuredTemplate";
+    collection: "templates";
+    label: "DOCUMENT.MeasuredTemplate";
+    isEmbedded: true;
+}
+
+type MeasuredTemplateSchema = {
+    /** The _id which uniquely identifies this BaseMeasuredTemplate embedded document */
+    _id: fields.DocumentIdField;
+    /** The _id of the user who created this measured template */
+    user: fields.ForeignDocumentField<BaseUser>;
+    /** The value in CONST.MEASURED_TEMPLATE_TYPES which defines the geometry type of this template */
+    t: fields.StringField<MeasuredTemplateType, MeasuredTemplateType, true>;
+    /** The x-coordinate position of the origin of the template effect */
+    x: fields.NumberField<number, number, true, false>;
+    /** The y-coordinate position of the origin of the template effect */
+    y: fields.NumberField<number, number, true, false>;
+    /** The distance of the template effect */
+    distance: fields.NumberField<number, number, true>;
+    /** The angle of rotation for the measured template */
+    direction: fields.AngleField;
+    /** The angle of effect of the measured template, applies to cone types */
+    angle: fields.AngleField;
+    /** The width of the measured template, applies to ray types */
+    width: fields.NumberField;
+    /** A color string used to tint the border of the template shape */
+    borderColor: fields.ColorField;
+    /** A color string used to tint the fill of the template shape */
+    fillColor: fields.ColorField;
+    /** A repeatable tiling texture used to add a texture fill to the template shape */
+    texture: fields.FilePathField<ImageFilePath | VideoFilePath>;
+    /** Is the template currently hidden? */
+    hidden: fields.BooleanField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+type MeasuredTemplateSource = SourceFromSchema<MeasuredTemplateSchema>;

@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 import { isObject, sluggify } from "@util";
-import { RuleElementSource } from "@module/rules";
-import { PredicateStatement } from "@system/predication";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { PredicateStatement } from "@system/predication.ts";
 
 /** Remove bulwark armor rule elements */
 export class Migration673RemoveBulwarkREs extends MigrationBase {

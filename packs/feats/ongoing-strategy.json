@@ -1,0 +1,84 @@
+{
+    "_id": "CAk1NNG4aO0VuHnZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ongoing Strategy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're constantly studying small aspects of everyone's movements, even if you don't have a stratagem in place ahead of time.</p>\n<p>On any Strike for which you didn't @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "strategic strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "agile",
+                            "finesse",
+                            "ranged",
+                            "feat:takedown-expert"
+                        ]
+                    },
+                    {
+                        "not": "devise-a-stratagem"
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 2
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": 3
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": 4
+                        },
+                        {
+                            "start": 17,
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,4 +1,4 @@
-import { EquippedData } from "./data";
+import { EquippedData } from "./data.ts";
 
 interface HeldUsage {
     value: string;
@@ -13,12 +13,20 @@ interface WornUsage {
     hands?: 0;
 }
 
-export type UsageDetails = HeldUsage | WornUsage;
+interface CarriedUsage {
+    value: "carried";
+    type: "carried";
+    hands?: 0;
+}
 
-export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
-    if (usage.type !== equipped.carryType) {
-        return false;
-    }
+type UsageDetails = HeldUsage | WornUsage | CarriedUsage;
+
+type UsageType = UsageDetails["type"];
+
+function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
+    if (equipped.carryType === "dropped") return false;
+    if (usage.type === "carried") return true;
+    if (usage.type !== equipped.carryType) return false;
 
     if (usage.type === "worn" && usage.where && !equipped.inSlot) {
         return false;
@@ -29,8 +37,12 @@ export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean
     return true;
 }
 
-export function getUsageDetails(usage: string): UsageDetails {
+function getUsageDetails(usage: string): UsageDetails {
     switch (usage) {
+        case "carried":
+        case "":
+            return { value: "carried", type: "carried" };
+
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
             return { value: usage, type: "held", hands: 1 };
@@ -38,8 +50,6 @@ export function getUsageDetails(usage: string): UsageDetails {
             return { value: usage, type: "held", hands: 2 };
 
         case "worn":
-        case "worn-under-armor":
-        case "other":
             return { value: usage, type: "worn" };
 
         case "wornarmor":
@@ -72,60 +82,14 @@ export function getUsageDetails(usage: string): UsageDetails {
         case "wornsaddle":
         case "wornwrist":
             return { value: usage, type: "worn", where: usage.substring(4) };
-
-        // all of these are treated as "equipped" if they are attached to another item which is
-        // for now, just treat these as "worn"
-        case "worn-and-attached-to-two-weapons":
-        case "affixed-to-armor":
-        case "affixed-to-armor-or-travelers-clothing":
-        case "affixed-to-armor-or-a-weapon":
-        case "affixed-to-headgear":
-        case "affixed-to-weapon":
-        case "affixed-to-a-ranged-weapon":
-        case "affixed-to-a-shield":
-        case "affixed-to-crossbow-or-firearm":
-        case "affixed-to-firearm":
-        case "affixed-to-firearm-with-a-reload-of-1":
-        case "affixed-to-firearm-with-the-kickback-trait":
-        case "affixed-to-a-two-handed-firearm-or-crossbow":
-        case "applied-to-a-wind-powered-vehicle":
-        case "applied-to-any-item-of-light-or-negligible-bulk":
-        case "applied-to-any-visible-article-of-clothing":
-        case "applied-to-belt-cape-cloak-or-scarf":
-        case "applied-to-boots-cape-cloak-or-umbrella":
-        case "applied-to-dueling-cape-or-shield":
-        case "applied-to-shield":
-        case "attached-to-crossbow-or-firearm":
-        case "attached-to-crossbow-or-firearm-scope":
-        case "attached-to-crossbow-or-firearm-firing-mechanism":
-        case "attached-to-firearm":
-        case "attached-to-firearm-scope":
-        case "attached-to-a-thrown-weapon":
-        case "bonded":
-        case "each-rune-applied-to-a-separate-item-that-has-pockets":
-        case "tattooed-on-the-body":
-        case "etched-onto-armor":
-        case "etched-onto-light-armor":
-        case "etched-onto-med-heavy-armor":
-        case "etched-onto-lm-nonmetal-armor":
-        case "etched-onto-a-weapon":
-        case "etched-onto-thrown-weapon":
-        case "etched-onto-melee-weapon":
-        case "etched-onto-slashing-melee-weapon":
-        case "etched-onto-piercing-or-slashing-melee-weapon":
-        case "etched-onto-clan-dagger":
-        case "etched-onto-weapon-wo-anarchic-rune":
-        case "etched-onto-weapon-wo-axiomatic-rune":
-        case "etched-onto-weapon-wo-unholy-rune":
-        case "etched-onto-weapon-wo-holy-rune":
-        case "sewn-into-clothing":
-        case "":
-            return { value: usage, type: "worn" };
     }
 
-    if (BUILD_MODE === "development") {
+    if (BUILD_MODE === "development" && !(usage in CONFIG.PF2E.usages)) {
         console.warn(`PF2E System | Unknown usage: [${usage}]`);
     }
 
-    return { value: usage, type: "worn", where: null };
+    return { value: usage, type: "worn" };
 }
+
+export { getUsageDetails, isEquipped };
+export type { UsageDetails, UsageType };

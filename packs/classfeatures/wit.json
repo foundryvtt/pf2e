@@ -1,0 +1,95 @@
+{
+    "_id": "4lGhbEjlEoGP4scl",
+    "img": "systems/pf2e/icons/features/classes/wit-style.webp",
+    "name": "Wit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You are friendly, clever, and full of humor, always knowing just what to say in any situation. Your witticisms leave foes unprepared for the skill and speed of your attacks.</p>\n<p>You are trained in Diplomacy and gain the @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot] skill feat. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "action:bon-mot"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Bon Mot"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:bon-mot",
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "diplomacy",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Wit",
+                "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

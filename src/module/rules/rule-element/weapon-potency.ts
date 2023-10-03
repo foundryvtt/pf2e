@@ -1,22 +1,24 @@
-import { ActorPF2e } from "@actor";
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { ActorType } from "@actor/data";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
-import { PotencySynthetic } from "../synthetics";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { PotencySynthetic } from "../synthetics.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
  * @category RuleElement
  */
-export class WeaponPotencyRuleElement extends RuleElementPF2e {
+class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    selector: string;
-
-    constructor(data: WeaponPotencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-        this.selector = String(data.selector);
+    static override defineSchema(): WeaponPotencyRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, nullable: false, blank: false }),
+            value: new ResolvableValueField({ required: true }),
+        };
     }
 
     override beforePrepareData(): void {
@@ -25,12 +27,12 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
         const { weaponPotency } = this.actor.synthetics;
         const selector = this.resolveInjectedProperties(this.selector);
         const { item } = this;
-        const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.system.potencyRune.value : 0);
+        const potencyValue = this.value ?? (item.isOfType("weapon") ? item.system.potencyRune.value : 0);
         const value = this.resolveValue(potencyValue);
         if (selector && typeof value === "number") {
             const bonusType = ABP.isEnabled(this.actor) ? "potency" : "item";
 
-            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
+            const label = this.getReducedLabel();
             const potency: PotencySynthetic = { label, bonus: value, type: bonusType, predicate: this.predicate };
             const synthetics = (weaponPotency[selector] ??= []);
             synthetics.push(potency);
@@ -40,6 +42,13 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
     }
 }
 
-interface WeaponPotencySource extends RuleElementSource {
-    selector?: unknown;
-}
+interface WeaponPotencyRuleElement
+    extends RuleElementPF2e<WeaponPotencyRuleSchema>,
+        ModelPropsFromSchema<WeaponPotencyRuleSchema> {}
+
+type WeaponPotencyRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    value: ResolvableValueField<true, false, false>;
+};
+
+export { WeaponPotencyRuleElement };

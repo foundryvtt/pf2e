@@ -1,0 +1,79 @@
+{
+    "_id": "v0WPfxN6G8XFfFZT",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Scholar",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You have a knack for learning, and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, and always dreamed about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two ability boosts. One must be to Intelligence or Wisdom, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Arcana, Nature, Occultism, or Religion skill, and the Academia Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat in your chosen skill.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "trainedLore": "Academia Lore",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

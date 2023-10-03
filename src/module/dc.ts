@@ -1,35 +1,35 @@
-import { ProficiencyRank } from "@item/data";
-import { Rarity } from "./data";
+import { ProficiencyRank } from "@item/data/index.ts";
+import { Rarity } from "./data.ts";
 
 /**
  * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-type NegativeDCAdjustment = "incredibly easy" | "very easy" | "easy" | "normal";
+type NegativeDCAdjustment = "incredibly-easy" | "very-easy" | "easy" | "normal";
 
-type PositiveDCAdjustment = "normal" | "hard" | "very hard" | "incredibly hard";
+type PositiveDCAdjustment = "normal" | "hard" | "very-hard" | "incredibly-hard";
 
 type DCAdjustment = NegativeDCAdjustment | PositiveDCAdjustment;
 
 const adjustmentScale: DCAdjustment[] = [
-    "incredibly easy",
-    "very easy",
+    "incredibly-easy",
+    "very-easy",
     "easy",
     "normal",
     "hard",
-    "very hard",
-    "incredibly hard",
+    "very-hard",
+    "incredibly-hard",
 ];
 
 const dcAdjustments = new Map<DCAdjustment, number>([
-    ["incredibly easy", -10],
-    ["very easy", -5],
+    ["incredibly-easy", -10],
+    ["very-easy", -5],
     ["easy", -2],
     ["normal", 0],
     ["hard", 2],
-    ["very hard", 5],
-    ["incredibly hard", 10],
+    ["very-hard", 5],
+    ["incredibly-hard", 10],
 ]);
 
 const dcByLevel = new Map([
@@ -83,19 +83,19 @@ function rarityToDCAdjustment(rarity: Rarity = "common"): PositiveDCAdjustment {
         case "uncommon":
             return "hard";
         case "rare":
-            return "very hard";
+            return "very-hard";
         case "unique":
-            return "incredibly hard";
+            return "incredibly-hard";
         default:
             return "normal";
     }
 }
 
-function adjustDC(dc: number, adjustment: DCAdjustment = "normal") {
+function adjustDC(dc: number, adjustment: DCAdjustment = "normal"): number {
     return dc + (dcAdjustments.get(adjustment) ?? 0);
 }
 
-function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
+function adjustDCByRarity(dc: number, rarity: Rarity = "common"): number {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 
@@ -109,7 +109,10 @@ interface DCOptions {
  * @param level
  * @param proficiencyWithoutLevel
  */
-function calculateDC(level: number, { proficiencyWithoutLevel = false, rarity = "common" }: DCOptions = {}): number {
+function calculateDC(level: number, { proficiencyWithoutLevel, rarity = "common" }: DCOptions = {}): number {
+    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
+    proficiencyWithoutLevel ??= pwlSetting === "ProficiencyWithoutLevel";
+
     // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
     // stored as a string, which we can't catch at compile time
     const dc = dcByLevel.get(level) ?? 14;
@@ -162,10 +165,6 @@ function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
 }
 
 export {
-    DCAdjustment,
-    DCOptions,
-    NegativeDCAdjustment,
-    PositiveDCAdjustment,
     adjustDC,
     adjustDCByRarity,
     calculateDC,
@@ -175,3 +174,4 @@ export {
     createDifficultyScale,
     rarityToDCAdjustment,
 };
+export type { DCAdjustment, DCOptions, NegativeDCAdjustment, PositiveDCAdjustment };

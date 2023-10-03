@@ -1,12 +1,12 @@
-import { CoinsPF2e } from "@item/physical/helpers";
-import { DegreeOfSuccess } from "@system/degree-of-success";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel } from "@scripts/macros/earn-income";
+import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { OneToTen } from "@module/data";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { CheckRoll } from "@system/check";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { OneToTen } from "@module/data.ts";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -112,11 +112,11 @@ export async function craftSpellConsumable(
         consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
     ) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((s) => s.baseLevel <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
+        .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce((result, spell) => {
-            result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
+            result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
             return result;
-        }, <Record<number, SpellPF2e<ActorPF2e>[]>>{});
+        }, {} as Record<number, SpellPF2e<ActorPF2e>[]>);
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
@@ -136,8 +136,10 @@ export async function craftSpellConsumable(
                     const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);
                     if (!spell?.isOfType("spell")) return;
-                    const item = await createConsumableFromSpell(consumableType, spell, spellLevel);
-
+                    const item = await createConsumableFromSpell(spell, {
+                        type: consumableType,
+                        heightenedLevel: spellLevel,
+                    });
                     return craftItem(new ConsumablePF2e(item), itemQuantity, actor);
                 },
             },

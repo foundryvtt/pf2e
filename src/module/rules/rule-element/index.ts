@@ -1,2 +1,3 @@
-export { RuleElementPF2e, RuleElementOptions } from "./base";
-export { RuleElementSource, RuleElementSchema, RuleElementData, RuleValue, BracketedValue } from "./data";
+export { RuleElementPF2e, type RuleElementOptions } from "./base.ts";
+export { ResolvableValueField } from "./data.ts";
+export type { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";

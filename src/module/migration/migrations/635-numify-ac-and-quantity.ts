@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure AC and quantity values are numeric */
 export class Migration635NumifyACAndQuantity extends MigrationBase {

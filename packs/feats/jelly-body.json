@@ -1,0 +1,49 @@
+{
+    "_id": "MROG87PQmuBTdCaB",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Jelly Body",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Some of the ooze that surrounded you made its way permanently into parts of your body, turning you soft to the touch and semitransparent enough to show bones. You gain resistance equal to your level to precision damage and damage from critical hits. You can submerge up to 1 Bulk of items within your body by sticking them inside of yourself. While the protrusion of the item is still visible from the outside, the items don't count toward making you encumbered or your maximum Bulk while stored in you. You can @UUID[Compendium.pf2e.actionspf2e.Item.Interact] to retrieve or store an item submerged into your body.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've been reduced to 0 Hit Points while engulfed by an ooze."
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "critical-hits",
+                    "precision"
+                ],
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "magical",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

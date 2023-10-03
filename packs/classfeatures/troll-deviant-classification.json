@@ -1,0 +1,227 @@
+{
+    "_id": "HPYo5j8GgQIVoOOr",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Troll Deviant Classification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Especially common when a deviant ability is born of scientific experimentation, the troll classification connotes improved physical abilities. While often thought of as biological mutation, clockwork implants and personal magical enhancements are equally likely mechanisms.</p>\n<h2>Backlash</h2>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Strained Metabolism]</p>\n<p>The same blood that lets one of the dragon-descended spit out a gout of flame is precisely what keeps the inside of their mouth from being singed in the furnace. Deviations, unfortunately, lack these safeguards, their powers coming from haphazard circumstance and interactions rather than intentional design. A character using their deviation always risks the chance of backlash.</p>\n<p>Whenever you attempt to use a deviation, roll a @Check[type:flat|dc:5]. On a success, you use your deviation and the DC for subsequent checks increases by 5, to a maximum of 20 (@Check[type:flat|dc:10] @Check[type:flat|dc:15] @Check[type:flat|dc:20]); on a failure, you use your deviation and then suffer a backlash effect, after which your flat check DC resets to 5. Backlash progresses from mild, to moderate, to severe. When you have already taken mild backlash in a given day, the next time you would take backlash, you take the moderate backlash instead, and if you have already taken moderate backlash, you take the severe backlash instead, and your deviation can't be used for the rest of the day—attempting to use it simply brings pain. When you make your daily preparations, your flat check DC returns to 5 and your next backlash returns to mild.</p>\n<p>Any effects from backlash can't be reduced, prevented, or otherwise bypassed. Conditions and damage you take from backlash can't be reduced or prevented by resistance or immunity, but still triggers any weakness you have to it.</p>\n<h2>Troll Deviant Feats</h2>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Bone Spikes]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Titan Swing]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.High-Speed Regeneration]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Tectonic Stomp]</p>\n<h3>Universal Deviant Feats</h3>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Awakened Power]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Greater Awakened Power]</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices",
+                "priority": 10,
+                "value": {
+                    "greater": [],
+                    "lesser": []
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BoneSpikesReach",
+                    "predicate": [
+                        {
+                            "not": "awakening:bone-spikes:reach"
+                        },
+                        "feat:bone-spikes"
+                    ],
+                    "value": "bone-spikes:reach"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BoneSpikesPoison",
+                    "predicate": [
+                        {
+                            "not": "awakening:bone-spikes:poison"
+                        },
+                        "feat:bone-spikes"
+                    ],
+                    "value": "bone-spikes:poison"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BoneSpikesReach",
+                    "predicate": [
+                        {
+                            "not": "awakening:bone-spikes:reach"
+                        },
+                        "feat:bone-spikes"
+                    ],
+                    "value": "bone-spikes:reach"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.BoneSpikesPoison",
+                    "predicate": [
+                        {
+                            "not": "awakening:bone-spikes:poison"
+                        },
+                        "feat:bone-spikes"
+                    ],
+                    "value": "bone-spikes:poison"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TitanSwingProne",
+                    "predicate": [
+                        {
+                            "not": "awakening:titan-swing:prone"
+                        },
+                        "feat:titan-swing"
+                    ],
+                    "value": "titan-swing:prone"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TitanSwingBleed",
+                    "predicate": [
+                        {
+                            "not": "awakening:titan-swing:bleed"
+                        },
+                        "feat:titan-swing"
+                    ],
+                    "value": "titan-swing:bleed"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TitanSwingProne",
+                    "predicate": [
+                        {
+                            "not": "awakening:titan-swing:prone"
+                        },
+                        "feat:titan-swing"
+                    ],
+                    "value": "titan-swing:prone"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TitanSwingBleed",
+                    "predicate": [
+                        {
+                            "not": "awakening:titan-swing:bleed"
+                        },
+                        "feat:titan-swing"
+                    ],
+                    "value": "titan-swing:bleed"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.HighSpeedRegenerationRecovery",
+                    "predicate": [
+                        {
+                            "not": "awakening:high-speed-regeneration:recovery"
+                        },
+                        "feat:high-speed-regeneration"
+                    ],
+                    "value": "high-speed-regeneration:recovery"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.HighSpeedRegenerationSpeed",
+                    "predicate": [
+                        {
+                            "not": "awakening:high-speed-regeneration:speed"
+                        },
+                        "feat:high-speed-regeneration"
+                    ],
+                    "value": "high-speed-regeneration:speed"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TectonicStompStone",
+                    "predicate": [
+                        {
+                            "not": "awakening:tectonic-stomp:stone"
+                        },
+                        "feat:tectonic-stomp"
+                    ],
+                    "value": "tectonic-stomp:stone"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.TectonicStompStun",
+                    "predicate": [
+                        {
+                            "not": "awakening:tectonic-stomp:stun"
+                        },
+                        "feat:tectonic-stomp"
+                    ],
+                    "value": "tectonic-stomp:stun"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Strained Metabolism"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,9 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { FeatSource, ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Add support for multiple class DCs  */
 export class Migration790MultipleClassDCs extends MigrationBase {

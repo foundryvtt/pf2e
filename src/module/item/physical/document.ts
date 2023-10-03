@@ -1,30 +1,31 @@
-import { ActorPF2e } from "@actor";
-import { type ContainerPF2e, ItemPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data";
-import { MystifiedTraits } from "@item/data/values";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { Rarity, Size } from "@module/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { UserPF2e } from "@module/user";
+import { ActorProxyPF2e, type ActorPF2e } from "@actor";
+import { ItemPF2e, type ContainerPF2e } from "@item";
+import { isCycle } from "@item/container/helpers.ts";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
+import { MystifiedTraits } from "@item/data/values.ts";
+import { Rarity, Size } from "@module/data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
-import { getUnidentifiedPlaceholderImage } from "../identification";
-import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
+import * as R from "remeda";
+import { getUnidentifiedPlaceholderImage } from "../identification.ts";
+import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
 import {
     IdentificationStatus,
+    ItemActivation,
     ItemCarryType,
+    ItemMaterialData,
     MystifiedData,
     PhysicalItemTrait,
     PhysicalSystemData,
     Price,
-} from "./data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { getUsageDetails, isEquipped } from "./usage";
-import { DENOMINATIONS } from "./values";
-import { isCycle } from "@item/container/helpers";
+} from "./data.ts";
+import { CoinsPF2e, computeLevelRarityPrice } from "./helpers.ts";
+import { getUsageDetails, isEquipped } from "./usage.ts";
+import { DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
-    private _container: ContainerPF2e<ActorPF2e> | null = null;
+    private declare _container: ContainerPF2e<ActorPF2e> | null;
 
     get level(): number {
         return this.system.level.value;
@@ -51,15 +52,22 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get carryType(): ItemCarryType {
-        return this.system.equipped.carryType ?? (this.system.containerId ? "worn" : "stowed");
+        return this.system.equipped.carryType;
     }
 
+    /** Whether the item is currently being held */
+    get isHeld(): boolean {
+        return this.handsHeld > 0;
+    }
+
+    /** The number of hands being used to hold this item */
     get handsHeld(): number {
         return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
     }
 
-    get isHeld(): boolean {
-        return this.handsHeld > 0;
+    /** Whether the item is currently being worn */
+    get isWorn(): boolean {
+        return this.system.equipped.carryType === "worn";
     }
 
     get price(): Price {
@@ -99,7 +107,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.traits.has("cursed");
     }
 
-    override get isTemporary(): boolean {
+    get isTemporary(): boolean {
         return this.system.temporary;
     }
 
@@ -111,16 +119,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.hp.value > 0 && this.system.hp.value < this.system.hp.max;
     }
 
-    get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
-        const systemData = this.system;
-        return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
-            ? {
-                  precious: {
-                      type: systemData.preciousMaterial.value,
-                      grade: systemData.preciousMaterialGrade.value,
-                  },
-              }
-            : { precious: null };
+    get material(): ItemMaterialData {
+        return deepClone(this.system.material);
+    }
+
+    /** Whether this is a specific magic item: applicable to armor, shields, and weapons */
+    get isSpecific(): boolean {
+        return false;
     }
 
     get isInContainer(): boolean {
@@ -142,12 +147,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get bulk(): Bulk {
         const { value, per } = this.system.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
-        return new Bulk({ light: value })
-            .convertToSize(this.size, this.actor?.size ?? this.size)
-            .times(bulkRelevantQuantity);
+        // Only convert to actor-relative size if the actor is a creature
+        // https://2e.aonprd.com/Rules.aspx?ID=258
+        const actorSize = this.actor?.isOfType("creature") ? this.actor.size : null;
+
+        return new Bulk({ light: value }).convertToSize(this.size, actorSize ?? this.size).times(bulkRelevantQuantity);
     }
 
-    get activations() {
+    get activations(): (ItemActivation & { componentsLabel: string })[] {
         return Object.values(this.system.activations ?? {}).map((action) => {
             const components: string[] = [];
             if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
@@ -165,17 +172,22 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+        const { material } = this.system;
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
-            magical: this.isMagical,
+            [`rarity:${this.rarity}`]: true,
             uninvested: this.isInvested === false,
-            [`material:${this.material.precious?.type}`]: !!this.material.precious,
+            [`material:${material.type}`]: !!material.type,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${prefix}:${key}`)
-            .concat(this.system.traits.otherTags.map((t) => `${prefix}:tag:${t}`));
+            .map(([key]) => `${prefix}:${key}`);
 
-        return [baseOptions, physicalItemOptions].flat();
+        return [baseOptions, physicalItemOptions].flat().sort();
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this._container = null;
+        super._initialize(options);
     }
 
     override prepareBaseData(): void {
@@ -183,12 +195,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         const systemData = this.system;
         // null out empty-string values
-        systemData.preciousMaterial.value ||= null;
-        systemData.preciousMaterialGrade.value ||= null;
         systemData.containerId ||= null;
+        systemData.material.type ||= null;
+        systemData.material.grade ||= null;
         systemData.stackGroup ||= null;
         systemData.equippedBulk.value ||= null;
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
+        systemData.hp.brokenThreshold = Math.floor(systemData.hp.max / 2);
+
+        // An embedded item may have its maximum HP altered, but otherwise ensure current HP is no greater than max
+        if (!this.isEmbedded) {
+            systemData.hp.value = Math.min(systemData.hp.value, systemData.hp.max);
+        }
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
@@ -225,10 +243,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             const heldOrStowed = stackData?.lightBulk ?? weightToBulk(systemData.weight.value)?.toLightBulk() ?? 0;
             const worn = systemData.equippedBulk.value
                 ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
-                : null;
+                : heldOrStowed;
 
-            const { carryType } = systemData.equipped;
-            const value = this.isEquipped && carryType === "worn" ? worn ?? heldOrStowed : heldOrStowed;
+            const value = this.isOfType("armor", "backpack") && this.isEquipped ? worn : heldOrStowed;
 
             return { heldOrStowed, worn, value, per };
         })();
@@ -243,6 +260,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        this.name = game.pf2e.system.generateItemName(this);
+
         this.system.identification.identified ??= {
             name: this.name,
             img: this.img,
@@ -251,23 +270,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             },
         };
 
-        // If the item has an adjusted price, replace it if higher
-        const adjustedPrice = this.computeAdjustedPrice?.();
-        if (adjustedPrice) {
-            const basePrice = this.price.value;
-            const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
-            const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
-            this.system.price.value = highestPrice;
-        }
-
-        if (this.isShoddy) {
-            this.system.price.value = this.system.price.value.scale(0.5);
-            this.system.hp.max = Math.floor(this.system.hp.max / 2);
-            this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
-            this.system.hp.brokenThreshold = Math.floor(this.system.hp.brokenThreshold / 2);
-        }
-
-        this.system.price.value = this.adjustPriceForSize();
+        // Compute level, rarity, and price from factors like runes, precious material, shoddiness, and size
+        const { level, rarity, price } = computeLevelRarityPrice(this);
+        this.system.level.value = level;
+        this.system.traits.rarity = rarity;
+        this.system.price.value = price;
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
@@ -277,11 +284,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Fill gaps in unidentified data with defaults
         this.system.identification.unidentified = this.getMystifiedData("unidentified");
-    }
-
-    /** Increase the price if it is larger than medium and not magical. */
-    protected adjustPriceForSize(): CoinsPF2e {
-        return this.isMagical ? this.price.value : this.price.value.adjustForSize(this.size);
     }
 
     override prepareSiblingData(): void {
@@ -296,6 +298,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this._container && !this.actor.items.has(this._container.id)) {
             this._container = this.system.containerId = null;
         }
+    }
+
+    /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
+    override onPrepareSynthetics(this: PhysicalItemPF2e<ActorPF2e>): void {
+        this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
     }
 
     /** Can the provided item stack with this item? */
@@ -316,7 +323,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
 
-        return JSON.stringify(thisData) === JSON.stringify(otherData);
+        return R.equals(thisData, otherData);
     }
 
     /** Combine this item with a target item if possible */
@@ -413,11 +420,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             (() => {
                 if (status === "identified") return this.description;
 
-                const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
                     game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
-                return game.i18n.format(formatString, { item: caseCorrect(itemType) });
+                return game.i18n.format("PF2E.identification.UnidentifiedDescription", { item: caseCorrect(itemType) });
             })();
 
         return {
@@ -432,13 +438,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     override async getChatData(): Promise<ItemSummaryData> {
-        const { precious } = this.material;
-        const material = precious
-            ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
-                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[precious.type]),
-                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[precious.grade]),
-              })
-            : null;
+        const { type, grade } = this.system.material;
+        const material =
+            type && grade
+                ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                      type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[type]),
+                      grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                  })
+                : null;
 
         return {
             rarity: {
@@ -461,11 +468,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = {}): string {
-        const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
+        const itemType = game.i18n.localize(`TYPES.Item.${this.type}`);
         if (typeOnly) return itemType;
 
-        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
-        return game.i18n.format(formatString, { item: itemType });
+        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
@@ -477,7 +483,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (trait.excluded) {
                 delete trait.description;
             } else if (trait.mystified) {
-                const gmNote = LocalizePF2e.translations.PF2E.identification.TraitGMNote;
+                const gmNote = game.i18n.localize("PF2E.identification.TraitGMNote");
                 trait.description = trait.description
                     ? `${gmNote}\n\n${game.i18n.localize(trait.description)}`
                     : gmNote;
@@ -496,32 +502,26 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        // Set some defaults
-        this.updateSource({
-            "system.equipped.carryType": "worn",
-            "system.equipped.-=handsHeld": null,
-            "system.equipped.-=inSlot": null,
-        });
-
-        if (this.actor) {
-            const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
-            if (this.actor.isOfType("character", "npc") && isSlottedItem) {
-                this.updateSource({ "system.equipped.inSlot": false });
-            }
+    ): Promise<boolean | void> {
+        this._source.system.equipped = { carryType: "worn" };
+        const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
+        if (isSlottedItem && this.actor?.isOfType("character")) {
+            this._source.system.equipped.inSlot = false;
         }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Clamp hit points to between zero and max
         if (typeof changed.system?.hp?.value === "number") {
             changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
+        } else if (typeof changed.system?.hp?.max === "number" && changed.system.hp.max < this.system.hp.max) {
+            changed.system.hp.value = Math.clamped(this.system.hp.value, 0, changed.system.hp.max);
         }
 
         if (!changed.system) return super._preUpdate(changed, options, user);
@@ -531,6 +531,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (typeof changed.system?.[key] === "string") {
                 changed.system[key] = String(changed.system[key]).trim() || null;
             }
+        }
+
+        // Uninvest if dropping
+        if (changed.system.equipped?.carryType === "dropped" && this.system.equipped.invested) {
+            changed.system.equipped.invested = false;
         }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
@@ -565,15 +570,43 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped["-=inSlot"] = null;
         }
 
-        await super._preUpdate(changed, options, user);
+        // Special handling for ephemeral hit point changes: if the max HP would be adjusted when changing this item's
+        // carry type, proportionally adjust the current HP as well.
+        type MaybeItemAlteration = { key: string; property?: unknown; itemType?: unknown };
+        const { actor } = this;
+        const hasHpChangeRules =
+            this.actor?.rules.some(
+                (r: MaybeItemAlteration) =>
+                    r.key === "ItemAlteration" && r.property === "hp-max" && r.itemType === this.type
+            ) ?? false;
+        if (actor && hasHpChangeRules && changed.system?.equipped?.carryType) {
+            // Simulate the update to determine whether max hit points will change
+            const postUpdateHPMax = ((): number => {
+                const actorSource = actor.toObject();
+                const itemSource = actorSource.items.find((i) => i._id === this.id) ?? { system: {} };
+                itemSource.system = mergeObject(itemSource.system, deepClone(changed.system));
+                const actorClone = new ActorProxyPF2e(actorSource);
+                const itemClone = actorClone.items.get(this.id, { strict: true });
+                return itemClone.isOfType("armor") ? itemClone.system.hp.max : this.system.hp.max;
+            })();
+            if (postUpdateHPMax !== this.system.hp.max) {
+                changed.system.hp ??= deepClone(this._source.system.hp);
+                // To avoid creeping values in one direction or the other, use `floor` when increasing and `ceil` when
+                // decreasing
+                const floorOrCeil = postUpdateHPMax > this.system.hp.max ? Math.floor : Math.ceil;
+                changed.system.hp.value = floorOrCeil(
+                    Math.clamped(this.system.hp.value * (postUpdateHPMax / this.system.hp.max), 0, postUpdateHPMax)
+                );
+            }
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 
 interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: PhysicalItemSource;
     system: PhysicalSystemData;
-
-    computeAdjustedPrice?(): CoinsPF2e | null;
 }
 
 export { PhysicalItemPF2e };

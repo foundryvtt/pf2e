@@ -1,25 +1,26 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { DamageRoll } from "@system/damage/roll";
-import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
 
-function CheckFeat(actor: ActorPF2e, slug: string) {
+function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
         return true;
     }
     return false;
 }
 
-export async function treatWounds(options: ActionDefaultOptions) {
+export async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (!actor || !actor.isOfType("creature")) {
-        ui.notifications.error("PF2E.ErrorMessage.NoPCTokenSelected");
+        ui.notifications.error("PF2E.ErrorMessage.NoPCTokenSelected", { localize: true });
         return;
     }
 
+    const medicineName = game.i18n.localize("PF2E.SkillMedicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = randomID(); // Attached to element id attributes for DOM uniqueness
@@ -32,15 +33,15 @@ export async function treatWounds(options: ActionDefaultOptions) {
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  <option value="medicine">Medicine</option>
-  ${chirurgeon ? `<option value="crafting">Crafting</option>` : ``}
-  ${naturalMedicine ? `<option value="nature">Nature</option>` : ``}
+  <option value="medicine">${medicineName}</option>
+  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.SkillCrafting")}</option>` : ``}
+  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.SkillNature")}</option>` : ``}
 </select>
 </div>
 </form>
 <form>
 <div class="form-group">
-<label for="dc-type-${domIdAppend}">Medicine DC:</label>
+<label for="dc-type-${domIdAppend}">${game.i18n.format("PF2E.InlineCheck.DCWithName", { name: medicineName })}</label>
 <select id="dc-type-${domIdAppend}" name="dc-type">
   <option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
   <option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
@@ -103,7 +104,8 @@ async function treat(
     const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        return ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        return;
     }
 
     const rank = skill.rank ?? 1;
@@ -133,7 +135,7 @@ async function treat(
         dc,
         ...eventToRollParams(event),
         extraRollOptions: rollOptions,
-        callback: async (_roll, outcome) => {
+        callback: async (_roll, outcome, message) => {
             const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
             const magicHands = CheckFeat(actor, "magic-hands");
             const bonusString = bonus > 0 ? `+ ${bonus}` : "";
@@ -155,6 +157,7 @@ async function treat(
 
             if (riskySurgery) {
                 ChatMessagePF2e.create({
+                    flags: message.toObject().flags,
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
                     rolls: [(await new DamageRoll("{1d8[slashing]}").roll({ async: true })).toJSON()],
@@ -169,6 +172,7 @@ async function treat(
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
                         : game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
                 ChatMessagePF2e.create({
+                    flags: message.toObject().flags,
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${rollType}</strong> (${successLabel})`,
                     rolls: [healRoll.toJSON()],

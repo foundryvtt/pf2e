@@ -1,2 +1,2 @@
-export * from "./document";
-export * from "./data";
+export * from "./document.ts";
+export * from "./data.ts";

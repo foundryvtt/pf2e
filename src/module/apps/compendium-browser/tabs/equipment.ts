@@ -1,10 +1,9 @@
-import { CoinsPF2e } from "@item/physical/helpers";
-import { LocalizePF2e } from "@system/localize";
-import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { ContentTabName } from "../data";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { localizer, sluggify } from "@util";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
@@ -28,6 +27,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "source",
     ];
 
+    #localizeCoins = localizer("PF2E.CurrencyAbbreviations");
+
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
@@ -43,10 +44,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         // Define index fields for different types of equipment
         const kitFields = ["img", "system.price", "system.traits"];
         const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
-        const armorAndWeaponFields = [...baseFields, "system.category", "system.group"];
+        const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
+        const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
         const consumableFields = [...baseFields, "system.consumableType.value"];
         const indexFields = [
-            ...new Set([...armorAndWeaponFields, ...consumableFields]),
+            ...new Set([...armorFields, ...weaponFields, ...consumableFields]),
             "system.denomination.value",
             "system.value.value",
         ];
@@ -61,16 +63,20 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             for (const itemData of index) {
                 if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
-                    let skip = false;
-                    if (itemData.type === "weapon" || itemData.type === "armor") {
-                        if (!this.hasAllIndexFields(itemData, armorAndWeaponFields)) skip = true;
-                    } else if (itemData.type === "kit") {
-                        if (!this.hasAllIndexFields(itemData, kitFields)) skip = true;
-                    } else if (itemData.type === "consumable") {
-                        if (!this.hasAllIndexFields(itemData, consumableFields)) skip = true;
-                    } else {
-                        if (!this.hasAllIndexFields(itemData, baseFields)) skip = true;
-                    }
+                    const skip = (() => {
+                        switch (itemData.type) {
+                            case "armor":
+                                return !this.hasAllIndexFields(itemData, armorFields);
+                            case "weapon":
+                                return !this.hasAllIndexFields(itemData, weaponFields);
+                            case "kit":
+                                return !this.hasAllIndexFields(itemData, kitFields);
+                            case "consumable":
+                                return !this.hasAllIndexFields(itemData, consumableFields);
+                            default:
+                                return !this.hasAllIndexFields(itemData, baseFields);
+                        }
+                    })();
                     if (skip) {
                         console.warn(
                             `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
@@ -84,16 +90,21 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
 
-                    // add item.type into the correct format for filtering
-                    itemData.system.itemTypes = { value: itemData.type };
-                    itemData.system.rarity = itemData.system.traits.rarity;
-                    itemData.filters = {};
-
                     // Prepare source
                     const source = itemData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        itemData.system.source.value = sluggify(source);
+                    }
+
+                    // Infer magical trait from runes
+                    const traits = itemData.system.traits.value ?? [];
+                    if (
+                        (itemData.type === "armor" && itemData.system.potencyRune.value) ||
+                        (itemData.type === "weapon" &&
+                            (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
+                    ) {
+                        traits.push("magical");
                     }
 
                     inventoryItems.push({
@@ -108,7 +119,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         priceInCopper: coinValue,
                         traits: itemData.system.traits.value,
                         rarity: itemData.system.traits.rarity,
-                        source: itemData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -137,13 +148,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         });
 
         this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({
-            weapon: "ITEM.TypeWeapon",
-            armor: "ITEM.TypeArmor",
-            equipment: "ITEM.TypeEquipment",
-            consumable: "ITEM.TypeConsumable",
-            treasure: "ITEM.TypeTreasure",
-            backpack: "ITEM.TypeBackpack",
-            kit: "ITEM.TypeKit",
+            weapon: "TYPES.Item.weapon",
+            armor: "TYPES.Item.armor",
+            equipment: "TYPES.Item.equipment",
+            consumable: "TYPES.Item.consumable",
+            treasure: "TYPES.Item.treasure",
+            backpack: "TYPES.Item.backpack",
+            kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
@@ -191,9 +202,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return true;
     }
 
-    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesData["values"] {
+    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {
         if (name === "price") {
-            const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
+            const coins = {
+                cp: this.#localizeCoins("cp"),
+                sp: this.#localizeCoins("sp"),
+                gp: this.#localizeCoins("gp"),
+                pp: this.#localizeCoins("pp"),
+            };
             for (const [english, translated] of Object.entries(coins)) {
                 lower = lower.replaceAll(translated, english);
                 upper = upper.replaceAll(translated, english);
@@ -210,7 +226,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override prepareFilterData(): EquipmentFilters {
-        const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
         return {
             checkboxes: {
                 itemtypes: {
@@ -269,8 +284,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     values: {
                         min: 0,
                         max: 20_000_000,
-                        inputMin: `0${coins.cp}`,
-                        inputMax: `200,000${coins.gp}`,
+                        inputMin: `0${this.#localizeCoins("cp")}`,
+                        inputMax: `200,000${this.#localizeCoins("gp")}`,
                     },
                 },
             },

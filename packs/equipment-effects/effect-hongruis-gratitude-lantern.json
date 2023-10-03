@@ -1,0 +1,57 @@
+{
+    "_id": "o1Fzi94EODK3fa4A",
+    "img": "icons/sundries/lights/lantern-iron-yellow.webp",
+    "name": "Effect: Hongrui's Gratitude (Lantern)",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 item bonus to Diplomacy checks and cast bright light in a 20-foot radius (and dim light for the next 20 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.45,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#ffae3d",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #196: The Summer That Never Was"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

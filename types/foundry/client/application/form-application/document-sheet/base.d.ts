@@ -5,6 +5,7 @@ declare global {
         classes: string[];
         template: string;
         viewPermission: number;
+        sheetConfig: boolean;
     }
 
     interface DocumentSheetData<TDocument extends foundry.abstract.Document = foundry.abstract.Document> {
@@ -35,6 +36,13 @@ declare global {
         override getData(
             options?: Partial<TOptions>
         ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
+
+        /**
+         * Test whether a certain User has permission to view this Document Sheet.
+         * @param user The user requesting to render the sheet
+         * @returns Does the User have permission to view this sheet?
+         */
+        protected _canUserView(user: User): boolean;
 
         protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
     }

@@ -3,7 +3,7 @@
     <div class="frame-container">
         <div class="frame image-container">
             <img class="actor-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-            <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+            <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
             {{#if editable}}
                 <div class="edit-mode-button" title="{{localize "PF2E.EditHazardLabel"}}"><i class="fa-solid fa-lock{{#if editing}}-open{{/if}}"></i></div>
             {{/if}}
@@ -13,13 +13,13 @@
     <div class="details">
         <div class="title">
             <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
-            <label>{{localize "ACTOR.TypeHazard"}}</label>
+            <label>{{localize "TYPES.Actor.hazard"}}</label>
             <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" />
         </div>
 
         {{#if editing}}
             <template class="traits-extra">
-                <select class="tag" name="system.traits.rarity" value="{{data.traits.rarity}}">
+                <select class="tag rarity" name="system.traits.rarity" value="{{data.traits.rarity}}">
                     {{#select data.traits.rarity}}
                         {{#each rarity as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
@@ -37,7 +37,7 @@
                 {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
         {{else}}
             <div class="tags paizo-style">
-                {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
+                {{#unless (eq data.details.isComplex "common")}}<span class="tag rarity {{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
                 {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
 
                 {{#each actorTraits as |trait|}}

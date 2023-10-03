@@ -1,0 +1,265 @@
+& {
+    overflow: hidden scroll;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="number"] {
+    border: none;
+}
+
+.content {
+    display: grid;
+    grid-template:
+        "leaders resources" 1fr
+        "leaders abilities" min-content
+        / 0.9fr 1fr;
+    width: 100%;
+    gap: 0 1rem;
+    padding: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.leaders {
+    grid-area: leaders;
+    .leader {
+        display: grid;
+        grid-template-areas:
+            "img name"
+            "img label";
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+        &:not(:last-child) {
+            margin-bottom: 0.375rem;
+        }
+
+        .image {
+            @include frame-icon;
+            grid-area: img;
+            width: 2.75rem;
+            height: 2.75rem;
+            z-index: 1;
+            img {
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .name {
+            grid-area: name;
+            background: rgba(0, 0, 0, 0.025);
+            padding: 0 8px;
+            border: 0;
+            height: auto;
+            line-height: 1.5em;
+            height: 1.5em;
+            align-self: end;
+
+            display: flex;
+            justify-content: space-between;
+        }
+        .details {
+            grid-area: label;
+            align-self: flex-end;
+
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+
+            background: var(--paper-bg);
+            box-shadow: var(--drop-shadow);
+            font-size: var(--font-size-12);
+            padding: 0 8px;
+            position: relative;
+            margin-bottom: 1px;
+            height: 1.5rem;
+
+            .role {
+                font-variant: small-caps;
+                font-weight: 500;
+            }
+        }
+        .invested,
+        .vacant {
+            font-size: var(--font-size-12);
+            input {
+                margin: 0;
+                width: 1em;
+                height: 1em;
+            }
+            i {
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+.resources {
+    grid-area: resources;
+
+    input[type="number"] {
+        width: 3ch;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .resource-data {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+
+        display: grid;
+        grid-template:
+            "resource resource" min-content
+            "commodities stats" 1fr
+            / auto 1fr;
+
+        .resource-dice {
+            grid-area: resource;
+        }
+
+        .commodities {
+            grid-area: commodities;
+        }
+
+        .stats {
+            grid-area: stats;
+        }
+    }
+
+    .resource-dice {
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 0.25rem;
+        padding: 0 0.5rem;
+        .rollable {
+            flex: 1;
+        }
+        input {
+            width: 2ch;
+            text-align: center;
+        }
+    }
+
+    .commodities,
+    .stats {
+        padding: 0.25rem 0.5rem;
+        white-space: nowrap;
+        & > label,
+        & > div,
+        input[type="number"] {
+            height: 1.5em;
+            line-height: 1.5em;
+            .number {
+                display: inline-block;
+                width: 3ch;
+                text-align: center;
+            }
+        }
+    }
+
+    .commodities {
+        .commodity {
+            align-items: center;
+            display: flex;
+            gap: 0.25rem;
+            .type {
+                width: 4.25rem;
+            }
+
+            .value-max {
+                align-items: center;
+                display: flex;
+                gap: 0.125rem;
+                flex: 1;
+                input {
+                    width: 2ch;
+                }
+            }
+        }
+    }
+
+    .stats {
+        justify-self: end;
+        text-align: end;
+    }
+}
+
+.ability-scores {
+    grid-area: abilities;
+    flex: 0;
+
+    input {
+        height: auto;
+    }
+
+    .ability {
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        width: 100%;
+        &:not(:last-child) {
+            margin-bottom: 0.375rem;
+        }
+
+        .score {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--paper-bg);
+            box-shadow: var(--drop-shadow);
+            width: 4.5rem;
+            text-align: center;
+            padding: 0.375rem 0;
+            z-index: 1;
+            .value {
+                font-size: var(--font-size-20);
+            }
+        }
+
+        .corruption-section {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;
+            box-shadow: var(--drop-shadow);
+
+            & > .stat {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                flex: 1;
+            }
+
+            .ruin-value {
+                display: flex;
+                gap: 2px;
+                justify-content: center;
+                input {
+                    width: 3ch;
+                }
+            }
+
+            .progress {
+                flex-basis: 100%;
+                margin: 0;
+                padding: 0;
+                height: 8px;
+                border-top: 1px solid rgba(0, 0, 0, 0.15);
+                margin-top: 0.125rem;
+
+                background: #ddd;
+
+                &::after {
+                    display: block;
+                    content: " ";
+                    background-color: var(--color-border-highlight-alt);
+                    width: calc(100% * var(--value) / var(--max));
+                    max-width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

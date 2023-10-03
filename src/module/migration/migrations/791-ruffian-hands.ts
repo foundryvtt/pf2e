@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Add critical specialization effect to the Ruffian class feature, DamageDice REs to healing/harming hands */
 export class Migration791RuffianHands extends MigrationBase {

@@ -1,0 +1,109 @@
+{
+    "_id": "QHcBauLnHzfwkDBK",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oXzm9KqLtbgKvm14",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Elementals",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the room</p>\n<hr />\n<p><strong>Effect</strong> Two rounds after a creature enters the room, the room's door slams shut and locks (two <span data-pf2-action=\"pickALock\" data-pf2-dc=\"20\" data-pf2-glyph=\"D\" data-pf2-show-dc=\"gm\">Thievery</span> checks to pick), and two @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Cinder Rat] fire elementals emerge from the floor.</p>\n<p>The elementals roll initiative and remain for [[/br 3d6 #rounds]]{3d6 rounds}, after which the spell ends and the creatures disappear. The elementals also disappear if someone disables the trap before the duration expires.</p>\n<p>The summoned elementals can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Summoning Rune (Cinder Rat)",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An invisible cloud of magical sensors detects living creatures in the room and summons fire elementals to slay the creatures.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:22|name:Approach Rune] (trained) to approach without triggering the trap, followed by @Check[type:thievery|dc:22|name:Erase Summoning Rune|traits:action:disable-a-device] (trained) to erase the rune or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 20) to counteract the rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap resets each day at dawn.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #157: Devil at the Dreaming Palace"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

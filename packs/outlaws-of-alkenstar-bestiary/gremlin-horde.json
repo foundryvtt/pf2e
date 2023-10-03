@@ -1,0 +1,133 @@
+{
+    "_id": "fsO6qulg049kdo12",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vNqsEBRnekAVPDjw",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hexed Calamity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of the gremlin horde</p>\n<hr />\n<p><strong>Effect</strong> Every firearm within 30 feet misfires. If a creature is holding the firearm, they can attempt a @Check[type:will|dc:27] save, negating this effect on a success. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "d2kM7kbj4ox11ei1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hardness 15 (While Inside the Centurion)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gremlin Horde",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three gangs of gremlins hide within the spiral centurion, cackling with glee and hurling blasts of hex magic. The hazard occupies the same space as the spiral centurion, moving with it.</p>",
+            "disable": "<p>@Check[type:arcana|dc:25|name:Devise counter-hex symbols], @Check[type:occultism|dc:25|name:Devise counter-hex symbols], or @Check[type:religion|dc:25|name:Devise counter-hex symbols] (trained) to devise counter-hex symbols that frighten and scatter a gremlin gang, or @Check[type:acrobatics|dc:28|name:Scatter a gremlin gang] or @Check[type:stealth|dc:28|name:Scatter a gremlin gang] (expert) to capture and scatter a gremlin gang</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>If not captured or killed, the scattered gremlin gangs regroup after [[/br 1d4 #Hours]]{1d4 hours}.</p>",
+            "routine": "<p>(3 actions; misfortune) The gremlin horde hurls one tinkering curse with each action, targeting an item within 60 feet wielded or worn by a creature. The creature must attempt a @Check[type:will|dc:27] save. The gremlin horde loses 1 action for each gremlin gang that's scattered.</p>\n<hr />\n<p><strong>Critical Success</strong> The hex bounces back to affect the gremlin horde. For 1 round, all creatures gain a +1 status bonus to checks to disable this hazard.</p>\n<p><strong>Success</strong> The item is unaffected.</p>\n<p><strong>Failure</strong> The item becomes unreliable for 1 round. If a creature attempts to Activate the item or Interact with it, it must succeed at a @Check[type:flat|dc:5] or the action is wasted. If the item doesn't have an active use (such a mundane cloak), the creature wearing the item must instead immediately succeed at a @Check[type:flat|dc:5] or become tangled with the item and fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, but the creature wielding or wearing the item also becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #180: The Smoking Gun"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

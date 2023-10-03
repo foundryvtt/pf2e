@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
-import { RuleElementSource, RuleValue } from "@module/rules/rule-element";
-import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
+import { RuleElementSource, RuleValue } from "@module/rules/rule-element/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 export class Migration657RemoveSetProperty extends MigrationBase {
     static override version = 0.657;

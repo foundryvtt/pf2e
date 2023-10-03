@@ -1,0 +1,55 @@
+{
+    "_id": "k31sg0xBIwvkfWyg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Reptile Rider",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>To you, crocodilians, giant lizards, and dinosaurs are loyal steeds, not monsters. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Ride] feat, even if you don't meet the prerequisites. You gain a +1 circumstance bonus to Nature checks to Handle an Animal as long as the animal is a reptile, dinosaur, or even a non-sapient dragon.</p>\n<hr />\n<p><em><strong>Note</strong> This feat refers to Nature checks to Handle an Animal. This check does not exist in Pathfinder 2, and so the feat instead gives a bonus to Nature checks to @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal]. </em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Ride"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:tag:reptile",
+                            "target:trait:dinosaur",
+                            "target:tag:non-sapient-dragon"
+                        ]
+                    }
+                ],
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

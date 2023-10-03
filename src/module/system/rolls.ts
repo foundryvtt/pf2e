@@ -1,10 +1,12 @@
-import { AttackTarget } from "@actor/types";
-import { TraitViewData } from "@actor/data/base";
-import { RollNotePF2e, RollNoteSource } from "@module/notes";
-import { ModifierPF2e } from "../actor/modifiers";
-import { RollTwiceOption } from "./check";
-import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
-import { ZeroToTwo } from "@module/data";
+import { TraitViewData } from "@actor/data/base.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { RollTarget } from "@actor/types.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { CheckRollContextFlag } from "@module/chat-message/index.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
+import { RollTwiceOption } from "./check/index.ts";
+import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;
@@ -14,7 +16,7 @@ interface RollDataPF2e extends RollOptions {
 /** Possible parameters of a RollFunction */
 interface RollParameters {
     /** The triggering event */
-    event?: JQuery.TriggeredEvent;
+    event?: MouseEvent | JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
     options?: string[] | Set<string>;
     /** Optional DC data for the roll */
@@ -26,6 +28,8 @@ interface RollParameters {
 }
 
 interface AttackRollParams extends RollParameters {
+    /** A target token: pulled from `game.users.targets` if not provided */
+    target?: TokenPF2e | null;
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
     /** Should this strike consume ammunition, if applicable? */
@@ -37,7 +41,8 @@ interface AttackRollParams extends RollParameters {
 }
 
 interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
-    mapIncreases?: ZeroToTwo | null;
+    mapIncreases?: Maybe<ZeroToTwo>;
+    checkContext?: Maybe<CheckRollContextFlag>;
 }
 
 interface BaseRollContext {
@@ -48,7 +53,7 @@ interface BaseRollContext {
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
     /** If this is an attack, the target of that attack */
-    target?: AttackTarget | null;
+    target?: RollTarget | null;
     /** Any traits for the check. */
     traits?: TraitViewData[];
     /** The outcome a roll (usually relevant only to rerolls) */
@@ -61,4 +66,4 @@ interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-export { BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption, AttackRollParams };
+export type { AttackRollParams, BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption };

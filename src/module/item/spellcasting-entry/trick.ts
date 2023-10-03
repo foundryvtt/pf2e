@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { AbilityString } from "@actor/types";
+import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
-import { extractModifiers } from "@module/rules/helpers";
-import { Statistic } from "@system/statistic";
-import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types";
-import { ErrorPF2e } from "@util";
+import { MagicTradition } from "@item/spell/types.ts";
+import { extractModifiers } from "@module/rules/helpers.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { ErrorPF2e } from "@util/misc.ts";
+import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
@@ -25,37 +26,50 @@ const traditionSkills = {
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
 class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements SpellcastingEntry<TActor> {
-    readonly id = `trick-${this.skill}`;
+    readonly id: string;
+
+    actor: TActor;
+
+    skill: SkillLongForm;
 
     statistic: Statistic;
 
-    ability: AbilityString;
+    attribute: AttributeString;
 
-    tradition = TrickMagicTradition[this.skill];
+    /** @deprecated */
+    get ability(): AttributeString {
+        foundry.utils.logCompatibilityWarning(
+            "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
+            { since: "5.3.0", until: "6.0.0" }
+        );
+        return this.attribute;
+    }
 
-    constructor(public actor: TActor, public skill: TrickMagicItemSkill) {
+    tradition: MagicTradition;
+
+    constructor(actor: TActor, skill: TrickMagicItemSkill) {
         if (!actor.isOfType("character")) {
             throw ErrorPF2e("Trick magic entries may only be constructed with PCs");
         }
-        this.actor = actor as TActor;
+        this.actor = actor;
+        this.skill = skill;
+        this.id = `trick-${this.skill}`;
 
-        const { abilities } = actor;
-        const { ability } = (["int", "wis", "cha"] as const)
-            .map((ability) => {
-                return { ability, value: abilities[ability].value };
-            })
+        const attributes = actor.abilities;
+        const { attribute } = (["int", "wis", "cha"] as const)
+            .map((attribute) => ({ attribute, mod: attributes[attribute].mod }))
             .reduce((highest, next) => {
-                if (next.value > highest.value) {
+                if (next.mod > highest.mod) {
                     return next;
                 } else {
                     return highest;
                 }
             });
 
-        this.ability = ability;
-        const tradition = TrickMagicTradition[skill];
+        this.attribute = attribute;
+        const tradition = (this.tradition = TrickMagicTradition[skill]);
 
-        const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
+        const selectors = [`${attribute}-based`, "all", "spell-attack-dc"];
         const attackSelectors = [
             `${tradition}-spell-attack`,
             "spell-attack",
@@ -71,12 +85,12 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
-            ability,
+            attribute: attribute,
             rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {
-                type: "spell-attack-roll",
+                type: "attack-roll",
                 modifiers: extractModifiers(actor.synthetics, attackSelectors),
                 domains: attackSelectors,
             },
@@ -135,7 +149,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
         const { rollMode, message } = options;
-        const castLevel = spell.computeCastLevel(spell.level);
+        const castLevel = spell.computeCastRank(spell.rank);
         if (message === false) return;
 
         try {
@@ -161,4 +175,5 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 }
 
-export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill, traditionSkills };
+export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, traditionSkills };
+export type { TrickMagicItemSkill };

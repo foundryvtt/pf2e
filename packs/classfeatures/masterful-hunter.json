@@ -1,0 +1,126 @@
+{
+    "_id": "RVZC4wVy5B5W2OeS",
+    "img": "systems/pf2e/icons/features/classes/masterful-hunter.webp",
+    "name": "Masterful Hunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have honed your abilities as a hunter to incredible levels. Your proficiency rank for your ranger class DC increases to master. When using a ranged weapon that you have master proficiency in, you can ignore the penalty if attacking your hunted prey within the weapon's second and third range increments.</p>\n<p>If you have master proficiency in Perception, you gain a +4 circumstance bonus to Perception checks when you Seek your prey, and if you have master proficiency in Survival, you gain a +4 circumstance bonus to Survival checks when you Track your prey. You also gain an additional benefit depending on your hunter's edge.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "To Track hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.sur.rank"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Seek hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.attributes.perception.rank"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.classDCs.ranger.rank",
+                "value": 3
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:flurry"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:outwit"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Outwit)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:precision"
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter (Precision)"
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:3",
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

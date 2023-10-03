@@ -1,12 +1,14 @@
-import { StrikeData } from "@actor/data/base";
-import { ItemPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll, DamageRollDataPF2e } from "./roll";
-import { DamageRollContext, DamageTemplate } from "./types";
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
+import { StrikeData } from "@actor/data/base.ts";
+import type { ItemPF2e } from "@item";
+import { createActionRangeLabel } from "@item/ability/helpers.ts";
+import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ZeroToThree } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { extractNotes } from "@module/rules/helpers.ts";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
+import { DamageRollContext, DamageTemplate } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -15,7 +17,7 @@ export class DamagePF2e {
         context: DamageRollContext,
         callback?: Function
     ): Promise<Rolled<DamageRoll> | null> {
-        const outcome = context.outcome ?? "success";
+        const outcome = context.outcome ?? null;
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
         context.createMessage ??= true;
@@ -25,14 +27,15 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        let flavor = `<strong>${data.name}</strong>`;
-        if (context.sourceType === "attack") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        } else if (context.sourceType === "check") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        }
+        const subtitle = outcome
+            ? context.sourceType === "attack"
+                ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
+                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
+            : null;
+        let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            title: data.name,
+            subtitle,
+        });
 
         if (data.traits) {
             interface ToTagsParams {
@@ -84,11 +87,11 @@ export class DamagePF2e {
                 : "";
 
             const properties = ((): string => {
-                if (item?.isOfType("weapon") && item.isRanged) {
-                    // Show the range increment for ranged weapons
-                    const { rangeIncrement } = item;
-                    const slug = `range-increment-${rangeIncrement}`;
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range: rangeIncrement });
+                const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;
+                const label = createActionRangeLabel(range);
+                if (label && (range?.increment || range?.max)) {
+                    // Show the range increment or max range as a tag
+                    const slug = range.increment ? `range-increment-${range.increment}` : `range-${range.max}`;
                     return toTags([slug], {
                         labels: { [slug]: label },
                         descriptions: { [slug]: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
@@ -116,7 +119,9 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
-        const breakdown = "breakdownTags" in data.damage ? data.damage.breakdownTags : data.damage.breakdown[outcome];
+        const breakdown = Array.isArray(data.damage.breakdown)
+            ? data.damage.breakdown
+            : data.damage.breakdown[outcome ?? "success"];
         const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
         flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
@@ -127,14 +132,14 @@ export class DamagePF2e {
                 return damage.roll.evaluate({ async: true });
             }
 
-            const formula = deepClone(damage.formula[outcome]);
+            const formula = deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
                 ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;
             }
 
             const rollerId = game.userId;
-            const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+            const degreeOfSuccess = outcome ? (DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree) : null;
             const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
 
             const options: DamageRollDataPF2e = {
@@ -149,18 +154,19 @@ export class DamagePF2e {
 
         if (roll === null) return null;
 
-        const noteRollData = context.self?.item?.getRollData();
-        const damageNotes = await Promise.all(
-            data.notes
-                .filter((n) => n.outcome.length === 0 || n.outcome.includes(outcome))
-                .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
+        const syntheticNotes = context.self?.actor
+            ? extractNotes(context.self?.actor.synthetics.rollNotes, context.domains ?? [])
+            : [];
+        const notes = [...syntheticNotes, ...data.notes].filter(
+            (n) =>
+                (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
+                n.predicate.test(context.options)
         );
-        const notes = damageNotes.join("<br />");
-        flavor += `${notes}`;
+        const notesList = RollNotePF2e.notesToHTML(notes);
+        flavor += notesList.outerHTML;
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
@@ -197,7 +203,7 @@ export class DamagePF2e {
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
             mapIncreases: context.mapIncreases,
-            notes: context.notes ?? [],
+            notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
             rollMode,
             traits: context.traits ?? [],
@@ -206,24 +212,24 @@ export class DamagePF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
 
-        const messageData = await roll.toMessage(
-            {
-                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-                flavor,
-                flags: {
-                    core: { canPopout: true },
-                    pf2e: {
-                        context: contextFlag,
-                        target: targetFlag,
-                        modifiers: data.modifiers,
-                        origin,
-                        strike,
-                        preformatted: "both",
+        const messageData: Omit<foundry.documents.ChatMessageSource, "rolls"> & { rolls: (string | RollJSON)[] } =
+            await roll.toMessage(
+                {
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+                    flavor,
+                    flags: {
+                        pf2e: {
+                            context: contextFlag,
+                            target: targetFlag,
+                            modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
+                            origin: item?.getOriginData(),
+                            strike,
+                            preformatted: "both",
+                        },
                     },
                 },
-            },
-            { create: false }
-        );
+                { create: false }
+            );
 
         // If there is splash damage, include it as an additional roll for separate application
         const splashRolls = await (async (): Promise<RollJSON[]> => {

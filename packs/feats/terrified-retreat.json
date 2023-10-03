@@ -1,0 +1,58 @@
+{
+    "_id": "dc8X2Mbtwq6kGp7F",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Terrified Retreat",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Intimidation"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

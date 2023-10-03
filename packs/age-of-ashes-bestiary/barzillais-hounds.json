@@ -1,0 +1,152 @@
+{
+    "_id": "sqXPqmuUYOgxspV3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1sYunHFicjStIbRN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Begin the Hunt",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that doesn't openly wear the symbol of Asmodeus comes within 60 feet of the haunt's initial location.</p>\n<hr />\n<p><strong>Effect</strong> The hounds appear before the chosen target and begin to chase that creature, howling wildly. The haunt rolls initiative. Others cannot see or hear this baying and must @UUID[Compendium.pf2e.actionspf2e.Item.Seek] to determine the hounds' location.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hI3zcHdUBaFLeoZX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "n0swlijtd7hk07y2uw6lfb": {
+                        "damage": "1d10+11",
+                        "damageType": "piercing"
+                    },
+                    "t9dscw71ewehbaqiscddbs": {
+                        "damage": "1d10",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Barzillai's Hounds",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Hell hounds invisible to all but their lone target burn their chosen victim.</p>",
+            "disable": "<p>@Check[type:religion|dc:24|name:Exorcise the Hounds|traits:complex,haunt,hazard] (expert) to perform an exorcism (with 2 actions)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>If their designated target dies or the hounds can't reach it in a turn, the hounds vanish into noxious smoke, but they manifest again elsewhere in the city after the next sunset.</p>",
+            "routine": "<p>(2 actions) The haunt uses its first action to Stride (Speed 60 feet), then its second action for a jaws Strike against its designated target if it is in reach. If the target is not in reach, the haunt resets.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #147: Tomorrow Must Burn"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "tvdb1jkjl2bRZjSp",
+    "img": "systems/pf2e/icons/features/classes/mutagenist.webp",
+    "name": "Mutagenist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You focus on bizarre mutagenic transformations that sacrifice one aspect of a creature's physical or psychological being in order to strengthen another. You start with the formulas for two common 1st-level alchemical mutagens, in addition to your other formulas.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents] to create your signature items using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy], you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>\n<p>You gain the following free action.</p>\n<h3 class=\"title\">@UUID[Compendium.pf2e.actionspf2e.Item.Mutagenic Flashback]</h3>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p>You experience a brief resurgence of a mutagen. Choose one mutagen you've consumed since your last daily preparations. You gain the effects of that mutagen for 1 minute.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Field Discovery (Mutagenist)]{Field Discovery}<span style=\"float:right\">Level 5</span></h2>\n<p>When using Advanced Alchemy to make mutagens during your daily preparations, you can use a batch of reagents to create any three mutagens instead of just two of the same mutagen.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Infusions (Mutagenist)]{Perpetual Infusions}<span style=\"float:right\">Level 7</span></h2>\n<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items. You gain the ability to create two 1st-level alchemical items using Quick Alchemy without spending a batch of infused reagents. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Each time you gain a level, you can swap any number of your perpetual infusions with other eligible infusions.</p>\n<p>Choose two 1st-level mutagens.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Potency (Mutagenist)]{Perpetual Potency}<span style=\"float:right\">Level 11</span></h2>\n<p>Your perpetual infusions improve, allowing you to use @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Choose two 3rd-level or lower mutagens.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Mutagenist)]{Greater Field Discovery}<span style=\"float:right\">Level 13</span></h2>\n<p>If you imbibe another mutagen while you are under the effects of a mutagen, you can gain the benefits and the drawbacks of both mutagens at once, despite the fact that they both have the polymorph trait and would not normally function together.</p>\n<p>If you come under the effects of any further mutagens while benefiting from two mutagens, you lose the benefit of one of the former mutagens of your choice, while retaining the drawbacks of all the mutagens.</p>\n<p>If you are under the effects of two mutagens and you come under the effect of a non-mutagen polymorph effect, you lose the benefits of the mutagens while retaining the drawbacks of both.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Perfection (Mutagenist)]{Perpetual Perfection}<span style=\"float:right\">Level 17</span></h2>\n<p>You have perfected your perpetual infusions, allowing you to use Quick Alchemy to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Choose two 11th-level or lower mutagens.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Mutagenic Flashback"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.alchemist",
+                "value": {
+                    "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.V4Jt7eDnJBLv5bDj",
+                    "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.1BKdOJ0HNL6Eg3xw",
+                    "perpetualInfusions": "Compendium.pf2e.classfeatures.Item.Dug1oaVYejLmYEFt",
+                    "perpetualPerfection": "Compendium.pf2e.classfeatures.Item.CGetAmSbv06fW7GT",
+                    "perpetualPotency": "Compendium.pf2e.classfeatures.Item.mZFqRLYOQEqKA8ri"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

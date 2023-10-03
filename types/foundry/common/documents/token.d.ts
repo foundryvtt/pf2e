@@ -1,175 +1,148 @@
-declare module foundry {
-    module documents {
-        /**
-         * The Token document model.
-         * @param data Initial data from which to construct the document.
-         * @property data The constructed data object for the document.
-         */
-        class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends abstract.Document<TParent> {
-            readonly actorLink: boolean;
+import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type { LightData, TextureData } from "../data/data.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type { ActorDeltaSource } from "./actor-delta.d.ts";
+import type { BaseActorDelta, BaseScene } from "./module.d.ts";
 
-            displayName: TokenDisplayMode;
+/**
+ * The Token document model.
+ * @param data Initial data from which to construct the document.
+ * @property data The constructed data object for the document.
+ */
+export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    TokenSchema
+> {
+    static override get metadata(): TokenMetadata;
 
-            disposition: TokenDisposition;
+    static override defineSchema(): TokenSchema;
 
-            width: number;
-
-            height: number;
-
-            texture: {
-                src: VideoFilePath;
-                scaleX: number;
-                scaleY: number;
-                offsetX: number;
-                offsetY: number;
-                rotation: number | null;
-                tint: HexColorString;
-            };
-
-            light: foundry.data.LightData;
-
-            sight: {
-                enabled: boolean;
-                range: number | null;
-                angle: number;
-                color: HexColorString;
-                attenuation: number;
-                brightness: number;
-                saturation: number;
-                contrast: number;
-                visionMode: string;
-            };
-
-            elevation: number;
-
-            effects: VideoFilePath[];
-
-            flags: DocumentFlags;
-
-            static override get metadata(): TokenMetadata;
-
-            /** Is a user able to update an existing Token? */
-            protected static _canUpdate(user: BaseUser, doc: BaseToken<BaseScene | null>, data: TokenSource): boolean;
-        }
-
-        interface BaseToken<TParent extends BaseScene | null = BaseScene | null> extends abstract.Document<TParent> {
-            readonly _source: TokenSource;
-        }
-
-        /**
-         * The data schema for a Token document.
-         *
-         * @property _id                  The Token _id which uniquely identifies it within its parent Scene
-         * @property name                 The name used to describe the Token
-         * @property [displayName=0]      The display mode of the Token nameplate, from CONST.TOKEN_DISPLAY_MODES
-         * @property actorId              The _id of an Actor document which this Token represents
-         * @property [actorLink=false]    Does this Token uniquely represent a singular Actor, or is it one of many?
-         * @property [actorData]          Token-level data which overrides the base data of the associated Actor
-         * @property [width=1]            The width of the Token in grid units
-         * @property [height=1]           The height of the Token in grid units
-         * @property [scale=1]            A scale factor applied to the Token image, between 0.25 and 3
-         * @property [mirrorX=false]      Flip the Token image horizontally?
-         * @property [mirrorY=false]      Flip the Token image vertically?
-         * @property [x=0]                The x-coordinate of the top-left corner of the Token
-         * @property [y=0]                The y-coordinate of the top-left corner of the Token
-         * @property [elevation=0]        The vertical elevation of the Token, in distance units
-         * @property [lockRotation=false] Prevent the Token image from visually rotating?
-         * @property [rotation=0]         The rotation of the Token in degrees, from 0 to 360. A value of 0 represents a southward-facing Token.
-         * @property [effects]            An array of effect icon paths which are displayed on the Token
-         * @property [overlayEffect]      A single icon path which is displayed as an overlay on the Token
-         * @property [hidden=false]       Is the Token currently hidden from player view?
-         * @property [vision]             Is this Token a source of vision?
-         * @property [dimSight=0]         How far in distance units the Token can naturally see as if in dim light
-         * @property [brightSight=0]      How far in distance units the Token can naturally see as if in bright light
-         * @property [sightAngle=360]     The angle at which this Token is able to see, if it has vision
-         * @property [light]              The angle at which this Token is able to see, if it has vision
-         * @property [dimLight=0]         How far in distance units this Token emits dim light
-         * @property [brightLight=0]      How far in distance units this Token emits bright light
-         * @property [lightAngle=360]     The angle at which this Token is able to emit light
-         * @property [lightAnimation]     A data object which configures token light animation settings
-         * @property [disposition=-1]     A displayed Token disposition from CONST.TOKEN_DISPOSITIONS
-         * @property [displayBars=0]      The display mode of Token resource bars, from CONST.TOKEN_DISPLAY_MODES
-         * @property [bar1]               The configuration of the Token's primary resource bar
-         * @property [bar2]               The configuration of the Token's secondary resource bar
-         * @property [flags={}]           An object of optional key/value flags
-         */
-        interface TokenSource extends TokenLightData {
-            _id: string;
-            name: string;
-
-            // Navigation
-            active: boolean;
-            navigation: boolean;
-            navOrder: number;
-            navName: string;
-
-            actorId: string | null;
-            actorLink: boolean;
-            actorData: DeepPartial<ActorSource>;
-            mirrorX: boolean;
-            mirrorY: boolean;
-            height: number;
-            width: number;
-            x: number;
-            y: number;
-            elevation: number;
-            lockRotation: boolean;
-            effects: VideoFilePath[];
-            overlayEffect: string | null;
-            vision: boolean;
-            dimSight: number;
-            brightSight: number;
-            sightAngle: number;
-            light: data.LightSource;
-            hidden: boolean;
-            texture: {
-                src: VideoFilePath;
-                scaleX: number;
-                scaleY: number;
-                offsetX: number;
-                offsetY: number;
-                rotation: number | null;
-                tint: `#${string}`;
-            };
-
-            lightAnimation: data.AnimationData;
-            disposition: TokenDisposition;
-            displayName: TokenDisplayMode;
-            displayBars: TokenDisplayMode;
-            bar1: TokenBarData;
-            bar2: TokenBarData;
-            flags: DocumentFlags;
-        }
-
-        interface TokenLightData {
-            brightLight: number;
-            dimLight: number;
-            lightAlpha: number;
-            lightAngle: number;
-            lightAnimation: {
-                type: string;
-                speed: number;
-                intensity: number;
-            };
-            lightColor: string;
-        }
-
-        interface TokenMetadata extends abstract.DocumentMetadata {
-            name: "Token";
-            collection: "tokens";
-            label: "DOCUMENT.Token";
-            isEmbedded: true;
-            permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
-                create: "TOKEN_CREATE";
-            };
-        }
-
-        /**
-         * An embedded data structure for the contents of a Token attribute bar.
-         * @property [attribute] The attribute path within the Token's Actor data which should be displayed
-         */
-        interface TokenBarData {
-            attribute: string | null;
-        }
-    }
+    /** The default icon used for newly created Token documents */
+    static DEFAULT_ICON: ImageFilePath | VideoFilePath;
 }
+
+export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
+    extends Document<TParent, TokenSchema>,
+        ModelPropsFromSchema<TokenSchema> {
+    readonly _source: TokenSource;
+
+    delta: BaseActorDelta<this> | null;
+    light: LightData;
+}
+
+interface TokenMetadata extends DocumentMetadata {
+    name: "Token";
+    collection: "tokens";
+    label: "DOCUMENT.Token";
+    labelPlural: "DOCUMENT.Tokens";
+    isEmbedded: true;
+    embedded: {
+        ActorDelta: "delta";
+    };
+}
+
+type TokenSchema = {
+    /** The Token _id which uniquely identifies it within its parent Scene */
+    _id: fields.DocumentIdField;
+    /** The name used to describe the Token */
+    name: fields.StringField<string, string, true>;
+    /** The display mode of the Token nameplate, from CONST.TOKEN_DISPLAY_MODES */
+    displayName: fields.NumberField<TokenDisplayMode, TokenDisplayMode, true, false, true>;
+    /** The _id of an Actor document which this Token represents */
+    actorId: fields.ForeignDocumentField<string>;
+    /** Does this Token uniquely represent a singular Actor, or is it one of many? */
+    actorLink: fields.BooleanField;
+    appendNumber: fields.BooleanField;
+    prependAdjective: fields.BooleanField;
+    /** The token's texture on the canvas. */
+    texture: TextureData;
+    /** The width of the Token in grid units */
+    width: fields.NumberField<number, number, true, false>;
+    /** The height of the Token in grid units */
+    height: fields.NumberField<number, number, true, false>;
+    /** The x-coordinate of the top-left corner of the Token */
+    x: fields.NumberField<number, number, true, false>;
+    /** The y-coordinate of the top-left corner of the Token */
+    y: fields.NumberField<number, number, true, false>;
+    /** The vertical elevation of the Token, in distance units */
+    elevation: fields.NumberField<number, number, true, false>;
+    /** Prevent the Token image from visually rotating? */
+    lockRotation: fields.BooleanField;
+    /** The rotation of the Token in degrees, from 0 to 360. A value of 0 represents a southward-facing Token. */
+    rotation: fields.AngleField;
+    /** An array of effect icon paths which are displayed on the Token */
+    effects: fields.ArrayField<
+        fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, false>
+    >;
+    /** A single icon path which is displayed as an overlay on the Token */
+    overlayEffect: fields.StringField<ImageFilePath | VideoFilePath | "">;
+    /** The opacity of the token image */
+    alpha: fields.AlphaField;
+    /** Is the Token currently hidden from player view? */
+    hidden: fields.BooleanField;
+    /** A displayed Token disposition from CONST.TOKEN_DISPOSITIONS */
+    disposition: fields.NumberField<TokenDisposition, TokenDisposition, true>;
+    /** The display mode of Token resource bars, from CONST.TOKEN_DISPLAY_MODES */
+    displayBars: fields.NumberField<TokenDisplayMode, TokenDisplayMode, true>;
+    /** The configuration of the Token's primary resource bar */
+    bar1: fields.SchemaField<{
+        /** The attribute path within the Token's Actor data which should be displayed */
+        attribute: fields.StringField<string, string, true, true, true>;
+    }>;
+    /** The configuration of the Token's secondary resource bar */
+    bar2: fields.SchemaField<{
+        /** The attribute path within the Token's Actor data which should be displayed */
+        attribute: fields.StringField<string, string, true, true, true>;
+    }>;
+    // /** Configuration of the light source that this Token emits */
+    // light: fields.EmbeddedDataField<LightData>;
+    /** Configuration of sight and vision properties for the Token */
+    sight: fields.SchemaField<{
+        /** Should vision computation and rendering be active for this Token? */
+        enabled: fields.BooleanField;
+        /** How far in distance units the Token can see without the aid of a light source */
+        range: fields.NumberField<number, number, true, false>;
+        /** An angle at which the Token can see relative to their direction of facing */
+        angle: fields.AngleField;
+        /** The vision mode which is used to render the appearance of the visible area */
+        visionMode: fields.StringField<string, string, true, false, true>;
+        /** A special color which applies a hue to the visible area */
+        color: fields.ColorField;
+        /** A degree of attenuation which gradually fades the edges of the visible area */
+        attenuation: fields.AlphaField;
+        /** An advanced customization for the perceived brightness of the visible area */
+        brightness: fields.NumberField<number, number, true, false>;
+        /** An advanced customization of color saturation within the visible area */
+        saturation: fields.NumberField<number, number, true, false>;
+        /** An advanced customization for contrast within the visible area */
+        contrast: fields.NumberField<number, number, true, false>;
+    }>;
+    /** An array of detection modes which are available to this Token */
+    detectionModes: fields.ArrayField<
+        fields.SchemaField<{
+            /** The id of the detection mode, a key from CONFIG.Canvas.detectionModes */
+            id: fields.StringField<string>;
+            /** Whether or not this detection mode is presently enabled */
+            enabled: fields.BooleanField;
+            /** The maximum range in distance units at which this mode can detect targets */
+            range: fields.NumberField<number, number, true, false>;
+        }>
+    >;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+export type TokenSource = SourceFromSchema<TokenSchema> & {
+    delta: ActorDeltaSource | null;
+    light: LightData["_source"];
+};
+
+// declare class ActorDeltaField<
+//     TDocument extends BaseActorDelta<any> = BaseActorDelta<any>
+// > extends fields.EmbeddedDocumentField<TDocument> {
+//     override initialize(
+//         value: fields.MaybeSchemaProp<TDocument["schema"]["fields"], true, true, true>,
+//         model?: ConstructorOf<TDocument>,
+//         options?: object
+//     ): TDocument;
+// }

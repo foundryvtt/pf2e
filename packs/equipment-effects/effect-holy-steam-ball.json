@@ -1,0 +1,52 @@
+{
+    "_id": "5dhm66yN0LQTOePw",
+    "img": "systems/pf2e/icons/equipment/held-items/holy-steam-ball.webp",
+    "name": "Effect: Holy Steam Ball",
+    "system": {
+        "description": {
+            "value": "<p>Each use of the <em>holy steam ball</em> lasts for 1 hour and gives you a +2 item bonus to Will saving throws against possession effects from fiends and undead and effects from fiends and undead that cause the controlled condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Saving vs. Possession or Control Effect from Undead or Fiend",
+                "option": "holy-steam-ball",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "holy-steam-ball"
+                ],
+                "selector": "will",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

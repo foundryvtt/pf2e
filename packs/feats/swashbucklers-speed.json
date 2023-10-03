@@ -1,0 +1,61 @@
+{
+    "_id": "RU86cGTryRAdaEqx",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Swashbuckler's Speed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You move faster, with or without @UUID[Compendium.pf2e.classfeatures.Item.Panache]. Increase the status bonus to your Speeds when you have panache to a +10-foot status bonus; you also gain a +5-foot status bonus to your Speeds when you don't have panache.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Swashbuckler Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-panache",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-no-panache",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

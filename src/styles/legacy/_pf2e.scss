@@ -1,12 +1,8 @@
 :root {
-    --primary-background:#454a7c;
-    --secondary-background:gray;
-    --tertiary-background:#454a7c;
-    --alternate-background:darkgray;
-}
-
-.tab[data-tab].active {
-    display: initial;
+    --primary-background: #454a7c;
+    --secondary-background: gray;
+    --tertiary-background: #454a7c;
+    --alternate-background: darkgray;
 }
 
 /* ----------------------------------------- */
@@ -40,7 +36,6 @@
                 height: 40px;
                 width: 100%;
                 margin: 2px;
-                color: #444;
                 font-size: var(--font-size-36);
                 border: none;
             }
@@ -61,16 +56,18 @@
         overflow: hidden;
 
         input {
-            &[type="text"], &[type="number"] {
-                width: calc(100% - 2px);
-                height: calc(100% - 2px);
-                background: none;
-                padding: 0;
-                margin: 1px 0;
-                color: #333;
+            &[type="text"],
+            &[type="number"] {
+                background: rgba(black, 0.025);
                 border: 1px solid transparent;
+                color: var(--color-text-dark-input);
+                height: calc(100% - 2px);
+                margin: 1px 0;
+                padding: 0;
+                width: calc(100% - 2px);
 
-                &:hover:not(:disabled), &:focus {
+                &:hover:not(:disabled),
+                &:focus {
                     border: 1px solid black;
                     box-shadow: 0 0 10px #00005a;
                 }
@@ -79,7 +76,7 @@
 
         select {
             font-size: var(--font-size-10);
-            height: 18px;
+            height: var(--font-size-18);
             background: rgba(255, 255, 255, 0.5);
         }
 
@@ -102,7 +99,7 @@
             height: 30px;
 
             > .list-row {
-                line-height: 24px;
+                line-height: 2rem;
                 padding-top: 3px;
                 font-size: var(--font-size-12);
                 text-align: center;
@@ -112,7 +109,7 @@
                 }
 
                 &.active {
-                    color: #000;
+                    color: var(--text-dark);
                     font-weight: 700;
                 }
             }
@@ -129,7 +126,7 @@
             padding: 0 3px;
             font-size: var(--font-size-10);
             line-height: 16px;
-            border: 1px solid #999;
+            border: 1px solid var(--color-border-light-2);
             border-radius: 3px;
             white-space: normal;
             font-weight: 500;
@@ -166,7 +163,8 @@
             height: 48px;
         }
 
-        .sheet-profile, .sheet-showcase {
+        .sheet-profile,
+        .sheet-showcase {
             height: 220px;
         }
     }
@@ -318,7 +316,8 @@
                     }
 
                     input {
-                        &[type="text"], &[type="number"] {
+                        &[type="text"],
+                        &[type="number"] {
                             flex: 1;
                             text-align: right;
                             height: 16px;
@@ -413,7 +412,8 @@
                         text-align: left;
                     }
 
-                    &.speed, &.hpformula {
+                    &.speed,
+                    &.hpformula {
                         max-width: 90%;
                     }
                 }
@@ -478,7 +478,8 @@
                     }
 
                     input {
-                        &[type="text"], &[type="number"] {
+                        &[type="text"],
+                        &[type="number"] {
                             height: 20px;
                             max-width: 20px;
                             margin: 0;
@@ -622,13 +623,15 @@
                 width: 94px;
             }
 
-            .bio-appearance, .bio-attitude {
+            .bio-appearance,
+            .bio-attitude {
                 grid-column-start: 1;
                 grid-column-end: 3;
                 width: 170px;
             }
 
-            .bio-appearance > input, .bio-attitude > input {
+            .bio-appearance > input,
+            .bio-attitude > input {
                 text-align: start;
                 word-break: break-all;
             }
@@ -664,11 +667,13 @@
             background: var(--secondary-background);
             margin-right: 4px;
 
-            .save-name, .attribute-name, .attribute-name-non-rollable {
+            .save-name,
+            .attribute-name,
+            .attribute-name-non-rollable {
                 grid-area: auto;
                 margin: 0;
                 background: var(--secondary-background);
-                color: white;
+                color: var(--text-light);
                 align-self: center;
                 font-size: var(--font-size-15);
             }
@@ -681,7 +686,7 @@
                 font-size: var(--font-size-28);
                 text-align: center;
                 background: var(--secondary-background);
-                color: white;
+                color: var(--text-light);
 
                 > input {
                     @include serif-condensed;
@@ -710,7 +715,8 @@
         }
     }
 
-    .npc-abilities .ability-title, .abilities .ability-title {
+    .npc-abilities .ability-title,
+    .abilities .ability-title {
         @include serif-condensed;
         flex: 0 0 24px;
         font-size: var(--font-size-24);
@@ -788,25 +794,30 @@
         .ability {
             grid-row-start: auto;
             display: grid;
-            grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
+            grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (
+                    ([row2-end]) / 46%
+                ) 31% 18% 5%;
             height: 36px;
             line-height: 36px;
         }
     }
 
-    .npc-abilities .ability > *, .abilities .ability > * {
+    .npc-abilities .ability > *,
+    .abilities .ability > * {
         flex: 1;
         align-self: center;
     }
 
-    .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
+    .npc-abilities .ability .ability-proficiency,
+    .abilities .ability .ability-proficiency {
         flex: 0 0 20px;
         height: 100%;
         text-align: left;
         padding-left: 3px;
     }
 
-    .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
+    .npc-abilities .ability .ability-proficiency i.fa-circle,
+    .abilities .ability .ability-proficiency i.fa-circle {
         font-size: var(--font-size-10);
     }
 
@@ -867,7 +878,8 @@
         }
     }
 
-    .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+    .npc-abilities .npc-defense .ability-name,
+    .abilities .ability .ability-id {
         @include serif-condensed;
         flex: 0 0 24px;
         font-size: var(--font-size-32);
@@ -878,12 +890,14 @@
         text-align: center;
     }
 
-    .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
+    .npc-abilities .ability .ability-mod,
+    .abilities .ability .ability-mod {
         grid-area: mod;
         align-self: center;
     }
 
-    .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
+    .npc-abilities .ability .ability-name,
+    .abilities .ability .ability-id {
         grid-area: id;
         align-self: center;
     }
@@ -927,7 +941,8 @@
                 border-radius: 2px;
                 margin-bottom: 2px;
 
-                h4, h5 {
+                h4,
+                h5 {
                     width: calc(100% - 44px);
                     float: left;
                     margin: 0;
@@ -1030,7 +1045,8 @@
     }
 
     .skills {
-        .skill > *, .list-row > * {
+        .skill > *,
+        .list-row > * {
             flex: 1;
         }
     }
@@ -1040,16 +1056,17 @@
         align-self: center;
         background: var(--secondary-background);
         line-height: 32px;
-        color: white;
+        color: var(--text-light);
     }
 
     .skills {
-        .lore-name, .lore-name-input {
+        .lore-name,
+        .lore-name-input {
             margin: 0;
             align-self: center;
             background: var(--secondary-background);
             line-height: 32px;
-            color: white;
+            color: var(--text-light);
         }
 
         .skill-proficiency {
@@ -1078,7 +1095,7 @@
             align-self: center;
             background: var(--secondary-background);
             line-height: 32px;
-            color: white;
+            color: var(--text-light);
             width: 16px;
             margin: unset;
         }
@@ -1089,12 +1106,13 @@
             text-align: center;
             align-self: center;
             background: var(--secondary-background);
-            color: white;
+            color: var(--text-light);
         }
     }
 
     &.locked {
-        .ability-proficiency, .skill-proficiency {
+        .ability-proficiency,
+        .skill-proficiency {
             text-shadow: none;
             cursor: default;
         }
@@ -1184,87 +1202,19 @@
     }
 
     .action-header .item-controls a {
-        &.item-create, &.item-delete, &.feat-browse, &.action-browse {
+        &.item-create,
+        &.item-delete,
+        &.feat-browse,
+        &.action-browse {
             width: 100%;
             color: #fff;
             background: var(--primary-background);
         }
     }
 
-    .encumbrance {
-        background: rgba(0, 0, 0, 0.1);
-        height: 12px;
-        margin-top: 5px;
-        border: 1px solid #111;
-        border-radius: 3px;
-        position: relative;
-        width: calc(100% - 20px);
-
-        .encumbrance-bar {
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            background: var(--secondary-background);
-            height: 8px;
-            border: 1px solid #6f5439;
-            border-radius: 3px;
-        }
-
-        .encumbrance-label {
-            position: absolute;
-            top: -3px;
-            height: 16px;
-            font-size: var(--font-size-16);
-            line-height: 16px;
-            color: #000;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 0 3px;
-        }
-
-        .encumbrance-breakpoint {
-            position: absolute;
-            left: 66%;
-        }
-
-        .arrow-up {
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-bottom: 4px solid #666;
-        }
-
-        .arrow-down {
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 4px solid #666;
-        }
-
-        &.encumbered {
-            background-color: yellow;
-        }
-
-        &.over-limit {
-            background-color: red;
-        }
-
-        &.encumbered {
-            .arrow-up {
-                border-bottom: 4px solid #000;
-            }
-
-            .arrow-down {
-                border-top: 4px solid #000;
-            }
-        }
-    }
-
     .list-row {
-        .spell-school, .spell-action {
+        .spell-school,
+        .spell-action {
             flex: 1;
             font-size: var(--font-size-12);
             color: #666;
@@ -1272,13 +1222,15 @@
             border-right: 1px solid var(--secondary-background);
         }
 
-        .spell-slots, .spell-max {
+        .spell-slots,
+        .spell-max {
             flex: 0 0 24px;
             font-size: var(--font-size-12);
             text-align: center;
         }
 
-        .spell-slots-input, .spell-max-input {
+        .spell-slots-input,
+        .spell-max-input {
             flex: 0 0 24px;
             font-size: var(--font-size-12);
             text-align: center;
@@ -1310,7 +1262,7 @@
 }
 
 /* ----------------------------------------- */
-/* Item Buttons
+/* Item Buttons                              */
 /* ----------------------------------------- */
 
 .pf2e.sheet {
@@ -1321,7 +1273,7 @@
             margin: 0;
         }
 
-        span {
+        > span {
             padding: 0;
         }
     }
@@ -1372,9 +1324,10 @@
 
 .pf2e.sheet form .npc-detail-text {
     input {
-        &[type="text"], &[type="number"] {
+        &[type="text"],
+        &[type="number"] {
             background: rgba(255, 255, 255, 0.8);
-            color: black;
+            color: var(--text-dark);
             border: 1px solid black;
         }
     }
@@ -1403,44 +1356,6 @@
     }
 }
 
-/* HEADER */
-
-/* TRAITS */
-
-.traits-bar {
-    align-items: center;
-    display: flex;
-
-    .trait {
-        background-color: #5e0000;
-        border: 2px solid #d8c483;
-        color: white;
-        font-family: var(--sans-serif);
-        padding: 0.25em 0.5em;
-        text-transform: uppercase;
-
-        &.alignment {
-            background-color: #5e657a;
-        }
-
-        &.size {
-            background-color: #447b5c;
-        }
-
-        &.uncommon {
-            background-color: #c45500;
-        }
-
-        &.rare {
-            background-color: #0c1466;
-        }
-
-        &.unique {
-            background-color: #54166e;
-        }
-    }
-}
-
 /* Top-section */
 
 .pf2e.sheet form {
@@ -1459,7 +1374,7 @@ li.list-row.hover-container {
 
 .dice-total-shield-btn.shield-activated {
     background-color: #333;
-    color: white;
+    color: var(--text-light);
 }
 
 .message-content .dice-roll {
@@ -1515,7 +1430,7 @@ li.list-row.hover-container {
         font-size: var(--font-size-14);
         font-weight: 400;
         line-height: normal;
-        background: url("../assets/sheet/parchment.webp") repeat;
+        background: url("/assets/sheet/parchment.webp") repeat;
         border: 1px solid #999;
         border-radius: 3px;
         box-shadow: 0 0 3px #fff inset;
@@ -1556,23 +1471,27 @@ li.list-row.hover-container {
     }
 }
 
-.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment,
+.npc-title-bar .creature-adjustment a.hidden {
     font-size: var(--font-size-12);
 }
 
-.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: var(--secondary-background);
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.active,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: #5e0000;
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.hidden, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.hidden,
+.npc-title-bar .creature-adjustment a.hidden {
     display: none;
 }
 
@@ -1606,4 +1525,8 @@ button {
     &:active {
         box-shadow: 0 0 5px red;
     }
+}
+
+.app.tag-selector {
+    max-height: 700px;
 }

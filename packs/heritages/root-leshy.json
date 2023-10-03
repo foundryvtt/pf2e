@@ -1,0 +1,50 @@
+{
+    "_id": "CZx9HMmoOwcpkLY8",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Root Leshy",
+    "system": {
+        "ancestry": {
+            "name": "Leshy",
+            "slug": "leshy",
+            "uuid": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
+        },
+        "description": {
+            "value": "<p>Your body is made from hardy roots that attach you firmly to the ground. You gain 10 Hit Points from your ancestry instead of 8. You can go without sunlight for 2 weeks before you begin to starve. You gain a +2 circumstance bonus to your Fortitude or Reflex DC against attempts to Shove or Trip you. This bonus also applies to saving throws against spells or effects that attempt to move you or knock you prone.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 10
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.VsShoveOrTrip",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

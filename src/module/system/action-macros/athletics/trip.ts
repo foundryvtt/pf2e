@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { extractModifierAdjustments } from "@module/rules/helpers";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
 
 function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
@@ -42,7 +42,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                         context.rollOptions,
                         "ranged-trip"
                     ),
-                    type: MODIFIER_TYPE.CIRCUMSTANCE,
+                    type: "circumstance",
                     label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                     modifier: -2,
                 })
@@ -54,7 +54,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     return context;
 }
 
-function trip(options: SkillActionOptions) {
+function trip(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:trip"];
@@ -66,13 +66,15 @@ function trip(options: SkillActionOptions) {
         traits: ["attack"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.reflex,
+        difficultyClass: options.difficultyClass ?? "reflex",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 
@@ -90,7 +92,7 @@ class TripAction extends SingleCheckAction {
         super({
             cost: 1,
             description: "PF2E.Actions.Trip.Description",
-            difficultyClass: "saves.reflex",
+            difficultyClass: "reflex",
             name: "PF2E.Actions.Trip.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.Trip.Notes.criticalSuccess" },

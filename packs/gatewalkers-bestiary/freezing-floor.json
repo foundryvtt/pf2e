@@ -1,0 +1,191 @@
+{
+    "_id": "tWT89vRMBNtU2i5y",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "4VpepHwW5olp8zWp",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cold Snap",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on the white bricks</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a frost jet Strike against the triggering creature and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jUTaEtvAHbQ1DTPF",
+            "flags": {
+                "core": {
+                    "sourceId": "Actor.tWT89vRMBNtU2i5y.Item.jUTaEtvAHbQ1DTPF"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frost Jet",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "Niu2iaUCkocDG1D0": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "cold"
+                    },
+                    "ddIaogmCD42uvS45": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": "<p>No multiple attack penalty.</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3TUX6DYe4LCZLP8r",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frostbite",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature that takes persistent cold damage from the trap's frost jet Strike must attempt a @Check[type:fortitude|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature isn't affected and is immune to this frostbite effect for 24 hours.</p>\n<p><strong>Success</strong> The creature isn't affected.</p>\n<p><strong>Failure</strong> The creature can't stop shivering and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Freezing Floor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "to destroy the bricks and disable the trap;",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:31] (master) to notice the cold fog rising from the floor</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The white brick floor radiates ice-cold air.</p>",
+            "disable": "<p>@Check[type:thievery|dc:24] (expert) to erase a rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 24) to dispel a rune; all three runes must be erased or dispelled to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(3 actions) With each action, the trap attempts a frost jet Strike against any creature standing on the white bricks. The trap loses 1 action per disabled or dispelled rune.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #188: They Watched the Stars"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

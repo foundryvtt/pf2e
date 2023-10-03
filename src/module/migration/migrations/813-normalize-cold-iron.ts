@@ -1,11 +1,12 @@
-import { ItemSourcePF2e, WeaponSource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { isObject } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /** Normalize "cold-iron" slug in armor, weapon and melee items */
 export class Migration813NormalizeColdIron extends MigrationBase {
     static override version = 0.813;
 
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: MaybeWithOldMaterialData): Promise<void> {
         switch (source.type) {
             case "melee": {
                 const traits: { value: string[] } = source.system.traits;
@@ -14,8 +15,8 @@ export class Migration813NormalizeColdIron extends MigrationBase {
             }
             case "armor":
             case "weapon": {
-                const preciousMaterial: { value: string | null } = source.system.preciousMaterial;
-                if (!preciousMaterial) return;
+                const preciousMaterial = source.system.preciousMaterial;
+                if (typeof preciousMaterial?.value !== "string") return;
                 preciousMaterial.value &&= preciousMaterial.value.replace(/^coldiron$/i, "cold-iron");
 
                 if (source.type === "weapon") {
@@ -30,7 +31,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
                 r.key === "ChoiceSet" &&
                 "choices" in r &&
                 Array.isArray(r.choices) &&
-                r.choices.every((c) => c instanceof Object && "value" in c && typeof c.value === "string")
+                r.choices.every((c) => isObject(c) && "value" in c && typeof c.value === "string")
         );
         for (const choiceSet of choiceSets) {
             this.#updateChoiceSet(choiceSet);
@@ -39,10 +40,11 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 
     #updateWeaponMaterialData(source: WeaponSource): void {
         // Material was logged in specific-magic-item data but ended up not being needed
-        const systemData = source.system;
-        if (!(systemData.specific instanceof Object)) return;
+        if (source.type !== "weapon" || !isObject(source.system.specific)) {
+            return;
+        }
 
-        const specificData: SpecificMagicData = systemData.specific;
+        const specificData: SpecificMagicData = source.system.specific;
         if (!specificData.value) {
             delete specificData.material;
             delete specificData.price;
@@ -105,3 +107,10 @@ interface ArrayChoiceSet {
     choices: { value?: unknown }[];
     selection?: unknown;
 }
+
+type MaybeWithOldMaterialData = ItemSourcePF2e & {
+    system: {
+        preciousMaterial?: { value?: unknown };
+        preciousMaterialGrade?: { value?: unknown };
+    };
+};

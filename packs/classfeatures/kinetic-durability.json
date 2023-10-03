@@ -1,0 +1,58 @@
+{
+    "_id": "eTHq1Cwf1pOvsx2R",
+    "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
+    "name": "Kinetic Durability",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The sustenance of your inner gate counters harm that would come to your body. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.fortitude.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "fortitude",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Fortitude",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,21 +1,24 @@
 import { ActorPF2e } from "@actor";
-import { strikeFromMeleeItem } from "@actor/helpers";
-import { ActorInitiative } from "@actor/initiative";
-import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { SaveType } from "@actor/types";
-import { SAVE_TYPES } from "@actor/values";
+import { InitiativeData } from "@actor/data/base.ts";
+import { ImmunityData } from "@actor/data/iwr.ts";
+import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
+import { ActorInitiative } from "@actor/initiative.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ConditionPF2e } from "@item";
-import { ItemType } from "@item/data";
-import { Rarity } from "@module/data";
-import { extractModifiers } from "@module/rules/helpers";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageType } from "@system/damage";
-import { Statistic } from "@system/statistic";
+import { ItemType } from "@item/data/index.ts";
+import { Rarity } from "@module/data.ts";
+import { extractModifiers } from "@module/rules/helpers.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { DamageType } from "@system/damage/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
-import { HazardSource, HazardSystemData } from "./data";
-import { InitiativeData } from "@actor/data/base";
+import { HazardSource, HazardSystemData } from "./data.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    declare skills: { stealth: Statistic };
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action", "melee"];
     }
@@ -26,6 +29,14 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
     get isComplex(): boolean {
         return this.system.details.isComplex;
+    }
+
+    override get hardness(): number {
+        return Math.abs(this.system.attributes.hardness);
+    }
+
+    get hasDefenses(): boolean {
+        return !!(this.hitPoints?.max || this.attributes.ac.value);
     }
 
     /** Minimal check since the disabled status of a hazard isn't logged */
@@ -62,6 +73,13 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        // Hazards have object immunities (CRB p. 273): can be overridden by Immunity rule element
+        if (!attributes.immunities.some((i) => i.type === "object-immunities")) {
+            attributes.immunities.unshift(
+                new ImmunityData({ type: "object-immunities", source: "TYPES.Actor.hazard" })
+            );
+        }
+
         if (this.isComplex) {
             // Ensure stealth value is numeric and set baseline initiative data
             attributes.stealth.value ??= 0;
@@ -82,27 +100,43 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         const { system } = this;
 
         this.prepareSynthetics();
-        this.prepareInitiative();
+
+        setHitPointsRollOptions(this);
+
+        // Stealth, which is the only skill hazards have
+        this.skills = {
+            stealth: new Statistic(this, {
+                slug: "stealth",
+                label: CONFIG.PF2E.skillList.stealth,
+                domains: ["stealth", `dex-based`, "skill-check", `dex-skill-check`, "all"],
+                modifiers: [
+                    new ModifierPF2e({
+                        label: "PF2E.ModifierTitle",
+                        slug: "base",
+                        type: "untyped",
+                        modifier: system.attributes.stealth.value ?? 0,
+                    }),
+                ],
+                check: { type: "skill-check" },
+            }),
+        };
+
+        // Initiative
+        if (system.attributes.initiative) {
+            this.initiative = new ActorInitiative(this);
+            system.attributes.initiative = this.initiative.getTraceData();
+        }
 
         // Armor Class
-        {
-            const base = system.attributes.ac.value;
-            const domains = ["ac", "dex-based", "all"];
-            const modifiers = [
-                new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(this.synthetics, domains, { test: this.getRollOptions(domains) }),
-            ];
-
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), system.attributes.ac, {
-                overwrite: false,
+        if (this.hasDefenses) {
+            const baseModifier = new ModifierPF2e({
+                slug: "base",
+                label: "PF2E.BaseModifier",
+                modifier: system.attributes.ac.value - 10,
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-
-            system.attributes.ac = mergeObject(stat, { base });
+            const statistic = new ArmorStatistic(this, { rank: 1, modifiers: [baseModifier] });
+            this.armorClass = statistic.dc;
+            system.attributes.ac = statistic.getTraceData();
         }
 
         this.saves = this.prepareSaves();
@@ -117,7 +151,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
-            const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
+            const ability = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
             // Later on we'll need to explicitly check for null, since 0 is supposed to be valid
@@ -129,7 +163,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 label: saveName,
                 domains: selectors,
                 modifiers: [
-                    new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.BaseModifier", base, "untyped"),
                     ...extractModifiers(this.synthetics, selectors),
                 ],
                 check: {
@@ -143,32 +177,10 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             return saves;
         }, {});
     }
-
-    private prepareInitiative(): void {
-        const { attributes } = this;
-        if (!attributes.initiative) return;
-
-        const skillName = game.i18n.localize(CONFIG.PF2E.skillList.stealth);
-        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
-        const baseMod = attributes.stealth.value || 0;
-        const statistic = new Statistic(this, {
-            slug: "initiative",
-            label,
-            domains: ["initiative"],
-            check: {
-                type: "initiative",
-                modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)],
-            },
-        });
-
-        this.initiative = new ActorInitiative(this, statistic);
-        attributes.initiative = mergeObject(attributes.initiative, statistic.getTraceData());
-    }
 }
 
 interface HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: HazardSource;
-    readonly abilities?: never;
     system: HazardSystemData;
 
     saves: { [K in SaveType]?: Statistic };

@@ -1,0 +1,37 @@
+{
+    "_id": "1wVDYY9Wue0G5R9Q",
+    "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
+    "name": "Whisper Elf",
+    "system": {
+        "ancestry": {
+            "name": "Elf",
+            "slug": "elf",
+            "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+        },
+        "description": {
+            "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound.</p>\n<p>As long as you can hear normally, you can use the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to sense @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures in a @Template[type:cone|distance:60] instead of a @Template[type:cone|distance:30].</p>\n<p>You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a seek action.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Whisper Elf (locate audible undetected within range)",
+                "predicate": [
+                    "target:undetected",
+                    "target:within-30-feet",
+                    "target:audible"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

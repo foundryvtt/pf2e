@@ -1,6 +1,13 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import {
+    SingleCheckAction,
+    SingleCheckActionUseOptions,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
+import { CheckResultCallback } from "@system/action-macros/types.ts";
 
-export function decipherWriting(options: SkillActionOptions) {
+function decipherWriting(options: SkillActionOptions): void {
     if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         return;
@@ -23,5 +30,51 @@ export function decipherWriting(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DecipherWriting", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+class DecipherWritingActionVariant extends SingleCheckActionVariant {
+    override async use(
+        options: Partial<SingleCheckActionUseOptions> & { statistic: string }
+    ): Promise<CheckResultCallback[]> {
+        if (!options?.statistic) {
+            throw new Error(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
+        }
+        const rollOption = `action:decipher-writing:${options.statistic}`;
+        options.rollOptions ??= [];
+        if (!options.rollOptions.includes(rollOption)) {
+            options.rollOptions.push(rollOption);
+        }
+        return super.use(options);
+    }
+}
+
+class DecipherWritingAction extends SingleCheckAction {
+    constructor() {
+        super({
+            description: "PF2E.Actions.DecipherWriting.Description",
+            name: "PF2E.Actions.DecipherWriting.Title",
+            notes: [
+                { outcome: ["criticalSuccess"], text: "PF2E.Actions.DecipherWriting.Notes.criticalSuccess" },
+                { outcome: ["success"], text: "PF2E.Actions.DecipherWriting.Notes.success" },
+                { outcome: ["failure"], text: "PF2E.Actions.DecipherWriting.Notes.failure" },
+                { outcome: ["criticalFailure"], text: "PF2E.Actions.DecipherWriting.Notes.criticalFailure" },
+            ],
+            rollOptions: ["action:decipher-writing"],
+            slug: "decipher-writing",
+            statistic: "",
+            traits: ["concentrate", "exploration", "secret"],
+        });
+    }
+
+    protected override toActionVariant(data?: SingleCheckActionVariantData): SingleCheckActionVariant {
+        return new DecipherWritingActionVariant(this, data);
+    }
+}
+
+const action = new DecipherWritingAction();
+
+export { decipherWriting as legacy, action };

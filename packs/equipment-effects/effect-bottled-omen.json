@@ -1,0 +1,51 @@
+{
+    "_id": "pmWJxDjz3gqL29OM",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/comprehension-elixir.webp",
+    "name": "Effect: Bottled Omen",
+    "system": {
+        "description": {
+            "value": "<p>When you attempt a saving throw, you can roll twice and use the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "bottled-omen"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BottledOmen.Label",
+                "option": "bottled-omen",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

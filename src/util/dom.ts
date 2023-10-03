@@ -1,24 +1,51 @@
-import { Optional } from "./misc";
+import * as R from "remeda";
 
 /**  DOM helper functions that return HTMLElement(s) (or `null`) */
 
-type MaybeHTML = Optional<Document | Element | EventTarget>;
+type MaybeHTML = Maybe<Document | Element | EventTarget>;
 
-/** Create an `HTMLElement` with classes, dataset, and children */
-function createHTMLElement(
-    nodeName: keyof HTMLElementTagNameMap,
-    { classes = [], dataset = {}, children = [] }: CreateHTMLElementOptions = {}
-): HTMLElement {
+/**
+ * Create an `HTMLElement` with classes, dataset, and children
+ * @param nodeName  A valid HTML element tag name,
+ * @param [options] Additional options for adjusting the created element
+ * @param [options.classes=[]]  A list of class names
+ * @param [options.dataset={}]  An object of keys and values with which to populate the `dataset`: nullish values will
+ *                              be excluded.
+ * @param [options.children=[]] A list of child elements as well as strings that will be converted to text nodes
+ * @param [options.innerHTML]   A string to set as the inner HTML of the created element. Only one of `children` and
+ *                              `innerHTML` can be used.
+ * @returns The HTML element with all options applied
+ */
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    options?: CreateHTMLElementOptionsWithChildren
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    options?: CreateHTMLElementOptionsWithInnerHTML
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    options?: CreateHTMLElementOptionsWithNeither
+): HTMLElementTagNameMap[K];
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
+    { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {}
+): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
-    element.classList.add(...classes);
+    if (classes.length > 0) element.classList.add(...classes);
 
-    for (const [key, value] of Object.entries(dataset)) {
+    for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v))) {
         element.dataset[key] = String(value);
     }
 
-    for (const child of children) {
-        const childElement = child instanceof HTMLElement ? child : new Text(child);
-        element.appendChild(childElement);
+    if (innerHTML) {
+        element.innerHTML = innerHTML;
+    } else {
+        for (const child of children) {
+            const childElement = child instanceof HTMLElement ? child : new Text(child);
+            element.appendChild(childElement);
+        }
     }
 
     return element;
@@ -26,8 +53,24 @@ function createHTMLElement(
 
 interface CreateHTMLElementOptions {
     classes?: string[];
-    dataset?: Record<string, string | number>;
+    dataset?: Record<string, string | number | boolean | null | undefined>;
     children?: (HTMLElement | string)[];
+    innerHTML?: string;
+}
+
+interface CreateHTMLElementOptionsWithChildren extends CreateHTMLElementOptions {
+    children: (HTMLElement | string)[];
+    innerHTML?: never;
+}
+
+interface CreateHTMLElementOptionsWithInnerHTML extends CreateHTMLElementOptions {
+    children?: never;
+    innerHTML: string;
+}
+
+interface CreateHTMLElementOptionsWithNeither extends CreateHTMLElementOptions {
+    children?: never;
+    innerHTML?: never;
 }
 
 function htmlQuery<K extends keyof HTMLElementTagNameMap>(

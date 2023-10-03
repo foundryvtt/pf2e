@@ -1,0 +1,25 @@
+<div class="actions-options section-body item-list">
+    {{#each toggles as |toggle idx|}}
+        {{#if (eq toggle.placement "actions-tab")}}
+            <div
+                class="actions-option{{#unless toggle.alwaysActive}} item{{/unless}}"
+                data-item-id="{{toggle.itemId}}"
+                data-domain="{{toggle.domain}}"
+                data-option="{{toggle.option}}"
+                data-placement="{{toggle.placement}}"
+            >
+                <label>
+                    <input type="checkbox"{{#if toggle.alwaysActive}} class="hidden"{{/if}}data-action="toggle-roll-option" {{disabled (or toggle.alwaysActive (not toggle.enabled))}} {{checked toggle.checked}} />
+                    <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
+                    {{#if toggle.suboptions}}
+                        <select {{#if (eq toggle.suboptions.length 1)}}disabled="disabled"{{else}}data-action="set-suboption"{{/if}}>
+                            {{#each toggle.suboptions as |suboption|}}
+                                <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
+                            {{/each}}
+                        </select>
+                    {{/if}}
+                </label>
+            </div>
+        {{/if}}
+    {{/each}}
+</div>

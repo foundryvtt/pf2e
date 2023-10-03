@@ -1,0 +1,45 @@
+{
+    "_id": "wHWWHkjDXmJl4Ia6",
+    "img": "icons/svg/dice-target.svg",
+    "name": "Effect: Adverse Subsist Situation",
+    "system": {
+        "description": {
+            "value": "<p>You attracted trouble, ate something you shouldn't, or otherwise worsened your situation. You take a –2 circumstance penalty to checks to Subsist for 1 week. You didn't find any food at all; if you don't have any stored up, you're in danger of starving or dying of thirst if you continue failing.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:subsist"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

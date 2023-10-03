@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { PhysicalSystemSource } from "@item/physical/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { PhysicalSystemSource } from "@item/physical/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove the `invested` property from uninvestable item types */
 export class Migration648RemoveInvestedProperty extends MigrationBase {

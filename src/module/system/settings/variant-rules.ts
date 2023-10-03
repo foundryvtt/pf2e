@@ -1,4 +1,4 @@
-import { resetActors } from "@actor/helpers";
+import { resetActors } from "@actor/helpers.ts";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
@@ -16,6 +16,9 @@ const SETTINGS: Record<string, SettingRegistration> = {
             0: "PF2E.SETTINGS.Variant.Stamina.Choices.0",
             1: "PF2E.SETTINGS.Variant.Stamina.Choices.1", // I plan to expand this, hence the dropdown.
         },
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.type === "character"));
+        },
     },
     ancestryParagonVariant: {
         name: "PF2E.SETTINGS.Variant.AncestryParagon.Name",
@@ -28,6 +31,9 @@ const SETTINGS: Record<string, SettingRegistration> = {
         hint: "PF2E.SETTINGS.Variant.FreeArchetype.Hint",
         default: 0,
         type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.type === "character"));
+        },
     },
     dualClassVariant: {
         name: "PF2E.SETTINGS.Variant.DualClass.Name",
@@ -97,7 +103,7 @@ export class VariantRulesSettings extends FormApplication {
             ...super.defaultOptions,
             title: "PF2E.SETTINGS.Variant.Title",
             id: "variant-rules-settings",
-            template: "systems/pf2e/templates/system/settings/variant-rules-settings.hbs",
+            template: "systems/pf2e/templates/system/settings/variant-rules.hbs",
             width: 550,
             height: "auto",
             closeOnSubmit: true,

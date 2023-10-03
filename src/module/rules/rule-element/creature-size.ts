@@ -1,41 +1,53 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ActorType } from "@actor/data";
-import { ActorSizePF2e } from "@actor/data/size";
-import { ItemPF2e, TreasurePF2e } from "@item";
-import { Size, SIZES } from "@module/data";
-import { isObject, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./";
+import { CreaturePF2e } from "@actor";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ActorType } from "@actor/data/index.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { TreasurePF2e } from "@item";
+import { SIZES, Size } from "@module/data.ts";
+import { tupleHasValue } from "@util";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 
 /**
  * @category RuleElement
  * Change a creature's size
  */
-class CreatureSizeRuleElement extends RuleElementPF2e {
+class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    value: string | number | BracketedValue;
+    static override defineSchema(): CreatureSizeRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: false }),
+            reach: new RecordField(
+                new fields.StringField({ required: true, nullable: false, choices: ["add", "upgrade", "override"] }),
+                new ResolvableValueField({ required: true, nullable: false }),
+                { required: false, nullable: false, initial: undefined }
+            ),
+            resizeEquipment: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            minimumSize: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: SIZES,
+                initial: undefined,
+            }),
+            maximumSize: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: SIZES,
+                initial: undefined,
+            }),
+        };
+    }
 
-    /** An optional reach adjustment to accompany the size */
-    reach: ReachObject | null = null;
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
 
-    resizeEquipment: boolean;
-
-    constructor(data: CreatureSizeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-        this.resizeEquipment = !!data.resizeEquipment;
-
-        if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
-            this.value = data.value;
-        } else {
-            this.value = item.actor.size;
-            this.failValidation("`value` must be a string or number");
-        }
-
-        if (this.#isReachValue(data.reach)) {
-            this.reach = data.reach;
-        } else if ("reach" in data) {
-            this.failValidation("`reach` must be a number");
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
+            this.failValidation("value must be a number, string, or bracketed value");
         }
     }
 
@@ -62,16 +74,6 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
         return this.decrementSize(CreatureSizeRuleElement.decrementMap[size], amount - 1);
     }
 
-    #isReachValue(value: unknown): value is ReachObject {
-        return (
-            isObject<string>(value) &&
-            Object.keys(value).length === 1 &&
-            ["add", "upgrade", "override"].some(
-                (k) => ["number", "string"].includes(typeof value[k]) || this.isBracketedValue(value[k])
-            )
-        );
-    }
-
     override beforePrepareData(): void {
         if (!this.test()) return;
 
@@ -92,12 +94,12 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
         const originalSize = new ActorSizePF2e({ value: actor.size });
 
         if (value === 1) {
-            if (this.data.maximumSize && !originalSize.isSmallerThan(this.data.maximumSize)) {
+            if (this.maximumSize && !originalSize.isSmallerThan(this.maximumSize)) {
                 return;
             }
             actor.system.traits.size.increment();
         } else if (value === -1) {
-            if (this.data.minimumSize && !originalSize.isLargerThan(this.data.minimumSize)) {
+            if (this.minimumSize && !originalSize.isLargerThan(this.minimumSize)) {
                 return;
             }
             actor.system.traits.size.decrement();
@@ -135,16 +137,15 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
         const current = this.actor.attributes.reach.base;
 
         if (this.reach) {
-            const reachChange: { [K in "add" | "upgrade" | "override"]?: ReachValue } = this.reach;
             const changeValue = ((): number => {
-                const resolved = this.resolveValue(reachChange.add ?? reachChange.upgrade ?? reachChange.override);
+                const resolved = this.resolveValue(this.reach.add ?? this.reach.upgrade ?? this.reach.override);
                 return Math.trunc(Math.abs(Number(resolved)));
             })();
 
             if (!Number.isInteger(changeValue)) return current;
-            if (reachChange.add) return current + changeValue;
-            if ("upgrade" in reachChange) return Math.max(current, changeValue);
-            if ("override" in reachChange) return changeValue;
+            if (this.reach.add) return current + changeValue;
+            if (this.reach.upgrade) return Math.max(current, changeValue);
+            if (this.reach.override) return changeValue;
         }
 
         const newSize = this.actor.system.traits.size;
@@ -157,24 +158,24 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
     }
 }
 
-type ReachObject = { add: ReachValue } | { upgrade: ReachValue } | { override: ReachValue };
-type ReachValue = string | number | BracketedValue;
-
-interface CreatureSizeRuleElement extends RuleElementPF2e {
+interface CreatureSizeRuleElement
+    extends RuleElementPF2e<CreatureSizeRuleSchema>,
+        ModelPropsFromSchema<CreatureSizeRuleSchema> {
     get actor(): CreaturePF2e;
-
-    data: CreatureSizeRuleElementData;
 }
 
-interface CreatureSizeRuleElementData extends RuleElementData {
-    resizeEquipment: boolean;
-    minimumSize?: ActorSizePF2e;
-    maximumSize?: ActorSizePF2e;
-}
-
-interface CreatureSizeSource extends RuleElementSource {
-    reach?: unknown;
-    resizeEquipment?: unknown;
-}
+type CreatureSizeRuleSchema = RuleElementSchema & {
+    value: ResolvableValueField<true, false, true>;
+    reach: RecordField<
+        StringField<"add" | "upgrade" | "override", "add" | "upgrade" | "override", true, false, false>,
+        ResolvableValueField<true, false, false>,
+        false,
+        false,
+        false
+    >;
+    resizeEquipment: BooleanField<boolean, boolean, false, false, false>;
+    minimumSize: StringField<Size, Size, false, false, false>;
+    maximumSize: StringField<Size, Size, false, false, false>;
+};
 
 export { CreatureSizeRuleElement };

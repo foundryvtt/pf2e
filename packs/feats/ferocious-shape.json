@@ -1,0 +1,115 @@
+{
+    "_id": "Le30algCdKIsxmeK",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ferocious Shape",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have mastered the shape of ferocious dinosaurs.</p>\n<p>Add the forms listed in <em>@UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form]</em> to your <em>wild shape</em> list.</p>\n<p>Whenever you use <em>wild shape</em> to take a form that grants you a specific Athletics modifier, you gain a +1 status bonus to your Athletics checks.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wild Shape"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:wild-shape",
+                    "battle-form:athletics"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.0Cyf07wboRp4CmcQ"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.KkDRRDuycXwKPa6n"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.oJbcmpBSHwmx6FD4"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.T6XnxvsgvvOrpien"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.iOKhr2El8R6cz6YI"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.542Keo6txtq7uvqe"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

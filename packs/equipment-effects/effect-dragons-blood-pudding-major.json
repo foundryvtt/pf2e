@@ -1,0 +1,45 @@
+{
+    "_id": "0YbNzbW0HSKtgStQ",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tapas/dragons-blood-pudding.webp",
+    "name": "Effect: Dragon's Blood Pudding (Major)",
+    "system": {
+        "description": {
+            "value": "<p>If you choose to Demoralize, you gain a +4 item bonus to the Intimidation check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 2
+        },
+        "level": {
+            "value": 13
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

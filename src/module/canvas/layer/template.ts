@@ -1,4 +1,4 @@
-import { MeasuredTemplatePF2e } from "..";
+import { MeasuredTemplatePF2e } from "../index.ts";
 
 export class TemplateLayerPF2e<
     TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e
@@ -6,28 +6,26 @@ export class TemplateLayerPF2e<
     /** Originally by Furyspark for the PF1e system */
     protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void {
         if (!canvas.scene || !canvas.dimensions) return;
+        const interaction = event.interactionData;
+        const { destination, layerDragState, preview: template, origin } = interaction;
 
-        // From PlaceablesLayer#_onDragLeftMove
-        const preview = event.data.preview;
-        if (!preview || preview.destroyed) return;
-        if (preview.parent === null) {
+        if (!template || template.destroyed) return;
+        if (template.parent === null) {
             // In theory this should never happen, but rarely does
-            this.preview.addChild(preview);
+            this.preview.addChild(template);
         }
-        const createState = event.data.createState ?? 0;
+        const dragState = layerDragState ?? 0;
 
-        if (createState >= 1) {
+        if (dragState >= 1) {
             // Snap the destination to the grid
-            const dest = event.data.destination;
-            const { x, y } = canvas.grid.getSnappedPosition(dest.x, dest.y, 2);
-            dest.x = x;
-            dest.y = y;
+            const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, 2);
+            destination.x = x;
+            destination.y = y;
 
             // Compute the ray
-            const template = event.data.preview;
             if (!template) return;
 
-            const ray = new Ray(event.data.origin, event.data.destination);
+            const ray = new Ray(origin, destination);
             const ratio = canvas.dimensions.size / canvas.dimensions.distance;
 
             // Update the shape data
@@ -47,7 +45,7 @@ export class TemplateLayerPF2e<
 
             // Draw the pending shape
             template.refresh();
-            event.data.createState = 2;
+            event.interactionData.layerDragState = 2;
         }
     }
 

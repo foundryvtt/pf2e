@@ -1,8 +1,8 @@
 import { isObject, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { ContentTabName } from "../data";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, FeatFilters } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, FeatFilters, MultiselectData } from "./data.ts";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
@@ -12,6 +12,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "category", "skills", "traits", "rarity", "source"];
+
+    #creatureTraits = CONFIG.PF2E.creatureTraits;
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -27,13 +29,16 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
-            "system.prerequisites.value",
             "system.actionType.value",
             "system.actions.value",
             "system.category",
+            // Migrated to `system.category` but still retrieved in case of unmigrated items
+            // Remove in system version 5?
+            "system.featType.value",
             "system.level.value",
-            "system.traits",
+            "system.prerequisites.value",
             "system.source.value",
+            "system.traits",
         ];
 
         const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
@@ -58,8 +63,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     featData.filters = {};
                     // Check separately for one of "system.category or "system.featType.value" to provide backward
                     // compatible support for unmigrated feats in non-system compendiums.
-                    const nonCategoryPaths = indexFields.filter((f) => f !== "system.category");
                     const categoryPaths = ["system.category", "system.featType.value"];
+                    const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
                     const categoryPathFound = categoryPaths.some((p) => foundry.utils.hasProperty(featData, p));
 
                     if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
@@ -95,9 +100,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = featData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        featData.system.source.value = sluggify(source);
                     }
 
                     // Only store essential data
@@ -105,13 +110,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         type: featData.type,
                         name: featData.name,
                         img: featData.img,
-                        uuid: `Compendium.${pack.collection}.${featData._id}`,
+                        uuid: `Compendium.${pack.collection}.Item.${featData._id}`,
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
                         traits: featData.system.traits.value,
                         rarity: featData.system.traits.rarity,
-                        source: featData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -125,9 +130,25 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions({ ...CONFIG.PF2E.featTraits });
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
+    }
+
+    protected override filterTraits(
+        traits: string[],
+        selected: MultiselectData["selected"],
+        condition: MultiselectData["conjunction"]
+    ): boolean {
+        // Pre-filter the selected traits if the current ancestry item has no ancestry traits
+        if (
+            this.filterData.checkboxes.category.selected.includes("ancestry") &&
+            !traits.some((t) => t in this.#creatureTraits)
+        ) {
+            const withoutAncestryTraits = selected.filter((t) => !(t.value in this.#creatureTraits));
+            return super.filterTraits(traits, withoutAncestryTraits, condition);
+        }
+        return super.filterTraits(traits, selected, condition);
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {

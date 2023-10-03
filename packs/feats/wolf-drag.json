@@ -1,0 +1,77 @@
+{
+    "_id": "uJpghjJtNbqKUxRd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Wolf Drag",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Wolf Stance]</p>\n<hr />\n<p>You rip your enemy off their feet.</p>\n<p>Make a wolf jaw Strike. Your wolf jaw gains the fatal d12 trait for this Strike, and if the attack succeeds, you knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wolf Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:wolf-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "wolf-drag",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:slug:wolf-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "wolf-drag"
+                ],
+                "property": "weapon-traits",
+                "value": "fatal-d12"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "item:slug:wolf-jaws",
+                    "wolf-drag"
+                ],
+                "selector": "wolf-jaws-attack",
+                "text": "PF2E.SpecificRule.Monk.WolfDrag.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

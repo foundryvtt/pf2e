@@ -1,58 +1,59 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
 import {
-    DegreeAdjustmentAmount,
-    DegreeOfSuccessString,
     DEGREE_ADJUSTMENT_AMOUNTS,
     DEGREE_OF_SUCCESS_STRINGS,
-} from "@system/degree-of-success";
-import { isObject } from "@util";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+    DegreeAdjustmentAmount,
+    DegreeOfSuccessString,
+} from "@system/degree-of-success.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 
 /**
  * @category RuleElement
  */
-class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    selector: string;
+class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleSchema> {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    constructor(data: AdjustDegreeOfSuccessSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        if (typeof data.selector === "string") {
-            this.selector = data.selector;
-        } else {
-            this.failValidation("Missing string selector property");
-            this.selector = "";
-        }
+    static override defineSchema(): AdjustDegreeRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, nullable: false, blank: false }),
+            adjustment: new RecordField(
+                new fields.StringField({
+                    required: true,
+                    nullable: false,
+                    choices: ["all", ...DEGREE_OF_SUCCESS_STRINGS],
+                }),
+                new fields.StringField({ required: true, nullable: false, choices: degreeAdjustmentAmountString }),
+                { required: true, nullable: false }
+            ),
+        };
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        const adjustments = this.data.adjustment;
+        const adjustments = this.adjustment;
 
-        const hasData = selector && isObject(adjustments);
-        if (!hasData) {
-            return this.failValidation(
-                "Degree of success adjustment requires a selector field, a type field and an adjustment object."
-            );
-        }
-
-        if (!this.#isAdjustmentData(adjustments)) {
-            return this.failValidation("Degree of success adjustment does not have the correct format");
-        }
-
-        const stringToNumber = {
+        const stringToAdjustment = {
             "two-degrees-better": DEGREE_ADJUSTMENT_AMOUNTS.INCREASE_BY_TWO,
             "one-degree-better": DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
             "one-degree-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER,
             "two-degrees-worse": DEGREE_ADJUSTMENT_AMOUNTS.LOWER_BY_TWO,
+            "to-critical-failure": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_FAILURE,
+            "to-failure": DEGREE_ADJUSTMENT_AMOUNTS.TO_FAILURE,
+            "to-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_SUCCESS,
+            "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_SUCCESS,
         } as const;
+
         const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce((accumulated, outcome) => {
             const adjustment = adjustments[outcome];
             if (adjustment) {
-                accumulated[outcome] = { label: this.label, amount: stringToNumber[adjustment] };
+                accumulated[outcome] = { label: this.label, amount: stringToAdjustment[adjustment] };
             }
             return accumulated;
         }, {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } });
@@ -63,32 +64,32 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             predicate: this.predicate,
         });
     }
-
-    #isAdjustmentData(adjustment: DegreeAdjustmentsRuleRecord): boolean {
-        const outcomes = ["all", ...DEGREE_OF_SUCCESS_STRINGS];
-        const amounts = ["one-degree-better", "one-degree-worse"];
-        return Object.entries(adjustment).every(([key, value]) => outcomes.includes(key) && amounts.includes(value));
-    }
 }
 
-interface AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    data: RuleElementData & { adjustment?: DegreeAdjustmentsRuleRecord };
-
+interface AdjustDegreeOfSuccessRuleElement
+    extends RuleElementPF2e<AdjustDegreeRuleSchema>,
+        ModelPropsFromSchema<AdjustDegreeRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 
-type DegreeAdjustmentAmountString =
-    | "one-degree-better"
-    | "one-degree-worse"
-    | "two-degrees-better"
-    | "two-degrees-worse";
+const degreeAdjustmentAmountString = [
+    "one-degree-better",
+    "one-degree-worse",
+    "two-degrees-better",
+    "two-degrees-worse",
+    "to-critical-failure",
+    "to-failure",
+    "to-success",
+    "to-critical-success",
+] as const;
+type DegreeAdjustmentAmountString = (typeof degreeAdjustmentAmountString)[number];
 
-type DegreeAdjustmentsRuleRecord = {
-    [key in "all" | DegreeOfSuccessString]?: DegreeAdjustmentAmountString;
+type AdjustDegreeRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    adjustment: RecordField<
+        StringField<"all" | DegreeOfSuccessString, "all" | DegreeOfSuccessString, true, false, false>,
+        StringField<DegreeAdjustmentAmountString, DegreeAdjustmentAmountString, true, false, false>
+    >;
 };
-
-interface AdjustDegreeOfSuccessSource extends RuleElementSource {
-    selector?: unknown;
-}
 
 export { AdjustDegreeOfSuccessRuleElement };

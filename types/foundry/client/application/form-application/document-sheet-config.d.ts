@@ -16,6 +16,7 @@ declare global {
         label?: string | (() => string);
         types?: string[];
         makeDefault?: boolean;
+        canBeDefault?: boolean;
     }
 
     /** Document Sheet Configuration Application */

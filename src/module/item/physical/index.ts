@@ -1,9 +1,9 @@
-export * from "./bulk";
-export * from "./data";
-export { PhysicalItemPF2e } from "./document";
-export * from "./helpers";
-export * from "./materials";
-export * from "./runes";
-export * from "./sheet";
-export * from "./types";
-export * from "./usage";
+export * from "./bulk.ts";
+export * from "./data.ts";
+export { PhysicalItemPF2e } from "./document.ts";
+export * from "./helpers.ts";
+export * from "./materials.ts";
+export * from "./runes.ts";
+export * from "./sheet.ts";
+export * from "./types.ts";
+export * from "./usage.ts";

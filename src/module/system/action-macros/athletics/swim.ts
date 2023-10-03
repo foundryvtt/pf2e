@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function swim(options: SkillActionOptions) {
+export function swim(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:swim"];
     const modifiers = options?.modifiers;
@@ -18,5 +18,8 @@ export function swim(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Swim", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Swim", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

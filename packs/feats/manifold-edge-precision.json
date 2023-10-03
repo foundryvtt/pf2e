@@ -1,0 +1,81 @@
+{
+    "_id": "BtMemftiktI0Mn6X",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Manifold Edge (Precision)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned every possible edge to use against your foes.</p>\n<p>When you use @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] you can gain a different hunter's edge benefit instead of the one you selected at 1st level.</p>\n<p>This feat grants @UUID[Compendium.pf2e.classfeatures.Item.Precision].</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "hunter's edge"
+                },
+                {
+                    "value": "masterful hunter"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "First attack on hunted prey this round",
+                "option": "first-attack",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "first-attack"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 18,
+                            "start": 11,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

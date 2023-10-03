@@ -1,32 +1,34 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
-import { MovementType } from "@actor/creature/data";
-import { ActorType } from "@actor/data";
-import { MOVEMENT_TYPES } from "@actor/values";
-import { ItemPF2e } from "@item";
+import { CreaturePF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
+import { MovementType } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
-import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics";
+import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
 
 /**
  * @category RuleElement
  */
-class BaseSpeedRuleElement extends RuleElementPF2e {
+class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private selector: string;
+    static override defineSchema(): BaseSpeedRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+        };
+    }
 
-    private value: number | string | BracketedValue = 0;
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
 
-    constructor(data: BaseSpeedSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+        this.selector = this.selector?.trim().replace(/-speed$/, "");
 
-        this.selector = String(data.selector)
-            .trim()
-            .replace(/-speed$/, "");
-
-        if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
-            this.value = data.value;
-        } else {
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
             this.failValidation("A value must be a number, string, or bracketed value");
         }
     }
@@ -63,12 +65,13 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     }
 }
 
-interface BaseSpeedSource extends RuleElementSource {
-    selector?: unknown;
-}
-
-interface BaseSpeedRuleElement extends RuleElementPF2e {
+interface BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema>, ModelPropsFromSchema<BaseSpeedRuleSchema> {
     get actor(): CreaturePF2e;
 }
+
+type BaseSpeedRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    value: ResolvableValueField<true, false, true>;
+};
 
 export { BaseSpeedRuleElement };

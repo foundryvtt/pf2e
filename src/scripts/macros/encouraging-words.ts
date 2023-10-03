@@ -1,23 +1,23 @@
 import { CharacterPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
-import { Statistic } from "@system/statistic";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { localizer } from "@util";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
-    const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
+    const localize = localizer("PF2E.Actions.EncouragingWords");
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
-        ui.notifications.error(translations.BadArgs);
+        ui.notifications.error(localize("BadArgs"));
         return;
     }
 
     const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
         dip.roll({
             dc: { value: DC },
-            extraRollOptions: ["action:encourage-words"],
+            extraRollOptions: ["action:encouraging-words"],
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = Number(roll.options.degreeOfSuccess) || 0;
@@ -25,25 +25,25 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                 const bonusString = bonus > 0 ? `+ ${bonus}` : "";
                 if (degreeOfSuccess === 3) {
                     healFormula = `2d8${bonusString}`;
-                    successLabel = translations.CritSuccess;
+                    successLabel = localize("CritSuccess");
                 } else if (degreeOfSuccess === 2) {
                     healFormula = `1d8${bonusString}`;
-                    successLabel = translations.Success;
+                    successLabel = localize("Success");
                 } else if (degreeOfSuccess === 1) {
-                    successLabel = translations.Failure;
+                    successLabel = localize("Failure");
                 } else if (degreeOfSuccess === 0) {
                     healFormula = "1d8";
-                    successLabel = translations.CritFailure;
+                    successLabel = localize("CritFailure");
                 }
                 if (healFormula) {
                     const healRoll = await new Roll(healFormula).roll({ async: true });
-                    const rollType = degreeOfSuccess > 1 ? translations.Recovery : translations.Damage;
+                    const rollType = degreeOfSuccess > 1 ? localize("Recovery") : localize("Damage");
                     const token = actor.getActiveTokens().shift()?.document ?? null;
 
                     ChatMessagePF2e.create({
                         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                        flavor: `<strong>${rollType} ${translations.Title}</strong> (${successLabel})`,
+                        flavor: `<strong>${rollType} ${localize("Title")}</strong> (${successLabel})`,
                         rolls: [healRoll.toJSON()],
                     });
                 }
@@ -53,7 +53,6 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
     const applyChanges = ($html: JQuery): void => {
         const { diplomacy } = actor.skills;
-        const { name } = actor;
         const mod = Number($html.find("[name=modifier]").val()) || 0;
         const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
 
@@ -61,12 +60,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         const usedProf = requestedProf <= rank ? requestedProf : rank;
 
         const roll = [
-            () =>
-                ui.notifications.warn(
-                    game.i18n.format(translations.NotTrained, {
-                        name: name,
-                    })
-                ),
+            () => ui.notifications.warn(localize("NotTrained", { name: actor.name })),
             () => encouragingWordsMacro(15 + mod, 0, diplomacy),
             () => encouragingWordsMacro(20 + mod, 5, diplomacy),
             () => encouragingWordsMacro(30 + mod, 15, diplomacy),
@@ -77,37 +71,37 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     };
 
     const dialog = new Dialog({
-        title: translations.Title,
+        title: localize("Title"),
         content: `
-    <div>${translations.ContentMain}</div>
+    <div>${localize("ContentMain")}</div>
     <hr/>
     <form>
     <div class="form-group">
-    <label>${translations.ContentLabel1}</label>
+    <label for="dc-type">${localize("ContentLabel1")}</label>
     <select id="dc-type" name="dc-type">
-    <option value="1">${translations.ContentOption1}</option>
-    <option value="2">${translations.ContentOption2}</option>
-    <option value="3">${translations.ContentOption3}</option>
-    <option value="4">${translations.ContentOption4}</option>
+    <option value="1">${localize("ContentOption1")}</option>
+    <option value="2">${localize("ContentOption2")}</option>
+    <option value="3">${localize("ContentOption3")}</option>
+    <option value="4">${localize("ContentOption4")}</option>
     </select>
     </div>
     </form>
     <form>
     <div class="form-group">
-    <label>${translations.ContentLabel2}</label>
-    <input id="modifier" name="modifier" type="number"/>
+    <label for="modifier">${localize("ContentLabel2")}</label>
+    <input id="modifier" name="modifier" type="number" />
     </div>
     </form>
     `,
         buttons: {
             yes: {
                 icon: `<i class="fas fa-hand-holding-dipical"></i>`,
-                label: translations.Title,
+                label: localize("Title"),
                 callback: applyChanges,
             },
             no: {
                 icon: `<i class="fas fa-times"></i>`,
-                label: translations.Cancel,
+                label: localize("Cancel"),
             },
         },
         default: "yes",

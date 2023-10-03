@@ -1,0 +1,45 @@
+{
+    "_id": "lZ4DA81o4kbL8nve",
+    "img": "systems/pf2e/icons/spells/tongues.webp",
+    "name": "Effect: Burned Tongue (Linguistic)",
+    "system": {
+        "description": {
+            "value": "<p>Burns tongue, giving a -1 item penalty to linguistic-based checks and DCs for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "linguistic"
+                ],
+                "selector": "all",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

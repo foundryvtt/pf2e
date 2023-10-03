@@ -1,5 +1,6 @@
-// Base inventory stylings
 .inventory {
+    --border-color: var(--alt);
+
     ol:not(.currency) {
         @include p-reset;
         list-style: none;
@@ -7,41 +8,52 @@
         flex-direction: column;
     }
 
+    .notify {
+        @include requires-user-attention;
+    }
+
     .item-name {
         display: flex;
         align-items: center;
         font-weight: 500;
         flex: 2;
+        gap: 4px;
 
         h3,
         h4 {
-            margin: auto auto auto 0;
+            cursor: pointer;
+            font-weight: 500;
             line-height: var(--font-size-12);
+            margin: auto auto auto 0;
             padding: 2px;
             word-break: break-word;
-            cursor: pointer;
 
             &:hover {
                 color: var(--primary);
             }
         }
 
-        span {
-            margin: 0 4px;
+        h4:not(:hover) {
+            &.rarity-uncommon {
+                border-color: var(--color-rarity-uncommon);
+                color: var(--color-rarity-uncommon);
+            }
+
+            &.rarity-rare {
+                border-color: var(--color-rarity-rare);
+                color: var(--color-rarity-rare);
+            }
+
+            &.rarity-unique {
+                border-color: var(--color-rarity-unique);
+                color: var(--color-rarity-unique);
+            }
         }
 
         .item-image {
-            height: 24px;
-            width: 24px;
             box-shadow: inset 0 0 0 1px var(--tertiary);
-            background-size: cover;
-            background-repeat: no-repeat;
-            padding: 12px;
-            cursor: pointer;
-            margin-right: 4px;
-
-            .item-icon {
-                border: none;
+            img {
+                border-radius: 0;
             }
         }
 
@@ -56,24 +68,15 @@
         }
     }
 
-    .inventory-list, .inventory-items {
-        list-style-type: none;
+    .inventory-list,
+    .inventory-items {
         flex-direction: column;
-        width: 100%;
+        list-style-type: none;
         position: relative;
-        margin: 0;
-        padding: 0;
+        width: 100%;
 
         & > li:nth-of-type(even) {
             background-color: rgba($alt-color, 0.1);
-        }
-
-        .item {
-            display: flex;
-            flex-wrap: wrap;
-            font-size: var(--font-size-12);
-            justify-content: flex-start;
-            width: 100%;
         }
 
         .list-row {
@@ -90,29 +93,30 @@
     }
 
     .inventory-list {
-        @include scrollbar;
+        overflow: hidden scroll;
+        display: flex;
         height: calc(100% - 60px);
         padding-right: 0.15rem;
     }
 
-    .item-quantity,
-    .item-weight,
+    .quantity,
+    .bulk,
     .item-controls,
-    .item-sell-value {
+    .sell-value {
         @include flex-center;
         flex: 0 0 68px;
     }
 
-    .item-sell-value {
-        justify-content: flex-end;
+    .sell-value {
+        justify-content: end;
         padding-right: 3px;
     }
 
-    .item-quantity {
+    .quantity {
         justify-content: space-around;
 
-        .item-decrease-quantity,
-        .item-increase-quantity {
+        .decrease,
+        .increase {
             @include flex-center;
             font-family: var(--sans-serif-monospace);
             height: 100%;
@@ -121,53 +125,51 @@
         }
     }
 
-    .item-weight {
+    .bulk {
         flex: 0 0 36px;
-        font-weight: 500;
     }
 
     .item-controls {
         flex: 0 0 90px;
         font-size: var(--font-size-12);
         gap: 1px;
-        justify-content: flex-end;
+        justify-content: end;
     }
 
     .inventory-header {
+        @include button;
         align-items: center;
         background-color: var(--alt);
-        color: white;
+        color: var(--color-text-light-0);
         display: flex;
         font-family: var(--sans-serif);
         font-size: var(--font-size-10);
-        justify-content: flex-end;
-        letter-spacing: .05em;
+        justify-content: end;
+        letter-spacing: 0.05em;
         line-height: 1;
-        padding: 4px 0;
+        margin-top: 6px;
+        padding: 0.25rem;
         text-rendering: optimizeLegibility;
         text-transform: uppercase;
         width: 100%;
 
+        &:first-child {
+            margin-top: 0;
+        }
+
         h3 {
             font-size: var(--font-size-14);
-            text-transform: capitalize;
+            margin: 2px 0;
             text-shadow: 0 0 2px rgba(black, 0.75);
-            margin: 2px;
-            margin-left: 4px;
-            cursor: default;
+            text-transform: capitalize;
+
             &:hover {
-                color: white;
+                color: var(--color-text-light-0);
             }
         }
 
         .item-name {
             padding-left: 4px;
-        }
-
-        .item-sell-value,
-        .item-quantity,
-        .item-weight {
-            @include flex-center;
         }
 
         .item-invested-total {
@@ -176,52 +178,62 @@
         }
 
         .item-controls {
-            padding-right: 0.4em;
+            gap: 0.25rem;
         }
 
         .overinvested {
-            color:orange;
+            color: orange;
             text-shadow: 1px 1px 0px black;
         }
     }
 
+    .inventory-items {
+        border: 1px solid var(--border-color);
+        border-top: none;
+    }
+
     .item {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: var(--font-size-12);
+        justify-content: flex-start;
         width: 100%;
-        .item-quantity,
-        .item-weight,
+
+        .quantity,
+        .bulk,
         .item-controls,
-        .item-sell-value {
+        .sell-value {
             border-left: 1px solid var(--alt);
         }
     }
 
     .list-row {
         width: 100%;
+
         .item-controls {
-            color: var(--body);
+            color: var(--text-dark);
             font-size: var(--font-size-13);
 
             .item-control {
-                &.item-toggle-invest, &.item-carry-type {
+                &.toggle-invested,
+                &.item-carry-type {
+                    color: rgba(black, 0.5);
+
                     &.active {
                         color: var(--secondary);
                     }
                 }
 
                 &.item-carry-type {
-                    color: rgba(black, 0.5);
                     text-align: right;
-                }
-
-                &.item-toggle-invest {
-                    color: rgba(black, 0.5);
                 }
 
                 // Hands-held with interior number
                 .fa-stack {
                     margin: -3px -2px 0;
 
-                    .fa-1, .fa-2 {
+                    .fa-1,
+                    .fa-2 {
                         left: 1px;
                         position: relative;
                     }
@@ -245,16 +257,17 @@
             position: relative;
             background-color: rgba(black, 0.75);
             box-shadow: inset 0 0 4px black;
-            color: white;
+            color: var(--color-text-light-0);
             display: flex;
             width: 100%;
+
             .container-capacity-bar {
                 background-color: var(--secondary);
                 border-radius: 0 2px 2px 0;
-                box-shadow: inset 0 0 0 1px rgba(black, 0.5),
-                    inset 0 0 0 2px rgba(white, 0.1);
+                box-shadow: inset 0 0 0 1px rgba(black, 0.5), inset 0 0 0 2px rgba(white, 0.1);
                 padding: 8px 0;
             }
+
             .container-capacity-label {
                 position: absolute;
                 height: 100%;
@@ -269,6 +282,8 @@
 
         .container-held-items {
             padding-left: 10px;
+            border-left: none;
+            border-right: none;
 
             li:nth-of-type(even) {
                 background-color: rgba($alt-color, 0.1);
@@ -277,10 +292,6 @@
             li:first-of-type .item::before {
                 height: 50%;
                 top: 0;
-            }
-
-            li:last-of-type .item::after {
-                border: none;
             }
 
             .item {
@@ -294,7 +305,7 @@
                     height: 50%;
                     left: -5px;
                     width: 5px;
-                    content: '';
+                    content: "";
                 }
 
                 &::before {
@@ -310,6 +321,28 @@
                     border-left: 1px solid var(--alt);
                 }
             }
+
+            // Add a connection line for nested containers
+            .container-metadata {
+                position: relative;
+                &::before {
+                    position: absolute;
+                    border-left: 1px solid var(--alt);
+                    top: 0;
+                    height: 100%;
+                    left: -5px;
+                    width: 0px;
+                    content: "";
+                }
+            }
+
+            // Ensure the final item's bracket ends in an L shape
+            li:last-of-type {
+                .item::after,
+                .container-metadata::before {
+                    border: none;
+                }
+            }
         }
     }
 
@@ -319,33 +352,108 @@
         border-top: 1px solid var(--alt);
         border-bottom: 1px solid var(--alt);
         background: var(--bg);
+    }
 
-        // Normalize styling of visible-to-all tag elements
-        span[data-visibility=all] {
-            display: inline-block;
-            line-height: 1em;
-            padding: 2px 1px 1px;
+    // Used in creature sheets
+    .encumbrance {
+        align-items: center;
+        display: grid;
+        grid: "img bar overflow" min-content / 24px 1fr;
+        margin-top: auto;
+
+        img {
+            @include frame-icon;
+            border-radius: 0;
+            grid-area: img;
+            position: relative;
+            z-index: 4;
         }
 
-        .item-buttons {
-            .weapon {
-                &_attack {
-                    background: var(--primary);
-                }
-                &_attack2,
-                &_attack3 {
-                    color: rgba(black, 0.75);
-                    background: var(--tertiary);
-                    flex: 0 50%;
-                    margin-top: 0;
-                }
-                &_attack2 {
-                    border-radius: 0 0 0 2px;
-                }
-                &_attack3 {
-                    border-radius: 0 0 2px 0;
-                }
+        .encumbrance-bar {
+            position: relative;
+            z-index: 2;
+            grid-area: bar;
+            height: 16px;
+            width: 100%;
+            background-color: var(--secondary);
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5), inset 0 0 0 2px rgba(white, 0.2);
+        }
+        .encumbrance-label {
+            position: relative;
+            z-index: 3;
+            grid-area: bar;
+            color: var(--text-light);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px black;
+        }
+        .encumbrance-light-bulk-overflow {
+            position: relative;
+            z-index: 3;
+            grid-area: overflow;
+            color: var(--text-dark);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px white;
+        }
+        .bar-bg {
+            position: relative;
+            z-index: 1;
+            grid-area: bar;
+            width: 100%;
+            height: 16px;
+            background-color: rgba(black, 0.5);
+            border-radius: 0 2px 2px 0;
+            box-shadow: inset 0 0 4px rgba(black, 0.75);
+        }
+
+        &.over-limit {
+            .encumbrance-bar {
+                background-color: var(--primary) !important;
             }
+        }
+    }
+
+    // Used in party and loot sheets
+    .total-bulk {
+        align-items: center;
+        display: flex;
+        font-weight: 500;
+        gap: 0.25rem;
+        height: 1.5rem;
+        justify-content: start;
+        margin-bottom: 0.7rem;
+
+        img {
+            @include frame-icon;
+            height: 1.5rem;
+            width: 1.5rem;
+            border-radius: 0;
+            z-index: 1;
+        }
+
+        .bar {
+            justify-content: start;
+            margin-top: 0;
+            position: relative;
+            height: 1.25rem;
+            padding-left: 0.5rem;
+            left: -0.35rem;
+            z-index: 0;
         }
     }
 }

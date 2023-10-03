@@ -1,7 +1,7 @@
-import { MigrationBase } from "../base";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { MigrationBase } from "../base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
@@ -18,7 +18,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
 
         if (actorData.type === "character" || actorData.type === "npc") {
             // Numeric HP max
-            if (typeof actorData.system.attributes.hp.max === "string") {
+            if ("max" in actorData.system.attributes.hp && typeof actorData.system.attributes.hp.max === "string") {
                 const newMax = parseInt(actorData.system.attributes.hp.max as string, 10);
                 if (Number.isInteger(newMax)) {
                     actorData.system.attributes.hp.max = newMax;

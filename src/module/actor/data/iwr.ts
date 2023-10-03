@@ -1,9 +1,8 @@
-import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types";
-import { CONDITION_SLUGS } from "@item/condition/values";
-import { MAGIC_SCHOOLS } from "@item/spell/values";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
-import { PredicatePF2e, PredicateStatement } from "@system/predication";
-import { setHasElement } from "@util";
+import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
+import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
+import { objectHasKey, setHasElement } from "@util";
 
 abstract class IWRData<TType extends IWRType> {
     readonly type: TType;
@@ -48,7 +47,11 @@ abstract class IWRData<TType extends IWRType> {
         switch (iwrType) {
             case "air":
             case "earth":
+            case "metal":
+            case "radiation":
+            case "visual":
             case "water":
+            case "wood":
                 return [`item:trait:${iwrType}`];
             case "all-damage":
                 return ["damage"];
@@ -63,7 +66,9 @@ abstract class IWRData<TType extends IWRType> {
             case "critical-hits":
                 return ["damage:component:critical"];
             case "damage-from-spells":
-                return ["damage", "item:type:spell"];
+                return ["damage", "item:type:spell", "impulse"];
+            case "disease":
+                return ["item:trait:disease"];
             case "emotion":
                 return ["item:type:effect", "item:trait:emotion"];
             case "energy":
@@ -86,6 +91,7 @@ abstract class IWRData<TType extends IWRType> {
                             "damage:type:bleed",
                             "damage:type:mental",
                             "damage:type:poison",
+                            "damage:type:spirit",
                             {
                                 and: [
                                     "item:type:condition",
@@ -109,8 +115,9 @@ abstract class IWRData<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
-            case "visual":
-                return ["item:trait:visual"];
+            case "spells": {
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
+            }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             default: {
@@ -118,16 +125,30 @@ abstract class IWRData<TType extends IWRType> {
                     return [`damage:type:${iwrType}`];
                 }
 
-                if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
-                    return iwrType === "silver"
-                        ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
-                        : iwrType === "cold-iron"
-                        ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
-                        : [`damage:material:${iwrType}`];
+                if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
+                    switch (iwrType) {
+                        case "adamantine":
+                            return [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }];
+                        case "cold-iron":
+                            return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
+                        case "darkwood":
+                            return [
+                                {
+                                    or: [
+                                        "damage:material:darkwood",
+                                        { and: ["self:mode:undead", "damage:material:peachwood"] },
+                                    ],
+                                },
+                            ];
+                        case "silver":
+                            return [{ or: ["damage:material:silver", "damage:material:mithral"] }];
+                        default:
+                            return [`damage:material:${iwrType}`];
+                    }
                 }
 
                 if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
-                    return ["item:trait:spell", `item:trait:${iwrType}`];
+                    return ["item:type:effect", `item:trait:${iwrType}`];
                 }
 
                 return [`unhandled:${iwrType}`];
@@ -294,4 +315,20 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
     doubleVs?: ResistanceType[];
 }
 
-export { IWRSource, ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource };
+/** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
+const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
+    "air",
+    "earth",
+    "ghost-touch",
+    "metal",
+    "plant",
+    "radiation",
+    "salt",
+    "salt-water",
+    "spells",
+    "water",
+    "wood",
+]);
+
+export { ImmunityData, NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData };
+export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

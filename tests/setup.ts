@@ -1,21 +1,8 @@
-import * as path from "path";
-import * as fs from "fs";
-import { MockActor } from "./fakes/actor";
-import { MockItem } from "./fakes/item";
-import { MockToken } from "./fakes/token";
+import { MockActor } from "./mocks/actor.ts";
+import { MockItem } from "./mocks/item.ts";
+import { MockToken } from "./mocks/token.ts";
 
-export const fetchSpell = (name: string) => {
-    const spellsDb = "./packs/data/spells.db/";
-    const spellFiles = fs.readdirSync(spellsDb);
-
-    for (const file of spellFiles) {
-        const content = fs.readFileSync(path.resolve(spellsDb, file), "utf-8");
-        const json = JSON.parse(content);
-        if (json.name === name) return json;
-    }
-    return null;
-};
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 global.game = Object.freeze({
     settings: Object.freeze({
@@ -43,26 +30,6 @@ global.game = Object.freeze({
             }
         },
     }),
-    packs: Object.freeze({
-        find: (_compendiumID: string, _quantity: number) => {
-            return Object.freeze({
-                getEntity: (id: string) => {
-                    switch (id) {
-                        case "JuNPeK5Qm1w6wpb4":
-                            return { data: require("../packs/data/equipment.db/platinum-pieces.json") };
-                        case "B6B7tBWJSqOBz5zz":
-                            return { data: require("../packs/data/equipment.db/gold-pieces.json") };
-                        case "5Ew82vBF9YfaiY9f":
-                            return { data: require("../packs/data/equipment.db/silver-pieces.json") };
-                        case "lzJ8AVhRcbFul5fh":
-                            return { data: require("../packs/data/equipment.db/copper-pieces.json") };
-                        default:
-                            return { data: {} };
-                    }
-                },
-            });
-        },
-    }),
     user: {},
     i18n: {
         localize: (path: string) => path,
@@ -81,6 +48,7 @@ function getType(token: Token | null) {
     return tof;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setProperty(object: Record<string, any>, key: string, value: unknown) {
     let target = object;
     let changed = false;
@@ -113,21 +81,26 @@ function duplicate(original: unknown) {
  * @param original Some sort of data
  * @return The clone of that data
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
     // Simple types
     if (typeof original !== "object" || original === null)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 
     // Arrays
     if (original instanceof Array)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 
     // Dates
     if (original instanceof Date)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 
     // Unsupported advanced objects
     if ((original as { constructor: unknown }).constructor !== Object)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 
     // Other objects
@@ -135,9 +108,11 @@ function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collect
     for (const k of Object.keys(original)) {
         clone[k] = deepClone(original[k as keyof typeof original]);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return clone as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function expandObject(obj: Record<string, any>, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error("Maximum depth exceeded");
@@ -151,7 +126,9 @@ function expandObject(obj: Record<string, any>, _d = 0) {
 }
 
 function mergeObject(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     original: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     other: any = {},
     {
         insertKeys = true,
@@ -162,6 +139,7 @@ function mergeObject(
         enforceTypes = false,
     } = {},
     _d = 0
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
@@ -179,6 +157,7 @@ function mergeObject(
     // Iterate over the other object
     for (let k of Object.keys(other)) {
         const v = other[k];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const tv = getType(v as any);
 
         // Prepare to delete
@@ -251,13 +230,21 @@ function mergeObject(
 globalThis.mergeObject = mergeObject;
 globalThis.duplicate = duplicate;
 globalThis.deepClone = deepClone;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Actor = MockActor;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Item = MockItem;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Token = MockToken;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).FormApplication = class {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Roll = class {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Application = class {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Hooks = class {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static on(..._args: any) {}
 };
 

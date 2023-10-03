@@ -1,10 +1,9 @@
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data";
-import { MigrationBase } from "@module/migration/base";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { isObject, objectHasKey } from "@util";
-import { CustomDamageData, HomebrewTraitKey } from "./data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { isObject } from "@util";
+import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 export function isHomebrewFlagCategory(
@@ -55,10 +54,11 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponCategories": {
                     if (source.type === "character") {
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of deletions) {
-                            if (objectHasKey(source.system.martial, key)) {
-                                delete source.system.martial[key];
-                                (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            if (attacks[key]) {
+                                delete attacks[key];
+                                attacks[`-=${key}`] = null;
                             }
                         }
                     }
@@ -66,24 +66,22 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponGroups": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map(
-                            (deletion) => `weapon-group-${deletion}`
-                        ) as WeaponGroupProficiencyKey[];
+                        const proficiencyKeys = deletions.map((deletion) => `weapon-group-${deletion}`);
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of proficiencyKeys) {
-                            delete source.system.martial[key];
-                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete attacks[key];
+                            attacks[`-=${key}`] = null;
                         }
                     }
                     break;
                 }
                 case "baseWeapons": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map(
-                            (deletion) => `weapon-base-${deletion}`
-                        ) as BaseWeaponProficiencyKey[];
+                        const proficiencyKeys = deletions.map((deletion) => `weapon-base-${deletion}`);
+                        const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const key of proficiencyKeys) {
-                            delete source.system.martial[key];
-                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete attacks[key];
+                            attacks[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -106,9 +104,9 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
             switch (listKey) {
                 // Creature traits can be on many items
                 case "creatureTraits": {
-                    if (source.system.traits) {
-                        const traits = source.system.traits;
-                        traits.value = traits.value?.filter((t) => !deletions.includes(t));
+                    if (source.system.traits?.value) {
+                        const traits: { value: string[] } = source.system.traits;
+                        traits.value = traits.value.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }
@@ -119,13 +117,7 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                     }
                     break;
                 }
-                case "magicSchools": {
-                    if (source.type === "spell") {
-                        const school = source.system.school;
-                        school.value = deletions.includes(school.value ?? "") ? "evocation" : school.value;
-                    }
-                    break;
-                }
+                case "magicSchools":
                 case "spellTraits": {
                     if (source.type === "spell") {
                         const traits = source.system.traits;

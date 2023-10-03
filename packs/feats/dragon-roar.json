@@ -1,0 +1,65 @@
+{
+    "_id": "SELSj1vvVLx5cP72",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragon Roar",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Dragon Stance]</p>\n<hr />\n<p>You bellow, instilling fear in your enemies. Enemies within a @Template[type:emanation|distance:15] must succeed at a Will save against your Intimidation DC or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). When a creature frightened by the roar begins its turn adjacent to you, it can't reduce its frightened value below 1 on that turn.</p>\n<p>Your first attack that hits a frightened creature after you roar and before the end of your next turn gains a +4 circumstance bonus to damage.</p>\n<p>After you use Dragon Roar, you can't use it again for [[/r 1d4 #rounds]]{1d4 rounds}. Its effects end immediately if you leave Dragon Stance. Creatures in the area of your roar are then temporarily immune for 1 minute.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragon Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:dragon-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Monk.DragonRoar.Label",
+                "option": "dragon-roar",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "dragon-roar"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "emotion",
+                "fear",
+                "mental",
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

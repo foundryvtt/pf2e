@@ -1,5 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
+import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { ErrorPF2e } from "@util";
 
 /**
@@ -43,7 +44,7 @@ class DicePF2e {
         rollMode = game.settings.get("core", "rollMode"),
         rollType = "",
     }: {
-        event: JQuery.Event;
+        event: MouseEvent | JQuery.TriggeredEvent;
         item?: ItemPF2e<ActorPF2e> | null;
         parts: (string | number)[];
         actor?: ActorPF2e;
@@ -67,7 +68,7 @@ class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ["2d20kh"];
-                flav = game.i18n.format("PF2E.Roll.MisfortuneTitle", { title: title });
+                flav = game.i18n.format("PF2E.Roll.FortuneTitle", { title: title });
             } else if (adv === -1) {
                 rollParts[0] = ["2d20kl"];
                 flav = game.i18n.format("PF2E.Roll.MisfortuneTitle", { title: title });
@@ -195,28 +196,20 @@ class DicePF2e {
  * Combines dice and flat values together in a condensed expression. Also repairs any + - and "- 3" errors.
  * For example, 3d4 + 2d4 + 3d6 + 5 + 2 is combined into 5d4 + 3d6 + 7. - 4 is corrected to -4.
  */
-function combineTerms(formula: string): string {
+function simplifyFormula(formula: string): string {
     if (formula === "0") return formula;
 
     const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
     const roll = new Roll(fixedFormula);
-    if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
+    if (
+        !roll.terms.every((t) => [" - ", " + "].includes(t.expression) || t instanceof Die || t instanceof NumericTerm)
+    ) {
         // This isn't a simple summing of dice: return the roll without further changes
         return fixedFormula;
     }
 
-    const dice = roll.terms.filter((term): term is Die => term instanceof Die);
-    const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
-        counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
-        return counts;
-    }, {});
-    const stringTerms = [4, 6, 8, 10, 12, 20].reduce((terms: string[], faces) => {
-        return typeof diceByFaces[faces] === "number" ? [...terms, `${diceByFaces[faces]}d${faces}`] : terms;
-    }, []);
-    const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
-    const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
-
-    return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+")).formula;
+    const terms = parseTermsFromSimpleFormula(roll);
+    return createSimpleFormula(terms);
 }
 
-export { DicePF2e, combineTerms };
+export { DicePF2e, simplifyFormula };

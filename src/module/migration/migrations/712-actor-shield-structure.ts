@@ -1,7 +1,7 @@
-import { CharacterAttributes } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { NPCAttributesSource } from "@actor/npc/data";
-import { MigrationBase } from "../base";
+import { CharacterAttributesSource } from "@actor/character/data.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { NPCAttributesSource } from "@actor/npc/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Make attributes.shield ephemeral on PCs and NPCs */
 export class Migration712ActorShieldStructure extends MigrationBase {
@@ -22,4 +22,4 @@ export class Migration712ActorShieldStructure extends MigrationBase {
     }
 }
 
-type WithDeletableShield = (NPCAttributesSource | CharacterAttributes) & { shield?: unknown; "-=shield"?: null };
+type WithDeletableShield = (NPCAttributesSource | CharacterAttributesSource) & { shield?: unknown; "-=shield"?: null };

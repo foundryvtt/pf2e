@@ -1,0 +1,61 @@
+{
+    "_id": "2KQSsrzUqAxSXOdd",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Spell Effect: Dancing Shield",
+    "system": {
+        "description": {
+            "value": "<p>The touched shield uses the Raise a Shield action to protect the target creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.spellEffectDancingShield}"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "value": 3
+                    }
+                ],
+                "flag": "spellEffectDancingShield",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DancingShield.Prompt"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

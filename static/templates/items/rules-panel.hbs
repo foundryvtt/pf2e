@@ -16,7 +16,7 @@
                 </label>
                 <input id="{{options.id}}-uuid" disabled value="{{item.uuid}}" />
                 <div class="item-controls">
-                    <a data-clipboard="{{item.uuid}}"><i class="fas fa-clipboard"></i></a>
+                    <a data-clipboard="{{item.uuid}}"><i class="fa-solid fa-fw fa-clipboard"></i></a>
                 </div>
             </div>
             {{#if item.sourceId}}
@@ -27,46 +27,35 @@
                     </label>
                     <input id="{{options.id}}-source-id" disabled value="{{item.sourceId}}" />
                     <div class="item-controls">
-                        <a data-clipboard="{{item.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                        <a data-clipboard="{{item.sourceId}}"><i class="fa-solid fa-fw fa-clipboard"></i></a>
                     </div>
                 </div>
             {{/if}}
             <div class="form-group">
-                <label slug="{{options.id}}-slug">
+                <label for="{{options.id}}-slug">
                     <span>{{localize "PF2E.Slug"}}</span>
-                    <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.Slug"}}"></i>
+                    <i class="fa-solid fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.Slug"}}"></i>
                 </label>
                 <input id="{{options.id}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
                 <div class="item-controls">
-                    <a data-action="regenerate-slug" title="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"><i class="fas fa-sync-alt"></i></a>
+                    <a data-action="regenerate-slug" title="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"><i class="fa-solid fa-fw fa-sync-alt"></i></a>
                 </div>
             </div>
         </div>
-
-        <div>
+        <div class="rule-element-forms">
             {{#each rules.elements}}
-                <div class="rule-element-header">
-                    {{#with (lookup @root.rules.labels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
-                    <div class="item-controls">
-                        <a class="edit-rule-element" data-rule-index="{{@index}}"><i class="fas fa-edit"></i></a>
-                        <a class="remove-rule-element" data-rule-index="{{@index}}" title="{{localize "PF2E.Item.Rules.Remove"}}"><i class="fas fa-trash"></i></a>
-                    </div>
-                </div>
-                <div class="rule-form" data-key="{{rule.key}}" data-idx="{{index}}">
-                    {{{template}}}
-                </div>
-                <hr/>
+                {{{template}}}
             {{/each}}
-            <div class="create-rule-element">
-                <select data-action="select-rule-element">
-                    {{#select rules.selection.selected}}
-                        {{#each rules.selection.types as |value key|}}
-                            <option value="{{key}}">{{value}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-                <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
-            </div>
+        </div>
+        <div class="create-rule-element">
+            <select data-action="select-rule-element">
+                {{#select rules.selection.selected}}
+                    {{#each rules.selection.types as |value key|}}
+                        <option value="{{key}}">{{value}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
         </div>
     </div>
 {{/if}}

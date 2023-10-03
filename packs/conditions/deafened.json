@@ -1,0 +1,42 @@
+{
+    "_id": "9PR9y0bi4JPKnHPR",
+    "img": "systems/pf2e/icons/conditions/deafened.webp",
+    "name": "Deafened",
+    "system": {
+        "description": {
+            "value": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a <strong>DC 5</strong> flat check or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": "senses",
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception-initiative",
+                "slug": "deafened",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "Immunity",
+                "type": "auditory"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

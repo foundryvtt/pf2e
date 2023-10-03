@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure `crafting` property in character system data has the correct structure */
 export class Migration722CraftingSystemData extends MigrationBase {
@@ -10,10 +10,11 @@ export class Migration722CraftingSystemData extends MigrationBase {
         if (source.type !== "character") return;
 
         if (!isObject(source.system.crafting)) {
-            source.system.crafting = { entries: {}, formulas: [] };
+            const filledCrafting = { entries: {}, formulas: [] };
+            source.system.crafting = filledCrafting;
         }
 
-        const { crafting } = source.system;
+        const crafting: Record<string, unknown> = source.system.crafting ?? {};
         if (!isObject(crafting.entries) || Array.isArray(crafting.entries)) {
             crafting.entries = {};
         }

@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { ModifierType } from "@actor/modifiers";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ModifierType } from "@actor/modifiers.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert experimental FlatModifier `ActiveEffect`s to Rule Elements */
 export class Migration675FlatModifierAEsToREs extends MigrationBase {

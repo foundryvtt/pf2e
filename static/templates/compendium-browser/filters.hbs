@@ -41,8 +41,8 @@
                 </select></dd>
             </dl>
         {{/each}}
+        <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
     </div>
-    <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
     {{#each filterData.checkboxes as |checkbox name|}}
         <div class="filtercontainer" data-filter-type="checkboxes" data-filter-name="{{name}}">
             <div class="title">
@@ -104,3 +104,10 @@
         </div>
     {{/each}}
 </div>
+
+{{#if @root.user.isGM}}
+    <div class="list-buttons">
+        <button type="button" class="create-roll-table" data-action="create-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.CreateLabel"}}</button>
+        <button type="button" class="create-roll-table" data-action="add-to-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.AddLabel"}}</button>
+    </div>
+{{/if}}

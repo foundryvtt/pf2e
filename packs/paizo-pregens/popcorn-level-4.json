@@ -1,0 +1,2472 @@
+{
+    "_id": "VzEke2VKFA59g5rX",
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/leshy.svg",
+    "items": [
+        {
+            "_id": "TfbITWbWpO6RrwGT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.evXJISqyhl3fHE9u"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/vine-leshy.webp",
+            "name": "Vine Leshy",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Leshy",
+                    "slug": "leshy",
+                    "uuid": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
+                },
+                "description": {
+                    "value": "<p>The prehensile vines woven into your body grant you unmatched skill at climbing. You do not need to have any hands free to @UUID[Compendium.pf2e.actionspf2e.Item.Climb]. Additionally, if you roll a success on an Athletics check to climb, you get a critical success instead.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:climb"
+                        ],
+                        "selector": "athletics",
+                        "text": "When you roll a success to Climb, you get a critical success instead.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "vine-leshy",
+                "source": {
+                    "value": "Pathfinder Lost Omens: Character Guide"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "DgiaH45Hb0x3sZPE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.3gN09dOT2hMwGcK2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Cook",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "int",
+                        "value": [
+                            "con",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You grew up in the kitchens of a tavern or other dining establishment and excelled there, becoming an exceptional cook. Baking, cooking, a little brewing on the side-you've spent lots of time out of sight. It's about time you went out into the world to catch some sights for yourself.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Survival skill and the Cooking Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Seasoned] skill feat.</p>"
+                },
+                "items": {
+                    "diizj": {
+                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "level": 1,
+                        "name": "Seasoned",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Seasoned"
+                    }
+                },
+                "rules": [],
+                "slug": "cook",
+                "source": {
+                    "value": "Pathfinder Advanced Player's Guide"
+                },
+                "trainedLore": "Cooking Lore",
+                "trainedSkills": {
+                    "value": [
+                        "sur"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "6FpiEP5bEuveYwCd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.1Eceqc6zbMj2x0q9"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Seasoned",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to Craft food and drink, including potions. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "DgiaH45Hb0x3sZPE",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Alcohol Lore, Cooking Lore, or Crafting"
+                        }
+                    ]
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Seasoned (craft food, drink & potions)",
+                        "predicate": [
+                            "action:craft",
+                            {
+                                "or": [
+                                    "food",
+                                    "drink",
+                                    "potion"
+                                ]
+                            }
+                        ],
+                        "selector": "crafting",
+                        "type": "circumstance",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 4,
+                                    "start": 3,
+                                    "value": 2
+                                },
+                                {
+                                    "end": 2,
+                                    "start": 1,
+                                    "value": 1
+                                }
+                            ],
+                            "field": "actor|system.skills.cra.rank"
+                        }
+                    }
+                ],
+                "slug": "seasoned",
+                "source": {
+                    "value": "Pathfinder Advanced Player's Guide"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ypPNJsQDj0EM4Qa1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.weYZzyMmlCIC2TZt"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Grasping Reach",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You can extend a tangle of vines or tendrils to support your arms and extend your reach. When you wield a melee weapon that requires two hands, doesn't have reach, and deals at least 1d6 damage, you can change between a typical two-handed grip and an extended two-handed grasp using an Interact action. Weapons wielded in your extended grasp gain reach of 10 feet. This grasp is less stable and powerful than a typical grip, reducing the weapon's damage die by 1 step.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "grasping-reach",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:melee",
+                            "item:usage:hands:2",
+                            {
+                                "nor": [
+                                    "item:damage:die:faces:4",
+                                    "item:trait:reach"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "grasping-reach"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "downgrade": true
+                        },
+                        "predicate": [
+                            "item:melee",
+                            "item:usage:hands:2",
+                            "grasping-reach",
+                            {
+                                "nor": [
+                                    "item:traits:reach",
+                                    "item:damage:die:faces:4"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "grasping-reach",
+                "source": {
+                    "value": "Pathfinder Lost Omens: Character Guide"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "leshy"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "87OUc3UamruU0D7q",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.dgmjiToPHC3Yf5I3"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Acute Scent",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>When you Rage, your sense of smell improves. You gain imprecise scent with a range of 30 feet</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Acute Vision or Darkvision"
+                        }
+                    ]
+                },
+                "rules": [
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "range": 30,
+                        "selector": "scent"
+                    }
+                ],
+                "slug": "acute-scent",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "o0SxC2WxGChgGUMN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.YdpGPLN0QFTZIhbk"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Acute Vision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>When you are raging, your visual senses improve, granting you darkvision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "Sense",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "darkvision"
+                    }
+                ],
+                "slug": "acute-vision",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "IClv2ivETTnpV5dd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.JbrVcOf82oFXk3mY"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Swipe",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You make a wide, arcing swing. Make a single melee Strike and compare the attack roll result to the ACs of up to two foes, each of whom must be within your melee reach and adjacent to the other. Roll damage only once and apply it to each creature you hit. A Swipe counts as two attacks for your multiple attack penalty. If you're using a weapon with the sweep trait, its modifier applies to all your Swipe attacks.</p>"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "swipe",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "fighter",
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7zhfuLt8U6DYouXn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.is3Oz9wt11lNq62K"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Alchemical Crafting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can use the Craft activity to create alchemical items. When you select this feat, you immediately add the formulas for four common 1st-level alchemical items to your formula book.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Crafting"
+                        }
+                    ]
+                },
+                "rules": [],
+                "slug": "alchemical-crafting",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "pTR8Mq5V0nUdAoNF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.ZBhvJ9O8MvBFAlhq"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Quick Jump",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can use High Jump and Long Jump as a single action instead of 2 actions. If you do, you don't perform the initial Stride (nor do you fail if you don't Stride 10 feet).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-4",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
+                        }
+                    ]
+                },
+                "rules": [],
+                "slug": "quick-jump",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "hhnuVoMBDXnqhKOq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "downgrade",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 9
+                    }
+                ],
+                "slug": "toughness",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "dX08XFR720Q2ZSfA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/war-flail.webp",
+            "name": "War Flail",
+            "sort": 0,
+            "system": {
+                "baseItem": "war-flail",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d10"
+                },
+                "description": {
+                    "value": "<p>This large flail has a long shaft connected to a shorter piece of stout wood or metal that's sometimes inlaid with spikes.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "flail",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "war-flail",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "sweep",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "F6MvfRutZfXNeB2D",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.gWr4q4HiyGhETA8H"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate)",
+            "sort": 0,
+            "system": {
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "persistent": {
+                        "faces": null,
+                        "number": 2,
+                        "type": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 2,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-fire-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": null
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "x82CtuYOFxSBF3TE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Du05UxCyCM0ZWH8z"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/oil.webp",
+            "name": "Oil (1 pint)",
+            "sort": 0,
+            "system": {
+                "autoDestroy": {
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "oil"
+                },
+                "consume": {
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5-foot square you target. You must succeed at a @Check[type:flat|dc:10] for the oil to ignite successfully when it hits. If the oil ignites, the target takes 1d6 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "oil-1-pint",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "cz5JrVqjG11OlyCX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
+                }
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Recipe Book",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "formula-book-blank",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "FWO2bCnaPFgMG3p6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
+                }
+            },
+            "img": "icons/tools/laboratory/vials-blue-pink.webp",
+            "name": "Alchemist's Tools",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist's tools, you can draw and replace them as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-tools",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8QKSxSGkXBMKHUtM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+                }
+            },
+            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+            "name": "Breastplate",
+            "sort": 0,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "breastplate",
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half-plate armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": "2"
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "breastplate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speedPenalty": -5,
+                "stackGroup": null,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "3"
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "paHbWeaUgMlAgWlY",
+            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "name": "Bottle of Ground Peppercorns",
+            "sort": 0,
+            "system": {
+                "autoDestroy": {
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 0,
+                    "value": 0
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {}
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "cfvCChGMyay3ji5l",
+            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "name": "Jar Of Salted Lemons",
+            "sort": 0,
+            "system": {
+                "autoDestroy": {
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 0,
+                    "value": 0
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {}
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "tTEUXVwUKjYb9ceP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ShFbUrFrQg7Ung8D"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/truth-potion.webp",
+            "name": "Capsaicin Tonic",
+            "sort": 0,
+            "system": {
+                "autoDestroy": {
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "elixir"
+                },
+                "consume": {
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This translucent, pale-yellow drink has several pepper seeds suspended within it. Although the tonic is painfully spicy when first consumed, the heat soon fades as the tonic coats your throat. In the next hour, you can use the activation below up to three times; the third time you use it, the effects of the capsaicin tonic end. While under the effects of the tonic, you can easily consume even the spiciest of foods without trouble.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You belch out a foul-smelling cloud of blisteringly spicy gas that fills a single square adjacent to you. Creatures within the cloud are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud are concealed to creatures within it. The cloud remains for 1 minute but can be dispersed by a strong wind. The cloud deals @Damage[1d4[fire]] damage to creatures that enter the cloud on their turn, as well as to creatures that start their turn in the cloud (a creature takes this damage no more than once per round, even if it moves back and forth into the cloud multiple times during the round).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {
+                        "gp": 17
+                    }
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "capsaicin-tonic",
+                "source": {
+                    "value": "Pathfinder Adventure: Troubles in Otari"
+                },
+                "stackGroup": "",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "niDRhZMT50sJlY00",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Cooking Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "PLbT3xogEAYn3b0k",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.YDRiP7uVvr9WRhOI"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/barbarian.webp",
+            "name": "Barbarian",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classDC": 1,
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>Rage consumes you in battle. You delight in wreaking havoc and using powerful weapons to carve through your enemies, relying on astonishing durability without needing complicated techniques or rigid training. Your rages draw upon a vicious instinct, which you might associate with an animal, a spirit, or some part of yourself. To many barbarians, brute force is a hammer and every problem looks like a nail, whereas others try to hold back the storm of emotions inside them and release their rage only when it matters most.</em></p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.lvuutBI9BSCU6cWe]{Barbarian}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 12,
+                "items": {
+                    "23vme": {
+                        "img": "systems/pf2e/icons/features/classes/greater-juggernaut.webp",
+                        "level": 13,
+                        "name": "Greater Juggernaut",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Juggernaut"
+                    },
+                    "3gwvw": {
+                        "img": "systems/pf2e/icons/features/classes/brutality.webp",
+                        "level": 5,
+                        "name": "Brutality",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Brutality"
+                    },
+                    "7jt77": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "8ibv2": {
+                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "level": 9,
+                        "name": "Lightning Reflexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Lightning Reflexes"
+                    },
+                    "blnv0": {
+                        "img": "systems/pf2e/icons/features/classes/heightened-senses.webp",
+                        "level": 17,
+                        "name": "Heightened Senses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Heightened Senses"
+                    },
+                    "e0sur": {
+                        "img": "systems/pf2e/icons/features/classes/indomitable-will.webp",
+                        "level": 15,
+                        "name": "Indomitable Will",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Indomitable Will"
+                    },
+                    "g3k30": {
+                        "img": "systems/pf2e/icons/features/classes/quick-rage.webp",
+                        "level": 17,
+                        "name": "Quick Rage",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Quick Rage"
+                    },
+                    "gfxqm": {
+                        "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
+                        "level": 7,
+                        "name": "Juggernaut",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Juggernaut"
+                    },
+                    "ihbgk": {
+                        "img": "systems/pf2e/icons/features/classes/devastator.webp",
+                        "level": 19,
+                        "name": "Devastator",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Devastator"
+                    },
+                    "njgcl": {
+                        "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization (Barbarian)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization (Barbarian)"
+                    },
+                    "o4ypa": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-fury.webp",
+                        "level": 13,
+                        "name": "Weapon Fury",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Fury"
+                    },
+                    "p941e": {
+                        "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
+                        "level": 3,
+                        "name": "Deny Advantage",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Deny Advantage"
+                    },
+                    "qh9xw": {
+                        "img": "systems/pf2e/icons/features/classes/mighty-rage.webp",
+                        "level": 11,
+                        "name": "Mighty Rage",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Mighty Rage"
+                    },
+                    "s5lxl": {
+                        "img": "systems/pf2e/icons/features/classes/armor-of-fury.webp",
+                        "level": 19,
+                        "name": "Armor of Fury",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Armor of Fury"
+                    },
+                    "spb04": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "tp5pg": {
+                        "img": "systems/pf2e/icons/features/classes/raging-resistance.webp",
+                        "level": 9,
+                        "name": "Raging Resistance",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Raging Resistance"
+                    },
+                    "uhbeo": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Instinct",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Instinct"
+                    },
+                    "xvavy": {
+                        "img": "systems/pf2e/icons/features/classes/rage.webp",
+                        "level": 1,
+                        "name": "Rage",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Rage"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "str"
+                    ]
+                },
+                "perception": 2,
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "barbarian",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": [
+                        "ath"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "LLR5LayA8kCYU2b6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.dU7xRpg4kFd01hwZ"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "dragonInstinct": {
+                            "id": "Sgf0WUIIcoX6a52E",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Instinct",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You channel your rage through an instinct. You decide what your instinct means to you. It could be a creature or symbol beloved by your clan, or a purely internal source or filter of your rage, such as a belief, curse, heritage, or state of mind. Each instinct grants an instinct ability, plus more abilities you can gain via feats that list that instinct as a prerequisite. It also determines what damage you resist with raging resistance and, at higher levels, increases the additional damage you deal when you @UUID[Compendium.pf2e.classfeatures.Item.Rage].</p>\n<p>Each instinct lists acts that are anathema to it. Whenever you perform such acts, you lose the instinct's abilities and any feats that list your instinct as a prerequisite until you spend 1 day of downtime re-centering yourself, though you keep all of your other barbarian abilities.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "PLbT3xogEAYn3b0k",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "PF2E.SpecificRule.Barbarian.Instinct.Drops",
+                            "predicate": [
+                                "item:level:1",
+                                "item:trait:barbarian",
+                                "item:type:feature"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Animal Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Fury Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Giant Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Spirit Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Superstition Instinct"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Elemental Instinct"
+                            }
+                        ],
+                        "flag": "instinct",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Barbarian.Instinct.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "dragonInstinct",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
+                    }
+                ],
+                "slug": "instinct",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fcJhGCYhiBGKANfN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.WZUCvxqbigXos1L9"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "rage": {
+                            "id": "2nUJYHhONIP05UFC",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/skills/wounds/injury-face-impact-orange.webp",
+            "name": "Rage",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Rage] action, which lets you fly into a frenzy.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "PLbT3xogEAYn3b0k",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "flag": "rage",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Rage"
+                    }
+                ],
+                "slug": "rage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ueJEiQ6HbJGNTdBQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
+                }
+            },
+            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
+            "name": "Deny Advantage",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "PLbT3xogEAYn3b0k",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": "deny-advantage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Sgf0WUIIcoX6a52E",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.VDot7CDcXElxmkkz"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "LLR5LayA8kCYU2b6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/creatures/abilities/dragon-fire-breath-orange.webp",
+            "name": "Dragon Instinct (Red Dragon)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon's blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3-4: Dragon Instincts to be your instinct's dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Type</th>\n<th>Breath Weapon</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Chromatic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Chromatic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Chromatic</td>\n<td>Cone of Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Chromatic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Chromatic</td>\n<td>Cone of Cold</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Metallic</td>\n<td>Line of Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Metallic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Metallic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Metallic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Metallic</td>\n<td>Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon's breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing damage and the damage type of your dragon's breath weapon.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "black",
+                                    "damageType": "acid"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "blue",
+                                    "damageType": "electricity"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "brass",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "bronze",
+                                    "damageType": "electricity"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                                "value": {
+                                    "breath": {
+                                        "size": 60,
+                                        "type": "line"
+                                    },
+                                    "category": "metallic",
+                                    "color": "copper",
+                                    "damageType": "acid"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "metallic",
+                                    "color": "gold",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "green",
+                                    "damageType": "poison"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "metallic",
+                                    "color": "silver",
+                                    "damageType": "cold"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "red",
+                                    "damageType": "fire"
+                                }
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                                "value": {
+                                    "breath": {
+                                        "size": 30,
+                                        "type": "cone"
+                                    },
+                                    "category": "chromatic",
+                                    "color": "white",
+                                    "damageType": "cold"
+                                }
+                            }
+                        ],
+                        "flag": "dragon",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt",
+                        "selection": {
+                            "breath": {
+                                "size": 30,
+                                "type": "cone"
+                            },
+                            "category": "chromatic",
+                            "color": "red",
+                            "damageType": "fire"
+                        }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.size",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.size}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.breath.type",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.breath.type}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.category",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.category}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.color",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.color}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.barbarian.instinct.dragon.damageType",
+                        "value": "{item|flags.pf2e.rulesSelections.dragon.damageType}"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Barbarian.Dragon.ToggleLabel",
+                        "option": "draconic-rage",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:barbarian",
+                                    "feat:instinct-ability"
+                                ]
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage"
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage",
+                            "class:barbarian",
+                            {
+                                "gte": [
+                                    "self:level",
+                                    7
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 8
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "draconic-rage",
+                            "class:barbarian",
+                            "feature:greater-weapon-specialization"
+                        ],
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "slug": "rage",
+                        "value": 16
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "self:effect:rage",
+                            "feature:raging-resistance"
+                        ],
+                        "type": "piercing",
+                        "value": "@actor.abilities.con.mod+3"
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "self:effect:rage",
+                            "feature:raging-resistance"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
+                        "value": "@actor.abilities.con.mod+3"
+                    }
+                ],
+                "slug": "dragon-instinct",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2nUJYHhONIP05UFC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.Ah5g9pDwWF9b9VW9"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "fcJhGCYhiBGKANfN",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/skills/wounds/injury-face-impact-orange.webp",
+            "name": "Rage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging.</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "or": [
+                                    {
+                                        "not": "item:ranged"
+                                    },
+                                    {
+                                        "and": [
+                                            "feat:raging-thrower",
+                                            "item:thrown"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "rage",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "multiply",
+                        "predicate": [
+                            "item:trait:agile"
+                        ],
+                        "priority": 95,
+                        "selector": "strike-damage",
+                        "slug": "rage",
+                        "value": 0.5
+                    },
+                    {
+                        "hideIfDisabled": true,
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "slug": "rage",
+                        "value": -1
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rage",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
+                },
+                "slug": "rage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PCGogz3Oa71vnvUw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/leshy.svg",
+            "name": "Leshy",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": [
+                        "draconic",
+                        "elven",
+                        "gnomish",
+                        "goblin",
+                        "halfling",
+                        "undercommon"
+                    ]
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "wis"
+                        ]
+                    },
+                    "2": {
+                        "selected": "str",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Guardians and emissaries of the environment, leshies are immortal spirits of nature temporarily granted a physical form.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.SWkwNivrfzWZqas9]{Leshy}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "int"
+                        ]
+                    }
+                },
+                "hp": 8,
+                "items": {
+                    "32oz7": {
+                        "img": "icons/magic/nature/root-vine-beanstolk-green.webp",
+                        "level": "1",
+                        "name": "Plant Nourishment",
+                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Plant Nourishment"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "fey"
+                    ]
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "sm",
+                "slug": "leshy",
+                "source": {
+                    "value": "Pathfinder Lost Omens: Character Guide"
+                },
+                "speed": 25,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "leshy",
+                        "plant"
+                    ]
+                },
+                "vision": "lowLightVision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "HPE8tdrCWXAWsbbB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestryfeatures.Item.Sm3tKetM6kddTio3"
+                }
+            },
+            "img": "icons/magic/nature/root-vine-beanstolk-green.webp",
+            "name": "Plant Nourishment",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>You gain nourishment in the same way that the plants or fungi that match your body type normally do, through some combination of photosynthesis, absorbing minerals with your roots, or scavenging decaying matter. You typically do not need to pay for food. If you normally rely on photosynthesis and go without sunlight for 1 week, you begin to starve. You can derive nourishment from specially formulated bottles of sunlight instead of natural sunlight, but these bottles cost 10 times as much as standard rations (or 40 sp).</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": "PCGogz3Oa71vnvUw",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "plant-nourishment",
+                "source": {
+                    "value": "Pathfinder Lost Omens: Character Guide"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "leshy"
+                    ]
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Popcorn (Level 4)",
+    "prototypeToken": {
+        "name": "Popcorn"
+    },
+    "system": {
+        "attributes": {
+            "bonusEncumbranceBulk": 0,
+            "bonusLimitBulk": 0,
+            "hp": {
+                "temp": 0,
+                "value": 68
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "resolve": {
+                "max": 0,
+                "value": 0
+            },
+            "sp": {
+                "details": "",
+                "max": 0,
+                "value": 0
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "int",
+                        "con"
+                    ]
+                }
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alignment": {
+                "value": "N"
+            },
+            "biography": {
+                "allies": "",
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "Female"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "level": {
+                "value": 4
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {},
+        "skills": {
+            "acr": {
+                "rank": 1
+            },
+            "arc": {
+                "rank": 0
+            },
+            "ath": {
+                "rank": 0
+            },
+            "cra": {
+                "rank": 2
+            },
+            "dec": {
+                "rank": 0
+            },
+            "dip": {
+                "rank": 0
+            },
+            "itm": {
+                "rank": 1
+            },
+            "med": {
+                "rank": 0
+            },
+            "nat": {
+                "rank": 1
+            },
+            "occ": {
+                "rank": 0
+            },
+            "prf": {
+                "rank": 0
+            },
+            "rel": {
+                "rank": 0
+            },
+            "soc": {
+                "rank": 0
+            },
+            "ste": {
+                "rank": 0
+            },
+            "sur": {
+                "rank": 0
+            },
+            "thi": {
+                "rank": 0
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "senses": [],
+            "value": []
+        }
+    },
+    "type": "character"
+}

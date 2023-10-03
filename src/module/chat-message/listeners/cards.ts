@@ -1,81 +1,127 @@
 import { ActorPF2e } from "@actor";
-import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
-import { SAVE_TYPES } from "@actor/values";
+import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { ElementalBlast } from "@actor/character/elemental-blast.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
-import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { ChatMessagePF2e } from "..";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { elementTraits } from "@scripts/config/traits.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    sluggify,
+    tupleHasValue,
+} from "@util";
+import { ChatMessagePF2e, CheckRollContextFlag } from "../index.ts";
 
-export const ChatCards = {
-    listen: ($html: JQuery): void => {
-        const selectors = [".card-buttons button", ".message-buttons button", "button[data-action=consume]"].join(",");
-        $html.find(selectors).on("click", async (event) => {
-            event.preventDefault();
+class ChatCards {
+    static #lastClick = 0;
 
-            // Extract card data
-            const $button = $(event.currentTarget);
-            const messageId = $button.parents(".message").attr("data-message-id") ?? "";
-            const message = game.messages.get(messageId, { strict: true });
-            const $card = $button.closest(".chat-card, .message-buttons");
-            const action = $button.attr("data-action");
+    static listen(message: ChatMessagePF2e, html: HTMLElement): void {
+        const selector = ["a[data-action], button[data-action]"].join(",");
+        for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
+            button.addEventListener("click", async (event) => this.#onClickButton({ message, event, html, button }));
+        }
+    }
 
-            // Get the actor and item from the chat message
-            const item = message.item;
-            const actor = item?.actor ?? message.actor;
-            if (!actor) return;
+    static async #onClickButton({ message, event, html, button }: OnClickButtonParams): Promise<void> {
+        const currentTime = Date.now();
+        if (currentTime - this.#lastClick < 500) {
+            return;
+        }
+        this.#lastClick = currentTime;
 
-            // Confirm roll permission
-            if (!game.user.isGM && !actor.isOwner && action !== "save") return;
+        // Extract card data
+        const action = button.dataset.action ?? "";
 
-            // Handle strikes
-            const strikeAction = message._strike;
-            if (strikeAction && action?.startsWith("strike-")) {
-                const context = message.flags.pf2e.context;
-                const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
-                const altUsage = context && "altUsage" in context ? context.altUsage : null;
-                const options = actor.getRollOptions(["all", "attack-roll"]);
-                const rollArgs = { event, altUsage, mapIncreases, options };
+        // Get the actor and item from the chat message
+        const item = message.item;
+        const actor = item?.actor ?? message.actor;
+        if (!actor) return;
 
-                switch (sluggify(action ?? "")) {
-                    case "strike-attack":
-                        strikeAction.variants[0].roll(rollArgs);
-                        return;
-                    case "strike-attack2":
-                        strikeAction.variants[1].roll(rollArgs);
-                        return;
-                    case "strike-attack3":
-                        strikeAction.variants[2].roll(rollArgs);
-                        return;
-                    case "strike-damage":
-                        strikeAction.damage?.(rollArgs);
-                        return;
-                    case "strike-critical":
-                        strikeAction.critical?.(rollArgs);
-                        return;
+        // Confirm roll permission
+        if (!game.user.isGM && !actor.isOwner && !["spell-save", "expand-description"].includes(action)) {
+            return;
+        }
+
+        // Handle strikes
+        const strikeAction = message._strike;
+        if (strikeAction && action?.startsWith("strike-")) {
+            const context = (
+                message.rolls.some((r) => r instanceof CheckRoll) ? message.flags.pf2e.context ?? null : null
+            ) as CheckRollContextFlag | null;
+            const mapIncreases =
+                context && "mapIncreases" in context && tupleHasValue([0, 1, 2], context.mapIncreases)
+                    ? context.mapIncreases
+                    : null;
+            const altUsage = context && "altUsage" in context ? context.altUsage : null;
+            const target = message.target?.token?.object ?? null;
+            const rollArgs = { event, altUsage, mapIncreases, checkContext: context, target };
+
+            switch (sluggify(action ?? "")) {
+                case "strike-attack":
+                    strikeAction.variants[0].roll(rollArgs);
+                    return;
+                case "strike-attack2":
+                    strikeAction.variants[1].roll(rollArgs);
+                    return;
+                case "strike-attack3":
+                    strikeAction.variants[2].roll(rollArgs);
+                    return;
+                case "strike-damage": {
+                    const method = button.dataset.outcome === "success" ? "damage" : "critical";
+                    strikeAction[method]?.(rollArgs);
+                    return;
                 }
             }
+        }
 
-            // Handle everything else
-            if (item) {
-                const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
+        // Handle everything else
+        if (item) {
+            const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
 
-                // Spell actions
-                if (action === "spellAttack") spell?.rollAttack(event);
-                else if (action === "spellAttack2") spell?.rollAttack(event, 2);
-                else if (action === "spellAttack3") spell?.rollAttack(event, 3);
-                else if (action === "spellDamage") spell?.rollDamage(event);
-                else if (action === "spellCounteract") spell?.rollCounteract(event);
-                else if (action === "spellTemplate") spell?.placeTemplate();
-                else if (action === "selectVariant") {
-                    const castLevel =
-                        Number($html[0].querySelector<HTMLElement>("div.chat-card")?.dataset.castLevel) || 1;
-                    const overlayIdString = $button.attr("data-overlay-ids");
-                    if (overlayIdString) {
-                        const overlayIds = overlayIdString.split(",").map((id) => id.trim());
+            // Spell actions
+            switch (action) {
+                case "spell-attack":
+                    return spell?.rollAttack(event);
+                case "spell-attack-2":
+                    return spell?.rollAttack(event, 2);
+                case "spell-attack-3":
+                    return spell?.rollAttack(event, 3);
+                case "spell-damage":
+                    spell?.rollDamage(event);
+                    return;
+                case "spell-save":
+                    return this.#rollActorSaves({ event, button, actor, item });
+                case "affliction-save":
+                    if (item?.isOfType("affliction")) {
+                        item.rollRecovery();
+                    }
+                    return;
+                case "spell-counteract":
+                    spell?.rollCounteract(event);
+                    return;
+                case "spell-template":
+                    return spell?.placeTemplate(message);
+                case "spell-template-clear": {
+                    const templateIds =
+                        canvas.scene?.templates.filter((t) => t.message === message).map((t) => t.id) ?? [];
+                    button.disabled = true;
+                    await canvas.scene?.deleteEmbeddedDocuments("MeasuredTemplate", templateIds);
+                    button.disabled = false;
+                    return;
+                }
+                case "spell-variant": {
+                    const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
+                    const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
+                    if (overlayIds) {
                         const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
                         if (variantSpell) {
                             const variantMessage = await variantSpell.toMessage(undefined, {
@@ -97,140 +143,194 @@ export const ChatCards = {
                             await message.update(originalMessage.toObject());
                         }
                     }
+                    return;
                 }
-                // Consumable usage
-                else if (action === "consume") {
+                case "consume": {
+                    // Consumable usage
                     if (item.isOfType("consumable")) {
                         item.consume();
                     } else if (item.isOfType("melee")) {
                         // Button is from an NPC attack effect
-                        const consumable = actor.items.get($button.attr("data-item") ?? "");
+                        const consumable = actor.items.get(button.dataset.item ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            const consumableString = game.i18n.localize("TYPES.Item.consumable");
+                            const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
                                 flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
                             }
                             await message.update({ flavor });
                             message.render(true);
                         }
                     }
-                } else if (action === "save") {
-                    ChatCards.rollActorSaves({ event, actor, item });
+                    return;
                 }
-            } else if (actor.isOfType("character", "npc")) {
-                if (action === "repair-item") {
-                    await onRepairChatCardEvent(event, message, $card);
-                } else if (action === "pay-crafting-costs") {
-                    const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
-                    if (!(item instanceof PhysicalItemPF2e)) return;
-                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
-                    const coinsToRemove = $button.hasClass("full") ? craftingCost : craftingCost.scale(0.5);
-                    if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
-                        return;
-                    }
-
-                    if (isSpellConsumable(item.id) && item.isOfType("consumable")) {
-                        craftSpellConsumable(item, quantity, actor);
-                        ChatMessagePF2e.create({
-                            user: game.user.id,
-                            content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
-                                actorName: actor.name,
-                                cost: coinsToRemove.toString(),
-                                quantity: quantity,
-                                itemName: item.name,
-                            }),
-                            speaker: { alias: actor.name },
+                case "expand-description": {
+                    const { description } = item;
+                    const element = htmlClosest(button, ".description");
+                    if (element) {
+                        element.innerHTML = await TextEditor.enrichHTML(description, {
+                            async: true,
+                            rollData: actor.getRollData(),
                         });
-                        return;
+                        element.scrollIntoView({ behavior: "smooth", block: "center" });
                     }
+                    break;
+                }
+                case "apply-effect": {
+                    button.disabled = true;
+                    const target = fromUuidSync(button.dataset.targets ?? "");
+                    const effect =
+                        item.isOfType("action", "feat") && item.system.selfEffect
+                            ? await fromUuid(item.system.selfEffect.uuid)
+                            : null;
+                    if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
+                        await target.createEmbeddedDocuments("Item", [effect.clone().toObject()]);
+                        const parsedMessageContent = ((): HTMLElement => {
+                            const container = document.createElement("div");
+                            container.innerHTML = message.content;
+                            return container;
+                        })();
 
-                    const itemObject = item.toObject();
-                    itemObject.system.quantity = quantity;
-
-                    const result = await actor.addToInventory(itemObject, undefined);
-                    if (!result) {
-                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
-                        return;
+                        // Replace the "Apply Effect" button with a success notice
+                        const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
+                        if (buttons) {
+                            const span = createHTMLElement("span", { classes: ["effect-applied"] });
+                            const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
+                            const locKey = "PF2E.Item.Action.SelfAppliedEffect.Applied";
+                            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
+                            span.innerHTML = statement;
+                            buttons.replaceChildren(span);
+                            await message.update({ content: parsedMessageContent.innerHTML });
+                        }
                     }
+                    break;
+                }
+                case "elemental-blast-damage": {
+                    if (!actor.isOfType("character")) return;
+                    const roll = message.rolls.find(
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
+                    );
+                    const checkContext = (
+                        roll ? message.flags.pf2e.context ?? null : null
+                    ) as CheckRollContextFlag | null;
+                    const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
+                    const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
+                        roll?.options.identifier?.split(".") ?? [];
+                    if (objectHasKey(elementTraits, element) && objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                        await new ElementalBlast(actor).damage({
+                            element,
+                            damageType,
+                            melee: meleeOrRanged === "melee",
+                            actionCost: Number(actionCost) || 1,
+                            checkContext,
+                            outcome,
+                            event,
+                        });
+                    }
+                }
+            }
+        } else if (action && actor.isOfType("character", "npc")) {
+            const buttonGroup = htmlClosest(button, ".chat-card, .message-buttons");
+            const physicalItem = await (async (): Promise<PhysicalItemPF2e | null> => {
+                const itemUuid = buttonGroup?.dataset.itemUuid ?? "";
+                const maybeItem = await fromUuid(itemUuid);
+                return maybeItem instanceof PhysicalItemPF2e ? maybeItem : null;
+            })();
+            const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
 
+            if (action === "repair-item" && buttonGroup) {
+                await onRepairChatCardEvent(event, message, buttonGroup);
+            } else if (physicalItem && action === "pay-crafting-costs") {
+                const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
+                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
+                if (!(await actor.inventory.removeCoins(coinsToRemove))) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    return;
+                }
+
+                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                    craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
                         user: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                             quantity: quantity,
-                            itemName: item.name,
+                            itemName: physicalItem.name,
                         }),
                         speaker: { alias: actor.name },
                     });
-                } else if (action === "lose-materials") {
-                    const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
-                    if (!(item instanceof PhysicalItemPF2e)) return;
-                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
-                    const materialCosts = craftingCost.scale(0.5);
-                    const coinsToRemove = materialCosts.scale(0.1);
-                    if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
-                    } else {
-                        ChatMessagePF2e.create({
-                            user: game.user.id,
-                            content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
-                                actorName: actor.name,
-                                cost: coinsToRemove.toString(),
-                            }),
-                            speaker: { alias: actor.name },
-                        });
-                    }
-                } else if (action === "receieve-crafting-item") {
-                    const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
-                    if (!(item instanceof PhysicalItemPF2e)) return;
-                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-
-                    isSpellConsumable(item.id) && item.isOfType("consumable")
-                        ? await craftSpellConsumable(item, quantity, actor)
-                        : await craftItem(item, quantity, actor);
                     return;
                 }
+
+                const itemObject = physicalItem.toObject();
+                itemObject.system.quantity = quantity;
+
+                const result = await actor.addToInventory(itemObject, undefined);
+                if (!result) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    return;
+                }
+
+                ChatMessagePF2e.create({
+                    user: game.user.id,
+                    content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
+                        actorName: actor.name,
+                        cost: coinsToRemove.toString(),
+                        quantity: quantity,
+                        itemName: physicalItem.name,
+                    }),
+                    speaker: { alias: actor.name },
+                });
+            } else if (physicalItem && action === "lose-materials") {
+                const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
+                const materialCosts = craftingCost.scale(0.5);
+                const coinsToRemove = materialCosts.scale(0.1);
+                if (!(await actor.inventory.removeCoins(coinsToRemove))) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                } else {
+                    ChatMessagePF2e.create({
+                        user: game.user.id,
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                            actorName: actor.name,
+                            cost: coinsToRemove.toString(),
+                        }),
+                        speaker: { alias: actor.name },
+                    });
+                }
+            } else if (action === "receieve-crafting-item" && physicalItem) {
+                if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
+                    return craftSpellConsumable(physicalItem, quantity, actor);
+                } else {
+                    return craftItem(physicalItem, quantity, actor);
+                }
             }
-        });
-    },
+        }
+    }
 
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    rollActorSaves: async ({
-        event,
-        actor,
-        item,
-    }: {
-        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
-        actor: ActorPF2e;
-        item: ItemPF2e<ActorPF2e>;
-    }): Promise<void> => {
+    static async #rollActorSaves({ event, button, actor, item }: RollActorSavesParams): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
-            const saveType = event.currentTarget.dataset.save;
+            const saveType = button.dataset.save;
             if (!tupleHasValue(SAVE_TYPES, saveType)) {
                 throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
 
-            const dc = Number(event.currentTarget.dataset.dc ?? "NaN");
-            for (const t of canvas.tokens.controlled) {
-                const save = t.actor?.saves?.[saveType];
+            const dc = Number(button.dataset.dc ?? "NaN");
+            for (const token of canvas.tokens.controlled) {
+                const save = token.actor?.saves?.[saveType];
                 if (!save) return;
 
                 save.check.roll({
@@ -243,5 +343,21 @@ export const ChatCards = {
         } else {
             ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
         }
-    },
-};
+    }
+}
+
+interface OnClickButtonParams {
+    message: ChatMessagePF2e;
+    event: MouseEvent;
+    html: HTMLElement;
+    button: HTMLButtonElement;
+}
+
+interface RollActorSavesParams {
+    event: MouseEvent;
+    button: HTMLButtonElement;
+    actor: ActorPF2e;
+    item: ItemPF2e<ActorPF2e>;
+}
+
+export { ChatCards };

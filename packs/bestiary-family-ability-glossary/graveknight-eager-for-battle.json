@@ -1,0 +1,46 @@
+{
+    "_id": "AkkmaixGqzw75h7W",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Graveknight) Eager for Battle",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "interaction",
+        "description": {
+            "value": "<p>When the graveknight rolls initiative, they roll twice and take the better result. They're @UUID[Compendium.pf2e.conditionitems.Item.Quickened] during their first round after rolling initiative and can use this extra action to Step, Stride, or Strike.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "initiative"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

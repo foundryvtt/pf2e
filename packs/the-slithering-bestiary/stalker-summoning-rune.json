@@ -1,0 +1,110 @@
+{
+    "_id": "IUAbDA2cbIB4ONlD",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "BpGTOxzPDky6DhhE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Monster",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that isn't openly bearing an Aspis Consortium badge crosses the center of the yard</p>\n<hr />\n<p><strong>Effect</strong> The trap summons an @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Invisible Stalker]. The invisible stalker rolls initiative and remains for [[/br 2d6 #rounds]]{2d6 rounds}, after which the spell ends and the invisible stalker disappears. The invisible stalker also disappears if someone disables the trap before the duration expires.</p>\n<p>The invisible stalker can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stalker Summoning Rune",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The sand conceals a rune that summons an invisible stalker into this yard.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:25|name:Approach Rune] to approach without triggering the trap followed by @Check[type:arcana|dc:25|name:Erase Rune] (expert) or @Check[type:thievery|dc:27|name:Erase Rune|traits:action:disable-a-device] (expert) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 25) to counteract the rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap resets after 24 hours.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Slithering"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

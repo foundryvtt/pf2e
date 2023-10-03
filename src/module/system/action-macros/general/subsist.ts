@@ -1,7 +1,14 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
-import { ModifierPF2e } from "@actor/modifiers";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import {
+    SingleCheckAction,
+    SingleCheckActionUseOptions,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
+import { CheckResultCallback } from "@system/action-macros/types.ts";
 
-export function subsist(options: SkillActionOptions) {
+function subsist(options: SkillActionOptions): void {
     if (!options?.skill) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
         return;
@@ -30,5 +37,56 @@ export function subsist(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Subsist", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+class SubsistActionVariant extends SingleCheckActionVariant {
+    override async use(options: Partial<SingleCheckActionUseOptions> = {}): Promise<CheckResultCallback[]> {
+        if (!options?.statistic) {
+            throw new Error(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
+        }
+        const rollOption = `action:subsist:${options.statistic}`;
+        options.rollOptions ??= [];
+        if (!options.rollOptions.includes(rollOption)) {
+            options.rollOptions.push(rollOption);
+        }
+        return super.use(options);
+    }
+}
+
+class SubsistAction extends SingleCheckAction {
+    constructor() {
+        super({
+            description: "PF2E.Actions.Subsist.Description",
+            modifiers: [
+                {
+                    label: "PF2E.Actions.Subsist.AfterExplorationPenalty",
+                    modifier: -5,
+                    predicate: ["action:subsist:after-exploration"],
+                },
+            ],
+            name: "PF2E.Actions.Subsist.Title",
+            notes: [
+                { outcome: ["criticalSuccess"], text: "PF2E.Actions.Subsist.Notes.criticalSuccess" },
+                { outcome: ["success"], text: "PF2E.Actions.Subsist.Notes.success" },
+                { outcome: ["failure"], text: "PF2E.Actions.Subsist.Notes.failure" },
+                { outcome: ["criticalFailure"], text: "PF2E.Actions.Subsist.Notes.criticalFailure" },
+            ],
+            rollOptions: ["action:subsist"],
+            slug: "subsist",
+            statistic: "",
+            traits: ["downtime"],
+        });
+    }
+
+    protected override toActionVariant(data?: SingleCheckActionVariantData): SingleCheckActionVariant {
+        return new SubsistActionVariant(this, data);
+    }
+}
+
+const action = new SubsistAction();
+
+export { subsist as legacy, action };

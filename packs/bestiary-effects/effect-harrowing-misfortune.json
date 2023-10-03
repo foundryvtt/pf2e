@@ -1,0 +1,118 @@
+{
+    "_id": "7PYhxmQxCD5kzMlw",
+    "img": "systems/pf2e/icons/spells/shadow-illusion.webp",
+    "name": "Effect: Harrowing Misfortune",
+    "system": {
+        "description": {
+            "value": "<p>The creature must roll twice and take the lower result on its next roll of a specific type, determined by the card's suit. The suits and their effects are: Hammers (melee attack roll), Keys (Reflex save), Shields (Fortitude save), Books (skill check), Stars (Will save), and Crowns (spell attack roll).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Books",
+                        "value": "books"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Crowns",
+                        "value": "crowns"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Hammers",
+                        "value": "hammers"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Keys",
+                        "value": "keys"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Shields",
+                        "value": "shields"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Stars",
+                        "value": "stars"
+                    }
+                ],
+                "flag": "harrowSuit",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HarrowDeck.Prompt",
+                "rollOption": "harrow-doll:harrow-suit"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:hammers",
+                    "item:melee"
+                ],
+                "selector": "attack"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:keys"
+                ],
+                "selector": "reflex"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:shields"
+                ],
+                "selector": "fortitude"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:books"
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:stars"
+                ],
+                "selector": "will"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "harrow-doll:harrow-suit:crowns"
+                ],
+                "selector": "spell-attack"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #154: Siege of the Dinosaurs"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

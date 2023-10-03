@@ -1,18 +1,7 @@
 <section class="tab main" data-group="primary" data-tab="main">
     <!-- TOGGLES -->
     <div class="toggles section-container headerless">
-        {{#if toggles}}
-            <div class="section-body actions-options item-list">
-                {{#each toggles as |toggle idx|}}
-                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}">
-                        <label>
-                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                            <span>{{localize toggle.label}}</span>
-                        </label>
-                    </div>
-                {{/each}}
-            </div>
-        {{/if}}
+        {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">
@@ -20,35 +9,27 @@
             <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
         <div class="section-body">
-            {{#if identificationSkills}}
-                <div class="tag-legacy identification-skills" title="{{identifySkillProgression}}">
-                    <ul>
-                        {{#each identificationSkills as |skill|}}
-                            <li>{{localize skill}}</li>
-                        {{/each}}
-                    </ul>
-                    {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+            {{#if identificationDCs.standard}}
+                <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Skills.Tooltip"}}">
+                    {{identificationDCs.standard}}
                 </div>
             {{/if}}
-            <div class="unspecified-lore tag-legacy" title="{{unspecificLoreProgression}}">
-                {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
-            </div>
-            <div class="specific-lore tag-legacy" title="{{specificLoreProgression}}">
-                {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
+            <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Lore.Tooltip"}}">
+                {{identificationDCs.lore}}
             </div>
         </div>
     </div>
     <div class="top-sections">
         <div class="ability-scores section-container">
             <div class="section-header">
-                <h4>{{localize "PF2E.AbilityScoresHeader"}}</h4>
+                <h4>{{localize "PF2E.Actor.Creature.AttributeModifiers"}}</h4>
             </div>
-            <!-- ABILITY SCORES -->
+            <!-- ATTRIBUTE MODIFIERS -->
             <div class="section-body">
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
-                            <label class="rollable"><a>{{ability.localizedCode}}</a></label>
+                            <a class="rollable">{{ability.localizedCode}}</a>
                             <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     {{/each}}
@@ -62,9 +43,16 @@
             </div>
             <div class="section-body">
                 <div class="perception labelled-field" data-attribute="perception">
-                    <label class="attribute-label rollable"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
+                    <a class="attribute-label rollable">{{localize "PF2E.PerceptionLabel"}}</a>
                     {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
+                        <input
+                            type="text"
+                            value="{{numberFormat perception.value decimals=0 sign=true}}"
+                            class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}}adjusted-lower{{/if}}"
+                            data-property="system.attributes.perception.value"
+                            data-dtype="Number"
+                            placeholder="0"
+                        />
                     {{/with}}
                 </div>
                 {{# if options.editable}}
@@ -81,7 +69,7 @@
             <h4>{{localize "PF2E.Languages"}}</h4>
             {{# if options.editable}}
                 <div class="languages-controls controls">
-                    <a class="trait-edit edit" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
+                    <a class="tag-selector edit" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
@@ -133,7 +121,7 @@
         <div class="section-body">
             <ol class="attacks-list strikes-list item-list">
                 {{#each data.actions as |attack index|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index isEditable=../options.editable}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
@@ -150,12 +138,8 @@
         </div>
         <div class="section-body">
             <ol class="actions-list item-list">
-                {{#each actions as |section sectionId|}}
-                    {{#unless (eq sectionId "passive")}}
-                        {{#each section.actions as |action actionId|}}
-                            {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=../../options.editable}}
-                        {{/each}}
-                    {{/unless}}
+                {{#each actions.active.actions as |action actionId|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
@@ -172,12 +156,8 @@
         </div>
         <div class="section-body">
             <ol class="actions-list item-list">
-                {{#each actions as |section sectionId|}}
-                    {{#if (eq sectionId "passive")}}
-                        {{#each section.actions as |action actionId|}}
-                            {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
-                        {{/each}}
-                    {{/if}}
+                {{#each actions.passive.actions as |action actionId|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>

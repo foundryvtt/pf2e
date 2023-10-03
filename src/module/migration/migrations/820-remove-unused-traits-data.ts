@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Removed unused traits data structures from items that don't use them */
 export class Migration820RemoveUnusedTraitsData extends MigrationBase {

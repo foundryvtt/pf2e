@@ -5,7 +5,7 @@ aside {
     font-size: var(--font-size-10);
     font-weight: 600;
     margin-left: 8px;
-    background-image: url("../assets/sheet/red_sidebar_top.webp"), url("../assets/sheet/red_sidebar_bottom.webp");
+    background-image: url("/assets/sheet/red_sidebar_top.webp"), url("/assets/sheet/red_sidebar_bottom.webp");
     background-repeat: no-repeat;
     background-position: center calc(100% - 52px), center bottom;
     background-size: 224px 100%, 224px 52px;
@@ -69,10 +69,11 @@ aside {
         max-width: unset;
         flex-shrink: 0;
     }
+
     .sidebar {
         padding: 0 2px 2px 8px;
         margin-bottom: 42px;
-        @include scrollbar;
+        overflow: hidden scroll;
 
         &::-webkit-scrollbar-track {
             box-shadow: none;
@@ -106,15 +107,15 @@ aside {
                 font-family: var(--sans-serif);
                 font-size: var(--font-size-13);
                 font-variant: small-caps;
-                letter-spacing: .05em;
+                letter-spacing: 0.05em;
                 line-height: 1;
                 color: var(--sidebar-title);
                 flex: 1;
             }
-            .modifiers_button, h2 {
+            .modifiers_button,
+            h2 {
                 border-bottom: 1px solid var(--sidebar-title);
             }
-
         }
         a.dots {
             display: flex;
@@ -122,13 +123,14 @@ aside {
             gap: 2px;
 
             > * {
-              cursor: pointer;
+                cursor: pointer;
             }
             .pips {
                 display: flex;
                 justify-content: center;
             }
         }
+
         .data-value {
             display: flex;
             justify-content: center;
@@ -145,6 +147,7 @@ aside {
                 border: none;
             }
         }
+
         a.roll-icon {
             display: inline-flex;
             align-items: center;
@@ -182,6 +185,7 @@ aside {
                 }
             }
         }
+
         select {
             font-size: var(--font-size-15);
             background-color: var(--primary);
@@ -204,11 +208,11 @@ aside {
             }
         }
 
-        @import "health",
-                "armor",
-                "stamina",
-                "init-percept",
-                "saves",
-                "resists";
+        .tags .tag.edit-btn {
+            background-color: var(--color-bg-option);
+            color: var(--primary);
+        }
+
+        @import "health", "armor", "stamina", "init-percept", "saves", "resists";
     }
 }

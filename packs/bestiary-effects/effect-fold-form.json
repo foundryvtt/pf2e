@@ -1,0 +1,353 @@
+{
+    "_id": "513Y2ZSzvm8rijkp",
+    "img": "icons/creatures/mammals/wolf-howl-moon-gray.webp",
+    "name": "Effect: Fold Form",
+    "system": {
+        "description": {
+            "value": "<p>The kinzaruk swiftly unfolds and refolds its body into a new shape chosen from the options of animal form. This grants it the movement Speeds and Strikes of the chosen form, but none of the other benefits. Its attack bonus is unchanged, and its damage bonus is +3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Ape",
+                        "value": "ape"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Bear",
+                        "value": "bear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Bull",
+                        "value": "bull"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Canine",
+                        "value": "canine"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Cat",
+                        "value": "cat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Deer",
+                        "value": "deer"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Frog",
+                        "value": "frog"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Shark",
+                        "value": "shark"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AnimalForm.Snake",
+                        "value": "snake"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Barbarian.Animal.Prompt",
+                "rollOption": "fold-form"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d6",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "predicate": [
+                    "fold-form:ape"
+                ]
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d8",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    {
+                        "or": [
+                            "fold-form:bear",
+                            "fold-form:canine",
+                            "fold-form:shark"
+                        ]
+                    }
+                ],
+                "slug": "jaws"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "fold-form:bear"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile"
+                ]
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d8",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "fold-form:bull"
+                ],
+                "slug": "horn"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d6",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "fold-form:cat"
+                ],
+                "slug": "jaws"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d10",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "fold-form:cat"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile"
+                ]
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d6",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Antler",
+                "predicate": [
+                    "fold-form:deer"
+                ],
+                "slug": "antler"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d6",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "fold-form:frog"
+                ],
+                "slug": "jaws"
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d4",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tongue",
+                "predicate": [
+                    "fold-form:frog"
+                ],
+                "slug": "tongue",
+                "traits": [
+                    "reach-15"
+                ]
+            },
+            {
+                "attackModifier": 11,
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d4",
+                        "modifier": 3
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    "fold-form:snake"
+                ],
+                "slug": "fangs"
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "fangs-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "fold-form:ape",
+                            "fold-form:frog"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "fold-form:ape",
+                            "fold-form:snake"
+                        ]
+                    }
+                ],
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "fold-form:bear",
+                            "fold-form:bull"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 30
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "fold-form:canine",
+                            "fold-form:cat"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fold-form:deer"
+                ],
+                "selector": "land",
+                "value": 50
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fold-form:frog"
+                ],
+                "selector": "swim",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fold-form:shark"
+                ],
+                "selector": "swim",
+                "value": 35
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fold-form:snake"
+                ],
+                "selector": "swim",
+                "value": 20
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

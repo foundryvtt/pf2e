@@ -1,0 +1,60 @@
+{
+    "_id": "jEJ6AWCctirMT7p0",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Brine May",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your mother was a sea hag, granting you one sea-green or blue eye. You find comfort both in the sea and on the shore.</p>\n<p>Whenever you roll a success on an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Swim], you get a critical success instead. If you end your turn in water without having succeeded at a Swim action that round, you don't sink (but you might still be moved by the current).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "text": "When you roll a success on an Athletics check to swim, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "changeling",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

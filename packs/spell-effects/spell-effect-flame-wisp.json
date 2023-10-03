@@ -1,0 +1,53 @@
+{
+    "_id": "ei9MIyZbIaP4AZmh",
+    "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+    "name": "Spell Effect: Flame Wisp",
+    "system": {
+        "badge": {
+            "labels": [
+                "0",
+                "1",
+                "2",
+                "3"
+            ],
+            "type": "counter",
+            "value": 4
+        },
+        "description": {
+            "value": "<p>Three faintly glowing wisps of fire float around your head. Each time you hit a creature with a Strike, one of the wisps goes hurtling towards that creature, dealing 1d4 fire damage. If you Cast a Spell with the fire trait while you have fewer than three wisps, a new wisp appears.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d4.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": "floor(@item.level/2)",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

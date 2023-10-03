@@ -1,28 +1,37 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
-import { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@scene";
-import { DamageCategorization } from "@system/damage/helpers";
-import { DamageRoll } from "@system/damage/roll";
-import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { reduceItemName } from "@item/helpers.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util";
-import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data";
-import { ConditionKey, ConditionSlug } from "./types";
+import * as R from "remeda";
+import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
+import { ConditionKey, ConditionSlug } from "./types.ts";
 
 class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
-    active!: boolean;
+    declare active: boolean;
 
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
-            return { type: "formula", value: this.system.persistent.formula };
+            return { type: "formula", value: this.system.persistent.formula, label: null };
         }
 
-        return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+        return this.system.value.value
+            ? {
+                  type: "counter",
+                  max: Infinity,
+                  label: null,
+                  value: this.system.value.value,
+              }
+            : null;
     }
 
     /** Retrieve this condition's origin from its granting effect, if any */
@@ -37,7 +46,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     get appliedBy(): ItemPF2e<ActorPF2e> | null {
-        return this.actor?.items.get(this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+        const appliedById = this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "";
+        return this.actor?.items.get(appliedById) ?? this.actor?.conditions.get(appliedById) ?? null;
     }
 
     get value(): number | null {
@@ -46,9 +56,13 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     /** Is this condition locked in place by another? */
     override get isLocked(): boolean {
-        if (this.system.references.parent?.id || super.isLocked) return true;
+        const parentId = this.system.references.parent?.id ?? "";
+        if (this.actor?.items.has(parentId) || this.actor?.conditions.has(parentId) || super.isLocked) {
+            return true;
+        }
 
-        const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        const granterId = this.flags.pf2e.grantedBy?.id ?? "";
+        const granter = this.actor?.items.get(granterId) ?? this.actor?.conditions.get(granterId);
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
         return grants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }
@@ -58,17 +72,46 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return this.slug in CONFIG.PF2E.statusEffects.conditions;
     }
 
+    /** Create a textual breakdown of what applied this condition */
+    get breakdown(): string | null {
+        if (!this.active) return null;
+
+        const granters = R.uniq(
+            R.compact(
+                this.actor?.conditions.bySlug(this.slug).map((condition) => {
+                    const { appliedBy } = condition;
+                    return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
+                }) ?? []
+            )
+        );
+
+        const list = granters
+            .map((p) => reduceItemName(p.name))
+            .sort((a, b) => a.localeCompare(b, game.i18n.lang))
+            .join(", ");
+
+        return list ? game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list }) : null;
+    }
+
+    /**
+     * Whether this condition is in-memory rather than stored in an actor's `items` collection and cannot be updated or
+     * deleted
+     */
+    get readonly(): boolean {
+        return this.actor && this.id ? !this.actor.items.has(this.id) : false;
+    }
+
     /** Include damage type and possibly category for persistent-damage conditions */
     override getRollOptions(prefix = this.type): string[] {
         const options = super.getRollOptions(prefix);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;
-            options.push(`damage:type:${damageType}`);
+            options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`);
+            if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
-        return options;
+        return options.sort();
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {
@@ -80,7 +123,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
-        const actor = this.actor;
+        const { actor } = this;
         const token = options?.token ?? actor?.token;
         if (!this.active || !actor) return;
 
@@ -88,7 +131,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
             roll.toMessage(
                 {
-                    speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
+                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "roll" }
@@ -103,13 +146,13 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (this.system.persistent) {
             const { dc, damageType } = this.system.persistent;
             const result = await new Statistic(this.actor, {
-                slug: "recovery",
+                slug: "pd-recovery",
                 label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
                     name: this.name,
                 }),
                 check: { type: "flat-check" },
                 domains: [],
-            }).roll({ dc: { value: dc }, skipDialog: true });
+            }).roll({ dc: { value: dc }, extraRollOptions: this.getRollOptions("item"), skipDialog: true });
 
             if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
                 this.actor.decreaseCondition(`persistent-damage-${damageType}`);
@@ -219,7 +262,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }
@@ -263,4 +306,5 @@ interface ConditionModificationContext<TParent extends ActorPF2e | null> extends
     conditionValue?: number | null;
 }
 
-export { ConditionPF2e, ConditionModificationContext, PersistentDamagePF2e };
+export { ConditionPF2e };
+export type { ConditionModificationContext, PersistentDamagePF2e };

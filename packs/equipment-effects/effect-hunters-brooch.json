@@ -1,0 +1,73 @@
+{
+    "_id": "COVEnItnyRmx42EY",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/hunterss-brooch.webp",
+    "name": "Effect: Hunter's Brooch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hunter's Brooch]</p>\n<p>By touching a weapon you wield to the symbol and uttering a plea for Erastil's steadying hand, you grant that weapon the deadly d12 trait. Against undead, the weapon instead gains the fatal d12 trait. This blessing lasts for 1 minute, until you score a critical hit with the weapon, or until you aren't wielding the weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectHuntersBrooch",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectHuntersBrooch}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "target:mode:undead"
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectHuntersBrooch}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "property": "weapon-traits",
+                "value": "fatal-d12"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #164: Hands of the Devil"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,4 +1,4 @@
-import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 
 /** Insert system tool buttons to the control bar */
 export const GetSceneControlButtons = {

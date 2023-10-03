@@ -1,5 +1,5 @@
-import { ItemSourcePF2e, WeaponSource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure "backpack" weapons and alchemical bombs have correct reload times */
 export class Migration753WeaponReloadTimes extends MigrationBase {

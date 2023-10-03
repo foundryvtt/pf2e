@@ -1,0 +1,46 @@
+{
+    "_id": "HEmOAVbJ3T9pon6T",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Beheaded) Entangling",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Long, stringy hair clings to the beheaded's scalp. Its Strikes gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab] ability.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "selector": "attack",
+                "text": "<div class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.NPC.Abilities.Glossary.Grab]</div>"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

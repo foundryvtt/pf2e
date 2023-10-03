@@ -1,0 +1,111 @@
+{
+    "_id": "MLYkh9pZpjBI1wpN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "yItwou9rDi09XB5s",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reflection of Evil",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-evil creature is reflected in the mirror</p>\n<hr />\n<p><strong>Effect</strong> The mirror absorbs the creature into the mirror, replacing it with an evil mirror duplicate (@Check[type:reflex|dc:42] to avoid being absorbed into the mirror), and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Imperious Darkside Mirror",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 41
+            },
+            "emitsSound": "encounter",
+            "hardness": 1,
+            "hasHealth": true,
+            "hp": {
+                "details": "The mirror can't be damaged while any mirror duplicate is alive.",
+                "max": 4,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 4
+            },
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:42|traits:action:seek] +32 (legendary) to notice that the mirror isn't a regular mirror.</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This magic mirror replaces characters with evil duplicates from another dimension.</p>",
+            "disable": "<p>@Check[type:thievery|dc:42|name:Retrieve a Creture from the Mirror|traits:action:disable-a-device] (legendary) to retrieve a creature from the mirror within 10 minutes of the switch (possible only if their mirror duplicate is dead), @Check[type:thievery|dc:47|name:Permanently Disable the Mirror|traits:action:disable-a-device] (master) to permanently disable the mirror once all mirror duplicates are dead, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level; counteract DC 40) to counteract the mirror for 1 minute and prevent additional replacements from appearing during that time.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "reset": "<p>The mirror is always ready to absorb creatures into another dimension. 10 minutes after a creature is sucked into the mirror, if an ally doesn't rescue the creature using the Thievery skill, the creature reaches the mirror dimension, where it could be captured or killed. In the mirror dimension, it counts as a mirror duplicate, so the denizens of the other dimension can't destroy the mirror on their side while the absorbed creature is there. These dimensions are alternate realities, not planes, so even rituals like <em>@UUID[Compendium.pf2e.spells-srd.Item.Plane Shift]</em> can't reach them.</p>",
+            "routine": "<p>(1 action) The mirror absorbs another reflected creature into the mirror (@Check[type:reflex|dc:42]) and replaces it with a mirror duplicate. Mirror duplicates act on their own initiative, using the same statistics as the original creature, but with an evil alignment (changing only abilities that shift with the alignment change).</p>\n<p>Mirror duplicates are legendary in Intimidation and are permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened], but they can use this additional action only to Demoralize.</p>\n<p>A mirror duplicate can spend 3 actions in contact with the mirror to return to its original dimension and release the creature it duplicated, but most mirror duplicates prefer not to.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #155: Lord of the Black Sands"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

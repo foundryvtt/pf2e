@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { IdentificationStatus } from "@item/physical/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { IdentificationStatus } from "@item/physical/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove stored `system.identification.identified` properties on physical items */
 export class Migration786RemoveIdentifiedData extends MigrationBase {

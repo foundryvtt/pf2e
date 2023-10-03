@@ -1,4 +1,4 @@
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Unnest actor traits by one object level */
 export class Migration782UnnestActorTraits extends MigrationBase {

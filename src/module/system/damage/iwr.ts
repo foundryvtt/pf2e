@@ -1,7 +1,8 @@
-import { ActorPF2e } from "@actor";
-import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { DamageInstance, DamageRoll } from "./roll";
+import type { ActorPF2e } from "@actor";
+import { NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
+import * as R from "remeda";
+import { DamageInstance, DamageRoll } from "./roll.ts";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
@@ -26,11 +27,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         (ir) => new ResistanceData({ type: ir.type, value: ir.max ?? Infinity })
     );
 
-    // Collect weaknesses that "[don't] normally deal damage, such as water" and apply separately as untyped damage
     const nonDamageWeaknesses = weaknesses.filter(
         (w) =>
-            ["water", "salt", "salt-water"].includes(w.type) &&
-            instances.some((i) => w.test([...i.formalDescription, ...rollOptions]))
+            NON_DAMAGE_WEAKNESSES.has(w.type) && instances.some((i) => w.test([...i.formalDescription, ...rollOptions]))
     );
     const damageWeaknesses = weaknesses.filter((w) => !nonDamageWeaknesses.includes(w));
 
@@ -112,7 +111,8 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
             const splashDamage = instance.componentTotal("splash");
             const splashWeakness = splashDamage ? weaknesses.find((w) => w.type === "splash-damage") ?? null : null;
-            const highestWeakness = [...mainWeaknesses, splashWeakness].reduce(
+            const precisionWeakness = precisionDamage > 0 ? weaknesses.find((r) => r.type === "precision") : null;
+            const highestWeakness = R.compact([...mainWeaknesses, precisionWeakness, splashWeakness]).reduce(
                 (highest: WeaknessData | null, w) =>
                     w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
                 null
@@ -135,6 +135,18 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     value: r.getDoubledValue(formalDescription),
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 }));
+            const precisionResistance = ((): { label: string; value: number; ignored: boolean } | null => {
+                const resistance = precisionDamage > 0 ? resistances.find((r) => r.type === "precision") : null;
+                return resistance
+                    ? {
+                          label: resistance.applicationLabel,
+                          value: Math.min(resistance.value, precisionDamage),
+                          ignored: false,
+                      }
+                    : null;
+            })();
+            if (precisionResistance) applicableResistances.push(precisionResistance);
+
             const highestResistance = applicableResistances
                 .filter((r) => !r.ignored)
                 .reduce(
@@ -203,7 +215,7 @@ interface IWRApplicationData {
     persistent: DamageInstance[];
 }
 
-interface UnafectedApplication {
+interface UnaffectedApplication {
     category: "unaffected";
     type: string;
     adjustment: number;
@@ -228,6 +240,19 @@ interface ResistanceApplication {
     ignored: boolean;
 }
 
-type IWRApplication = UnafectedApplication | ImmunityApplication | WeaknessApplication | ResistanceApplication;
+/** Post-IWR reductions from various sources (e.g., hardness) */
+interface DamageReductionApplication {
+    category: "reduction";
+    type: string;
+    adjustment: number;
+}
 
-export { IWRApplication, IWRApplicationData, applyIWR };
+type IWRApplication =
+    | UnaffectedApplication
+    | ImmunityApplication
+    | WeaknessApplication
+    | ResistanceApplication
+    | DamageReductionApplication;
+
+export { applyIWR };
+export type { IWRApplication, IWRApplicationData };

@@ -1,0 +1,70 @@
+{
+    "_id": "M89l9FOnjHe63wD7",
+    "img": "systems/pf2e/icons/features/classes/arcane-thesis.webp",
+    "name": "Arcane Thesis",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>During your studies to become a full-fledged wizard, you produced a thesis of unique magical research on one of a variety of topics. You gain a special benefit depending on the topic of your thesis research. The arcane thesis topics presented in this book are below; your specific thesis probably has a much longer and more technical title like \"On the Methods of Spell Interpolation and the Genesis of a New Understanding of the Building Blocks of Magic.\"</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Wizard class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:wizard",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Improved Familiar Attunement"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Metamagical Experimentation"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Spell Blending"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Spell Substitution"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Staff Nexus"
+                    }
+                ],
+                "flag": "arcaneThesis",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Wizard.ArcaneThesis.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.arcaneThesis}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

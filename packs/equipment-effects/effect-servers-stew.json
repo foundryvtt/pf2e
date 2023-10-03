@@ -1,0 +1,46 @@
+{
+    "_id": "ehYmO1rFBt35zoOw",
+    "img": "systems/pf2e/icons/equipment/consumables/other-consumables/servers-stew.webp",
+    "name": "Effect: Server's Stew",
+    "system": {
+        "description": {
+            "value": "<p>You are granted a +2 item bonus to Diplomacy checks made in the language granted by Server's Stew for 1 hour.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Using Server's Stew Language",
+                "predicate": [
+                    "servers-stew-language"
+                ],
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

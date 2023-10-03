@@ -1,0 +1,49 @@
+{
+    "_id": "tsxBwSRFqMoorMJ3",
+    "img": "icons/consumables/drinks/tea-jug-gourd-brown.webp",
+    "name": "Effect: Matsuki's Medicinal Wine",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 item bonus to Fortitude saving throws against diseases and poison.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #196: The Summer That Never Was"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

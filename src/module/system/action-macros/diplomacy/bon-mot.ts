@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function bonMot(options: SkillActionOptions) {
+export function bonMot(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:bon-mot"];
     const modifiers = options?.modifiers;
@@ -12,12 +12,14 @@ export function bonMot(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "linguistic", "mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

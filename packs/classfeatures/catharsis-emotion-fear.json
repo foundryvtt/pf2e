@@ -1,0 +1,43 @@
+{
+    "_id": "7PutMrgKIaAeKBuU",
+    "img": "systems/pf2e/icons/spells/fear.webp",
+    "name": "Catharsis Emotion (Fear)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You let your fear fuel you, rather than consume you, but it burns your endurance.</p>\n<p><strong>Catharsis Trigger</strong> An enemy makes you @UUID[Compendium.pf2e.conditionitems.Item.Frightened].</p>\n<p><strong>Catharsis Activation</strong> Increase your frightened value by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>\n<p><strong>Emotional Fervor</strong> You don't take the status penalty from the frightened condition to your spell DCs or spell attack bonus. Instead, you gain a status bonus to spell attack rolls equal to the penalty you would've taken, and your foes take the same status penalty to their saving throws against your spells. Any other statistic takes the status penalty as normal. Spell: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em></p>\n<p><strong>Emotional Fallout</strong> You are @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 2 rounds, running from the source of the frightened condition that triggered your Catharsis. If that source is no longer present, you instead flee from the position where you were at the start of your emotional fallout.</p>\n<p><strong>Focus Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Waking Nightmare]</em></p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "self:effect:emotional-fervor"
+                ],
+                "selector": "spell-attack-dc",
+                "slug": "frightened",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

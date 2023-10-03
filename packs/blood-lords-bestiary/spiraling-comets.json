@@ -1,0 +1,155 @@
+{
+    "_id": "HQwuxqW1cTS0PrDM",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ygj8aubmhpmYUgE2",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Intruder Alert",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An intruder enters the room</p>\n<hr />\n<p><strong>Effect</strong> The comets change from blue to red in color. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UTn7JwqCP0HRLQqF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Comet",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "NF7lvpiFrwl0iEMV": {
+                        "damage": "2d12+18",
+                        "damageType": "bludgeoning"
+                    },
+                    "wkmydREMGiOq7p93": {
+                        "damage": "1d12",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Spiraling Comets",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "emitsSound": "encounter",
+            "hardness": 25,
+            "hp": {
+                "details": "Per comet",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three blue comets orbiting the room turn red and attack when intruders enter.</p>",
+            "disable": "<p>@Check[type:religion|dc:42] (master) to command each comet to disperse with Pharasmin prayers, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 42) to counteract each comet</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>The trap resets after 1 hour.</p>",
+            "routine": "<p>(3 action) The trap loses 1 action each turn for each comet disabled, counteracted, or destroyed. Each comet uses 1 action to attack the nearest intruder with a comet Strike.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

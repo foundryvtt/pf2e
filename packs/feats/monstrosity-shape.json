@@ -1,0 +1,73 @@
+{
+    "_id": "54JzsYCx3uoj7Wlz",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Monstrosity Shape",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can transform into a powerful magical creature. Add the purple worm and sea serpent forms listed in <em>@UUID[Compendium.pf2e.spells-srd.Item.Monstrosity Form]</em> to your wild shape list. If you have @UUID[Compendium.pf2e.feats-srd.Item.Soaring Shape], also add the phoenix form to your wild shape list.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wild Shape"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.rEsgDhunQ5Yx8KZx"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.Eik8Fj8nGo2GLcbn"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape",
+                    "feat:soaring-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.b8bfWIICHOsGVzjp"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

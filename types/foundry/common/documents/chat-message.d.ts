@@ -1,105 +1,92 @@
-declare module foundry {
-    module documents {
-        /**
-         * The ChatMessage document model.
-         * @extends Document
-         * @memberof documents
-         *
-         * @param data    Initial data from which to construct the document.
-         * @property data The constructed data object for the document.
-         */
-        class BaseChatMessage extends abstract.Document<null> {
-            blind: boolean;
-            content: string;
-            flags: ChatMessageFlags;
-            rolls: Rolled<Roll>[];
-            speaker: ChatSpeakerData;
-            type: ChatMessageType;
-            whisper: string[];
+import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type { BaseUser } from "./module.d.ts";
 
-            static override get metadata(): ChatMessageMetadata;
+/**
+ * The ChatMessage document model.
+ * @memberof documents
+ *
+ * @param data    Initial data from which to construct the document.
+ * @property data The constructed data object for the document.
+ */
+export default class BaseChatMessage extends Document<null, ChatMessageSchema> {
+    rolls: Rolled<Roll>[];
 
-            /** Is a user able to create a new chat message? */
-            protected static _canCreate(user: BaseUser, doc: BaseChatMessage): boolean;
+    static override get metadata(): ChatMessageMetadata;
 
-            /** Is a user able to update an existing chat message? */
-            protected static _canUpdate(user: BaseUser, doc: BaseChatMessage, data: ChatMessageSource): boolean;
-
-            /** Is a user able to delete an existing chat message? */
-            protected static _canDelete(user: BaseUser, doc: BaseChatMessage): boolean;
-
-            static override createDocuments<TDocument extends abstract.Document<null>>(
-                this: ConstructorOf<TDocument>,
-                data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-                context?: ChatMessageModificationContext
-            ): Promise<TDocument[]>;
-        }
-
-        interface BaseChatMessage extends abstract.Document<null> {
-            readonly _source: ChatMessageSource;
-
-            get documentName(): "ChatMessage";
-        }
-
-        interface ChatMessageSource {
-            _id: string;
-            type: ChatMessageType;
-            user: string;
-            timestamp: string;
-            flavor?: string;
-            content: string;
-            speaker: ChatSpeakerData;
-            whisper: string[];
-            blind: boolean;
-            rolls: (string | RollJSON)[];
-            sound: AudioFilePath;
-            emote?: boolean;
-            flags: ChatMessageFlags;
-        }
-
-        interface ChatMessageFlags extends DocumentFlags {
-            core?: {
-                canPopout?: boolean;
-                initiativeRoll?: boolean;
-                RollTable?: string;
-            };
-        }
-
-        /**
-         * The data schema for an embedded Chat Speaker object.
-         * @extends DocumentData
-         * @memberof data
-         * @see ChatMessageData
-         *
-         * @param data Initial data used to construct the data object
-         * @param [document] The document to which this data object belongs
-         *
-         * @property [scene] The _id of the Scene where this message was created
-         * @property [actor] The _id of the Actor who generated this message
-         * @property [token] The _id of the Token who generated this message
-         * @property [alias] An overridden alias name used instead of the Actor or Token name
-         */
-        interface ChatSpeakerData {
-            scene?: string | null;
-            actor?: string | null;
-            token?: string | null;
-            alias: string;
-        }
-
-        interface ChatMessageMetadata extends abstract.DocumentMetadata {
-            name: "ChatMessage";
-            collection: "messages";
-            label: "DOCUMENT.ChatMessage";
-            isPrimary: true;
-            permissions: {
-                create: (typeof BaseChatMessage)["_canCreate"];
-                update: (typeof BaseChatMessage)["_canUpdate"];
-                delete: (typeof BaseChatMessage)["_canDelete"];
-            };
-        }
-    }
+    static override defineSchema(): ChatMessageSchema;
 }
 
-declare interface ChatMessageModificationContext extends DocumentModificationContext<null> {
-    rollMode?: RollMode | "roll";
+export default interface BaseChatMessage
+    extends Document<null, ChatMessageSchema>,
+        ModelPropsFromSchema<ChatMessageSchema> {
+    readonly _source: ChatMessageSource;
+
+    get documentName(): "ChatMessage";
+}
+
+export type ChatMessageSchema = {
+    /** The _id which uniquely identifies this ChatMessage document */
+    _id: fields.DocumentIdField;
+    /** The message type from CONST.CHAT_MESSAGE_TYPES */
+    type: fields.NumberField<ChatMessageType, ChatMessageType, true, true, true>;
+    /** The _id of the User document who generated this message */
+    user: fields.ForeignDocumentField<BaseUser, true, false, true>;
+    /** The timestamp at which point this message was generated */
+    timestamp: fields.NumberField<number, number, true, false, true>;
+    /** An optional flavor text message which summarizes this message */
+    flavor: fields.HTMLField;
+    /** The HTML content of this chat message */
+    content: fields.HTMLField;
+    /** A ChatSpeakerData object which describes the origin of the ChatMessage */
+    speaker: fields.SchemaField<ChatSpeakerSchema>;
+    /** An array of User _id values to whom this message is privately whispered */
+    whisper: fields.ArrayField<fields.ForeignDocumentField<string>>;
+    /** Is this message sent blindly where the creating User cannot see it? */
+    blind: fields.BooleanField;
+    /** Serialized content of any Roll instances attached to the ChatMessage */
+    rolls: fields.ArrayField<fields.JSONField<Roll, true>>;
+    /** The URL of an audio file which plays when this message is received */
+    sound: fields.FilePathField<AudioFilePath>;
+    /** Is this message styled as an emote? */
+    emote: fields.BooleanField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<ChatMessageFlags>;
+};
+
+export type ChatMessageSource = SourceFromSchema<ChatMessageSchema>;
+
+export interface ChatMessageFlags extends DocumentFlags {
+    core?: {
+        canPopout?: boolean;
+        initiativeRoll?: boolean;
+        RollTable?: string;
+    };
+}
+
+type ChatSpeakerSchema = {
+    /** The _id of the Scene where this message was created */
+    scene: fields.ForeignDocumentField<string>;
+    /** The _id of the Actor who generated this message */
+    actor: fields.ForeignDocumentField<string>;
+    /** The _id of the Token who generated this message */
+    token: fields.ForeignDocumentField<string>;
+    /** An overridden alias name used instead of the Actor or Token name */
+    alias: fields.StringField<string, string, false, false, true>;
+};
+
+type ChatSpeakerData = SourceFromSchema<ChatSpeakerSchema>;
+
+interface ChatMessageMetadata extends DocumentMetadata {
+    name: "ChatMessage";
+    collection: "messages";
+    label: "DOCUMENT.ChatMessage";
+    labelPlural: "DOCUMENT.ChatMessages";
+    isPrimary: true;
+}
+
+declare global {
+    interface ChatMessageModificationContext extends DocumentModificationContext<null> {
+        rollMode?: RollMode | "roll";
+    }
 }

@@ -1,17 +1,18 @@
-import { ResistanceData } from "@actor/data/iwr";
-import { ResistanceType } from "@actor/types";
-import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { IWRRuleElement, IWRRuleSchema } from "./base";
-
-const { fields } = foundry.data;
+import { ResistanceData } from "@actor/data/iwr.ts";
+import { ResistanceType } from "@actor/types.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "../data.ts";
+import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
     static override defineSchema(): ResistanceRuleSchema {
+        const { fields } = foundry.data;
+
         const exceptionsOrDoubleVs = (): ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>> =>
             new fields.ArrayField(
                 new fields.StringField({
-                    required: true as const,
+                    required: true,
                     blank: false,
                     choices: this.dictionary,
                     initial: undefined,
@@ -20,6 +21,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 
         return {
             ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
             exceptions: exceptionsOrDoubleVs(),
             doubleVs: exceptionsOrDoubleVs(),
         };
@@ -68,12 +70,12 @@ interface ResistanceRuleElement
         ModelPropsFromSchema<ResistanceRuleSchema> {
     // Just a string at compile time, but ensured by parent class at runtime
     type: ResistanceType[];
-
     // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
     exceptions: ResistanceType[];
 }
 
 type ResistanceRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
+    value: ResolvableValueField<true, false, false>;
     exceptions: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
     doubleVs: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
 };

@@ -1,0 +1,55 @@
+{
+    "_id": "Hy8SPadSjukKq078",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sinister Appearance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You possess horns, a tail, or red eyes, or could otherwise be mistaken for a tiefling. You gain the trained proficiency rank in Intimidation. If you would automatically become trained in Intimidation (from your background or class, for example), you instead become trained in a skill of your choice. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] skill feat, as well as a +2 circumstance bonus on Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] when pretending to be a version of yourself who is a tiefling.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate",
+                    "tiefling-version-of-self"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit"
+            ]
+        }
+    },
+    "type": "feat"
+}

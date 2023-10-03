@@ -1,0 +1,146 @@
+{
+    "_id": "JsAj2gTuZbJJDA72",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vZUEiiG75S3BhFSQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Sudden Spray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature or object weighing at least 50 pounds is placed on one of the flagstones north of the gate (marked \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> Pressurized sap sprays from the nozzle, coating everything in a @Template[type:cone|distance:15]. Creatures in the area that fail a @Check[type:reflex|dc:20|traits:hazard,mechanical,trap] save become affected by stink sap.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wAE2nk2fiXPfFJe1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stink Sap",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:5] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Creatures and their equipment coated in the sap smell horrible. Creatures in the aura must attempt a @Check[type:fortitude|dc:16|traits:hazard,mechanical,trap] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is immune to stink sap for 1 minute. Creatures don't save against this effect in exploration mode and don't become temporarily immune, but creatures with stink sap on them must roll against their own aura when they roll initiative in encounter mode. The sap dissipates after 10 hours; spending 10 minutes scrubbing the sap off with soap and water reduces the duration by 1 hour.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stink Sap]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stink-Sap Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A nozzle attached to a pressure sensor under the flagstone path sprays thick wads of smelly sap.</p>",
+            "disable": "<p>@Check[type:thievery|dc:15|name:Clog the nozzle|traits:hazard,mechanical,trap] (trained) to clog the nozzle or @Check[type:athletics|dc:14|name:Redirect the stream|traits:hazard,mechanical,trap] (trained) to redirect the stream away from the path; the Athletics check can be made at a distance with a thrown object, but a critical failure triggers the trap's Sudden Spray.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>1 minute. The trap resets automatically twice before the supply of stink sap is exhausted.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

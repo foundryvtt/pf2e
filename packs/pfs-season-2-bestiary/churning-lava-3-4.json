@@ -1,0 +1,180 @@
+{
+    "_id": "M9AglEGo8jMH9CnU",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Wh05STKZr7sXC9RI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Boil",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature disturbs the mold, typically by walking through it</p>\n<hr />\n<p><strong>Effect</strong> The hazard makes a spatter attack against the triggering creature, and then rolls initiative as the lava begins to bubble.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m47xQ2bH9IUudmlt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spatter",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "solidifying-lava"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "o30ldvl1rgxl3nvnwxvh": {
+                        "damage": "1d10+4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vaq6hHY5zST2lO7e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Solidifying Lava",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The target must attempt a @Check[type:fortitude|dc:20|name:Solidfying Lava|traits:uncommon,complex,enviornmental,fire]{Reflex} save as the lava rapidly cools and solidifies. On a critical hit, use the outcome for one degree of success worse than the result of the save.</p>\n<p><strong>Success</strong> The lava slides off the target with no additional effect.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. The target or an adjacent creature can take an Interact action to remove the stone, removing the condition.</p>\n<p><strong>Critical Failure</strong> As failure, except the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}. Each Interact action to remove the stone reduces the value of the clumsy condition by 1.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Churning Lava (3-4)",
+    "prototypeToken": {
+        "name": "Churning Lava"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The equilibrium of the brown mold and lava river is disturbed, creating bubbles of molten stone that burst and spew burning debris.</p>",
+            "disable": "<p>@Check[type:nature|dc:17|name:Clear mold|traits:uncommon,complex,environmental,fire] or @Check[type:survival|dc:17|name:Clear mold|traits:uncommon,complex,environmental,fire] or @Check[type:thievery|dc:20|name:Clear mold|traits:uncommon,complex,environmental,fire] to clear your square and all adjacent squares of the mold; the churning lava does not target creatures in cleared squares with its spatter attack, but the hazard is not destroyed until every square has been cleared of mold.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>If not completely destroyed, the mold spreads to one additional square within 10 feet of lava each day until it fully regenerates and regains its state of equilibrium. If every square is cleaned of mold, the hazard is destroyed.</p>",
+            "routine": "<p>(1 action) On the its initiative, the churning lava targets a random creature in the area with a ranged spatter attack as a magma bubble bursts.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-19: Enter the Pallid Peak"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fire"
+            ]
+        }
+    },
+    "type": "hazard"
+}

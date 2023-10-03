@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Reset all roll options now that most are no longer stored on actors */
 export class Migration751ResetRollOptions extends MigrationBase {

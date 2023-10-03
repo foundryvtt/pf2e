@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { RawPredicate } from "@system/predication.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Change all "weapon:*" predication statements to "item:*" ones  */
 export class Migration798WeaponToItemStatements extends MigrationBase {

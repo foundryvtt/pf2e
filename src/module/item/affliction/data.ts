@@ -1,8 +1,15 @@
-import { SaveType } from "@actor/types";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect";
-import { ConditionSlug } from "@item/condition";
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { DamageCategoryUnique, DamageType } from "@system/damage";
+import { SaveType } from "@actor/types.ts";
+import {
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
+import { ConditionSlug } from "@item/condition/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
+import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;
@@ -14,7 +21,7 @@ type AfflictionFlags = ItemFlagsPF2e & {
     };
 };
 
-interface AfflictionSystemSource extends ItemSystemSource {
+interface AfflictionSystemSource extends AbstractEffectSystemSource {
     level: { value: number };
     traits: EffectTraits;
     save: {
@@ -24,16 +31,18 @@ interface AfflictionSystemSource extends ItemSystemSource {
     stage: number;
     stages: Record<string, AfflictionStageData>;
     onset?: AfflictionOnset;
-    duration: {
+    duration: AfflictionDuration;
+    start: {
         value: number;
-        unit: TimeUnit | "unlimited";
-        expiry?: null;
+        initiative: number | null;
     };
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
 
-interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
+interface AfflictionSystemData
+    extends Omit<AfflictionSystemSource, "fromSpell">,
+        Omit<AbstractEffectSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
     value: number;
@@ -41,15 +50,21 @@ interface AfflictionOnset {
 }
 
 interface AfflictionDamage {
-    value: string;
+    formula: string;
     type: DamageType;
-    category?: DamageCategoryUnique;
+    category?: DamageCategoryUnique | null;
 }
 
 interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
     effects: AfflictionEffectData[];
+}
+
+interface AfflictionDuration {
+    value: number;
+    unit: TimeUnit | "unlimited";
+    expiry: AfflictionExpiryType | null;
 }
 
 interface AfflictionConditionData {
@@ -63,7 +78,11 @@ interface AfflictionEffectData {
     uuid: ItemUUID;
 }
 
-export {
+type AfflictionExpiryType = "turn-end";
+
+export type {
+    AfflictionExpiryType,
+    AfflictionDuration,
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionFlags,

@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove inadvertently stored attributes caused by bug in Rest for the Night script */
 export class Migration758PrunePCAttributes extends MigrationBase {

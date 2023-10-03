@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { TreasureSystemSource } from "@item/treasure/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { TreasureSystemSource } from "@item/treasure/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { MigrationBase } from "../base.ts";
 import { isObject } from "@util";
 
 export class Migration746StandardizePricing extends MigrationBase {

@@ -1,0 +1,52 @@
+{
+    "_id": "9neKaRaRi9ekttts",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Chaldira - Major Curse",
+    "system": {
+        "description": {
+            "value": "<p><strong>Major Curse:</strong> Ill luck causes even once-certain aid to fail with frustrating regularity. You cannot benefit from circumstance or status bonuses, or from fortune effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bonus:type:circumstance"
+                ],
+                "selector": "all",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bonus:type:status"
+                ],
+                "selector": "all",
+                "suppress": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

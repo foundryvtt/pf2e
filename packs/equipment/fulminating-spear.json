@@ -1,0 +1,136 @@
+{
+    "_id": "KQRrAVdcRqtd0Lq2",
+    "img": "icons/weapons/polearms/spear-flared-bronze-teal.webp",
+    "name": "Fulminating Spear",
+    "system": {
+        "baseItem": "spear",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "simple",
+        "containerId": "null",
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This <em>+1 striking returning spear</em> is warm to the touch. The head of the spear is crafted from gold with ivory inlay and has a ruby set into the shaft. You can make the spear glow like a torch or suppress its light by using an action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You touch the ruby and hurl the spear at a square within 40 feet. When the spear lands, it detonates, dealing @Damage[6d6[fire]] damage (@Check[type:reflex|dc:23|basic:true|name:Fulminating Spear Explosion|traits:uncommon|showDC:all]) to all creatures in a @Template[type:emanation|distance:10]. It then flies back to your hand.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "spear",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 1
+        },
+        "price": {
+            "value": {
+                "gp": 360
+            }
+        },
+        "propertyRune1": {
+            "value": "returning"
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitFulminatingSpear",
+                "option": "lit-fulminating-spear",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-fulminating-spear"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-fulminating-spear"
+                ],
+                "value": "icons/weapons/polearms/spear-flared-bronze-teal.webp"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #170: Spoken on the Song Wind"
+        },
+        "specific": {
+            "material": null,
+            "runes": {
+                "potency": 1,
+                "striking": "striking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "striking"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "evocation",
+                "fire",
+                "magical",
+                "thrown-20"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

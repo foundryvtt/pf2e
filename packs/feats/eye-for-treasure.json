@@ -1,0 +1,54 @@
+{
+    "_id": "nB8BD9rIg9hfFGns",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Eye For Treasure",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You know good artisanship when you see it and can wax poetic about crafting techniques and forms.</p>\n<p>You become trained in Crafting and gain a +1 circumstance bonus on all Crafting checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>In addition, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Crafter's Appraisal] skill feat, enabling you to identify magic items using the Crafting skill.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Crafter's Appraisal"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

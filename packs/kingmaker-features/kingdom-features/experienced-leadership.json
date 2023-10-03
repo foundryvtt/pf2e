@@ -1,0 +1,58 @@
+{
+    "_id": "E7B8TQD1Z9HCwqkr",
+    "folder": "DVa3GkbBsLwGp2In",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Experienced Leadership",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "campaign": "kingmaker",
+        "category": "kingdom-feature",
+        "description": {
+            "value": "<p>Invested leadership roles in your kingdom now grant a +2 status bonus to kingdom checks associated with their leadership role’s key ability.</p>\n<p>At 16th level, this increases to a +3 status bonus.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "location": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "kingdom-check",
+                "slug": "invested",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "selector": "kingdom-check",
+                "slug": "invested",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Kingmaker"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "campaignFeature"
+}

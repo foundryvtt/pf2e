@@ -1,6 +1,6 @@
-import { FeatSource, ItemSourcePF2e } from "@item/data";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Catch up Gunslinger class features with newly-included REs */
 export class Migration705GunslingerCatchUp extends MigrationBase {

@@ -1,0 +1,52 @@
+{
+    "_id": "mEk2POFNU1Q0TQg2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Mortal Healing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You grant greater healing when the gods don't interfere. When you roll a success to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] for a creature that hasn't regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Godless Healing"
+                },
+                {
+                    "value": "You follow the Laws of Mortality"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:treat-wounds"
+                ],
+                "selector": "medicine",
+                "text": "When you roll a success to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] for a creature that hasn't regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,4 +1,4 @@
-import { DegreeOfSuccess } from "../../src/module/system/degree-of-success";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 
 describe("test degree of success rules", () => {
     test("normal degrees of success", () => {

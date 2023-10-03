@@ -1,23 +1,23 @@
-#chat-log {
-    display: flex;
-    flex-direction: column;
-
-    > .message {
-        &:first-child {
-            margin-top: auto;
-        }
-    }
-}
-
-@import "chat-roll-details";
+@import "chat-inspect-roll";
 
 .chat-message {
-    @import "../../../reset";
     @import "action", "check", "damage", "reroll";
 
-    > .message-header {
-        align-items: center;
-        margin-bottom: 0.33em;
+    .message-header .flavor-text {
+        display: block;
+
+        ul.notes {
+            display: block;
+            line-height: 1.5em;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                display: block;
+                line-height: 1.5em;
+            }
+        }
     }
 
     > .message-content {

@@ -1,0 +1,161 @@
+& {
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem;
+    height: 100%;
+}
+
+.skills,
+.actions {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.skill-list,
+.actions-list {
+    overflow: hidden scroll;
+    margin-bottom: 0.25rem;
+}
+
+.skills {
+    padding-right: 0.5rem;
+
+    .control-dc {
+        align-items: center;
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        display: flex;
+        gap: 8px;
+        margin: 0.5rem 0;
+        .mod {
+            color: var(--secondary);
+            display: inline-block;
+            font-family: var(--serif);
+            font-size: 1.25em;
+            font-weight: bold;
+            min-width: 3rem;
+            text-align: right;
+        }
+    }
+
+    .skill {
+        display: flex;
+        align-items: center;
+        padding: 1px 0;
+        padding-right: 0.5rem;
+        gap: 8px;
+
+        .mod {
+            display: flex;
+            color: var(--primary);
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: 1.25em;
+            line-height: 1em;
+            min-width: 3rem;
+            padding: 3px 0; // easier to click
+
+            i {
+                color: var(--text-dark);
+                font-size: 0.8em;
+                margin-right: 2px;
+            }
+        }
+
+        .name {
+            flex: 1;
+            color: var(--alt-dark);
+            &.selected {
+                color: var(--text-dark);
+                font-weight: 600;
+            }
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--color-divider);
+        }
+
+        .button-group {
+            display: flex;
+            padding-left: 0.25rem;
+
+            .proficiency {
+                min-width: 11ch;
+            }
+
+            .small-button {
+                flex: 0;
+            }
+        }
+    }
+}
+
+.actions {
+    flex: 1;
+
+    h3.header .filters {
+        float: right;
+        margin: -0.125rem 0 0.125rem auto;
+
+        .choice {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s ease-in-out;
+            &.active {
+                opacity: 1;
+            }
+            &:hover {
+                box-shadow: 0 0 5px var(--primary);
+            }
+        }
+    }
+
+    .phase-summary {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        margin: 0 12px 0.5rem 2px;
+        padding: 0.25rem 0.5rem;
+        header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--color-text-dark-input);
+            margin-top: 0.25rem;
+        }
+    }
+
+    .action {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 4px;
+        width: 100%;
+        gap: 0.5rem;
+        padding-right: 0.5rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--color-divider);
+        }
+
+        .item-name {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            flex: 1;
+        }
+
+        .item-summary {
+            flex-basis: 100%;
+            margin-bottom: 0.5rem;
+
+            // tags are shown in the header, so hide in the summary
+            .tags {
+                display: none;
+            }
+        }
+
+        .tags {
+            margin-left: 0.25rem;
+        }
+    }
+}

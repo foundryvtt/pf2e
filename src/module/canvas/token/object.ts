@@ -1,15 +1,18 @@
-import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@module/scene";
-import { pick } from "@util";
-import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "..";
-import { HearingSource } from "../perception/hearing-source";
-import { AuraRenderers } from "./aura";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
+import type { UserPF2e } from "@module/user/document.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import * as R from "remeda";
+import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
+import { HearingSource } from "../perception/hearing-source.ts";
+import { AuraRenderers } from "./aura/index.ts";
+import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
+
+    /** Visual rendering of lines from token to flanking buddy tokens on highlight */
+    readonly flankingHighlight: FlankingHighlightRenderer;
 
     /** The token's line hearing source */
     hearing: HearingSource<this>;
@@ -17,14 +20,29 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     constructor(document: TDocument) {
         super(document);
 
-        this.hearing = new HearingSource(this);
+        this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
+        this.flankingHighlight = new FlankingHighlightRenderer(this);
+        Object.defineProperty(this, "flankingHighlight", { configurable: false, writable: false });
     }
 
-    /** Guarantee boolean return */
+    /** Increase center-to-center point tolerance to be more compliant with 2e rules */
     override get isVisible(): boolean {
-        return super.isVisible ?? false;
+        // Clear the detection filter
+        this.detectionFilter = null;
+
+        // Only GM users can see hidden tokens
+        if (this.document.hidden && !game.user.isGM) return false;
+
+        // Some tokens are always visible
+        if (!canvas.effects.visibility.tokenVision) return true;
+        if (this.controlled) return true;
+
+        // Otherwise, test visibility against current sight polygons
+        if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
+        const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
+        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
@@ -57,27 +75,49 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return `Token.${this.id}`;
     }
 
+    /** Bounds used for mechanics, such as flanking and drawing auras */
+    get mechanicalBounds(): PIXI.Rectangle {
+        const bounds = super.bounds;
+        if (this.document.width < 1) {
+            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            return new PIXI.Rectangle(
+                position[0],
+                position[1],
+                Math.max(canvas.grid.size, bounds.width),
+                Math.max(canvas.grid.size, bounds.height)
+            );
+        }
+
+        return bounds;
+    }
+
+    /** Short-circuit calculation for long sight ranges */
+    override get sightRange(): number {
+        return this.document.sight.range >= canvas.dimensions!.maxR ? canvas.dimensions!.maxR : super.sightRange;
+    }
+
     isAdjacentTo(token: TokenPF2e): boolean {
         return this.distanceTo(token) === 5;
     }
 
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
-     * @param flankee       The potentially flanked token
-     * @param context.reach An optional reach distance specific to this measurement */
-    canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking highlight) */
+    canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
         if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
             return false;
         }
 
-        if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
-            return false;
-        }
+        // Can actor flank and is flankee flankable (if we care about flankable)
+        const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
+        if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
 
         // Only PCs and NPCs can flank
         if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
-        if (!flankee.actor.isOfType("creature")) return false;
+        if (!flankee.actor?.isOfType("creature")) return false;
 
         // Allies don't flank each other
         if (this.actor.isAllyOf(flankee.actor)) return false;
@@ -87,27 +127,40 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
-    /** Determine whether this token is in fact flanking another */
-    isFlanking(flankee: TokenPF2e, { reach }: { reach?: number } = {}): boolean {
-        if (!(this.actor && this.canFlank(flankee, { reach }))) return false;
+    /**
+     * Determine whether two potential flankers are on opposite sides of flankee
+     * @param flankerA  First of two potential flankers
+     * @param flankerB  Second of two potential flankers
+     * @param flankee   Potentially flanked token
+     */
+    protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
+        const { lineSegmentIntersects } = foundry.utils;
+
+        const [centerA, centerB] = [flankerA.center, flankerB.center];
+        const { bounds } = flankee;
+
+        const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
+        const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
+        const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
+        const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
+        const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
+
+        return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
+    }
+
+    /**
+     * Determine whether this token is in fact flanking another
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    isFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
+        if (!(this.actor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
-        const { lineSegmentIntersects } = foundry.utils;
-        const onOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
-            const [centerA, centerB] = [flankerA.center, flankerB.center];
-            const { bounds } = flankee;
-
-            const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
-            const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
-            const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
-            const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
-            const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
-
-            return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
-        };
-
         const { flanking } = this.actor.attributes;
-        const flankingBuddies = canvas.tokens.placeables.filter((t) => t !== this && t.canFlank(flankee));
+        const flankingBuddies = canvas.tokens.placeables.filter(
+            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"]))
+        );
         if (flankingBuddies.length === 0) return false;
 
         // The actual "Gang Up" rule or similar
@@ -118,16 +171,62 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const sideBySide =
             this.isAdjacentTo(flankee) &&
             flanking.canGangUp.includes("animal-companion") &&
-            flankingBuddies.some(
-                (b) =>
-                    b.actor?.isOfType("character") &&
-                    b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
-                    b.isAdjacentTo(flankee)
-            );
+            flankingBuddies.some((b) => {
+                if (!b.actor?.isOfType("character")) return false;
+                const traits = b.actor.traits;
+                return traits.has("minion") && !traits.has("construct") && b.isAdjacentTo(flankee);
+            });
         if (sideBySide) return true;
 
         // Find a flanking buddy opposite this token
-        return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
+        return flankingBuddies.some((b) => this.onOppositeSides(this, b, flankee));
+    }
+
+    /**
+     * Find other tokens that are in fact flanking a flankee with this token.
+     * Only detects tokens on opposite sides of flankee, does not support Gang Up or Side By Side.
+     * @param flankee                  The potentially flanked token
+     * @param context.reach           An optional reach distance specific to this measurement
+     * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
+    buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
+        if (!this.actor || !this.canFlank(flankee, context)) return [];
+
+        return canvas.tokens.placeables
+            .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
+            .filter((b) => this.onOppositeSides(this, b, flankee));
+    }
+
+    /** Draw auras and flanking highlight lines if certain conditions are met */
+    protected override _refreshVisibility(): void {
+        super._refreshVisibility();
+        this.auras.draw();
+        this.flankingHighlight.draw();
+    }
+
+    /**
+     * Use border color corresponding with disposition even when the token's actor is player-owned.
+     * @see https://github.com/foundryvtt/foundryvtt/issues/9993
+     */
+    protected override _getBorderColor(options?: { hover?: boolean }): number | null {
+        const isHovered = options?.hover ?? (this.hover || this.layer.highlightObjects);
+        const isControlled = this.controlled || (!game.user.isGM && this.isOwner);
+        const isFriendly = this.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        if (!isHovered || isControlled || isFriendly || !this.actor?.hasPlayerOwner) {
+            // Upstream will do the right thing in these cases
+            return super._getBorderColor();
+        }
+
+        const colors = CONFIG.Canvas.dispositionColors;
+        switch (this.document.disposition) {
+            case CONST.TOKEN_DISPOSITIONS.NEUTRAL:
+                return colors.NEUTRAL;
+            case CONST.TOKEN_DISPOSITIONS.HOSTILE:
+                return colors.HOSTILE;
+            case CONST.TOKEN_DISPOSITIONS.SECRET:
+                return this.isOwner ? colors.SECRET : null;
+            default:
+                return super._getBorderColor(options);
+        }
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -143,11 +242,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
-        // Compute the color based on health percentage, this formula is the one core foundry uses
+        // Compute the color based on health percentage, this formula is the one core Foundry uses
         const black = 0x000000;
         const color = number
-            ? PIXI.utils.rgb2hex([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2])
-            : PIXI.utils.rgb2hex([1 - healthPercent / 2, healthPercent, 0]);
+            ? Number(Color.fromRGB([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2]))
+            : Number(Color.fromRGB([1 - healthPercent / 2, healthPercent, 0]));
 
         // Bar size logic stolen from core
         let h = Math.max(canvas.dimensions.size / 12, 8);
@@ -188,15 +287,47 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
         await this._animation;
-        this.auras.draw();
+
+        if (this.auras.size === 0) {
+            return this.auras.reset();
+        }
+
+        // Determine whether a redraw is warranted by comparing current and updated radius/appearance data
+        const changedAndDeletedAuraSlugs = Array.from(this.auras.entries())
+            .filter(([slug, aura]) => {
+                const properties = ["radius", "appearance"] as const;
+                const sceneData = R.pick(
+                    this.document.auras.get(slug) ?? { radius: null, appearance: null },
+                    properties
+                );
+                const canvasData = R.pick(aura, properties);
+                if (sceneData.radius === null) return true;
+
+                const diffCount =
+                    Object.keys(diffObject(canvasData, sceneData)).length +
+                    Object.keys(diffObject(sceneData, canvasData)).length;
+                return diffCount > 0;
+            })
+            .map(([slug]) => slug);
+        const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));
+
+        return this.auras.reset([changedAndDeletedAuraSlugs, newAuraSlugs].flat());
     }
 
-    emitHoverIn() {
-        this.emit("mouseover", { data: { object: this } });
+    /** Emulate a pointer hover ("pointerover") event */
+    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerover";
+        event.nativeEvent = nativeEvent;
+        this._onHoverIn(event, { hoverOutOthers: true });
     }
 
-    emitHoverOut() {
-        this.emit("mouseout", { data: { object: this } });
+    /** Emulate a pointer hover ("pointerout") event */
+    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerout";
+        event.nativeEvent = nativeEvent;
+        this._onHoverOut(event);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
@@ -263,7 +394,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
-                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
+                const textStyle = R.pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
@@ -310,10 +441,36 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         });
     }
 
-    /** Add a callback for when a movement animation finishes */
-    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
+    override async animate(
+        updateData: Record<string, unknown>,
+        options?: TokenAnimationOptionsPF2e<this>
+    ): Promise<void> {
+        // Handle system "spin" animation option
+        if (options?.spin) {
+            let attributeAdded = false;
+            const currentRotation = this.document.rotation;
+            const rotationAngle = this.x <= this.document.x ? 360 : -360;
+            options.ontick = (_frame, data) => {
+                // Temporarily unlock rotation
+                this.document.lockRotation = false;
+                if (!attributeAdded && data.attributes.length > 0) {
+                    const duration = (data.duration ?? 1000) / 1000;
+                    data.attributes.push({
+                        attribute: "rotation",
+                        parent: data.attributes[0].parent,
+                        from: currentRotation,
+                        to: currentRotation + duration * rotationAngle,
+                        delta: data.attributes[0].delta,
+                    });
+                    attributeAdded = true;
+                }
+            };
+        }
+
         await super.animate(updateData, options);
-        if (!this._animation) this.onFinishAnimation();
+
+        // Restore `lockRotation` to source value in case it was unlocked for spin animation
+        this.document.lockRotation = this.document._source.lockRotation;
     }
 
     /** Hearing should be updated whenever vision is */
@@ -324,77 +481,45 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
     }
 
+    /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
+    override render(renderer: PIXI.Renderer): void {
+        super.render(renderer);
+        if (!this.mesh) return;
+
+        const configuredTint = this.document.texture.tint ?? "#FFFFFF";
+        if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
+            this.mesh.tint = 0;
+        } else if (this.mesh.tint === 0 && configuredTint !== "#000000" && !this.detectionFilter) {
+            this.mesh.tint = Number(Color.fromString(configuredTint));
+        }
+    }
+
     protected override _destroy(): void {
         super._destroy();
+        this.auras.destroy();
         this.hearing.destroy();
+        this.flankingHighlight.destroy();
     }
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    /** Players can view the sheets of lootable NPCs */
+    protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+        return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
+    }
+
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        super._onControl(options);
-        this.auras.refresh();
+        return super._onControl(options);
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-
-        super._onRelease(options);
-
-        this.auras.refresh();
-    }
-
-    protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
-        super._onDragLeftStart(event);
-        this.auras.clearHighlights();
-    }
-
-    /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]> {
-        const clones = event.data.clones ?? [];
-        const dropped = await super._onDragLeftDrop(event);
-
-        if (clones.length === 1) {
-            this.emitHoverOut();
-            this.emitHoverIn();
-        }
-
-        this.auras.refresh();
-
-        return dropped;
-    }
-
-    protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
-        const refreshed = super._onHoverIn(event, options);
-        if (refreshed === false) return false;
-        this.auras.refresh();
-
-        return true;
-    }
-
-    protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
-        const refreshed = super._onHoverOut(event);
-        if (refreshed === false) return false;
-        this.auras.refresh();
-
-        return true;
-    }
-
-    /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
-        super._onDelete(options, userId);
-        this.auras.clear();
-    }
-
-    /** A callback for when a movement animation for this token finishes */
-    private async onFinishAnimation(): Promise<void> {
-        await this._animation;
-        this.auras.refresh();
+        return super._onRelease(options);
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
@@ -406,22 +531,29 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             this.mesh.refresh();
         }
     }
+
+    /** Reset aura renders when token size changes. */
+    override _onUpdate(
+        changed: DeepPartial<TDocument["_source"]>,
+        options: DocumentModificationContext<TDocument["parent"]>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        if (changed.width) {
+            if (this._animation) {
+                this._animation.then(() => {
+                    this.auras.reset();
+                });
+            } else {
+                this.auras.reset();
+            }
+        }
+    }
 }
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
-
-    icon?: TokenImage;
-
-    toggleCombat(
-        state?: boolean,
-        combat?: EncounterPF2e | null,
-        options?: { token?: TokenPF2e | null }
-    ): Promise<CombatantPF2e<EncounterPF2e>[]>;
-}
-
-interface TokenImage extends PIXI.Sprite {
-    src?: VideoFilePath;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };
@@ -431,4 +563,9 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { ShowFloatyEffectParams, TokenPF2e };
+interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+    spin?: boolean;
+}
+
+export { TokenPF2e };
+export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

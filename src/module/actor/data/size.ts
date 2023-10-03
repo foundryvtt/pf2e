@@ -1,4 +1,4 @@
-import { Size, SIZES, ZeroToFive } from "@module/data";
+import { Size, SIZES, ZeroToFive } from "@module/data.ts";
 
 interface SizeDimensions {
     length: number;
@@ -137,7 +137,7 @@ export class ActorSizePF2e {
         this.width = newSpace.width;
     }
 
-    toString() {
+    toString(): string {
         return game.i18n.localize(CONFIG.PF2E.actorSizes[this.value]);
     }
 }

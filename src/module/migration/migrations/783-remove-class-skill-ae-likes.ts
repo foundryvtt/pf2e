@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove class AE-likes setting skill proficiencies to trained */
 export class Migration783RemoveClassSkillAELikes extends MigrationBase {

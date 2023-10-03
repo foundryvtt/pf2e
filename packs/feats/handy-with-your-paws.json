@@ -1,0 +1,47 @@
+{
+    "_id": "1newzNV5nkLvZ9KE",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Handy with your Paws",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Repair] non-magical items, and you don't need a @UUID[Compendium.pf2e.equipment-srd.Item.Repair Kit] for such repairs as long as you have any amount of junk, spare parts, or debris at your disposal.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:repair",
+                    {
+                        "not": "target:trait:magical"
+                    }
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shoony"
+            ]
+        }
+    },
+    "type": "feat"
+}

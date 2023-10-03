@@ -1,0 +1,69 @@
+{
+    "_id": "PRKe5rWYZMZgEpFU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Archaeologist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are a student of peoples and their histories, and are in constant pursuit of knowledge and artifacts from the past. You become an expert in Society and Thievery, and you gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about ancient history, peoples, and cultures.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.O79hOcsaQyj3aQC5]{Archaeologist} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Perception, Society, and Thievery"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Knowledge of Ancient History",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "ancient-history"
+                ],
+                "selector": [
+                    "arcana",
+                    "nature",
+                    "occultism",
+                    "religion",
+                    "society"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thi.rank",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

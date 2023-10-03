@@ -1,0 +1,39 @@
+{
+    "_id": "KaokXdiE3ewXprdL",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Pine Leshy",
+    "system": {
+        "ancestry": {
+            "name": "Leshy",
+            "slug": "leshy",
+            "uuid": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
+        },
+        "description": {
+            "value": "<p>You excrete a thick, sticky sap from your bark-like flesh, making it easier to climb and hold onto your gear. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] feat as a bonus feat, and you gain a +2 circumstance bonus to your Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] you.</p>"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #176: Lost Mammoth Valley"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

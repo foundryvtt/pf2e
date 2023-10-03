@@ -1,0 +1,45 @@
+{
+    "_id": "sVjATEo8eqkAosNp",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Lingering Composition",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>By adding a flourish, you make your compositions last longer. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lingering Composition]</em> focus spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "maestro muse"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard"
+            ]
+        }
+    },
+    "type": "feat"
+}

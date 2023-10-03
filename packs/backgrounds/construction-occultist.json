@@ -1,0 +1,80 @@
+{
+    "_id": "DpmWrtkrmmgnVtAc",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Construction Occultist",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You helped to build and design buildings and public works on behalf of Geb's architectural faction, the Builders League. You've been taught that creating bridges, gatehouses, roads, walls, and more is as much about planning as it is about brute labor. You learned that the Builders League has plans of occult significance for many of its construction projects and might have even aided them in the way you laid stones or designed walls (although you never learned the great design behind those secret plans). Although you've left construction behind, the skills in long-term planning and leveraging effort remain with you.</p>\n<p>You are still well-regarded by the Builders League. Your party gains 1 Reputation Point with the Builders League at the start of the campaign.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Strength</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Athletics or Occultism skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Hefty Hauler] if you chose Athletics or @UUID[Compendium.pf2e.feats-srd.Item.Oddity Identification] if you chose Occultism. You're also trained in Architecture Lore.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "ath"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "construction-occultist"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "construction-occultist:occ"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "construction-occultist:ath"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Blood Lords Player's Guide"
+        },
+        "trainedLore": "Architecture Lore",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,7 +1,6 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "..";
-import { ActorType } from "@actor/data";
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { CharacterPF2e } from "@actor";
+import { ActorType } from "@actor/data/index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 
 /**
  * @category RuleElement
@@ -9,10 +8,11 @@ import { ItemPF2e } from "@item";
 class CraftingFormulaRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: CraftingFormulaSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: CraftingFormulaSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (!(typeof data.uuid === "string" && /^(?:Compendium|Item)\..*[a-z0-9]{16}$/i.test(data.uuid))) {
+            const { item } = this;
             this.failValidation(`Crafting formula rule element on ${item.name} (${item.uuid}) has a malformed UUID`);
         }
     }
@@ -30,7 +30,7 @@ interface CraftingFormulaRuleElement extends RuleElementPF2e {
     get actor(): CharacterPF2e;
 }
 
-interface CraftingFormulaData extends RuleElementData {
+interface CraftingFormulaData extends CraftingFormulaRuleElement {
     uuid: ItemUUID;
 }
 

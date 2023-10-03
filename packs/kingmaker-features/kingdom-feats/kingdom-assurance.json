@@ -1,0 +1,133 @@
+{
+    "_id": "BK0mMlFP2jIS4xGl",
+    "folder": "p5NnHNepx1LSyHe5",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kingdom Assurance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "campaign": "kingmaker",
+        "category": "kingdom-feat",
+        "description": {
+            "value": "<p>Even when things go poorly in other areas, you can count on consistency in carrying out kingdom activities with a chosen skill. Choose one Kingdom skill in which your kingdom is trained. Once per Kingdom turn, when you would attempt a skill check for that skill, you can forgo rolling and instead take a result equal to 10 + your proficiency bonus; do not apply any other bonuses, penalties, or modifiers to this result.</p>\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits of this feat for that skill.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in at least three skills"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Kingmaker.Skills.agriculture",
+                        "value": "agriculture"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.arts",
+                        "value": "arts"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.boating",
+                        "value": "boating"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.defense",
+                        "value": "defense"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.engineering",
+                        "value": "engineering"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.exploration",
+                        "value": "exploration"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.folklore",
+                        "value": "folklore"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.industry",
+                        "value": "industry"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.intrigue",
+                        "value": "intrigue"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.magic",
+                        "value": "magic"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.politics",
+                        "value": "politics"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.scholarship",
+                        "value": "scholarship"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.statecraft",
+                        "value": "statecraft"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.trade",
+                        "value": "trade"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.warfare",
+                        "value": "warfare"
+                    },
+                    {
+                        "label": "PF2E.Kingmaker.Skills.wilderness",
+                        "value": "wilderness"
+                    }
+                ],
+                "flag": "assurance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "SubstituteRoll",
+                "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                "slug": "assurance",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "substitute:assurance",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                "suppress": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Kingmaker"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "general",
+                "kingdom"
+            ]
+        }
+    },
+    "type": "campaignFeature"
+}

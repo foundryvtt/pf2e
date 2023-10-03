@@ -1,0 +1,71 @@
+$table-even: #ede3c8;
+$table-odd: #f5efe0;
+
+.app.npc-skills-editor form {
+    font-size: var(--font-size-12);
+    overflow: hidden;
+
+    > .scroll-container {
+        max-height: 500px;
+        overflow: hidden scroll;
+    }
+
+    ol {
+        list-style: none;
+        overflow: hidden;
+        padding: 0px;
+        width: 100%;
+
+        li {
+            align-items: center;
+            column-gap: 1rem;
+            display: grid;
+            grid-template-columns: auto 3rem 2rem;
+            grid-template-rows: auto;
+            padding: 0.25rem;
+            width: 100%;
+
+            &.skill {
+                &:nth-child(even) {
+                    background-color: $table-even;
+                }
+
+                &:nth-child(odd) {
+                    background-color: $table-odd;
+                }
+
+                &.header {
+                    background-color: var(--color-pf-primary);
+                    color: var(--text-light);
+                    font-weight: 500;
+                    padding: 4px;
+                    text-transform: uppercase;
+
+                    &.lore {
+                        background-color: var(--color-pf-secondary);
+                    }
+                }
+
+                .item-controls {
+                    text-align: right;
+                }
+            }
+
+            &.skill-selector,
+            &.lore-skill-creator {
+                button {
+                    background-color: var(--color-pf-secondary);
+                    border-radius: 3px;
+                    border: 1px solid var(--color-pf-secondary-dark);
+                    color: var(--text-light);
+                    display: flex;
+                    grid-column: span 2;
+                    justify-content: center;
+                    line-height: 1em;
+                    padding: 4px;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

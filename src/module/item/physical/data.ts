@@ -1,14 +1,14 @@
-import { ActionTrait } from "@item/action/data";
-import { ArmorTrait } from "@item/armor/types";
-import { ConsumableTrait } from "@item/consumable/data";
-import { EquipmentTrait } from "@item/equipment/data";
-import { WeaponTrait } from "@item/weapon/types";
-import { Size, TraitsWithRarity, ValuesList } from "@module/data";
-import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base";
-import type { ITEM_CARRY_TYPES } from "../data/values";
-import { CoinsPF2e } from "./helpers";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { UsageDetails } from "./usage";
+import { ActionTrait } from "@item/ability/types.ts";
+import { ArmorTrait } from "@item/armor/types.ts";
+import { ConsumableTrait } from "@item/consumable/data.ts";
+import { EquipmentTrait } from "@item/equipment/data.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
+import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base.ts";
+import type { ITEM_CARRY_TYPES } from "../data/values.ts";
+import type { CoinsPF2e } from "./helpers.ts";
+import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { UsageDetails } from "./usage.ts";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -22,7 +22,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
-    hp: PhysicalItemHitPoints;
+    hp: PhysicalItemHPSource;
     hardness: number;
     weight: {
         value: string;
@@ -42,12 +42,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
         value: string;
     };
     containerId: string | null;
-    preciousMaterial: {
-        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null;
-    };
-    preciousMaterialGrade: {
-        value: PreciousMaterialGrade | null;
-    };
+    material: ItemMaterialData;
     size: Size;
     usage: {
         value: string;
@@ -57,8 +52,10 @@ interface PhysicalSystemSource extends ItemSystemSource {
 }
 
 interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
+    hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
+    material: ItemMaterialData;
     traits: PhysicalItemTraits;
     temporary: boolean;
     identification: IdentificationData;
@@ -100,7 +97,7 @@ type IdentifiedData = DeepPartial<MystifiedData>;
 interface IdentificationSource {
     status: IdentificationStatus;
     unidentified: MystifiedData;
-    misidentified: {};
+    misidentified: object;
 }
 
 interface IdentificationData extends IdentificationSource {
@@ -119,6 +116,11 @@ interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> ex
     otherTags: string[];
 }
 
+interface ItemMaterialData {
+    grade: PreciousMaterialGrade | null;
+    type: PreciousMaterialType | null;
+}
+
 interface ItemActivation {
     id: string;
     description: {
@@ -135,9 +137,12 @@ interface ItemActivation {
     traits: ValuesList<ActionTrait>;
 }
 
-interface PhysicalItemHitPoints {
+interface PhysicalItemHPSource {
     value: number;
     max: number;
+}
+
+interface PhysicalItemHitPoints extends PhysicalItemHPSource {
     brokenThreshold: number;
 }
 
@@ -158,7 +163,7 @@ interface Price extends PartialPrice {
     per: number;
 }
 
-export {
+export type {
     BasePhysicalItemSource,
     Coins,
     EquippedData,
@@ -168,8 +173,10 @@ export {
     Investable,
     ItemActivation,
     ItemCarryType,
+    ItemMaterialData,
     MystifiedData,
     PartialPrice,
+    PhysicalItemHPSource,
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,

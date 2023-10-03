@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 
 /** Highlight critical success or failure on d20 rolls */

@@ -1,0 +1,69 @@
+{
+    "_id": "2vlQ09QIBli5u9Gz",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Called",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have heard the Call, and in constantly resisting that persistent demand, you've developed a mental bulwark against effects that would target your mind.</p>\n<p>You gain a +1 circumstance bonus to Will saving throws against mental effects. If you roll a success on your saving throw against a mental effect that would make you @UUID[Compendium.pf2e.conditionitems.Item.Controlled], you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "vs. mental effects (Called)",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "text": "When you roll a success on an saving throw against a mental effect that would make you controlled, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "mental",
+                    "target:condition:controlled"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "changeling"
+            ]
+        }
+    },
+    "type": "feat"
+}

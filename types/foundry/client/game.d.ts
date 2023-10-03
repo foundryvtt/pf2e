@@ -21,7 +21,7 @@ declare global {
         TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User
+        TUser extends User<TActor>
     > {
         /**
          * The named view which is currently active.
@@ -54,22 +54,19 @@ declare global {
         keyboard: KeyboardManager;
 
         /** A mapping of installed modules */
-        modules: Map<
-            string,
-            {
-                id: string;
-                active: boolean;
-                esmodules: Set<string>;
-                scripts: Set<string>;
-                flags: Record<string, Record<string, unknown>>;
-                title: string;
-                compatibility: {
-                    minimum?: string;
-                    verified?: string;
-                    maximum?: string;
-                };
-            }
-        >;
+        modules: Collection<{
+            id: string;
+            active: boolean;
+            esmodules: Set<string>;
+            scripts: Set<string>;
+            flags: DocumentFlags;
+            title: string;
+            compatibility: {
+                minimum?: string;
+                verified?: string;
+                maximum?: string;
+            };
+        }>;
 
         /** The user role permissions setting */
         permissions: Record<string, number[]>;
@@ -213,6 +210,7 @@ declare global {
          */
         get system(): {
             id: string;
+            title: string;
             version: string;
             gridUnits: string;
             data: {

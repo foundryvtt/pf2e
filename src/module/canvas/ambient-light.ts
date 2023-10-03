@@ -1,5 +1,5 @@
-import { AmbientLightDocumentPF2e } from "@module/scene";
-import { LightingLayerPF2e } from ".";
+import { AmbientLightDocumentPF2e } from "@scene/index.ts";
+import { LightingLayerPF2e } from "./index.ts";
 
 class AmbientLightPF2e<
     TParent extends AmbientLightDocumentPF2e = AmbientLightDocumentPF2e

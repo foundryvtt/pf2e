@@ -1,0 +1,42 @@
+{
+    "_id": "eBdajOzs8kiJDic2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blessed One Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are touched by a deity and gifted with the ability to alleviate the suffering of others.</p>\n<p>You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. It costs 1 Focus Point to cast a focus spell. This feat grants a focus pool of 1 Focus Point that you can recover using the @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] activity.</p>\n<p>You can Refocus by meditating, whether you reflect on the deity granting the blessing or not, allowing your blessing to refill your focus pool.</p>\n<p>Your devotion spells from the blessed one archetype are divine spells.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.SUDV5hFZ9WocxWqv]{Blessed One} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

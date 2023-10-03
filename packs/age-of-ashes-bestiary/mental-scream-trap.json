@@ -1,0 +1,110 @@
+{
+    "_id": "KEbmwWwmpAmIoBcm",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "LQ20lTeaoccMicH8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Psychic Screech",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the marked area</p>\n<hr />\n<p><strong>Effect</strong> A psychic wail affects all creatures within 10 feet of the marked area, requiring them to attempt a @Check[type:will|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round, then stunned 2 when the paralysis ends.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mental Scream Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A psychic scream disorients creatures in the area.</p>",
+            "disable": "<p>@Check[type:arcana|dc:41|name:Suppress the Magic|traits:magical,trap] to suppress the magic or @Check[type:thievery|dc:41|name:Scratch Out the Ward|traits:magical,trap] to scratch out the ward</p>",
+            "isComplex": false,
+            "level": {
+                "value": 19
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #149: Against the Scarlet Triad"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

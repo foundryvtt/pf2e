@@ -1,0 +1,113 @@
+{
+    "_id": "a4U7IlJCJSxVwl8Q",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XGHvG5nJL9DIIU2p",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Portal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs approach the <em>mushroom ring</em></p>\n<hr />\n<p><strong>Effect</strong> A @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Pugwampi] emerges from the portal to defend it, and the hazard then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mushroom Ring (1-2)",
+    "prototypeToken": {
+        "name": "Mushroom Ring"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This <em>mushroom ring</em> forms a portal to the First World, allowing the Thorned Monarch's reinforcements into the Material Plane. When the PCs approach, a creature emerges. Creatures continue to emerge until the mushroom ring is disabled. Disabling the mushroom ring also causes any creatures that have emerged to disappear.</p>",
+            "disable": "<p>@Check[type:thievery|dc:15|traits:action:disable-a-device] (trained) or @Check[type:nature|dc:18] to rearrange the mushrooms to disrupt the portal (two actions); three successes are required to disable the portal</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>(1 action) A @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Pugwampi] emerges from the <em>mushroom ring</em> and defends it. All pugwampis use the <em>mushroom ring's</em> initiative.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-00: The King in Thorns"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

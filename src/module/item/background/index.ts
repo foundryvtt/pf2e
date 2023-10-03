@@ -1,2 +1,2 @@
-export { BackgroundPF2e } from "./document";
-export { BackgroundSheetPF2e } from "./sheet";
+export { BackgroundPF2e } from "./document.ts";
+export { BackgroundSheetPF2e } from "./sheet.ts";

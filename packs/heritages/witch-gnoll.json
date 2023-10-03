@@ -1,0 +1,41 @@
+{
+    "_id": "kXp8qRh5AgtD4Izi",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Witch Gnoll",
+    "system": {
+        "ancestry": {
+            "name": "Gnoll",
+            "slug": "gnoll",
+            "uuid": "Compendium.pf2e.ancestries.Item.vxbQ1Yw4qwgjTzqo"
+        },
+        "description": {
+            "value": "<p>You're a shaggy, dark-furred gnoll capable of making some truly uncanny sounds. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]</em> cantrip as an occult innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up. In addition, you gain a +1 circumstance bonus to checks to Impersonate and Create a Diversion when using only your voice.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Witch Gnoll (voice bonus only)",
+                "predicate": [
+                    "auditory",
+                    {
+                        "or": [
+                            "action:impersonate",
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

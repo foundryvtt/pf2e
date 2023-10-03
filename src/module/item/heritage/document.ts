@@ -1,9 +1,9 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CreatureTrait } from "@actor/creature";
+import { CreatureTrait } from "@actor/creature/index.ts";
 import { ItemPF2e } from "@item";
-import { Rarity } from "@module/data";
+import { Rarity } from "@module/data.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { HeritageSource, HeritageSystemData } from "./data";
+import { HeritageSource, HeritageSystemData } from "./data.ts";
 
 class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get traits(): Set<CreatureTrait> {
@@ -12,6 +12,10 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
+    }
+
+    get isVersatile(): boolean {
+        return !this.system.ancestry;
     }
 
     /** Prepare a character's data derived from their heritage */
@@ -31,6 +35,12 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             name: this.name,
             trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
         };
+
+        // If this heritage is versatile, add to the "countsAs" array
+        // (serves as a list of traits of eligible ancestry feats)
+        if (this.isVersatile) {
+            this.actor.system.details.ancestry?.countsAs.push(slug);
+        }
 
         // Add a roll option for this heritage
         this.actor.rollOptions.all[`heritage:${slug}`] = true;

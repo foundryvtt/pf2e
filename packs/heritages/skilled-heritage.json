@@ -1,0 +1,102 @@
+{
+    "_id": "zVf0Hlp5xG0Q7kmc",
+    "img": "systems/pf2e/icons/features/ancestry/skilled-heritage.webp",
+    "name": "Skilled Heritage",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.</p>"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "prf"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thi"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

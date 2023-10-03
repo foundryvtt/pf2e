@@ -1,11 +1,11 @@
-import { AuraColors, AuraData } from "@actor/types";
-import { ItemTrait } from "@item/data/base";
-import { measureDistanceCuboid } from "@module/canvas";
-import { EffectAreaSquare } from "@module/canvas/effect-area-square";
-import { getAreaSquares } from "@module/canvas/token/aura/util";
-import { ScenePF2e } from "@scene/document";
-import { TokenDocumentPF2e } from "../document";
-import { TokenAuraData } from "./types";
+import { AuraAppearanceData, AuraData, AuraEffectData } from "@actor/types.ts";
+import { ItemTrait } from "@item/data/base.ts";
+import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { measureDistanceCuboid } from "@module/canvas/index.ts";
+import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
+import { ScenePF2e } from "@scene/document.ts";
+import { TokenDocumentPF2e } from "../document.ts";
+import type { TokenAuraData } from "./types.ts";
 
 class TokenAura implements TokenAuraData {
     slug: string;
@@ -17,41 +17,42 @@ class TokenAura implements TokenAuraData {
     /** The radius of the aura in feet */
     radius: number;
 
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
 
-    colors: AuraColors | null;
+    effects: AuraEffectData[];
+
+    appearance: AuraAppearanceData;
 
     #squares?: EffectAreaSquare[];
 
-    constructor(args: TokenAuraParams) {
-        this.slug = args.slug;
-        this.token = args.token;
-        this.level = args.level;
-        this.radius = args.radius;
-        this.traits = args.traits;
-        this.colors = args.colors ?? null;
+    constructor(params: TokenAuraParams) {
+        this.slug = params.slug;
+        this.token = params.token;
+        this.level = params.level;
+        this.radius = params.radius;
+        this.traits = params.traits;
+        this.effects = params.effects;
+        this.appearance = params.appearance;
     }
 
     /** The aura radius from the center in pixels */
     get radiusPixels(): number {
         const gridSize = this.scene.grid.distance;
         const gridSizePixels = this.scene.grid.size;
-        const tokenWidth = this.token.width * gridSizePixels;
+        const tokenWidth = this.token.mechanicalBounds.width;
         return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
-    private get scene(): ScenePF2e {
+    get scene(): ScenePF2e {
         return this.token.scene!;
     }
 
     get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
-        const tokenWidth = token.width * this.scene.grid.size;
-        const tokenBounds = token.bounds;
-
+        const bounds = token.mechanicalBounds;
         return new PIXI.Rectangle(
-            tokenBounds.x - (radiusPixels - tokenWidth / 2),
-            tokenBounds.y - (radiusPixels - tokenWidth / 2),
+            bounds.x - (radiusPixels - bounds.width / 2),
+            bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
             radiusPixels * 2
         );
@@ -72,31 +73,26 @@ class TokenAura implements TokenAuraData {
         if (token === this.token) return true;
 
         // 2. If this aura is out of range, return false early
-        if (this.token.object!.distanceTo(token.object!) > this.radius) return false;
+        if (!this.token.object || !token.object) return false;
+        if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
-        return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.bounds) === 0);
+        return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.mechanicalBounds) === 0);
     }
 
-    /**
-     * Notify tokens' actors if they are inside an aura in this collection
-     * @param [specific] A limited list of tokens whose actors will be notified
-     */
-    async notifyActors(specific?: TokenDocumentPF2e[]): Promise<void> {
+    /** Notify tokens' actors if they are inside an aura in this collection */
+    async notifyActors(): Promise<void> {
+        if (!this.scene.isInFocus) return;
+
         const auraActor = this.token.actor;
-        if (!(auraActor && this.scene.isInFocus)) return;
+        const auraData = auraActor?.auras.get(this.slug);
+        if (!(auraActor && auraData)) return;
 
-        const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
-            (t) => !!t.actor?.canUserModify(game.user, "update")
+        const auradTokens = this.scene.tokens.filter(
+            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t)
         );
+        const affectedActors = new Set(auradTokens.flatMap((t) => t.actor ?? []));
 
-        const auraData = auraActor.auras.get(this.slug);
-        if (!auraData) return;
-
-        const containedTokens = tokensToCheck.filter((t) => this.containsToken(t));
-
-        // Get unique actors and notify
-        const affectedActors = new Set(containedTokens.flatMap((t) => t.actor ?? []));
         const origin = { actor: auraActor, token: this.token };
         for (const actor of affectedActors) {
             await actor.applyAreaEffects(auraData, origin);
@@ -109,7 +105,8 @@ interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     level: number | null;
     radius: number;
     token: TokenDocumentPF2e;
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
+    effects: AuraEffectData[];
 }
 
 export { TokenAura, TokenAuraData };

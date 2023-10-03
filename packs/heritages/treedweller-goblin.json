@@ -1,0 +1,50 @@
+{
+    "_id": "EEvA4uj8h3zDiAfP",
+    "img": "systems/pf2e/icons/features/ancestry/treedweller-goblin.webp",
+    "name": "Treedweller Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
+        },
+        "description": {
+            "value": "<p>You have adapted particularly well to living in forested environments. As long as you are in a forest or jungle, you gain a +2 circumstance bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist], and your Survival DC to @UUID[Compendium.pf2e.actionspf2e.Item.Cover Tracks].</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Treedweller Goblin (Subsist)",
+                "predicate": [
+                    "action:subsist"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Treedweller Goblin (Hide or Sneak)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

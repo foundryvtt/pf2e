@@ -1,0 +1,44 @@
+{
+    "_id": "PiKWzPloAR2nqIcC",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Constant Levitation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your power has unbound you from the earth below. You're affected by a constant <em>@UUID[Compendium.pf2e.spells-srd.Item.Fly]</em> spell, and when your Psyche is Unleashed, you gain a +10-foot status bonus to your fly Speed.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:unleashed-psyche"
+                ],
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "psychic"
+            ]
+        }
+    },
+    "type": "feat"
+}

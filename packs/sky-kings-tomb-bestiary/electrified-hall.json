@@ -1,0 +1,107 @@
+{
+    "_id": "t3PNeivvLP8QAnsW",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6liCWZLF7qQ1qCY4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Synaptic Jolt",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages the door, fails to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the door, or fails a check to realign the stonework keys;</p>\n<hr />\n<p><strong>Effect</strong> Electricity fills the hallway and affects all creatures inside it, who must attempt a @Check[type:reflex|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The trap deals @Damage[(1d12+5)[electricity]] damage.</p>\n<p><strong>Failure</strong> The trap deals @Damage[(2d12+10)[electricity]] damage, and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The trap deals @Damage[(4d12+20)[electricity]] damage, and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 hour.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "electricity",
+                        "evocation",
+                        "nonlethal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Electrified Hall",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Runes hidden in the door's carvings blast lightning down the hall.</p>",
+            "disable": "<p>@Check[type:thievery|dc:30] (master) to scratch out the runes, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level; counteract DC 28) to counteract the runes</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>automatic</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #195: Heavy is the Crown"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "electricity",
+                "evocation",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "5mQ51m1lqQlvfi8n",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Phantasmal Doorknob - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob]</p>\n<p>If you critically succeed at a Strike with the weapon, the target is dazzled until the end of its next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectPhantasmalDoorknobWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectPhantasmalDoorknobWeapon}-damage",
+                "text": "The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its next turn.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

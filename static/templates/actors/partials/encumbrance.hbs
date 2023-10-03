@@ -1,0 +1,11 @@
+{{#with inventory.bulk as |bulk|}}
+    <div class="encumbrance{{#if bulk.isEncumbered}} encumbered{{/if}}{{#if bulk.isOverMax}} over-limit{{/if}}">
+        <img src="icons/containers/bags/pack-leather-white-tan.webp" alt="{{localize "PF2E.Actor.Inventory.Encumbrance"}}">
+        <span class="encumbrance-bar" style="width:{{bulk.maxPercentageInteger}}%"></span>
+        <div class="encumbrance-label">
+            <span>{{localize "PF2E.BulkLabel"}}: {{bulk.value}} / {{localize "PF2E.ConditionTypeEncumbered"}}: {{bulk.encumberedAfter}}</span>
+            <span>{{localize "PF2E.BulkMaxLabel"}}: {{bulk.max}}</span>
+        </div>
+        <span class="bar-bg"></span>
+    </div>
+{{/with}}

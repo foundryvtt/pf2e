@@ -1,0 +1,191 @@
+{
+    "_id": "GIwPBuGtPofF1rXO",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "y7VNs5A41UH94zX1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spin Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The ancient apparatus takes damage or an attempt to disable it fails</p>\n<hr />\n<p><strong>Effect</strong> The ancient apparatus begins to grind and churn faster. Its soft ticking whirs up to a discordant buzzing sound, and the entire thing begins to glow with an unsettling rust-colored light. All living creatures in area <strong>D3</strong> experience the unsettling taste of rust in their mouths and must succeed on a @Check[type:fortitude|dc:18] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. The ancient apparatus then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "su62px9iEqMlJsNN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rusty Light Beam",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "rust-creep"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "pzHqtJZetnsnp0ss": {
+                        "damage": "2d6+5",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SHmm4Z4oVUEYADth",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rust Creep",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Those afflicted by rust creep develop uncomfortable rust-colored bruises on their flesh and endure full-body aches like those one might experience after a long workout. As the affliction progresses, their bodies—as well as the clothing and items they wear or carry—increasingly break down until a painful death occurs. If a character successfully resists contracting rust creep, or recovers from a case of rust creep, they are temporarily immune to future rust creep infections for 24 hours.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<p><strong>Stage 1</strong> –1 status penalty to Athletics checks (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 4</strong> enfeebled 1 and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, plus any armor, clothing and items you carry and that are of a level equal to or less than the disease become broken as the decay spreads to them (1 day; broken items remain broken)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> unconscious (1 day)</p>\n<p><strong>Stage 7</strong> death</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "disease",
+                        "divine",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ancient Apparatus",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A complex device made of multicolored metal that resembles a combination of grinding gears, spider-like legs, and twitching blades, from which emits a constant soft ticking sound. All of the metal in the device appears to be rusted or corroded.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18] to adjust the device's workings so they seize up and no longer function, or @Check[type:religion|dc:21] to focus prayers to a non-evil deity into the device to disrupt its ability to channel ambient faith</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>The ancient apparatus reverts to its non-active mode and resets automatically at the end of any round in which there are no obvious targets to attack.</p>",
+            "routine": "<p>(3 actions) The ancient apparatus emits beams of rust-colored light, spending an action to make ranged Strikes against three targets in area <strong>D3</strong>. The apparatus can target creatures as if it possessed darkvision, but has no ability to discern between friend or foe. It can't target a creature more than once, and if there are more than three targets, it selects its targets from those it can see in the room randomly. The ancient apparatus has only 1 action as long as its Hit Points are below its BT.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Rusthenge"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

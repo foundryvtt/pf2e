@@ -1,0 +1,59 @@
+{
+    "_id": "ebCWQB5nfK19GpY5",
+    "img": "systems/pf2e/icons/spells/earthquake.webp",
+    "name": "Stance: Geologic Attunement",
+    "system": {
+        "description": {
+            "value": "<p>You gain tremorsense (imprecise) in your kinetic aura.</p>\n<p>At 13th level this becomes precise tremorsense.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "range": "@actor.flags.pf2e.kineticist.auraRadius",
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "range": "@actor.flags.pf2e.kineticist.auraRadius",
+                "selector": "tremorsense"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

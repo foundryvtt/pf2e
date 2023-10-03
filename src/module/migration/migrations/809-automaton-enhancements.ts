@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Add base REs to Automaton anncestry to allow for automation of enhancements */
 export class Migration809AutomatonEnhancements extends MigrationBase {

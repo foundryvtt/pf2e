@@ -1,0 +1,46 @@
+{
+    "_id": "tVPxq2qYCcOqvIYZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ganzi Gaze",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have unusual sensory abilities passed down from your chaotic forebears. You gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision]. If you already have low-light vision, you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] instead.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat a second time to gain darkvision in addition to low-light vision.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ganzi"
+            ]
+        }
+    },
+    "type": "feat"
+}

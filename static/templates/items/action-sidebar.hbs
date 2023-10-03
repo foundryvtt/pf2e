@@ -1,0 +1,13 @@
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Action.CategoryLabel"}}</label>
+        <select name="system.category" data-dtype="String">
+            {{#select data.category}}
+                <option value="">{{localize "PF2E.Item.Action.Category.None"}}</option>
+                {{#each categories as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</div>

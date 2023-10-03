@@ -1,0 +1,66 @@
+{
+    "_id": "SNZ46g3u7U6x0XJj",
+    "img": "systems/pf2e/icons/features/classes/improved-familiar-attunement.webp",
+    "name": "Improved Familiar Attunement",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've long held that fine-tuning the magic that bonds wizard and familiar can improve the mystic connection, compared to the safe yet generic bond most wizards currently use. You've formed such a pact with your familiar, gaining more advantages from it than most wizards. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Familiar] wizard feat. Your familiar gains an extra ability, and it gains an additional extra ability when you reach 6th, 12th, and 18th levels. Your connection with your familiar alters your arcane bond class feature so that you store your magical energy in your familiar, rather than an item you own; you also gain the Drain Familiar free action instead of Drain Bonded Item. Drain Familiar can be used any time an ability would allow you to use Drain Bonded Item and functions identically, except that you draw magic from your familiar instead of an item.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.familiarAbilities.value",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 1
+                        },
+                        {
+                            "end": 11,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 17,
+                            "start": 12,
+                            "value": 3
+                        },
+                        {
+                            "start": 18,
+                            "value": 4
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Familiar"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

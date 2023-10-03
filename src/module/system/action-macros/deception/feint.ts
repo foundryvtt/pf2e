@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function feint(options: SkillActionOptions) {
+export function feint(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:feint"];
     const modifiers = options?.modifiers;
@@ -12,12 +12,14 @@ export function feint(options: SkillActionOptions) {
         traits: ["mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

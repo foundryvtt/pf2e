@@ -1,9 +1,10 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { ZeroToFour } from "@module/data";
+import { BaseItemSourcePF2e, ItemSystemSource, OtherTagsOnly } from "@item/data/base.ts";
+import { ZeroToFour } from "@module/data.ts";
 
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
 
 interface LoreSystemSource extends ItemSystemSource {
+    traits: OtherTagsOnly;
     mod: {
         value: number;
     };
@@ -12,9 +13,8 @@ interface LoreSystemSource extends ItemSystemSource {
     };
     variants?: Record<string, { label: string; options: string }>;
     level?: never;
-    traits?: never;
 }
 
 type LoreSystemData = LoreSystemSource;
 
-export { LoreSource, LoreSystemData };
+export type { LoreSource, LoreSystemData };

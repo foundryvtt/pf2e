@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function climb(options: SkillActionOptions) {
+export function climb(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:climb"];
     const modifiers = options?.modifiers;
@@ -18,5 +18,8 @@ export function climb(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Climb", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Climb", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

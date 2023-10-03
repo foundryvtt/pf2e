@@ -1,1 +1,1 @@
-export { WorldClock } from "./app";
+export { WorldClock } from "./app.ts";

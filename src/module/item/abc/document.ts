@@ -1,14 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { FeatPF2e, ItemPF2e } from "@item";
-import type { AncestrySource, AncestrySystemData } from "@item/ancestry/data";
-import type { BackgroundSource, BackgroundSystemData } from "@item/background/data";
-import type { ClassSource, ClassSystemData } from "@item/class/data";
-import { MigrationList, MigrationRunner } from "@module/migration";
+import type { AncestrySource, AncestrySystemData } from "@item/ancestry/data.ts";
+import type { BackgroundSource, BackgroundSystemData } from "@item/background/data.ts";
+import type { ClassSource, ClassSystemData } from "@item/class/data.ts";
+import { Rarity } from "@module/data.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { objectHasKey } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
+import { UUIDUtils } from "@util/uuid.ts";
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {
+    get rarity(): Rarity {
+        return this.system.traits.rarity;
+    }
+
     /** Returns all items that should also be deleted should this item be deleted */
     override getLinkedItems(): FeatPF2e<ActorPF2e>[] {
         if (!this.actor || !objectHasKey(this.actor.itemTypes, this.type)) return [];

@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e } from "@item/index";
-import { Price } from "@item/physical/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { DENOMINATIONS } from "@item/physical/values";
-import { UserPF2e } from "@module/user";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { Price } from "@item/physical/data.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
-import { UUIDUtils } from "@util/uuid-utils";
-import { KitEntryData, KitSource, KitSystemData } from "./data";
-import { Size } from "@module/data";
-import { ActorSizePF2e } from "@actor/data/size";
+import { UUIDUtils } from "@util/uuid.ts";
+import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
+import { Size } from "@module/data.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 
 class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get entries(): KitEntryData[] {
@@ -69,11 +69,13 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        if (!changed.system) return await super._preUpdate(changed, options, user);
+    ): Promise<boolean | void> {
+        if (!changed.system) {
+            return await super._preUpdate(changed, options, user);
+        }
 
         // Clear 0 price denominations
-        if (isObject<Record<string, unknown>>(changed.system?.price)) {
+        if (isObject<Record<string, unknown>>(changed.system.price)) {
             const price: Record<string, unknown> = changed.system.price;
             for (const denomination of DENOMINATIONS) {
                 if (price[denomination] === 0) {
@@ -82,7 +84,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
             }
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

@@ -1,0 +1,51 @@
+{
+    "_id": "fmUBaLklyVmNt3VD",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "(Graveknight) Clutching Armor",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature attempts to move away from the graveknight</p>\n<hr />\n<p><strong>Effect</strong> The graveknight's armor animates and attempts to Grab the triggering creature. It makes an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] using the graveknight's Athletics modifier - 2. The armor can continue to Grapple the creature normally.</p>\n<p>Since the armor is grappling the creature, the graveknight doesn't need a free hand to do so.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "clutching-armor",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple",
+                    "clutching-armor"
+                ],
+                "selector": "athletics",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "arcane",
+                "transmutation"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

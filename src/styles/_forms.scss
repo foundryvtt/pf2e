@@ -2,14 +2,10 @@
     display: flex;
 
     .details-label {
-        font-family: var(--sans-serif);
-        font-size: 0.625rem;
-        font-weight: 800;
-        line-height: 1;
-        text-transform: uppercase;
         color: var(--primary);
-
-        margin-right: 2px;
+        font: 600 var(--font-size-11) / 1em var(--sans-serif);
+        margin-left: 1px;
+        text-transform: uppercase;
         white-space: nowrap;
     }
 
@@ -18,7 +14,7 @@
         font-family: var(--body-serif);
         font-weight: bold;
         width: calc(100% - 6px);
-        border-bottom: 1px solid #d3ccbc;
+        border-bottom: 1px solid var(--color-border-dark-input);
         background-color: rgba($text-dark-color, 0.1);
 
         &::placeholder {
@@ -50,31 +46,34 @@
             -webkit-appearance: none;
             margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
         }
-        &[type='number'] {
+        &[type="number"] {
             -moz-appearance: textfield;
+            appearance: textfield;
         }
     }
 
     select {
-        font-size: var(--font-size-14);
-        font-family: var(--serif);
-        font-weight: 500;
-        color: var(--text-light);
-        position: relative;
-        background-color: var(--alt);
-        border-radius: 2px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 4px 18px 3px 5px;
-        -webkit-appearance: none;
         -moz-appearance: none;
-        text-overflow: ellipsis;
-        background-image: url('../assets/icons/chevron-down.svg');
-        background-repeat: no-repeat;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: var(--alt);
+        background-image: url("/assets/icons/chevron-down.svg");
         background-position: right 0.25em top 50%;
+        background-repeat: no-repeat;
         background-size: 1em auto;
-        height: auto;
+        border-radius: 2px;
         border: 1px solid #53422a;
+        color: var(--text-light);
+        font: 500 var(--font-size-14) var(--serif);
+        height: auto;
+        line-height: 1;
+        padding: 0.25rem 1.1rem 0.25rem 0.25rem;
+        position: relative;
+        text-overflow: ellipsis;
+
+        &:not(:disabled) {
+            cursor: pointer;
+        }
 
         option {
             background-color: var(--alt);

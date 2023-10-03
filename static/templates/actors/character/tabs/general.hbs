@@ -17,19 +17,12 @@
                 </select>
             </span>
         </div>
-        <div class="pc pc_deity" data-item-id="{{deity.id}}">
+        <div class="pc pc_deity item">
             <div class="input">
-                <label class="details-label">{{localize "ITEM.TypeDeity"}}</label>
-                <h3>
-                    <span class="value">{{deity.name}}</span>
-                    {{#if @root.options.editable}}
-                        {{#if deity}}
-                            <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                        {{else}}
-                            <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-fw fa-plus-circle"></i></a>
-                        {{/if}}
-                    {{/if}}
-                </h3>
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=deity type="deity" compendium="pf2e.deities"
+                }}
             </div>
             {{#if deity}}
                 <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
@@ -38,83 +31,174 @@
             {{/if}}
         </div>
         <div class="detail-sheet">
-            <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
-                <span class="details-label">{{localize "ITEM.TypeAncestry"}}</span>
-                <span title="{{localize "PF2E.AncestryTitle"}}">
-                    <h3>
-                        <span class="value">{{ancestry.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if ancestry}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_ancestry item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=ancestry type="ancestry" compendium="pf2e.ancestries"
+                }}
             </div>
-            <div class="pc pc_heritage item" data-item-id="{{heritage.id}}">
-                <span class="details-label">{{localize "PF2E.Heritage"}}</span>
-                <span title="{{localize "PF2E.HeritageTitle"}}">
-                    <h3>
-                        <span class="value">{{heritage.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if heritage}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.heritages"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_heritage item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=heritage type="heritage" compendium="pf2e.heritages"
+                }}
             </div>
-            <div class="pc pc_class item" data-item-id="{{class.id}}">
-                <span class="details-label">{{localize "PF2E.Class"}}</span>
-                <span title="{{localize "PF2E.ClassTitle"}}">
-                    <h3>
-                        <span class="value">{{class.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if class}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_class item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=class type="class" compendium="pf2e.classes"
+                }}
             </div>
-            <div class="pc pc_background item" data-item-id="{{background.id}}">
-                <span class="details-label">
-                    {{localize "PF2E.Background"}}
-                </span>
-                <span title="{{localize "PF2E.BackgroundTitle"}}">
-                    <h3>
-                        <span class="value">{{background.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if background}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_background item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=background type="background" compendium="pf2e.backgrounds"
+                }}
             </div>
         </div>
     </section>
 
     <hr />
     <section class="character-background">
-        {{> "systems/pf2e/templates/actors/character/partials/background.hbs"}}
+        <label>
+            <span class="details-label">{{localize "PF2E.GenderPronoun"}}</span>
+            <input type="text" class="details-input" title="{{localize "PF2E.GenderPronounTitle"}}" name="system.details.gender.value" value="{{data.details.gender.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Age"}}</span>
+            <input type="text" class="details-input" title="{{localize "PF2E.AgeTitle"}}" name="system.details.age.value" value="{{data.details.age.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Ethnicity"}}</span>
+            <input type="text" class="details-input" name="system.details.ethnicity.value" value="{{data.details.ethnicity.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Nationality"}}</span>
+            <input type="text" class="details-input" name="system.details.nationality.value" value="{{data.details.nationality.value}}" />
+        </label>
     </section>
 
     <hr />
     <section class="character-traits">
-        {{> "systems/pf2e/templates/actors/character/partials/traits.hbs"}}
+        <div class="pc pc_land-speed">
+            <span class="details-label" >{{localize "PF2E.Speed"}}</span>
+            <span>
+                <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
+            </span>
+        </div>
+        <div class="pc pc_size">
+            <span class="details-label">{{localize "PF2E.Size"}}</span>
+            <span>
+                <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
+            </span>
+        </div>
+
+        <div class="break-column"></div>
+
+        <div class="pc pc_bonus-bulk encumbered">
+            <label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">{{localize "PF2E.BonusEncumbranceBulkLabel"}}</label>
+            <input type="number" class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk"
+                data-property="system.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
+        </div>
+        <div class="pc pc_bonus-bulk">
+            <label class="details-label" for="{{options.id}}-bonus-limit-bulk">{{localize "PF2E.BonusLimitBulkLabel"}}</label>
+            <input type="number" class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk"
+                data-property="system.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
+        </div>
+        <div class="character-traits">
+            <div class="pc pc_speed-types">
+                <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
+                <ol class="tags">
+                    {{#each data.attributes.speed.otherSpeeds as |speed|}}
+                        <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
+                    {{/each}}
+                    {{#if @root.options.editable}}
+                        <li class="tag tag_secondary edit-btn">
+                            <a class="crb-tag-selector" data-tag-selector="speed-types">
+                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                            </a>
+                        </li>
+                    {{/if}}
+                </ol>
+            </div>
+            <div class="pc pc_senses">
+                <span class="details-label">{{localize "PF2E.Senses"}}</span>
+                <ol class="tags">
+                    {{#each data.traits.senses as |sense slug|}}
+                        {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
+                    {{/each}}
+                    {{#if @root.options.editable}}
+                        <li class="tag tag_secondary edit-btn">
+                            <a class="crb-tag-selector" data-tag-selector="senses">
+                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                            </a>
+                        </li>
+                    {{/if}}
+                </ol>
+            </div>
+            <div class="pc pc_languages">
+                <span class="details-label">{{localize "PF2E.Languages"}}</span>
+                <ul class="tags">
+                    {{#each languages as |language slug|}}
+                        <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
+                    {{/each}}
+                    {{#if @root.options.editable}}
+                        <li class="tag tag_secondary edit-btn">
+                            <a class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
+                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                            </a>
+                        </li>
+                    {{/if}}
+                </ul>
+            </div>
+
+            <div class="pc pc_traits">
+                <span class="details-label">{{localize "PF2E.Traits"}}</span>
+                <ul class="tags">
+                    {{#each traits as |trait slug|}}
+                        <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
+                    {{/each}}
+                    {{#if @root.options.editable}}
+                        <li class="tag tag_secondary edit-btn">
+                            <a class="crb-tag-selector" data-tag-selector="basic" data-config-types="creatureTraits" data-property="system.traits">
+                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                            </a>
+                        </li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
     </section>
 
-    <h3 class="header">{{localize "PF2E.AbilityScoresHeader"}} <button type="button" data-action="edit-ability-scores"><i class="fas fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}</button></h3>
-    <section class="character-abilities">
-        {{> "systems/pf2e/templates/actors/character/partials/abilities.hbs"}}
+    <!-- Attributes -->
+    <h3 class="header">{{localize "PF2E.Actor.Creature.AttributeModifiers"}}
+        <button type="button"{{#unless attributeBoostsAllocated}} class="has-unallocated"{{/unless}} data-action="edit-attribute-boosts">
+            <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+        </button>
+    </h3>
+    <section class="character-attributes">
+        <ol class="attributes">
+            {{#each data.abilities as |attribute abbrev|}}
+                <li class="attribute {{#if (eq ../actor.keyAttribute abbrev)}}key{{/if}}" data-attribute="{{abbrev}}">
+                    <h2 class="abbreviation">
+                        {{#if (eq ../data.details.keyability.value abbrev)}}
+                            <i class="key fa-solid fa-key" title="{{localize "PF2E.Actor.Character.Attribute.Key"}}"></i>
+                        {{/if}}
+                        <span title="{{localize attribute.label}}">{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
+                        {{#if (eq ../data.build.attributes.apex abbrev)}}
+                            <i class="apex fa-solid fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                        {{else if (and ../editable (includes ../apexAttributeOptions abbrev))}}
+                            <a data-action="apex-attribute">
+                                <i class="apex unselected fa-regular fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                            </a>
+                        {{/if}}
+                    </h2>
+                    <h3 class="modifier" title="{{localize "PF2E.ModifierTitle"}}">
+                        {{numberFormat attribute.mod decimals=0 sign=true}}
+                    </h3>
+                    <div class="label details-label">{{localize attribute.label}}</div>
+                </li>
+            {{/each}}
+        </ol>
     </section>
 </div>

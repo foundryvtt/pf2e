@@ -1,0 +1,75 @@
+{
+    "_id": "Y8Rdt4gHBGAUf2zL",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advantageous Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When an enemy's movement is compromised, you deliver a more deadly blow.</p>\n<p>Make a Strike against a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Prone], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. You gain a circumstance bonus to damage on this Strike equal to the number of weapon damage dice, or that number + 2 if you're wielding the weapon in two hands. The Strike gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage to the target equal to the number of weapon damage dice, or that number + 2 if you're wielding the weapon in two hands. This damage has the same damage type as the weapon.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "advantageous-assault",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "advantageous-assault",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:prone",
+                            "target:condition:restrained"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "map:increases",
+                            0
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "advantageous-assault",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:hands-held:2"
+                ],
+                "selector": "strike-damage",
+                "slug": "advantageous-assault",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter",
+                "press"
+            ]
+        }
+    },
+    "type": "feat"
+}

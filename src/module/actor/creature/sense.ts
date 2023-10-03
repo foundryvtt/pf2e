@@ -1,4 +1,6 @@
-import { SenseData } from "./data";
+import { objectHasKey } from "@util";
+import { SenseData } from "./data.ts";
+import { SENSES_WITH_MANDATORY_ACUITIES } from "./values.ts";
 
 export class CreatureSensePF2e implements SenseData {
     /** low-light vision, darkvision, scent, etc. */
@@ -16,7 +18,9 @@ export class CreatureSensePF2e implements SenseData {
 
     constructor(data: Omit<SenseData, "value"> & { value?: string }) {
         this.type = data.type;
-        this.acuity = data.acuity ?? "precise";
+        this.acuity = objectHasKey(SENSES_WITH_MANDATORY_ACUITIES, this.type)
+            ? SENSES_WITH_MANDATORY_ACUITIES[this.type]
+            : data.acuity ?? "precise";
         this.value = data.value ?? "";
         this.source = data.source || undefined;
     }
@@ -47,7 +51,7 @@ export class CreatureSensePF2e implements SenseData {
                 // Low-light vision, darkvision, and see invisibility are always precise with no range limit
                 return buildLabel(this.type);
             case "scent":
-                // Vague scent is assume and ommitted
+                // Vague scent is assumed and ommitted
                 return this.acuity === "vague" ? null : buildLabel(this.type, this.acuity, range);
             default:
                 return buildLabel(this.type, this.acuity, range);
@@ -69,18 +73,20 @@ export class CreatureSensePF2e implements SenseData {
 export type SenseAcuity = (typeof SENSE_ACUITIES)[number];
 export type SenseType = SetElement<typeof SENSE_TYPES>;
 
-export const SENSE_ACUITIES = ["precise", "imprecise", "vague"];
+export const SENSE_ACUITIES = ["precise", "imprecise", "vague"] as const;
 
 export const SENSE_TYPES = new Set([
     "darkvision",
     "echolocation",
     "greaterDarkvision",
+    "heatsight",
     "lifesense",
     "lowLightVision",
     "motionsense",
     "scent",
     "seeInvisibility",
     "spiritsense",
+    "thoughtsense",
     "tremorsense",
     "wavesense",
 ] as const);

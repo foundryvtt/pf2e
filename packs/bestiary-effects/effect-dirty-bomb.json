@@ -1,0 +1,45 @@
+{
+    "_id": "5ZK22sNW7o26aST0",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/sun-orchid-poultice.webp",
+    "name": "Effect: Dirty Bomb",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to fortitude saves against the chemist's Crude Bombs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crude-bomb"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #159: All or Nothing"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

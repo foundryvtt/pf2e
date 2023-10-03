@@ -1,44 +1,43 @@
-import { ItemType } from "@item/data";
-import { MagicTradition } from "@item/spell/types";
-import { BaseRawModifier } from "@actor/modifiers";
-import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success";
-import { RollNoteSource } from "@module/notes";
-import { CheckRollContext } from "@system/check";
-import { DamageRollContext } from "@system/damage";
-import { ZeroToTwo } from "@module/data";
+import type { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
+import { ItemType } from "@item/data/index.ts";
+import { MagicTradition } from "@item/spell/types.ts";
+import { ZeroToTwo } from "@module/data.ts";
+import { RollNoteSource } from "@module/notes.ts";
+import { CheckRollContext } from "@system/check/index.ts";
+import { DamageRollContext } from "@system/damage/types.ts";
+import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
 interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }
 
-type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
+export interface ItemOriginFlag {
+    type: ItemType;
+    uuid: string;
+    castLevel?: number;
+    messageId?: string;
+    variant?: { overlays: string[] };
+}
+
+type ChatMessageFlagsPF2e = ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
-        origin?: { type: ItemType; uuid: string } | null;
-        casting?: { id: string; level: number; tradition: MagicTradition } | null;
+        origin?: ItemOriginFlag | null;
+        casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
-        modifiers?: BaseRawModifier[];
+        modifiers?: (BaseRawModifier | DamageDicePF2e)[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
-        spellVariant?: { overlayIds: string[] };
-        strike?: StrikeLookupData | null;
+        appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;
     };
-    core: NonNullable<foundry.documents.ChatMessageFlags["core"]>;
+    core: NonNullable<ChatMessageFlags["core"]>;
 };
 
-type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag;
-
-/** Data used to lookup a strike on an actor */
-interface StrikeLookupData {
-    actor: ActorUUID | TokenDocumentUUID;
-    index: number;
-    damaging: boolean;
-    name: string;
-    altUsage?: "thrown" | "melee" | null;
-}
+type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -61,20 +60,23 @@ interface TargetFlag {
 
 type ContextFlagOmission =
     | "actor"
+    | "action"
     | "altUsage"
     | "createMessage"
+    | "damaging"
     | "dosAdjustments"
     | "item"
     | "mapIncreases"
     | "notes"
     | "options"
+    | "range"
     | "target"
     | "token";
 
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
-    item?: undefined;
+    item?: string;
     dosAdjustments?: DegreeAdjustmentsRecord;
     target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
@@ -85,7 +87,7 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
 interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
     actor: string | null;
     token: string | null;
-    item?: undefined;
+    item?: string;
     mapIncreases?: ZeroToTwo;
     target: TargetFlag | null;
     notes: RollNoteSource[];
@@ -96,17 +98,38 @@ interface SpellCastContextFlag {
     type: "spell-cast";
     domains: string[];
     options: string[];
+    outcome?: DegreeOfSuccessString;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
 }
 
-export {
+interface SelfEffectContextFlag {
+    type: "self-effect";
+    item: string;
+    domains?: never;
+    options?: never;
+    outcome?: never;
+}
+
+interface AppliedDamageFlag {
+    uuid: ActorUUID;
+    isHealing: boolean;
+    isReverted?: boolean;
+    persistent: string[];
+    shield: {
+        id: string;
+        damage: number;
+    } | null;
+    updates: { path: string; value: number }[];
+}
+
+export type {
+    AppliedDamageFlag,
     ChatContextFlag,
-    ChatMessageSourcePF2e,
     ChatMessageFlagsPF2e,
+    ChatMessageSourcePF2e,
     CheckRollContextFlag,
-    DamageRollFlag,
     DamageRollContextFlag,
-    StrikeLookupData,
+    DamageRollFlag,
     TargetFlag,
 };

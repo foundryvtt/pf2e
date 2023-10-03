@@ -1,0 +1,46 @@
+<div class="hover-content modifiers-tooltip" id="{{@root.options.id}}-{{slug}}-modifiers" data-stat="{{slug}}">
+    <div class="sidebar_title">
+        <h2>{{localize title}}</h2>
+    </div>
+    <ul class="modifier-list">
+        {{!-- Coalesce until `StatisticModifier` is removed --}}
+        {{#each (coalesce modifiers _modifiers) as |modifier|}}
+            {{#if (or modifier.enabled (not modifier.hideIfDisabled))}}
+                <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
+                    <span class="tag-legacy">
+                        {{localize (concat "PF2E.ModifierType." modifier.type)}}
+                    </span>
+                    <span class="label">{{modifier.label}}</span>
+                    <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+                    {{#if modifier.custom}}
+                        <i class="far fa-times-circle remove-modifier" data-action="remove-modifier" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
+                    {{/if}}
+                </li>
+            {{/if}}
+        {{/each}}
+        {{#if @root.options.editable}}
+            <li class="item add-modifier">
+                <div class="add-modifier-value">
+                    <input type="number" placeholder="+1">
+                    <i class="fa-solid fa-plus-circle" data-action="increment"></i>
+                    <i class="fa-solid fa-minus-circle" data-action="decrement"></i>
+                </div>
+
+                <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierNamePlaceholder"}}>
+
+                <select class="tag-legacy add-modifier-type">
+                    <option value="">{{localize "PF2E.ModifierTypeTitle"}}</option>
+                    <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
+                    <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>
+                    <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
+                    <option value="status">{{localize "PF2E.ModifierType.status"}}</option>
+                    <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
+                    {{#if abpEnabled}}<option value="potency">{{localize "PF2E.ModifierType.potency"}}</option>{{/if}}
+                    <option value="untyped">{{localize "PF2E.ModifierType.untyped"}}</option>
+                </select>
+
+                <button type="button" class="add-modifier-submit" data-action="create-custom-modifier">{{localize "PF2E.AddModifierTitle"}}</button>
+            </li>
+        {{/if}}
+    </ul>
+</div>

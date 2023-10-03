@@ -1,10 +1,16 @@
 .sheet.hazard {
-    ul, ol {
+    @import "../red-action-boxes";
+
+    ul,
+    ol {
         @include p-reset;
         list-style-type: none;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
         @include p-reset;
         border-bottom: none;
     }
@@ -27,12 +33,14 @@
         @include p-reset;
     }
 
-    input[type="text"], input[type="number"] {
+    input[type="text"],
+    input[type="number"] {
         @include p-reset;
         background: none;
         border: 1px solid transparent;
 
-        &:hover, &:focus {
+        &:hover:not(:disabled),
+        &:focus {
             border: 1px solid black;
             box-shadow: 0 0 10px #00005a;
         }
@@ -40,10 +48,7 @@
 
     .container {
         display: flex;
-        background: linear-gradient(
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
         height: 100%;
         overflow: hidden;
     }
@@ -53,80 +58,24 @@
         padding-left: 5px;
         padding-right: 5px;
         padding: 0 5px 20px 5px;
-        @include scrollbar;
+        overflow: hidden scroll;
     }
 
-    @import "header", "sidebar", "actions";
+    @import "header", "sidebar";
 
     .section-container {
-        display: flex;
-        flex-direction: column;
         padding: 4px 6px 0;
-
-        .section-header {
-            display: flex;
-            flex: 0;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline;
-            border: 1px solid $primary-color;
-            border-radius: 3px 3px 0px 0px;
-            background: $primary-color;
-            text-align: left;
-            color: white;
-            font-size: 0.8rem;
-            padding: 4px 8px;
-
-            h3, input {
-                font-size: var(--font-size-15);
-                font-weight: 600;
-            }
-
-            h3 {
-                flex: auto;
-                display: flex;
-                align-items: baseline;
-                gap: 4px;
-            }
-
-            input {
-                color: inherit;
-                width: auto;
-            }
-
-            .controls {
-                display: flex;
-                gap: 8px;
-                justify-self: flex-end;
-            }
-        }
-
-        .section-body {
-            display: flex;
-            flex: auto;
-            flex-wrap: wrap;
-            width: 100%;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: baseline;
-            border: 1px solid $primary-color;
-            border-radius: 0px 0px 3px 3px;
-        }
 
         .editor {
             width: 100%;
-            .editor-content, .tox-edit-area {
-                padding: 4px;
-            }
 
             .tox {
                 width: 100%;
             }
         }
 
-        &.headerless .section-body {
-            border-radius: 3px;
+        > .section-body {
+            padding: 4px;
         }
 
         &.skills > .section-body {
@@ -134,6 +83,18 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+            }
+        }
+
+        .actions-list,
+        .attacks-list {
+            border-bottom: 1px solid var(--alt);
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .action {
+                padding: 4px 0;
             }
         }
     }
@@ -157,7 +118,7 @@
     // When the editor is open, fill more space so the user has something to work with
     .tox.tox-tinymce {
         // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-        height: 200px!important;
+        height: 200px !important;
     }
 
     // Hide editor button for those controlled by section controls

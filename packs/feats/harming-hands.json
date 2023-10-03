@@ -1,0 +1,49 @@
+{
+    "_id": "1W0a6YCyoYv8dm4e",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Harming Hands",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The mordant power of your negative energy grows. When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, you roll d10s instead of d8s.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "harmful font"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:harm"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

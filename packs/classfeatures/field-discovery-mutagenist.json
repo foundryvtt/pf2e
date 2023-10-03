@@ -1,0 +1,44 @@
+{
+    "_id": "V4Jt7eDnJBLv5bDj",
+    "img": "systems/pf2e/icons/features/classes/perpetual-infusions-mutagenist.webp",
+    "name": "Field Discovery (Mutagenist)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] to make mutagens during your daily preparations, you can use a batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents]{reagents} to create any three mutagens instead of just two of the same mutagen.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.crafting.entries.alchemist.fieldDiscovery",
+                "phase": "beforeDerived",
+                "value": [
+                    "item:trait:mutagen"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

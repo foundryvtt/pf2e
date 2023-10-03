@@ -15,7 +15,6 @@ $icons: (
     sparkles: \2728,
 );
 
-
 // Generate icon classes. Code below should not need to be edited
 @mixin icon($name, $icon) {
     &.#{$name}::before {
@@ -24,8 +23,6 @@ $icons: (
 }
 
 .icon {
-    font-style: normal;
-
     @each $name, $icon in $icons {
         @include icon($name, $icon);
     }

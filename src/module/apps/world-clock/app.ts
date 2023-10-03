@@ -1,8 +1,7 @@
-import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
-import { animateDarkness } from "./animate-darkness";
-import { TimeChangeMode, TimeOfDay } from "./time-of-day";
+import { animateDarkness } from "./animate-darkness.ts";
+import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
 interface WorldClockData {
     date: string;
@@ -13,9 +12,6 @@ interface WorldClockData {
 }
 
 export class WorldClock extends Application {
-    /** Localization keys */
-    private readonly translations = LocalizePF2e.translations.PF2E.WorldClock;
-
     /** Is the ctrl key currently held down? */
     private ctrlKeyDown = false;
 
@@ -69,7 +65,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         return mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,
@@ -82,7 +78,7 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case "AR": // Absalom Reckoning
-                return this.translations.AR.Era;
+                return game.i18n.localize(CONFIG.PF2E.worldClock.AR.Era);
             case "AD": // Earth on the Material Plane
                 return this.worldTime.toFormat("G");
             default:
@@ -111,12 +107,12 @@ export class WorldClock extends Application {
     private get month(): string {
         switch (this.dateTheme) {
             case "AR": {
-                const months = this.translations.AR.Months;
+                const months = CONFIG.PF2E.worldClock.AR.Months;
                 const month = this.worldTime.setLocale("en-US").monthLong as keyof typeof months;
-                return months[month];
+                return game.i18n.localize(months[month]);
             }
             default:
-                return this.worldTime.monthLong;
+                return this.worldTime.monthLong!;
         }
     }
 
@@ -124,12 +120,12 @@ export class WorldClock extends Application {
     private get weekday(): string {
         switch (this.dateTheme) {
             case "AR": {
-                const weekdays = this.translations.AR.Weekdays;
+                const weekdays = CONFIG.PF2E.worldClock.AR.Weekdays;
                 const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
-                return weekdays[weekday];
+                return game.i18n.localize(weekdays[weekday]);
             }
             default:
-                return this.worldTime.weekdayLong;
+                return this.worldTime.weekdayLong!;
         }
     }
 
@@ -137,7 +133,7 @@ export class WorldClock extends Application {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
-                : game.i18n.format(this.translations.Date, {
+                : game.i18n.format(CONFIG.PF2E.worldClock.Date, {
                       era: this.era,
                       year: this.year,
                       month: this.month,
@@ -223,7 +219,7 @@ export class WorldClock extends Application {
 
                 const retractTime = (this.ctrlKeyDown = event.type === "keydown");
 
-                const { Advance, Retract, TimeOfDay } = this.translations.Button;
+                const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
                 const advanceButtons = Array.from(
                     $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []
                 );

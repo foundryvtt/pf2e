@@ -1,5 +1,5 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Set the "hands" (usage) property of weapons */
 export class Migration680SetWeaponHands extends MigrationBase {

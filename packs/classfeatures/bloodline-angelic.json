@@ -1,0 +1,123 @@
+{
+    "_id": "vhW3glAaEfq2DKrw",
+    "img": "icons/commodities/treasure/trinket-wing-white.webp",
+    "name": "Bloodline: Angelic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spiritual Weapon]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</em>, 6th:<em>@UUID[Compendium.pf2e.spells-srd.Item.Blade Barrier]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Decree]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Aura]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Foresight]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</em></p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "divine"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sorcerer.bloodline.spells",
+                "value": {
+                    "1st": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
+                        "slug": "heal"
+                    },
+                    "2nd": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.Fq9yCbqI2RDt6Orw",
+                        "slug": "spiritual-weapon"
+                    },
+                    "3rd": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.DyiD239dNS7RIxZE",
+                        "slug": "searing-light"
+                    },
+                    "4th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.hVU9msO9yGkxKZ3J",
+                        "slug": "divine-wrath"
+                    },
+                    "5th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.E3X2RbzWHCdz7gsk",
+                        "slug": "flame-strike"
+                    },
+                    "6th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.peCF6VArm8urfwxZ",
+                        "slug": "blade-barrier"
+                    },
+                    "7th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.sX2o0HH4RjJDAZ8C",
+                        "slug": "divine-decree"
+                    },
+                    "8th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.nsQvjNyg4Whw2mek",
+                        "slug": "divine-aura"
+                    },
+                    "9th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.qsNeG9KZpODSACMq",
+                        "slug": "-foresight}"
+                    },
+                    "advanced": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.kRsmUlSWhi6PJvZ7",
+                        "slug": "angelic-wings"
+                    },
+                    "cantrip": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+                        "slug": "light"
+                    },
+                    "greater": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.9WlTR9JlEcjRmGiD",
+                        "slug": "celestial-brand"
+                    },
+                    "initial": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.w3uGXDVEdbLFZVO0",
+                        "slug": "angelic-halo"
+                    }
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

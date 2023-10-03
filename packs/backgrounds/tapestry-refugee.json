@@ -1,0 +1,73 @@
+{
+    "_id": "n7tPT1SfVTcHjrj3",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Tapestry Refugee",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Within her magnificent museum demiplane, the sorcerer Hao Jin extracted and preserved countless sites and cultures. The demiplane's unraveling magic forced the Pathfinder Society to evacuate the many inhabitants recently, and you were among the refugees who returned to the Material Plane after centuries of isolation. Whether you joined the Society out of gratitude, curiosity, or desperation, you are hardened by your harrowing flight from your doomed home.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Medicine or Stealth skill, plus a Lore skill related to the terrain you lived in while on the demiplane (such as Cave Lore or Desert Lore). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with the skill you chose to become trained in (Medicine or Stealth).</p>\n<hr />\n<p><strong>Special</strong> You can select this background only if you have earned credit for at least 5 First Edition scenarios from Season 10 of the Pathfinder Society organized play campaign.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "stealth"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+            }
+        ],
+        "source": {
+            "value": "Organized Play Foundation"
+        },
+        "trainedLore": "<Terrain> Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

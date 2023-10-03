@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Add AE-likes to certain items that give the owner a higher tiebreak priority */
 export class Migration690InitiativeTiebreakItems extends MigrationBase {

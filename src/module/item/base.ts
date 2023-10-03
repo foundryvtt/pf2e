@@ -1,15 +1,20 @@
-import { ActorPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { preImportJSON } from "@module/doc-helpers";
-import { MigrationList, MigrationRunner } from "@module/migration";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
-import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
-import { UserPF2e } from "@module/user";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ActorPF2e } from "@actor/base.ts";
+import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { preImportJSON } from "@module/doc-helpers.ts";
+import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
+import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
+import { UserPF2e } from "@module/user/document.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
-import { AfflictionSource } from "./affliction";
-import { ContainerPF2e } from "./container";
+import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
+import { AfflictionSource } from "./affliction/data.ts";
+import { ContainerPF2e } from "./container/document.ts";
+import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
+import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
 import {
     ConditionSource,
     EffectSource,
@@ -18,19 +23,21 @@ import {
     ItemSummaryData,
     ItemType,
     TraitChatData,
-} from "./data";
-import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { PhysicalItemPF2e } from "./physical/document";
-import { PHYSICAL_ITEM_TYPES } from "./physical/values";
-import { ItemSheetPF2e } from "./sheet/base";
-import { ItemFlagsPF2e, ItemSystemData } from "./data/base";
-import { ItemInstances } from "./types";
-import { UUIDUtils } from "@util/uuid-utils";
+} from "./data/index.ts";
+import { PhysicalItemPF2e } from "./physical/document.ts";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
+import { ItemSheetPF2e } from "./sheet/base.ts";
+import { MAGIC_TRADITIONS } from "./spell/values.ts";
+import { ItemInstances } from "./types.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
+        return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
     /** Prepared rule elements from this item */
-    rules!: RuleElementPF2e[];
+    declare rules: RuleElementPF2e[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -57,8 +64,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
-    get isTemporary(): boolean {
-        return !!this.actor && !this.actor.items.has(this.id ?? "");
+    get inMemoryOnly(): boolean {
+        return !this.collection.has(this.id);
     }
 
     /**
@@ -98,7 +105,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this> {
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments(
                 "Item",
@@ -107,6 +114,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             );
             return this;
         }
+
         return super.delete(context);
     }
 
@@ -116,8 +124,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
 
+        const { value: traits = [], otherTags } = this.system.traits;
         const traitOptions = ((): string[] => {
-            const traits = this.system.traits?.value ?? [];
             // Additionally include annotated traits without their annotations
             const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
             const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
@@ -133,24 +141,30 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
             ...traitOptions.map((t) => `${prefix}:${t}`),
+            ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
 
+        if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
+            options.push(`${prefix}:magical`);
+        }
+
         // The heightened level of a spell is retrievable from its getter but not prepared level data
-        const level = this.isOfType("spell") ? this.level : this.system.level?.value ?? null;
+        const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
         if (typeof level === "number") {
             options.push(`${prefix}:level:${level}`);
         }
 
-        if (prefix === "item") {
-            const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
+        const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
+        if (prefix !== itemType) {
             options.unshift(`${prefix}:type:${itemType}`);
         }
 
-        return options;
+        return options.sort();
     }
 
-    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
-        return { actor: this.actor, item: this };
+    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
+        const actorRollData = this.actor?.getRollData() ?? { actor: null };
+        return { ...actorRollData, item: this };
     }
 
     /**
@@ -168,7 +182,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
+        const template = `systems/pf2e/templates/chat/${sluggify(this.type)}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = event?.currentTarget.closest(".item") ?? {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
@@ -186,12 +200,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 token: this.actor.getActiveTokens(false, true)[0] ?? null,
             }),
             flags: {
-                core: {
-                    canPopout: true,
-                },
-                pf2e: {
-                    origin: { uuid: this.uuid, type: this.type },
-                },
+                pf2e: { origin: this.getOriginData() },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
@@ -214,25 +223,16 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.toMessage(event, { create: true });
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.rules = [];
-        super._initialize();
+        super._initialize(options);
     }
 
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
     override prepareData(): void {
-        // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
         if (this.parent && !this.parent.flags?.pf2e) return;
-        // Also don't prepare data if this item is in a parent's data collection, the parent is initialized, but data
-        // preparation wasn't requested by the parent
-        // Related to https://github.com/foundryvtt/foundryvtt/issues/7987
-        if (this.parent?.items?.get(this.id) === this && !this.parent.preparingEmbeds) {
-            return;
-        }
 
         super.prepareData();
-
-        // Refresh the Item Directory if this item isn't embedded
-        if (!this.isOwned && game.ready) ui.items.render();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -241,6 +241,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const { flags } = this;
         flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+
+        // Temporary measure until upstream issue is addressed (`null` slug is being set to empty string)
+        this.system.slug ||= null;
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
@@ -254,20 +257,29 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
-    prepareRuleElements(this: ItemPF2e<ActorPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
+    prepareRuleElements(
+        this: ItemPF2e<ActorPF2e>,
+        options: Omit<RuleElementOptions, "parent"> = {}
+    ): RuleElementPF2e[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
 
-        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this, options) : []);
+        return (this.rules = this.actor.canHostRuleElements
+            ? RuleElements.fromOwnedItem({ ...options, parent: this })
+            : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(): Promise<void> {
-        if (!this.isOwned) return ui.notifications.error("This utility may only be used on owned items");
-
+    async refreshFromCompendium(options: { name?: boolean } = {}): Promise<void> {
+        if (!this.isOwned) {
+            ui.notifications.error("This utility may only be used on owned items");
+            return;
+        }
         if (!this.sourceId?.startsWith("Compendium.")) {
             ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
             return;
         }
+
+        options.name ??= false;
 
         const currentSource = this.toObject();
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
@@ -286,6 +298,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
         const updates: DocumentUpdateData<this> = { img: updatedImage, system: latestSource.system };
 
+        if (options.name) updates.name = latestSource.name;
+
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
             const { containerId, quantity } = currentSource.system;
@@ -295,11 +309,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
-        // Preserve precious material and runes
+        // Preserve material and runes
         if (currentSource.type === "weapon" || currentSource.type === "armor") {
             const materialAndRunes: Record<string, unknown> = {
-                "system.preciousMaterial": currentSource.system.preciousMaterial,
-                "system.preciousMaterialGrade": currentSource.system.preciousMaterialGrade,
+                "system.material": currentSource.system.material,
                 "system.potencyRune": currentSource.system.potencyRune,
                 "system.propertyRune1": currentSource.system.propertyRune1,
                 "system.propertyRune2": currentSource.system.propertyRune2,
@@ -318,6 +331,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
+    getOriginData(): ItemOriginFlag {
+        return { uuid: this.uuid, type: this.type as ItemType };
+    }
+
     /* -------------------------------------------- */
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
@@ -327,7 +344,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Currently renders description text using enrichHTML.
      */
     protected async processChatData<T extends ItemSummaryData>(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         data: T
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
@@ -346,7 +363,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     async getChatData(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         _rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
@@ -382,28 +399,27 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string } = {},
-        options: {
-            parent?: Actor<TokenDocument<Scene | null> | null> | null;
+        context: {
+            parent?: ActorPF2e | null;
             pack?: Collection<ItemPF2e<null>> | null;
         } & Partial<FormApplicationOptions> = {}
-    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null> | null> {
-        const original = game.system.documentTypes.Item;
-        game.system.documentTypes.Item = original.filter(
-            (itemType: string) =>
-                !["condition", "spellcastingEntry", "lore"].includes(itemType) &&
-                !(["affliction", "book"].includes(itemType) && BUILD_MODE === "production")
-        );
-        const withClasses: {
-            parent?: Actor<TokenDocument<Scene | null> | null> | null;
-            pack?: Collection<Item<Actor<TokenDocument<Scene | null> | null> | null>> | null;
-        } & Partial<FormApplicationOptions> = {
-            ...options,
-            classes: [...(options.classes ?? []), "dialog-item-create"],
-        };
-        const newItem = super.createDialog(data, withClasses);
-        game.system.documentTypes.Item = original;
+    ): Promise<Item<ActorPF2e | null> | null> {
+        // Figure out the types to omit
+        const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
+        if (BUILD_MODE === "production") omittedTypes.push("affliction", "book");
+        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
 
-        return newItem;
+        // Create the dialog, temporarily changing the list of allowed items
+        const original = game.system.documentTypes.Item;
+        try {
+            game.system.documentTypes.Item = R.difference(original, omittedTypes);
+            return super.createDialog<ItemPF2e>(data, {
+                ...context,
+                classes: [...(context.classes ?? []), "dialog-item-create"],
+            });
+        } finally {
+            game.system.documentTypes.Item = original;
+        }
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
@@ -433,7 +449,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const source of [...sources]) {
             source.effects = []; // Never
 
-            if (!["flags", "system"].some((k) => k in source)) {
+            if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
                 // The item has no migratable data: set schema version and skip
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
@@ -597,18 +613,16 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        // Set default icon
-        if (this._source.img === ItemPF2e.DEFAULT_ICON) {
-            this._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        }
+    ): Promise<boolean | void> {
+        // Sort traits
+        this._source.system.traits?.value?.sort();
 
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
@@ -625,10 +639,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        await super._preCreate(data, options, user);
-
         // Remove any rule elements that request their own removal upon item creation
         this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);
+
+        return super._preCreate(data, options, user);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
@@ -636,14 +650,24 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         if (changed.system?.description?.value === null) {
             changed.system.description.value = "";
+        }
+
+        // Ensure level is a positive integer
+        if (changed.system?.level) {
+            changed.system.level.value = Math.max(0, Math.trunc(Number(changed.system.level.value) || 0));
         }
 
         // Normalize the slug, setting to `null` if empty
         if (typeof changed.system?.slug === "string") {
             changed.system.slug = sluggify(changed.system.slug) || null;
+        }
+
+        // Sort traits
+        if (Array.isArray(changed.system?.traits?.value)) {
+            changed.system?.traits?.value.sort();
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
@@ -668,7 +692,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             await rule.preUpdate?.(changed);
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Call onCreate rule-element hooks */
@@ -689,6 +713,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const updateKeys = Object.keys(actorUpdates);
         if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
+        }
+    }
+
+    /** Refresh the Item Directory if this item isn't embedded */
+    protected override _onUpdate(
+        data: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
+        super._onUpdate(data, options, userId);
+        if (game.ready && game.items.get(this.id) === this) {
+            ui.items.render();
         }
     }
 
@@ -754,6 +790,8 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     prepareSiblingData?(this: ItemPF2e<ActorPF2e>): void;
     prepareActorData?(this: ItemPF2e<ActorPF2e>): void;
+    /** Optional data-preparation callback executed after rule-element synthetics are prepared */
+    onPrepareSynthetics?(this: ItemPF2e<ActorPF2e>): void;
 
     /** Returns items that should also be added when this item is created */
     createGrantedItems(options?: object): Promise<ItemPF2e[]>;
@@ -768,7 +806,8 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>]
     ) {
-        return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
+        const ItemClass = CONFIG.PF2E.Item.documentClasses[args[0]?.type] ?? ItemPF2e;
+        return new ItemClass(...args);
     },
 });
 

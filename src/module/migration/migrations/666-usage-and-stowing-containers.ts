@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Set appropriate usage and mark certain containers as being for stowing */
 export class Migration666UsageAndStowingContainers extends MigrationBase {
@@ -43,7 +43,7 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
         "extradimensional-stash",
     ]);
 
-    override async updateItem(itemSource: ItemSourcePF2e) {
+    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (!itemSource.system.traits) return;
 
         const traits: TraitsWithUsage = itemSource.system.traits;

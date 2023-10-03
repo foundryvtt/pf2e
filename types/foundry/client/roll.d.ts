@@ -168,6 +168,9 @@ declare global {
          */
         static create(formula: string, data?: Record<string, unknown>, options?: RollOptions): Roll;
 
+        /** Get the default configured Roll class. */
+        static get defaultImplementation(): typeof Roll;
+
         /**
          * Transform an array of RollTerm objects into a cleaned string formula representation.
          * @param terms An array of terms to represent as a formula
@@ -405,7 +408,7 @@ declare global {
          * @param json   Serialized JSON data representing the Roll
          * @return A reconstructed Roll instance
          */
-        static fromJSON<T extends Roll>(this: T, json: string): T;
+        static fromJSON<T extends Roll>(this: AbstractConstructorOf<T>, json: string): T;
 
         /**
          * Manually construct a Roll object by providing an explicit set of input terms

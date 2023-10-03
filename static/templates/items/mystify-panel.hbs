@@ -1,8 +1,8 @@
-<div class="tab item-mystification" data-tab="mystification">
+<section class="tab mystification" data-tab="mystification">
     <div class="form-group mystification-status">
-        <label for="toggle-mystification">{{localize "PF2E.identification.MystificationStatus"}}</label>
+        <label for="{{item.uuid}}-mystification-status">{{localize "PF2E.identification.MystificationStatus"}}</label>
         <div class="form-fields">
-            <select name="system.identification.status">
+            <select name="system.identification.status" id="{{item.uuid}}-mystification-status">
                 {{#select data.identification.status}}
                     <option value="identified">{{localize "PF2E.identification.Identified"}}</option>
                     <option value="unidentified">{{localize "PF2E.identification.Unidentified"}}</option>
@@ -16,4 +16,4 @@
         <input type="text" name="system.identification.unidentified.name" value="{{data.identification.unidentified.name}}" class="mystify-control" title="{{localize PF2E.Item.IconLabel}}" />
         {{editor enrichedContent.unidentifiedDescription target="system.identification.unidentified.data.description.value" button=true owner=owner editable=editable}}
     </div>
-</div>
+</section>

@@ -1,0 +1,46 @@
+{
+    "_id": "4uy4Ygf5KD2WrtGW",
+    "img": "systems/pf2e/icons/equipment/held-items/nosoi-charm.webp",
+    "name": "Effect: Nosoi Charm (Diplomacy)",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 item bonus to Diplomacy checks to make a request.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.NosoiCharm.RequestLabel",
+                "predicate": [
+                    "action:request"
+                ],
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Night of the Gray Death"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

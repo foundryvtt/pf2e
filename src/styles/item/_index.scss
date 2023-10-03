@@ -10,12 +10,20 @@
         flex-wrap: nowrap;
     }
 
+    &.action form {
+        @import "ability-sheet";
+    }
+
     &.affliction form {
         @import "affliction-sheet";
     }
 
     &.deity form {
         @import "deity-sheet";
+    }
+
+    &.effect form {
+        @import "effect-sheet";
     }
 
     &.feat form {
@@ -59,19 +67,22 @@
             display: block;
         }
 
+        input:not(:disabled) {
+            color: var(--color-text-dark-input);
+        }
+
         .mce-panel span {
             display: inherit;
         }
 
         &.editable .rollable:hover {
-            color: #000;
+            color: var(--text-dark);
             text-shadow: 0 0 10px #00005a;
             cursor: pointer;
         }
 
         .tab {
             flex: 1;
-            overflow: hidden;
         }
 
         .tag-legacy {
@@ -98,7 +109,7 @@
             gap: 2px;
         }
 
-        .sheet-navigation {
+        > nav {
             display: flex;
             align-items: baseline;
             border-bottom: 1px solid var(--secondary-background);
@@ -135,14 +146,13 @@
                     }
 
                     &.active {
-                        color: #000;
-                        font-weight: 700;
+                        font-weight: 600;
                     }
                 }
             }
         }
 
-        article.sheet-content {
+        .sheet-content {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -154,7 +164,8 @@
             > * {
                 flex: 1;
             }
-            > section.sheet-sidebar, > section.sheet-body {
+            > section.sheet-sidebar,
+            > section.sheet-body {
                 height: calc(100% - 10px);
                 overflow-y: auto;
             }
@@ -162,49 +173,127 @@
             @import "sidebar";
 
             input {
-                &[type="text"], &[type="number"] {
-                    width: calc(100% - 2px);
-                    height: calc(100% - 2px);
-                    background: none;
-                    padding: 0;
-                    margin: 1px 0;
+                &[type="text"],
+                &[type="number"] {
                     border: 1px solid transparent;
-
-                    &:hover:not(:disabled), &:focus {
-                        border: 1px solid black;
-                        box-shadow: 0 0 10px #00005a;
-                    }
+                    height: calc(100% - 2px);
+                    margin: 1px 0;
+                    width: calc(100% - 2px);
                 }
             }
 
             select {
                 background: rgba(255, 255, 255, 0.5);
             }
+
+            button,
+            input:not([type="range"]),
+            select {
+                &:hover:not(:disabled),
+                &:focus {
+                    border-color: var(--color-border-dark-1);
+                    box-shadow: 0 0 5px var(--secondary);
+                }
+            }
         }
 
-        section.sheet-body {
-            input[type=text], input[type=number] {
-                background: rgba(255, 255, 255, 0.5);
-                border: 1px solid #aaa;
+        .sheet-body {
+            input[type="text"],
+            input[type="number"] {
                 padding: 3px;
+
+                &:not(:disabled) {
+                    background: rgba(255, 255, 255, 0.5);
+                    border: 1px solid var(--color-text-light-5);
+                }
             }
 
-            .tab {
-                padding-left: 10px;
+            .tab.active {
+                padding-left: 0.5rem;
 
-                /** Any tab */
-                .editor {
-                    height: 100%;
-                }
+                &.description {
+                    // Allow editor scrolling to take over when editing
+                    &.editing {
+                        overflow: hidden;
+                        .descriptions > section {
+                            flex: 1;
+                        }
+                    }
 
-                .editor-content {
-                    @include scrollbar;
+                    .descriptions {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 3px;
+                        height: 100%;
+                        padding: 0 0.25em;
+
+                        > * {
+                            display: flex;
+                            overflow: hidden;
+                            .editor {
+                                flex: 1;
+                            }
+                        }
+
+                        .gm-notes {
+                            background-color: var(--visibility-gm-bg);
+                            border: 1px dotted rgba(75, 74, 68, 0.5);
+                            padding: 0 0.25em;
+                            flex: 0 0 auto;
+
+                            &:not(.has-content) {
+                                display: none;
+                            }
+
+                            .editor {
+                                min-height: 2.5em;
+                            }
+                        }
+
+                        .main {
+                            flex-grow: 1;
+                        }
+
+                        .editor {
+                            display: flex;
+                            flex-direction: column;
+                            a.add-gm-notes,
+                            a.editor-edit {
+                                font-size: 1.33em;
+                                background: rgb(205, 205, 205);
+
+                                i {
+                                    width: 1em;
+                                    text-align: center;
+                                }
+                            }
+
+                            a.add-gm-notes {
+                                border-radius: 4px;
+                                border: 1px solid var(--color-border-dark-1);
+                                box-shadow: 0 0 1px var(--color-shadow-dark);
+                                display: none;
+                                padding: 1px 2px;
+                                position: absolute;
+                                right: 35px;
+                                top: 5px;
+                            }
+
+                            &:hover a.add-gm-notes {
+                                display: block;
+                            }
+
+                            .tox {
+                                flex: 1;
+                            }
+                        }
+                    }
                 }
 
                 /** Details */
-                &.item-details {
+                &.details {
                     padding: 0.5rem 0.5rem 0;
-                    @include scrollbar;
+                    overflow: hidden scroll;
 
                     label {
                         color: var(--color-text-dark-2);
@@ -221,10 +310,6 @@
                         font-size: var(--font-size-12);
                         height: 1.5rem;
                         padding-right: 1em;
-
-                        &.rarity {
-                            max-width: fit-content;
-                        }
                     }
 
                     .tags .tag {
@@ -232,9 +317,9 @@
                     }
                 }
 
-                &.item-mystification {
+                &.mystification {
                     padding: 8px 8px 0;
-                    @include scrollbar;
+                    overflow: hidden scroll;
 
                     label {
                         color: #353535;
@@ -242,90 +327,42 @@
                     }
                 }
 
-                &.item-activations, &.item-rules {
-                    @include scrollbar;
+                &.item-activations,
+                &.rules {
+                    overflow: hidden scroll;
+                }
+            }
+
+            fieldset {
+                legend {
+                    font-weight: 600;
+                }
+
+                border: 1px solid var(--color-border-medium);
+                border-radius: 2px;
+                margin-bottom: 0.5rem;
+                padding: 0 0.5em 0.25em;
+
+                &.basics {
+                    border-color: transparent;
+                    padding: 0;
                 }
             }
 
             .editor {
-                --space-s: 0.25em;
-                --space-m: 0.5em;
-                --space-l: 1em;
-                --space-xl: 1.5em;
-                --radius: 3px;
-                @include tinymce-system-specific;
-            }
-
-            .item-description {
-                .descriptions {
-                    height: 100%;
-                    overflow: hidden;
-
-                    .main {
-                        height: 100%;
-                    }
-
-                    .gm-notes {
-                        background-color: var(--visibility-gm-bg);
-                        border: 1px dotted rgba(75, 74, 68, 0.5);
-                        padding: 0 0.25em;
-
-                        &:not(.has-content) {
-                            display: none;
-                        }
-
-                        .editor {
-                            min-height: 2.5em;
-                        }
-                    }
-
-                    .editor {
-                        a.add-gm-notes, a.editor-edit {
-                            font-size: 1.33em;
-                            background: rgb(205, 205, 205);
-
-                            i {
-                                width: 1em;
-                                text-align: center;
-                            }
-                        }
-
-                        a.add-gm-notes {
-                            border-radius: 4px;
-                            border: 1px solid var(--color-border-dark-1);
-                            box-shadow: 0 0 1px var(--color-shadow-dark);
-                            display: none;
-                            padding: 1px 2px;
-                            position: absolute;
-                            right: 35px;
-                            top: 5px;
-                        }
-
-                        &:hover a.add-gm-notes {
-                            display: block;
-                        }
-                    }
-
-                    .main .editor {
-                        min-height: 6em;
-                    }
-                }
+                @include journal-styling;
             }
         }
 
-        h3, header {
+        h3,
+        header {
             .item-controls {
-                cursor: pointer;
                 float: right;
             }
         }
 
         .form-group .item-controls {
             flex: 0 1 auto;
-        }
-
-        .form-section {
-            margin-top: 8px;
         }
 
         .form-list {
@@ -357,12 +394,13 @@
                 align-items: baseline;
                 background-color: var(--secondary);
                 border-radius: 5px 5px 0 0;
-                color: white;
+                color: var(--text-light);
                 display: flex;
                 justify-content: space-between;
                 margin: -1px -1px 0 -1px;
                 padding: 1px;
-                h3, .item-controls {
+                h3,
+                .item-controls {
                     padding: 0.25rem;
                     margin-bottom: 0;
                 }
@@ -431,7 +469,8 @@
             padding-left: 0;
         }
 
-        .details-container, .dice-data {
+        .details-container,
+        .dice-data {
             display: grid;
             grid: "dice die type" / 40px 60px auto;
         }
@@ -452,14 +491,12 @@
         }
 
         .details-container-flex-row {
-            display: flex;
-            flex-direction: row;
             align-items: center;
+            display: flex;
             justify-content: space-between;
 
             & > label {
                 display: flex;
-                flex-direction: row;
                 align-items: center;
                 white-space: nowrap;
             }

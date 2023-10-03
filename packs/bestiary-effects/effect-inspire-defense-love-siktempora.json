@@ -1,0 +1,51 @@
+{
+    "_id": "MKC2ne315YiCUiWd",
+    "img": "systems/pf2e/icons/spells/inspire-defense.webp",
+    "name": "Effect: Inspire Defense (Love Siktempora)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +2 status bonus to AC and saving throws, as well as resistance 4 to physical damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Inspire Defense",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

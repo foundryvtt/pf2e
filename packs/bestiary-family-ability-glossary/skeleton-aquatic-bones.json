@@ -1,0 +1,48 @@
+{
+    "_id": "AvoSAlqB8mZfjwr9",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Skeleton) Aquatic Bones",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>The skeleton has bones from aquatic creatures, allowing it to swim using a simple tail, paddles, or similar appendage. The skeleton has a swim Speed of 20 feet and gains the aquatic trait and the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aquatic Ambush] ability.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aquatic Ambush"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim-speed",
+                "value": 20
+            },
+            {
+                "add": [
+                    "aquatic"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

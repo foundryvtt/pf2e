@@ -1,0 +1,48 @@
+{
+    "_id": "IxhKGd3nK2lcIpMw",
+    "img": "systems/pf2e/icons/equipment/treasure/gems/greater-precious-stones/large-ruby.webp",
+    "name": "Effect: Demon's Knot",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to Intimidation checks, and your Strikes deal an additional 1d6 evil damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "intimidation",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #195: Heavy is the Crown"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

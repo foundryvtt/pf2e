@@ -1,0 +1,46 @@
+{
+    "_id": "mFnSXW6HTwS7Iu1k",
+    "img": "systems/pf2e/icons/spells/fear.webp",
+    "name": "Effect: Hunted Fear",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to Survival checks to avoid getting lost.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.NPCAbility.MinotaurHuntedFear.Survival",
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

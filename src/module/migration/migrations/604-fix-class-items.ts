@@ -1,10 +1,10 @@
-import { ClassSource } from "@item/data";
-import { MigrationBase } from "../base";
+import { ClassSource } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration604FixClassItem extends MigrationBase {
     static override version = 0.604;
 
-    override async updateItem(item: MaybeWithAbilityBoosLevels) {
+    override async updateItem(item: MaybeWithAbilityBoosLevels): Promise<void> {
         if (item.type !== "class") return;
 
         if (Array.isArray(item.system.ancestryFeatLevels)) {

@@ -1,0 +1,47 @@
+{
+    "_id": "9jxwttnEfxrOaCsY",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Gruhastha - Major Boon",
+    "system": {
+        "description": {
+            "value": "<p><strong>Major Boon:</strong> You are a divine inspiration to others around you. When attempting any checks to Recall Knowledge, you can roll twice and use the better result; this is a fortune effect. Additionally, allies within 60 feet gain a +2 status bonus to Will saves.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "all",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

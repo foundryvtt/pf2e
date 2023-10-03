@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Rename the `name` property on FlatModifier and DamageDice REs to `slug` to better represent its purpose */
 export class Migration701ModifierNameToSlug extends MigrationBase {

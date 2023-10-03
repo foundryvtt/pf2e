@@ -1,0 +1,284 @@
+{
+    "_id": "ILF7Azqi2TM6ktl9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "YKm4JByteFxgMLrc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Symbol Stats (Each)",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Hardness</strong> 16</p>\n<p><strong>HP</strong> 64 (BT 32)</p>\n<p><strong>Resistances</strong> Electricity 15</p>\n<p><strong>Immunities</strong> Critical Hits, Object Immunities, Precision Damage</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y1EDMIPZrSGC7wRz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Control Panel Stats",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Hardness</strong> 18</p>\n<p><strong>HP</strong> 72 (BT 36)</p>\n<p><strong>Resistances</strong> Electricity 15</p>\n<p><strong>Immunities</strong> Critical Hits, Object Immunities, Precision Damage</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "enJ4VkXbDUV56rwT",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Charge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature without an Aspis Consortium badge approaches within 5 feet of a slab</p>\n<hr />\n<p><strong>Effect</strong> Both double doors leading out of the room shut and lock. While the trap is active, the doors must be battered open (Hardness 18; Panel HP 72 [BT 36]; @Check[type:athletics|dc:29|name:Batter Down Doors|traits:action:force-open] to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open]). The closest symbol to the triggering creature shoots an electricity bolt attack at it. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r4GLtMTPNISHccTL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No Multiple Attack Penalty",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GKCraZhfHY73oosv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Electrical Bolt",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "kz4wjza1vdnr4bny3gibi": {
+                        "damage": "1d6+2",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": "<p>Plus 1d6 persistent electricity damage</p>"
+                },
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Scroll Shock Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hasHealth": true,
+            "hp": {
+                "details": "See Symbol and Panel Stats",
+                "max": 64,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 64
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 15
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:29|traits:action:seek] (expert) to spot the control panel</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Five scroll symbols shoot electricity bolts around the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:25|name:Counteract Magic|traits:action:disable-a-device] (expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 24)</p>\n<p>@Check[type:thievery|dc:29|name:Disable Trap (Control Panel)|traits:action:disable-a-device] (master) to disable the entire trap from the hidden control panel beneath the central slab.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap deactivates 1 round after it has no target creatures and resets after 1 minute.</p>",
+            "routine": "<p>(5 actions) Each disabled symbol reduces the trap's number of actions by 1.</p>\n<p>For each of its actions, a different symbol shoots an electricity bolt at a random creature in the room. The trap doesn't take multiple attack penalties.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Slithering"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

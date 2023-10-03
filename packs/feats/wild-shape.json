@@ -1,0 +1,96 @@
+{
+    "_id": "VaIHQzOE5ibmbtqU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Wild Shape",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are one with the wild, always changing and adapting to meet any challenge. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Wild Shape]</em> order spell, which lets you transform into a variety of forms that you can expand with druid feats.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "wild order"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.wildShapeForms",
+                "priority": 10,
+                "value": [
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.ydsLEGjY89Akc4oZ"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            3
+                        ]
+                    }
+                ],
+                "priority": 11,
+                "value": [
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.ydsLEGjY89Akc4oZ"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.tk3go5Cl6Qt130Dk"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.gQnDKDeBTtjwOWAk"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.BT1ofB6RvRocQOWO"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.sN3mQ7YrPBogEJRn"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.ptOqsN5FS0nQh7RW"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.F4DTpDXNu5IliyhJ"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.j2LhQ7kEQhq3J3zZ"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.qPaEEhczUWCQo6ux"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.kz3mlFwb9tV9bFwu"
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

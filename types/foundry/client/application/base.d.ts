@@ -30,7 +30,7 @@ declare global {
         protected _searchFilters: SearchFilter[];
 
         /** Track whether the Application is currently minimized */
-        protected _minimized: boolean;
+        _minimized: boolean;
 
         /**
          * Track the render state of the Application
@@ -134,12 +134,12 @@ declare global {
         /**
          * Persist the scroll positions of containers within the app before re-rendering the content
          */
-        protected _saveScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _saveScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Restore the scroll positions of containers within the app after re-rendering the content
          */
-        protected _restoreScrollPositions(html: HTMLElement | JQuery, selectors: string[]): void;
+        protected _restoreScrollPositions(html: HTMLElement | JQuery): void;
 
         /**
          * Render the outer application wrapper

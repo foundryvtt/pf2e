@@ -1,0 +1,61 @@
+{
+    "_id": "Xhphe5Lsa4kuU4RG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Crossbow Terror",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are a dynamo with the crossbow.</p>\n<p>You gain a +2 circumstance bonus to damage with @UUID[Compendium.pf2e.equipment-srd.Item.Crossbow]{Crossbows}.</p>\n<p>If the crossbow is a simple weapon, also increase the damage die size for your attacks made with that crossbow by one step. As normal, this damage die increase can't be combined with other abilities that alter the weapon damage die (such as the ranger feat @UUID[Compendium.pf2e.feats-srd.Item.Crossbow Ace]).</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Archer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:crossbow"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "DamageDice",
+                "label": "Crossbow Ace",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "item:tag:crossbow",
+                    "item:category:simple"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

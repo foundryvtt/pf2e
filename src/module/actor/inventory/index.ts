@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
-import { PhysicalItemPF2e, TreasurePF2e } from "@item";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
+import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { Coins } from "@item/physical/data.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
 import { ErrorPF2e, groupBy } from "@util";
-import { InventoryBulk } from "./bulk";
+import { InventoryBulk } from "./bulk.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 
 class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
@@ -38,7 +39,25 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         return new InventoryBulk(this.actor);
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+    /** Find an item already owned by the actor that can stack with the given item */
+    findStackableItem(item: PhysicalItemPF2e | ItemSourcePF2e): PhysicalItemPF2e<TActor> | null {
+        // Prevent upstream from mutating property descriptors
+        const testItem = item instanceof PhysicalItemPF2e ? item.clone() : new ItemProxyPF2e(deepClone(item));
+        if (!testItem.isOfType("physical")) return null;
+
+        const stackCandidates = this.filter((i) => !i.isInContainer && i.isStackableWith(testItem));
+        if (stackCandidates.length === 0) {
+            return null;
+        } else if (stackCandidates.length > 1) {
+            // Prefer stacking with unequipped items
+            const notEquipped = stackCandidates.filter((item) => !item.isEquipped);
+            return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
+        } else {
+            return stackCandidates[0];
+        }
+    }
+
+    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -65,7 +84,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         }
     }
 
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
+    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
         const coinsToRemove = new CoinsPF2e(coins);
         const actorCoins = this.coins;
         const coinsToAdd = new CoinsPF2e();
@@ -184,6 +203,23 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
         await this.actor.inventory.addCoins(coins);
     }
+
+    /** Adds an item to this inventory without removing from its original location */
+    async add(item: PhysicalItemPF2e | KitPF2e, options: AddItemOptions = {}): Promise<void> {
+        if (options.stack && item.isOfType("physical")) {
+            const stackableItem = this.findStackableItem(item._source);
+            if (stackableItem) {
+                await stackableItem.update({ "system.quantity": stackableItem.quantity + item.quantity });
+                return;
+            }
+        }
+
+        await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    }
+}
+
+interface AddItemOptions {
+    stack?: boolean;
 }
 
 export { ActorInventory, InventoryBulk };

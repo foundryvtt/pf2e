@@ -1,0 +1,41 @@
+{
+    "_id": "MIRkyAjyBeXivMa7",
+    "img": "systems/pf2e/icons/conditions/enfeebled.webp",
+    "name": "Enfeebled",
+    "system": {
+        "description": {
+            "value": "<p>You're physically weakened. Enfeebled always includes a value. When you are enfeebled, you take a status penalty equal to the condition value to Strength-based rolls and DCs, including Strength-based melee attack rolls, Strength-based damage rolls, and Athletics checks.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": "abilities",
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "str-based",
+                    "str-damage"
+                ],
+                "slug": "enfeebled",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": true,
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

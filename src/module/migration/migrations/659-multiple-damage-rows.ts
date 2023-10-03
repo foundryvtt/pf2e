@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { SpellDamage, SpellSystemData } from "@item/spell/data";
-import { DamageType } from "@system/damage";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { SpellDamage, SpellSystemSource } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/index.ts";
 import { tupleHasValue } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 const formulaHasValue = (value?: string | null): value is string => {
     return !!value && value !== "0";
@@ -14,10 +14,10 @@ const modes = ["level1", "level2", "level3", "level4"] as const;
 export class Migration659MultipleDamageRows extends MigrationBase {
     static override version = 0.659;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
-        if (itemData.type !== "spell") return;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type !== "spell") return;
 
-        const data: SpellSystemDataOld = itemData.system;
+        const data: SpellSystemDataOld = source.system;
 
         // Migrate scaling (standalone)
         if (data.scaling instanceof Object) {
@@ -78,7 +78,7 @@ export class Migration659MultipleDamageRows extends MigrationBase {
     }
 }
 
-interface SpellSystemDataOld extends Omit<SpellSystemData, "damage" | "scaling"> {
+interface SpellSystemDataOld extends Omit<SpellSystemSource, "damage" | "scaling"> {
     damage: {
         value: string | Record<number, SpellDamage>;
         applyMod?: boolean;

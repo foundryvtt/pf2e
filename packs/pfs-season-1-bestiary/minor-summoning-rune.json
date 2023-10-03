@@ -1,0 +1,111 @@
+{
+    "_id": "bpCyglPCTMC8EL5w",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1M9OasbKWAPME9IC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Monster",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the cloud of magical sensors.</p>\n<hr />\n<p><strong>Effect</strong> This trap summons a specific level -1 creature, determined when the trap is created. The squares above the blue runes summon a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Mitflit], while the squares above the yellow runes summon a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Bloodseeker]. The creature rolls initiative and remains for [[/br 2d4 #rounds]]{2d4 rounds}, after which the spell ends and the creature disappears. The creature also disappears if someone disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Minor Summoning Rune",
+    "prototypeToken": {
+        "name": "Summoning Rune"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A cloud of invisible magical sensors covers four squares on the map. One of these hazards is in the squares directly above each of the four yellow runes on the map, and the other is in the squares directly above each of the four blue runes on the map.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:13] to approach without triggering the trap followed by @Check[type:thievery|dc:15] (trained) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em>(1st level; counteract DC 13) to counteract the rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": -1
+            },
+            "reset": "<p>The trap resets each day at dawn.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-11: Flames of Rebellion"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

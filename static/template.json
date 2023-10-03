@@ -37,7 +37,6 @@
                     "senses": [],
                     "languages": {
                         "value": [],
-                        "selected": [],
                         "custom": ""
                     }
                 },
@@ -51,16 +50,10 @@
         "htmlFields": [
             "details.biography.appearance",
             "details.biography.backstory",
-            "details.biography.birthPlace",
-            "details.biography.attitude",
-            "details.biography.beliefs",
-            "details.biography.likes",
-            "details.biography.dislikes",
-            "details.biography.catchphrases",
             "details.biography.campaignNotes",
             "details.biography.allies",
             "details.biography.enemies",
-            "details.biography.organaizations",
+            "details.biography.organizations",
             "details.description",
             "details.privateNotes",
             "details.publicNotes"
@@ -69,8 +62,7 @@
             "templates": [
                 "common"
             ],
-            "abilities": {},
-            "saves": {},
+            "exploration": [],
             "attributes": {
                 "bonusLimitBulk": 0,
                 "bonusEncumbranceBulk": 0,
@@ -97,7 +89,13 @@
                     "campaignNotes": "",
                     "allies": "",
                     "enemies": "",
-                    "organaizations": ""
+                    "organizations": "",
+                    "visibility": {
+                        "appearance": true,
+                        "backstory": false,
+                        "personality": false,
+                        "campaign": false
+                    }
                 },
                 "keyability": {
                     "value": "str"
@@ -176,10 +174,6 @@
                 "thi": {
                     "rank": 0
                 }
-            },
-            "martial": {},
-            "crafting": {
-                "formulas": []
             },
             "resources": {
                 "heroPoints": {
@@ -280,9 +274,6 @@
         },
         "hazard": {
             "templates": [],
-            "source": {
-                "value": ""
-            },
             "creatureType": "",
             "saves": {
                 "fortitude": {
@@ -323,7 +314,11 @@
                 "disable": "",
                 "description": "",
                 "reset": "",
-                "routine": ""
+                "routine": "",
+                "source": {
+                    "value": "",
+                    "author": ""
+                }
             },
             "statusEffects": [],
             "traits": {
@@ -382,9 +377,6 @@
             "attributes": {},
             "details": {
                 "description": "",
-                "level": {
-                    "value": 0
-                },
                 "members": []
             }
         },
@@ -459,15 +451,16 @@
             "affliction",
             "ancestry",
             "armor",
+            "background",
             "backpack",
             "book",
-            "equipment",
+            "campaignFeature",
             "class",
             "condition",
             "consumable",
-            "background",
             "deity",
             "effect",
+            "equipment",
             "feat",
             "heritage",
             "kit",
@@ -492,6 +485,9 @@
                 "schema": {
                     "version": null,
                     "lastMigration": null
+                },
+                "traits": {
+                    "otherTags": []
                 }
             },
             "traits": {
@@ -510,13 +506,11 @@
                 },
                 "traits": {
                     "value": [],
-                    "rarity": "common",
-                    "otherTags": []
+                    "rarity": "common"
                 },
                 "quantity": 1,
                 "baseItem": null,
                 "hp": {
-                    "brokenThreshold": 0,
                     "value": 0,
                     "max": 0
                 },
@@ -538,13 +532,11 @@
                     "value": "0"
                 },
                 "containerId": null,
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
                 "size": "med",
+                "material": {
+                    "type": null,
+                    "grade": null
+                },
                 "identification": {
                     "status": "identified",
                     "unidentified": {
@@ -555,7 +547,6 @@
                                 "value": ""
                             }
                         }
-
                     },
                     "misidentified": {}
                 },
@@ -575,6 +566,7 @@
             }
         },
         "htmlFields": [
+            "description.gm",
             "description.value",
             "identification.data.description.value"
         ],
@@ -654,10 +646,7 @@
             },
             "range": null,
             "reload": {
-                "value": ""
-            },
-            "MAP": {
-                "value": ""
+                "value": null
             },
             "potencyRune": {
                 "value": 0
@@ -700,23 +689,13 @@
                 "physical",
                 "investable"
             ],
-            "armor": {
-                "value": 0
-            },
             "category": "light",
             "group": null,
-            "strength": {
-                "value": 0
-            },
-            "dex": {
-                "value": 0
-            },
-            "check": {
-                "value": 0
-            },
-            "speed": {
-                "value": 0
-            },
+            "acBonus": 0,
+            "strength": 0,
+            "dexCap": 0,
+            "checkPenalty": null,
+            "speedPenalty": null,
             "potencyRune": {
                 "value": 0
             },
@@ -802,15 +781,32 @@
             "reach": 5,
             "speed": 25,
             "boosts": {
-                "0": { "value": [] },
-                "1": { "value": [] },
-                "2": { "value": ["str", "dex", "con", "int", "wis", "cha"] }
+                "0": {
+                    "value": []
+                },
+                "1": {
+                    "value": []
+                },
+                "2": {
+                    "value": [
+                        "str",
+                        "dex",
+                        "con",
+                        "int",
+                        "wis",
+                        "cha"
+                    ]
+                }
             },
             "flaws": {
-                "0": { "value": [] }
+                "0": {
+                    "value": []
+                }
             },
             "languages": {
-                "value": ["common"],
+                "value": [
+                    "common"
+                ],
                 "custom": ""
             },
             "additionalLanguages": {
@@ -828,8 +824,12 @@
                 "rarity"
             ],
             "boosts": {
-                "0": { "value": [] },
-                "1": { "value": [] }
+                "0": {
+                    "value": []
+                },
+                "1": {
+                    "value": []
+                }
             },
             "items": {},
             "trainedLore": "",
@@ -837,13 +837,34 @@
                 "value": []
             }
         },
+        "campaignFeature": {
+            "templates": [
+                "common",
+                "traits",
+                "rarity"
+            ],
+            "campaign": "kingmaker",
+            "category": "kingdom-activity",
+            "actionType": {
+                "value": "passive"
+            },
+            "actions": {
+                "value": null
+            },
+            "prerequisites": {
+                "value": []
+            },
+            "location": null
+        },
         "class": {
             "templates": [
                 "common",
                 "traits",
                 "rarity"
             ],
-            "keyAbility": { "value": [] },
+            "keyAbility": {
+                "value": []
+            },
             "items": {},
             "hp": 0,
             "trainedSkills": {
@@ -861,7 +882,10 @@
                 "martial": 0,
                 "advanced": 0,
                 "unarmed": 0,
-                "other": { "name": "", "rank": 0 }
+                "other": {
+                    "name": "",
+                    "rank": 0
+                }
             },
             "defenses": {
                 "unarmored": 0,
@@ -870,11 +894,66 @@
                 "heavy": 0
             },
             "classDC": 0,
-            "ancestryFeatLevels": { "value": [ 1, 5, 9, 13, 17 ] },
-            "classFeatLevels": { "value": [ 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ] },
-            "generalFeatLevels": { "value": [ 3, 7, 11, 15, 19 ] },
-            "skillFeatLevels": { "value": [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ] },
-            "skillIncreaseLevels": { "value": [ 3, 5, 7, 9, 11, 13, 15, 17, 19 ] }
+            "ancestryFeatLevels": {
+                "value": [
+                    1,
+                    5,
+                    9,
+                    13,
+                    17
+                ]
+            },
+            "classFeatLevels": {
+                "value": [
+                    1,
+                    2,
+                    4,
+                    6,
+                    8,
+                    10,
+                    12,
+                    14,
+                    16,
+                    18,
+                    20
+                ]
+            },
+            "generalFeatLevels": {
+                "value": [
+                    3,
+                    7,
+                    11,
+                    15,
+                    19
+                ]
+            },
+            "skillFeatLevels": {
+                "value": [
+                    2,
+                    4,
+                    6,
+                    8,
+                    10,
+                    12,
+                    14,
+                    16,
+                    18,
+                    20
+                ]
+            },
+            "skillIncreaseLevels": {
+                "value": [
+                    3,
+                    5,
+                    7,
+                    9,
+                    11,
+                    13,
+                    15,
+                    17,
+                    19
+                ]
+            }
         },
         "feat": {
             "templates": [
@@ -922,11 +1001,9 @@
                 "traits"
             ],
             "actionType": {
-                "value": ""
+                "value": "passive"
             },
-            "actionCategory": {
-                "value": ""
-            },
+            "category": null,
             "actions": {
                 "value": null
             },
@@ -955,9 +1032,6 @@
             },
             "traditions": {
                 "value": []
-            },
-            "school": {
-                "value": "evocation"
             },
             "components": {
                 "focus": false,
@@ -1142,7 +1216,6 @@
                 "value": 0,
                 "initiative": null
             },
-            "target": null,
             "tokenIcon": {
                 "show": true
             },
@@ -1164,7 +1237,10 @@
                 "primary": [],
                 "alternate": []
             },
-            "font": ["harm", "heal"],
+            "font": [
+                "harm",
+                "heal"
+            ],
             "ability": [],
             "skill": null,
             "weapons": [],

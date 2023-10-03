@@ -1,0 +1,123 @@
+{
+    "_id": "62hpJOuvYYSa4X7u",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hellknight Signifer Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have bolstered your force of will with the power of the Measure and the Chain. Upon initiation, you receive a @UUID[Compendium.pf2e.equipment-srd.Item.Signifier's Mask], often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your signifer's mask, you gain +1 circumstance bonus to Deception checks to Lie, Intimidation checks, and Deception DCs against Sense Motive. You gain expert proficiency in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation) as well as in your choice of Arcana, Nature, Occultism, or Religion.</p>\n<div><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.RxDsPgPCCxEdjcVQ]{Hellknight Signifer} or @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.ARYrFIOsT3JxpjDY]{Hellknight Armiger} archetypes.</div>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "spellcasting class feature"
+                },
+                {
+                    "value": "Hellknight Armiger Dedication"
+                },
+                {
+                    "value": "lawful alignment"
+                },
+                {
+                    "value": "member of a Hellknight order"
+                },
+                {
+                    "value": "passed the Hellknight Test"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Signifier's Mask"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:arc:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:nat:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:rel:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "skill:occ:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "occ"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

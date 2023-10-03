@@ -1,8 +1,8 @@
-import { ActionCost, ActionUseOptions } from "./types";
-import { ActorPF2e } from "@actor";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
-import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base";
-import { EffectPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { EffectPF2e } from "@item";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
+import { ActionCost, ActionUseOptions } from "./types.ts";
 
 interface SimpleActionVariantData extends BaseActionVariantData {
     effect?: string | EffectPF2e;
@@ -13,10 +13,14 @@ interface SimpleActionData extends BaseActionData<SimpleActionVariantData> {
 }
 
 interface SimpleActionUseOptions extends ActionUseOptions {
-    actors: ActorPF2e[];
     cost: ActionCost;
     effect: string | EffectPF2e | false;
-    traits: string[];
+}
+
+interface SimpleActionResult {
+    actor: ActorPF2e;
+    effect?: EffectPF2e;
+    message?: ChatMessage;
 }
 
 async function toEffectItem(effect?: string | EffectPF2e) {
@@ -33,11 +37,11 @@ class SimpleActionVariant extends BaseActionVariant {
         this.#effect = data?.effect ?? action.effect;
     }
 
-    get effect() {
+    get effect(): string | EffectPF2e | undefined {
         return this.#effect ?? this.#action.effect;
     }
 
-    override async use(options: Partial<SimpleActionUseOptions> = {}) {
+    override async use(options: Partial<SimpleActionUseOptions> = {}): Promise<SimpleActionResult[]> {
         const actors: ActorPF2e[] = [];
         if (Array.isArray(options.actors)) {
             actors.push(...options.actors);
@@ -47,7 +51,7 @@ class SimpleActionVariant extends BaseActionVariant {
             actors.push(...getSelectedOrOwnActors());
         }
         if (actors.length === 0) {
-            return ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+            throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }
 
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
@@ -61,23 +65,25 @@ class SimpleActionVariant extends BaseActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
-        const flavor = await renderTemplate("systems/pf2e/templates/system/actions/simple/chat-message-flavor.hbs", {
+        const flavor = await renderTemplate("systems/pf2e/templates/actors/actions/simple/chat-message-flavor.hbs", {
             effect,
             glyph: this.glyph,
             name,
             traits,
         });
-        const messages = [];
+        const results: SimpleActionResult[] = [];
         for (const actor of actors) {
-            messages.push({
+            const message = await ChatMessage.create({
                 flavor,
                 speaker: ChatMessage.getSpeaker({ actor }),
             });
-            if (effect && actor.isOwner) {
-                await actor.createEmbeddedDocuments("Item", [effect.toObject()]);
-            }
+            const item =
+                effect && actor.isOwner
+                    ? ((await actor.createEmbeddedDocuments("Item", [effect.toObject()]))[0] as EffectPF2e)
+                    : undefined;
+            results.push({ actor, effect: item, message });
         }
-        await ChatMessage.create(messages);
+        return results;
     }
 }
 
@@ -94,4 +100,5 @@ class SimpleAction extends BaseAction<SimpleActionVariantData, SimpleActionVaria
     }
 }
 
-export { SimpleAction, SimpleActionVariantData };
+export { SimpleAction, SimpleActionVariant };
+export type { SimpleActionResult, SimpleActionUseOptions, SimpleActionVariantData };

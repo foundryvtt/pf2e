@@ -1,4 +1,4 @@
-> section.sheet-sidebar {
+section.sheet-sidebar {
     flex: 0 0 220px;
     display: flex;
     flex-direction: column;
@@ -29,15 +29,15 @@
         }
     }
 
-    .inventory-details, .feat-details {
-        @include scrollbar;
+    .inventory-details,
+    .feat-details {
+        overflow: hidden scroll;
         padding: 0 4px 0 0;
 
         label {
-            color: #353535;
-            font-weight: bold;
-            white-space: nowrap;
+            font-weight: 500;
             max-width: 6em;
+            white-space: nowrap;
         }
 
         .form-group {
@@ -45,14 +45,15 @@
 
             input {
                 text-align: right;
+
                 &.left-of-select {
                     min-width: 4ch;
-                    padding-right: 0.5em;
+                    padding-right: 0.25em;
                 }
             }
 
             select {
-                max-width: 16em;
+                max-width: 12em;
             }
 
             &.longtext {
@@ -87,8 +88,8 @@
 
     select {
         font-family: inherit;
-        font-size: 0.8em;
-        height: 18px;
+        font-size: 0.85em;
+        height: 1.8em;
     }
 
     button {
@@ -104,7 +105,7 @@
             max-width: unset;
         }
 
-        input[type=radio] {
+        input[type="radio"] {
             margin: 0;
             top: 0;
         }
@@ -116,7 +117,7 @@
             text-align: end;
         }
 
-        input[type=text] {
+        input[type="text"] {
             flex: 1;
             text-align: end;
         }

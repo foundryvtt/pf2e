@@ -1,13 +1,14 @@
-import type { ActorPF2e } from "@actor/base";
-import type { ItemPF2e } from "@item/base";
-import type { MacroPF2e } from "@module/macro";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { MigrationBase } from "@module/migration/base";
-import type { UserPF2e } from "@module/user";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { ItemSourcePF2e } from "@item/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { ScenePF2e } from "@scene";
+import type { ActorPF2e } from "@actor/base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ItemPF2e } from "@item/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import type { MacroPF2e } from "@module/macro.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { Progress } from "@system/progress.ts";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -48,7 +49,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actor or item documents in batches of 50 */
     async #migrateDocuments<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
         collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
+        progress?: Progress
     ): Promise<void> {
         const DocumentClass = collection.documentClass;
         const pack = "metadata" in collection ? collection.metadata.id : null;
@@ -58,6 +60,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
+                    progress?.advance({ by: updateGroup.length });
                 } catch (error) {
                     console.warn(error);
                 } finally {
@@ -67,51 +70,29 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updated =
                 "items" in document
                     ? await this.#migrateActor(migrations, document, { pack })
-                    : await this.#migrateItem(migrations, document, { pack });
+                    : await this.#migrateItem(migrations, document);
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
             try {
                 await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
+                progress?.advance({ by: updateGroup.length });
             } catch (error) {
                 console.warn(error);
             }
         }
     }
 
-    async #migrateItem(
-        migrations: MigrationBase[],
-        item: ItemPF2e,
-        options: { pack?: string | null } = {}
-    ): Promise<ItemSourcePF2e | null> {
-        const { pack } = options;
+    async #migrateItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
         const baseItem = item.toObject();
-        const updatedItem = await (() => {
-            try {
-                return this.getUpdatedItem(baseItem, migrations);
-            } catch (error) {
-                console.error(error);
-                return null;
+        try {
+            return this.getUpdatedItem(baseItem, migrations);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
             }
-        })();
-        if (!updatedItem) return null;
-
-        const baseAEs = [...baseItem.effects];
-        const updatedAEs = [...updatedItem.effects];
-        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
-        if (aeDiff.deleted.length > 0) {
-            try {
-                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
-                    item.effects.some((effect) => effect.id === deletedId)
-                );
-                await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
+            return null;
         }
-
-        updatedItem.effects = item.actor?.isToken ? updatedAEs : aeDiff.updated;
-        return updatedItem;
     }
 
     async #migrateActor(
@@ -126,24 +107,27 @@ export class MigrationRunner extends MigrationRunnerBase {
                 return this.getUpdatedActor(baseActor, migrations);
             } catch (error) {
                 // Output the error, since this means a migration threw it
-                console.error(error);
+                if (error instanceof Error) {
+                    console.error(`Error thrown while migrating ${actor.uuid}: ${error.message}`);
+                }
                 return null;
             }
         })();
         if (!updatedActor) return null;
 
+        if (actor.effects.size > 0) {
+            // What are these doing here?
+            actor.deleteEmbeddedDocuments("ActiveEffect", [], { deleteAll: true });
+        }
+
         const baseItems = [...baseActor.items];
-        const baseAEs = [...baseActor.effects];
         const updatedItems = [...updatedActor.items];
-        const updatedAEs = [...updatedActor.effects];
 
         // We pull out the items here so that the embedded document operations get called
         const itemDiff = this.diffCollection(baseItems, updatedItems);
-        if (itemDiff.deleted.length > 0) {
+        const finalDeleted = itemDiff.deleted.filter((id) => actor.items.has(id));
+        if (finalDeleted.length > 0) {
             try {
-                const finalDeleted = itemDiff.deleted.filter((deletedId) =>
-                    actor.items.some((item) => item.id === deletedId)
-                );
                 await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true, pack });
             } catch (error) {
                 // Output as a warning, since this merely means data preparation following the update
@@ -151,44 +135,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                 console.warn(error);
             }
         }
+        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id));
+        updatedActor.items = [...itemDiff.inserted, ...finalUpdated];
 
-        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
-        if (aeDiff.deleted.length > 0) {
-            try {
-                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
-                    actor.effects.some((effect) => effect.id === deletedId)
-                );
-                await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-
-        if (itemDiff.inserted.length > 0) {
-            try {
-                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-
-        // Delete embedded ActiveEffects on embedded Items
-        for (const updated of updatedItems) {
-            const original = baseActor.items.find((i) => i._id === updated._id);
-            if (!original) continue;
-            const itemAEDiff = this.diffCollection(original.effects, updated.effects);
-            if (itemAEDiff.deleted.length > 0) {
-                // Doubly-embedded documents can't be updated or deleted directly, so send up the entire item
-                // as a full replacement update
-                try {
-                    await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false, pack });
-                } catch (error) {
-                    console.warn(error);
-                }
-            }
-        }
-
-        updatedActor.items = actor.isToken ? updatedItems : itemDiff.updated;
         return updatedActor;
     }
 
@@ -273,10 +222,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(compendium: CompendiumCollection<T>) {
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }), {
-            permanent: true,
-        });
+    async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
+        compendium: CompendiumCollection<T>
+    ): Promise<void> {
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }));
 
         const documents = await compendium.getDocuments();
         const lowestSchemaVersion = Math.min(
@@ -287,19 +236,30 @@ export class MigrationRunner extends MigrationRunnerBase {
         const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);
         await this.#migrateDocuments(compendium, migrations);
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }), {
-            permanent: true,
-        });
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }));
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
         if (migrations.length === 0) return;
 
+        /** A roughly estimated "progress max" to reach, for display in the progress bar */
+        const progress = new Progress({
+            label: game.i18n.localize("PF2E.Migrations.Running"),
+            max: Math.floor(
+                game.actors.size +
+                    game.items.size +
+                    game.scenes
+                        .map((s) => s.tokens.contents)
+                        .flat()
+                        .filter((t) => t.actor?.isToken).length
+            ),
+        });
+
         // Migrate World Actors
-        await this.#migrateDocuments(game.actors as WorldCollection<ActorPF2e<null>>, migrations);
+        await this.#migrateDocuments(game.actors, migrations, progress);
 
         // Migrate World Items
-        await this.#migrateDocuments(game.items, migrations);
+        await this.#migrateDocuments(game.items, migrations, progress);
 
         // Migrate world journal entries
         for (const entry of game.journal) {
@@ -340,35 +300,41 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const wasSuccessful = !!(await this.#migrateSceneToken(token, migrations));
                 if (!wasSuccessful) continue;
 
-                // Only migrate if the synthetic actor has replaced migratable data
+                // Only migrate if the delta of the synthetic actor has migratable data
+                const deltaSource = token.delta?._source;
                 const hasMigratableData =
-                    !!token._source.actorData.flags?.pf2e ||
-                    Object.keys(token._source.actorData).some((k) => ["items", "system"].includes(k));
+                    (!!deltaSource && !!deltaSource.flags?.pf2e) ||
+                    ((deltaSource ?? {}).items ?? []).length > 0 ||
+                    Object.keys(deltaSource?.system ?? {}).length > 0;
 
-                if (actor.isToken && hasMigratableData) {
-                    const updated = await this.#migrateActor(migrations, actor);
-                    if (updated) {
-                        try {
-                            await actor.update(updated);
-                        } catch (error) {
-                            console.warn(error);
+                if (actor.isToken) {
+                    if (hasMigratableData) {
+                        const updated = await this.#migrateActor(migrations, actor);
+                        if (updated) {
+                            try {
+                                await actor.update(updated, { noHook: true });
+                            } catch (error) {
+                                console.warn(error);
+                            }
                         }
                     }
+                    progress.advance();
                 }
             }
         }
+
+        // *Something* was miscalculated, but migrations are complete: close the progress bar.
+        if (progress.value < progress.max) progress.close();
     }
 
-    async runMigration(force = false) {
+    async runMigration(force = false): Promise<void> {
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get("pf2e", "worldSchemaVersion"),
         };
         const systemVersion = game.system.version;
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }), {
-            permanent: true,
-        });
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }));
 
         const migrationsToRun = force
             ? this.migrations

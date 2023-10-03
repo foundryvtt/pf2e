@@ -1,3 +1,3 @@
-import "./effects";
-import "./interface";
-import "./primary";
+import "./effects.d.ts";
+import "./interface.d.ts";
+import "./primary.d.ts";

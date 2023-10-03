@@ -1,0 +1,53 @@
+{
+    "_id": "rH6RHxy6sNTLusKX",
+    "img": "systems/pf2e/icons/equipment/other/emerald-fulcrum-lenses.webp",
+    "name": "Effect: Emerald Fulcrum Lens (Saving Throw)",
+    "system": {
+        "description": {
+            "value": "<p>For 1 round you gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "primal",
+                            "occult",
+                            "divine"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #165: Eyes of Empty Death"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

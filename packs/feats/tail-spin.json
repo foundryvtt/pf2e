@@ -1,0 +1,60 @@
+{
+    "_id": "rnEfO5eyRw7Fywzb",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Tail Spin",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You excel at using your tail as a weapon to upend your foes. Attempt a single Athletics check to @UUID[Compendium.pf2e.action-macros.Macro.Trip: Athletics] up to two adjacent creatures. If you roll a success against a target, you get a critical success against that target instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tailed goblin heritage"
+                },
+                {
+                    "value": "Hard Tail"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:trip",
+                    "tail-spin"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "tail-spin",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

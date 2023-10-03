@@ -1,20 +1,20 @@
-import { ActorPF2e } from "@module/documents";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { CheckRoll } from "@system/check";
-import { RollParameters } from "@system/rolls";
-import { Statistic } from "@system/statistic";
-import { AbilityString } from "./types";
+import type { ActorPF2e } from "@actor";
+import { createPonderousPenalty } from "@actor/character/helpers.ts";
+import { InitiativeData } from "@actor/data/base.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { Statistic, StatisticData, StatisticRollParameters, StatisticTraceData } from "@system/statistic/index.ts";
+import { AttributeString } from "./types.ts";
 
 interface InitiativeRollResult {
     combatant: CombatantPF2e<EncounterPF2e>;
     roll: Rolled<CheckRoll>;
 }
 
-interface InitiativeRollParams extends RollParameters {
+interface InitiativeRollParams extends StatisticRollParameters {
+    combatant?: CombatantPF2e<EncounterPF2e>;
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
-    skipDialog?: boolean;
-    rollMode?: RollMode | "roll";
 }
 
 /** A statistic wrapper used to roll initiative for actors */
@@ -22,18 +22,48 @@ class ActorInitiative {
     actor: ActorPF2e;
     statistic: Statistic;
 
-    get ability(): AbilityString | null {
-        return this.statistic.ability;
+    get attribute(): AttributeString | null {
+        return this.statistic.attribute;
     }
 
-    constructor(creature: ActorPF2e, statistic: Statistic) {
-        this.actor = creature;
-        this.statistic = statistic;
+    /** @deprecated */
+    get ability(): AttributeString | null {
+        foundry.utils.logCompatibilityWarning(
+            "`ActorInitiative#ability` is deprecated. Use `ActorInitiative#attribute` instead.",
+            { since: "5.3.0", until: "6.0.0" }
+        );
+        return this.attribute;
+    }
+
+    constructor(actor: ActorPF2e) {
+        this.actor = actor;
+
+        const initiativeSkill = actor.isOfType("hazard")
+            ? "stealth"
+            : actor.isOfType("character", "npc")
+            ? actor.attributes.initiative?.statistic || "perception"
+            : null;
+        const base = initiativeSkill ? actor.getStatistic(initiativeSkill) : null;
+
+        const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
+        const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
+
+        const data: StatisticData = {
+            slug: "initiative",
+            label: base?.label ?? "PF2E.InitiativeLabel",
+            domains: ["initiative"],
+            rollOptions: [base?.slug ?? []].flat(),
+            check: { type: "initiative", label: rollLabel },
+            modifiers: [ponderousPenalty ?? []].flat(),
+        };
+
+        this.statistic = base ? base.extend(data) : new Statistic(actor, data);
     }
 
     async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
         // Get or create the combatant
-        const combatant = await CombatantPF2e.fromActor(this.actor, false);
+        const combatant =
+            args.combatant?.actor === this.actor ? args.combatant : await CombatantPF2e.fromActor(this.actor, false);
         if (!combatant) return null;
 
         if (combatant.hidden) {
@@ -55,6 +85,20 @@ class ActorInitiative {
 
         return { combatant, roll };
     }
+
+    getTraceData(): InitiativeTraceData {
+        const initiativeData = this.actor.attributes.initiative;
+        const tiebreakPriority = initiativeData?.tiebreakPriority ?? 0;
+
+        return {
+            ...this.statistic.getTraceData(),
+            statistic: initiativeData?.statistic ?? "perception",
+            tiebreakPriority,
+        };
+    }
 }
 
-export { ActorInitiative, InitiativeRollResult };
+type InitiativeTraceData = StatisticTraceData & InitiativeData;
+
+export { ActorInitiative };
+export type { InitiativeRollResult, InitiativeTraceData };

@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { FeatSystemSource } from "@item/feat";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSystemSource } from "@item/feat/data.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Fix featType properties erroneously set to a non-existent "dedication" type */
 export class Migration732FixDedicationFeatTypes extends MigrationBase {

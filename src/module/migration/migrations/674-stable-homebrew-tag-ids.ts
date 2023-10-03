@@ -1,9 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew";
-import { LocalizePF2e } from "@system/localize";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
     static override version = 0.674;
@@ -45,7 +44,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
             for (const tag of tags) {
                 tag.id = `hb_${sluggify(tag.value)}`;
                 const tagMap: Record<string, string> =
-                    key === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[key];
+                    key === "baseWeapons" ? CONFIG.PF2E.baseWeaponTypes : CONFIG.PF2E[key];
                 tagMap[tag.id] = tag.value;
                 delete tagMap[key];
             }

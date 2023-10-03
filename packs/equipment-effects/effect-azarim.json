@@ -1,0 +1,104 @@
+{
+    "_id": "f2U0pvTwqrLYyOlC",
+    "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+    "name": "Effect: Azarim",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Azarim]</p>\n<p><em>Azarim</em> gains the effects of an <em>anarchic</em> weapon rune for 1 minute. When wielded by a character who's at least 11th level, <em>Azarim</em> becomes a <em>+2 striking anarchic shifting rapier</em>, and instead this activation can be applied to another weapon that's in physical contact with <em>Azarim</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectAzarim",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:slug:azarim"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "anarchic"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectAzarim}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "property": "property-runes",
+                "value": "anarchic"
+            },
+            {
+                "key": "WeaponPotency",
+                "label": "PF2E.Item.Weapon.Rune.Potency",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectAzarim}-attack",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Crown of the Kobold King"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

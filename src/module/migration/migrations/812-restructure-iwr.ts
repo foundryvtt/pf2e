@@ -1,11 +1,11 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ActorTraitsSource } from "@actor/data/base";
-import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types";
-import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values";
-import { ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ActorTraitsSource } from "@actor/data/base.ts";
+import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr.ts";
+import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
+import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject, pick, setHasElement, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Move IWR data to `actor.system.attributes` */
 export class Migration812RestructureIWR extends MigrationBase {
@@ -91,11 +91,11 @@ export class Migration812RestructureIWR extends MigrationBase {
     }
 
     /** Sluggify precious material types, normalize precious material grades */
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: MaybeWithOldMaterialData): Promise<void> {
         if (source.type === "weapon") {
-            const material: { value: string | null } = source.system.preciousMaterial;
-            material.value = material.value ? sluggify(material.value) : null;
-            source.system.preciousMaterialGrade.value ||= null;
+            const material = source.system.preciousMaterial ?? {};
+            material.value = typeof material.value === "string" ? sluggify(material.value) : null;
+            if (source.system.preciousMaterialGrade) source.system.preciousMaterialGrade.value ||= null;
         }
 
         // Rule elements with old cold-iron data
@@ -231,3 +231,10 @@ interface MaybeWithOldIWRData extends ActorTraitsSource<string> {
     "-=dv"?: null;
     "-=dr"?: null;
 }
+
+type MaybeWithOldMaterialData = ItemSourcePF2e & {
+    system: {
+        preciousMaterial?: { value?: unknown };
+        preciousMaterialGrade?: { value?: unknown };
+    };
+};

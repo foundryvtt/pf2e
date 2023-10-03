@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject } from "@util";
-import { Migration702REFormulasAtInstanceLevel } from "./702-re-formulas-at-instance-level";
+import { Migration702REFormulasAtInstanceLevel } from "./702-re-formulas-at-instance-level.ts";
 
 export class Migration709REFormulasAtInstanceLevelRedux extends Migration702REFormulasAtInstanceLevel {
     static override version = 0.709;

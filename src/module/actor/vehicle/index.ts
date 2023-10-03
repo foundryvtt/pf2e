@@ -1,1 +1,1 @@
-export { VehiclePF2e } from "./document";
+export { VehiclePF2e } from "./document.ts";

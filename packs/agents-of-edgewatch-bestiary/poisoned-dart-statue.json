@@ -1,0 +1,230 @@
+{
+    "_id": "64TX3n5xufgjqbwK",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Nbx9ouRvtXU7r7XP",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dart Volley",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature makes noise in the hall, which can be avoided with a successful @Check[type:stealth|dc:28|name:Avoid Notice|traits:action:sneak,move,secret] check</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IDckQwFfttdnib8W",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Poisoned Dart",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "terinav-root-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "u4BY6CXSH5AXUTMv",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Continuous Barrage",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the hallway finishes an action while the trap is active</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n9oO2EI8HwHSgtLl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Terinav Root Poison",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> 4d6 poison damage and clumsy 2 (1 round)</p>\n<p><strong>Stage 2</strong> 5d6 poison damage, clumsy 2, and -5-foot status penalty to all Speeds (1 round)</p>\n<p><strong>Stage 3</strong> 7d6 poison damage, clumsy 2, and -10-foot status penalty to all Speeds (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "terinav-root-poison",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Poisoned Dart Statue",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "hardness": 24,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 96,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 96
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:39|traits:action:seek] (master) to notice the control panel. Anyone specifically searching the name plate of Abresha Tallow-Hands locates the control panel automatically.</p>",
+                "value": 24
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Countless poison darts fire from holes in the statues and walls of this hall.</p>",
+            "disable": "<p>@Check[type:thievery|dc:34|name:Disable Trap|traits:action:disable-a-device] (master) on the control panel deactivates the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The trap launches one dart against every creature in the hall as 1 action. Because it launches darts continuously, the trap can also use the Continuous Barrage free action (see below) to launch darts at each creature during that creature's turn. The trap doesn't take a multiple attack penalty.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

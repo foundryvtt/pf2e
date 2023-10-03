@@ -1,0 +1,58 @@
+{
+    "_id": "IPcdQAwJk0aZe5mg",
+    "img": "systems/pf2e/icons/features/classes/evolution-feat.webp",
+    "name": "Evolution Feat",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Evolution feats are a special type of summoner class feat that allow you to customize your eidolon through your shared link. You gain an evolution feat for your eidolon at 1st level, representing the differences that make it unique from other eidolons of its type. If you retrain this feat, the feat you replace it with must also be an evolution feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                1
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:evolution"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "evolutionFeat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EvolutionFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.evolutionFeat}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}

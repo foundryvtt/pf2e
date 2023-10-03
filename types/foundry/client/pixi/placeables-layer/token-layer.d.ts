@@ -5,6 +5,8 @@ declare global {
     class TokenLayer<TToken extends Token = Token> extends PlaceablesLayer<TToken> {
         constructor();
 
+        override quadtree: CanvasQuadtree<TToken>;
+
         /** The current index position in the tab cycle */
         protected _tabIndex: number | null;
 
@@ -105,7 +107,7 @@ declare global {
             data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>
         ): Promise<TToken["actor"]>;
 
-        protected override _onClickLeft(event: PIXI.InteractionEvent): void;
+        protected override _onClickLeft(event: PIXI.FederatedEvent): void;
     }
 
     interface TokenLayer<TToken extends Token = Token> extends PlaceablesLayer<TToken> {

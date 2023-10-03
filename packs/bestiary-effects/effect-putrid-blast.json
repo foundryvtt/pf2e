@@ -1,0 +1,45 @@
+{
+    "_id": "hQsqr2sRPp9rNm4U",
+    "img": "systems/pf2e/icons/spells/grease.webp",
+    "name": "Effect: Putrid Blast",
+    "system": {
+        "description": {
+            "value": "<p>Creature takes a -2 circumstance penalty to Fortitude saves against xulgath bile for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison:xulgath-bile"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #151: The Show Must Go On"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

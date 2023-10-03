@@ -1,12 +1,13 @@
-import { resetActors } from "@actor/helpers";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
-import { CONDITION_SLUGS } from "@item/condition/values";
-import { TokenPF2e } from "@module/canvas/token";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { EncounterPF2e } from "@module/encounter";
-import { StatusEffectIconTheme } from "@scripts/config";
-import { LocalizePF2e } from "@system/localize";
+import { resetActors } from "@actor/helpers.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import { ConditionSlug } from "@item/condition/types.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { TokenPF2e } from "@module/canvas/token/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { EncounterPF2e } from "@module/encounter/index.ts";
+import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
+import Translations from "static/lang/en.json";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -23,23 +24,23 @@ export class StatusEffects {
     };
 
     /** Set the theme for condition icons on tokens */
-    static setIconTheme(): void {
-        const iconTheme = game.settings.get("pf2e", "statusEffectType");
-        CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
-        CONFIG.PF2E.statusEffects.iconDir = this.#ICON_THEME_DIRS[iconTheme];
-        this.#updateStatusIcons();
-    }
-
-    /** Link status effect icons to conditions */
     static initialize(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
+        CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
         CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
         CONFIG.PF2E.statusEffects.iconDir = this.#ICON_THEME_DIRS[iconTheme];
         this.#updateStatusIcons();
     }
 
-    static get conditions() {
-        return LocalizePF2e.translations.PF2E.condition;
+    /** Update status icons and tokens due to certain potential changes */
+    static reset(): void {
+        CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
+        this.#updateStatusIcons();
+        this.refresh();
+    }
+
+    static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
+        return Translations.PF2E.condition;
     }
 
     /**
@@ -96,7 +97,7 @@ export class StatusEffects {
     }
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: TokenHUDData): Promise<void> {
-        const token = canvas.tokens.get(tokenData._id);
+        const token = canvas.tokens.get(tokenData._id ?? "");
         if (!token) return;
 
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");
@@ -124,6 +125,14 @@ export class StatusEffects {
             icon.replaceWith(picture);
 
             const slug = picture.dataset.statusId ?? "";
+
+            // Show hidden for broken for loot/vehicles and hidden for all others
+            const actorType = token.actor?.type ?? "";
+            const hideIcon =
+                (slug === "hidden" && ["loot", "vehicle"].includes(actorType)) ||
+                (slug === "broken" && !["loot", "vehicle"].includes(actorType));
+            if (hideIcon) picture.style.display = "none";
+
             const affecting = affectingConditions.filter((c) => c.slug === slug);
             if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
                 picture.classList.add("active");
@@ -267,7 +276,7 @@ export class StatusEffects {
             if (conditionIds.length > 0) {
                 await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (token.document.overlayEffect === iconSrc) {
-                await token.toggleEffect(iconSrc, { overlay: true, active: false });
+                await token.document.update({ overlayEffect: "" });
             }
         }
     }

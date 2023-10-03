@@ -1,0 +1,58 @@
+{
+    "_id": "B4nuabUvA1rk7Hej",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Multilingual Cipher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You use multiple languages to create and break codes. You gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Decipher Writing].</p>\n<p>If another creature attempts to Decipher Writing you encoded, they take a -2 circumstance penalty unless they speak all the languages you used when you created the writing.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Linguist Dedication"
+                },
+                {
+                    "value": "expert in Society"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "to Decipher Writing (Multilingual Cipher)",
+                "predicate": [
+                    "action:decipher-writing"
+                ],
+                "selector": [
+                    "arcana",
+                    "occultism",
+                    "religion",
+                    "society"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

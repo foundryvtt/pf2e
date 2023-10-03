@@ -1,10 +1,11 @@
-import { CharacterSystemData } from "@actor/character/data";
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { CharacterSystemData, CharacterSystemSource } from "@actor/character/data.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
-interface CharacterSystemDataOld extends CharacterSystemData {
+interface CharacterSystemDataOld extends CharacterSystemSource {
     details: CharacterSystemData["details"] & {
         biography: CharacterSystemData["details"]["biography"] & {
+            organaizations?: string;
             public?: string | null;
             "-=public"?: string | null;
             value?: string | null;
@@ -48,8 +49,8 @@ export class Migration682BiographyFields extends MigrationBase {
         old.details.biography.organaizations ??= "";
     }
 
-    override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if (actorSource.type !== "character") return;
-        this.replaceBiographyData(actorSource.system as CharacterSystemDataOld);
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if (source.type !== "character") return;
+        this.replaceBiographyData(source.system as CharacterSystemDataOld);
     }
 }

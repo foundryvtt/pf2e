@@ -1,0 +1,58 @@
+{
+    "_id": "UyyrFtPWOo0qvXOv",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Zephyr Guard Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As a Zephyr Guard, you're always vigilant against crime and threats to the city's safety. You gain a +1 circumstance bonus to Perception checks against attempts to Palm an Object, Steal, or Conceal an Object (including you're Seeking concealed objects). You become trained in Society and Katapesh Lore; if you were already trained, you become an expert instead.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.KORSADviZaSccs2W]{Zephyr Guard} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "to notice theft (Zephyr Guard)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:steal",
+                            "action:conceal-an-object",
+                            "action:palm-an-object"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

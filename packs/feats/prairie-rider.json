@@ -1,0 +1,56 @@
+{
+    "_id": "A9HQ2bMAge2aGgWx",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Prairie Rider",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You grew up riding your clan's shaggy ponies and riding dogs. You become trained in Nature. If you would automatically become trained in Nature (from your background or class, for example), you instead become trained in a skill of your choice. You also get a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] if the target is a traditional halfling mount, such as a pony or riding dog.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:pony",
+                            "target:riding-dog"
+                        ]
+                    }
+                ],
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}

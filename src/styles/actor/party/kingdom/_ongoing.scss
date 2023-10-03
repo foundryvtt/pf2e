@@ -1,0 +1,64 @@
+& {
+    padding: 0.75rem;
+    gap: 1rem;
+}
+
+.events {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .event-dc {
+        display: flex;
+        gap: 1ch;
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        line-height: 1.5em;
+        padding: 0.5rem 1rem;
+
+        &,
+        input {
+            font-size: var(--font-size-18);
+        }
+
+        input {
+            width: 3ch;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .dc {
+            margin-left: auto;
+        }
+    }
+
+    .event-details {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 0.5rem;
+        overflow: auto;
+
+        .editor {
+            flex: 1;
+        }
+    }
+}
+
+aside {
+    width: 18rem;
+    & > h3.header {
+        margin-top: 0;
+    }
+    .effects-list {
+        @include effects-list;
+        .item {
+            padding-left: 0;
+        }
+    }
+}

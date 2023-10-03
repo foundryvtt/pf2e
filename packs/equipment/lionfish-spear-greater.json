@@ -1,0 +1,113 @@
+{
+    "_id": "R4nk2W7rTvMDqyUR",
+    "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
+    "name": "Lionfish Spear (Greater)",
+    "system": {
+        "baseItem": "spear",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>Colorful stripes and trailing ribbons give this <em>+2 greater striking underwater wounding spear</em> an appearance like a poisonous lionfish. While holding the spear, you gain a +2 item bonus to Athletic checks to @UUID[Compendium.pf2e.actionspf2e.Item.Swim].</p>\n<p>Strikes with this weapon deal an additional 1d6 poison damage.</p>\n<hr />\n<p><strong>Activate—Lionfish Poison</strong> <span class=\"action-glyph\">R</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You successfully Strike a creature with the <em>lionfish spear</em></p>\n<p><strong>Effect</strong> The spear injects lionfish poison into the target</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:31]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/br 2d4 #hours]]{2d4 hours}</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "spear",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
+        },
+        "price": {
+            "value": {
+                "gp": 4000
+            }
+        },
+        "propertyRune1": {
+            "value": "underwater"
+        },
+        "propertyRune2": {
+            "value": "wounding"
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "greaterStriking"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical",
+                "thrown-20",
+                "water"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

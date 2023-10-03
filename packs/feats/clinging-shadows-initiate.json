@@ -1,0 +1,45 @@
+{
+    "_id": "QkKMile0qqmuVY67",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Clinging Shadows Initiate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You learn a mystical stance that transforms your ki into sticky smoke that shrouds your limbs, clinging to everything you touch.</p>\n<p>You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Clinging Shadows Stance]</em> ki spell. Increase the number of Focus Points in your focus pool by 1. While entering the stance uses a ki spell, the shadow grasp attacks it grants are not, so you can use them as often as you like while in the stance.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ki spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

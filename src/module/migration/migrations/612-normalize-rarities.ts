@@ -1,14 +1,14 @@
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
+import { MigrationBase } from "../base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 export class Migration612NormalizeRarities extends MigrationBase {
     static override version = 0.612;
 
-    override async updateActor(actorData: ActorSourcePF2e) {
-        const traitsRaw = actorData.system.traits;
-        if (actorData.type === "familiar" || !traitsRaw) return;
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        const traitsRaw = source.system.traits;
+        if (source.type === "familiar" || !traitsRaw) return;
 
-        const traitsAndOtherMiscellany: { rarity?: unknown; traits?: { value: string[] } } = traitsRaw;
+        const traitsAndOtherMiscellany: { rarity?: unknown; traits?: { value: string[] }; value?: unknown } = traitsRaw;
         if (!("rarity" in traitsAndOtherMiscellany)) {
             traitsAndOtherMiscellany.rarity = { value: "common" };
         }

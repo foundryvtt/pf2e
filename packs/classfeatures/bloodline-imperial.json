@@ -1,0 +1,123 @@
+{
+    "_id": "ZEtJJ5UOlV5oTWWp",
+    "img": "icons/sundries/books/book-embossed-jewel-gold-purple.webp",
+    "name": "Bloodline: Imperial",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>One of your ancestors was a mortal who mastered magic. Such magical blood can remain latent for generations, but in you it manifested in full.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Society</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prying Eye]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Sphere]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ancestral Memories]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Extend Spell]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Arcane Countermeasure]</em></p>\n<p><strong>Blood Magic</strong> A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "arcane"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.sorcerer.bloodline.spells",
+                "value": {
+                    "1st": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM",
+                        "slug": "magic-missile"
+                    },
+                    "2nd": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG",
+                        "slug": "dispel-magic"
+                    },
+                    "3rd": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4",
+                        "slug": "haste"
+                    },
+                    "4th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+                        "slug": "translocate"
+                    },
+                    "5th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.Ek5XI0aEdZhBgm21",
+                        "slug": "prying-eye"
+                    },
+                    "6th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.r7ihOgKv19eJQnik",
+                        "slug": "disintegrate"
+                    },
+                    "7th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.d6o52BnjViNz7Gub",
+                        "slug": "prismatic-spray"
+                    },
+                    "8th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7",
+                        "slug": "maze"
+                    },
+                    "9th": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.PngDCmU0MXZkbu0v",
+                        "slug": "prismatic-sphere"
+                    },
+                    "advanced": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.GxxnhRIaoGKtu1iO",
+                        "slug": "extend-spell"
+                    },
+                    "cantrip": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+                        "slug": "detect-magic"
+                    },
+                    "greater": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.h47yv6j6x1pUtzlr",
+                        "slug": "arcane-countermeasure"
+                    },
+                    "initial": {
+                        "UUID": "Compendium.pf2e.spells-srd.Item.dtOUkMC57izf93z5",
+                        "slug": "ancestral-memories"
+                    }
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

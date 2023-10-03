@@ -1,20 +1,18 @@
-import { ActorPF2e } from "@actor";
-import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ItemPF2e } from "@item";
-import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../";
-import { AELikeChangeMode } from "../ae-like";
-
-const { fields } = foundry.data;
+import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource, RuleValue } from "../index.ts";
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: IWRRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    abstract value: RuleValue;
+
+    constructor(data: IWRRuleElementSource, options: RuleElementOptions) {
         if (typeof data.type === "string") {
             data.type = [data.type];
         }
 
-        super(data, item, options);
+        super(data, options);
     }
 
     static get dictionary(): Record<string, string | undefined> {
@@ -22,6 +20,8 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     }
 
     static override defineSchema(): IWRRuleSchema {
+        const { fields } = foundry.data;
+
         return {
             ...super.defineSchema(),
             mode: new fields.StringField({ required: true, choices: ["add", "remove"], initial: "add" }),
@@ -33,8 +33,8 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         };
     }
 
-    protected override _validateModel(source: SourceFromSchema<IWRRuleSchema>): void {
-        super._validateModel(source);
+    static override validateJoint(source: SourceFromSchema<IWRRuleSchema>): void {
+        super.validateJoint(source);
 
         if (source.type.length === 0) {
             throw Error("must have at least one type");
@@ -73,16 +73,13 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 
     abstract getIWR(value?: number): ImmunityData[] | WeaknessData[] | ResistanceData[];
 
-    override beforePrepareData(): void {
+    override afterPrepareData(): void {
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
 
-        const value = Math.floor(Number(this.resolveValue()));
-        if (!this.#isValid(value)) {
-            this.ignored = true;
-            return;
-        }
+        const value = Math.floor(Number(this.resolveValue(this.value)));
+        if (!this.#isValid(value)) return;
 
         if (this.mode === "add") {
             this.property.push(...this.getIWR(value));
@@ -120,4 +117,5 @@ interface IWRRuleElementSource extends RuleElementSource {
     override?: unknown;
 }
 
-export { IWRRuleElement, IWRRuleSchema, IWRRuleElementSource };
+export { IWRRuleElement };
+export type { IWRRuleElementSource, IWRRuleSchema };

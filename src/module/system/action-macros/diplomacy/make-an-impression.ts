@@ -1,6 +1,6 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function makeAnImpression(options: SkillActionOptions) {
+export function makeAnImpression(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:make-an-impression"];
     const modifiers = options?.modifiers;
@@ -12,12 +12,14 @@ export function makeAnImpression(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "exploration", "linguistic", "mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

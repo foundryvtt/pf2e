@@ -13,9 +13,10 @@ ol.spell-list {
         background: none;
         cursor: default;
         display: grid;
-        grid: "name range components cast-spell controls" auto
-              "content content content content content" auto
-              / 9fr 4fr 4fr 2fr 2.5fr;
+        grid:
+            "name range components cast-spell controls" auto
+            "content content content content content" auto
+            / 9fr 4fr 4fr 2fr 2.5fr;
         justify-content: center;
         padding: 0 0.3em 1px 0.35em;
 
@@ -49,7 +50,7 @@ ol.spell-list {
             background: rgba($sub-color, 0.25);
             border: 1px solid var(--color-border-light-2);
             border-radius: 2px;
-            color: var(--body);
+            color: var(--text-dark);
             font: 500 var(--font-size-12) var(--sans-serif);
             letter-spacing: 0.25px;
             line-height: 1;
@@ -84,12 +85,13 @@ ol.spell-list {
             line-height: 1;
         }
 
-        &.spell-level-header, .uses {
+        &.spell-level-header,
+        .uses {
             input {
                 background: var(--alt);
                 border-radius: 3px;
                 border: 1px solid var(--sub);
-                color: white;
+                color: var(--text-light);
                 font: var(--font-size-12) var(--sans-serif);
                 height: unset;
                 text-align: center;
@@ -151,42 +153,10 @@ ol.spell-list {
             }
 
             .item-image {
-                @include frame-icon;
-                position: relative;
                 height: 1.5rem;
                 width: 1.5rem;
+                flex: 0 0 auto;
                 margin: 2px 0;
-                border-radius: 2px;
-                cursor: pointer;
-
-                .item-icon {
-                    max-width: 24px;
-                    border: none;
-                }
-
-                &:hover {
-                    background: #f1eee9;
-                    background-size: contain;
-                    padding: 11px;
-                    &::before {
-                        content: "\f27a";
-                        font-family: "Font Awesome 5 Free";
-                        font-weight: 900;
-                        font-size: var(--font-size-16);
-                        color: black;
-                        position: absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                    img {
-                        display: none;
-                    }
-                }
             }
 
             h4 {
@@ -202,8 +172,9 @@ ol.spell-list {
                 }
             }
 
-            .activity-icon {
+            .action-glyph {
                 margin-left: 4px;
+                font-size: small;
             }
 
             &.empty {
@@ -245,7 +216,7 @@ ol.spell-list {
             border-radius: 2px;
             border: black;
             box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
-            color: white;
+            color: var(--text-light);
             cursor: pointer;
             display: flex;
             font: 700 0.55rem var(--sans-serif);
@@ -271,7 +242,7 @@ ol.spell-list {
             position: relative;
             &::before {
                 pointer-events: none;
-                content: '';
+                content: "";
                 position: absolute;
                 height: 100%;
                 width: 100%;
@@ -287,7 +258,7 @@ ol.spell-list {
 
     .level-prepared-header {
         font-size: 0.75rem;
-        color: white;
+        color: var(--text-light);
         margin: 0;
         padding: 4px;
         text-align: center;

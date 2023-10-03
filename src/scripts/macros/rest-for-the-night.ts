@@ -1,28 +1,38 @@
+import { CharacterAttributes, CharacterResources } from "@actor/character/data.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemPF2e } from "@item";
-import { ActionDefaultOptions } from "@system/action-macros";
-import { LocalizePF2e } from "@system/localize";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
-import { CharacterAttributes, CharacterResources } from "@actor/character/data";
+import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
+import { localizer, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 
+interface RestForTheNightOptions extends ActionDefaultOptions {
+    skipDialog?: boolean;
+}
+
 /** A macro for the Rest for the Night quasi-action */
-export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
+export async function restForTheNight(options: RestForTheNightOptions): Promise<ChatMessagePF2e[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const characters = actors.filter((a): a is CharacterPF2e => a?.type === "character");
     if (actors.length === 0) {
         ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoPCTokenSelected"));
         return [];
     }
-    const translations = LocalizePF2e.translations.PF2E.Action.RestForTheNight;
-
+    const localize = localizer("PF2E.Action.RestForTheNight");
     const promptMessage = ((): string => {
         const element = document.createElement("p");
-        element.innerText = translations.Prompt;
+        element.innerText = localize("Prompt");
         return element.outerHTML;
     })();
-    if (!(await Dialog.confirm({ title: translations.Label, content: promptMessage, defaultYes: true }))) {
+    if (
+        !options.skipDialog &&
+        !(await Dialog.confirm({
+            title: localize("Label"),
+            content: promptMessage,
+            defaultYes: true,
+        }))
+    ) {
         return [];
     }
 
@@ -43,7 +53,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
         if (hpRestored > 0) {
             const singularOrPlural =
-                hpRestored === 1 ? translations.Message.HitPointsSingle : translations.Message.HitPoints;
+                hpRestored === 1
+                    ? "PF2E.Action.RestForTheNight.Message.HitPointsSingle"
+                    : "PF2E.Action.RestForTheNight.Message.HitPoints";
             actorUpdates.attributes.hp = { value: (attributes.hp.value += hpRestored) };
             statements.push(game.i18n.format(singularOrPlural, { hitPoints: hpRestored }));
         }
@@ -81,7 +93,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // Restore wand charges
         const items = actor.itemTypes;
         const wands = items.consumable.filter((i) => i.category === "wand" && i.uses.value < i.uses.max);
-        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": 1 })));
+        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": wand.uses.max })));
         const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
@@ -89,7 +101,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const reagents = resources.crafting.infusedReagents;
         if (reagents && reagents.value < reagents.max) {
             actorUpdates.resources.crafting = { infusedReagents: { value: reagents.max } };
-            statements.push(game.i18n.localize(translations.Message.InfusedReagents));
+            statements.push(localize("Message.InfusedReagents"));
         }
 
         // Spellcasting entries and focus points
@@ -106,11 +118,12 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const withFrequency = actionsAndFeats.filter(
             (a) =>
                 a.frequency &&
-                (a.frequency.per === "day" || Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
+                (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
+                    Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
                 a.frequency.value < a.frequency.max
         );
         if (withFrequency.length) {
-            statements.push(game.i18n.localize(translations.Message.Frequencies));
+            statements.push(localize("Message.Frequencies"));
             itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency!.max })));
         }
 
@@ -122,17 +135,16 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         if (staminaEnabled) {
             if (stamina.value < stamina.max) {
                 actorUpdates.attributes.sp = { value: stamina.max };
-                statements.push(game.i18n.localize(translations.Message.StaminaPoints));
+                statements.push(localize("Message.StaminaPoints"));
             }
             if (resolve.value < resolve.max) {
                 actorUpdates.attributes.resolve = { value: resolve.max };
-                statements.push(game.i18n.localize(translations.Message.Resolve));
+                statements.push(localize("Message.Resolve"));
             }
         }
 
         // Collect temporary crafted items to remove
         const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
-
         const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
         const hasItemUpdates = itemUpdates.length > 0;
         const removeTempItems = temporaryItems.length > 0;
@@ -148,38 +160,38 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         if (removeTempItems) {
             await actor.deleteEmbeddedDocuments("Item", temporaryItems, { render: false });
-            statements.push(game.i18n.localize(translations.Message.TemporaryItems));
+            statements.push(localize("Message.TemporaryItems"));
         }
 
         if (spellcastingRecharge.actorUpdates) {
-            statements.push(game.i18n.localize(translations.Message.FocusPoints));
+            statements.push(localize("Message.FocusPoints"));
         }
 
         if (spellcastingRecharge.itemUpdates.length > 0) {
-            statements.push(game.i18n.localize(translations.Message.SpellSlots));
+            statements.push(localize("Message.SpellSlots"));
         }
 
         // Wand recharge
         if (wandRecharged) {
-            statements.push(game.i18n.localize(translations.Message.WandsCharges));
+            statements.push(localize("Message.WandsCharges"));
         }
 
         // Conditions removed
         const reducedConditions = RECOVERABLE_CONDITIONS.filter((c) => conditionChanges[c] === "reduced");
         for (const slug of reducedConditions) {
             const { name } = game.pf2e.ConditionManager.getCondition(slug);
-            statements.push(game.i18n.format(translations.Message.ConditionReduced, { condition: name }));
+            statements.push(localize("Message.ConditionReduced", { condition: name }));
         }
 
         // Condition value reduction
         const removedConditions = RECOVERABLE_CONDITIONS.filter((c) => conditionChanges[c] === "removed");
         for (const slug of removedConditions) {
             const { name } = game.pf2e.ConditionManager.getCondition(slug);
-            statements.push(game.i18n.format(translations.Message.ConditionRemoved, { condition: name }));
+            statements.push(localize("Message.ConditionRemoved", { condition: name }));
         }
 
         // Send chat message with results
-        const actorAwakens = game.i18n.format(translations.Message.Awakens, { actor: actor.name });
+        const actorAwakens = localize("Message.Awakens", { actor: actor.name });
         const recoveryList = document.createElement("ul");
         recoveryList.append(
             ...statements.map((statement): HTMLLIElement => {

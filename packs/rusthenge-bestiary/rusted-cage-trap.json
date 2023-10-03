@@ -1,0 +1,110 @@
+{
+    "_id": "AyrDqMSjq43T3P5j",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "PFa0h9BekFPB4Eoh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Slam Down",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks under the cage and steps on the pressure plate</p>\n<hr />\n<p><strong>Effect</strong> The cage drops from the ceiling to trap the triggering creature, who must attempt a @Check[type:reflex|dc:17|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature avoids the trap, and returns to the space it just left rather than entering the trap's space.</p>\n<p><strong>Success</strong> As Critical Success, but the falling trap delivers a glancing blow and @Damage[(1d6+3)[bludgeoning]] damage to the creature as it stumbles back.</p>\n<p><strong>Failure</strong> The falling trap lands on the triggering creature. A Medium or smaller creature becomes trapped inside the cage (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 20). A Large or larger creature takes @Damage[(2d6+5)[bludgeoning]] damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] as the cage bounces off the creature's body, becoming destroyed in the process.</p>\n<p><strong>Critical Failure</strong> As Failure, but a Medium or smaller creature is also struck by the cage, knocked prone, and then takes @Damage[(2d6+5)[bludgeoning]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the cage as it lands on a limb.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rusted Cage Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A rusty cage embedded in the ceiling drops down with a clang to try to entrap a creature that steps onto the pressure plate in the middle of the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:13] to harmlessly trigger the trap by nudging the pressure plate, @Check[type:thievery|dc:20] to stabilize the pressure plate so it doesn't trigger, or @Check[type:athletics|dc:20] to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from the cage or @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the cage once it falls</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>The mechanism to manually reset this trap is located in area <strong>D15</strong>.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Rusthenge"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

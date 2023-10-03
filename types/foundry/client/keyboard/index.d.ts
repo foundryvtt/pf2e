@@ -1,2 +1,2 @@
-import "./client-keybindings";
-import "./keyboard-manager";
+import "./client-keybindings.d.ts";
+import "./keyboard-manager.d.ts";

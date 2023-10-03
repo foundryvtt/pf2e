@@ -1,0 +1,41 @@
+{
+    "_id": "tarfuEXmi0E0Enfy",
+    "img": "systems/pf2e/icons/features/ancestry/shadow-rat.webp",
+    "name": "Shadow Rat",
+    "system": {
+        "ancestry": {
+            "name": "Ratfolk",
+            "slug": "ratfolk",
+            "uuid": "Compendium.pf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+        },
+        "description": {
+            "value": "<p>Your ancestors lived in dark spaces underground, granting you dark fur and a vaguely unnatural mien that unnerves sapient creatures and frightens animals. You gain the trained proficiency rank in Intimidation and can use Intimidation to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] animals. When you @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an animal, you don't take a penalty for not sharing a language with it. If you would automatically become trained in Intimidation (from your background or class, for example), you become trained in another skill of your choice.</p>\n<p>Animals' attitudes toward you begin one degree worse than normal, usually starting at unfriendly instead of indifferent for domesticated animals, and hostile instead of unfriendly for wild animals.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:demoralize",
+                    "target:trait:animal"
+                ],
+                "selector": "intimidation",
+                "text": "When you Demoralize an animal, you don't take a penalty for not sharing a language with it.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

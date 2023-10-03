@@ -1,0 +1,64 @@
+{
+    "_id": "tSF9z5VTeevxoww3",
+    "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
+    "name": "Effect: Harmonizing Aura (Enemies)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a -2 status bonus to sonic damage rolls and a -1 status bonus to AC and all saves against sonic and auditory effects</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Harmonizing Aura",
+                "predicate": [
+                    {
+                        "or": [
+                            "sonic",
+                            "auditory"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Harmonizing Aura",
+                "predicate": [
+                    "sonic"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "TZASOwBqVveGjw77",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Analyze Idiolect",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You break down a specific individual's idiolect, memorizing their speech mannerisms and habits.</p>\n<p>If you interact with someone for at least 10 minutes, when you later attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that individual, you gain a +4 circumstance bonus to your Deception checks and DCs. Due to the intense character study required, you can't remember more than one idiolect at a time.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Linguist Dedication"
+                },
+                {
+                    "value": "expert in Deception"
+                },
+                {
+                    "value": "expert in Society"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "analyze-idiolect"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "analyze-idiolect",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

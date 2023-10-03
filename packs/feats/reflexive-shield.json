@@ -1,0 +1,44 @@
+{
+    "_id": "dHUoQVzDa9Cf4QCG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Reflexive Shield",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can use your shield to fend off the worst of area effects and other damage.</p>\n<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield]{Raise your Shield}, you gain your shield's circumstance bonus to Reflex saves. If you have the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction, damage you take as a result of a Reflex save can trigger that reaction, even if the damage isn't physical damage.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:raise-a-shield"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": "@actor.system.attributes.shield.ac"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

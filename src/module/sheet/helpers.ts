@@ -28,7 +28,10 @@ function createSheetTags(options: Record<string, string>, selections: SheetSelec
     return createSheetOptions(options, selections, { selected: true });
 }
 
-function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: TagifyTraitOptions) {
+function createTagifyTraits(
+    traits: Iterable<string>,
+    { sourceTraits, record }: TagifyTraitOptions
+): { id: string; value: string; readonly: boolean }[] {
     const sourceSet = new Set(sourceTraits);
     const traitSlugs = [...traits];
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
@@ -44,7 +47,7 @@ function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: 
  * Process tagify elements in a form, converting their data into something the pf2e system can handle.
  * This method is meant to be called in _getSubmitData().
  */
-function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>) {
+function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>): void {
     // Tagify has a convention (used in their codebase as well) where it prepends the input element
     const tagifyInputElements = form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
     for (const inputEl of tagifyInputElements.values()) {
@@ -59,18 +62,35 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
-/** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
-async function maintainTagifyFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>) {
-    const element = sheet.element[0];
-    const active = document.activeElement;
-    const activeWasHere = element?.contains(active);
+function getAdjustment(value: number, reference: number): AdjustedValue {
+    const adjustedHigher = value > reference;
+    const adjustedLower = value < reference;
+    const adjustmentClass = adjustedHigher ? "adjusted-higher" : adjustedLower ? "adjusted-lower" : null;
+    return { value, adjustmentClass, adjustedHigher, adjustedLower };
+}
 
+interface AdjustedValue {
+    value: number;
+    adjustedHigher: boolean;
+    adjustedLower: boolean;
+    adjustmentClass: "adjusted-higher" | "adjusted-lower" | null;
+}
+
+/** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
+async function maintainFocusInRender(sheet: Application, renderLogic: () => Promise<void>): Promise<void> {
+    const element = sheet.element.get(0);
+    const { activeElement } = document;
+    const activeWasHere = element?.contains(activeElement);
     await renderLogic();
+    if (!activeElement || !activeWasHere) return;
 
     // If the active element was a tagify that is part of this sheet, re-render
-    if (activeWasHere && active?.classList.contains("tagify__input")) {
-        const name = htmlClosest(active, "tags")?.dataset.name;
-        if (name && sheet.element[0]) {
+    if (activeElement instanceof HTMLInputElement && activeElement.dataset.property) {
+        const sameInput = htmlQuery(element, `input[data-property="${activeElement.dataset.property}"]`);
+        sameInput?.focus();
+    } else if (activeElement.classList.contains("tagify__input")) {
+        const name = htmlClosest(activeElement, "tags")?.dataset.name;
+        if (name) {
             htmlQuery(element, `tags[data-name="${name}"] span[contenteditable]`)?.focus();
         }
     }
@@ -101,9 +121,8 @@ export {
     createSheetOptions,
     createSheetTags,
     createTagifyTraits,
-    maintainTagifyFocusInRender,
+    getAdjustment,
+    maintainFocusInRender,
     processTagifyInSubmitData,
-    SheetOption,
-    SheetOptions,
-    TraitTagifyEntry,
 };
+export type { AdjustedValue, SheetOption, SheetOptions, TraitTagifyEntry };

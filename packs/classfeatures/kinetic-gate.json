@@ -1,0 +1,211 @@
+{
+    "_id": "IDBB44egwiQ4qZNh",
+    "img": "systems/pf2e/icons/spells/abundant-step.webp",
+    "name": "Kinetic Gate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a kineticist, you've awakened or opened a kinetic gate, a supernatural conduit within your body that can channel elemental forces straight from the elemental planes. You can choose either a single gate (one element) or dual gate (two elements) at 1st level.</p>\n<p>When selecting an element for your kinetic gate, you can pick from six elements - air, earth, fire metal, water, and wood. Elements you can channel are referred to as your kinetic elements. Your kinetic elements function even in environments where they normally wouldn't. For example, you could use fire actions underwater even though that's normally not possible, and you could create air in a vacuum.</p>\n<p>Your kinetic gate gives you impulse feats, magical actions that let you shape and control your elements in awesome ways. You can select more impulse feats using your kineticist class feats, as described under Impulses. At higher levels, the gate's threshold class feature gives you more impulse feats and lets you choose whether to improve with one element or access new kinetic elements.</p>\n<h3><strong>Single Gate</strong></h3>\n<p>Your kinetic gate links to a single elemental plane, starting you with a single element but giving you greater power with it. Choose one element to be your kinetic element, and select two 1st-level impulse feats that have that element's trait.</p>\n<p>In addition, you gain an impulse junction, a benefit that occurs when you use an impulse of the chosen element that takes 2 actions or more. This happens before the other effects of the impulse, unless noted otherwise. You can gain only one impulse junction per round; they are described in full below.</p>\n<p><strong>Air</strong> Before or after the other effects of the impulse, you can either Stride up to half your Speed or Step. If you have a fly Speed, you can Fly up to half your fly Speed instead.</p>\n<p><strong>Earth</strong> Fragments of stone float around you, granting you a +1 circumstance bonus to AC until the start of your next turn.</p>\n<p><strong>Fire</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</p>\n<p><strong>Metal</strong> Choose acid, electricity, or piercing. Until the start of your next turn, each time a creature touches you or damages you with an unarmed melee attack or nonreach melee weapon, it takes damage of the chosen type equal to half your level (minimum 1 damage).</p>\n<p><strong>Water</strong> After the impulse's other effects, you can move one creature targeted by the impulse or in its area 5 feet in any direction, or 10 feet if it's in a body of water. This can't move the creature into the air. You can choose only a creature that's willing to be moved, that failed its save against the impulse, or that you succeeded at an impulse attack roll against.</p>\n<p><strong>Wood</strong> You gain temporary Hit Points equal to your level that last until the start of your next turn.</p>\n<h3><strong>Dual Gate</strong></h3>\n<p>Your kinetic gate is a harmonious conduit between two planes, allowing you to combine their elements to give you a versatile set of abilities. Select two elements to be your kinetic elements. Then, select two 1st-level impulse feats, one with the trait of the first element and one with the trait of the other.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate",
+                        "value": "dual-gate"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.SingleGate",
+                        "value": "single-gate"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Gate",
+                "rollOption": "kinetic-gate:initial"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "elementOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:air"
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:earth"
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:metal"
+                            }
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:water"
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:wood"
+                            }
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "flag": "elementTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:initial:dual-gate"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "junction:{item|flags.pf2e.rulesSelections.elementOne}:impulse",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate"
+                ]
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}",
+                                        "kinetic-gate:initial:single-gate"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:{item|flags.pf2e.rulesSelections.elementTwo}",
+                                        "kinetic-gate:initial:dual-gate"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

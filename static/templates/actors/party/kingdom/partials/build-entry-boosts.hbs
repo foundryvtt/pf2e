@@ -1,0 +1,38 @@
+<section class="build-entry-boosts">
+    <section>
+        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.BoostsLabel"}}:</strong>
+        <div class="abilities">
+            {{#each buildEntry.boosts as |boost|}}
+                {{#if (eq boost "free")}}
+                    <span class="tag">{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
+                {{else}}
+                    <span class="tag">{{localize (lookup @root.abilityLabels boost)}}</span>
+                {{/if}}
+            {{/each}}
+        </div>
+    </section>
+    {{#if (or buildEntry.flaw (eq category "charter"))}}
+        <section>
+            <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
+            {{#if buildEntry.flaw}}
+                <span class="tag">{{localize (lookup @root.abilityLabels buildEntry.flaw)}}</span>
+            {{else}}
+                <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
+            {{/if}}
+        </section>
+    {{/if}}
+    {{#if buildEntry.skills}}
+        <section>
+            <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.Skills"}}:</strong>
+            {{#each buildEntry.skills as |skill|}}
+                <span class="tag">{{localize (lookup @root.skillLabels skill)}}</span>
+            {{/each}}
+        </section>
+    {{/if}}
+    {{#if featLink}}
+        <section>
+            <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.Feat"}}:</strong>
+            {{{featLink}}}
+        </section>
+    {{/if}}
+</section>

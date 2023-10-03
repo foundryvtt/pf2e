@@ -1,0 +1,100 @@
+{
+    "_id": "zVWCYNybRlSdYJrn",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qA0uCJOWECLVcNuN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Drink Thoughts",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature looks into the pit</p>\n<p><strong>Effect</strong> Ephemeral energies pour from the creature's head, and the creature must attempt a @Check[type:will|dc:30] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 hour and loses 1 minute of recent memories (a memory of the GM's choosing within the last 24 hours).</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Memory Hole",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Anyone looking into the hole has memories sucked from their head.</p>",
+            "disable": "<p>@Check[type:deception|dc:29] (master) to feed the pit false thoughts that plug it, or @Check[type:occultism|dc:28] (expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 27) to drain the pit's magic</p>",
+            "isComplex": false,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap resets after 1 hour if it's not disabled.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #183: Field of Maidens"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,54 +1,67 @@
-declare module foundry {
-    module documents {
-        /** The Macro document model. */
-        class BaseMacro extends abstract.Document<null> {
-            static override get metadata(): MacroMetadata;
+import type { DataModel, Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type { BaseUser } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
-            protected override _preCreate(
-                data: PreDocumentId<MacroSource>,
-                options: DocumentModificationContext<null>,
-                user: BaseUser
-            ): Promise<void>;
+/** The Macro document model. */
+export default class BaseMacro extends Document<null> {
+    static override get metadata(): MacroMetadata;
 
-            /** Is a user able to update an existing Macro document? */
-            protected static _canUpdate(user: BaseUser, doc: BaseMacro, data: MacroSource): boolean;
+    static override defineSchema(): MacroSchema;
 
-            /** Is a user able to delete an existing Macro document? */
-            protected static _canDelete(user: BaseUser, doc: BaseMacro): boolean;
-        }
+    /** The default icon used for newly created Macro documents. */
+    static DEFAULT_ICON: ImageFilePath;
 
-        interface BaseMacro extends abstract.Document<null> {
-            readonly _source: MacroSource;
+    /* -------------------------------------------- */
+    /*  Model Methods                               */
+    /* -------------------------------------------- */
 
-            get documentName(): (typeof BaseMacro)["metadata"]["name"];
-        }
+    override testUserPermission(user: BaseUser, permission: unknown, options?: { exact?: boolean }): boolean;
 
-        interface MacroSource {
-            _id: string;
-            name: string;
-            type: "chat" | "script";
-            img: ImageFilePath;
-            actorIds: string[];
-            author: string;
-            command: string;
-            scope: string;
-            folder?: string | null;
-            sort: number;
-            ownership: Record<string, DocumentOwnershipLevel>;
-            flags: DocumentFlags;
-        }
+    /* -------------------------------------------- */
+    /*  Database Event Handlers                     */
+    /* -------------------------------------------- */
 
-        interface MacroMetadata extends abstract.DocumentMetadata {
-            name: "Macro";
-            collection: "macros";
-            label: "DOCUMENT.Macro";
-            isPrimary: true;
-            types: ["script", "chat"];
-            permissions: {
-                create: "PLAYER";
-                update: (typeof BaseMacro)["_canUpdate"];
-                delete: (typeof BaseMacro)["_canDelete"];
-            };
-        }
-    }
+    protected override _preCreate(
+        data: PreDocumentId<MacroSource>,
+        options: DocumentModificationContext<null>,
+        user: BaseUser
+    ): Promise<boolean | void>;
+
+    /* -------------------------------------------- */
+    /*  Deprecations and Compatibility              */
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static shimData(data: object, options: object): object;
 }
+
+export default interface BaseMacro extends Document<null>, ModelPropsFromSchema<MacroSchema> {
+    readonly _source: MacroSource;
+
+    get documentName(): (typeof BaseMacro)["metadata"]["name"];
+}
+
+interface MacroMetadata extends DocumentMetadata {
+    name: "Macro";
+    collection: "macros";
+    label: "DOCUMENT.Macro";
+    isPrimary: true;
+    types: ["script", "chat"];
+}
+
+type MacroSchema = {
+    _id: fields.DocumentIdField;
+    name: fields.StringField<string, string, true, false, false>;
+    type: fields.StringField<MacroType, MacroType, true, false, true>;
+    author: fields.ForeignDocumentField<BaseUser>;
+    img: fields.FilePathField<ImageFilePath>;
+    scope: fields.StringField<MacroScope, MacroScope, true, false, true>;
+    command: fields.StringField<string, string, true, false, true>;
+    folder: fields.ForeignDocumentField;
+    sort: fields.IntegerSortField;
+    ownership: fields.DocumentOwnershipField;
+    flags: fields.ObjectField<DocumentFlags>;
+    _stats: fields.DocumentStatsField;
+};
+
+type MacroSource = SourceFromSchema<MacroSchema>;

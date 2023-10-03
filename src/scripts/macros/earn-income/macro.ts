@@ -1,11 +1,12 @@
 import { ActorPF2e } from "@actor";
-import { CharacterSkill } from "@actor/character/types";
+import { CharacterSkill } from "@actor/character/types.ts";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import { askSkillPopupTemplate, runEarnIncome } from "./helpers";
+import { askSkillPopupTemplate, runEarnIncome } from "./helpers.ts";
 
 function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
     if (!actor?.isOfType("character")) {
-        return ui.notifications.error(`You must select at least one PC`);
+        ui.notifications.error(`You must select at least one PC`);
+        return;
     }
 
     const skills = Object.values(actor.skills).filter((s): s is CharacterSkill => !!s?.proficient);

@@ -1,0 +1,45 @@
+{
+    "_id": "VTtXwBxrfRUXSL38",
+    "img": "systems/pf2e/icons/features/ancestry/death-warden-dwarf.webp",
+    "name": "Death Warden Dwarf",
+    "system": {
+        "ancestry": {
+            "name": "Dwarf",
+            "slug": "dwarf",
+            "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+        },
+        "description": {
+            "value": "<p>Your ancestors have been tomb guardians for generations, and the power they cultivated to ward off necromancy has passed on to you. If you roll a success on a saving throw against a necromancy effect, you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "necromancy"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Dwarf.DeathWardenDwarf.Note",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "necromancy"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

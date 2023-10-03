@@ -1,0 +1,79 @@
+<li class="strike item expandable"
+    data-element="{{action.element}}"
+    data-damage-type={{action.damageType}}
+    data-item-id="{{action.item.id}}"
+    data-item-type="{{action.item.type}}"
+>
+    <div class="item-name rollable">
+        <div class="item-image strike framed">
+            <img src="{{action.img}}" /> <i class="fa-solid fa-message"></i>
+        </div>
+        <div class="actions-title">
+            <div class="action-name">
+                <h4>{{localize action.label}}</h4>
+                <div class="item-controls">
+                    {{#if (and @root.editable (eq @index 0))}}
+                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                    {{/if}}
+                </div>
+            </div>
+        {{#> attackDamage action=action melee=true}}{{/attackDamage}}
+        </div>
+    </div>
+
+    <div class="alt-usage">
+        <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
+        {{#> attackDamage action=action melee=false}}{{/attackDamage}}
+    </div>
+
+    <div class="item-summary"></div>
+</li>
+
+{{#*inline "attackDamage"}}
+    <div class="button-group tags">
+        <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}">
+            {{localize "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.ShortLabel"}}
+            <span class="action-glyph">{{action.actionCost}}</span>
+            {{numberFormat action.statistic.check.mod sign=true}}
+        </button>
+        <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}" data-map-increases="1">
+            {{#if melee}}{{action.maps.melee.map1}}{{else}}{{action.maps.ranged.map1}}{{/if}}
+        </button>
+        <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}" data-map-increases="2">
+            {{#if melee}}{{action.maps.melee.map2}}{{else}}{{action.maps.ranged.map2}}{{/if}}
+        </button>
+        <button type="button" class="tag damage"
+            data-action="roll-damage"
+            data-melee="{{melee}}"
+            data-outcome="success"
+            data-formula="{{#if melee}}{{action.formula.melee.damage}}{{else}}{{action.formula.ranged.damage}}{{/if}}"
+        >
+            {{localize "PF2E.DamageLabel"}}
+        </button>
+        <button type="button" class="tag damage"
+            data-action="roll-damage"
+            data-melee="{{melee}}"
+            data-outcome="critical-success"
+            data-formula="{{#if melee}}{{action.formula.melee.critical}}{{else}}{{action.formula.ranged.critical}}{{/if}}"
+        >
+            {{localize "PF2E.CriticalDamageLabel"}}
+        </button>
+
+        {{#if (and melee (not (eq action.damageTypes.length 1)))}}
+            <div class="versatile-options damage color">
+                {{#each action.damageTypes as |damageType|}}
+                    <button
+                        type="button"
+                        class="damage color {{damageType.value}}{{#if damageType.selected}} selected{{/if}}"
+                        value="{{damageType.value}}"
+                        {{disabled damageType.selected}}
+                        data-tooltip="{{damageType.label}}"
+                        data-action="set-damage-type"
+                    >
+                        <i class="fa-solid fa-fw fa-{{damageType.icon}} icon"></i>
+                    </button>
+                {{/each}}
+            </div>
+        {{/if}}
+    </div>
+{{/inline}}

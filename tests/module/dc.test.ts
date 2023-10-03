@@ -6,7 +6,7 @@ import {
     combineDCAdjustments,
     createDifficultyScale,
     rarityToDCAdjustment,
-} from "../../src/module/dc";
+} from "@module/dc.ts";
 
 describe("test DCs", () => {
     test("calculate DC by level", () => {
@@ -100,35 +100,35 @@ describe("test DCs", () => {
         expect(rarityToDCAdjustment()).toBe("normal");
         expect(rarityToDCAdjustment("common")).toBe("normal");
         expect(rarityToDCAdjustment("uncommon")).toBe("hard");
-        expect(rarityToDCAdjustment("rare")).toBe("very hard");
-        expect(rarityToDCAdjustment("unique")).toBe("incredibly hard");
+        expect(rarityToDCAdjustment("rare")).toBe("very-hard");
+        expect(rarityToDCAdjustment("unique")).toBe("incredibly-hard");
     });
 
     test("should allow combining adjustments", () => {
         expect(combineDCAdjustments("normal", "normal")).toBe("normal");
         expect(combineDCAdjustments("normal", "easy")).toBe("easy");
-        expect(combineDCAdjustments("normal", "very easy")).toBe("very easy");
-        expect(combineDCAdjustments("normal", "incredibly easy")).toBe("incredibly easy");
+        expect(combineDCAdjustments("normal", "very-easy")).toBe("very-easy");
+        expect(combineDCAdjustments("normal", "incredibly-easy")).toBe("incredibly-easy");
         expect(combineDCAdjustments("hard", "normal")).toBe("hard");
         expect(combineDCAdjustments("hard", "easy")).toBe("normal");
-        expect(combineDCAdjustments("hard", "very easy")).toBe("easy");
-        expect(combineDCAdjustments("hard", "incredibly easy")).toBe("very easy");
-        expect(combineDCAdjustments("very hard", "normal")).toBe("very hard");
-        expect(combineDCAdjustments("very hard", "easy")).toBe("hard");
-        expect(combineDCAdjustments("very hard", "very easy")).toBe("normal");
-        expect(combineDCAdjustments("very hard", "incredibly easy")).toBe("easy");
-        expect(combineDCAdjustments("incredibly hard", "normal")).toBe("incredibly hard");
-        expect(combineDCAdjustments("incredibly hard", "easy")).toBe("very hard");
-        expect(combineDCAdjustments("incredibly hard", "very easy")).toBe("hard");
-        expect(combineDCAdjustments("incredibly hard", "incredibly easy")).toBe("normal");
-        expect(combineDCAdjustments("very hard", "very hard")).toBe("incredibly hard");
-        expect(combineDCAdjustments("incredibly hard", "very hard")).toBe("incredibly hard");
+        expect(combineDCAdjustments("hard", "very-easy")).toBe("easy");
+        expect(combineDCAdjustments("hard", "incredibly-easy")).toBe("very-easy");
+        expect(combineDCAdjustments("very-hard", "normal")).toBe("very-hard");
+        expect(combineDCAdjustments("very-hard", "easy")).toBe("hard");
+        expect(combineDCAdjustments("very-hard", "very-easy")).toBe("normal");
+        expect(combineDCAdjustments("very-hard", "incredibly-easy")).toBe("easy");
+        expect(combineDCAdjustments("incredibly-hard", "normal")).toBe("incredibly-hard");
+        expect(combineDCAdjustments("incredibly-hard", "easy")).toBe("very-hard");
+        expect(combineDCAdjustments("incredibly-hard", "very-easy")).toBe("hard");
+        expect(combineDCAdjustments("incredibly-hard", "incredibly-easy")).toBe("normal");
+        expect(combineDCAdjustments("very-hard", "very-hard")).toBe("incredibly-hard");
+        expect(combineDCAdjustments("incredibly-hard", "very-hard")).toBe("incredibly-hard");
     });
 
     test("should create difficulty scales", () => {
         expect(createDifficultyScale(10, "easy")).toEqual([8, 10, 12, 15, 20]);
         expect(createDifficultyScale(10, "hard")).toEqual([12, 15, 20]);
-        expect(createDifficultyScale(10, "very hard")).toEqual([15, 20]);
+        expect(createDifficultyScale(10, "very-hard")).toEqual([15, 20]);
     });
 
     test("should calculate spell dc levels", () => {

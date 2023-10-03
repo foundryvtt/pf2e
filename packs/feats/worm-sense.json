@@ -1,0 +1,49 @@
+{
+    "_id": "CBJ3GZZsrAXioDNM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Worm Sense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You emulate the senses of the cave worm. You gain darkvision and tremorsense as an imprecise sense within 5 feet.</p>\n<p>The range of the tremorsense increases to 10 feet at 8th level and to 15 feet at 12th level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Worm Caller Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": "ternary(gte(@actor.level,12), 15, ternary(gte(@actor.level,8), 10, 5))",
+                "selector": "tremorsense"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #194: Cult of the Cave Worm"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

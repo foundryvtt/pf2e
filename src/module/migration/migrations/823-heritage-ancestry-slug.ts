@@ -1,7 +1,7 @@
 import { AncestryPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Set a slug in heritages' ancestry data */
 export class Migration823HeritageAncestrySlug extends MigrationBase {

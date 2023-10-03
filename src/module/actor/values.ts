@@ -1,8 +1,8 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { AttributeString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types.ts";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 
-const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
+const ATTRIBUTE_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
 const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
@@ -14,7 +14,7 @@ const WEAKNESS_TYPES = new Set(Object.keys(weaknessTypes)) as Set<WeaknessType>;
 
 const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<ResistanceType>;
 
-const UNAFFECTED_TYPES = new Set(["good", "evil", "lawful", "chaotic", "negative", "positive", "bleed"] as const);
+const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
 const SKILL_ABBREVIATIONS = new Set([
     "acr",
@@ -60,42 +60,39 @@ const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
     Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
 );
 
-const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
+const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
 
 interface SkillExpanded {
-    ability: AbilityString;
-    shortform: SkillAbbreviation;
+    attribute: AttributeString;
+    shortForm: SkillAbbreviation;
 }
 
 const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
-    acrobatics: { ability: "dex", shortform: "acr" },
-    arcana: { ability: "int", shortform: "arc" },
-    athletics: { ability: "str", shortform: "ath" },
-    crafting: { ability: "int", shortform: "cra" },
-    deception: { ability: "cha", shortform: "dec" },
-    diplomacy: { ability: "cha", shortform: "dip" },
-    intimidation: { ability: "cha", shortform: "itm" },
-    medicine: { ability: "wis", shortform: "med" },
-    nature: { ability: "wis", shortform: "nat" },
-    occultism: { ability: "int", shortform: "occ" },
-    performance: { ability: "cha", shortform: "prf" },
-    religion: { ability: "wis", shortform: "rel" },
-    society: { ability: "int", shortform: "soc" },
-    stealth: { ability: "dex", shortform: "ste" },
-    survival: { ability: "wis", shortform: "sur" },
-    thievery: { ability: "dex", shortform: "thi" },
+    acrobatics: { attribute: "dex", shortForm: "acr" },
+    arcana: { attribute: "int", shortForm: "arc" },
+    athletics: { attribute: "str", shortForm: "ath" },
+    crafting: { attribute: "int", shortForm: "cra" },
+    deception: { attribute: "cha", shortForm: "dec" },
+    diplomacy: { attribute: "cha", shortForm: "dip" },
+    intimidation: { attribute: "cha", shortForm: "itm" },
+    medicine: { attribute: "wis", shortForm: "med" },
+    nature: { attribute: "wis", shortForm: "nat" },
+    occultism: { attribute: "int", shortForm: "occ" },
+    performance: { attribute: "cha", shortForm: "prf" },
+    religion: { attribute: "wis", shortForm: "rel" },
+    society: { attribute: "int", shortForm: "soc" },
+    stealth: { attribute: "dex", shortForm: "ste" },
+    survival: { attribute: "wis", shortForm: "sur" },
+    thievery: { attribute: "dex", shortForm: "thi" },
 };
 
 const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
 
-// For combatibility with the PF2e Animal Companion Compendia module
-const ANIMAL_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk";
-const CONSTRUCT_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Features.OJePkZgnguu5Z8cA";
+/** Actor types that are valid for token size linking */
+const SIZE_LINKABLE_ACTOR_TYPES = new Set([...CREATURE_ACTOR_TYPES, "vehicle"]);
 
 export {
-    ABILITY_ABBREVIATIONS,
-    ANIMAL_COMPANION_SOURCE_ID,
-    CONSTRUCT_COMPANION_SOURCE_ID,
+    ATTRIBUTE_ABBREVIATIONS,
     CREATURE_ACTOR_TYPES,
     DC_SLUGS,
     IMMUNITY_TYPES,
@@ -107,6 +104,7 @@ export {
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
     SKILL_LONG_FORMS,
+    SIZE_LINKABLE_ACTOR_TYPES,
     UNAFFECTED_TYPES,
     WEAKNESS_TYPES,
 };

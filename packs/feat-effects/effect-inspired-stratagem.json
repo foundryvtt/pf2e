@@ -1,0 +1,46 @@
+{
+    "_id": "K0Sv9AHgq245hSLC",
+    "img": "systems/pf2e/icons/features/feats/inspired-stratagem.webp",
+    "name": "Effect: Inspired Stratagem",
+    "system": {
+        "description": {
+            "value": "<p>You roll the triggering check twice and take the better of the two results.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "attack-roll"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "skill-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

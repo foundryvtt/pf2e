@@ -1,0 +1,161 @@
+{
+    "_id": "VQiBBu6D2srK6Fmj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fINveZMkSiZN9kMX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Expunge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-worshipper of Dahak touches either door leading to <strong>C7</strong></p>\n<hr />\n<p><strong>Effect</strong> The hazard targets the creature with Face of the Fatal Divine, then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LnwQpnNyyd6h5Xx0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Face of the Fatal Divine",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The creature beholds the face of Dahak as it emerges to bite with its burning jaws, targeting the creature with <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em> (5th level, @Check[type:will|dc:29|traits:complex,hazard,magical,trap]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wrath of the Destroyer",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to notice subtle vapors of magical energy seething across the doors</p>",
+                "value": 22
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>These heavy doors, carved with an image of Dahak, echo with a hatred so powerful that it can kill anyone who comes nearby, manifesting a vision of Dahak's head emerging from the doors to strike at a foe.</p>",
+            "disable": "<p>@Check[type:thievery|dc:29|name:Disrupt the Divine Magic|traits:complex,magical,trap,hazard] (expert) to disrupt the divine magic, @Check[type:religion|dc:29|name:Placate Wrathful Energies|traits:complex,magical,trap,hazard] (expert) to placate the wrathful energies, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level; counteract DC 26).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature being in range.</p>",
+            "routine": "<p>(1 action) On its initiative, the wrath of the destroyer targets the closest target in area <strong>C6</strong> with Face of the Fatal Divine.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #146: Cult of Cinders"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

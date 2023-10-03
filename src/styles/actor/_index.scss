@@ -3,18 +3,14 @@
     overflow: hidden;
 }
 
-$header-height: 89px;   /* Adjust height of the header */
+$header-height: 89px; /* Adjust height of the header */
 
-@import "character/ability-builder";
+@import "character/attribute-builder";
 @import "iwr-editor";
 
 .actor.sheet {
     .image-container {
         position: relative;
-
-        .actor-image {
-            cursor: pointer;
-        }
 
         .hover-icon {
             display: none;
@@ -25,7 +21,7 @@ $header-height: 89px;   /* Adjust height of the header */
             display: block;
         }
 
-        [data-action=show-image] {
+        [data-action="show-image"] {
             position: absolute;
             bottom: 0;
             right: 0;
@@ -36,33 +32,78 @@ $header-height: 89px;   /* Adjust height of the header */
     @import "item-summary";
     @import "inventory";
 
+    .item-image {
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        font-size: var(--font-size-16);
+        height: 24px;
+        width: 24px;
+
+        &.framed {
+            background-color: var(--tertiary);
+            img {
+                border-radius: 2px;
+            }
+            &,
+            i {
+                @include frame-icon;
+            }
+        }
+
+        img {
+            border: none;
+        }
+
+        i {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: var(--text-dark);
+            box-shadow: inset 0 0 4px rgba(black, 0.5);
+        }
+
+        &:hover {
+            i {
+                background: #f1eee9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
     .alignment-select {
-        background-color: #566193;
-        border: 2px solid #d8c384;
-        color: white;
+        background-color: var(--color-bg-alignment);
+        border: 2px solid var(--color-border-trait);
+        color: var(--color-text-trait);
     }
 
     .size-select {
-        background-color: #3a7a58;
-        border: 2px solid #d8c384;
-        color: white;
+        background-color: var(--color-bg-size);
+        border: 2px solid var(--color-border-trait);
+        color: var(--color-text-trait);
     }
 
     .rarity-select {
-        border: 2px solid #d8c384;
-        color: white;
+        border: 2px solid var(--color-border-trait);
+        color: var(--color-text-trait);
 
         &.common {
-            background-color: $rarity-common;
+            background-color: var(--color-rarity-common);
         }
+
         &.uncommon {
-            background-color: $rarity-uncommon;
+            background-color: var(--color-rarity-uncommon);
         }
+
         &.rare {
-            background-color: $rarity-rare;
+            background-color: var(--color-rarity-rare);
         }
+
         &.unique {
-            background-color: $rarity-unique;
+            background-color: var(--color-rarity-unique);
         }
     }
 
@@ -78,13 +119,13 @@ $header-height: 89px;   /* Adjust height of the header */
         display: grid;
         grid:
             "sidebar header" 75px
-                             "sidebar nav" minmax(min-content, max-content)
-                             "sidebar content" 1fr
-                             / 230px 1fr;
+            "sidebar nav" minmax(min-content, max-content)
+            "sidebar content" 1fr
+            / 230px 1fr;
 
         font-family: var(--body-serif);
 
-        background: url("../assets/sheet/header.webp"), url("../assets/sheet/background.webp");
+        background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size: auto $header-height, cover;
         background-attachment: local;
@@ -110,6 +151,7 @@ $header-height: 89px;   /* Adjust height of the header */
         .sheet-body {
             grid-area: content;
             position: relative;
+            z-index: 0;
 
             ol {
                 list-style: none;
@@ -134,7 +176,7 @@ $header-height: 89px;   /* Adjust height of the header */
             }
 
             .sheet-content {
-                color: var(--body);
+                color: var(--text-dark);
 
                 > .tab {
                     padding: 0.6rem 0.6rem 0;
@@ -143,12 +185,13 @@ $header-height: 89px;   /* Adjust height of the header */
                 @import "spell-list";
 
                 ol.directory-list {
-                    > h3, > li > h3 {
+                    > h3,
+                    > li > h3 {
                         font-size: 1rem;
                         font-weight: 500;
                         font-family: var(--serif);
                         line-height: 1;
-                        color: white;
+                        color: var(--text-light);
                         @include p-reset;
                         margin-left: 8px;
                     }
@@ -184,16 +227,17 @@ $header-height: 89px;   /* Adjust height of the header */
                         }
 
                         & > a {
-                            .fas, > .fa {
+                            .fas,
+                            > .fa {
                                 flex-basis: 0;
-                                color: white;
+                                color: var(--text-light);
                                 margin-right: 0.25em;
                                 padding-top: 0.25em;
                             }
                         }
 
                         .item-controls {
-                            color: white;
+                            color: var(--text-light);
                             flex: 1 0 auto;
                             font: 0.85em var(--sans-serif);
                             letter-spacing: 0.05em;
@@ -204,13 +248,13 @@ $header-height: 89px;   /* Adjust height of the header */
                         }
 
                         h3 {
-                            color: white;
+                            color: var(--text-light);
                             flex: 1 1 100%;
                             margin-bottom: 0;
                             font-size: var(--font-size-16);
 
                             input.item-name-input {
-                                color: white;
+                                color: var(--text-light);
                                 max-width: 100%;
                                 font-weight: 500;
 
@@ -224,10 +268,6 @@ $header-height: 89px;   /* Adjust height of the header */
 
                 .tab.actions {
                     @import "tabs/actions";
-                }
-
-                .tab.biography {
-                    @import "tabs/bio";
                 }
 
                 footer {
@@ -273,6 +313,21 @@ $header-height: 89px;   /* Adjust height of the header */
             cursor: not-allowed;
             background-color: var(--color-text-dark-inactive);
         }
+
+        .tags .tag.edit-btn {
+            align-items: center;
+            border-radius: 0;
+            display: flex;
+            justify-content: center;
+
+            a {
+                display: inline-flex;
+                svg {
+                    height: 9px;
+                    width: auto;
+                }
+            }
+        }
     }
 }
 
@@ -284,12 +339,11 @@ $header-height: 89px;   /* Adjust height of the header */
 
 @import "hazard";
 
-.npc {
-    @import "spell-list";
-    @import "npc";
-}
+@import "npc";
 
 @import "loot";
+
+@import "party";
 
 /* Mystification data revealed to GMs */
 .gm-mystified-data {

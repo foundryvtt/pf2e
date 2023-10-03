@@ -1,0 +1,195 @@
+{
+    "_id": "Cq7YWQF3qqkMF4oN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZOjlqzfouLyKpbx5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Port Peril Specialty",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The bar fight creates an effect unique to the bar, located at any point within the hazard (even within sections that have been disabled) as long as the entire hazard has not been disabled. The DC for each effect is 21.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aFLQlgZyBmC70Au7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "General Mayhem",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "6rhs1g473dh5oi75l235": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>Damage can be bludgeoning, slashing or piercing.</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "nonlethal"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3ZfALjGDU74pPTvZ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Get the Goods!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Gaming chips, a money purse, or jewels from a broken necklace scatter across the ground. All creatures within a @Template[type:burst|distance:15] that could be enticed by material wealth must attempt a @Check[type:will|dc:21] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 round or until a creature has used an Interact action to scoop up the valuables. This effect is a Watchtower specialty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Port Peril Bar Fight (The Watchtower) (3-4)",
+    "prototypeToken": {
+        "name": "Port Peril Bar Fight"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 15,
+                "temp": 0,
+                "value": 15
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
+            "stealth": {
+                "details": "<p>-10 and no minimum proficiency to notice</p>",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An assorted crowd throws punches, flings bottles, and otherwise flies into chaos as a bar fight breaks out, clustering in six sections of one of Port Peril's drinking houses.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:22|name:Cow the Crowd] to cow a section of crowd or @Check[type:diplomacy|dc:25|name:Disperse the Crowd] to attempt to disperse it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The bar fight uses its first action to make a general mayhem Strike against all creatures in any area that has not been disabled. Make one Strike against each enemy in the area and roll the damage only once for all targets. The bar fight then uses its second action to use Port Peril specialty.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Quest #4: Port Peril Pub Crawl"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

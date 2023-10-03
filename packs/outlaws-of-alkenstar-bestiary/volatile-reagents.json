@@ -1,0 +1,109 @@
+{
+    "_id": "sCqnGbntH125iWU4",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "KzA5RaCWq7WFoxTL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Explosive Catalyst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Slick drinks Gattlebee's growth serum</p>\n<hr />\n<p><strong>Effect</strong> The giant lizard bumps into lab tables and workbenches, causing dangerous ingredients to intermix and detonate. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Volatile Reagents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Potion bottles, alembics, and potent ingredients violently explode when jostled and accidentally combined.</p>",
+            "disable": "<p>Three @Check[type:acrobatics|dc:20|name:Sort and separate the ingredients|traits:alchemical,hazard,complex,environmental] or @Check[type:crafting|dc:20|name:Sort and separate the ingredients|traits:alchemical,hazard,complex,environmental] checks to sort and separate the bottles of volatile ingredients into groups</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>The lab contains enough ingredients for this hazard to last 1 minute before all materials are expended. Alternatively, the hazard resets once Slick shrinks to regular size.</p>",
+            "routine": "<p>(1 action) A random 10-foot square in Gattlebee's laboratory explodes, dealing [[/r 2d6]] damage to creatures and objects in the area (@Check[type:reflex|dc:18|basic:true|traits:alchemical,hazard,complex,environmental]). The damage type is randomly determined each round: acid, cold, electricity, fire, slashing, or sonic.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "alchemical",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

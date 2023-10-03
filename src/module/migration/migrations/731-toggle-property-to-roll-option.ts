@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util";
-import { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options";
+import { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options.ts";
 
 /** Retire ToggleProperty rule element, converting them to toggleable RollOption ones */
 export class Migration731TogglePropertyToRollOption extends Migration727TrimSelfRollOptions {

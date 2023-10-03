@@ -1,0 +1,76 @@
+{
+    "_id": "V5qmKLmI3RL68RGb",
+    "img": "icons/skills/ranged/cannon-barrel-firing-orange.webp",
+    "name": "Hyper Boosters",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've improved your speed boosters' power through a breakthrough that significantly increases the energy flow without risking exploding. You gain a +10-foot status bonus to your Speed, which increases to a +20-foot status bonus when you're in Overdrive. If you're legendary in Crafting, it instead increases to a +30-foot status bonus when you're in Overdrive. You must have the speed boosters modification to select this modification.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "selector": "land-speed",
+                "slug": "hyper-boosters",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "hyper-boosters",
+                "value": 20
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "skill:cra:rank:4",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "hyper-boosters",
+                "value": 30
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

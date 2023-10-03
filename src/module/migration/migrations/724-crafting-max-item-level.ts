@@ -1,9 +1,9 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
-import { PredicateStatement } from "@system/predication";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { PredicateStatement } from "@system/predication.ts";
 import { isObject, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Predicate rule elements related to crafting entries to protect against partial entry data getting created */
 export class Migration724CraftingMaxItemLevel extends MigrationBase {

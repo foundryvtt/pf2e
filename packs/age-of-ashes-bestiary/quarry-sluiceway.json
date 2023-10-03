@@ -1,0 +1,114 @@
+{
+    "_id": "We1Nq7CrqDQHEZxY",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "v5JDDS5HftErPvPh",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opened Sluices",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.Interact]{Interacts} to throw either the primary lever or backup lever.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Quarry Sluiceway",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 17,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 38,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 38
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:27|name:Notice Sluice Gates|traits:complex,mechanical,trap,hazard] (expert) to notice the six cleverly hidden sluice gates while they are closed</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Six sluice gates open to allow thousands of gallons of water to begin flooding the room. The water churns through the room and flows out through three chutes on the south end of the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Close a Sluice|traits:complex,mechanical,trap,hazard] (expert) twice to close a sluice (on a critical success, a sluice is closed immediately)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap resets if all six sluices are closed. If all the water has drained when this occurs, the water takes many months to refill.</p>",
+            "routine": "<p>(6 actions) The trap loses 1 action per disabled or destroyed sluice. On each of its actions, the water rushing from the sluices flows through the room, creating a river of churning water that fills the room to several inches and makes the floor of the chamber into difficult terrain. The water level never rises above this level in the room, as it drains out of the chutes to the south and begins to flood the quarry pit (area <strong>J2</strong>). On the trap's second turn, the water starts filling the four slave pits in area <strong>J2</strong>. Each of the trap's actions fills the pits 4 inches (2 feet per round if all sluices are functional). If the slave pits fill to their total depth of 12 feet and the grates over the slave pits aren't open, the slaves begin to drown, dying if they aren't freed in 5 rounds. Once the slave pits are full, the water continues to slowly fill the central area over the course of an hour until it empties the reservoir and floods area <strong>J2</strong> to a depth of 15 feet.</p>\n<p>Other options beyond disabling or destroying the sluices could prevent the flooding of the quarry pit at your discretion.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #147: Tomorrow Must Burn"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

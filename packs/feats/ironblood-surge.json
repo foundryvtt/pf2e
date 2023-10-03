@@ -1,0 +1,68 @@
+{
+    "_id": "IqDbNiwHQH1xApo9",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ironblood Surge",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Ironblood Stance]</p>\n<hr />\n<p>You steel yourself, preparing to resist oncoming attacks and using your muscles to absorb the impact.</p>\n<p>You gain the benefits of your iron sweep's parry trait (a +1 circumstance bonus to AC until the start of your next turn) and your resistance from Ironblood Stance increases to your Strength modifier (if it's higher) for the same duration.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ironblood Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:ironblood-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "ironblood-surge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ironblood-surge"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "ironblood-surge"
+                ],
+                "type": "all-damage",
+                "value": "@actor.abilities.str.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

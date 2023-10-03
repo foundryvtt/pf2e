@@ -1,13 +1,13 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Remove RuleElement implementation of armor speed penalties  */
 export class Migration668ArmorSpeedPenalty extends MigrationBase {
     static override version = 0.668;
 
-    override async updateItem(itemSource: ItemSourcePF2e) {
+    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         const slug = itemSource.system.slug ?? sluggify(itemSource.name);
         if (itemSource.type === "armor") {
             const rules = (itemSource.system.rules ??= []);

@@ -1,0 +1,45 @@
+{
+    "_id": "Jj6sVfIX81tgvSY4",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Wind Caller",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You bid the winds to lift and carry you through the air. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Stormwind Flight]</em> order spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "storm order"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

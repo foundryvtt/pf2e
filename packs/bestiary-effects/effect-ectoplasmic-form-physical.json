@@ -1,0 +1,66 @@
+{
+    "_id": "QMcmhifNQOPguv2t",
+    "img": "systems/pf2e/icons/spells/dinosaur-form.webp",
+    "name": "Effect: Ectoplasmic Form (Physical)",
+    "system": {
+        "description": {
+            "value": "<p>The creature loses the incorporeal trait, the immunity to precision damage and all resistances. It gains temporary hit points and an increased armor class according to the specific creature, its jaws strikes deal piercing and its claws strikes deal slashing damage instead of negative.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActorTraits",
+                "remove": [
+                    "incorporeal"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.ac.value",
+                "value": "@actor.flags.pf2e.ectoplasmicFormAC"
+            },
+            {
+                "key": "TempHP",
+                "value": "@actor.flags.pf2e.ectoplasmicFormTempHP"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "piercing"
+                },
+                "selector": "spectral-jaws-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "slashing"
+                },
+                "selector": "spectral-claw-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

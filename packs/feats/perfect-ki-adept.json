@@ -1,0 +1,45 @@
+{
+    "_id": "aQjWHbjK1pk8HESM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Perfect Ki Adept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the appropriate ki spell for your School of Perfection: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unblinking Flame Revelation]</em> for Unblinking Flame, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unbreaking Wave Advance]</em> for Unbreaking Waves, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfolding Wind Rush]</em> for Unfolding Wind, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Untwisting Iron Buffer]</em> for Untwisting Iron. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Student of Perfection Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "eMsI1lR0SuJBCYjn",
+    "img": "systems/pf2e/icons/spells/divinity-leech.webp",
+    "name": "Effect: Consume Energy (Augment Strike)",
+    "system": {
+        "description": {
+            "value": "<p>Strikes with the chosen weapon or unarmed attack deal an additional 1d6 damage of a type matching the energy you consumed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "attacks": true
+                },
+                "flag": "strike",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "{actor|flags.pf2e.deviantAbilities.dragon.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.strike}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

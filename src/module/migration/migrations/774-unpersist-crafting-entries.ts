@@ -1,10 +1,10 @@
-import { CraftingEntryData, CraftingFormulaData } from "@actor/character/crafting";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { PhysicalItemTrait } from "@item/physical/data";
-import { RuleElementSource } from "@module/rules";
-import { PredicateStatement } from "@system/predication";
-import { MigrationBase } from "../base";
+import { CraftingEntryData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { PhysicalItemTrait } from "@item/physical/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { PredicateStatement } from "@system/predication.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert crafting entry `requiredTrait` properties to be predicates */
 export class Migration774UnpersistCraftingEntries extends MigrationBase {
@@ -15,9 +15,9 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         any: ["item:trait:bomb", "item:subtype:ammo"],
     };
 
-    override async updateActor(source: ActorSourcePF2e) {
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character") {
-            const craftingData: MaybeWithOldEntries = source.system.crafting;
+            const craftingData: MaybeWithOldEntries = source.system.crafting ?? {};
             const craftingEntries = craftingData.entries ?? {};
             const rules: MaybeWithRequiredTraits[] = source.items.flatMap((i) => i.system.rules);
             for (const rule of rules) {
@@ -36,8 +36,8 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         }
     }
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules = itemSource.system.rules;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        const rules = source.system.rules;
         // Change requiredTraits property to craftableItems predicate
         const craftingEntryRules = rules.filter(
             (r: RuleElementSource & { requiredTraits?: unknown }): r is MaybeWithRequiredTraits =>

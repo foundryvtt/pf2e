@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject } from "@util";
-import { Migration731TogglePropertyToRollOption } from "./731-toggle-property-to-roll-option";
+import { Migration731TogglePropertyToRollOption } from "./731-toggle-property-to-roll-option.ts";
 
 /** Ensure RE keys do not begin with PF2E.RuleElement, rerun migration 731 */
 export class Migration737NormalizeRuleElementKeys extends Migration731TogglePropertyToRollOption {

@@ -1,0 +1,79 @@
+{
+    "_id": "ch6nFcRJO1fm8B4D",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "Elemental",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Your familiar has the elemental trait instead of the animal trait. Choose air, earth, fire, metal, water, or wood. Your familiar gains that trait. The familiar is immune to bleed, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, sleep, and the element matching its trait. Your familiar must have the resistance familiar ability to select this, unless it's a specific familiar. You can't select this ability if your familiar has a trait other than animal (such as a leshy familiar or an undead familiar).</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.element}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Immunity",
+                "type": [
+                    "bleed",
+                    "paralyzed",
+                    "poison",
+                    "sleep",
+                    "{item|flags.pf2e.rulesSelections.element}"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

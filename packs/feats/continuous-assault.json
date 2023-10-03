@@ -1,0 +1,49 @@
+{
+    "_id": "I3Md8XYhuMVSJqKI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Continuous Assault",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can use @UUID[Compendium.pf2e.feats-srd.Item.Elemental Assault] once per hour instead of once per day.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Elemental Assault"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:elemental-assault"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "suli"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "l5nqNPmZPG6lYFnZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hasted Assault",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can speed yourself up to move and attack more swiftly. You learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Hasted Assault]</em> conflux spell.</p>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "focus pool"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

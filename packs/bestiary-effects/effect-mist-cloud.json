@@ -1,0 +1,43 @@
+{
+    "_id": "5SLAqVPYa0kliRDt",
+    "img": "systems/pf2e/icons/spells/incendiary-fog.webp",
+    "name": "Effect: Mist Cloud",
+    "system": {
+        "description": {
+            "value": "<p>Creatures in the aura are concealed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

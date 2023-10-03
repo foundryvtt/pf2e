@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemGrantSource } from "@item/data/base";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemGrantSource } from "@item/data/base.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert grant flags containing IDs to `ItemGrantData` objects */
 export class Migration755GrantIdsToData extends MigrationBase {

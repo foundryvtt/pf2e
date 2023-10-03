@@ -1,13 +1,13 @@
-import { renderCraftingInline } from "@actor/character/crafting/helpers";
+import { renderCraftingInline } from "@actor/character/crafting/helpers.ts";
 import { PhysicalItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
-import { CheckDC } from "@system/degree-of-success";
-import { ActionMacroHelpers } from "../helpers";
-import { SkillActionOptions } from "../types";
-import { SelectItemDialog } from "./select-item";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { ActionMacroHelpers } from "../helpers.ts";
+import { SkillActionOptions } from "../types.ts";
+import { SelectItemDialog } from "./select-item.ts";
 
-export async function craft(options: CraftActionOptions) {
+export async function craft(options: CraftActionOptions): Promise<void> {
     // resolve item
     const item =
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
@@ -17,7 +17,9 @@ export async function craft(options: CraftActionOptions) {
         console.warn("PF2e System | No item selected to craft: aborting");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));
+        ui.notifications.warn(
+            game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name ?? "" })
+        );
         return;
     }
 
@@ -73,6 +75,9 @@ export async function craft(options: CraftActionOptions) {
             }
             options.callback?.(result);
         },
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

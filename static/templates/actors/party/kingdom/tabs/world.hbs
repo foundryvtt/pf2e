@@ -1,0 +1,38 @@
+<section class="content">
+    <h3 class="header">
+        {{localize "PF2E.Kingmaker.Settlement.Header"}}
+        <button type="button" data-action="add-settlement">
+            <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+        </button>
+    </h3>
+    <ol class="directory-list settlement-list">
+        {{#each settlements as |settlement|}}
+            {{> "systems/pf2e/templates/actors/party/kingdom/partials/settlement.hbs" settlement=settlement }}
+        {{/each}}
+    </ol>
+</section>
+<aside class="extra-data">
+    <section class="work-sites">
+        <h4>{{localize "PF2E.Kingmaker.WorkSites.Label"}}</h4>
+        {{#each commodities as |commodity|}}
+            <div class="row">
+                <label class="value">
+                    <span data-tooltip="{{commodity.workSites.description}}">{{commodity.workSites.label}}</span>
+                    <input type="number" value="{{commodity.workSites.value}}" name="resources.workSites.{{commodity.type}}.value" />
+                </label>
+                {{#if commodity.workSites.hasResource}}
+                    <label class="resource">
+                        <span data-tooltip="{{localize "PF2E.Kingmaker.WorkSites.Resource"}}">2x</span>
+                        <input type="number" value="{{commodity.workSites.resource}}" name="resources.workSites.{{commodity.type}}.resource" />
+                    </label>
+                {{/if}}
+            </div>
+        {{/each}}
+    </section>
+    <section class="other-data">
+        <label>
+            <span>Army Consumption</span>
+            <input type="number" value="{{kingdom.consumption.army}}" name="consumption.army" />
+        </label>
+    </section>
+</aside>

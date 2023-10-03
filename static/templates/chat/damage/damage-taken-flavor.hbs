@@ -1,0 +1,11 @@
+    <ul class="tags">
+        {{#each breakdown as |modifier|}}
+        <li class="tag tag_transparent">{{modifier}}</li>
+        {{/each}}
+    </ul>
+    <div class="notes">
+        {{#each notes as |note|}}
+            {{{note}}}
+        {{/each}}
+    </div>
+    {{#if (or breakdown.length notes.length)}}<hr>{{/if}}

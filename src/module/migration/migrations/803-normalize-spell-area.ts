@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { EffectAreaSize, EffectAreaType } from "@item/spell";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { EffectAreaSize, EffectAreaType } from "@item/spell/index.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure spell-area values are numbers, null out area object if not in use */
 export class Migration803NormalizeSpellArea extends MigrationBase {

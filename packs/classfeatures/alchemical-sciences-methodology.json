@@ -1,0 +1,53 @@
+{
+    "_id": "ln2Y1a4SxlU9sizX",
+    "img": "systems/pf2e/icons/features/classes/alchemical-sciences-methodology.webp",
+    "name": "Alchemical Sciences Methodology",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your methodology emphasizes chemical and alchemical analysis, collecting information from unusual particles and fluids found on the scene. You possess enough alchemical know-how to whip up a few tinctures to help you with your cases.</p>\n<p>You're trained in Crafting and gain the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat. In addition, you gain a @UUID[Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)] for free and learn the formulas for two additional common 1st-level alchemical items, which must be elixirs or tools. Each time you gain a level, you learn the formula for one common alchemical elixir or alchemical tool of any level of item you can create.</p>\n<p>During your daily preparations, you can create a number of versatile vials-alchemical concoctions that can quickly be turned into elixirs and tools-equal to your Intelligence modifier. You can use the @UUID[Compendium.pf2e.actionspf2e.Item.Quick Tincture] action to turn one of these vials into an elixir or alchemical tool for which you know the formula.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Tincture"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

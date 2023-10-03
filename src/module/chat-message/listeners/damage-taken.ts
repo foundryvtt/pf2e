@@ -1,6 +1,6 @@
-import { IWRApplication } from "@system/damage/iwr";
+import { IWRApplication } from "@system/damage/iwr.ts";
 import { htmlQuery } from "@util";
-import { ChatMessagePF2e } from "../document";
+import { ChatMessagePF2e } from "../document.ts";
 
 export const DamageTaken = {
     listen: async (message: ChatMessagePF2e, html: HTMLElement): Promise<void> => {

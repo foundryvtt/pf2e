@@ -1,0 +1,112 @@
+{
+    "_id": "B0EZMtvXsIE3SYiu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Eeclk1UrcRUe4od5",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lock and Shriek",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to open or affect the door</p>\n<p><strong>Effect</strong> The religious symbol of Yhidothrus glows green on the door, sealing it shut while simultaneously shrieking like a tormented soul. This howl is audible in areas <strong>D1-D4</strong> and is loud enough in area <strong>D2</strong> to rouse the bodaks.</p>\n<p>While the door remains locked, a @Check[type:athletics|dc:32] check can Force it Open, or a @Check[type:thievery|dc:32] check can Pick the Lock. The lock can also be removed with <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level, counteract DC 29).</p>\n<p>Once triggered, the alarm continues to shriek and the door remains locked until the hazard is disabled or the door is destroyed or opened. Tracing Yhidothrus's hourglass-shaped religious symbol on either side of the door with a fingertip disables the alarm and the locking ward.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Locking Alarm",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": false,
+            "hardness": 18,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Any attempt to open the door without first tracing the symbol of Yhidothrus (an hourglass) on the door's face with a fingertip causes a glowing green ward to seal the door shut and raise an alarm.</p>",
+            "disable": "<p>@Check[type:thievery|dc:32] (expert) to bypass the magical triggers on the door, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level, counteract DC 29) to counteract the alarm.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>The <em>locking alarm</em> resets after 1 minute.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

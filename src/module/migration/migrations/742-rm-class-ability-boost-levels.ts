@@ -1,6 +1,6 @@
-import { ClassSystemData } from "@item/class/data";
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ClassSystemData } from "@item/class/data.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Remove ability boost levels data from class items */
 export class Migration742RMAbilityBoostLevels extends MigrationBase {

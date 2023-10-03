@@ -1,0 +1,85 @@
+{
+    "_id": "Sj91CUyEUeWoPh2R",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Toymaker",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You delight in making little trinkets for children of all ages, and seeing their faces light up thanks to one of your creations brings joy to your heart. Perhaps you sell your wares from a particular shop or from the back of a wagon as you travel from town to town.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Crafting skill and the Mercantile Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat, choosing Artistry, Blacksmithing, Glassmaking, Leatherworking, Tailoring, or Woodworking as your specialty.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Artistry",
+                        "value": "artistry"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Blacksmithing",
+                        "value": "blacksmithing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Glassmaking",
+                        "value": "glassmaking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Leatherworking",
+                        "value": "leatherworking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Tailoring",
+                        "value": "tailoring"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Woodworking",
+                        "value": "woodworking"
+                    }
+                ],
+                "flag": "toymaker",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpecialtyCrafting.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "specialtyCrafting": "{item|flags.pf2e.rulesSelections.toymaker}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Specialty Crafting"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "trainedLore": "Mercantile",
+        "trainedSkills": {
+            "custom": "",
+            "value": [
+                "cra"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

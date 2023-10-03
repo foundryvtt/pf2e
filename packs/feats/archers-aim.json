@@ -1,0 +1,72 @@
+{
+    "_id": "egmb8p3ZIYtx5aQN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Archer's Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You slow down, focus, and take a careful shot. Make a ranged Strike with a weapon in the bow weapon group. You gain a +2 circumstance bonus to the attack roll and ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition. If the target is @UUID[Compendium.pf2e.conditionitems.Item.Hidden], reduce the flat check from being hidden from 11 to 5.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Archer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "archers-aim",
+                    "ranged"
+                ],
+                "selector": "bow-weapon-group-attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "archers-aim",
+                    "ranged",
+                    "target:condition:concealed"
+                ],
+                "selector": "bow-weapon-group-attack",
+                "text": "PF2E.AttackEffects.IgnoreConcealed",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "archers-aim",
+                    "ranged",
+                    "target:condition:hidden"
+                ],
+                "selector": "bow-weapon-group-attack",
+                "text": "PF2E.AttackEffects.ReduceHiddenCheck",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate"
+            ]
+        }
+    },
+    "type": "feat"
+}

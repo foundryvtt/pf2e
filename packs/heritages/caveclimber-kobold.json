@@ -1,0 +1,48 @@
+{
+    "_id": "5A1wMPdzN1OWE4cY",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Caveclimber Kobold",
+    "system": {
+        "ancestry": {
+            "name": "Kobold",
+            "slug": "kobold",
+            "uuid": "Compendium.pf2e.ancestries.Item.7oQxL6wgsokD3QXG"
+        },
+        "description": {
+            "value": "<p>You live in a vertically-oriented home, and you're a consummate climber. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] skill feat, even if you don't meet the prerequisites. You can use your clawed feet and tail to Climb, leaving your hands free. Additionally, if you succeed at an Athletics check to Climb, you critically succeed instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "text": "When you roll a success to Climb, you get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

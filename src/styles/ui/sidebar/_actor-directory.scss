@@ -12,4 +12,136 @@
             color: var(--color-text-light-primary);
         }
     }
+
+    ol.party-list {
+        list-style-type: none;
+        margin: 0 0 0.25rem 0;
+        padding: 0;
+        position: relative;
+    }
+
+    li.folder-like {
+        border-top: none;
+        border-bottom: none;
+
+        & > header {
+            border-bottom: 1px solid var(--color-border-dark);
+            border-top: 1px solid var(--color-border-dark);
+            display: flex;
+            line-height: 1.5rem;
+            padding: 6px;
+
+            .icon {
+                cursor: pointer;
+                font-size: var(--font-size-16);
+            }
+
+            .left-control > i {
+                margin: 0 0.5em 0 0.25em;
+                text-align: center;
+            }
+
+            h3 {
+                display: block;
+                flex: 1;
+                font-size: var(--font-size-16);
+                margin: 0;
+                padding-left: 1px;
+            }
+
+            a.create-button {
+                flex: 0 0 20px;
+                margin-left: 3px;
+                position: relative;
+                text-align: center;
+
+                &:hover i + i {
+                    color: var(--color-text-hyperlink);
+                }
+
+                i + i {
+                    position: absolute;
+                    top: -2px;
+                    right: -2px;
+                    font-size: 0.5rem;
+                    background: black;
+                    color: var(--color-text-light-highlight);
+                    padding: 1px;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        &.collapsed {
+            i.folder {
+                margin-right: 2px;
+            }
+
+            .fa-folder-open::before {
+                content: "\f07b";
+            }
+
+            .subdirectory {
+                display: none;
+            }
+        }
+
+        &.droptarget > header h3 {
+            text-shadow: 1px 1px 3px var(--color-shadow-dark);
+            font-size: 1.2em;
+
+            i {
+                text-shadow: 0 0 4px var(--color-shadow-primary);
+                transform: scale(1.2);
+            }
+        }
+
+        &.other-parties {
+            > header {
+                background: var(--primary-dark);
+
+                h3 {
+                    i {
+                        margin-right: 6px;
+                    }
+                }
+            }
+
+            &.collapsed > header h3 i {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .subdirectory .folder-like {
+        border-left: 1px solid var(--color-border-dark-1);
+
+        > header {
+            background: var(--primary-darker);
+        }
+    }
+
+    .party {
+        &:not(.activated) .party-header {
+            background: var(--primary-darker);
+            padding: 2px 6px;
+
+            & > *:not(nav) {
+                opacity: 0.85;
+            }
+        }
+
+        .activate-party:hover i {
+            font-weight: 900; // effectively fa-solid
+        }
+
+        &.activated .party-header {
+            background: var(--primary);
+        }
+
+        .blank {
+            line-height: 2.375em;
+            padding: 0 0.5rem;
+        }
+    }
 }

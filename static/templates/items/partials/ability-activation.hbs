@@ -17,7 +17,7 @@
                 {{/select}}
             </select>
         {{else}}
-            <input type="hidden" name="system.actions.value" value=""/>
+            <input type="hidden" name="system.actions.value" value="" />
         {{/if}}
     </div>
 </div>
@@ -26,7 +26,7 @@
     <label>{{localize "PF2E.Frequency.Label"}}</label>
     {{#if data.frequency}}
         <div class="frequency">
-            <input type="number" name="system.frequency.max" value="{{data.frequency.max}}" />
+            <input type="number" name="system.frequency.max" min="1" max="99" value="{{data.frequency.max}}" />
             <span>{{localize "PF2E.Frequency.per"}}</span>
             <select name="system.frequency.per">
                 {{#select data.frequency.per}}
@@ -35,7 +35,7 @@
                     {{/each}}
                 {{/select}}
             </select>
-            <a data-action="frequency-delete"><i class="fas fa-fw fa-times"></i></a>
+            <a data-action="frequency-delete"><i class="fa-solid fa-fw fa-times"></i></a>
         </div>
     {{else}}
         <span class="frequency empty">

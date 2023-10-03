@@ -1,0 +1,115 @@
+{
+    "_id": "mTQYkgy9lfrv2yGG",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wcALGN4qxbG1E6A4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Unmasked Statues",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature removes the mask from a statue</p>\n<hr />\n<p><strong>Effect</strong> The trap casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em> (DC 27) against the creature, creating an image of the statue lunging forth. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mask of Aroden's Guises",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 48,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 48
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Ten masks adorn twelve stone statues.</p>",
+            "disable": "<p>@Check[type:religion|dc:29|name:Dismiss the magic|traits:hazard,complex,magical,trap] (expert) or @Check[type:occultism|dc:29|name:Dismiss the magic|traits:hazard,complex,magical,trap] or @Check[type:thievery|dc:31|name:Dismiss the magic|traits:hazard,complex,magical,trap] (expert) to dismiss the magic on a single statue. Replacing the two missing masks (a mask made of or incorporating coins on the merchant statue and a mask made of any valuable fabric on the tailor statue) and succeeding at a @Check[type:religion|dc:27|name:Disarm the trap|traits:hazard,complex,magical,trap] check disarms the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>The trap deactivates and resets 1 minute after it has no target creatures</p>",
+            "routine": "<p>(3 actions) An unmasked statue casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em> (@Check[type:will|dc:27|traits:hazard,complex,magical,trap,death,emotion,fear,illusion,mental] and @Check[type:fortitude|dc:27|traits:hazard,complex,magical,trap,death,emotion,fear,illusion,mental,incapacitation]) against a target in the room for each of the trap's actions, creating an image of the statue lunging forth. It doesn't affect the same creature more than once; if there are fewer targets than it has actions, the trap doesn't use its remaining actions. Unmasking an additional statue increases the hazard's actions by 1, and replacing a mask reduces its actions by 1.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

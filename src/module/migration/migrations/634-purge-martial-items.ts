@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { WeaponSource } from "@item/data";
-import { WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory } from "@item/weapon/types";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { WeaponSource } from "@item/data/index.ts";
+import { WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponCategory } from "@item/weapon/types.ts";
+import { MigrationBase } from "../base.ts";
 
 export class Migration634PurgeMartialItems extends MigrationBase {
     static override version = 0.634;

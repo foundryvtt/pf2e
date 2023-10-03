@@ -1,0 +1,40 @@
+{
+    "_id": "jEtVesbqYcWGbBYk",
+    "img": "systems/pf2e/icons/features/ancestry/seer-elf.webp",
+    "name": "Seer Elf",
+    "system": {
+        "ancestry": {
+            "name": "Elf",
+            "slug": "elf",
+            "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+        },
+        "description": {
+            "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em> cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] and to @UUID[Compendium.pf2e.actionspf2e.Item.Decipher Writing] of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Seer Elf (Identity Magic or Decipher Writing)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:decipher-writing"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

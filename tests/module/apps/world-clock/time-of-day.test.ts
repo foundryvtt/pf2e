@@ -1,4 +1,4 @@
-import { TimeChangeMode, TimeOfDay } from "@module/apps/world-clock/time-of-day";
+import { TimeChangeMode, TimeOfDay } from "@module/apps/world-clock/time-of-day.ts";
 import { DateTime } from "luxon";
 
 describe("Time of day calculation", () => {

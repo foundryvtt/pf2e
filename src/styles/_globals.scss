@@ -22,13 +22,14 @@
 /* Typography                                */
 /* ----------------------------------------- */
 
-.pf2e, .app.sheet.actor {
-  font-family: var(--sans-serif);
-    h1, h2, h3, h4 {
+.pf2e,
+.app.sheet.actor {
+    font-family: var(--sans-serif);
+    h1,
+    h2,
+    h3,
+    h4 {
         font-weight: 600;
-    }
-    p {
-        font-weight: 500;
     }
 }
 
@@ -44,28 +45,26 @@
 
 .pf2e.sheet form span.pf2-icon,
 .pf2-icon {
-    font-family: "Pathfinder2eActions";
-    font-size: 1.2em;
-    &.larger {
-        font-size: 1.5em;
-    }
+    font-family: "Pathfinder2eActions", sans-serif;
 }
 
-section.roll-note, p.compact-text {
+section.roll-note,
+p.compact-text {
     display: inline-block;
     font-weight: normal;
     line-height: 1.4em;
-    margin: 0.5em 0;
+    margin: 0.25em 0;
     min-height: 1rem;
+    width: 100%;
 }
 
-.activity-icon {
+.action-glyph {
     align-self: center;
     display: inline;
+    font-family: "Pathfinder2eActions", sans-serif;
+    letter-spacing: 0;
     margin: 0;
     padding: 0;
-    font-family: Pathfinder2eActions;
-    font-size: 1.2em;
 }
 
 /* ----------------------------------------- */
@@ -79,7 +78,11 @@ table.pf2-table {
     color: #191813;
     user-select: text;
 
-    thead, tbody, tr, th, td {
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
         box-sizing: border-box;
         user-select: text;
     }
@@ -92,22 +95,17 @@ table.pf2-table {
     }
 
     th {
-        color: white;
+        color: var(--text-light);
         font-weight: bold;
         background-color: #522e2c;
     }
 
-    th, td {
+    th,
+    td {
         border: solid 1px #808080;
         padding: 6px 15px;
         text-align: center;
     }
-}
-
-
-a.inline-roll, a.content-link {
-    font-weight: 500;
-    line-height: 1.6em;
 }
 
 a.foundry-href {
@@ -121,101 +119,105 @@ a.foundry-href {
     border-radius: 2px;
     border: 1px solid var(--color-border-dark-tertiary);
     box-sizing: border-box;
-    cursor: pointer;
-    font-weight: 500;
-    line-height: 1.5em;
-    padding: 1px 0.2em 0;
+    color: var(--color-text-dark-primary);
+    line-height: 1.6em;
+    padding: 1px 4px;
     white-space: nowrap;
     word-break: break-all;
+
+    > i.icon {
+        color: var(--color-text-dark-inactive);
+        margin-right: 0.25em;
+    }
 }
 
 /* ----------------------------------------- */
 /* PF2E Action Custom Element                */
 /* ----------------------------------------- */
 
-[data-pf2-action] {
+span[data-pf2-action] {
     @include inline-link;
-}
+    cursor: pointer;
 
-[data-pf2-action][data-pf2-glyph]::before {
-    font-family: "Pathfinder2eActions";
-    font-size: 1.5em;
-    margin-right: 2px;
-    color: var(--color-text-dark-inactive);
-}
+    &[data-pf2-glyph]::before {
+        font-family: "Pathfinder2eActions";
+        margin-right: 2px;
+        color: var(--color-text-dark-inactive);
+    }
 
-[data-pf2-action]:not([data-pf2-glyph])::before,
-[data-pf2-action][data-pf2-glyph=""]::before {
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    background-image: url("../icons/actions/Passive.webp");
-    background-repeat: no-repeat;
-    background-size: 15px 15px;
-    opacity: 0.4;
-    margin-bottom: -3px;
-    margin-right: 2px;
-    content: "";
-}
+    &:not([data-pf2-glyph])::before,
+    &[data-pf2-glyph=""]::before {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        background-image: url("/icons/actions/Passive.webp");
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+        opacity: 0.4;
+        margin-bottom: -3px;
+        margin-right: 2px;
+        content: "";
+    }
 
-[data-pf2-action][data-pf2-glyph="A"]::before,
-[data-pf2-action][data-pf2-glyph="a"]::before,
-[data-pf2-action][data-pf2-glyph="1"]::before {
-    content: "A";
-}
-[data-pf2-action][data-pf2-glyph="D"]::before,
-[data-pf2-action][data-pf2-glyph="d"]::before,
-[data-pf2-action][data-pf2-glyph="2"]::before {
-    content: "D";
-}
-[data-pf2-action][data-pf2-glyph="T"]::before,
-[data-pf2-action][data-pf2-glyph="t"]::before,
-[data-pf2-action][data-pf2-glyph="3"]::before {
-    content: "T";
-}
-[data-pf2-action][data-pf2-glyph="F"]::before,
-[data-pf2-action][data-pf2-glyph="f"]::before {
-    content: "F";
-}
-[data-pf2-action][data-pf2-glyph="R"]::before,
-[data-pf2-action][data-pf2-glyph="r"]::before {
-    content: "R";
+    &[data-pf2-glyph="A"]::before,
+    &[data-pf2-glyph="a"]::before,
+    &[data-pf2-glyph="1"]::before {
+        content: "A";
+    }
+    &[data-pf2-glyph="D"]::before,
+    &[data-pf2-glyph="d"]::before,
+    &[data-pf2-glyph="2"]::before {
+        content: "D";
+    }
+    &[data-pf2-glyph="T"]::before,
+    &[data-pf2-glyph="t"]::before,
+    &[data-pf2-glyph="3"]::before {
+        content: "T";
+    }
+    &[data-pf2-glyph="F"]::before,
+    &[data-pf2-glyph="f"]::before {
+        content: "F";
+    }
+    &[data-pf2-glyph="R"]::before,
+    &[data-pf2-glyph="r"]::before {
+        content: "R";
+    }
 }
 
 /* ----------------------------------------- */
 /* PF2E Check Custom Element                 */
 /* ----------------------------------------- */
 
+a.inline-check,
 span[data-pf2-check] {
     @include inline-link;
 
-    &::before {
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        margin-right: 0.25em;
-        color: var(--color-text-dark-inactive);
-        content: "\f6cf";
+    &:has([data-pf2-repost]) {
+        padding-right: 0;
     }
 
-    &[data-pf2-check="reflex"]::before {
-        content: "\f70c";
+    &:hover {
+        text-shadow: none;
     }
 
-    &[data-pf2-check="will"]::before {
-        content: "\f5dc";
+    &:has(.label:hover, i.fa-dice-d20:hover) {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
     }
 
-    &[data-pf2-check="fortitude"]::before {
-        content: "\f21e";
-    }
-
-    &[data-pf2-check="perception"]::before {
-        content: "\f06e";
+    > i.icon {
+        &:has(+ span.label > :first-child:is([data-visibility="gm"])) {
+            margin-right: 0.25em;
+        }
     }
 
     &[data-pf2-traits*="secret"] {
         background: var(--blind-roll);
         border-color: #720073;
+    }
+
+    &[data-invalid] {
+        background: rgba(255, 0, 0, 0.05);
+        border: 1px dashed red;
     }
 }
 
@@ -225,6 +227,8 @@ span[data-pf2-check] {
 
 span[data-pf2-effect-area] {
     @include inline-link;
+    cursor: pointer;
+    padding-right: 0;
 
     &::before {
         color: var(--color-text-dark-inactive);
@@ -263,15 +267,14 @@ i[data-pf2-repost] {
     background: var(--inline-repost-bg);
     color: var(--color-text-dark-inactive);
     border-left: 1px solid var(--color-border-dark-tertiary);
-    background: #FFF9;
+    background: #fff9;
     padding: 2px;
-    margin-right: -3px;
     margin-left: 2px;
     text-shadow: none;
 
     &:hover {
-        color: white;
-        text-shadow: 0px 0px 2px black;
+        color: var(--text-light);
+        text-shadow: 0px 0px 2px var(--text-dark);
     }
 }
 
@@ -281,7 +284,7 @@ i[data-pf2-repost] {
     display: inline-block;
     line-height: 1em;
     outline: 1px dotted rgba(75, 74, 68, 0.5);
-    padding: 2px 1px 0px;
+    padding: 1px;
 
     /* ----------------------------------------- */
     /* GM Visibility Elements                    */
@@ -298,18 +301,6 @@ i[data-pf2-repost] {
             padding: initial;
         }
     }
-
-    /* ----------------------------------------- */
-    /* Owner Visibility Elements                 */
-    /* ----------------------------------------- */
-    &[data-visibility="owner"] {
-        background: var(--visibility-owner-bg);
-
-        [data-visibility="owner"] {
-            outline: none;
-            padding: initial;
-        }
-    }
 }
 
 /* ----------------------------------------- */
@@ -319,4 +310,20 @@ i[data-pf2-repost] {
 
 a[href]:hover {
     text-shadow: 0 0 8px var(--color-text-hyperlink);
+}
+
+#loading-bar {
+    white-space: nowrap;
+}
+
+#tinymce {
+    @include journal-styling;
+}
+
+/* ----------------------------------------- */
+/* Upstream Overrides                        */
+/* ----------------------------------------- */
+
+button:disabled {
+    cursor: default;
 }

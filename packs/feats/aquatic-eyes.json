@@ -1,0 +1,46 @@
+{
+    "_id": "Kz4MLcrfXFrdKhyS",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Aquatic Eyes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As your connection to water grows, you can see more easily in places with less light, such as the depths of the ocean. You gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision.</p>\n<hr />\n<p><strong>Special</strong> If your ancestry has neither low-light vision nor darkvision, you can take this ancestry feat a second time to gain darkvision. You can't retrain out of this feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

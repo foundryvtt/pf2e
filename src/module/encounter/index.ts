@@ -1,2 +1,2 @@
-export { EncounterPF2e } from "./document";
-export { CombatantPF2e, RolledCombatant } from "./combatant";
+export { EncounterPF2e } from "./document.ts";
+export { CombatantPF2e, type RolledCombatant } from "./combatant.ts";

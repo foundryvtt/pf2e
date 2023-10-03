@@ -61,12 +61,12 @@
                 <div class="detailsInput flexitem-full">
                     <span class="details-label">{{localize "PF2E.Traits"}}</span>
                     <ul class="tags">
-                        {{#each data.traits.selected as |v k|}}
-                            <li class="tag tag_alt {{k}}">{{localize v}}</li>
+                        {{#each traits as |trait|}}
+                            <li class="tag tag_alt" data-slug="{{trait.value}}">{{trait.label}}</li>
                         {{/each}}
                         <li class="tag tag_secondary edit-btn">
                             {{#if editable}}
-                                <a class="crb-tag-selector" data-tag-selector="basic" data-config-types="vehicleTraits" data-property="system.traits">
+                                <a class="tag-selector" data-tag-selector="basic" data-config-types="vehicleTraits" data-property="system.traits">
                                     {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
                                 </a>
                             {{/if}}

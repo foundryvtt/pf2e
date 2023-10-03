@@ -7,7 +7,7 @@
         <label>{{localize "PF2E.Usage"}}</label>
         <select name="system.usage.value">
             {{#select data.usage.value}}
-                {{#each usage as |label key|}}
+                {{#each usages as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
             {{/select}}
@@ -72,10 +72,4 @@
             spellcheck="false"
         />
     </div>
-
-    <ol class="item-tags tags">
-        {{#each traits as |trait|}}
-            <li class="tag tag_transparent">{{localize trait.label}}</li>
-        {{/each}}
-    </ol>
 </div>

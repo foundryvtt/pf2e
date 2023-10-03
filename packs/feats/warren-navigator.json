@@ -1,0 +1,66 @@
+{
+    "_id": "9Orkgjgfx8AILuqD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Warren Navigator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're particularly good at solving mazes and navigating twists and turns. You gain the trained proficiency rank in Survival. If you would automatically become trained in Survival (from your background or class, for example), you become trained in another skill of your choice.</p>\n<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or attempt a roll against a <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em> spell, you get a result one degree of success better than you rolled. You don't take a penalty to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] when you lack a compass.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival",
+                "text": "PF2E.SpecificRule.Ratfolk.WarrenNavigator.Note",
+                "title": "{item|name}"
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "compass-in-possession"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ratfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

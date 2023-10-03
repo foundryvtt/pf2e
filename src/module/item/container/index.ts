@@ -1,3 +1,3 @@
-export { ContainerPF2e } from "./document";
-export * from "./helpers";
-export { ContainerSheetPF2e } from "./sheet";
+export { ContainerPF2e } from "./document.ts";
+export * from "./helpers.ts";
+export { ContainerSheetPF2e } from "./sheet.ts";

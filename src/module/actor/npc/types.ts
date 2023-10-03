@@ -1,24 +1,22 @@
-import { CreatureSheetData } from "@actor/creature/types";
-import { HitPointsData, PerceptionData } from "@actor/data/base";
-import { SaveType, SkillAbbreviation } from "@actor/types";
-import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
-import { SpellcastingSheetData } from "@item/spellcasting-entry";
-import { ZeroToFour } from "@module/data";
-import { IdentifyCreatureData } from "@module/recall-knowledge";
-import { TraitTagifyEntry } from "@module/sheet/helpers";
-import { NPCPF2e, NPCStrike } from ".";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data";
+import { CreatureSheetData } from "@actor/creature/types.ts";
+import { HitPointsStatistic, PerceptionData } from "@actor/data/base.ts";
+import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
+import type { AbilityItemPF2e, EffectPF2e, ItemPF2e } from "@item";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
+import type { ArmorClassTraceData } from "@system/statistic/index.ts";
+import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
+import type { NPCPF2e, NPCStrike } from "./index.ts";
 
 interface ActionsDetails {
     label: string;
-    actions: NPCSheetItemData<ActionItemPF2e<NPCPF2e>>[];
+    actions: NPCSheetItemData<AbilityItemPF2e<NPCPF2e>>[];
 }
 
 interface NPCActionSheetData {
     passive: ActionsDetails;
-    free: ActionsDetails;
-    reaction: ActionsDetails;
-    action: ActionsDetails;
+    active: ActionsDetails;
 }
 
 /** Highlight such a statistic if adjusted by data preparation */
@@ -44,8 +42,8 @@ type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 interface NPCSystemSheetData extends NPCSystemData {
     actions: NPCStrikeSheetData[];
     attributes: NPCAttributes & {
-        ac: NPCArmorClass & WithAdjustments;
-        hp: HitPointsData & WithAdjustments;
+        ac: ArmorClassTraceData & WithAdjustments;
+        hp: HitPointsStatistic & WithAdjustments;
         perception: PerceptionData & WithAdjustments & WithRank;
     };
     details: NPCSystemData["details"] & {
@@ -57,11 +55,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillAbbreviation, NPCSkillSheetData>;
-    traits: NPCTraitsData & {
-        size: {
-            localizedName?: string;
-        };
-    };
 }
 
 interface NPCStrikeSheetData extends NPCStrike {
@@ -75,25 +68,14 @@ interface NPCSpellcastingSheetData extends SpellcastingSheetData {
 }
 
 /** Additional fields added in sheet data preparation */
-interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor> {
+interface NPCSheetData<TActor extends NPCPF2e = NPCPF2e> extends CreatureSheetData<TActor> {
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;
     items: NPCSheetItemData<ItemPF2e<TActor>>[];
     effectItems: EffectPF2e[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
-    identifyCreatureData: IdentifyCreatureData;
-    identifySkillDC?: number;
-    identifySkillAdjustment?: string;
-    identifySkillProgression?: string;
-    identificationSkills?: string[];
-    identificationSkillList?: string;
-    specificLoreDC?: number;
-    specificLoreAdjustment?: string;
-    specificLoreProgression?: string;
-    unspecificLoreDC?: number;
-    unspecificLoreAdjustment?: string;
-    unspecificLoreProgression?: string;
+    identificationDCs: NPCIdentificationSheetData;
     isNotCommon?: boolean;
     actorSize?: string;
     isWeak?: boolean;
@@ -106,6 +88,15 @@ interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor>
     configLootableNpc?: boolean;
     traitTagifyData: TraitTagifyEntry[];
     languageDetails?: string;
+    speeds: Record<"land", NPCSpeedSheetData & { details: string }> &
+        Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>;
+}
+
+interface NPCSpeedSheetData {
+    value: number;
+    label: string;
+    adjustedHigher: boolean;
+    adjustedLower: boolean;
 }
 
 type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
@@ -132,11 +123,18 @@ type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
     hasAura: boolean;
 };
 
-export {
+interface NPCIdentificationSheetData {
+    standard: string | null;
+    lore: string;
+}
+
+export type {
     NPCActionSheetData,
+    NPCIdentificationSheetData,
     NPCSheetData,
     NPCSheetItemData,
     NPCSkillSheetData,
+    NPCSpeedSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
     NPCSystemSheetData,

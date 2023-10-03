@@ -2,63 +2,92 @@
     height: 100%;
 
     form {
-      display: flex;
-      height: 100%;
-      flex-direction: column;
+        display: flex;
+        height: 88%;
+        flex-direction: column;
+        margin-bottom: 10px;
 
-      .setting-section {
-          border: 1px solid #bbb;
-          border-radius: 5px;
-          margin-top: 5px;
-          padding:2px;
+        .setting-section {
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 2px;
 
-          h3 {
-              margin:0;
-              cursor:pointer;
-          }
+            h3 {
+                margin: 0;
+                cursor: pointer;
+            }
 
-          dt {
-              width:10%;
-          }
+            dt {
+                width: 10%;
+            }
 
-          /* Checkbox */
-          dt > input[type="checkbox"] {
-              transform: none;
-              flex: none;
-              height: auto;
-              margin: 3px 3px;
-          }
+            /* Checkbox */
+            dt > input[type="checkbox"] {
+                transform: none;
+                flex: none;
+                height: auto;
+                margin: 3px 3px;
+            }
 
-          dd {
-              width:88%;
-          }
-      }
+            dd {
+                width: 88%;
+            }
+        }
 
-      dl {
-          margin: 5px 0;
-      }
+        dl {
+            margin: 5px 0;
+        }
 
-      dt {
-          display:inline-block;
-          width:40%;
-          padding-left:5px;
-      }
+        dt {
+            display: inline-block;
+            width: 40%;
+            padding-left: 5px;
+        }
 
-      dd {
-          display:inline-block;
-          width:58%;
-          margin-left:0;
-      }
+        dd {
+            display: inline-block;
+            width: 58%;
+            margin-left: 0;
+        }
 
-      .settings-container {
-          overflow-y: auto;
-          display: flex;
-          flex-wrap: wrap;
+        .settings-container {
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
 
-          div {
-              width: 375px;
-              margin-right: 1em;
-          }
-      }
-  }
+            .tab[data-tab].active {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .single-column {
+                width: 100%;
+            }
+
+            h2 {
+                margin-top: 1em;
+                margin-bottom: 0.5em;
+                width: 100%;
+            }
+
+            div {
+                width: 365px;
+                margin-right: 1em;
+            }
+        }
+    }
+
+    @import "nav";
+    nav {
+        border-width: unset;
+    }
+
+    button.save-settings {
+        background: rgba(0, 0, 0, 0.1);
+        border: 2px groove var(--color-border-light-highlight);
+    }
 }

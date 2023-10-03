@@ -1,0 +1,41 @@
+{
+    "_id": "RKz7Z5pefXKiv9JE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Suli",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You are descended from a janni or otherwise embody a dichotomy of opposing elemental planar forces. You gain the suli trait, in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. You can choose from suli feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "add": [
+                    "suli"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "geniekin",
+                "suli"
+            ]
+        }
+    },
+    "type": "heritage"
+}

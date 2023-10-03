@@ -1,118 +1,67 @@
-.expandable {
-    display: none;
-}
+.inventory {
+    flex-direction: column;
+    overflow-y: hidden;
+    padding-bottom: 1.25rem;
 
-.section-container.inventory-toggles {
-    padding: 4px 6px 6px 6px;
-}
-
-.inventory-section {
-    flex: 1 0 auto;
-    padding: 0px;
-    margin: 0px;
-
-    .coinage {
-        margin-bottom: 8px;
-
-        .currency {
-            background-color: $secondary-accent;
-        }
-
-        .wealth {
-            background-color: $primary-accent;
-        }
-    }
-
-    .inventory-list {
-        & > :first-child {
-            border-radius: 3px 3px 0px 0px;
-        }
-
-        .inventory-header {
-            background-color: $secondary-accent;
-            display: flex;
-            flex: 1;
-            flex-flow: row nowrap;
-            color: white;
-            align-items: baseline;
-
-            h4 {
-                margin: 0px;
-            }
-
-            div {
-                border: none;
-            }
-        }
-
-        .item {
-            border-left: 1px solid $primary-accent;
-            border-right: 1px solid $primary-accent;
-            border-bottom: 1px solid $primary-accent;
-
-            &:not(:last-child) {
-                border-bottom: 1px solid $faded-color;
-            }
-
-            .item-image {
-                border: 2px solid $faded-color;
-                border-radius: 3px;
-                margin: 2px 4px 2px 6px;
-            }
-
-            &[data-item-rarity="common"] {
-                .item-name {
-                    h4 {
-                        border-color: $rarity-common;
-                        color: $rarity-common;
-                    }
-                }
-            }
-
-            &[data-item-rarity="uncommon"] {
-                .item-name {
-                    h4 {
-                        border-color: $rarity-uncommon;
-                        color: $rarity-uncommon;
-                    }
-                }
-            }
-
-            &[data-item-rarity="rare"] {
-                .item-name {
-                    h4 {
-                        border-color: $rarity-rare;
-                        color: $rarity-rare;
-                    }
-                }
-            }
-
-            &[data-item-rarity="unique"] {
-                .item-name {
-                    h4 {
-                        border-color: $rarity-unique;
-                        color: $rarity-unique;
-                    }
-                }
-            }
-
-            .controls .item-toggle-equip {
-                color: rgba(black, 0.4);
-                &.active {
-                    color: rgba(black, 0.75);
-                }
-            }
-        }
-    }
-
-    .footer {
+    &.active {
         display: flex;
+    }
+
+    .expandable {
+        display: none;
+    }
+
+    .section-container.inventory-toggles {
+        padding: 4px 6px 6px 6px;
+    }
+
+    .inventory-section {
+        --border-color: var(--secondary);
         flex: 1 0 auto;
-        width: 100%;
-        justify-content: center;
-        align-items: baseline;
-        background-color: $primary-accent;
-        color: $light-text;
-        border-radius: 0px 0px 3px 3px;
+        padding: 0px;
+        margin: 0px;
+        max-height: calc(100% - 1rem);
+
+        .coinage {
+            margin-bottom: 8px;
+        }
+
+        .inventory-list {
+            & > :first-child {
+                border-radius: 3px 3px 0px 0px;
+            }
+
+            .inventory-header {
+                align-items: center;
+                background-color: var(--primary-background);
+                color: var(--color-text-light-0);
+                display: flex;
+                flex-flow: row nowrap;
+                max-height: fit-content;
+
+                h4 {
+                    margin: 0;
+                }
+
+                div {
+                    border: none;
+                }
+            }
+
+            .item {
+                .item-image {
+                    border: 2px solid $faded-color;
+                    border-radius: 3px;
+                    margin: 2px 4px 2px 6px;
+                }
+
+                .controls .item-toggle-equip {
+                    color: rgba(black, 0.4);
+                    &.active {
+                        color: rgba(black, 0.75);
+                    }
+                }
+            }
+        }
     }
 }

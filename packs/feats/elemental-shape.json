@@ -1,0 +1,99 @@
+{
+    "_id": "F0MYBfiyOD8YHq5t",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elemental Shape",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You understand the fundamental elements of nature such that you can imbue them into your body and manifest as a living embodiment of those elements.</p>\n<p>Add the forms in <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Form]</em> to your <em>wild shape</em> list.</p>\n<p>Whenever you're polymorphed into another form using <em>wild shape</em>, you gain resistance 5 to fire.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wild Shape"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:wild-shape",
+                    {
+                        "nor": [
+                            "self:effect:elemental-form-air",
+                            "self:effect:elemental-form-earth",
+                            "self:effect:elemental-form-fire",
+                            "self:effect:elemental-form-water"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.DliizYpHcmBG130w"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.8eWLR0WCf5258z8X"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.phIoucsDa3iplMm2"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.kxMBdANwCcF841uA"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

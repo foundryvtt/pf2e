@@ -8,6 +8,7 @@
  *
  * @return A flag for whether or not the object was updated
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setProperty(obj: Record<string, any>, key: string, value: any): boolean {
     let target = obj;
     let changed = false;
@@ -57,6 +58,7 @@ function getType(token: unknown): string {
  * @param _d   Recursion depth, to prevent overflow
  * @return An expanded object
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function expandObject(obj: any, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error("Maximum depth exceeded");
@@ -116,6 +118,7 @@ function duplicate<T>(original: T): T {
  * mergeObject({k1: "v1", k2: "v2"}, {"-=k1": null});   // {k2: "v2"}
  */
 function mergeObject(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     original: any,
     other = {},
     {
@@ -214,7 +217,7 @@ function mergeObject(
     return original;
 }
 
-function arrayEquals(self: any[], other: any[]) {
+function arrayEquals(self: unknown[], other: unknown[]): boolean {
     if (!(other instanceof Array) || other.length !== self.length) return false;
     return self.every((v, i) => other[i] === v);
 }
@@ -226,7 +229,9 @@ function arrayEquals(self: any[], other: any[]) {
  * @param [inner]     Only recognize differences in other for keys which also exist in original.
  * @return An object of the data in other which differs from that in original.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function diffObject(original: any, other: any, { inner = false } = {}): any {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function _difference(v0: any, v1: any): [boolean, any] {
         const t0 = getType(v0);
         const t1 = getType(v1);
@@ -248,10 +253,11 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
         const [isDifferent, difference] = _difference(original[key], other[key]);
         if (isDifferent) obj[key] = difference;
         return obj;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }, {} as Record<string, any>);
 }
 
-export function populateFoundryUtilFunctions() {
+export function populateFoundryUtilFunctions(): void {
     global.setProperty = setProperty;
     global.getType = getType;
     global.mergeObject = mergeObject;

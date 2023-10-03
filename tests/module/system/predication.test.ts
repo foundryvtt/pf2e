@@ -1,6 +1,6 @@
-import { PredicatePF2e } from "@system/predication";
+import { PredicatePF2e } from "@system/predication.ts";
 
-describe("Predication with string atomics return correct results", () => {
+describe("Predication with string atomics returns correct results", () => {
     test("conjunctions of atomic statements", () => {
         const predicate = new PredicatePF2e("foo", "bar", "baz");
         expect(predicate.test(["foo"])).toEqual(false);
@@ -26,7 +26,25 @@ describe("Predication with string atomics return correct results", () => {
     });
 });
 
-describe("Predication with numeric-comparison atomics return correct results", () => {
+describe("Predication with numeric-comparison atomics returns correct results", () => {
+    test("simple greater-than", () => {
+        const predicate = new PredicatePF2e({ gt: ["foo", 2] });
+        expect(predicate.test(["foo:1"])).toEqual(false);
+        expect(predicate.test(["foo:2"])).toEqual(false);
+        expect(predicate.test(["foo:3"])).toEqual(true);
+        expect(predicate.test(["foo"])).toEqual(false);
+        expect(predicate.test([])).toEqual(false);
+    });
+
+    test("simple less-than", () => {
+        const predicate = new PredicatePF2e({ lt: ["foo", 2] });
+        expect(predicate.test(["foo:1"])).toEqual(true);
+        expect(predicate.test(["foo:2"])).toEqual(false);
+        expect(predicate.test(["foo:3"])).toEqual(false);
+        expect(predicate.test(["foo"])).toEqual(false);
+        expect(predicate.test([])).toEqual(false);
+    });
+
     test("greater-than, less-than", () => {
         const predicate = new PredicatePF2e({ gt: ["foo", 2] }, { lt: ["bar", 2] });
         expect(predicate.test(["foo:1", "bar:3"])).toEqual(false);
@@ -57,9 +75,18 @@ describe("Predication with numeric-comparison atomics return correct results", (
         expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(true);
         expect(predicate.test(["self:level:2", "target:level:1"])).toEqual(false);
     });
+
+    test("less-than-or-equal-to without matching value pair", () => {
+        const predicate = new PredicatePF2e({ lte: ["self:level", "target:level"] });
+        expect(predicate.test([])).toEqual(false);
+        expect(predicate.test(["self:level:1"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "foo:2"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "target:lebel:2"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(true);
+    });
 });
 
-describe("Predication with conjunction and negation return correct results", () => {
+describe("Predication with conjunction and negation returns correct results", () => {
     test("conjunction operator", () => {
         const predicate = new PredicatePF2e({ and: ["foo", "bar", "baz"] });
         expect(predicate.test(["foo"])).toEqual(false);
@@ -99,7 +126,7 @@ describe("Predication with conjunction and negation return correct results", () 
     });
 });
 
-describe("simple disjunction return correct results", () => {
+describe("Simple disjunction returns correct results", () => {
     test("single disjunction operator", () => {
         const predicate = new PredicatePF2e({ or: ["foo", "bar", "baz"] });
         expect(predicate.test(["foo"])).toEqual(true);
@@ -142,9 +169,9 @@ describe("simple disjunction return correct results", () => {
     });
 });
 
-describe("Predication with joint denial return correct results", () => {
-    test("conjunction of joint denial", () => {
-        const predicate = new PredicatePF2e({ and: [{ nor: ["foo", "bar", "baz"] }] });
+describe("Predication with joint denial returns correct results", () => {
+    test("simple joint denial", () => {
+        const predicate = new PredicatePF2e({ nor: ["foo", "bar", "baz"] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test(["foo", "bar"])).toEqual(false);
         expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
@@ -154,20 +181,62 @@ describe("Predication with joint denial return correct results", () => {
         expect(predicate.test(["bat"])).toEqual(true);
     });
 
-    test("joint denial is equivalent to negated disjunction", () => {
-        const joinDenial = new PredicatePF2e({ nor: ["foo", "bar"] });
-        const negatedDisjunction = new PredicatePF2e({ not: { or: ["foo", "bar"] } });
-        expect(joinDenial.test(["foo"])).toEqual(negatedDisjunction.test(["foo"]));
-        expect(joinDenial.test(["foo", "bar"])).toEqual(negatedDisjunction.test(["foo", "bar"]));
-        expect(joinDenial.test(["foo", "bar", "baz"])).toEqual(negatedDisjunction.test(["foo", "bar", "baz"]));
-        expect(joinDenial.test(["baz"])).toEqual(negatedDisjunction.test(["baz"]));
-        expect(joinDenial.test(["baz", "bat"])).toEqual(negatedDisjunction.test(["baz", "bat"]));
-        expect(joinDenial.test([])).toEqual(negatedDisjunction.test([]));
+    test("joint denial with compound operand", () => {
+        const predicate = new PredicatePF2e({ nor: ["foo", { and: ["bar", "baz"] }] });
+        expect(predicate.test(["foo"])).toEqual(false);
+        expect(predicate.test(["foo", "bar"])).toEqual(false);
+        expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
+        expect(predicate.test(["bar", "baz"])).toEqual(false);
+        expect(predicate.test(["baz"])).toEqual(true);
+        expect(predicate.test([])).toEqual(true);
+        expect(predicate.test(["bat"])).toEqual(true);
+    });
+});
+
+describe("Predication with exclusive disjunction returns correct results", () => {
+    test("simple exclusive disjunction", () => {
+        const predicate = new PredicatePF2e({ xor: ["foo", "bar", "baz"] });
+        expect(predicate.test(["foo"])).toEqual(true);
+        expect(predicate.test(["foo", "bar"])).toEqual(false);
+        expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
+        expect(predicate.test(["bar", "baz"])).toEqual(false);
+        expect(predicate.test(["baz"])).toEqual(true);
+        expect(predicate.test([])).toEqual(false);
+        expect(predicate.test(["bat"])).toEqual(false);
+        expect(predicate.test(["bar", "bat"])).toEqual(true);
+    });
+
+    test("exclusive disjunction with compound operand", () => {
+        const predicate = new PredicatePF2e({ xor: ["foo", { or: ["bar", "baz"] }] });
+        expect(predicate.test(["foo"])).toEqual(true);
+        expect(predicate.test(["foo", "bar"])).toEqual(false);
+        expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
+        expect(predicate.test(["bar", "baz"])).toEqual(true);
+        expect(predicate.test(["baz"])).toEqual(true);
+        expect(predicate.test([])).toEqual(false);
+    });
+
+    test("tautological and contradictory exclusive disjunction", () => {
+        const tautology = new PredicatePF2e({ xor: ["foo", { not: "foo" }] });
+        expect(tautology.test(["foo"])).toEqual(true);
+        expect(tautology.test([])).toEqual(true);
+        expect(tautology.test(["bar"])).toEqual(true);
+
+        const contradiction1 = new PredicatePF2e({ xor: ["foo", "foo"] });
+        expect(contradiction1.test(["foo"])).toEqual(false);
+        expect(contradiction1.test(["bar"])).toEqual(false);
+        expect(contradiction1.test([])).toEqual(false);
+
+        const contradiction2 = new PredicatePF2e({ xor: ["foo", { or: ["foo", "foo"] }] });
+        expect(contradiction2.test(["foo"])).toEqual(false);
+        expect(contradiction2.test(["bar"])).toEqual(false);
+        expect(contradiction2.test(["foo", "bar"])).toEqual(false);
+        expect(contradiction2.test([])).toEqual(false);
     });
 });
 
 describe("Predication with material conditional and negation return correct results", () => {
-    test("material conditional with the `all` quantifier", () => {
+    test("simple material conditional", () => {
         const predicate = new PredicatePF2e({ if: "foo", then: "bar" });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
@@ -176,7 +245,7 @@ describe("Predication with material conditional and negation return correct resu
         expect(predicate.test([])).toEqual(true);
     });
 
-    test("material conditional and negation with the `all` quantifier", () => {
+    test("material conditional and negation", () => {
         const predicate = new PredicatePF2e({ if: "foo", then: { not: "bar" } });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(false);

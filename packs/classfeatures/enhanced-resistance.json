@@ -1,0 +1,318 @@
+{
+    "_id": "T3742fu7oIM3W6Gz",
+    "img": "systems/pf2e/icons/features/classes/enhanced-resistance.webp",
+    "name": "Enhanced Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've improved upon your initial modification's ability to resist damage. The resistance from your initial armor modification adds your full level, instead of half your level (for instance, phlogistonic regulator's resistance would increase to your level). If you have more than one initial modification that gives resistance, choose which one this applies to.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "feature:harmonic-oscillator"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Harmonic Oscillator"
+                    },
+                    {
+                        "predicate": [
+                            "feature:metallic-reactance"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Metallic Reactance"
+                    },
+                    {
+                        "predicate": [
+                            "feature:otherworldly-protection"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Otherworldly Protection"
+                    },
+                    {
+                        "predicate": [
+                            "feature:phlogistonic-regulator"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Phlogistonic Regulator"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.Breakthrough.EnhancedResistancePrompt",
+                "slug": "enhanced-resistance",
+                "slugsAsValues": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:harmonic-oscillator"
+                ],
+                "type": [
+                    "force",
+                    "sonic"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:harmonic-oscillator",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "force",
+                    "sonic"
+                ],
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:metallic-reactance"
+                ],
+                "type": [
+                    "acid",
+                    "electricity"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:metallic-reactance",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "acid",
+                    "electricity"
+                ],
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    {
+                        "not": "self:negative-healing"
+                    }
+                ],
+                "type": "vitality",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    {
+                        "not": "self:negative-healing"
+                    },
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "vitality",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:negative-healing"
+                ],
+                "type": "void",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:negative-healing",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "void",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:evil"
+                ],
+                "type": "good",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:evil",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "good",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:good"
+                ],
+                "type": "evil",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:good",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "evil",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:chaotic"
+                ],
+                "type": "lawful",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:chaotic",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "lawful",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:lawful"
+                ],
+                "type": "chaotic",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:otherworldly-protection",
+                    "self:trait:lawful",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": "chaotic",
+                "value": "@actor.level + 2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:phlogistonic-regulator"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "enhanced-resistance:phlogistonic-regulator",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "@actor.level + 2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

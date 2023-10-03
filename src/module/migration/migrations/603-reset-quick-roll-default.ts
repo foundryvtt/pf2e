@@ -1,5 +1,5 @@
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 export class Migration603ResetQuickRollDefault extends MigrationBase {
     static override version = 0.603;

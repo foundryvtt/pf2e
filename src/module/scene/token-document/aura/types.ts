@@ -1,6 +1,7 @@
-import { ItemTrait } from "@item/data/base";
-import { TokenPF2e } from "@module/canvas";
-import { TokenDocumentPF2e } from "..";
+import { AuraAppearanceData } from "@actor/types.ts";
+import { ItemTrait } from "@item/data/base.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { TokenDocumentPF2e } from "../index.ts";
 
 interface TokenAuraData {
     /** The radius of the aura, measured in feet from the boundary of a token's space */
@@ -12,14 +13,13 @@ interface TokenAuraData {
     /** The rectangle defining this aura's space */
     bounds: PIXI.Rectangle;
 
-    /** The pixel-coordinate pair of this aura's (and token's) center */
-    get center(): Point;
-
     /** The pixel-coordinate radius of this aura, measured from the center */
     radiusPixels: number;
 
+    appearance: AuraAppearanceData;
+
     /** Traits (especially "visual" and "auditory") associated with this aura */
-    traits: Set<ItemTrait>;
+    traits: ItemTrait[];
 }
 
-export { TokenAuraData };
+export type { TokenAuraData };

@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Store indication of NPC elite/weak adjustment in attributes instead of traits */
 export class Migration779EliteWeak extends MigrationBase {

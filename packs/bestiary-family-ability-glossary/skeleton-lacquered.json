@@ -1,0 +1,48 @@
+{
+    "_id": "ZRHUnhaHK2w1el8f",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Skeleton) Lacquered",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p>During the process to create the skeleton, it was covered with several layers of an alchemical lacquer, giving its bones a golden hue and granting added protection. The skeleton gains acid resistance 5 and a +2 status bonus to saves against effects that age or erode the target.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "acid",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Against Effects that Age or Erode the Target",
+                "predicate": [
+                    "lacquered"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

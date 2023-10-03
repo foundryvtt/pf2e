@@ -1,0 +1,191 @@
+{
+    "_id": "7VqibTAEXXX6PIhh",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MrC7xvsyL1EpWyqb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Falling Scythes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>When the trip wire is pulled or severed, both blades swing down, each one attacking all creatures under the ceiling grooves with a Scythe attack. The trap makes a Scythe melee attack with each blade. There's no multiple attack penalty on these attacks.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LPBpvhfnfUxz7nWz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scythe",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "3ky3ngplmh9pq9r7ut9j": {
+                        "damage": "2d12+4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP applies to strikes made by scythe attacks</p>"
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "diceNumber": 6,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "haWc7Vo7IDgvIPU9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Scythe Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "no-map",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Scythe Blades (BB)",
+    "prototypeToken": {
+        "name": "Scythe Blades"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 11,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Two blades, each hidden in a 15-foot-long ceiling groove, are both connected to a trip wire.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|traits:hazard|name:Disable Blade] to disable each blade.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Beginner Box"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}
