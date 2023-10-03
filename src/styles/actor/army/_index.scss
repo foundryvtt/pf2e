@@ -8,440 +8,460 @@ $secondary-accent: $secondary-color;
 $light-text: #f5efe0;
 
 div.pf2e.army.sheet form.army-sheet {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  color: $color;
-  overflow-y: hidden;
-  gap: 12px;
-
-  // ============= //
-  //    SIDEBAR    //
-  // ============= //
-  aside.army-sidebar {
-    max-width: 160px;
-    min-width: 160px;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
+    flex-direction: row;
+    align-items: flex-start;
+    color: $color;
+    overflow-y: hidden;
+    gap: 12px;
 
-    // All sidebar sections
-    section.sidebar-section {
-      width: 100%;
-      display: flex;
-      flex: auto;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 1rem;
-      //Rows within the sections
-      div {
-        line-height: 1rem;
+    // ============= //
+    //    SIDEBAR    //
+    // ============= //
+    aside.army-sidebar {
+        max-width: 160px;
+        min-width: 160px;
         display: flex;
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-        //The header row
-        &.section-head {
-          border-bottom: 1px solid;
-          border-color: $faded-color;
-          align-items: baseline;
-          line-height: 18px;
-          h4 {
-            font-weight: bold;
-            margin-bottom: 0px;
-            font-size: 0.9rem;
-            padding-left: 4px;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+
+        // All sidebar sections
+        section.sidebar-section {
             width: 100%;
-            text-align: left;
-          }
+            display: flex;
+            flex: auto;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 1rem;
+            //Rows within the sections
+            div {
+                line-height: 1rem;
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+                //The header row
+                &.section-head {
+                    border-bottom: 1px solid;
+                    border-color: $faded-color;
+                    align-items: baseline;
+                    line-height: 18px;
+                    h4 {
+                        font-weight: bold;
+                        margin-bottom: 0px;
+                        font-size: 0.9rem;
+                        padding-left: 4px;
+                        width: 100%;
+                        text-align: left;
+                    }
+                }
+                // Rows with buttons
+                &.buttons {
+                    & > * {
+                        flex: 1 1 25%;
+                    }
+                    label {
+                        justify-content: center;
+                    }
+                }
+            }
+            //Headers and labels
+            label {
+                justify-content: space-between;
+                font-size: 0.8rem;
+                height: 20px;
+                line-height: 20px;
+                width: 100%;
+                display: flex;
+                margin: auto;
+            }
+            a.roll-icon {
+                flex-direction: row;
+                align-items: baseline;
+                display: flex;
+            }
         }
-        // Rows with buttons
-        &.buttons {
-          &>* {
-            flex: 1 1 25%;
-          }
-          label {
-            justify-content: center;
-          }
+        //The portrait section
+        section.image-container {
+            border: none;
+            position: relative;
+            img.profile-img {
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;
+                border-radius: 10px;
+                border: unset;
+            }
+            a.hover-icon {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
         }
-      }
-      //Headers and labels
-      label {
-        justify-content: space-between;
-        font-size: 0.8rem;
-        height: 20px;
-        line-height: 20px;
-        width: 100%;
-        display: flex;
-        margin: auto;
-      }  
-      a.roll-icon {
-        flex-direction: row;
-        align-items: baseline;
-        display: flex;
-      }
     }
-    //The portrait section
-    section.image-container {
-      border: none;
-      position: relative;
-      img.profile-img {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        border-radius: 10px;
-        border: unset;
-      }
-      a.hover-icon {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
-    }
-  }
 
-  // Sheet contents
-  section.army-body {
-    flex-direction: column;
-    flex: 2;
+    // Sheet contents
+    section.army-body {
+        flex-direction: column;
+        flex: 2;
         // ============== //
         //     HEADER     //
         // ============== //
         header.army-sheet-header {
-        gap: 4px;
-        display: flex;
-        flex: 1 0 auto;
-        flex-direction: column;
-        div.name {
-          font-family: var(--sans-serif-condensed);
-          font-size: 1.75rem;
-          font-weight: 700;
-          width: 100%;
-          flex-wrap: nowrap;
-          justify-content: space-between;
-          input {
-            font-weight: inherit;
-            height: 32px;
-          }
-          input.name {
-            max-width: calc(100% - 5.5rem);
-            font-variant: small-caps;
-            text-indent: 0.5rem;
-            margin-left: 6px;
-            margin-right: 18px;
-          }
-          .level-label {
-            min-width: 9rem;
-            text-align: right;
-            margin-right: 0.1em;
-            text-transform: uppercase;
-            display: block;
-            input.level {
-              max-width: 2.5rem;
-              text-align: center;
-              margin: 0 0.25rem;
+            gap: 4px;
+            display: flex;
+            flex: 1 0 auto;
+            flex-direction: column;
+            div.name {
+                font-family: var(--sans-serif-condensed);
+                font-size: 1.75rem;
+                font-weight: 700;
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                input {
+                    font-weight: inherit;
+                    height: 32px;
+                }
+                input.name {
+                    max-width: calc(100% - 5.5rem);
+                    font-variant: small-caps;
+                    text-indent: 0.5rem;
+                    margin-left: 6px;
+                    margin-right: 18px;
+                }
+                .level-label {
+                    min-width: 9rem;
+                    text-align: right;
+                    margin-right: 0.1em;
+                    text-transform: uppercase;
+                    display: block;
+                    input.level {
+                        max-width: 2.5rem;
+                        text-align: center;
+                        margin: 0 0.25rem;
+                    }
+                }
             }
-          }
-        }
-        .trait {
-            font-size: 0.9em;
-            font-weight: 500;
-            text-transform: uppercase;
-            height: 28px;
-            width: 128px;
-            text-indent: 0.2rem;
-            &.armytype-select {
-              background: var(--primary);
-              border: 2px solid var(--color-border-trait);
-              color: var(--color-text-trait);
+            .trait {
+                font-size: 0.9em;
+                font-weight: 500;
+                text-transform: uppercase;
+                height: 28px;
+                width: 128px;
+                text-indent: 0.2rem;
+                &.armytype-select {
+                    background: var(--primary);
+                    border: 2px solid var(--color-border-trait);
+                    color: var(--color-text-trait);
+                }
+            }
+            .paizo-style {
+                border: none;
+                margin-top: 2px;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
-        .paizo-style {
-            border: none;
-            margin-top: 2px;
-            padding-left: 0;
-            padding-right: 0;
+
+        // ================ //
+        //       Body      //
+        // ================ //
+        section.sheet-body {
+            padding-right: 0.5rem;
+            fieldset {
+                border: 1px solid #5e0000;
+                border-radius: 3px;
+                margin: 8px 0;
+                legend {
+                    font-size: 1rem;
+                    color: rgb(95, 0, 0);
+                    text-transform: bold;
+                }
+            }
+            label {
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+            // ============= //
+            //    STRIKES    //
+            // ============= //
+            section.weapons {
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+                fieldset.weapons,
+                .upgrades {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    .strike {
+                        flex: 0;
+                        display: flex;
+                        gap: 0.25rem;
+                        justify-content: space-between;
+                        align-items: center;
+                        line-height: 1.5rem;
+                        a.melee,
+                        a.ranged {
+                            border: 1px solid rgba(200, 100, 60, 0.15);
+                            border-radius: 4px;
+                            background: rgba(255, 255, 255, 0.25);
+                            text-align: center;
+                            &[data-attack="0"] {
+                                width: 3rem;
+                                line-height: 1.25rem;
+                            }
+                            &[data-attack="1"],
+                            &[data-attack="2"] {
+                                font-size: 0.7rem;
+                                width: 1.5rem;
+                                line-height: 1rem;
+                            }
+                        }
+                        label.roll {
+                            display: flex;
+                        }
+                        input.name {
+                            flex: 1;
+                            text-indent: 0.25rem;
+                            height: 1.5rem;
+                        }
+                        .unlock {
+                            width: 1.5rem;
+                        }
+                        &.locked {
+                            .strike,
+                            .name,
+                            .pips i,
+                            .pips,
+                            .info,
+                            .restore i,
+                            a.rollable {
+                                color: darkgrey;
+                                pointer-events: none;
+                            }
+                        }
+                    }
+                }
+                fieldset.weapons {
+                    flex: 1;
+                }
+            }
+            // ============= //
+            //     ITEMS     //
+            // ============= //
+            ol.item-list {
+                list-style-type: none;
+                padding: 0;
+                li.item {
+                    display: flex;
+                    align-items: center;
+                    line-height: 1.5rem;
+                    &:nth-child(odd) {
+                        background: rgba(180, 175, 175, 0.25);
+                    }
+                    &.expanded {
+                        flex-wrap: wrap;
+                        .tags {
+                            line-height: 1rem;
+                            padding: 0.5rem 0 0 0;
+                        }
+                    }
+                    .item-icon {
+                        border-radius: 6px;
+                        border: none;
+                        max-height: 1.5rem;
+                        max-width: 1.5rem;
+                        position: relative;
+                    }
+                    .item-name {
+                        display: flex;
+                        text-indent: 0.5rem;
+                        font-weight: bold;
+                        flex: 1 1;
+                        h4 {
+                            margin: auto 0;
+                        }
+                    }
+                    .item-frequency {
+                        flex: 0.2 0 4rem;
+                        gap: 0.25rem;
+                        display: flex;
+                        input {
+                            text-align: right;
+                        }
+                        input,
+                        span {
+                            flex: 1;
+                            margin: auto;
+                        }
+                    }
+                    .item-controls i {
+                        flex: 0 0 4rem;
+                    }
+                }
+            }
         }
     }
 
-    // ================ //
-    //       Body      //
-    // ================ //
-    section.sheet-body {
-      padding-right: 0.5rem;
-      fieldset {
-        border: 1px solid #5e0000;
-        border-radius: 3px;
-        margin: 8px 0;
-        legend {
-          font-size: 1rem;
-          color: rgb(95, 0, 0);
-          text-transform: bold;
+    //Sidebar Buttons & inputs
+    .army-sidebar input {
+        flex: 0;
+        min-width: 2em;
+        font-size: 0.9rem;
+        &[type="number"] {
+            width: 32px;
         }
-      }   
-      label {
+        &[type="text"] {
+            text-align: left;
+            font-size: 0.8rem;
+        }
+        &[type="checkbox"] {
+            font-size: var(--font-size-10);
+            height: 12px;
+            margin: 2px;
+            padding: 0;
+        }
+    }
+
+    button:hover,
+    .item-chat:hover {
+        text-shadow: 0 0 5px var(--color-shadow-highlight);
+        box-shadow: none;
+        cursor: pointer;
+    }
+    a.item-chat .imgicon {
+        position: absolute;
+        background: beige;
+        width: 1.5rem;
+        font-size: 1rem;
+        opacity: 0.5;
+        z-index: 1;
+        line-height: 1.5rem;
+    }
+
+    button {
+        height: 100%;
+        width: 2rem;
+        font-size: 14px;
+        margin: auto;
+        align-items: center;
+        border: none;
+        background: none;
+        label,
+        i {
+            margin: auto;
+        }
+        &.sheet-settings button {
+            font-size: 1rem;
+            width: 3rem;
+            margin: 0;
+        }
+        &.pips {
+            width: 3.5rem;
+            height: 24px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+        }
+        // Empty pips
+        .empty {
+            color: darkgrey;
+        }
+        // Filled pips
+        .filled {
+            color: black;
+        }
+        // Disabled buttons
+        .disabled {
+            color: darkgrey;
+            i::before {
+                text-shadow: none;
+                cursor: default;
+            }
+        }
+    }
+
+    // Buttons that should be hidden unless the parent element is hovered
+    li.item .item-controls i,
+    div.strike .unlock i,
+    a.item-icon i.imgicon {
+        visibility: hidden;
+    }
+    li.item:hover .item-controls i,
+    div.strike:hover .unlock i,
+    a.item-icon:hover i.imgicon {
+        visibility: unset;
+    }
+
+    section.roll {
         display: flex;
         align-items: center;
-        position: relative;
-      }
-      // ============= //
-      //    STRIKES    //
-      // ============= //
-      section.weapons {
-        display: flex;
+        min-width: 4rem;
         justify-content: space-between;
-        gap: 1rem;
-        fieldset.weapons, .upgrades {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-evenly;
-          .strike {
-            flex: 0;
-            display: flex;
-            gap: 0.25rem;
-            justify-content: space-between;
+        i {
+            min-width: 1.5rem;
+            font-size: 1rem;
+        }
+        input.roll-bonus {
+            text-align: center;
+            width: 2rem;
+            height: 1.5rem;
+        }
+    }
+
+    span.plus {
+        font-size: 0.75rem;
+    }
+
+    legend.compendium-items:hover {
+        cursor: pointer;
+        text-shadow: 0 0 5px var(--color-shadow-highlight);
+    }
+
+    .placeholder {
+        color: gray;
+    }
+    .routed {
+        color: darkred;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        label {
+            text-align: left;
             align-items: center;
-            line-height: 1.5rem;
-            a.melee, a.ranged {
-              border: 1px solid rgba(200, 100, 60, 0.15);
-              border-radius: 4px;
-              background: rgba(255, 255, 255, 0.25);
-              text-align: center;
-              &[data-attack="0"] {
-                width: 3rem;
-                line-height: 1.25rem;
-              }
-              &[data-attack="1"], &[data-attack="2"] {
-                font-size: 0.7rem;
-                width: 1.5rem;
-                line-height: 1rem;
-              }
-            }
-            label.roll {
-              display: flex;
-            }
-            input.name {
-              flex: 1;
-              text-indent: 0.25rem;
-              height: 1.5rem;
-            }
-            .unlock {
-              width: 1.5rem;
-            }
-            &.locked {
-                .strike, .name, .pips i, .pips, .info, .restore i, a.rollable {
-                color: darkgrey;
-                pointer-events: none;
-              }
-            }
-          }
         }
-        fieldset.weapons {
-          flex: 1;
+    }
+
+    i.fa-dice-d20 {
+        opacity: 0.75;
+        &:hover {
+            opacity: 1;
         }
-      }
-      // ============= //
-      //     ITEMS     //
-      // ============= //
-      ol.item-list {
-        list-style-type: none;
-        padding: 0;
-        li.item {
-          display: flex;
-          align-items: center;
-          line-height: 1.5rem;
-          &:nth-child(odd) { background: rgba(180, 175, 175, 0.25); }
-          &.expanded {
-            flex-wrap: wrap;
-            .tags {
-              line-height: 1rem;
-              padding: 0.5rem 0 0 0;
-            }
-          }
-          .item-icon {
-            border-radius: 6px;
-            border: none;
-            max-height: 1.5rem;
-            max-width: 1.5rem;
-            position: relative;
-          }
-          .item-name {
-            display: flex;
-            text-indent: 0.5rem;
-            font-weight: bold;
-            flex: 1 1;
-            h4 {
-              margin: auto 0;
-            }
-          }
-          .item-frequency {
-            flex: 0.2 0 4rem;
-            gap: 0.25rem;
-            display: flex;
-            input {
-              text-align: right;
-            }
-            input, span {
-              flex: 1;
-              margin: auto;
-            }
-          }
-          .item-controls i {
-            flex: 0 0 4rem;
-          }
+    }
+
+    // "manual" vs "automatic" statgen mode
+    input[type="number"],
+    input.name {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+    }
+    &.editLock {
+        input.stats,
+        label.stats {
+            cursor: default;
+            pointer-events: none;
+            background: none;
         }
-      }
     }
-  }
-
-  //Sidebar Buttons & inputs
-  .army-sidebar input {
-    flex: 0;
-    min-width: 2em;
-    font-size: 0.9rem;
-    &[type="number"] {
-      width: 32px;
-    }
-    &[type="text"] {
-      text-align: left;
-      font-size: 0.8rem;
-    }
-    &[type="checkbox"] {
-      font-size: var(--font-size-10);
-      height: 12px;
-      margin: 2px;
-      padding: 0;
-    }
-  }
-
-  button:hover, .item-chat:hover {
-    text-shadow: 0 0 5px var(--color-shadow-highlight);
-    box-shadow: none;
-    cursor: pointer;
-  }
-  a.item-chat .imgicon {
-    position: absolute;
-    background: beige;
-    width: 1.5rem;
-    font-size: 1rem;
-    opacity: 0.5;
-    z-index: 1;
-    line-height: 1.5rem;
-  }
-
-  button {
-    height: 100%;
-    width: 2rem;
-    font-size: 14px;
-    margin: auto;
-    align-items: center;
-    border: none;
-    background: none;
-    label, i {
-      margin: auto;
-    }
-    &.sheet-settings button {
-      font-size: 1rem;
-      width: 3rem;
-      margin: 0;
-    }
-    &.pips {
-      width: 3.5rem;
-      height: 24px;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
-    }
-    // Empty pips
-    .empty {
-      color: darkgrey;
-    }
-    // Filled pips
-    .filled {
-      color: black;
-    }
-    // Disabled buttons
-    .disabled {
-      color: darkgrey;
-      i::before {
-        text-shadow: none;
-        cursor: default;
-      }
-    }
-  }
-
-  // Buttons that should be hidden unless the parent element is hovered
-  li.item .item-controls i, div.strike .unlock i, a.item-icon i.imgicon {
-    visibility: hidden;
-  }
-  li.item:hover .item-controls i, div.strike:hover .unlock i, a.item-icon:hover i.imgicon {
-    visibility: unset;
-  }
-
-  section.roll {
-    display: flex;
-    align-items: center;
-    min-width: 4rem;
-    justify-content: space-between;
-    i {
-      min-width: 1.5rem;
-      font-size: 1rem;
-    }
-    input.roll-bonus {
-    text-align: center;
-    width: 2rem;
-    height: 1.5rem;
-    }
-  }
-
-  span.plus {
-    font-size: 0.75rem;
-  }
-
-  legend.compendium-items:hover {
-    cursor: pointer;
-    text-shadow: 0 0 5px var(--color-shadow-highlight);
-  }
-
-  .placeholder {
-    color: gray;
-  }
-  .routed {
-    color: darkred;
-  }
-
-  .flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    label {
-      text-align: left;
-      align-items: center;
-    }
-  }
-
-  i.fa-dice-d20 {
-    opacity: 0.75;
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  // "manual" vs "automatic" statgen mode
-  input[type="number"], input.name {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-  }
-  &.editLock {
-    input.stats, label.stats {
-      cursor: default;
-      pointer-events: none;
-      background: none;
-    }
-  }
 }
