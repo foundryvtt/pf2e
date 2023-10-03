@@ -10,7 +10,7 @@ import { armyTraits } from "@scripts/config/traits.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return ["action", "feat", "effect"];
+        return ["campaignFeature"];
     }
 }
 
@@ -28,13 +28,11 @@ interface ArmySystemSource extends ActorSystemSource {
         immunities: never;
         weaknesses: never;
         resistances: never;
-        perception?: never;
-        initiative?: never;
-        shield?: never;
         flanking: {
             canFlank: never;
             canGangUp: never;
             flankable: never;
+            offGuardable: never;
             flatFootable: never;
         };
 
@@ -104,4 +102,4 @@ interface ArmySystemSource extends ActorSystemSource {
     autoChanges: {};
 }
 
-export { ArmyPF2e, ArmySource };
+export type { ArmyPF2e, ArmySource };
