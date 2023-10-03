@@ -1,0 +1,43 @@
+{
+    "_id": "svGLZdD4PF7miAKA",
+    "img": "icons/equipment/shoulder/pauldron-segmented-steel-white.webp",
+    "name": "Dense Plating",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have encased your armor in robust plating. While wearing your armor, you gain resistance to slashing damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "type": "slashing",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}
