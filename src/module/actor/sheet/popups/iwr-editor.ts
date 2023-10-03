@@ -11,9 +11,10 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     constructor(actor: TActor, options: IWREditorConstructorOptions) {
         super(actor, options);
 
-        if (this.actor.isOfType("familiar", "loot")) {
+        if (this.actor.isOfType("army", "familiar", "loot")) {
             throw ErrorPF2e(`Actor ${this.actor.name} (${this.actor.uuid}) may not have stored IWR data`);
         }
+
         this.category = options.category;
         this.types = {
             immunities: CONFIG.PF2E.immunityTypes,

@@ -33,6 +33,7 @@ interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
     party: ActorInstance.PartyPF2e<TParent>;
     npc: ActorInstance.NPCPF2e<TParent>;
     vehicle: ActorInstance.VehiclePF2e<TParent>;
+    army: ActorInstance.ArmyPF2e<TParent>;
 }
 
 type EmbeddedItemInstances<TParent extends ActorPF2e> = {

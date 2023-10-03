@@ -567,6 +567,18 @@ const otherWeaponTags: Record<OtherWeaponTag, string> = {
 
 const rangeTraits = R.mapToObj(RANGE_TRAITS, (trait) => [trait, `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}`]);
 
+const armyTraits = {
+    infantry: "PF2E.Actor.Army.ArmyTypeInfantry",
+    cavalry: "PF2E.Actor.Army.ArmyTypeCavalry",
+    skirmisher: "PF2E.Actor.Army.ArmyTypeSkirmisher",
+    siege: "PF2E.Actor.Army.ArmyTypeSiege",
+};
+
+const warfareActionTraits = {
+    morale: "PF2E.Actor.Army.ArmyTraitMorale",
+    maneuver: "PF2E.Actor.Army.ArmyTraitManeuver",
+};
+
 const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
@@ -600,6 +612,7 @@ const featTraits = {
     ...magicSchools,
     ...magicTraditions,
     ...spellTraits,
+    ...armyTraits,
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
@@ -971,6 +984,7 @@ const traitDescriptions = {
     arcane: "PF2E.TraitDescriptionArcane",
     archetype: "PF2E.TraitDescriptionArchetype",
     ardande: "PF2E.TraitDescriptionArdande",
+    army: "PF2E.Warfare.Traits.armyDescription",
     artifact: "PF2E.TraitDescriptionArtifact",
     attached: "PF2E.TraitDescriptionAttached",
     "attached-to-crossbow-or-firearm": "PF2E.TraitDescriptionAttached",
@@ -1413,4 +1427,5 @@ export {
     vehicleTraits,
     weaponTraits,
     type ElementTrait,
+    armyTraits,
 };
