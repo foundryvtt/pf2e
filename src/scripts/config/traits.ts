@@ -567,18 +567,6 @@ const otherWeaponTags: Record<OtherWeaponTag, string> = {
 
 const rangeTraits = R.mapToObj(RANGE_TRAITS, (trait) => [trait, `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}`]);
 
-const armyTraits = {
-    infantry: "PF2E.Actor.Army.ArmyTypeInfantry",
-    cavalry: "PF2E.Actor.Army.ArmyTypeCavalry",
-    skirmisher: "PF2E.Actor.Army.ArmyTypeSkirmisher",
-    siege: "PF2E.Actor.Army.ArmyTypeSiege",
-};
-
-const warfareActionTraits = {
-    morale: "PF2E.Actor.Army.ArmyTraitMorale",
-    maneuver: "PF2E.Actor.Army.ArmyTraitManeuver",
-};
-
 const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
