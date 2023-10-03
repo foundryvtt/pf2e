@@ -183,6 +183,18 @@ class RuleElementForm<
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
         tagify(selectorElement);
 
+        // Add event listener for priority. This exists because normal form submission won't work for text-area forms
+        const priorityInput = htmlQuery<HTMLInputElement>(html, ".rule-element-header .priority input");
+        priorityInput?.addEventListener("change", (event) => {
+            event.stopPropagation();
+            const value = priorityInput.value;
+            if (value === "" || Number.isNaN(Number(value))) {
+                this.updateItem({ "-=priority": null });
+            } else {
+                this.updateItem({ priority: Number(value) });
+            }
+        });
+
         for (const button of htmlQueryAll(html, "[data-action=toggle-brackets]")) {
             button.addEventListener("click", () => {
                 const property = button.dataset.property ?? "value";
