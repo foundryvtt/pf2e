@@ -6,7 +6,7 @@ import { ActorAlliance } from "@actor/types.ts";
 import { Alignment } from "@actor/creature/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { ItemType } from "@item/data/index.ts";
-import { armyTraits } from "@scripts/config/traits.ts";
+import { armyTypes } from "./values.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -93,7 +93,7 @@ interface ArmySystemSource extends ActorSystemSource {
 
     traits: {
         rarity: Rarity;
-        type: typeof armyTraits;
+        type: typeof armyTypes;
         size: ActorSizePF2e;
         value: never[];
     };
@@ -102,4 +102,5 @@ interface ArmySystemSource extends ActorSystemSource {
     autoChanges: {};
 }
 
-export type { ArmyPF2e, ArmySource };
+export { ArmyPF2e };
+export type { ArmySource };

@@ -68,7 +68,6 @@ import {
     traitDescriptions,
     vehicleTraits,
     weaponTraits,
-    armyTraits,
 } from "./traits.ts";
 import * as R from "remeda";
 
@@ -600,7 +599,6 @@ export const PF2ECONFIG = {
     monsterTraits: creatureTraits,
     npcAttackTraits,
     hazardTraits,
-    armyTraits,
     vehicleTraits,
 
     traitsDescriptions: traitDescriptions,

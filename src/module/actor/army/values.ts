@@ -1,3 +1,8 @@
+// Army types
+
+import { kingmakerTraits } from "@scripts/config/traits.ts";
+const armyTypes = [ kingmakerTraits.infantry, kingmakerTraits.cavalry, kingmakerTraits.siege, kingmakerTraits.skirmisher ];
+
 // Default stat arrays
 const ARMY_STATS = {
     scouting: [0, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33],
@@ -143,4 +148,4 @@ function fetchArmyGearData(gearType: String): Object {
     }
 }
 
-export { ARMY_STATS, fetchArmyGearData };
+export { ARMY_STATS, fetchArmyGearData, armyTypes };
