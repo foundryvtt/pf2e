@@ -1509,7 +1509,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     item: weapon,
                     domains: attackDomains,
                     statistic: action,
-                    target: { token: game.user.targets.first() ?? null },
+                    target: { token: params.target ?? game.user.targets.first() ?? null },
                     defense: "armor",
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
