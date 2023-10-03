@@ -33,8 +33,6 @@ import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
-import { PartySheetPF2e } from "@actor/party/sheet.ts";
-import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
 import { ArmySheetPF2e } from "@actor/army/sheet.ts";
 
 export function registerSheets(): void {
