@@ -307,10 +307,12 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 }
             }
 
+            // Check if the aura already exists to merge new data into it. Radius/Appearance is always overriden.
             const existing = this.actor.auras.get(this.slug);
             if (existing && this.mergeExisting) {
                 existing.radius = data.radius;
                 existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                existing.appearance = data.appearance;
                 for (const effect of data.effects) {
                     const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);
                     if (existingIndex !== -1) {
@@ -318,11 +320,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     } else {
                         existing.effects.push(effect);
                     }
-                }
-
-                // Only merge appearance data from this aura if it has been explicitly set by the user
-                if (this._source.appearance) {
-                    existing.appearance = mergeObject(existing.appearance, data.appearance);
                 }
             } else {
                 this.actor.auras.set(this.slug, data);
