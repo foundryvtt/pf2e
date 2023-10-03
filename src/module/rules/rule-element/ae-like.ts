@@ -158,7 +158,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         current: TCurrent,
         change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
         merge?: boolean
-    ): TCurrent | DataModelValidationFailure;
+    ): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
     static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown, merge = false): unknown {
         const { DataModelValidationFailure } = foundry.data.validation;
 

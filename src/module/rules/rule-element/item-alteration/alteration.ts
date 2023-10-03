@@ -267,12 +267,16 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "other-tags": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                const traits: { otherTags: string[] } = data.item.system.traits;
-                const newValue = AELikeRuleElement.getNewValue(this.mode, traits.otherTags, data.alteration.value);
+                const otherTags: string[] = data.item.system.traits.otherTags;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, otherTags, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                traits.otherTags = newValue;
+                if (this.mode === "add") {
+                    if (!otherTags.includes(newValue)) otherTags.push(newValue);
+                } else if (["subtract", "remove"].includes(this.mode)) {
+                    otherTags.splice(otherTags.indexOf(newValue), 1);
+                }
                 return;
             }
             case "speed-penalty": {
@@ -314,7 +318,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.traits.value = newValue;
+                const traits = data.item.system.traits.value;
+                if (this.mode === "add") {
+                    if (!traits.includes(newValue)) traits.push(newValue);
+                } else if (["subtract", "remove"].includes(this.mode)) {
+                    traits.splice(traits.indexOf(newValue), 1);
+                }
                 return;
             }
         }
