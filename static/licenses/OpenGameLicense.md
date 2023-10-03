@@ -188,11 +188,11 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #190: The Choosing © 2023, Paizo Inc.; Author: Ron Lundeen.
 	*  Pathfinder Adventure Path #191: The Destiny War © 2023, Paizo Inc.; Author: Chris S. Sims.
 	*  Pathfinder Adventure Path #192: The Worst of All Possible Worlds © 2023, Paizo Inc.; Author: Luis Loza.
-	*  Sky King's Tomb Player's Guide © 2023, Paizo Inc.; Author: TBD
+	*  Sky King's Tomb Player's Guide © 2023, Paizo Inc.; Author: John Compton and Crystal Frasier.
 	*  Pathfinder Adventure Path #193: Mantle of Gold © 2023, Paizo Inc.; Authors: John Compton, Crystal Frasier, and Caryn DiMarco.	
 	*  Pathfinder Adventure Path #194: Cult of the Cave Worm © 2023, Paizo Inc.; Author: Scott D. Young.
 	*  Pathfinder Adventure Path #195: Heavy is the Crown © 2023, Paizo Inc.; Author: Jessica Catalan.
-	*  Season of Ghosts Player's Guide © 2023, Paizo Inc.; Author: TBD
+	*  Season of Ghosts Player's Guide © 2023, Paizo Inc.; Author: James Jacobs and Sen H.H.S.
 	*  Pathfinder Adventure Path #196: The Summer that Never Was © 2023, Paizo Inc.; Authors: Sen H.H.S. and James Jacobs.
 	*  Pathfinder Adventure Path #197: Let the Leaves Fall © 2023, Paizo Inc.; Author: Joan Hong.
 	*  Pathfinder Adventure Path #198: With No Breath to Cry © 2023, Paizo Inc.; Authors: Dan Cascone and Eleanor Ferron.
