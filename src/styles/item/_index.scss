@@ -60,7 +60,7 @@
 
         @import "abc-sheet";
         @import "activations";
-        @import "identify-item";
+        @import "mystification";
         @import "rules";
 
         label {
@@ -209,6 +209,7 @@
             }
 
             .tab.active {
+                overflow: hidden scroll;
                 padding-left: 0.5rem;
 
                 &.description {
@@ -293,7 +294,6 @@
                 /** Details */
                 &.details {
                     padding: 0.5rem 0.5rem 0;
-                    overflow: hidden scroll;
 
                     label {
                         color: var(--color-text-dark-2);
@@ -315,21 +315,6 @@
                     .tags .tag {
                         font-size: var(--font-size-10);
                     }
-                }
-
-                &.mystification {
-                    padding: 8px 8px 0;
-                    overflow: hidden scroll;
-
-                    label {
-                        color: #353535;
-                        font-weight: bold;
-                    }
-                }
-
-                &.item-activations,
-                &.rules {
-                    overflow: hidden scroll;
                 }
             }
 
