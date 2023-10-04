@@ -16,6 +16,7 @@ type CheckType =
     | "flat-check"
     | "initiative"
     | "perception-check"
+    | "recall-knowledge-check"
     | "saving-throw"
     | "skill-check";
 

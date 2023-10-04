@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import {
@@ -124,6 +124,11 @@ class Statistic extends BaseStatistic {
     /** Convenience getter to the statistic's total modifier */
     get mod(): number {
         return this.check.mod;
+    }
+
+    /** Creates a new StatisticCheck to roll recall knowledge */
+    get recallKnowledge(): StatisticCheck {
+        return this.createRecallKnowledgeCheck(this.data);
     }
 
     /** @deprecated */
@@ -262,6 +267,51 @@ class Statistic extends BaseStatistic {
             breakdown,
             modifiers: modifiers.map((m) => m.toObject()),
         };
+    }
+
+    /**
+     * Creates a new Statistic based on the Statistic from which it was called and creates a StatisticCheck to roll Recall Knowledge from
+     * @param data StatisticData from the Statistic that called the function
+     * @returns New StatisticCheck to roll Recall Knowledge from
+     */
+    createRecallKnowledgeCheck(data: StatisticData): StatisticCheck {
+        const replaceableAttributes = ["dex", "str", "con", "cha"];
+        const attribute =
+            replaceableAttributes.includes(data.attribute as string) && !data.lore ? "int" : data?.attribute;
+
+        const rollOptions = data.rollOptions ?? [];
+        rollOptions?.push("action:recall-knowledge");
+
+        const recallKnowledgeCheckData: StatisticCheckData = {
+            type: "recall-knowledge-check",
+            label: game.i18n.format("PF2E.RecallKnowledgeWithName", { skillName: this.label }),
+            domains: ["recall-knowledge-check", `${attribute}-based`, `${attribute}-skill-check`, "skill-check"],
+        };
+
+        const recallKnowledgeStatistic = new Statistic(
+            this.actor,
+            {
+                attribute: attribute,
+                slug: `recall-knowledge-${this.slug}`,
+                label: game.i18n.format("PF2E.RecallKnowledgeWithName", { skillName: this.label }),
+                domains: ["all", "recall-knowledge"],
+                rank: this.rank ?? undefined,
+                proficient: this.proficient,
+                check: recallKnowledgeCheckData,
+                lore: this.lore,
+                dc: this.dc,
+                rollOptions: rollOptions,
+            },
+            this.config
+        );
+
+        const recallKnowledgeStatisticCheck = new StatisticCheck(
+            recallKnowledgeStatistic,
+            recallKnowledgeStatistic.data,
+            recallKnowledgeStatistic.config
+        );
+
+        return recallKnowledgeStatisticCheck;
     }
 }
 
@@ -413,6 +463,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                   })
                 : null;
         })();
+
+        // If this is a recall knowledge check, add the secret and concentrate traits
+        this.type === "recall-knowledge-check"
+            ? args.traits
+                ? args.traits.push("secret", "concentrate")
+                : (args.traits = ["secret", "concentrate"])
+            : null;
 
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
