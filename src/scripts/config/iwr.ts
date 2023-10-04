@@ -59,6 +59,7 @@ const immunityTypes = {
     olfactory: "PF2E.Damage.IWR.Type.olfactory",
     orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     paralyzed: "PF2E.Damage.IWR.Type.paralyzed",
+    "persistent-damage": "PF2E.Damage.IWR.Type.persistent-damage",
     petrified: "PF2E.Damage.IWR.Type.petrified",
     physical: "PF2E.Damage.IWR.Type.physical",
     piercing: "PF2E.Damage.RollFlavor.piercing",
