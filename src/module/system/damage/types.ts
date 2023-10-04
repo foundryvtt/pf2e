@@ -1,7 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ResistanceType, RollTarget, StrikeSelf } from "@actor/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
-import { RollNotePF2e } from "@module/notes.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { BaseRollContext } from "@system/rolls.ts";
 import { DamageRoll } from "./roll.ts";
@@ -89,7 +88,6 @@ interface WeaponBaseDamageData extends BaseDamageData {
 
 interface BaseDamageTemplate {
     name: string;
-    notes: RollNotePF2e[];
     traits: string[];
     materials: MaterialDamageEffect[];
     modifiers?: (ModifierPF2e | DamageDicePF2e)[];
@@ -97,7 +95,6 @@ interface BaseDamageTemplate {
 
 interface WeaponDamageTemplate extends BaseDamageTemplate {
     damage: ResolvedDamageFormulaData;
-    domains: string[];
 }
 
 interface SpellDamageTemplate extends BaseDamageTemplate {

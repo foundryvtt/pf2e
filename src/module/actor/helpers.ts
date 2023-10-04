@@ -572,7 +572,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
                 actor: context.self.actor,
-                domains,
                 actionTraits: [attackTrait],
                 context: damageContext,
             });

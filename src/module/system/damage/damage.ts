@@ -157,7 +157,8 @@ export class DamagePF2e {
         const syntheticNotes = context.self?.actor
             ? extractNotes(context.self?.actor.synthetics.rollNotes, context.domains ?? [])
             : [];
-        const notes = [...syntheticNotes, ...data.notes].filter(
+        const contextNotes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
+        const notes = [...syntheticNotes, ...contextNotes].filter(
             (n) =>
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options)

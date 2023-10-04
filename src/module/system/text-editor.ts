@@ -785,7 +785,6 @@ async function augmentInlineDamageRoll(
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
             traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
-            notes: [],
             materials: [],
         };
 

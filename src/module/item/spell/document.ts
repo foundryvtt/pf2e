@@ -367,7 +367,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const template: SpellDamageTemplate = {
             name: this.name,
             damage: { roll, breakdown },
-            notes: [],
             materials: roll.materials,
             traits: this.castingTraits,
             modifiers,
