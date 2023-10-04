@@ -1,0 +1,74 @@
+{
+    "_id": "RfCEHpMoEAZvB9IZ",
+    "img": "systems/pf2e/icons/spells/bless.webp",
+    "name": "Aura: Bless",
+    "system": {
+        "badge": {
+            "labels": [
+                "5 ft.",
+                "10 ft.",
+                "15 ft.",
+                "20 ft.",
+                "25 ft.",
+                "30 ft."
+            ],
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "author": "",
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "appearance": {
+                    "border": {
+                        "alpha": 1
+                    },
+                    "highlight": {
+                        "color": "#d20000"
+                    }
+                },
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Bless"
+                    }
+                ],
+                "key": "Aura",
+                "radius": "@item.badge.value * 5",
+                "traits": [
+                    "divine"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
