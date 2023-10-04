@@ -1639,7 +1639,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     weapon: context.self.item,
                     actor: context.self.actor,
                     actionTraits: context.traits,
-                    domains,
                     weaponPotency,
                     context: damageContext,
                 });

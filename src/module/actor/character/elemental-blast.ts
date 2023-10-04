@@ -400,7 +400,6 @@ class ElementalBlast {
 
         const damageTemplate: SimpleDamageTemplate = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
-            notes: [],
             traits: item.system.traits.value,
             materials: [],
             modifiers,

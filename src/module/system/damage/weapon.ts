@@ -28,7 +28,6 @@ class WeaponDamagePF2e {
     static async fromNPCAttack({
         attack,
         actor,
-        domains,
         actionTraits = [],
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
@@ -73,7 +72,6 @@ class WeaponDamagePF2e {
         return WeaponDamagePF2e.calculate({
             weapon: attack,
             actor,
-            domains,
             damageDice,
             modifiers,
             actionTraits,
@@ -85,7 +83,6 @@ class WeaponDamagePF2e {
         weapon,
         actor,
         damageDice = [],
-        domains,
         modifiers = [],
         actionTraits = [],
         weaponPotency = null,
@@ -93,6 +90,7 @@ class WeaponDamagePF2e {
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const { baseDamage } = weapon;
         const { options } = context;
+        const domains = context.domains ?? [];
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
@@ -393,13 +391,12 @@ class WeaponDamagePF2e {
             );
         }
 
-        // Roll notes
+        // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
-
-        const notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
+        context.notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.type)
@@ -474,11 +471,9 @@ class WeaponDamagePF2e {
 
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
-            notes,
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
-            domains: domains,
             damage: {
                 ...damage,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
@@ -578,7 +573,6 @@ interface ConvertedNPCDamage extends WeaponDamage {
 interface WeaponDamageCalculateParams {
     weapon: WeaponPF2e | MeleePF2e;
     actor: CharacterPF2e | NPCPF2e | HazardPF2e;
-    domains: string[];
     actionTraits: TraitViewData[];
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
@@ -589,7 +583,6 @@ interface WeaponDamageCalculateParams {
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e;
     actor: NPCPF2e | HazardPF2e;
-    domains: string[];
     actionTraits: TraitViewData[];
     context: DamageRollContext;
 }
