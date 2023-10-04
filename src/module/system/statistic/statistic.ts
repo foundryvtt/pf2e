@@ -128,7 +128,7 @@ class Statistic extends BaseStatistic {
 
     /** Creates a new StatisticCheck to roll recall knowledge */
     get recallKnowledge(): StatisticCheck {
-        return this.createRecallKnowledgeCheck(this.data);
+        return this.createRecallKnowledgeCheck();
     }
 
     /** @deprecated */
@@ -271,15 +271,14 @@ class Statistic extends BaseStatistic {
 
     /**
      * Creates a new Statistic based on the Statistic from which it was called and creates a StatisticCheck to roll Recall Knowledge from
-     * @param data StatisticData from the Statistic that called the function
      * @returns New StatisticCheck to roll Recall Knowledge from
      */
-    createRecallKnowledgeCheck(data: StatisticData): StatisticCheck {
+    createRecallKnowledgeCheck(): StatisticCheck {
         const replaceableAttributes = ["dex", "str", "con", "cha"];
         const attribute =
-            replaceableAttributes.includes(data.attribute as string) && !data.lore ? "int" : data?.attribute;
+            replaceableAttributes.includes(this.attribute as string) && !this.lore ? "int" : this?.attribute;
 
-        const rollOptions = data.rollOptions ?? [];
+        const rollOptions = this.data.rollOptions ?? [];
         rollOptions?.push("action:recall-knowledge");
 
         const recallKnowledgeCheckData: StatisticCheckData = {
