@@ -93,6 +93,7 @@ const immunityTypes = {
     void: "PF2E.Damage.RollFlavor.void",
     water: "PF2E.Damage.IWR.Type.water",
     wood: "PF2E.Damage.IWR.Type.wood",
+    wounded: "PF2E.Damage.IWR.Type.wounded",
 };
 
 const weaknessTypes = {
