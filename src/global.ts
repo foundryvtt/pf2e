@@ -48,6 +48,7 @@ import type {
     perceptionForSelected,
     rollActionMacro,
     rollItemMacro,
+    skillSavePrompt,
     stealthForSelected,
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
@@ -87,6 +88,7 @@ interface GamePF2e
             editPersistent: typeof editPersistent;
             launchTravelSheet: typeof launchTravelSheet;
             perceptionForSelected: typeof perceptionForSelected;
+            skillSavePrompt: typeof skillSavePrompt;
             stealthForSelected: typeof stealthForSelected;
             xpFromEncounter: typeof xpFromEncounter;
         };

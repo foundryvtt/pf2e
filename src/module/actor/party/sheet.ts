@@ -433,6 +433,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
             game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
         });
+
+        htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
+            game.pf2e.gm.skillSavePrompt();
+        });
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
