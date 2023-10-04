@@ -453,9 +453,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        // Update Tab visibility (in case this is a tab without a sidebar)
-        this.updateSidebarVisibility(this._tabs[0].active);
-
         // Lore items
         htmlQuery(html, ".add-skill-variant")?.addEventListener("click", (): void => {
             if (!this.item.isOfType("lore")) return;
@@ -539,22 +536,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }
                 },
             });
-        }
-    }
-
-    /** When tabs are changed, change visibility of elements such as the sidebar */
-    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
-        super._onChangeTab(event, tabs, active);
-        this.updateSidebarVisibility(active);
-    }
-
-    /** Internal function to update the sidebar visibility based on the current tab */
-    private updateSidebarVisibility(activeTab: string) {
-        const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
-        const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
-        if (sidebarHeader && sidebar) {
-            sidebarHeader.style.visibility = activeTab === "rules" ? "hidden" : "";
-            sidebar.style.display = activeTab === "rules" ? "none" : "";
         }
     }
 
