@@ -60,7 +60,7 @@
 
         @import "abc-sheet";
         @import "activations";
-        @import "identify-item";
+        @import "mystification";
         @import "rules";
 
         label {
@@ -83,6 +83,16 @@
 
         .tab {
             flex: 1;
+        }
+
+        &:has(.tab.active.rules) {
+            .sidebar-summary {
+                visibility: hidden;
+            }
+
+            section.sidebar {
+                display: none;
+            }
         }
 
         .tag-legacy {
@@ -209,83 +219,80 @@
             }
 
             .tab.active {
+                overflow: hidden scroll;
                 padding-left: 0.5rem;
 
                 &.description {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px;
+                    height: 100%;
+                    padding: 0 0.25em;
+
+                    > * {
+                        display: flex;
+                        overflow: hidden;
+                    }
+
+                    .editor {
+                        min-height: 2.5em;
+                        flex: 1;
+                    }
+
                     // Allow editor scrolling to take over when editing
                     &.editing {
                         overflow: hidden;
-                        .descriptions > section {
+                        & > section {
                             flex: 1;
                         }
                     }
 
-                    .descriptions {
+                    .gm-notes {
+                        background-color: var(--visibility-gm-bg);
+                        border: 1px dotted rgba(75, 74, 68, 0.5);
+                        padding: 0 0.25em;
+                        flex: 0 0 auto;
+
+                        &:not(.has-content) {
+                            display: none;
+                        }
+                    }
+
+                    .main {
+                        flex: 1 0 auto;
+                    }
+
+                    .editor {
                         display: flex;
                         flex-direction: column;
-                        gap: 3px;
-                        height: 100%;
-                        padding: 0 0.25em;
+                        a.add-gm-notes,
+                        a.editor-edit {
+                            font-size: 1.33em;
+                            background: rgb(205, 205, 205);
 
-                        > * {
-                            display: flex;
-                            overflow: hidden;
-                            .editor {
-                                flex: 1;
+                            i {
+                                width: 1em;
+                                text-align: center;
                             }
                         }
 
-                        .gm-notes {
-                            background-color: var(--visibility-gm-bg);
-                            border: 1px dotted rgba(75, 74, 68, 0.5);
-                            padding: 0 0.25em;
-                            flex: 0 0 auto;
-
-                            &:not(.has-content) {
-                                display: none;
-                            }
-
-                            .editor {
-                                min-height: 2.5em;
-                            }
+                        a.add-gm-notes {
+                            border-radius: 4px;
+                            border: 1px solid var(--color-border-dark-1);
+                            box-shadow: 0 0 1px var(--color-shadow-dark);
+                            display: none;
+                            padding: 1px 2px;
+                            position: absolute;
+                            right: 35px;
+                            top: 5px;
                         }
 
-                        .main {
-                            flex-grow: 1;
+                        &:hover a.add-gm-notes {
+                            display: block;
                         }
 
-                        .editor {
-                            display: flex;
-                            flex-direction: column;
-                            a.add-gm-notes,
-                            a.editor-edit {
-                                font-size: 1.33em;
-                                background: rgb(205, 205, 205);
-
-                                i {
-                                    width: 1em;
-                                    text-align: center;
-                                }
-                            }
-
-                            a.add-gm-notes {
-                                border-radius: 4px;
-                                border: 1px solid var(--color-border-dark-1);
-                                box-shadow: 0 0 1px var(--color-shadow-dark);
-                                display: none;
-                                padding: 1px 2px;
-                                position: absolute;
-                                right: 35px;
-                                top: 5px;
-                            }
-
-                            &:hover a.add-gm-notes {
-                                display: block;
-                            }
-
-                            .tox {
-                                flex: 1;
-                            }
+                        .tox {
+                            flex: 1;
                         }
                     }
                 }
@@ -293,7 +300,6 @@
                 /** Details */
                 &.details {
                     padding: 0.5rem 0.5rem 0;
-                    overflow: hidden scroll;
 
                     label {
                         color: var(--color-text-dark-2);
@@ -315,21 +321,6 @@
                     .tags .tag {
                         font-size: var(--font-size-10);
                     }
-                }
-
-                &.mystification {
-                    padding: 8px 8px 0;
-                    overflow: hidden scroll;
-
-                    label {
-                        color: #353535;
-                        font-weight: bold;
-                    }
-                }
-
-                &.item-activations,
-                &.rules {
-                    overflow: hidden scroll;
                 }
             }
 
