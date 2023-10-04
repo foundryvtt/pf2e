@@ -366,7 +366,7 @@
                         "exceptions": [
                             "force",
                             "ghost-touch",
-                            "positive"
+                            "vitality"
                         ],
                         "key": "Resistance",
                         "predicate": [
@@ -409,7 +409,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sluagh reaper deals an additional 3d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The sluagh reaper deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -421,21 +421,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

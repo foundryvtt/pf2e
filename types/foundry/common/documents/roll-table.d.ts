@@ -1,60 +1,28 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
-import type { BaseTableResult } from "./module.d.ts";
-import type { TableResultSource } from "./table-result.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
  * The RollTable document model.
  * @param data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseRollTable extends Document<null> {
+export default class BaseRollTable extends Document<null, RollTableSchema> {
     static override get metadata(): RollTableMetadata;
 
-    name: string;
+    static override defineSchema(): RollTableSchema;
 
-    /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
-    readonly results: EmbeddedCollection<BaseTableResult<this>>;
+    /** The default icon used for newly created Macro documents */
+    static DEFAULT_ICON: ImageFilePath;
 }
 
-export default interface BaseRollTable extends Document<null> {
+export default interface BaseRollTable extends Document<null, RollTableSchema>, ModelPropsFromSchema<RollTableSchema> {
     readonly _source: RollTableSource;
 
-    get documentName(): (typeof BaseRollTable)["metadata"]["name"];
-}
+    /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
+    readonly results: EmbeddedCollection<documents.BaseTableResult<this>>;
 
-/**
- * The data schema for a RollTable document.
- * @see BaseRollTable
- *
- * @param data Initial data used to construct the data object
- * @param [document] The document to which this data object belongs
- *
- * @property _id                The _id which uniquely identifies this RollTable document
- * @property name               The name of this RollTable
- * @property [img]              An image file path which provides the thumbnail artwork for this RollTable
- * @property [description]      The HTML text description for this RollTable document
- * @property [results=[]]       A Collection of TableResult embedded documents which belong to this RollTable
- * @property formula            The Roll formula which determines the results chosen from the table
- * @property [replacement=true] Are results from this table drawn with replacement?
- * @property [displayRoll=true] Is the Roll result used to draw from this RollTable displayed in chat?
- * @property folder             The _id of a Folder which contains this RollTable
- * @property [sort]             The numeric sort value which orders this RollTable relative to its siblings
- * @property [permission]       An object which configures user permissions to this RollTable
- * @property [flags={}]         An object of optional key/value flags
- */
-interface RollTableSource {
-    _id: string;
-    name: string;
-    img?: ImageFilePath;
-    description: string;
-    results: TableResultSource[];
-    formula: string;
-    replacement: boolean;
-    displayRoll: boolean;
-    folder?: string | null;
-    sort: number;
-    ownership: Record<string, DocumentOwnershipLevel>;
-    flags: Record<string, Record<string, unknown>>;
+    get documentName(): (typeof BaseRollTable)["metadata"]["name"];
 }
 
 interface RollTableMetadata extends DocumentMetadata {
@@ -66,3 +34,35 @@ interface RollTableMetadata extends DocumentMetadata {
     };
     isPrimary: true;
 }
+
+type RollTableSchema = {
+    /** The _id which uniquely identifies this RollTable document */
+    _id: fields.DocumentIdField;
+    /** The name of this RollTable */
+    name: fields.StringField<string, string, true, false, false>;
+    /** An image file path which provides the thumbnail artwork for this RollTable */
+    img: fields.FilePathField<ImageFilePath>;
+    /** The HTML text description for this RollTable document */
+    description: fields.HTMLField;
+    /** A Collection of TableResult embedded documents which belong to this RollTable */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    results: fields.EmbeddedCollectionField<documents.BaseTableResult<any>>;
+    /** The Roll formula which determines the results chosen from the table */
+    formula: fields.StringField<string>;
+    /** Are results from this table drawn with replacement? */
+    replacement: fields.BooleanField;
+    /** Is the Roll result used to draw from this RollTable displayed in chat? */
+    displayRoll: fields.BooleanField;
+    /** The _id of a Folder which contains this RollTable */
+    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    /** The numeric sort value which orders this RollTable relative to its siblings */
+    sort: fields.IntegerSortField;
+    /** An object which configures ownership of this RollTable */
+    ownership: fields.DocumentOwnershipField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+    /** An object of creation and access information */
+    _stats: fields.DocumentStatsField;
+};
+
+type RollTableSource = SourceFromSchema<RollTableSchema>;

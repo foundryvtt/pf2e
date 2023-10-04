@@ -238,7 +238,7 @@
                         "0": {
                             "type": {
                                 "categories": [],
-                                "value": "negative"
+                                "value": "void"
                             },
                             "value": "12d6"
                         }
@@ -316,7 +316,7 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "negative",
+                        "void",
                         "necromancy"
                     ]
                 }
@@ -427,7 +427,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
                 }
             },
-            "img": "systems/pf2e/icons/spells/dimension-door.webp",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
             "sort": 500000,
             "system": {
@@ -525,7 +525,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
                 }
             },
-            "img": "systems/pf2e/icons/spells/dimension-door.webp",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
             "sort": 600000,
             "system": {
@@ -642,7 +642,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This single‑bladed bearded axe has a jagged blade that's perfect for separating bone from tendon and cartilage.</p>"
+                    "value": "<p>This single-bladed bearded axe has a jagged blade that's perfect for separating bone from tendon and cartilage.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1181,7 +1181,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature taking @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Daemonic Skinner's attacks. When attacking an off-guard creature, the Skinner deals an additional 2d6 precision damage.</p>\n<hr />\n<p>When the monster Strikes a creature that has the off-guard condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Any creature taking @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Daemonic Skinner's attacks. When attacking an off-guard creature, the Skinner deals an additional 2d6 precision damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1193,21 +1193,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
@@ -1508,7 +1494,7 @@
                     "type": "bleed"
                 },
                 {
-                    "type": "negative"
+                    "type": "void"
                 },
                 {
                     "type": "poison"

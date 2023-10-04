@@ -9,7 +9,7 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
-import { resolveKingdomBoosts } from "./helpers.ts";
+import { calculateKingdomCollectionData, resolveKingdomBoosts } from "./helpers.ts";
 import { KINGDOM_SCHEMA } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import {
@@ -37,6 +37,7 @@ import {
 } from "./values.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ZeroToFour } from "@module/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -79,58 +80,63 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     /** Creates sidebar buttons to inject into the chat message sidebar */
     createSidebarButtons(): HTMLElement[] {
-        // Do not show kingdom to party members until it becomes activated.
+        // Do not show kingdom to party members until building starts or it becomes activated.
         if (!this.active && !game.user.isGM) return [];
 
+        const hoverIcon = this.active === "building" ? "wrench" : !this.active ? "plus" : null;
         const icon = createHTMLElement("a", {
             classes: ["create-button"],
-            children: R.compact([fontAwesomeIcon("crown"), !this.active ? fontAwesomeIcon("plus") : null]),
+            children: R.compact([fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null]),
             dataset: {
-                tooltip: game.i18n.localize(`PF2E.Kingmaker.SIDEBAR.${this.active ? "OpenSheet" : "CreateKingdom"}`),
+                tooltip: game.i18n.localize(
+                    `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`
+                ),
             },
         });
 
-        icon.addEventListener("click", (event) => {
+        icon.addEventListener("click", async (event) => {
             event.stopPropagation();
-            const type = this.active ? null : "builder";
-            this.renderSheet({ type });
+
+            if (!this.active) {
+                const startBuilding = await Dialog.confirm({
+                    title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
+                    content: `<p>${game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.ActivationMessage")}</p>`,
+                });
+                if (startBuilding) {
+                    await this.update({ active: "building" });
+                    KingdomBuilder.showToPlayers({ uuid: this.actor.uuid });
+                    new KingdomBuilder(this).render(true);
+                }
+            } else {
+                const type = this.active === true ? null : "builder";
+                this.renderSheet({ type });
+            }
         });
 
         return [icon];
     }
 
     /** Perform the collection portion of the upkeep phase */
-    async collect(options: { skipDialog?: boolean } = {}): Promise<void> {
-        const commodityTypes = ["luxuries", "lumber", "ore", "stone"] as const;
-
-        const dice = `${this.resources.dice.number}d${this.resources.dice.faces}`;
-        const commodities = R.mapToObj(commodityTypes, (type) => {
-            const value = this.resources.workSites[type];
-            return [type, value.value + value.resource * 2];
-        });
-
-        if (!options.skipDialog) {
-            const content = await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
-                dice,
-                commodities,
-            });
-            const result = await Dialog.confirm({
-                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.Title"),
-                content,
-            });
-            if (!result) return;
-        }
-
-        const roll = await new Roll(dice).evaluate({ async: true });
-        await roll.toMessage();
+    async collect(): Promise<void> {
+        const { formula, commodities } = calculateKingdomCollectionData(this);
+        const roll = await new Roll(formula).evaluate({ async: true });
+        await roll.toMessage(
+            {
+                flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.Resources.Points"),
+                speaker: {
+                    ...ChatMessagePF2e.getSpeaker(this.actor),
+                    alias: this.name,
+                },
+            },
+            { rollMode: "publicroll" }
+        );
 
         this.update({
             resources: {
                 points: roll.total,
-                commodities: R.mapToObj(commodityTypes, (type) => {
+                commodities: R.mapValues(commodities, (incoming, type) => {
                     const current = this.resources.commodities[type];
-                    const incoming = commodities[type];
-                    return [type, { value: Math.max(current.value + incoming, current.max) }];
+                    return { value: Math.min(current.value + incoming, current.max) };
                 }),
             },
         });
@@ -169,11 +175,20 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
     }
 
+    /**
+     * Updates the party's campaign data. All data is scoped to system.campaign unless it is already in system.campaign.
+     * Scoping to system.campaign is necessary for certain sheet listeners such as data-property.
+     */
     async update(data: DeepPartial<KingdomSource> & Record<string, unknown>): Promise<void> {
-        await this.actor.update({ "system.campaign": data });
+        const expanded: DeepPartial<KingdomSource> & { system?: { campaign?: DeepPartial<KingdomSource> } } =
+            expandObject(data);
 
-        if (data.level) {
-            await this.updateFeatures(data.level);
+        const updateData = mergeObject(expanded, expanded.system?.campaign ?? {});
+        delete updateData.system;
+        await this.actor.update({ "system.campaign": updateData });
+
+        if (updateData.level) {
+            await this.updateFeatures(updateData.level);
         }
     }
 
@@ -239,12 +254,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             KINGDOM_SIZE_DATA[1];
 
         this.nationType = sizeData.type;
-
-        // Autocompute resource dice
-        this.resources.dice = mergeObject(this.resources.dice, {
-            faces: sizeData.faces,
-            number: Math.max(0, this.level + 4 + this.resources.dice.bonus - this.resources.dice.penalty),
-        });
+        this.resources.dice.faces = sizeData.faces;
 
         // Inject control dc size modifier
         if (sizeData.controlMod) {
@@ -348,10 +358,13 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     prepareDerivedData(): void {
         const { synthetics } = this.actor;
+        const { consumption, resources } = this;
+
+        // Autocompute resource dice
+        resources.dice.number = Math.max(0, this.level + 4 + resources.dice.bonus - resources.dice.penalty);
 
         // Compute consumption
         const settlements = R.compact(Object.values(this.settlements));
-        const consumption = this.consumption;
         consumption.settlement = R.sumBy(settlements, (s) => s.consumption.total);
         const computedConsumption =
             consumption.base + consumption.settlement + consumption.army - this.resources.workSites.food.value;
@@ -406,7 +419,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         this.feats = new FeatGroup(this.actor, {
             id: "kingdom",
             label: "Kingdom Feats",
-            slots: evenLevels,
+            slots: [{ id: "government", label: "G" }, ...evenLevels],
             featFilter: ["traits-kingdom"],
             level: this.level,
         });
@@ -534,6 +547,23 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             new KingdomBuilder(this).render(true);
         } else {
             new KingdomSheetPF2e(this.actor).render(true, { tab: options.tab });
+        }
+    }
+
+    _preUpdate(changed: DeepPartial<KingdomSource>): void {
+        const actor = this.actor;
+        const feat = changed.build?.government?.feat;
+        if (feat) {
+            console.log("Replacing feat");
+            fromUuid(feat).then(async (f) => {
+                if (!(f instanceof CampaignFeaturePF2e)) return;
+                const currentGovernmentFeat = actor.itemTypes.campaignFeature.find(
+                    (f) => f.system.location === "government"
+                );
+                const newFeat = f.clone({ "system.location": "government" });
+                await currentGovernmentFeat?.delete();
+                await actor.createEmbeddedDocuments("Item", [newFeat.toObject()]);
+            });
         }
     }
 }

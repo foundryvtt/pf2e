@@ -366,6 +366,7 @@ class ElementalBlast {
             domains,
             outcome,
             melee,
+            checkContext: params.checkContext,
             options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...item.traits]),
         });
 

@@ -1,53 +1,30 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type { TextureData } from "../data/data.d.ts";
+import type * as fields from "../data/fields.d.ts";
 import type { BaseScene } from "./module.d.ts";
 
-/** The Tile embedded document model. */
-export default class BaseTile<TParent extends BaseScene | null> extends Document<TParent> {
-    static override get metadata(): TileMetadata;
-}
-
-export default interface BaseTile<TParent extends BaseScene | null> extends Document<TParent> {
-    readonly _source: TileSource;
-}
-
 /**
- * The data schema for a Tile embedded document.
- * @see BaseTile
+ * The Document definition for a Tile.
+ * Defines the DataSchema and common behaviors for a Tile which are shared between both client and server.
+ * @memberof documents
  *
- * @property _id              The _id which uniquely identifies this Tile embedded document
- * @property [img]            An image or video file path which this tile displays
- * @property [width=0]        The pixel width of the tile
- * @property [height=0]       The pixel height of the tile
- * @property [x=0]            The x-coordinate position of the top-left corner of the tile
- * @property [y=0]            The y-coordinate position of the top-left corner of the tile
- * @property [z=100]          The z-index ordering of this tile relative to its siblings
- * @property [rotation=0]     The angle of rotation for the tile between 0 and 360
- * @property [alpha=1]        The tile opacity
- * @property [tint]           A color to tint the tile
- * @property [hidden=false]   Is the tile currently hidden?
- * @property [locked=false]   Is the tile currently locked?
- * @property [overhead=false] Is the tile an overhead tile?
- * @property [occlusion]      The tile's occlusion settings
- * @property [video]          The tile's video settings
- * @property [flags={}]       An object of optional key/value flags
+ * @param data    Initial data from which to construct the Tile
+ * @param context Construction context options
  */
-export interface TileSource {
-    _id: string;
-    img: ImageFilePath | null;
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-    z: number;
-    rotation: number;
-    alpha: number;
-    tint: HexColorString | null;
-    hidden: boolean;
-    locked: boolean;
-    overhead: boolean;
-    video: foundry.data.VideoData;
-    occlusion: foundry.data.TileOcclusion;
-    flags: DocumentFlags;
+export default class BaseTile<TParent extends BaseScene | null> extends Document<TParent, TileSchema> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): TileMetadata;
+
+    static override defineSchema(): TileSchema;
+}
+
+export default interface BaseTile<TParent extends BaseScene | null>
+    extends Document<TParent, TileSchema>,
+        ModelPropsFromSchema<TileSchema> {
+    readonly _source: TileSource;
 }
 
 interface TileMetadata extends DocumentMetadata {
@@ -56,3 +33,57 @@ interface TileMetadata extends DocumentMetadata {
     label: "DOCUMENT.Tile";
     isEmbedded: true;
 }
+
+type TileSchema = {
+    /** The _id which uniquely identifies this Tile embedded document */
+    _id: fields.DocumentIdField;
+    /** An image or video texture which this tile displays. */
+    texture: TextureData;
+    /** The pixel width of the tile */
+    width: fields.NumberField<number, number, true, false, true>;
+    /** The pixel height of the tile */
+    height: fields.NumberField<number, number, true, false, true>;
+    /** The x-coordinate position of the top-left corner of the tile */
+    x: fields.NumberField<number, number, true, false, true>;
+    /** The y-coordinate position of the top-left corner of the tile */
+    y: fields.NumberField<number, number, true, false, true>;
+    /** The z-index ordering of this tile relative to its siblings */
+    z: fields.NumberField<number, number, true, false, true>;
+    /** The angle of rotation for the tile between 0 and 360 */
+    rotation: fields.AngleField;
+    /** The tile opacity */
+    alpha: fields.AlphaField;
+    /** Is the tile currently hidden? */
+    hidden: fields.BooleanField;
+    /** Is the tile currently locked? */
+    locked: fields.BooleanField;
+    /** Is the tile an overhead tile? */
+    overhead: fields.BooleanField;
+    roof: fields.BooleanField;
+    /** The tile's occlusion settings */
+    occlusion: fields.SchemaField<TileOcclusionSchema>;
+    /** The tile's video settings */
+    video: fields.SchemaField<TileVideoSchema>;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+type TileOcclusionSchema = {
+    /** The occlusion mode from CONST.TILE_OCCLUSION_MODES */
+    mode: fields.NumberField<TileOcclusionMode, TileOcclusionMode, false, true, true>;
+    /** The occlusion alpha between 0 and 1 */
+    alpha: fields.AlphaField;
+    /** An optional radius of occlusion used for RADIAL mode */
+    radius: fields.NumberField;
+};
+
+type TileVideoSchema = {
+    /** Automatically loop the video? */
+    loop: fields.BooleanField;
+    /** Should the video play automatically? */
+    autoplay: fields.BooleanField;
+    /** The volume level of any audio that the video file contains */
+    volume: fields.AlphaField;
+};
+
+type TileSource = SourceFromSchema<TileSchema>;

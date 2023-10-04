@@ -234,11 +234,14 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
     }),
 };
 
-function getKingdomABCData(): {
+interface KingdomCHGData {
     charter: Record<string, KingdomCharter | undefined>;
     heartland: Record<string, KingdomCHG | undefined>;
     government: Record<string, KingdomGovernment | undefined>;
-} {
+}
+
+/** Returns every single possible charter, heartland, and government */
+function getKingdomCHGData(): KingdomCHGData {
     const localize = localizer("PF2E.Kingmaker");
     return {
         charter: {
@@ -311,6 +314,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/pyramid.webp",
                 boosts: ["stability", "economy", "free"],
                 skills: ["intrigue", "warfare"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.WGpkcIChjIk1i0q0", // Crush Dissent
             },
             feudalism: {
                 name: localize("Government.feudalism.Name"),
@@ -318,6 +322,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/watchtower-cliff.webp",
                 boosts: ["stability", "culture", "free"],
                 skills: ["defense", "trade"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.JYY8vQxPe9AIGTvv", // Fortified Fiefs
             },
             oligarchy: {
                 name: localize("Government.oligarchy.Name"),
@@ -325,6 +330,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/house-manor.webp",
                 boosts: ["loyalty", "economy", "free"],
                 skills: ["arts", "industry"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.9dkyZ7r1z7loOxI7", // Insider Trading
             },
             republic: {
                 name: localize("Government.republic.Name"),
@@ -332,6 +338,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/gazebo.webp",
                 boosts: ["stability", "economy", "free"],
                 skills: ["engineering", "politics"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.BChcBEZpcqMnLISC", // Pull Together
             },
             thaumocracy: {
                 name: localize("Government.thaumocracy.Name"),
@@ -339,6 +346,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/wizard-castle.webp",
                 boosts: ["economy", "culture", "free"],
                 skills: ["folklore", "magic"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.nDDEbrWj2JouxlRw", // Practical Magic,
             },
             yeomanry: {
                 name: localize("Government.yeomanry.Name"),
@@ -346,6 +354,7 @@ function getKingdomABCData(): {
                 img: "/icons/environment/settlement/house-farmland-small.webp",
                 boosts: ["loyalty", "culture", "free"],
                 skills: ["agriculture", "wilderness"],
+                feat: "Compendium.pf2e.kingmaker-features.Item.WFng3pxgEAdpdy1p", // Muddle Through
             },
         },
     };
@@ -353,7 +362,7 @@ function getKingdomABCData(): {
 
 export {
     CONTROL_DC_BY_LEVEL,
-    getKingdomABCData,
+    getKingdomCHGData,
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
@@ -370,3 +379,5 @@ export {
     KINGDOM_SKILLS,
     VACANCY_PENALTIES,
 };
+
+export type { KingdomCHGData };

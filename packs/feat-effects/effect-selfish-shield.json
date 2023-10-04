@@ -1,0 +1,40 @@
+{
+    "_id": "h6nyMp4dtPXBfCJc",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Effect: Selfish Shield",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "floor(@actor.level/2)+2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

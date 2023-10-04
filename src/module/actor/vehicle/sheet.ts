@@ -4,6 +4,7 @@ import { AbilityItemPF2e, ItemPF2e } from "@item";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
+import { AdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -92,16 +93,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             });
         }
     }
-}
-
-function getAdjustment(value: number, reference: number): AdjustedValue {
-    const adjustmentClass = value > reference ? "adjusted-higher" : value < reference ? "adjusted-lower" : null;
-    return { value, adjustmentClass };
-}
-
-interface AdjustedValue {
-    value: number;
-    adjustmentClass: "adjusted-higher" | "adjusted-lower" | null;
 }
 
 interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {

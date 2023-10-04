@@ -462,7 +462,7 @@
         },
         {
             "_id": "sqgbfXYmkJqyZ1xu",
-            "img": "systems/pf2e/icons/equipment/consumables/talismans/bloodseeker-beak.webp",
+            "img": "icons/commodities/claws/claw-insect-brown.webp",
             "name": "Bloodseeker Beak",
             "sort": 600000,
             "system": {
@@ -482,7 +482,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit an off-guard creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
+                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit an off-guard creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -804,7 +804,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage-roll",
+                        "domain": "damage",
                         "key": "RollOption",
                         "option": "impromptu-toxin",
                         "toggleable": true
@@ -861,7 +861,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The poisoner deals an additional 3d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The poisoner deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -873,21 +873,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

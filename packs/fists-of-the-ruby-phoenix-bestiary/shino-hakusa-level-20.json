@@ -307,7 +307,7 @@
                 "damageRolls": {
                     "kwsateodrsnskz9z99eu": {
                         "damage": "4d8+8",
-                        "damageType": "negative"
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -322,10 +322,10 @@
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "negative",
+                        "void",
                         "range-increment-60",
                         "unarmed",
-                        "versatile-positive"
+                        "versatile-vitality"
                     ]
                 },
                 "weaponType": {
@@ -571,7 +571,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Hakusa's Strikes deal an extra 5d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Hakusa's Strikes deal an extra 5d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -583,21 +583,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
@@ -640,7 +626,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Hakusa strikes a series of pressure points on her target's body that redirects its ki to the heart, before following up with a palm strike to the sternum. She makes a fingers Strike and a palm Strike, dealing damage as normal. If both hit, the target takes @Damage[8d10[negative]] damage as its life energy escapes from its body in a shower of bird-shaped sparks. The target attempts a @Check[type:fortitude|dc:43] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half the negative damage.</p>\n<p><strong>Failure</strong> The target takes full damage, its life energy exploding violently from its back in a @Template[type:cone|distance:30] originating from the target. All of Hakusa's other enemies in the cone also take the negative damage (@Check[type:fortitude|dc:43|basic:true] save).</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double negative damage.</p>"
+                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Hakusa strikes a series of pressure points on her target's body that redirects its ki to the heart, before following up with a palm strike to the sternum. She makes a fingers Strike and a palm Strike, dealing damage as normal. If both hit, the target takes @Damage[8d10[void]] damage as its life energy escapes from its body in a shower of bird-shaped sparks. The target attempts a @Check[type:fortitude|dc:43] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half the negative damage.</p>\n<p><strong>Failure</strong> The target takes full damage, its life energy exploding violently from its back in a @Template[type:cone|distance:30] originating from the target. All of Hakusa's other enemies in the cone also take the negative damage (@Check[type:fortitude|dc:43|basic:true] save).</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double negative damage.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -658,7 +644,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "negative",
+                        "void",
                         "necromancy"
                     ]
                 },

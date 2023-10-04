@@ -27,6 +27,7 @@ import {
 } from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
+    SORTABLE_DEFAULTS,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -64,12 +65,11 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
-        const itemDrag = options.dragDrop.find((d) => d.dragSelector === ".item-list .item");
-        if (itemDrag) {
-            // Inventory items are handled by Sortable
-            itemDrag.dragSelector = ".item-list .item:not(.inventory-list *)";
-        }
+        options.dragDrop = [
+            { dragSelector: "[data-foundry-list] .drag-handle" },
+            { dragSelector: ".item[draggable=true]" },
+            { dragSelector: ".item-list .item:not(.inventory-list *)" },
+        ];
         return mergeObject(options, {
             classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
@@ -90,6 +90,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         options.editable = this.isEditable;
+        options.sheetConfig &&=
+            Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
 
         for (const item of [...this.actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
@@ -252,6 +254,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
         this.activateInventoryListeners(inventoryPanel);
 
+        // Item chat cards
+        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
+            element.addEventListener("click", async (event) => {
+                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
+                const [item, fromFormula] = (() => {
+                    // Handle formula UUIDs
+                    if (UUIDUtils.isItemUUID(itemId)) {
+                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
+                            const formula = this.knownFormulas[itemId] as CraftingFormula;
+                            if (formula) {
+                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
+                            }
+                        }
+                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
+                    }
+                    return [this.actor.items.get(itemId, { strict: true }), false];
+                })();
+
+                if (!item.isOfType("physical") || item.isIdentified) {
+                    await item.toMessage(event, { create: true, data: { fromFormula } });
+                }
+            });
+        }
+
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
@@ -276,7 +302,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             input.addEventListener("blur", () => {
                 input.removeAttribute("name");
                 const propertyPath = input.dataset.property ?? "";
-                const preparedValue = getProperty(this.actor, propertyPath);
+                const preparedValue = Number(getProperty(this.actor, propertyPath)) || 0;
                 const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
                 const newValue = Math.trunc(Number(input.value));
                 if (input instanceof HTMLInputElement) {
@@ -285,8 +311,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     }
                     if (baseValue === newValue) {
                         input.value = input.classList.contains("modifier")
-                            ? signedInteger(Number(preparedValue) || 0)
-                            : String(newValue);
+                            ? signedInteger(preparedValue)
+                            : String(preparedValue);
                     }
                 }
             });
@@ -477,30 +503,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             });
         }
 
-        // Item chat cards
-        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
-            element.addEventListener("click", async (event) => {
-                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
-                const [item, fromFormula] = (() => {
-                    // Handle formula UUIDs
-                    if (UUIDUtils.isItemUUID(itemId)) {
-                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
-                            const formula = this.knownFormulas[itemId] as CraftingFormula;
-                            if (formula) {
-                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
-                            }
-                        }
-                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
-                    }
-                    return [this.actor.items.get(itemId, { strict: true }), false];
-                })();
-
-                if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(event, { create: true, data: { fromFormula } });
-                }
-            });
-        }
-
         // Select all text in an input field on focus
         for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             inputElem.addEventListener("focus", () => {
@@ -645,17 +647,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
         if (!inventoryList) return;
         const sortableOptions: Sortable.Options = {
-            animation: 200,
-            direction: "vertical",
-            dragClass: "drag-preview",
-            dragoverBubble: true,
+            ...SORTABLE_DEFAULTS,
             filter: "div.item-summary",
             preventOnFilter: false,
-            easing: "cubic-bezier(1, 0, 0, 1)",
-            ghostClass: "drag-gap",
             scroll: inventoryList,
-            scrollSensitivity: 30,
-            scrollSpeed: 15,
             setData: (dataTransfer, dragEl) => {
                 const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
                     strict: true,
@@ -822,7 +817,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
 
             const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.hbs", {
-                question: game.i18n.format("PF2E.DeleteConditionQuestion", { condition: item.name }),
+                question: game.i18n.format("PF2E.DeleteQuestion", { name: item.name }),
                 ref: references?.innerHTML,
             });
             new Dialog({
@@ -849,34 +844,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected async deleteItem(element: HTMLElement, item: ItemPF2e, event?: MouseEvent): Promise<void> {
-        const deleteItem = async (): Promise<void> => {
+        const result =
+            event?.ctrlKey ||
+            (await Dialog.confirm({
+                title: game.i18n.localize("PF2E.DeleteItemTitle"),
+                content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${item.name}"` })}</p>`,
+            }));
+        if (result) {
             await item.delete();
             $(element).slideUp(200, () => this.render(false));
-        };
-        if (event?.ctrlKey) {
-            deleteItem();
-            return;
         }
-
-        const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
-            name: item.name,
-        });
-        new Dialog({
-            title: "Delete Confirmation",
-            content,
-            buttons: {
-                Yes: {
-                    icon: '<i class="fa fa-check"></i>',
-                    label: "Yes",
-                    callback: deleteItem,
-                },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: "Cancel",
-                },
-            },
-            default: "Yes",
-        }).render(true);
     }
 
     async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
@@ -1339,18 +1316,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Opens a sheet tab by name. May be overriden to handle sub-tabs */
     protected openTab(name: string): void {
         this._tabs[0].activate(name);
-    }
-
-    /** Hide the sheet-config button unless there is more than one sheet option. */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-        const sheetButton = buttons.find((button) => button.class === "configure-sheet");
-        const hasMultipleSheets =
-            Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
-        if (!hasMultipleSheets && sheetButton) {
-            buttons.splice(buttons.indexOf(sheetButton), 1);
-        }
-        return buttons;
     }
 
     /** Override of inner render function to maintain item summary state */

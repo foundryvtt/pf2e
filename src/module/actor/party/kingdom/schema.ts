@@ -1,7 +1,7 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import { type ArrayField, type StringField } from "types/foundry/common/data/fields.js";
-import { KingdomAbility, KingdomSettlementType, KingdomSkill } from "./types.ts";
+import type { ArrayField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { KingdomAbility, KingdomSettlementData, KingdomSettlementType, KingdomSkill } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_COMMODITIES,
@@ -10,18 +10,20 @@ import {
     KINGDOM_SKILLS,
 } from "./values.ts";
 import { RawModifier } from "@actor/modifiers.ts";
-import { RecordField } from "@system/schema-data-fields.ts";
+import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 
 function buildKingdomCHGSchema(): {
+    id: StringField<string, string, false, false>;
     name: StringField<string, string, true, false>;
     img: StringField<ImageFilePath, ImageFilePath, true, false>;
     description: StringField<string, string, true, false>;
     boosts: ArrayField<StringField<KingdomAbility | "free", KingdomAbility | "free", true, false>>;
 } {
     return {
-        name: new fields.StringField({ blank: false, nullable: false }),
+        id: new fields.StringField({ required: false, initial: undefined, blank: false }),
+        name: new fields.StringField({ required: true, nullable: false, blank: false }),
         img: new fields.StringField({ required: true, nullable: false }),
         description: new fields.StringField({ required: true, nullable: false }),
         boosts: new fields.ArrayField(
@@ -51,6 +53,10 @@ const KINGDOM_BUILD_SCHEMA = {
             skills: new fields.ArrayField<StringField<KingdomSkill, KingdomSkill, true, false>>(
                 new fields.StringField({ required: true, nullable: false, choices: KINGDOM_SKILLS })
             ),
+            feat: new fields.StringField<CompendiumUUID, CompendiumUUID, true, true>({
+                required: true,
+                nullable: true,
+            }),
         },
         { nullable: true, initial: null }
     ),
@@ -196,8 +202,18 @@ const KINGDOM_SCHEMA = {
         nullable: false,
         initial: "kingmaker",
     }),
-    active: new fields.BooleanField<boolean, boolean, true, false>({ initial: false, required: true, nullable: false }),
-
+    active: new DataUnionField(
+        [
+            new StrictStringField<"building">({
+                required: false,
+                nullable: false,
+                choices: ["building"],
+                initial: undefined,
+            }),
+            new StrictBooleanField({ initial: false, required: false, nullable: false }),
+        ],
+        { required: false, nullable: false, initial: false }
+    ),
     name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
     img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
         categories: ["IMAGE"],
@@ -282,7 +298,17 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
-    settlements: new RecordField(
+    /** A collection of settlements controlled by this kingdom, and its related data */
+    settlements: new RecordField<
+        StringField<string, string, true, false>,
+        SchemaField<
+            typeof KINGDOM_SETTLEMENT_SCHEMA,
+            SourceFromSchema<typeof KINGDOM_SETTLEMENT_SCHEMA>,
+            KingdomSettlementData
+        >,
+        false,
+        false
+    >(
         new fields.StringField({ required: true, nullable: false, blank: false }),
         new fields.SchemaField(KINGDOM_SETTLEMENT_SCHEMA, { required: true }),
         { required: false, nullable: false, initial: {} }

@@ -1,6 +1,6 @@
-import { AncestryPF2e } from "@item/ancestry/index.ts";
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
+import { AncestryPF2e } from "@item/ancestry/index.ts";
+import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 
 class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
@@ -9,6 +9,7 @@ class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
 
         return {
             ...data,
+            hasSidebar: true,
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),

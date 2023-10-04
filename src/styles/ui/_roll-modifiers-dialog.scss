@@ -149,6 +149,19 @@
                 display: none;
             }
         }
+
+        .exclude.disabled {
+            filter: opacity(0.5);
+
+            .toggle,
+            .widget {
+                cursor: default;
+            }
+
+            i {
+                color: var(--text-dark);
+            }
+        }
     }
 
     .substitutions,
@@ -210,9 +223,10 @@
         color: var(--text-light);
         background-color: var(--secondary);
 
-        .damage.color, i {
+        .damage.color,
+        i {
             // override the global damage color styling
-            color: var(--text-light)!important;
+            color: var(--text-light) !important;
         }
     }
 

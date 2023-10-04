@@ -1,4 +1,3 @@
-// Base inventory stylings
 .inventory {
     --border-color: var(--alt);
 
@@ -73,8 +72,6 @@
     .inventory-items {
         flex-direction: column;
         list-style-type: none;
-        margin: 0;
-        padding: 0;
         position: relative;
         width: 100%;
 
@@ -96,7 +93,8 @@
     }
 
     .inventory-list {
-        @include scrollbar;
+        overflow: hidden scroll;
+        display: flex;
         height: calc(100% - 60px);
         padding-right: 0.15rem;
     }
@@ -354,5 +352,108 @@
         border-top: 1px solid var(--alt);
         border-bottom: 1px solid var(--alt);
         background: var(--bg);
+    }
+
+    // Used in creature sheets
+    .encumbrance {
+        align-items: center;
+        display: grid;
+        grid: "img bar overflow" min-content / 24px 1fr;
+        margin-top: auto;
+
+        img {
+            @include frame-icon;
+            border-radius: 0;
+            grid-area: img;
+            position: relative;
+            z-index: 4;
+        }
+
+        .encumbrance-bar {
+            position: relative;
+            z-index: 2;
+            grid-area: bar;
+            height: 16px;
+            width: 100%;
+            background-color: var(--secondary);
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5), inset 0 0 0 2px rgba(white, 0.2);
+        }
+        .encumbrance-label {
+            position: relative;
+            z-index: 3;
+            grid-area: bar;
+            color: var(--text-light);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px black;
+        }
+        .encumbrance-light-bulk-overflow {
+            position: relative;
+            z-index: 3;
+            grid-area: overflow;
+            color: var(--text-dark);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px white;
+        }
+        .bar-bg {
+            position: relative;
+            z-index: 1;
+            grid-area: bar;
+            width: 100%;
+            height: 16px;
+            background-color: rgba(black, 0.5);
+            border-radius: 0 2px 2px 0;
+            box-shadow: inset 0 0 4px rgba(black, 0.75);
+        }
+
+        &.over-limit {
+            .encumbrance-bar {
+                background-color: var(--primary) !important;
+            }
+        }
+    }
+
+    // Used in party and loot sheets
+    .total-bulk {
+        align-items: center;
+        display: flex;
+        font-weight: 500;
+        gap: 0.25rem;
+        height: 1.5rem;
+        justify-content: start;
+        margin-bottom: 0.7rem;
+
+        img {
+            @include frame-icon;
+            height: 1.5rem;
+            width: 1.5rem;
+            border-radius: 0;
+            z-index: 1;
+        }
+
+        .bar {
+            justify-content: start;
+            margin-top: 0;
+            position: relative;
+            height: 1.25rem;
+            padding-left: 0.5rem;
+            left: -0.35rem;
+            z-index: 0;
+        }
     }
 }

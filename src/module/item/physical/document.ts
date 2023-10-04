@@ -6,6 +6,7 @@ import { MystifiedTraits } from "@item/data/values.ts";
 import { Rarity, Size } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
+import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
 import {
@@ -21,7 +22,6 @@ import {
 import { CoinsPF2e, computeLevelRarityPrice } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
-import * as R from "remeda";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     // The cached container of this item, if in a container, or null
@@ -180,10 +180,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             [`material:${material.type}`]: !!material.type,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${prefix}:${key}`)
-            .concat(this.system.traits.otherTags.map((t) => `${prefix}:tag:${t}`));
+            .map(([key]) => `${prefix}:${key}`);
 
-        return [baseOptions, physicalItemOptions].flat();
+        return [baseOptions, physicalItemOptions].flat().sort();
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

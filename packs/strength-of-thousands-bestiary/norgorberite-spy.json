@@ -208,7 +208,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-wooden.webp",
+            "img": "icons/commodities/treasure/broach-jeweled-green.webp",
             "name": "Religious Symbol of Norgorber (Wooden)",
             "sort": 300000,
             "system": {
@@ -293,7 +293,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<hr />\n<p>Your mind becomes clear and cognition flows freely, but physical matters seem ephemeral.</p>\n<p><strong>Benefit</strong> You gain a +3 item bonus to Arcana, Crafting, Lore, Occultism, and Society checks and all checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]. Your critical failures on @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] checks become failures instead. You become trained in one Intelligence-based skill [Arcana, Crafting, Lore, Occultism, Society], chosen at creation.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to weapon and unarmed attack rolls, Athletics checks, and acrobatics checks. You can carry 2 less Bulk than normal before becoming encumbered, and the maximum Bulk you can carry is reduced by 4.</p>\n<p><strong>Duration</strong> 1 hour.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cognitive Mutagen (Greater)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p>Your mind becomes clear and cognition flows freely, but physical matters seem ephemeral.</p>\n<p><strong>Benefit</strong> You gain a +3 item bonus to Arcana, Crafting, Lore, Occultism, and Society checks and all checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]. Your critical failures on @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] checks become failures instead. You become trained in one Intelligence-based skill [Arcana, Crafting, Lore, Occultism, Society], chosen at creation.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to weapon and unarmed attack rolls, Athletics checks, and acrobatics checks. You can carry 2 less Bulk than normal before becoming encumbered, and the maximum Bulk you can carry is reduced by 4.</p>\n<p><strong>Duration</strong> 1 hour.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cognitive Mutagen (Greater)]</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -376,7 +376,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Slumber wine sees its greatest use in games of intrigue, where an absence can be more devastating than injury. Characters unconscious from slumber wine can't wake up by any means while the poison lasts, don't need to eat or drink while unconscious in this way, and appear to be recently dead unless an examiner succeeds at a @Check[type:medicine|dc:40|name:Identify Slumber Wine] check.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Maximum Duration</strong> 7 days</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 2</strong> unconscious (2 days)</p>\n<p><strong>Stage 3</strong> unconscious (3 days)</p>"
+                    "value": "<p>Slumber wine sees its greatest use in games of intrigue, where an absence can be more devastating than injury. Characters unconscious from slumber wine can't wake up by any means while the poison lasts, don't need to eat or drink while unconscious in this way, and appear to be recently dead unless an examiner succeeds at a @Check[type:medicine|dc:40|name:Identify Slumber Wine] check.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Maximum Duration</strong> 7 days</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 2</strong> unconscious (2 days)</p>\n<p><strong>Stage 3</strong> unconscious (3 days)</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -668,7 +668,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Norgorberite spy deals an additional 4d6 precision damage to off-guard creatures or creatures within reach of at least two of their allies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Norgorberite spy deals an additional 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures or creatures within reach of at least two of their allies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -680,21 +680,14 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "finesse",
-                                    "agile",
-                                    "ranged"
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
-                        "domain": "damage-roll",
+                        "domain": "damage",
                         "key": "RollOption",
-                        "label": "Two allies are within reach of the target",
+                        "label": "PF2E.NPCAbility.GangUp.TwoAllies",
                         "option": "in-reach-of-allies",
                         "toggleable": true
                     },

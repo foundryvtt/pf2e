@@ -422,7 +422,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.b515AZlB0sridKSq"
                 }
             },
-            "img": "systems/pf2e/icons/spells/calm-emotions.webp",
+            "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm Emotions",
             "sort": 500000,
             "system": {
@@ -548,7 +548,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on 1d4). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on 1d6). With only one image, the chances are 1 in 2 (1-3 on 1d6).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>"
+                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -611,8 +611,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "visual",
-                        "illusion"
+                        "illusion",
+                        "visual"
                     ]
                 }
             },
@@ -625,7 +625,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.mrDi3v933gsmnw25"
                 }
             },
-            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
+            "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
             "sort": 700000,
             "system": {
@@ -2292,7 +2292,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Mialari deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Mialari deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2304,21 +2304,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

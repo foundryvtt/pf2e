@@ -29,7 +29,8 @@ export const SetAsInitiative = {
             setInitiativeButton.title = game.i18n.localize("PF2E.ClickToSetInitiative");
             setInitiativeButton.appendChild(fontAwesomeIcon("fa-swords", { style: "solid" }));
             btnContainer.appendChild(setInitiativeButton);
-            li.querySelector(".dice-total")?.appendChild(btnContainer);
+            const selector = message.isReroll ? ".pf2e-reroll-second .dice-total" : ".dice-total";
+            li.querySelector(selector)?.appendChild(btnContainer);
 
             setInitiativeButton.addEventListener("click", async (event): Promise<void> => {
                 event.stopPropagation();

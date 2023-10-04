@@ -10,8 +10,6 @@ declare global {
     class ChatMessage extends ClientBaseChatMessage {
         constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: DocumentConstructionContext<null>);
 
-        flavor: string;
-
         _rollExpanded: boolean;
 
         /**
@@ -38,9 +36,6 @@ declare global {
          * Messages may not be visible if they are private whispers.
          */
         override get visible(): boolean;
-
-        /** The User who created the chat message. */
-        get user(): User | undefined;
 
         override prepareData(): void;
 
@@ -173,20 +168,26 @@ declare global {
         export(): string;
     }
 
+    interface ChatMessage extends ClientBaseChatMessage {
+        user: User;
+    }
+
     namespace ChatMessage {
         function create<TDocument extends ChatMessage>(
             this: ConstructorOf<TDocument>,
-            data: PreCreate<TDocument["_source"]>[],
+            data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[],
             context?: ChatMessageModificationContext
         ): Promise<TDocument[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["_source"]>,
+            data: DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
             context?: ChatMessageModificationContext
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["_source"]>[] | PreCreate<T["_source"]>,
+            data:
+                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
+                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
             context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
     }

@@ -463,7 +463,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.TDaMnCtZ72uyYrz8"
                 }
             },
-            "img": "systems/pf2e/icons/spells/blink-charge.webp",
+            "img": "icons/magic/sonic/projectile-shock-wave-blue.webp",
             "name": "Blink Charge",
             "sort": 500000,
             "system": {
@@ -572,7 +572,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
                 }
             },
-            "img": "systems/pf2e/icons/spells/dimension-door.webp",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
             "sort": 600000,
             "system": {
@@ -1276,7 +1276,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.AfOpnnwdZwHi2Tnc"
                 }
             },
-            "img": "systems/pf2e/icons/spells/protect-companion.webp",
+            "img": "icons/equipment/shield/kite-wooden-oak-glow.webp",
             "name": "Protect Companion",
             "sort": 1300000,
             "system": {
@@ -1364,7 +1364,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+            "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
             "sort": 1400000,
             "system": {
@@ -1780,7 +1780,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/greataxe.webp",
+            "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
             "sort": 1800000,
             "system": {
@@ -1977,7 +1977,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.TSrbwHW8zm0mhkwb"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Greater)",
             "sort": 2000000,
             "system": {
@@ -2040,7 +2040,7 @@
                         "healing",
                         "magical",
                         "necromancy",
-                        "positive",
+                        "vitality",
                         "potion"
                     ]
                 },
@@ -2189,12 +2189,63 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ivarsa can enter this stance only if her most recent action was to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] or make a Spellstrike, but she can remain in the stance even if she no longer meets the requirements</p>\n<hr />\n<p><strong>Effect</strong> When she enters this stance and at the beginning of each of her turns while she's in it, Ivarsa gains 6 temporary Hit Points. While in this stance, Ivarsa's melee Strikes gain the arcane trait, deal [[/r {2}]]{2 extra fire damage}, and deal [[/r {4}]]{4 splash fire damage} to foes adjacent to her target.</p>"
+                    "value": "<p><strong>Requirements</strong> Ivarsa can enter this stance only if her most recent action was to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] or make a Spellstrike, but she can remain in the stance even if she no longer meets the requirements</p>\n<hr />\n<p><strong>Effect</strong> When she enters this stance and at the beginning of each of her turns while she's in it, Ivarsa gains 6 temporary Hit Points. While in this stance, Ivarsa's melee Strikes gain the arcane trait, deal 2 extra fire damage, and deal @Damage[(4[splash])[fire]]{4 splash fire} damage to foes adjacent to her target.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arcane-cascade",
+                        "toggleable": true
+                    },
+                    {
+                        "events": {
+                            "onTurnStart": true
+                        },
+                        "key": "TempHP",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "arcane"
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "arcane-cascade",
+                        "value": 2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.NPCAbility.Ivarsa.ArcaneCascade.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "arcane-cascade",
                 "source": {
                     "value": ""

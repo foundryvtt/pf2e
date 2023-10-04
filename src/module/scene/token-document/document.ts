@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -153,13 +154,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
-
-        this._source.flags.pf2e ??= {};
-        this._source.flags.pf2e.linkToActorSize ??= true;
-        this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
-            ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
-            : false;
-
         super._initialize(options);
     }
 
@@ -174,6 +168,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.flags = mergeObject(this.flags, { pf2e: {} });
         this.auras.clear();
 
         if (!this.actor || !this.isEmbedded) return;
@@ -187,7 +182,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (!this.constructed) return;
 
         // Dimensions and scale
-        const linkDefault = !["hazard", "loot", "party"].includes(this.actor.type ?? "");
+        const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type);
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
@@ -243,9 +238,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.alpha = tokenOverrides.alpha ?? this.alpha;
 
         if (tokenOverrides.light) {
-            this.light = new foundry.data.LightData(tokenOverrides.light, {
-                parent: this as unknown as foundry.abstract.DataModel,
-            });
+            this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
         }
 
         // Token dimensions from actor size

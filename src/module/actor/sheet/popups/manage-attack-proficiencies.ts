@@ -20,7 +20,7 @@ async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
                 icon: fontAwesomeIcon("check").outerHTML,
                 label: game.i18n.localize("PF2E.AddShortLabel"),
                 callback: async ($dialog) => {
-                    const selection = $dialog.find('select[name="proficiency"]').val();
+                    const selection = $dialog.find("select[name=proficiency]").val();
                     if (typeof selection === "string" && selection) {
                         const proficiencyKey =
                             selection in weaponGroups
@@ -61,8 +61,8 @@ function remove(actor: CharacterPF2e, event: MouseEvent): void {
         content: `<p>${message}</p>`,
         defaultYes: false,
         yes: () => {
-            if (!(key in (actor._source.system.martial ?? {}))) return;
-            actor.update({ [`system.martial.-=${key}`]: null });
+            if (!(key in (actor._source.system.proficiencies?.attacks ?? {}))) return;
+            actor.update({ [`system.proficiencies.attacks.-=${key}`]: null });
         },
     });
 }

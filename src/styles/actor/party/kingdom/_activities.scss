@@ -14,7 +14,7 @@
 
 .skill-list,
 .actions-list {
-    @include scrollbar;
+    overflow: hidden scroll;
     margin-bottom: 0.25rem;
 }
 
@@ -79,6 +79,14 @@
         .button-group {
             display: flex;
             padding-left: 0.25rem;
+
+            .proficiency {
+                min-width: 11ch;
+            }
+
+            .small-button {
+                flex: 0;
+            }
         }
     }
 }
@@ -124,6 +132,10 @@
         width: 100%;
         gap: 0.5rem;
         padding-right: 0.5rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--color-divider);
+        }
 
         .item-name {
             align-items: center;

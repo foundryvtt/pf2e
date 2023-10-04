@@ -103,7 +103,7 @@ export interface ActorSource<
     TSystemSource extends object = object,
     TItemSource extends ItemSource = ItemSource
 > {
-    _id: string;
+    _id: string | null;
     name: string;
     type: TType;
     img: ImageFilePath;

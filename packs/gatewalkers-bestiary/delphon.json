@@ -330,7 +330,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+            "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
             "sort": 400000,
             "system": {
@@ -629,7 +629,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "positive",
+                        "vitality",
                         "healing",
                         "cantrip",
                         "necromancy"
@@ -849,7 +849,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.M1k5QQc1qQLxzyCK"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
+            "img": "icons/consumables/potions/potion-bottle-skull-label-poison-teal.webp",
             "name": "Acid Flask (Lesser)",
             "sort": 900000,
             "system": {
@@ -873,7 +873,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 1d6 persistent acid damage, and 1 acid splash damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 1d6 persistent acid damage, and 1 acid splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1136,7 +1136,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage-roll",
+                        "domain": "damage",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "option": "two-handed",
@@ -1194,22 +1194,17 @@
                     "7AU8JMFJ2OCuBnej": {
                         "damage": "1d6",
                         "damageType": "acid"
+                    },
+                    "BKJuAKRU5Ssyd1qT": {
+                        "category": "splash",
+                        "damage": "1",
+                        "damageType": "acid"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "critical": false,
-                        "damageCategory": "splash",
-                        "damageType": "acid",
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitSplash",
-                        "selector": "{item|_id}-damage",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1413,8 +1408,8 @@
                 "value": "med"
             },
             "value": [
-                "humanoid",
-                "dwarf"
+                "dwarf",
+                "humanoid"
             ]
         }
     },

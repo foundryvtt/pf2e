@@ -23,12 +23,24 @@ interface ActionCost {
 
 interface ItemTraits<T extends ItemTrait = ItemTrait> {
     value: T[];
-    rarity?: Rarity;
+    rarity: Rarity;
+    otherTags: string[];
 }
 
-interface RarityTraitOnly {
-    value?: never;
+interface ItemTraitsNoRarity<T extends ItemTrait = ItemTrait> extends Omit<ItemTraits<T>, "rarity"> {
+    rarity?: never;
+}
+
+interface RarityTraitAndOtherTags {
+    readonly value?: never;
     rarity: Rarity;
+    otherTags: string[];
+}
+
+interface OtherTagsOnly {
+    readonly value?: never;
+    rarity?: never;
+    otherTags: string[];
 }
 
 interface ItemFlagsPF2e extends foundry.documents.ItemFlags {
@@ -69,7 +81,7 @@ interface ItemSystemSource {
     source: {
         value: string;
     };
-    traits?: ItemTraits | RarityTraitOnly;
+    traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
     options?: {
         value: string[];
     };
@@ -108,5 +120,7 @@ export type {
     ItemSystemSource,
     ItemTrait,
     ItemTraits,
-    RarityTraitOnly,
+    ItemTraitsNoRarity,
+    OtherTagsOnly,
+    RarityTraitAndOtherTags,
 };

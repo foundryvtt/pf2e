@@ -839,7 +839,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+            "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
             "sort": 900000,
             "system": {
@@ -1235,7 +1235,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon mage deals an extra [[/r {1d6}]]{1d6 damage} to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
+                    "value": "<p>The dragon mage deals an extra 1d6 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1246,21 +1246,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

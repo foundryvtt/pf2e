@@ -1,4 +1,5 @@
 import { ActionCost } from "@item/data/base.ts";
+import Sortable from "sortablejs";
 
 /**
  * Given an array and a key function, create a map where the key is the value that
@@ -388,10 +389,6 @@ function sortObjByKey(value: unknown): unknown {
         : value;
 }
 
-function sortedStringify(obj: object): string {
-    return JSON.stringify(sortObjByKey(obj));
-}
-
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
@@ -441,10 +438,24 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
     return isImageFilePath(path) || isVideoFilePath(path);
 }
 
+const SORTABLE_DEFAULTS: Sortable.Options = {
+    animation: 200,
+    direction: "vertical",
+    dragClass: "drag-preview",
+    dragoverBubble: true,
+    easing: "cubic-bezier(1, 0, 0, 1)",
+    ghostClass: "drag-gap",
+
+    // These options are from the Autoscroll plugin and serve as a fallback on mobile/safari/ie/edge
+    // Other browsers use the native implementation
+    scroll: true,
+    scrollSensitivity: 30,
+    scrollSpeed: 15,
+};
+
 export {
     ErrorPF2e,
-    type Fraction,
-    type SlugCamel,
+    SORTABLE_DEFAULTS,
     addSign,
     applyNTimes,
     configFromLocalization,
@@ -474,8 +485,9 @@ export {
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
-    sortedStringify,
     sum,
     tupleHasValue,
     zip,
+    type Fraction,
+    type SlugCamel,
 };

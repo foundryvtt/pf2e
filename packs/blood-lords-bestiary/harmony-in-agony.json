@@ -866,7 +866,7 @@
                         "0": {
                             "type": {
                                 "categories": [],
-                                "value": "negative"
+                                "value": "void"
                             },
                             "value": "12d6"
                         }
@@ -946,7 +946,7 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "negative",
+                        "void",
                         "necromancy"
                     ]
                 }
@@ -1061,7 +1061,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.IqJ9URobmJ9L9UBG"
                 }
             },
-            "img": "systems/pf2e/icons/spells/shadow-blast.webp",
+            "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
             "sort": 1100000,
             "system": {
@@ -1178,7 +1178,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
                 }
             },
-            "img": "systems/pf2e/icons/spells/dimension-door.webp",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
             "sort": 1200000,
             "system": {
@@ -1734,7 +1734,7 @@
                         "0": {
                             "type": {
                                 "categories": [],
-                                "value": "negative"
+                                "value": "void"
                             },
                             "value": "6d6"
                         }
@@ -1814,7 +1814,7 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "negative",
+                        "void",
                         "necromancy"
                     ]
                 }
@@ -2027,7 +2027,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.wzLkNU3AAqOSKFPR"
                 }
             },
-            "img": "systems/pf2e/icons/spells/sound-burst.webp",
+            "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Sound Burst",
             "sort": 2000000,
             "system": {
@@ -2144,7 +2144,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.mrDi3v933gsmnw25"
                 }
             },
-            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
+            "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
             "sort": 2100000,
             "system": {
@@ -4066,7 +4066,7 @@
                     "value": [
                         "divine",
                         "necromancy",
-                        "negative"
+                        "void"
                     ]
                 },
                 "trigger": {
@@ -4182,12 +4182,37 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<ul>\n<li><strong>Bat</strong> Harmony changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Giant Bat]. She gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike ([[/r 1d20+26]]{+26}, [[/r 1d20+21]]{+21}, [[/r 1d20+16]]{+16}) @Damage[(3d8+10)[piercing]].</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul>\n<li><strong>Bat</strong> Harmony changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Giant Bat]. She gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike +26 for 3d8+10 piercing</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": 26,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8",
+                                "modifier": 10
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Fangs",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "slug": "fangs",
+                        "traits": []
+                    }
+                ],
                 "slug": "vampire-true-change-shape",
                 "source": {
                     "value": "Pathfinder Bestiary"

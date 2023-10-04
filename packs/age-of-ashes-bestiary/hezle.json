@@ -439,7 +439,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +4 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Greater)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +4 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Greater)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -579,7 +579,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.WL4O32qFifxnMj0H"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/wyvern-poison.webp",
+            "img": "icons/commodities/materials/liquid-blue.webp",
             "name": "Wyvern Poison [Applied to 4 Bolts]",
             "sort": 700000,
             "system": {
@@ -599,7 +599,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26|name:Wyvern Poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage (1 round)</p>"
+                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26|name:Wyvern Poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -661,7 +661,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Moderate)",
             "sort": 800000,
             "system": {
@@ -725,7 +725,7 @@
                         "healing",
                         "magical",
                         "necromancy",
-                        "positive",
+                        "vitality",
                         "potion"
                     ]
                 },
@@ -888,7 +888,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage-roll",
+                        "domain": "damage",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "option": "two-handed",
@@ -1165,7 +1165,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>2d6 precision damage</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Hezle deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1177,21 +1177,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

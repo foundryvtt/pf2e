@@ -86,12 +86,10 @@ class StrictNumberField<
 
 /** A `BooleanField` that does not cast the source value */
 class StrictBooleanField<
-    TSourceProp extends boolean = boolean,
-    TModelProp = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends fields.BooleanField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends fields.BooleanField<boolean, boolean, TRequired, TNullable, THasInitial> {
     protected override _cast(value: unknown): unknown {
         return value;
     }
@@ -164,7 +162,7 @@ class DataUnionField<
         value: unknown,
         options?: CleanFieldOptions | undefined
     ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
-        if (Array.isArray(value)) {
+        if (Array.isArray(value) && this.fields.some((f) => f instanceof foundry.data.fields.ArrayField)) {
             const arrayField = this.fields.find((f) => f instanceof StrictArrayField);
             return (arrayField?.clean(value, options) ?? value) as MaybeUnionSchemaProp<
                 TField,
@@ -182,8 +180,11 @@ class DataUnionField<
         options?: DataFieldValidationOptions | undefined
     ): void | DataModelValidationFailure {
         const { DataModelValidationFailure } = foundry.data.validation;
+        const { StringField } = foundry.data.fields;
         for (const field of this.fields) {
             if (field.validate(value, options) instanceof DataModelValidationFailure) {
+                continue;
+            } else if (field instanceof StringField && typeof value !== "string") {
                 continue;
             } else {
                 return;

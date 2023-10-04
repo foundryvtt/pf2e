@@ -1,26 +1,26 @@
 <div class="form-group">
-    <label for="{{item.uuid}}-{{index}}-label" class="short">{{localize fields.label.label}}</label>
+    <label for="{{fieldIdPrefix}}label" class="short">{{localize fields.label.label}}</label>
     <div class="attached-input">
-        <input type="text" name="system.rules.{{index}}.label" id="{{item.uuid}}-{{index}}-label" value="{{rule.label}}" placeholder="{{item.name}}" />
+        <input type="text" name="system.rules.{{index}}.label" id="{{fieldIdPrefix}}label" value="{{rule.label}}" placeholder="{{item.name}}" />
     </div>
 </div>
 
 <div class="form-group">
-    <label for="{{item.uuid}}-{{index}}-selector" class="short">{{localize fields.selector.label}}</label>
+    <label for="{{fieldIdPrefix}}selector" class="short">{{localize fields.selector.label}}</label>
     <div class="attached-input">
-        <input type="text" name="system.rules.{{index}}.selector" id="{{item.uuid}}-{{index}}-selector" value="{{rule.selector}}" />
+        <input type="text" name="system.rules.{{index}}.selector" id="{{fieldIdPrefix}}selector" value="{{rule.selector}}" />
     </div>
 </div>
 
 <div class="form-group">
-    <label for="{{item.uuid}}-{{index}}-value" class="short">{{localize fields.value.label}}</label>
+    <label for="{{fieldIdPrefix}}value" class="short">{{localize fields.value.label}}</label>
     {{{form.resolvableValue "value"}}}
     {{{form.resolvableAddBracket "value"}}}
 </div>
 
 {{{form.resolvableBrackets "value"}}}
 
-<div class="spaced-fields">
-    <label for="{{item.uuid}}-{{index}}-predicate">{{localize fields.predicate.label}}</label>
-    <input type="text" name="system.rules.{{index}}.predicate" id="{{item.uuid}}-{{index}}-predicate" value="{{json rule.predicate}}" placeholder="[ ]" />
+<div class="form-group">
+    <label for="{{fieldIdPrefix}}predicate" class="short">{{localize fields.predicate.label}}</label>
+    <input type="text" name="system.rules.{{index}}.predicate" id="{{fieldIdPrefix}}predicate" value="{{json rule.predicate}}" placeholder="[ ]" />
 </div>

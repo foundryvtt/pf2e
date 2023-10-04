@@ -99,8 +99,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         return {
             ...sheetData,
             propertyRuneSlots,
-            hasDetails: true,
-            hasSidebar: true,
             preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
             fundamentalRunes,
             propertyRunes,
@@ -193,7 +191,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const isSpecific = formData["system.specific.value"];
         if (isSpecific !== weapon.isSpecific) {
             if (isSpecific === true) {
-                formData["system.price.value"] = this.item.price.value;
                 formData["system.specific.price"] = this.item.price.value;
                 formData["system.specific.material"] = weapon.material;
                 formData["system.specific.runes"] = {

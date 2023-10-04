@@ -19,9 +19,9 @@ input[type="number"] {
     align-items: center;
     flex-wrap: wrap;
     gap: 0 1rem;
-    padding: 0.25rem 0;
+    padding: 0.25rem 0.25rem 0.25rem 0;
 
-    &:not(:last-child) {
+    &:not(.expanded, :last-child) {
         border-bottom: 1px solid var(--color-divider);
     }
 
@@ -47,7 +47,7 @@ input[type="number"] {
         }
         .name {
             flex: 1;
-            font-size: var(--font-size-20);
+            font-size: var(--font-size-16);
         }
         select {
             margin-left: 2rem;
@@ -64,61 +64,70 @@ input[type="number"] {
 
     .item-summary {
         flex-basis: 100%;
-    }
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        margin-top: 0.5rem;
 
-    .settlement-data {
-        display: flex;
-        justify-content: space-between;
-        margin: 0.5rem 0;
-
-        & > section {
-            background: var(--paper-bg);
-            box-shadow: var(--drop-shadow);
-            padding: 0.5rem;
-        }
-
-        input[type="number"] {
-            width: 3ch;
-            text-align: center;
-            padding: 0;
-        }
-
-        input[type=checkbox] {
-            margin: 0;
-            width: 1rem;
-            height: 1rem;
-        }
-
-        label,
-        div.value {
-            align-items: center;
+        .settlement-data {
             display: flex;
-            gap: 0.25rem;
-            line-height: 1.5em;
-        }
+            justify-content: space-between;
+            margin: 0 0.125rem 0 0;
+            border-bottom: 1px solid var(--color-divider);
 
-        .stats {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .storage-items {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            column-gap: 0.25rem;
-            label {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+            & > section {
+                flex: 1 0 auto;
+                padding: 0.5rem;
+                & + section {
+                    border-left: 1px solid var(--color-divider);
+                }
             }
+
+            input[type="number"] {
+                width: 3ch;
+                text-align: center;
+                padding: 0;
+            }
+
+            input[type="checkbox"] {
+                margin: 0;
+                width: 1rem;
+                height: 1rem;
+            }
+
+            label,
+            div.value {
+                align-items: center;
+                display: flex;
+                gap: 0.25rem;
+                line-height: 1.5em;
+            }
+
+            .stats {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .storage-items {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 0.25rem;
+                label {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        & > .details {
+            padding: 0.5rem;
         }
     }
 
     .editor {
         display: flex;
         flex-direction: column;
-        min-height: 4rem;
         .tox {
             flex: 1;
             min-height: 16rem;

@@ -25,7 +25,6 @@ declare global {
 const { window } = new JSDOM();
 global.document = window.document;
 global.window = global.document.defaultView!;
-const $ = (await import("jquery")).default;
 
 interface ExtractArgs {
     packDb: string;
@@ -337,13 +336,14 @@ class PackExtractor {
                 return "";
             }
 
-            const $description = ((): JQuery => {
+            const container = (() => {
                 try {
-                    return $(
+                    const div = document.createElement("div");
+                    div.innerHTML =
                         description.startsWith("<p>") && /<\/(?:p|ol|ul|table)>$/.test(description)
                             ? description
-                            : `<p>${description}</p>`
-                    );
+                            : `<p>${description}</p>`;
+                    return div;
                 } catch (error) {
                     console.error(error);
                     throw PackError(
@@ -352,35 +352,44 @@ class PackExtractor {
                 }
             })();
 
-            // Strip out span tags from AoN copypasta
-            const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
-            for (const selector of selectors) {
-                $description.find(selector).each((_i, span) => {
-                    $(span)
-                        .contents()
-                        .unwrap(selector)
-                        .each((_j, node) => {
-                            if (node.nodeName === "#text") {
-                                node.textContent = node.textContent!.trim();
-                            }
-                        });
+            const textNodes: Text[] = [];
+            function pushTextNode(node: Node | null): void {
+                if (!node) return;
+                if (node.nodeName === "#text" && node.nodeValue && node.nodeValue !== "\n") {
+                    textNodes.push(node as Text);
+                }
+                node.childNodes.forEach((n) => {
+                    pushTextNode(n);
                 });
             }
 
-            return $("<div>")
-                .append($description)
-                .html()
+            pushTextNode(container);
+
+            // Strip out span tags from AoN copypasta
+            const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
+            for (const selector of selectors) {
+                container.querySelectorAll(selector).forEach((span) => {
+                    span.replaceWith(span.innerHTML);
+                });
+            }
+
+            return container.innerHTML
                 .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
-                .replace(/&nbsp;/g, " ")
-                .replace(/ {2,}/g, " ")
-                .replace(/<p> ?<\/p>/g, "")
                 .replace(/<\/p> ?<p>/g, "</p>\n<p>")
                 .replace(/<p>[ \r\n]+/g, "<p>")
                 .replace(/[ \r\n]+<\/p>/g, "</p>")
                 .replace(/<(?:b|strong)>\s*/g, "<strong>")
                 .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
                 .replace(/(<\/strong>)(\w)/g, "$1 $2")
-                .replace(/(<p><\/p>)/g, "")
+                .replace(/\bpf2-icon\b/g, "action-glyph")
+                .replace(/<p> *<\/p>/g, "")
+                .replace(/<div> *<\/div>/g, "")
+                .replace(/&nbsp;/g, " ")
+                .replace(/\u2011/g, "-")
+                .replace(/\s*\u2014\s*/g, "\u2014") // em dash
+                .replace(/ {2,}/g, " ")
+                .trim()
+                .replace(/^<hr \/>/, "")
                 .trim();
         };
 
@@ -390,7 +399,7 @@ class PackExtractor {
             } else if ("details" in docSource.system && "publicNotes" in docSource.system.details) {
                 docSource.system.details.publicNotes = cleanDescription(docSource.system.details.publicNotes);
             }
-        } else if ("content" in docSource) {
+        } else if ("content" in docSource && typeof docSource.content === "string") {
             docSource.content = cleanDescription(docSource.content);
         }
 
@@ -409,10 +418,12 @@ class PackExtractor {
                 }
                 delete (docSource as { _stats?: unknown })._stats;
 
-                docSource.img &&= docSource.img.replace(
-                    "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                    "systems/pf2e/"
-                ) as ImageFilePath;
+                if ("img" in docSource && typeof docSource.img === "string") {
+                    docSource.img = docSource.img.replace(
+                        "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
+                        "systems/pf2e/"
+                    ) as ImageFilePath;
+                }
 
                 if (isObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
                     delete docSource.flags.pf2e;
@@ -491,11 +502,12 @@ class PackExtractor {
             delete (source.system.description as { gm?: unknown }).gm;
         }
 
+        if (source.system.traits?.otherTags?.length === 0) {
+            delete (source.system.traits as { otherTags?: unknown }).otherTags;
+        }
+
         if (isPhysicalData(source)) {
             delete (source.system as { identification?: unknown }).identification;
-            if (source.system.traits.otherTags?.length === 0) {
-                delete (source.system.traits as { otherTags?: unknown }).otherTags;
-            }
 
             if (source.type === "consumable" && !source.system.spell) {
                 delete (source.system as { spell?: unknown }).spell;
@@ -868,4 +880,4 @@ class PackExtractor {
     }
 }
 
-export { type ExtractArgs, PackExtractor };
+export { PackExtractor, type ExtractArgs };

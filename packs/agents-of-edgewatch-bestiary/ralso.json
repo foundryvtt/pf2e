@@ -322,7 +322,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>These four‑pronged metal spikes can cause damage to a creature's feet. You can scatter caltrops in an empty square adjacent to you with an Interact action. The first creature that moves into that square must succeed at a @Check[type:acrobatics|dc:14|name:Avoid Caltrops] check or take 1d4 piercing damage and @Damage[1[bleed]] damage. A creature taking persistent bleed damage from caltrops takes a -5‑foot penalty to its Speed. Spending an Interact action to pluck the caltrops free reduces the DC to stop the bleeding. Once a creature takes damage from caltrops, enough caltrops are ruined that other creatures moving into the square are safe. Deployed caltrops can be salvaged and reused if no creatures took damage from them. Otherwise, enough caltrops are ruined that they can't be salvaged.</p>"
+                    "value": "<p>These four-pronged metal spikes can cause damage to a creature's feet. You can scatter caltrops in an empty square adjacent to you with an Interact action. The first creature that moves into that square must succeed at a @Check[type:acrobatics|dc:14|name:Avoid Caltrops] check or take 1d4 piercing damage and @Damage[1[bleed]] damage. A creature taking persistent bleed damage from caltrops takes a -5-foot penalty to its Speed. Spending an Interact action to pluck the caltrops free reduces the DC to stop the bleeding. Once a creature takes damage from caltrops, enough caltrops are ruined that other creatures moving into the square are safe. Deployed caltrops can be salvaged and reused if no creatures took damage from them. Otherwise, enough caltrops are ruined that they can't be salvaged.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -450,7 +450,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Lesser)",
             "sort": 600000,
             "system": {
@@ -729,7 +729,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ralso deals an extra 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Ralso deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -741,21 +741,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

@@ -28,12 +28,12 @@ export class Migration645TokenImageSize extends MigrationBase {
         const flags = actorSource.flags as OldTokenFlags;
         const originalImg = flags.pf2e?.token?.img;
         if (this.#isTokenImageFlag(originalImg)) {
-            this.#imageOverrides.set(actorSource._id, originalImg);
+            this.#imageOverrides.set(actorSource._id!, originalImg);
         }
 
         const originalSize = flags.pf2e?.token?.size;
         if (this.#isTokenSizeFlag(originalSize)) {
-            this.#sizeOverrides.set(actorSource._id, originalSize);
+            this.#sizeOverrides.set(actorSource._id!, originalSize);
         }
 
         if (typeof flags.pf2e?.token === "object") {

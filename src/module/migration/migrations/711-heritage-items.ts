@@ -201,6 +201,7 @@ export class Migration711HeritageItems extends MigrationBase {
                             (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries)
                     ),
                     rarity: traits.rarity,
+                    otherTags: [],
                 },
                 source: feature.system.source,
             },

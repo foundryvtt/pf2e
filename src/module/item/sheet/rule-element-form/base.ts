@@ -1,4 +1,5 @@
-import type { ItemPF2e } from "@item/base.ts";
+import { ActorProxyPF2e } from "@actor";
+import { ItemPF2e, ItemProxyPF2e } from "@item/base.ts";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
@@ -6,26 +7,28 @@ import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
 import type { DataField } from "types/foundry/common/data/fields.d.ts";
+import type { ItemSheetPF2e } from "../index.ts";
 
-interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
-    item: ItemPF2e;
+interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null> {
+    sheet: ItemSheetPF2e<ItemPF2e>;
     index: number;
     rule: TSource;
-    object: TObject | null;
+    object: TObject;
 }
 
 /** Base Rule Element form handler. Form handlers intercept sheet events to support new UI */
 class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
-    TObject extends RuleElementPF2e = RuleElementPF2e
+    TObject extends RuleElementPF2e | null = RuleElementPF2e | null
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
-    declare item: ItemPF2e;
+    declare sheet: ItemSheetPF2e<ItemPF2e>;
     declare index: number;
     declare rule: TSource;
-    declare object: TObject | null;
+    declare object: TObject;
     declare schema: LaxSchemaField<RuleElementSchema> | null;
+    declare element: HTMLElement;
 
     /** Tab configuration data */
     protected tabs: RuleElementFormTabData | null = null;
@@ -42,11 +45,29 @@ class RuleElementForm<
     }
 
     initialize(options: RuleElementFormOptions<TSource, TObject>): void {
-        this.item = options.item;
+        this.sheet = options.sheet;
         this.index = options.index;
         this.rule = options.rule;
-        this.object = options.object;
+        this.object =
+            options.object ??
+            // If this rule element is on an unowned item, create a temporary owned item for it
+            (() => {
+                const RuleElementClass = RuleElements.all[String(this.rule.key)];
+                if (!RuleElementClass) return null as TObject;
+                const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
+                const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
+                return new RuleElementClass(deepClone(this.rule), { parent: item, suppressWarnings: true }) as TObject;
+            })();
+
         this.schema = this.object?.constructor.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
+    }
+
+    get item(): ItemPF2e {
+        return this.sheet.item;
+    }
+
+    get fieldIdPrefix(): string {
+        return `field-${this.sheet.appId}-${this.index}-`;
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
@@ -83,8 +104,10 @@ class RuleElementForm<
         const mergedRule = mergeObject(this.getInitialValue(), this.rule);
 
         return {
-            ...R.pick(this, ["item", "index", "rule", "object"]),
+            ...R.pick(this, ["index", "rule", "object"]),
+            item: this.item,
             label,
+            fieldIdPrefix: this.fieldIdPrefix,
             recognized,
             basePath: this.basePath,
             rule: mergedRule,
@@ -98,6 +121,7 @@ class RuleElementForm<
         const bracketsTemplate = await getTemplate(
             "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs"
         );
+        const dropZoneTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/drop-zone.hbs");
 
         const getResolvableData = (property: string) => {
             const value = getProperty(rule, property);
@@ -106,25 +130,26 @@ class RuleElementForm<
         };
 
         return {
-            resolvableValue: (property: string) =>
+            resolvableValue: (property: string, options: { hash?: { fileInput?: boolean } } = {}) =>
                 valueTemplate({
                     ...getResolvableData(property),
-                    inputId: `${this.item.uuid}-${this.index}-${property}`,
+                    inputId: `${this.fieldIdPrefix}${property}`,
+                    fileInput: options.hash?.fileInput ?? false,
                 }),
 
             resolvableAddBracket: (property: string) => {
                 const data = getResolvableData(property);
                 if (data.mode !== "brackets") return "";
                 return createHTMLElement("a", {
-                    children: [fontAwesomeIcon("fa-plus", { fixedWidth: true })],
-                    dataset: {
-                        action: "add-bracket",
-                        property,
-                    },
+                    children: [fontAwesomeIcon("plus", { fixedWidth: true })],
+                    dataset: { action: "add-bracket", property },
                 }).outerHTML;
             },
             resolvableBrackets: (property: string) => {
                 return bracketsTemplate(getResolvableData(property));
+            },
+            dropZone: (dropId: string, dropText: string, dropTooltip?: string) => {
+                return dropZoneTemplate({ dropId, dropText, dropTooltip });
             },
         };
     }
@@ -141,16 +166,34 @@ class RuleElementForm<
      * Helper to update the item with the new rule data.
      * This function exists because array updates in foundry are currently clunky
      */
-    updateItem(updates: Partial<TSource> | Record<string, unknown>): void {
+    async updateItem(updates: Partial<TSource> | Record<string, unknown>): Promise<void> {
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
-        rules[this.index] = mergeObject(this.rule, updates, { performDeletions: true });
-        this.item.update({ [`system.rules`]: rules });
+        const result = mergeObject(this.rule, updates, { performDeletions: true });
+        if (this.schema) {
+            cleanDataUsingSchema(this.schema.fields, result);
+        }
+        rules[this.index] = result;
+        await this.item.update({ [`system.rules`]: rules });
     }
 
     activateListeners(html: HTMLElement): void {
+        this.element = html;
+
         // Tagify selectors lists
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
         tagify(selectorElement);
+
+        // Add event listener for priority. This exists because normal form submission won't work for text-area forms
+        const priorityInput = htmlQuery<HTMLInputElement>(html, ".rule-element-header .priority input");
+        priorityInput?.addEventListener("change", (event) => {
+            event.stopPropagation();
+            const value = priorityInput.value;
+            if (value === "" || Number.isNaN(Number(value))) {
+                this.updateItem({ "-=priority": null });
+            } else {
+                this.updateItem({ priority: Number(value) });
+            }
+        });
 
         for (const button of htmlQueryAll(html, "[data-action=toggle-brackets]")) {
             button.addEventListener("click", () => {
@@ -195,6 +238,19 @@ class RuleElementForm<
             }
             this.activateTab(html, this.#activeTab);
         }
+
+        for (const dropZone of htmlQueryAll(html, "div.rules-drop-zone")) {
+            dropZone.addEventListener("drop", (event) => {
+                this.onDrop(event, dropZone);
+            });
+        }
+    }
+
+    protected async onDrop(event: DragEvent, _element: HTMLElement): Promise<ItemPF2e | null> {
+        const data = event.dataTransfer?.getData("text/plain");
+        if (!data) return null;
+        const item = await ItemPF2e.fromDropData(JSON.parse(data));
+        return item ?? null;
     }
 
     protected activateTab(html: HTMLElement, tabName: Maybe<string>): void {
@@ -219,24 +275,32 @@ class RuleElementForm<
     }
 
     updateObject(source: TSource & Record<string, unknown>): void {
-        // Predicate is special cased as always json. Later on extend such parsing to more things
-        const predicateValue = source.predicate;
-        if (typeof predicateValue === "string") {
-            if (predicateValue.trim() === "") {
-                delete source.predicate;
-            } else {
-                try {
-                    source.predicate = JSON.parse(predicateValue);
-                } catch (error) {
-                    if (error instanceof Error) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                        );
-                        throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                    }
+        // If the entire thing is a string, this is a regular JSON textarea
+        if (typeof source === "string") {
+            try {
+                this.rule = JSON.parse(source);
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    console.warn("Syntax error in rule element definition.", error.message, source);
+                    throw error; // prevent update, to give the user a chance to correct, and prevent bad data
                 }
             }
+
+            return;
         }
+
+        source = mergeObject(duplicate(this.rule), source);
+
+        // Prevent wheel events on the sliders from spamming updates
+        for (const slider of htmlQueryAll<HTMLInputElement>(this.element, "input[type=range")) {
+            slider.style.pointerEvents = "none";
+        }
+
+        // Predicate is special cased as always json. Later on extend such parsing to more things
+        cleanPredicate(source);
 
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, source);
@@ -249,73 +313,91 @@ class RuleElementForm<
 }
 
 /** Recursively clean and remove all fields that have a default value */
-function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>) {
+function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
     const { fields } = foundry.data;
+
+    // Removes the field if it is the initial value.
+    // It may merge with the initial value to handle cases where the values where cleaned recursively
+    const deleteIfInitial = (key: string, field: DataField): boolean => {
+        if (data[key] === undefined) return true;
+        const initialValue = typeof field.initial === "function" ? field.initial() : field.initial;
+        const valueRaw = data[key];
+        const value = R.isObject(valueRaw) && R.isObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
+        const isInitial = R.equals(initialValue, value);
+        if (isInitial) delete data[key];
+        return !(key in data);
+    };
+
     for (const [key, field] of Object.entries(schema)) {
-        if (!(key in data)) continue;
-        const value = data[key];
+        if (deleteIfInitial(key, field)) continue;
 
         if (field instanceof ResolvableValueField) {
-            data[key] = getCleanedResolvable(value);
+            data[key] = field.clean(data[key]);
+            deleteIfInitial(key, field);
             continue;
         }
 
-        if ("fields" in field && R.isObject(value)) {
-            cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
-            continue;
+        if ("fields" in field) {
+            const value = data[key];
+            if (R.isObject(value)) {
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
+                deleteIfInitial(key, field);
+                continue;
+            }
+        }
+
+        if (field instanceof fields.ArrayField && field.element instanceof fields.SchemaField) {
+            const value = data[key];
+            if (Array.isArray(value)) {
+                // Recursively clean schema fields inside an array
+                for (const data of value) {
+                    if (R.isObject(data)) {
+                        if (data.predicate) {
+                            cleanPredicate(data);
+                        }
+                        cleanDataUsingSchema(field.element.fields, data);
+                    }
+                }
+                continue;
+            }
         }
 
         // Allow certain field types to clean the data. Unfortunately we cannot do it to all.
         // Arrays need to allow string inputs (some selectors) and StrictArrays are explodey
         // The most common benefit from clean() is handling things like the "blank" property
         if (field instanceof fields.StringField) {
-            data[key] = field.clean(value, {});
-        }
-
-        // Remove if its the initial value, or if its a blank string for an array field (usually a selector)
-        const isBlank = typeof value === "string" && value.trim() === "";
-        const isInitial = "initial" in field && R.equals(field.initial, value);
-        if (isInitial || (field instanceof fields.ArrayField && isBlank)) {
-            delete data[key];
+            data[key] = field.clean(data[key], {});
+            deleteIfInitial(key, field);
         }
     }
 }
 
-/** Utility function to convert a value to a number if its a valid number */
-function coerceNumber<T extends string | unknown>(value: T): T | number {
-    if (value !== "" && !isNaN(Number(value))) {
-        return Number(value);
+function cleanPredicate(source: { predicate?: unknown }) {
+    const predicateValue = source.predicate;
+    if (typeof predicateValue === "string") {
+        if (predicateValue.trim() === "") {
+            delete source.predicate;
+        } else {
+            try {
+                source.predicate = JSON.parse(predicateValue);
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                }
+            }
+        }
     }
-
-    return value;
 }
 
-function getCleanedResolvable(value: unknown) {
-    // Convert brackets to array, and coerce the value types
-    if (isObject<{ brackets: object; field: string }>(value) && "brackets" in value) {
-        const brackets = (value.brackets = Array.from(Object.values(value.brackets ?? {})));
-
-        if (value.field === "") {
-            delete value.field;
-        }
-
-        for (const bracket of brackets) {
-            if (bracket.start === null) delete bracket.start;
-            if (bracket.end === null) delete bracket.end;
-            bracket.value = isObject(bracket.value) ? "" : coerceNumber(bracket.value);
-        }
-
-        return value;
-    } else if (!isObject(value)) {
-        return coerceNumber(value ?? "");
-    }
-
-    return value;
-}
-
-interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e>
-    extends RuleElementFormOptions<TSource, TObject> {
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElementPF2e | null>
+    extends Omit<RuleElementFormOptions<TSource, TObject>, "sheet"> {
+    item: ItemPF2e;
     label: string;
+    /** A prefix for use in label-input/select pairs */
+    fieldIdPrefix: string;
     recognized: boolean;
     basePath: string;
     fields: RuleElementSchema | undefined;
@@ -331,4 +413,4 @@ interface RuleElementFormTabData {
 }
 
 export { RuleElementForm };
-export type { RuleElementFormSheetData, RuleElementFormTabData };
+export type { RuleElementFormOptions, RuleElementFormSheetData, RuleElementFormTabData };

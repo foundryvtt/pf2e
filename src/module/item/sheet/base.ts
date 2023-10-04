@@ -20,15 +20,18 @@ import {
 import {
     ErrorPF2e,
     fontAwesomeIcon,
+    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
     sluggify,
+    SORTABLE_DEFAULTS,
     sortStringRecord,
     tagify,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
+import Sortable from "sortablejs";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
@@ -40,7 +43,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
         options.template = "systems/pf2e/templates/items/sheet.hbs";
-        options.scrollY = [".tab.active", ".inventory-details"];
+        options.scrollY = [".tab.active", ".inventory-details", "div[data-rule-tab]"];
         options.tabs = [
             {
                 navSelector: ".tabs",
@@ -62,6 +65,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** If we are currently editing an RE, this is the index */
     #editingRuleElementIndex: number | null = null;
+    #rulesLastScrollTop: number | null = null;
 
     #ruleElementForms: RuleElementForm[] = [];
 
@@ -82,9 +86,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
+        options.sheetConfig &&=
+            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
 
         const { item } = this;
-        const rules = item.toObject().system.rules;
+        this.#createRuleElementForms();
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
@@ -109,39 +115,15 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
 
-        // Create and activate rule element sub forms
-        const previousForms = this.#ruleElementForms;
-        this.#ruleElementForms = rules.map((rule, index) => {
-            const options = {
-                item: this.item,
-                index,
-                rule,
-                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
-            };
-
-            // If a form exists of the correct type with an exact match, reuse that one.
-            // Reusing forms allow internal variables to persist between updates
-            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            const existing = previousForms.find((f) => R.equals(f.rule, rule));
-            if (existing instanceof FormClass) {
-                // Prevent a form from getting reused twice
-                previousForms.splice(previousForms.indexOf(existing), 1);
-
-                existing.initialize(options);
-                return existing;
-            }
-
-            return new FormClass(options);
-        });
-
         return {
             itemType: null,
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
-            hasDetails: true,
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
                 type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
+            sidebarTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            detailsTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: item,
@@ -177,10 +159,54 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
+    }
+
+    /** Creates and activates rule element forms, reusing previous ones when possible to preserve form state */
+    #createRuleElementForms(): void {
+        const rules = this.item.toObject().system.rules;
+        const previousForms = [...this.#ruleElementForms];
+
+        // First pass, create options, and then look for exact matches of data and reuse those forms
+        // This is mostly to handle deletions and re-ordering of rule elements
+        const processedRules = rules.map((rule, index) => {
+            const options = {
+                sheet: this,
+                index,
+                rule,
+                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
+            };
+
+            // If a form exists of the correct type with an exact match, reuse that one.
+            // If we find a match, delete it so that we don't use the same form for two different REs
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
+            const existing =
+                previousForms.find((f) => R.equals(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
+            if (existing) {
+                previousForms.splice(previousForms.indexOf(existing), 1);
+            }
+            return { options, FormClass, existing };
+        });
+
+        // Second pass, if any unmatched rule has a form in the exact position that fits, reuse that one
+        // This handles the "frequent updates" case that would desync the other one
+        for (const rule of processedRules.filter((p) => !p.existing)) {
+            const existing = this.#ruleElementForms[rule.options.index];
+            if (existing instanceof rule.FormClass) {
+                rule.existing = existing;
+            }
+        }
+
+        // Create the forms, using the existing form or creating a new one if necessary
+        this.#ruleElementForms = processedRules.map((processed) => {
+            if (processed.existing) {
+                processed.existing.initialize(processed.options);
+                return processed.existing;
+            }
+
+            return new processed.FormClass(processed.options);
+        });
     }
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
@@ -233,9 +259,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
 
-        // Remove toolbar options that are unsuitable for a smaller notes field
-        if (name === "system.description.gm") {
-            options.toolbar = "styles bullist numlist image hr link removeformat code save";
+        const mutuallyExclusive = ["system.description.gm", "system.description.value"];
+        if (mutuallyExclusive.includes(name)) {
+            const html = this.element[0];
+            for (const elementName of mutuallyExclusive.filter((n) => n !== name)) {
+                const element = htmlQuery(html, `[data-edit="${elementName}"]`);
+                const section = htmlClosest(element, ".editor-container");
+                if (section) {
+                    section.style.display = "none";
+                }
+            }
+
+            htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
         return super.activateEditor(name, options, sourceContent);
@@ -294,6 +329,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
                 this.#editingRuleElementIndex = index;
+                this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
                 this.render();
             });
         }
@@ -477,6 +513,33 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.activateEditor("system.description.gm");
             });
         }
+
+        // Allow drag/drop sorting of rule elements
+        const rules = htmlQuery(html, ".rule-element-forms");
+        if (rules) {
+            Sortable.create(rules, {
+                ...SORTABLE_DEFAULTS,
+                handle: ".drag-handle",
+                onEnd: (event) => {
+                    const currentIndex = event.oldDraggableIndex;
+                    const newIndex = event.newDraggableIndex;
+                    if (currentIndex === undefined || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
+
+                    const rules = this.item.toObject().system.rules;
+                    const movingRule = rules.at(currentIndex);
+                    if (movingRule && newIndex <= rules.length) {
+                        rules.splice(currentIndex, 1);
+                        rules.splice(newIndex, 0, movingRule);
+                        this.item.update({ "system.rules": rules });
+                    } else {
+                        this.render();
+                    }
+                },
+            });
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -495,7 +558,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
     }
 
-    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    protected override _getSubmitData(updateData: Record<string, unknown> | null = null): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { system?: { rules?: string[] } } = updateData
@@ -507,28 +570,23 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return flattenedData;
     }
 
-    /** Hide the sheet-config button unless there is more than one sheet option. */
+    /** Add button to refresh from compendium if setting is enabled. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const hasMultipleSheets =
-            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
-        const sheetButton = buttons.find((button) => button.class === "configure-sheet");
-        if (!hasMultipleSheets && sheetButton) {
-            buttons.splice(buttons.indexOf(sheetButton), 1);
-        }
-        // Convenenience utility for data entry; may make available to general users in the future
+
         if (
             game.settings.get("pf2e", "dataTools") &&
-            this.item.isOwned &&
+            this.isEditable &&
             this.item.sourceId?.startsWith("Compendium.")
         ) {
             buttons.unshift({
                 label: "Refresh",
                 class: "refresh-from-compendium",
-                icon: "fas fa-sync-alt",
+                icon: "fa-solid fa-sync-alt",
                 onclick: () => this.item.refreshFromCompendium(),
             });
         }
+
         return buttons;
     }
 
@@ -550,41 +608,29 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
-        if (rulesVisible && expanded.system?.rules) {
-            const itemData = this.item.toObject();
-            const rules = itemData.system.rules ?? [];
-
-            for (const [key, value] of Object.entries(expanded.system.rules)) {
-                const idx = Number(key);
-
-                // If the entire thing is a string, this is a regular JSON textarea
-                if (typeof value === "string") {
-                    try {
-                        rules[idx] = JSON.parse(value as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, value);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                        }
-                    }
-                    continue;
-                }
-
-                if (!value) continue;
-
-                // Call any special handlers in the rule element forms
-                rules[idx] = mergeObject(rules[idx] ?? {}, value);
-                this.#ruleElementForms.at(idx)?.updateObject(rules[idx]);
+        // If the submission is coming from a rule element, update that rule element
+        // This avoids updates from forms if that form has a problematic implementation
+        const form = htmlClosest(event.target, ".rule-form[data-idx]");
+        if (form) {
+            const idx = Number(form.dataset.idx);
+            const ruleForm = this.#ruleElementForms[idx];
+            const itemRules = this.item.toObject().system.rules;
+            if (idx >= itemRules.length || !ruleForm) {
+                throw ErrorPF2e(`Invalid rule form update, no rule form available at index ${idx}`);
             }
 
-            expanded.system.rules = rules;
+            const incomingData = expanded.system?.rules?.[idx];
+            if (incomingData) {
+                ruleForm.updateObject(incomingData);
+                itemRules[idx] = ruleForm.rule;
+                this.item.update({ "system.rules": itemRules });
+            }
         }
+
+        // Remove rules from submit data, it should be handled by the previous check
+        delete expanded.system?.rules;
 
         return super._updateObject(event, flattenObject(expanded));
     }
@@ -592,6 +638,16 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         await maintainFocusInRender(this, () => super._render(force, options));
+
+        // Maintain last rules panel scroll position when opening/closing the codemirror editor
+        if (this.#editingRuleElementIndex === null && this.#rulesLastScrollTop) {
+            const html = this.element[0];
+            const rulesTab = htmlQuery(html, ".tab[data-tab=rules]");
+            if (rulesTab) {
+                rulesTab.scrollTop = this.#rulesLastScrollTop;
+            }
+            this.#rulesLastScrollTop = null;
+        }
     }
 }
 
@@ -601,12 +657,10 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     showTraits: boolean;
     /** Whether the sheet should have a sidebar at all */
     hasSidebar: boolean;
-    /** Whether the sheet should have a details tab (some item types don't have one) */
-    hasDetails: boolean;
     /** The sidebar's current title */
     sidebarTitle: string;
-    sidebarTemplate?: () => string;
-    detailsTemplate?: () => string;
+    sidebarTemplate: string;
+    detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
     enrichedContent: Record<string, string>;

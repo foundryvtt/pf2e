@@ -19,7 +19,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
-import { ChatMessagePF2e } from "../index.ts";
+import { ChatMessagePF2e, CheckRollContextFlag } from "../index.ts";
 
 class ChatCards {
     static #lastClick = 0;
@@ -39,7 +39,7 @@ class ChatCards {
         this.#lastClick = currentTime;
 
         // Extract card data
-        const action = button.dataset.action;
+        const action = button.dataset.action ?? "";
 
         // Get the actor and item from the chat message
         const item = message.item;
@@ -47,16 +47,23 @@ class ChatCards {
         if (!actor) return;
 
         // Confirm roll permission
-        if (!game.user.isGM && !actor.isOwner && action !== "spell-save") return;
+        if (!game.user.isGM && !actor.isOwner && !["spell-save", "expand-description"].includes(action)) {
+            return;
+        }
 
         // Handle strikes
         const strikeAction = message._strike;
         if (strikeAction && action?.startsWith("strike-")) {
-            const context = message.flags.pf2e.context;
-            const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
+            const context = (
+                message.rolls.some((r) => r instanceof CheckRoll) ? message.flags.pf2e.context ?? null : null
+            ) as CheckRollContextFlag | null;
+            const mapIncreases =
+                context && "mapIncreases" in context && tupleHasValue([0, 1, 2], context.mapIncreases)
+                    ? context.mapIncreases
+                    : null;
             const altUsage = context && "altUsage" in context ? context.altUsage : null;
             const target = message.target?.token?.object ?? null;
-            const rollArgs = { event, altUsage, mapIncreases, target };
+            const rollArgs = { event, altUsage, mapIncreases, checkContext: context, target };
 
             switch (sluggify(action ?? "")) {
                 case "strike-attack":
@@ -211,6 +218,9 @@ class ChatCards {
                     const roll = message.rolls.find(
                         (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
                     );
+                    const checkContext = (
+                        roll ? message.flags.pf2e.context ?? null : null
+                    ) as CheckRollContextFlag | null;
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
                         roll?.options.identifier?.split(".") ?? [];
@@ -220,6 +230,7 @@ class ChatCards {
                             damageType,
                             melee: meleeOrRanged === "melee",
                             actionCost: Number(actionCost) || 1,
+                            checkContext,
                             outcome,
                             event,
                         });

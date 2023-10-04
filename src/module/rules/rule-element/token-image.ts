@@ -1,6 +1,6 @@
+import type { AlphaField, ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import type { ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
 
 /**
  * Change the image representing an actor's token
@@ -11,10 +11,21 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
-            scale: new fields.NumberField({ required: false, nullable: false, positive: true, initial: undefined }),
-            tint: new fields.ColorField({ required: false, nullable: false, initial: undefined }),
-            alpha: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            value: new ResolvableValueField({
+                required: true,
+                nullable: false,
+                initial: undefined,
+                label: "TOKEN.ImagePath",
+            }),
+            scale: new fields.NumberField({
+                required: false,
+                nullable: true,
+                positive: true,
+                initial: null,
+                label: "Scale",
+            }),
+            tint: new fields.ColorField({ label: "TOKEN.TintColor" }),
+            alpha: new fields.AlphaField({ label: "PF2E.RuleEditor.General.Opacity" }),
         };
     }
 
@@ -64,11 +75,11 @@ type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
     value: ResolvableValueField<true, false, false>;
     /** An optional scale adjustment */
-    scale: NumberField<number, number, false, false, false>;
+    scale: NumberField<number, number, false, true, true>;
     /** An optional tint adjustment */
-    tint: ColorField<false, false, false>;
+    tint: ColorField;
     /** An optional alpha adjustment */
-    alpha: NumberField<number, number, false, false, false>;
+    alpha: AlphaField;
 };
 
 export { TokenImageRuleElement };

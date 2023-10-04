@@ -1,67 +1,67 @@
-.expandable {
-    display: none;
-}
+.inventory {
+    flex-direction: column;
+    overflow-y: hidden;
+    padding-bottom: 1.25rem;
 
-.section-container.inventory-toggles {
-    padding: 4px 6px 6px 6px;
-}
-
-.inventory-section {
-    --border-color: var(--secondary);
-    flex: 1 0 auto;
-    padding: 0px;
-    margin: 0px;
-
-    .coinage {
-        margin-bottom: 8px;
+    &.active {
+        display: flex;
     }
 
-    .inventory-list {
-        & > :first-child {
-            border-radius: 3px 3px 0px 0px;
+    .expandable {
+        display: none;
+    }
+
+    .section-container.inventory-toggles {
+        padding: 4px 6px 6px 6px;
+    }
+
+    .inventory-section {
+        --border-color: var(--secondary);
+        flex: 1 0 auto;
+        padding: 0px;
+        margin: 0px;
+        max-height: calc(100% - 1rem);
+
+        .coinage {
+            margin-bottom: 8px;
         }
 
-        .inventory-header {
-            background-color: var(--primary-background);
-            display: flex;
-            flex: 1;
-            flex-flow: row nowrap;
-            color: var(--color-text-light-0);
-            align-items: baseline;
-
-            h4 {
-                margin: 0px;
+        .inventory-list {
+            & > :first-child {
+                border-radius: 3px 3px 0px 0px;
             }
 
-            div {
-                border: none;
-            }
-        }
+            .inventory-header {
+                align-items: center;
+                background-color: var(--primary-background);
+                color: var(--color-text-light-0);
+                display: flex;
+                flex-flow: row nowrap;
+                max-height: fit-content;
 
-        .item {
-            .item-image {
-                border: 2px solid $faded-color;
-                border-radius: 3px;
-                margin: 2px 4px 2px 6px;
+                h4 {
+                    margin: 0;
+                }
+
+                div {
+                    border: none;
+                }
             }
 
-            .controls .item-toggle-equip {
-                color: rgba(black, 0.4);
-                &.active {
-                    color: rgba(black, 0.75);
+            .item {
+                .item-image {
+                    border: 2px solid $faded-color;
+                    border-radius: 3px;
+                    margin: 2px 4px 2px 6px;
+                }
+
+                .controls .item-toggle-equip {
+                    color: rgba(black, 0.4);
+                    &.active {
+                        color: rgba(black, 0.75);
+                    }
                 }
             }
         }
-    }
-
-    .footer {
-        display: flex;
-        flex: 1 0 auto;
-        width: 100%;
-        justify-content: center;
-        align-items: baseline;
-        background-color: var(--secondary);
-        color: var(--text-light);
-        border-radius: 0px 0px 3px 3px;
     }
 }

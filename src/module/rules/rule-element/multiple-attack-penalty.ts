@@ -25,7 +25,7 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     }
 
     override beforePrepareData(): void {
-        if (!this.test()) return;
+        if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
         const value = Number(this.resolveValue(this.value)) || 0;

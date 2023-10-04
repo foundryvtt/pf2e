@@ -335,7 +335,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The shaft of this bolt is scorched and blackened, and handling it coats your fingers with a fine black powder. When an activated <em>disintegration bolt</em> hits a target, it is subject to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell requiring a @Check[type:fortitude|dc:34] save. As with the spell, a critical hit on the attack roll causes the target's saving throw outcome to be one degree worse.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>disintegrate</em>.</p>"
+                    "value": "<p>The shaft of this bolt is scorched and blackened, and handling it coats your fingers with a fine black powder. When an activated <em>disintegration bolt</em> hits a target, it is subject to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell requiring a @Check[type:fortitude|dc:34] save. As with the spell, a critical hit on the attack roll causes the target's saving throw outcome to be one degree worse.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>disintegrate</em>.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -740,7 +740,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Skartitch deals an extra 4d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Skartitch deals an extra 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -752,21 +752,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

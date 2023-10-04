@@ -212,14 +212,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.WPSp5MLb0VOfmUqH"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/hat-of-disguise.webp",
+            "img": "icons/equipment/head/hat-belted-grey.webp",
             "name": "Hat of Disguise (Greater)",
             "sort": 300000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
+                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -457,7 +457,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nai Yan Fei's Strikes deal an additional 4d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Nai Yan Fei's Strikes deal an additional 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -469,21 +469,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

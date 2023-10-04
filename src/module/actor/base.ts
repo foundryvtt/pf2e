@@ -65,6 +65,7 @@ import {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    findMatchingCheckContext,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
@@ -77,7 +78,7 @@ import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -353,8 +354,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             evil: traits.has("good"),
             lawful: traits.has("chaotic"),
             chaotic: traits.has("lawful"),
-            positive: !!this.attributes.hp?.negativeHealing,
-            negative: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
+            vitality: !!this.attributes.hp?.negativeHealing,
+            void: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
             bleed: this.modeOfBeing === "living",
             spirit: !(
                 (this.modeOfBeing === "undead" && traits.has("mindless")) ||
@@ -529,13 +530,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Set additional defaults, some according to actor type
         for (const source of [...sources]) {
-            const linkToActorSize = ["hazard", "loot"].includes(source.type)
-                ? false
-                : source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
-            const autoscale = ["hazard", "loot"].includes(source.type)
-                ? false
-                : source.prototypeToken?.flags?.pf2e?.autoscale ??
-                  (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
+            const linkable = SIZE_LINKABLE_ACTOR_TYPES.has(source.type);
+            const linkToActorSize = linkable && (source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true);
+            const autoscale =
+                linkable &&
+                (source.prototypeToken?.flags?.pf2e?.autoscale ??
+                    (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
@@ -625,7 +625,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
-            targetMarks: new Map(),
+            tokenMarks: new Map(),
             toggles: [],
             tokenEffectIcons: [],
             tokenOverrides: {},
@@ -773,7 +773,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected prepareRuleElements(): RuleElementPF2e[] {
-        return this.items.contents
+        // Ensure "temporary" items have their rule elements go last when priority is equal
+        return R.sortBy(this.items.contents, (i) => i instanceof AbstractEffectPF2e)
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
@@ -808,7 +809,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
         this.prototypeToken.flags = mergeObject(
-            { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
+            { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
             this.prototypeToken.flags
         );
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
@@ -856,6 +857,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: [...params.options, ...(params.item?.getRollOptions("item") ?? [])],
         });
 
+        const tokenMarkOption = ((): string | null => {
+            const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
+            return tokenMark ? `target:mark:${tokenMark}` : null;
+        })();
+
         const selfActor =
             params.viewOnly || !targetToken?.actor
                 ? this
@@ -864,6 +870,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                           [
                               Array.from(params.options),
                               targetToken.actor.getSelfRollOptions("target"),
+                              tokenMarkOption,
                               isFlankingAttack ? "self:flanking" : null,
                           ].flat()
                       ),
@@ -944,8 +951,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
             if (targetToken) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
-                const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
-                if (mark) targetOptions.push(`target:mark:${mark}`);
+                if (tokenMarkOption) targetOptions.push(tokenMarkOption);
             }
             return targetOptions.sort();
         };
@@ -1044,13 +1050,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         TItem extends ItemPF2e<ActorPF2e> | null
     >(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
-        const context = await this.getRollContext(params);
-        if (params.outcome) {
-            const outcome = sluggify(params.outcome);
-            context.options.add(`check:outcome:${outcome}`);
-        }
+        // In case the user rolled damage from their sheet, try to fish out the check context from chat
+        params.checkContext ??= findMatchingCheckContext(this, params);
 
-        return context;
+        if (params.outcome) params.options.add(`check:outcome:${sluggify(params.outcome)}`);
+
+        const substitution = params.checkContext?.substitutions.find((s) => s.selected);
+        if (substitution) params.options.add(`check:substitution:${substitution.slug}`);
+
+        return this.getRollContext(params);
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */

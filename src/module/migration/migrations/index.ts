@@ -262,3 +262,9 @@ export { Migration861AuraColorsToAppearance } from "./861-aura-colors-to-appeara
 export { Migration862SpecificMagicArmor } from "./862-specific-magic-armor.ts";
 export { Migration863FixMisspelledOrganaizationsProperty } from "./863-fix-misspelled-organaizations-property.ts";
 export { Migration864RemoveWeaponMAP } from "./864-rm-weapon-map.ts";
+export { Migration865VitalityVoid } from "./865-vitality-void.ts";
+export { Migration866LinkToActorSizeAgain } from "./866-link-to-actor-size-again.ts";
+export { Migration867DamageRollDomainFix } from "./867-damage-roll-domain-fix.ts";
+export { Migration868StrikeRERange } from "./868-strike-re-range.ts";
+export { Migration869RefreshMightyBulwark } from "./869-refresh-mighty-bulwark.ts";
+export { Migration870MartialToProficiencies } from "./870-martial-to-proficiencies.ts";

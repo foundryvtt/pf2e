@@ -131,7 +131,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p>The blade of this foot‑long knife curves inward and lacks a cross guard at the hilt.</p>"
+                    "value": "<p>The blade of this foot-long knife curves inward and lacks a cross guard at the hilt.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -466,7 +466,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Distilled from the Plane of Shadow, this oily substance imposes tenebrous effects. The enfeebled condition from shadow essence lasts for 24 hours.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[negative]] damage and @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[negative]] damage, @Damage[2d6[poison]] damage, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d6[negative]] damage, @Damage[2d6[poison]] damage, and enfeebled 2 (1 round)</p>"
+                    "value": "<p>Distilled from the Plane of Shadow, this oily substance imposes tenebrous effects. The enfeebled condition from shadow essence lasts for 24 hours.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[void]] damage and @Damage[2d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[void]] damage, @Damage[2d6[poison]] damage, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d6[void]] damage, @Damage[2d6[poison]] damage, and enfeebled 2 (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -509,7 +509,7 @@
                         "alchemical",
                         "consumable",
                         "injury",
-                        "negative",
+                        "void",
                         "poison"
                     ]
                 },
@@ -709,12 +709,31 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait\n<strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood</p><hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes @Damage[3d8[mental]] damage, and the saving throw is a success.</p>"
+                    "value": "<p><strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait</p>\n<p><strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood</p>\n<hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes @Damage[3d8[mental]] damage, and the saving throw is a success.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "predicate": [
+                            {
+                                "or": [
+                                    "fear",
+                                    "mental"
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -924,7 +943,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Gray Gardener assassin deals an additional 6d6 precision damage precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Gray Gardener assassin deals an additional 6d6 precision damage precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -936,21 +955,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

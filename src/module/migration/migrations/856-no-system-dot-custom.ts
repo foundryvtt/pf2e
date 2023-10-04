@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString, sluggify } from "@util";
-import { MigrationBase } from "../base.js";
+import { MigrationBase } from "../base.ts";
 
 /** Move paths of "system.custom.*" set by AE-likes to flags. */
 export class Migration856NoSystemDotCustom extends MigrationBase {

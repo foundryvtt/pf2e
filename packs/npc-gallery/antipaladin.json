@@ -135,14 +135,14 @@
                         "0": {
                             "type": {
                                 "categories": [],
-                                "value": "negative"
+                                "value": "void"
                             },
                             "value": "1d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 negative negative damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
+                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -221,7 +221,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/greataxe.webp",
+            "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
             "sort": 300000,
             "system": {
@@ -542,7 +542,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cheetah's Elixir (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cheetah's Elixir (Lesser)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -702,12 +702,38 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin</p>\n<hr />\n<p><strong>Effect</strong> The antipaladin increases the amount of damage [[/r {2d6}]]{they take by 2d6} and deals 2d6 to the triggering enemy, choosing @Damage[2d6[evil]] damage or @Damage[2d6[negative]] damage. In addition, the antipaladin deals [[/r {2}]]{2 extra damage} of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's next turn.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin</p>\n<hr />\n<p><strong>Effect</strong> The antipaladin increases the amount of damage they take by [[/r 2d6]] and deals 2d6 to the triggering enemy, choosing @Damage[2d6[evil]] or @Damage[2d6[void]] damage. In addition, the antipaladin deals 2 extra damage of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "destructive-vengeance",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitEvil",
+                                "value": "evil"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.destructiveVengeance}",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "destructive-vengeance"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 2
+                    }
+                ],
                 "slug": "destructive-vengeance",
                 "source": {
                     "value": ""

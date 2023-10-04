@@ -1,8 +1,9 @@
-import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
-import { CheckRollContext } from "./types.ts";
+import * as R from "remeda";
 import { RollTwiceOption } from "../rolls.ts";
+import { CheckRollContext } from "./types.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -15,8 +16,6 @@ export class CheckModifiersDialog extends Application {
     context: CheckRollContext;
     /** A Promise resolve method */
     resolve: (value: boolean) => void;
-    /** Pre-determined D20 roll results */
-    substitutions: RollSubstitution[];
     /** Has the promise been resolved? */
     isResolved = false;
 
@@ -41,7 +40,6 @@ export class CheckModifiersDialog extends Application {
 
         this.check = check;
         this.resolve = resolve;
-        this.substitutions = context?.substitutions ?? [];
         this.context = context;
     }
 
@@ -70,11 +68,25 @@ export class CheckModifiersDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
-            substitutions: this.substitutions,
+            substitutions: this.#resolveSubstitutions(),
             fortune,
             none,
             misfortune,
         };
+    }
+
+    #resolveSubstitutions(): RollSubstitutionDialogData[] {
+        this.context.substitutions ??= [];
+        const hasRequired = {
+            fortune: this.context.substitutions.some((s) => s.required && s.effectType === "fortune"),
+            misfortune: this.context.substitutions.some((s) => s.required && s.effectType === "misfortune"),
+        };
+
+        return this.context.substitutions.map((substitution) => {
+            const toggleable = !hasRequired[substitution.effectType];
+            const selected = substitution.required ? true : substitution.selected && toggleable;
+            return { ...substitution, selected, toggleable };
+        });
     }
 
     override activateListeners($html: JQuery): void {
@@ -88,19 +100,23 @@ export class CheckModifiersDialog extends Application {
 
         for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".substitutions input[type=checkbox]")) {
             checkbox.addEventListener("click", () => {
+                const substitutions = this.context.substitutions ?? [];
                 const index = Number(checkbox.dataset.subIndex);
-                const substitution = this.substitutions.at(index);
-                if (!substitution) return;
+                const toggledSub = substitutions.at(index);
+                if (!toggledSub) return;
 
-                substitution.ignored = !checkbox.checked;
+                toggledSub.selected = toggledSub.required || checkbox.checked;
                 const options = (this.context.options ??= new Set());
-                const option = `substitute:${substitution.slug}`;
 
-                if (substitution.ignored) {
-                    options.delete(option);
-                } else {
-                    options.add(option);
+                for (const substitution of substitutions) {
+                    const option = `substitute:${substitution.slug}`;
+                    if (substitution.selected) {
+                        options.add(option);
+                    } else {
+                        options.delete(option);
+                    }
                 }
+                this.context.substitutions = this.#resolveSubstitutions().map((s) => R.omit(s, ["toggleable"]));
 
                 this.check.calculateTotal(this.context.options);
                 this.render();
@@ -191,8 +207,8 @@ export class CheckModifiersDialog extends Application {
         const buttons = super._getHeaderButtons();
         const settingsButton: ApplicationHeaderButton = {
             label: game.i18n.localize("PF2E.SETTINGS.Settings"),
-            class: `settings`,
-            icon: "fas fa-cog",
+            class: "settings",
+            icon: "fa-solid fa-cog",
             onclick: () => null,
         };
         return [settingsButton, ...buttons];
@@ -214,8 +230,12 @@ interface CheckDialogData {
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
     showRollDialogs: boolean;
-    substitutions: RollSubstitution[];
+    substitutions: RollSubstitutionDialogData[];
     fortune: boolean;
     none: boolean;
     misfortune: boolean;
+}
+
+interface RollSubstitutionDialogData extends RollSubstitution {
+    toggleable: boolean;
 }

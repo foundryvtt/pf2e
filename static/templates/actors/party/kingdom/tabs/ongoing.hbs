@@ -2,14 +2,19 @@
     <section class="event-dc">
         <a class="rollable" data-action="random-event">
             <i class="fa-solid fa-dice-d20"></i>
-            <span>Random Event</span>
+            <span>{{localize "PF2E.Kingmaker.Event.Random"}}</span>
         </a>
         <label class="dc">
             DC<input type="number" name="event.dc" value="{{kingdom.event.dc}}" step="5"/>
         </label>
-        <a data-action="reset-event-dc"><i class="fa-solid fa-redo"></i></a>
+        {{#if @root.options.editable}}
+            <a data-action="reset-event-dc"><i class="fa-solid fa-redo"></i></a>
+        {{/if}}
     </section>
-    {{editor eventText target="event.text" button=true owner=@root.owner editable=@root.editable}}
+    <section class="event-details">
+        <h4>{{localize "PF2E.Kingmaker.Event.Details"}}</h4>
+        {{editor eventText target="event.text" button=true owner=@root.owner editable=@root.editable}}
+    </section>
 </section>
 <aside>
     <h3 class="header">{{localize "PF2E.EffectsLabel"}}</h3>

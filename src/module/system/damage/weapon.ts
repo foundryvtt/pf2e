@@ -1,19 +1,18 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
-import { AttributeString } from "@actor/types.ts";
+import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
 import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractDamageSynthetics, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, setHasElement, sluggify } from "@util";
+import { mapValues, objectHasKey, setHasElement } from "@util";
+import { DamageModifierDialog } from "./dialog.ts";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
-import { DamageModifierDialog } from "./dialog.ts";
 import {
     CreateDamageFormulaParams,
     DamageCategoryUnique,
@@ -29,8 +28,8 @@ class WeaponDamagePF2e {
     static async fromNPCAttack({
         attack,
         actor,
+        domains,
         actionTraits = [],
-        proficiencyRank = 0,
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
         const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
@@ -74,10 +73,10 @@ class WeaponDamagePF2e {
         return WeaponDamagePF2e.calculate({
             weapon: attack,
             actor,
+            domains,
             damageDice,
             modifiers,
             actionTraits,
-            proficiencyRank,
             context,
         });
     }
@@ -86,9 +85,9 @@ class WeaponDamagePF2e {
         weapon,
         actor,
         damageDice = [],
+        domains,
         modifiers = [],
         actionTraits = [],
-        proficiencyRank,
         weaponPotency = null,
         context,
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
@@ -100,7 +99,6 @@ class WeaponDamagePF2e {
             return null;
         }
 
-        const baseDomains = [`${weapon.id}-damage`, "damage", "attack-damage", "strike-damage"];
         const weaponTraits = weapon.system.traits.value;
         // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
         const materialTraits = weapon.isOfType("melee")
@@ -114,17 +112,13 @@ class WeaponDamagePF2e {
             options.add(trait);
         }
 
-        if (proficiencyRank >= 0) {
-            options.add(PROFICIENCY_RANK_OPTION[proficiencyRank]);
-        }
-
         const isMelee = !!weapon.isMelee;
         options.add(isMelee ? "melee" : "ranged");
 
         // Determine ability modifier
         if (actor.isOfType("character", "npc")) {
             const strengthModValue = actor.abilities.str.mod;
-            const modifierValue = WeaponDamagePF2e.#strengthModToDamage(weapon)
+            const modifierValue = WeaponDamagePF2e.#strengthModToDamage(weapon, domains.includes("str-damage"))
                 ? strengthModValue
                 : weaponTraits.some((t) => t === "propulsive")
                 ? strengthModValue < 0
@@ -139,38 +133,15 @@ class WeaponDamagePF2e {
                     ability: "str",
                     modifier: modifierValue,
                     type: "ability",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, baseDomains, "str"),
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "str"),
                 });
                 modifiers.push(strModifier);
             }
         }
 
-        // Find the best active ability modifier in order to get the correct synthetics selectors
-        const resolvables = { weapon };
-        const injectables = resolvables;
-        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, {
-            resolvables,
-            injectables,
-            test: options,
-        });
-        const modifiersAndSelectors = modifiers
-            .concat(fromDamageSelector)
-            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability")
-            .map((modifier) => {
-                const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
-                return { modifier, selectors };
-            });
-
-        const { selectors } =
-            modifiersAndSelectors.length > 0
-                ? modifiersAndSelectors.reduce((best, candidate) =>
-                      candidate.modifier.modifier > best.modifier.modifier ? candidate : best
-                  )
-                : { selectors: this.#getSelectors(weapon, null, proficiencyRank) };
-
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
-            rule.beforeRoll?.(selectors, options);
+            rule.beforeRoll?.(domains, options);
         }
 
         if (weapon.isOfType("weapon")) {
@@ -184,7 +155,7 @@ class WeaponDamagePF2e {
                         modifier: 1,
                         adjustments: extractModifierAdjustments(
                             actor.synthetics.modifierAdjustments,
-                            selectors,
+                            domains,
                             "kickback"
                         ),
                     })
@@ -208,7 +179,7 @@ class WeaponDamagePF2e {
                     label: "PF2E.WeaponSplashDamageLabel",
                     modifier: splashDamage,
                     damageCategory: "splash",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "splash"),
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "splash"),
                 });
                 modifiers.push(modifier);
             }
@@ -221,7 +192,7 @@ class WeaponDamagePF2e {
                     label: "PF2E.Damage.Scatter",
                     modifier: baseDamage.dice,
                     damageCategory: "splash",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "scatter"),
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "scatter"),
                 });
                 modifiers.push(modifier);
             }
@@ -275,7 +246,7 @@ class WeaponDamagePF2e {
 
         // Striking rune
 
-        const strikingSynthetic = selectors
+        const strikingSynthetic = domains
             .flatMap((key) => actor.synthetics.striking[key] ?? [])
             .filter((wp) => wp.predicate.test(options))
             .reduce(
@@ -366,7 +337,7 @@ class WeaponDamagePF2e {
                 slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "backstabber"),
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "backstabber"),
             });
             modifiers.push(modifier);
         }
@@ -459,10 +430,9 @@ class WeaponDamagePF2e {
             materials: Array.from(materials),
         };
 
-        // Extract damage modifiers and dice respecting stacking rules processing
-        const extracted = extractDamageSynthetics(actor, [base], selectors, {
-            resolvables,
-            injectables,
+        const extracted = extractDamageSynthetics(actor, [base], domains, {
+            resolvables: { weapon },
+            injectables: { weapon },
             test: options,
             extraModifiers: modifiers,
         });
@@ -508,7 +478,7 @@ class WeaponDamagePF2e {
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
-            domains: selectors,
+            domains: domains,
             damage: {
                 ...damage,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
@@ -578,62 +548,6 @@ class WeaponDamagePF2e {
         }
     }
 
-    static #getSelectors(
-        weapon: WeaponPF2e | MeleePF2e,
-        ability: AttributeString | null,
-        proficiencyRank: number
-    ): string[] {
-        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
-        const selectors = [
-            `${weapon.id}-damage`,
-            `${weapon.slug ?? sluggify(weapon.name)}-damage`,
-            `${meleeOrRanged}-strike-damage`,
-            `${meleeOrRanged}-damage`,
-            "attack-damage",
-            "strike-damage",
-            "damage",
-        ];
-
-        if (weapon.category === "unarmed") {
-            selectors.push("unarmed-damage");
-        }
-
-        if (weapon.group) {
-            selectors.push(`${weapon.group}-weapon-group-damage`);
-        }
-
-        if (weapon.baseType) {
-            selectors.push(`${weapon.baseType}-base-type-damage`);
-        }
-
-        // Include selectors for "equivalent weapons": longbow for composite longbow, etc.
-        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-        const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        if (baseType && !selectors.includes(`${baseType}-damage`)) {
-            selectors.push(`${baseType}-damage`);
-        }
-
-        if (weapon.isOfType("melee")) {
-            if (this.#strengthBasedDamage(weapon)) {
-                selectors.push("str-damage");
-            }
-
-            // Everything that follows is for weapon items only
-            return selectors;
-        }
-
-        if (ability) {
-            selectors.push(`${ability}-damage`);
-        }
-
-        if (proficiencyRank >= 0) {
-            const proficiencies = ["untrained", "trained", "expert", "master", "legendary"];
-            selectors.push(`${proficiencies[proficiencyRank]}-damage`);
-        }
-
-        return selectors;
-    }
-
     /** Parse damage formulas from melee items and construct `WeaponDamage` objects out of them */
     static npcDamageToWeaponDamage(instance: NPCAttackDamage): ConvertedNPCDamage {
         // Despite it being a string formula, melee items only support a single dice and modifier term
@@ -651,17 +565,9 @@ class WeaponDamagePF2e {
         };
     }
 
-    /** Determine whether the damage source is a strength-based statistic */
-    static #strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        if (!weapon.actor?.isOfType("creature")) return false;
-
-        const { traits } = weapon;
-        return weapon.isMelee || (weapon.isThrown && !traits.has("splash")) || traits.has("propulsive");
-    }
-
     /** Determine whether a strike's damage includes the actor's (full) strength modifier */
-    static #strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.isOfType("weapon") && this.#strengthBasedDamage(weapon) && !weapon.traits.has("propulsive");
+    static #strengthModToDamage(weapon: WeaponPF2e | MeleePF2e, strengthBased: boolean): boolean {
+        return weapon.isOfType("weapon") && strengthBased && !weapon.traits.has("propulsive");
     }
 }
 
@@ -672,8 +578,8 @@ interface ConvertedNPCDamage extends WeaponDamage {
 interface WeaponDamageCalculateParams {
     weapon: WeaponPF2e | MeleePF2e;
     actor: CharacterPF2e | NPCPF2e | HazardPF2e;
+    domains: string[];
     actionTraits: TraitViewData[];
-    proficiencyRank: number;
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
@@ -683,8 +589,8 @@ interface WeaponDamageCalculateParams {
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e;
     actor: NPCPF2e | HazardPF2e;
+    domains: string[];
     actionTraits: TraitViewData[];
-    proficiencyRank: number;
     context: DamageRollContext;
 }
 

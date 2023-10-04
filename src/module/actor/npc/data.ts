@@ -230,7 +230,6 @@ interface NPCHitPoints extends HitPointsStatistic {
 /** Perception data with an additional "base" value */
 interface NPCPerception extends PerceptionData {
     rank?: number;
-    base?: number;
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */

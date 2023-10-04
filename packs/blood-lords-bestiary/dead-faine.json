@@ -861,7 +861,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Dead Faine deals an additional 4d6 precision damage to off-guard creatures. This increases to 6d6 against creatures off-guard due to Dead Faine's @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or Traitorous Betrayal.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Dead Faine deals an additional 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. This increases to 6d6 against creatures off-guard due to Dead Faine's @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or Traitorous Betrayal.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -875,21 +875,28 @@
                         "predicate": [
                             "target:condition:off-guard",
                             {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
+                                "not": "target-feint-or-traitorous-betrayal"
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 6,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard",
+                            "target-feint-or-traitorous-betrayal"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.DeadFaine.TargetFeintOrTraitorousBetrayal",
+                        "option": "target-feint-or-traitorous-betrayal",
+                        "toggleable": true
                     },
                     {
                         "domain": "all",

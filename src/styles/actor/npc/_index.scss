@@ -1,16 +1,13 @@
 $faded-color: #7a7971;
 
-@import "forms";
+@import "skills-editor";
 
-.npc-sheet {
-    @import "inventory";
-    @import "spells";
-    @import "effects";
-    @import "../red-action-boxes";
-
+.actor.npc.sheet form {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+
+    @import "../spell-list";
 
     .npc-sheet-header {
         display: flex;
@@ -68,7 +65,7 @@ $faded-color: #7a7971;
     .sidebar {
         flex: 160px 0 0;
         height: 100%;
-        @include scrollbar;
+        overflow: hidden scroll;
 
         .image-container {
             img.actor-image {
@@ -299,8 +296,9 @@ $faded-color: #7a7971;
 
     .sheet-body {
         flex: auto;
+
         .tab {
-            @include scrollbar;
+            overflow: hidden scroll;
 
             .identification-skills {
                 ul {
@@ -317,6 +315,11 @@ $faded-color: #7a7971;
                 }
             }
         }
+
+        @import "inventory";
+        @import "spells";
+        @import "effects";
+        @import "../red-action-boxes";
     }
 
     input.adjustable:not(:focus),

@@ -29,7 +29,12 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "class:investigator",
-                    "devise-a-stratagem",
+                    {
+                        "or": [
+                            "devise-a-stratagem",
+                            "target:mark:devise-a-stratagem"
+                        ]
+                    },
                     {
                         "or": [
                             "action:disarm",

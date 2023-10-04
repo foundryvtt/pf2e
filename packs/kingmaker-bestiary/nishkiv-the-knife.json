@@ -208,7 +208,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Lesser)",
             "sort": 300000,
             "system": {
@@ -272,7 +272,7 @@
                         "healing",
                         "magical",
                         "necromancy",
-                        "positive",
+                        "vitality",
                         "potion"
                     ]
                 },
@@ -478,7 +478,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nishkiv deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Nishkiv deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -490,21 +490,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

@@ -11,7 +11,11 @@ export default abstract class Document<
 > {
     constructor(data: object, context?: DocumentConstructionContext<Document | null>);
 
+    // Properties from `DataModel` ported over during system types transition
     _id: string | null;
+    readonly _source: object;
+    protected _configure(): void;
+    get invalid(): boolean;
 
     /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
     readonly parent: TParent;
@@ -19,7 +23,6 @@ export default abstract class Document<
     /** An immutable reference to a containing Compendium collection to which this Document belongs. */
     readonly pack: string | null;
 
-    _source: object;
     get schema(): SchemaField<TSchema>;
 
     // actually in `DataModel`
@@ -610,7 +613,7 @@ type _Document = Document<_Document | null>;
 
 declare global {
     type PreCreate<T extends object> = T extends { name: string; type: string }
-        ? Omit<DeepPartial<T>, "name" | "type"> & { name: string; type: T["type"] }
+        ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 
     type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: null };

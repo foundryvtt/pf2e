@@ -1024,12 +1024,54 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The pukwudgie takes on the physical form of a @UUID[Compendium.pf2e.pathfinder-bestiary-3.Actor.Giant Porcupine]. Their size changes to Medium, they lose their weapon Strikes, and they gain a quill Strike ([[/r 1d20+18 #Quill]]{+18}/[[/r 1d20+13 #Quill]]{+13}/[[/r 1d20+8 #Quill]]{+8} for @Damage[(2d8+6)[piercing]] damage plus @Damage[1d8[persistent,poison]]).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>The pukwudgie takes on the physical form of a @UUID[Compendium.pf2e.pathfinder-bestiary-3.Actor.Giant Porcupine]. Their size changes to Medium, they lose their weapon Strikes, and they gain a quill Strike (+18 for 2d8+6 piercing plus 1d8 persistent poison).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "attackModifier": 18,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Quill",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "replaceAll": true,
+                        "slug": "quill",
+                        "traits": []
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "label": "PF2E.BattleForm.Attack.Quill",
+                        "selector": "{item|id}-damage"
+                    }
+                ],
                 "slug": "change-shape",
                 "source": {
                     "value": "Pathfinder Bestiary"

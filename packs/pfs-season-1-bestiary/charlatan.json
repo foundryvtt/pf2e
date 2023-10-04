@@ -1505,7 +1505,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.yV7Ouzaoe7DHLESI"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ventriloquism.webp",
+            "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
             "sort": 1600000,
             "system": {
@@ -1818,7 +1818,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit.webp",
+            "img": "icons/containers/chest/chest-simple-box-red.webp",
             "name": "Disguise Kit",
             "sort": 1900000,
             "system": {
@@ -2149,7 +2149,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The charlatan deals an extra 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The charlatan deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2161,21 +2161,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

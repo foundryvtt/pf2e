@@ -131,7 +131,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p>The blade of this foot‑long knife curves inward and lacks a cross guard at the hilt.</p>"
+                    "value": "<p>The blade of this foot-long knife curves inward and lacks a cross guard at the hilt.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -446,7 +446,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
             "name": "Healing Potion (Minor)",
             "sort": 600000,
             "system": {
@@ -510,7 +510,7 @@
                         "healing",
                         "magical",
                         "necromancy",
-                        "positive",
+                        "vitality",
                         "potion"
                     ]
                 },
@@ -723,7 +723,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Neidre deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the off-guard condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Neidre deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -735,21 +735,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

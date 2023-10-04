@@ -326,7 +326,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Before it's activated, this item appears to be an ash rod capped with steel on either end.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact, envision</p>\n<hr />\n<p><strong>Effect</strong> You imagine a specific simple tool, and the any-tool transforms into it. (Usually, you can choose from a tool listed in Chapter 6). This transforms the wooden portion into any haft and the metal caps into spades, hammer heads, or the like, allowing for most basic tools but nothing more complex. You can return the item to its rod form with an Interact action.</p>"
+                    "value": "<p>Before it's activated, this item appears to be an ash rod capped with steel on either end.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact, envision</p>\n<hr />\n<p><strong>Effect</strong> You imagine a specific simple tool, and the any-tool transforms into it. (Usually, you can choose from a tool listed in Chapter 6). This transforms the wooden portion into any haft and the metal caps into spades, hammer heads, or the like, allowing for most basic tools but nothing more complex. You can return the item to its rod form with an Interact action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -488,7 +488,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Noolik deals an additional 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Noolik deals an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -500,21 +500,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

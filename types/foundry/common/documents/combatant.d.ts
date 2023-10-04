@@ -5,9 +5,6 @@ import type * as fields from "../data/fields.d.ts";
 /** The Combat document model. */
 export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent, CombatantSchema> {
     static override get metadata(): CombatantMetadata;
-
-    /** Is a user able to update an existing Combatant? */
-    protected static _canUpdate(user: BaseUser, doc: BaseCombatant<BaseCombat | null>, data: CombatantSource): boolean;
 }
 
 export default interface BaseCombatant<TParent extends BaseCombat | null>
@@ -21,11 +18,6 @@ interface CombatantMetadata extends DocumentMetadata {
     collection: "combatants";
     label: "DOCUMENT.Combatant";
     isPrimary: true;
-    permissions: {
-        create: "PLAYER";
-        update: (typeof BaseCombatant)["_canUpdate"];
-        delete: "ASSISTANT";
-    };
 }
 
 /** The data schema for a Combat document. */

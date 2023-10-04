@@ -28,7 +28,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This three‑pronged, spear‑like weapon typically has a 4‑foot shaft. Like a spear, it can be wielded with one hand or thrown.</p>"
+                    "value": "<p>This three-pronged, spear-like weapon typically has a 4-foot shaft. Like a spear, it can be wielded with one hand or thrown.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -377,7 +377,7 @@
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d8+2",
+                        "damage": "1d8+2",
                         "damageType": "piercing"
                     }
                 },
@@ -392,7 +392,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
                         "thrown-20"
                     ]
                 },
@@ -497,12 +496,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Corrupted retainers deal an extra [[/r {1d8}]]{1d8 damage} with their tridents, and any trident gains the fatal d10 trait while the corrupted retainer is using it (both the extra weapon damage die and the fatal trait have already been included in the corrupted retainer's trident Strike above).</p>"
+                    "value": "<p>Corrupted retainers deal an extra 1d8 damage with their tridents, and any trident gains the fatal d10 trait while the corrupted retainer is using it (both the extra weapon damage die and the fatal trait have already been included in the corrupted retainer's trident Strike above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:trident"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "fatal-d10"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

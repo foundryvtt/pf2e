@@ -253,7 +253,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Chief Sootscale pushes other kobolds under his command to fight harder and more bravely. Until the start of his next turn, all kobold allies within 30 feet of him gain a +1 status bonus on attack rolls and saving throws against fear effects.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bark Orders]</p>"
+                    "value": "<p>Chief Sootscale pushes other kobolds under his command to fight harder and more bravely. Until the start of his next turn, all kobold allies within @Template[type:emanation|distance:30]{30 feet} of him gain a +1 status bonus on attack rolls and saving throws against fear effects.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bark Orders]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -294,7 +294,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Chief Sootscale deals an extra 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Chief Sootscale deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -306,21 +306,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

@@ -86,7 +86,7 @@
 
         .choices {
             display: flex;
-            margin: 0.5rem 0;
+            margin: 0.5rem 0.25rem;
 
             .choice {
                 display: flex;
@@ -115,6 +115,29 @@
             }
         }
 
+        .build-entry-boosts {
+            font-family: var(--font-primary);
+            section {
+                align-items: center;
+                display: flex;
+                gap: 4px;
+                .abilities {
+                    display: flex;
+                    gap: 3px;
+                }
+            }
+            strong {
+                line-height: 1.5em;
+            }
+            .tag {
+                border-radius: 4px;
+                box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+                line-height: unset;
+                padding: 0.15em;
+                font-size: 0.9em;
+            }
+        }
+
         .selection {
             display: flex;
             flex: 1;
@@ -140,29 +163,13 @@
                 display: flex;
                 width: 100%;
                 align-items: end;
-                min-height: 3.75em;
-                .boosts {
+                min-height: 4.5em;
+                .build-entry-boosts {
                     flex: 1;
-                }
-                section {
-                    display: flex;
-                    gap: 4px;
-                    line-height: 1.25em;
-                    .abilities {
-                        display: flex;
-                        gap: 3px;
-                    }
                 }
                 button {
                     flex: 0;
                     white-space: nowrap;
-                }
-                .tag {
-                    border-radius: 4px;
-                    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
-                    line-height: unset;
-                    padding: 0 0.125rem;
-                    font-size: 0.9em;
                 }
             }
 

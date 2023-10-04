@@ -7,12 +7,13 @@ import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
+    SORTABLE_DEFAULTS,
     createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
@@ -43,6 +44,9 @@ import {
     KINGDOM_SETTLEMENT_TYPE_LABELS,
     KINGDOM_SKILL_LABELS,
 } from "./values.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { calculateKingdomCollectionData } from "./helpers.ts";
+import Sortable from "sortablejs";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -50,6 +54,9 @@ const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as 
 class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** The current selected activity filter, which doubles as an active kingdom phase */
     protected selectedFilter: string | null = null;
+
+    /** HTML element to focus on a re-render, such as when new elements are added */
+    protected focusElement: string | null = null;
 
     #editingSettlements: Record<string, boolean> = {};
 
@@ -120,6 +127,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const data = await super.getData(options);
         const kingdom = this.kingdom;
 
+        const settlementEntries = R.pipe(
+            Object.entries(this.kingdom.settlements),
+            R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
+            R.sortBy((entry) => entry[1].sort)
+        );
+
         return {
             ...data,
             actor: this.actor,
@@ -148,6 +161,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             resourceDice: {
                 ...kingdom.resources.dice,
                 icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
+                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus)
+                    .adjustmentClass,
+                penaltyAdjustment: getAdjustment(kingdom.resources.dice.penalty, kingdom._source.resources.dice.penalty)
+                    .adjustmentClass,
             },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];
@@ -178,7 +195,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 selected: false, // selected is handled without re-render
             })),
             settlements: await Promise.all(
-                Object.entries(kingdom.settlements).map(async ([id, data]) => {
+                settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
                 })
             ),
@@ -227,6 +244,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // If a settlement name needs to be focused (such as when a new list item is created), do so
+        if (this.focusElement) {
+            htmlQuery(html, this.focusElement)?.focus();
+            this.focusElement = null;
+        }
+
         // Add open sheet links
         for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
             const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
@@ -241,6 +264,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
+        // Controls for Fame/Infamy editing
         const { fame } = this.kingdom.resources;
         const famePips = htmlQuery(html, "[data-action=adjust-fame]");
         famePips?.addEventListener("click", async () => {
@@ -290,8 +314,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
-        htmlQuery(html, "[data-action=collect]")?.addEventListener("click", () => {
-            this.kingdom.collect();
+        htmlQuery(html, "[data-action=collect]")?.addEventListener("click", async () => {
+            ChatMessagePF2e.create({
+                speaker: {
+                    ...ChatMessagePF2e.getSpeaker(this.actor),
+                    alias: this.kingdom.name,
+                },
+                content: await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
+                    ...calculateKingdomCollectionData(this.kingdom),
+                }),
+            });
         });
 
         // Handle action filters
@@ -353,6 +385,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
             const id = randomID(16);
             this.#editingSettlements[id] = true;
+            this.focusElement = `[name="settlements.${id}.name"]`;
             this.kingdom.update({ [`settlements.${id}`]: {} });
         });
         for (const settlementElement of htmlQueryAll(html, ".settlement")) {
@@ -395,8 +428,37 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=reset-event-dc]")?.addEventListener("click", () => {
             this.kingdom.update({ event: { dc: 16 } });
         });
+
+        // Sort settlements
+        const settlementList = htmlQuery(html, ".settlement-list");
+        if (settlementList) {
+            Sortable.create(settlementList, {
+                ...SORTABLE_DEFAULTS,
+                handle: ".drag-handle",
+                onEnd: (event) => {
+                    const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
+                    const settlementsWithIds = Object.entries(settlements).map(([id, value]) => ({ id, ...value }));
+                    const settlement = settlementsWithIds.find((s) => s.id === event.item.dataset.settlementId);
+                    const newIndex = event.newDraggableIndex;
+                    if (!settlement || newIndex === undefined) {
+                        this.render();
+                        return;
+                    }
+
+                    // Perform the resort and update
+                    const siblings = R.sortBy(
+                        settlementsWithIds.filter((s) => s !== settlement),
+                        (s) => s.sort
+                    );
+                    siblings.splice(newIndex, 0, settlement);
+                    const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                    this.kingdom.update(updates);
+                },
+            });
+        }
     }
 
+    /** Activate sheet events for a signle settlement */
     #activateSettlementEvents(settlementElement: HTMLElement) {
         const id = settlementElement.dataset.settlementId ?? null;
         if (id === null) return;
@@ -415,7 +477,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             // Create the new settlement and replace the current one. We'll also need to re-listen to it.
             // activateListeners() handles both rich text editing and expanding the item summary
-            const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstChild;
+            const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstElementChild;
             if (newElement instanceof HTMLElement) {
                 newElement.classList.toggle("expanded", settlementElement.classList.contains("expanded"));
                 settlementElement.replaceWith(newElement);
@@ -431,12 +493,23 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.#editingSettlements[id] = true;
             rerenderSettlement();
         });
-        htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", () => {
+        htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", async () => {
             this.#editingSettlements[id] = false;
+            await this.saveEditor(`settlements.${id}.description`);
             rerenderSettlement();
         });
-        htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", () => {
-            this.kingdom.update({ [`settlements.-=${id}`]: null });
+        htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", async (event) => {
+            const settlement = this.kingdom.settlements[id];
+            if (!settlement) return;
+            const result =
+                event?.ctrlKey ||
+                (await Dialog.confirm({
+                    title: game.i18n.localize("PF2E.DeleteItemTitle"),
+                    content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
+                }));
+            if (result) {
+                this.kingdom.update({ [`settlements.-=${id}`]: null });
+            }
         });
     }
 
@@ -488,6 +561,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         for (const choice of htmlQueryAll(html, ".filters .choice")) {
             const active = choice.dataset.slug ? choice.dataset.slug === trait : trait === null;
             choice.classList.toggle("active", active);
+        }
+
+        // Scroll to top so that the Activity Phase summary is visible
+        const actionsList = htmlQuery(html, ".actions-list");
+        if (actionsList) {
+            actionsList.scrollTop = 0;
         }
     }
 
@@ -555,6 +634,17 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return typeof categoryId === "string" ? { slotId, categoryId } : null;
     }
 
+    /** Override to not auto-disable fields on a thing meant to be used by players */
+    protected override _disableFields(form: HTMLElement): void {
+        for (const gmOnlyField of htmlQueryAll(form, "input, textarea, [data-access=owner]")) {
+            if (gmOnlyField instanceof HTMLTextAreaElement) {
+                gmOnlyField.readOnly = true;
+            } else if (gmOnlyField instanceof HTMLInputElement || gmOnlyField instanceof HTMLButtonElement) {
+                gmOnlyField.disabled = true;
+            }
+        }
+    }
+
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         if (!this.actor.id) return;
 
@@ -582,7 +672,11 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
         ruinLabel: string;
     })[];
     commodities: CommoditySheetData[];
-    resourceDice: KingdomData["resources"]["dice"] & { icon: string };
+    resourceDice: KingdomData["resources"]["dice"] & {
+        icon: string;
+        bonusAdjustment: string | null;
+        penaltyAdjustment: string | null;
+    };
     leadership: LeaderSheetData[];
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];

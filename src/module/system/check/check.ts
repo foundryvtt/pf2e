@@ -3,6 +3,7 @@ import { TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
+import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -75,8 +76,17 @@ class CheckPF2e {
             check.calculateTotal(rollOptions);
         }
 
-        // Show dialog for adding/editing modifiers, unless skipped or flat check
+        const substitutions = (context.substitutions ??= []);
+        const requiredSubstitution = context.substitutions.find((s) => s.required && s.selected);
+        if (requiredSubstitution) {
+            for (const substitution of context.substitutions) {
+                substitution.required = substitution === requiredSubstitution;
+                substitution.selected = substitution === requiredSubstitution;
+            }
+        }
+
         if (!context.skipDialog && context.type !== "flat-check") {
+            // Show dialog for adding/editing modifiers, unless skipped or flat check
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
@@ -87,27 +97,30 @@ class CheckPF2e {
         const extraTags: string[] = [];
         const isReroll = context.isReroll ?? false;
         if (isReroll) context.rollTwice = false;
-        const substitutions = context.substitutions ?? [];
 
         // Acquire the d20 roll expression and resolve fortune/misfortune effects
         const [dice, tagsFromDice] = ((): [string, string[]] => {
-            const substitutions =
-                context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
+            const substitution = substitutions.find((s) => s.selected);
             const rollTwice = context.rollTwice ?? false;
 
             // Determine whether both fortune and misfortune apply to the check
             const fortuneMisfortune = new Set(
-                substitutions
-                    .map((s) => s.effectType)
-                    .concat(rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : [])
-                    .flat()
+                R.compact([
+                    substitution?.effectType,
+                    rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
+                ])
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
             }
 
-            const substitution = substitutions.at(-1);
             if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
+                for (const sub of substitutions) {
+                    // Cancel all roll substitutions and recalculate
+                    rollOptions.delete(`substitute:${sub.slug}`);
+                    check.calculateTotal(rollOptions);
+                }
+
                 return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
             } else if (substitution) {
                 const effectType = {
@@ -116,7 +129,7 @@ class CheckPF2e {
                 }[substitution.effectType];
                 const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
                     type: game.i18n.localize(effectType),
-                    substitution: game.i18n.localize(substitution.label),
+                    substitution: reduceItemName(game.i18n.localize(substitution.label)),
                 });
 
                 return [substitution.value.toString(), [extraTag]];
@@ -219,7 +232,7 @@ class CheckPF2e {
             traits: context.traits ?? [],
             substitutions,
             dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
-            skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
+            skipDialog: context.skipDialog,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
             unadjustedOutcome: context.unadjustedOutcome ?? null,

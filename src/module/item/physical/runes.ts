@@ -926,7 +926,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
                 },
                 {
-                    damageType: "positive",
+                    damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
                 },
@@ -1026,7 +1026,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             dice: [
                 {
                     slug: "deathdrinking-negative",
-                    damageType: "negative",
+                    damageType: "void",
                     diceNumber: 1,
                     dieSize: "d6",
                     critical: true,
@@ -1034,7 +1034,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 {
                     slug: "deathdrinking-positive",
-                    damageType: "positive",
+                    damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
                     critical: true,
@@ -1072,7 +1072,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         damage: {
             dice: [
                 {
-                    damageType: "positive",
+                    damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
                 },
@@ -1297,7 +1297,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
                 },
                 {
-                    damageType: "positive",
+                    damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
                 },
@@ -1317,7 +1317,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             ignoredResistances: [
                 { type: "fire", max: null },
                 { type: "good", max: null },
-                { type: "positive", max: null },
+                { type: "vitality", max: null },
             ],
         },
         level: 18,
@@ -1371,7 +1371,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         damage: {
             dice: [
                 {
-                    damageType: "positive",
+                    damageType: "vitality",
                     diceNumber: 2,
                     dieSize: "d6",
                 },

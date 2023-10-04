@@ -320,7 +320,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Symbols of musical notes decorate this gold-framed wooden cube measuring just under 1 foot by 1 foot. A funnel-shaped trumpet protrudes from the box's top at an angle, though it feels surprisingly light. The box has a large button on its side, and it must be set down on a flat surface in order to activate it; while it's activated, the rumbling and churning gears inside the box make it impossible to carry without dropping it.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">A</span>Interact;<strong>Effect</strong> You press the button on the side of the music box, causing it to erupt with a cacophonous and discordant melody for 1 minute while it plays its entire melody, and it can't be shut off prematurely. The music is so loud that any creature within 60 feet must succeed at a @Check[type:fortitude|dc:24] or become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for as long as they remain within 60 feet of the music box, and for 1 minute thereafter. On a critical success, a creature need not make any more saves and is temporarily immune to the<em>deafening music box</em>for the next 24 hours; on a success, the creature must attempt a new save each round it remains within 60 feet of the music box.</p>"
+                    "value": "<p>Symbols of musical notes decorate this gold-framed wooden cube measuring just under 1 foot by 1 foot. A funnel-shaped trumpet protrudes from the box's top at an angle, though it feels surprisingly light. The box has a large button on its side, and it must be set down on a flat surface in order to activate it; while it's activated, the rumbling and churning gears inside the box make it impossible to carry without dropping it.</p>\n<p><strong>Activate</strong><span class=\"action-glyph\">A</span>Interact;<strong>Effect</strong> You press the button on the side of the music box, causing it to erupt with a cacophonous and discordant melody for 1 minute while it plays its entire melody, and it can't be shut off prematurely. The music is so loud that any creature within 60 feet must succeed at a @Check[type:fortitude|dc:24] or become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for as long as they remain within 60 feet of the music box, and for 1 minute thereafter. On a critical success, a creature need not make any more saves and is temporarily immune to the<em>deafening music box</em>for the next 24 hours; on a success, the creature must attempt a new save each round it remains within 60 feet of the music box.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -480,7 +480,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong><span class=\"action-glyph\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -561,7 +561,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Giant centipede venom causes severe muscle stiffness.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 17 Fortitude</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>"
+                    "value": "<p>Giant centipede venom causes severe muscle stiffness.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 17 Fortitude</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1232,7 +1232,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Mobana deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Mobana deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1244,21 +1244,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

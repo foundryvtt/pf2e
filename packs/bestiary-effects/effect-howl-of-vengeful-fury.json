@@ -1,0 +1,48 @@
+{
+    "_id": "X1Q1uBiylZoJg3Co",
+    "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+    "name": "Effect: Howl of Vengeful Fury",
+    "system": {
+        "description": {
+            "value": "<p>Thatchlings gain 5 temporary Hit Points and a +1 status bonus to their Strikes and saving throws.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-attack-roll",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #196: The Summer That Never Was"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

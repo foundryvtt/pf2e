@@ -1,6 +1,6 @@
 import type { DataModel, Document } from "../abstract/module.d.ts";
 import type { BaseActor, BaseActorDelta, BaseScene, BaseToken } from "../documents/module.d.ts";
-import type { TokenSource } from "../documents/token.d.ts";
+import type { TokenSchema, TokenSource } from "../documents/token.d.ts";
 import type * as fields from "./fields.d.ts";
 
 /**
@@ -29,14 +29,14 @@ export interface DarknessActivation {
  * A reusable document structure for the internal data used to render the appearance of a light source.
  * This is re-used by both the AmbientLightData and TokenData classes.
  */
-export class LightData extends DataModel<DataModel | null, LightDataSchema> {
+export class LightData extends DataModel<Document | DataModel | null, LightDataSchema> {
     static override defineSchema(): LightDataSchema;
 
     static override migrateData<TSource extends object>(source: TSource): TSource;
 }
 
 export interface LightData
-    extends DataModel<DataModel | null, LightDataSchema>,
+    extends DataModel<Document | DataModel | null, LightDataSchema>,
         ModelPropsFromSchema<LightDataSchema> {}
 
 export type LightSource = SourceFromSchema<LightDataSchema>;
@@ -147,34 +147,33 @@ type TextureDataSchema = {
     tint: fields.ColorField;
 };
 
-export interface PrototypeTokenSource
-    extends Omit<
-        TokenSource,
-        "_id" | "actorId" | "actorData" | "x" | "y" | "elevation" | "effects" | "overlayEffect" | "hidden"
-    > {
-    name: string;
-    randomImg: boolean;
-}
+export class PrototypeToken<TParent extends BaseActor | null> extends DataModel<TParent, PrototypeTokenSchema> {
+    constructor(data: DeepPartial<PrototypeTokenSource>, options?: DataModelConstructionOptions<TParent>);
 
-export class PrototypeToken<TParent extends BaseActor | null> extends Document<TParent> {
+    static override defineSchema(): PrototypeTokenSchema;
+
     get actor(): TParent;
 
     protected override _initialize(): void;
 
-    override toJSON(): RawObject<this>;
-
-    lightAnimation: AnimationData;
-
-    bar1: BaseToken["bar1"];
-
-    bar2: BaseToken["bar1"];
+    override toJSON(): this["_source"];
 }
 
 export interface PrototypeToken<TParent extends BaseActor | null>
-    extends Document<TParent>,
-        Omit<PrototypeTokenSource, "bar1" | "bar2"> {
+    extends DataModel<TParent, PrototypeTokenSchema>,
+        ModelPropsFromSchema<PrototypeTokenSchema> {
     readonly _source: PrototypeTokenSource;
 }
+
+type PrototypeTokenSchema = Omit<
+    TokenSchema,
+    "_id" | "name" | "actorId" | "delta" | "x" | "y" | "elevation" | "effects" | "overlayEffect" | "hidden"
+> & {
+    name: fields.StringField<string, string, true, false, true>;
+    randomImg: fields.BooleanField;
+};
+
+export type PrototypeTokenSource = SourceFromSchema<PrototypeTokenSchema>;
 
 /**
  * A minimal data model used to represent a tombstone entry inside an {@link EmbeddedCollectionDelta}.

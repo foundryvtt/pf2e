@@ -1,8 +1,8 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { MigrationBase } from "../base.js";
 import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert ability scores to attribute modifiers */
 export class Migration852AbilityScoresToModifiers extends MigrationBase {

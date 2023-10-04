@@ -21,37 +21,6 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "devise-a-stratagem",
-                "toggleable": true
-            },
-            {
-                "ability": "int",
-                "key": "FlatModifier",
-                "predicate": [
-                    "class:investigator",
-                    "devise-a-stratagem",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse",
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            },
-                            "item:base:sap"
-                        ]
-                    }
-                ],
-                "selector": "attack-roll",
-                "type": "ability"
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Devise a Stratagem"
             }

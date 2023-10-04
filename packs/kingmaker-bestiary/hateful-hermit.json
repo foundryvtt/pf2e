@@ -134,7 +134,7 @@
                     "die": "d4"
                 },
                 "description": {
-                    "value": "<p>Originally a farming tool used for reaping grain, this one‑handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
+                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -521,7 +521,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The opaque white sap from the graveroot shrub clouds the mind.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage and stupefied 2 (1 round)</p>"
+                    "value": "<p>The opaque white sap from the graveroot shrub clouds the mind.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage and stupefied 2 (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -852,7 +852,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hateful hermit deals 2d6 extra precision damage to off-guard creatures.</p>\n<hr />\n<p><span></span></p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The hateful hermit deals 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -864,21 +864,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

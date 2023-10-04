@@ -312,14 +312,14 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.5g0rE5yMsTH3E2LJ"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/manacles.webp",
+            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
             "name": "Manacles (Good)",
             "sort": 400000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two‑legged creature with its legs bound takes a -15‑foot circumstance penalty to its Speeds, and a two‑handed creature with its wrists bound has to succeed at a @Check[type:flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[type:thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[type:flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[type:thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -753,7 +753,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>2d6 precision damage</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The scarlet triad sniper deals an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -765,21 +765,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

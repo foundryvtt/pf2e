@@ -1,6 +1,6 @@
 {
     "_id": "m0f2B7G9eaaTmhFL",
-    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
     "name": "Devise a Stratagem",
     "system": {
         "actionType": {
@@ -20,7 +20,44 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "devise-a-stratagem",
+                "toggleable": "totm"
+            },
+            {
+                "ability": "int",
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:investigator",
+                    {
+                        "or": [
+                            "devise-a-stratagem",
+                            "target:mark:devise-a-stratagem"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:base:sap"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "type": "ability"
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Devise a Stratagem",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Devise a Stratagem"

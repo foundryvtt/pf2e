@@ -7,7 +7,13 @@ import { resolveKingdomBoosts } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import { KingdomAbility, KingdomCHG } from "./types.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_SKILL_LABELS, getKingdomABCData } from "./values.ts";
+import {
+    KINGDOM_ABILITIES,
+    KINGDOM_ABILITY_LABELS,
+    KINGDOM_SKILL_LABELS,
+    KingdomCHGData,
+    getKingdomCHGData,
+} from "./values.ts";
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
@@ -42,6 +48,19 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         };
     }
 
+    static showToPlayers(options: { uuid: string; tab?: string }): void {
+        const users = game.users.filter((u) => !u.isSelf);
+        game.socket.emit("system.pf2e", {
+            request: "showSheet",
+            users: users.map((u) => u.uuid),
+            document: options.uuid,
+            options: {
+                campaign: "builder",
+                tab: options.tab,
+            },
+        } satisfies SocketMessage);
+    }
+
     constructor(kingdom: Kingdom) {
         super(kingdom);
         kingdom.actor.apps[this.appId] = this;
@@ -69,31 +88,41 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
-                    const users = game.users.filter((u) => !u.isSelf);
-                    game.socket.emit("system.pf2e", {
-                        request: "showSheet",
-                        users: users.map((u) => u.uuid),
-                        document: this.actor.uuid,
-                        options: {
-                            campaign: "builder",
-                            tab: this._tabs[0].active,
-                        },
-                    } satisfies SocketMessage);
+                    KingdomBuilder.showToPlayers({ uuid: this.actor.uuid, tab: this._tabs[0].active });
                 },
             });
+
+            // Also add a cancel button for the gm if this is the building phase
+            if (this.kingdom.active === "building") {
+                buttons.unshift({
+                    label: "PF2E.Kingmaker.KingdomBuilder.CancelCreation",
+                    class: "cancel",
+                    icon: "fa-solid fa-times",
+                    onclick: async () => {
+                        await this.kingdom.update({ active: false });
+                    },
+                });
+            }
         }
 
         return buttons;
     }
 
     override async getData(): Promise<KingdomBuilderSheetData> {
-        const database = getKingdomABCData();
+        const database = getKingdomCHGData();
 
+        // Returns the id of the active entry
+        // The name check is there for backwards compatibility, we should migrate later.
         const getActiveForCategory = (category: KingdomBuildCategory) => {
             const active = this.kingdom.build[category];
-            return Object.entries(database[category]).find(([_, entry]) => R.equals(active, entry))?.[0] ?? null;
+            if (!active) return null;
+            return (
+                active?.id ??
+                Object.entries(database[category]).find(([_, entry]) => entry?.name === active.name)?.[0] ??
+                null
+            );
         };
 
         // Preset selected for exact matches (if unset)
@@ -101,19 +130,32 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             this.selected[category] ??= getActiveForCategory(category);
         }
 
-        const categories = KINGDOM_BUILD_CATEGORIES.reduce((result, category) => {
-            const selected = this.selected[category];
-            const entries = database[category];
-            const buildEntry =
-                (objectHasKey(entries, selected) ? entries[selected] : null) ?? Object.values(entries)[0];
-            result[category] = {
-                selected,
-                active: getActiveForCategory(category),
-                buildEntry,
-                stale: !R.equals(buildEntry, this.kingdom.build[category]),
-            };
-            return result;
-        }, {} as Record<KingdomBuildCategory, CategorySheetData>);
+        const categories = await R.pipe(
+            KINGDOM_BUILD_CATEGORIES,
+            R.map(async (category: KingdomBuildCategory): Promise<[KingdomBuildCategory, CategorySheetData]> => {
+                const selected = this.selected[category];
+                const entries = database[category];
+                const buildEntry = entries[selected ?? ""] ?? Object.values(entries)[0];
+                const featItem = await (async () => {
+                    try {
+                        return buildEntry?.feat ? await fromUuid(buildEntry.feat) : null;
+                    } catch (ex) {
+                        console.error(ex);
+                        return null;
+                    }
+                })();
+
+                const result = {
+                    selected,
+                    active: getActiveForCategory(category),
+                    buildEntry,
+                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link, { async: true }) : null,
+                    stale: !R.equals(buildEntry, this.kingdom.build[category]),
+                };
+                return [category, result];
+            }),
+            (items) => Promise.all(items).then((result) => R.fromPairs(result))
+        );
 
         const { build } = this.kingdom;
         const finished = !!(build.charter && build.heartland && build.government);
@@ -154,7 +196,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 const selected = boosts.includes(ability);
 
                 // Kingmaker doesn't allow boosting a stat that has a flaw
-                if ("flaw" in buildItem && ability === buildItem.flaw) {
+                if (ability === buildItem.flaw) {
                     buttons[ability].flaw = { selected: true, locked: true };
                 } else if (selected || buildItem.boosts.includes("free")) {
                     buttons[ability].boost = {
@@ -192,6 +234,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Implement callbacks for each build category
         for (const categoryEl of htmlQueryAll(html, "[data-category]")) {
             const category = categoryEl.dataset.category ?? null;
             if (!tupleHasValue(KINGDOM_BUILD_CATEGORIES, category)) continue;
@@ -207,12 +250,13 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             }
 
             const saveCategory = async (): Promise<void> => {
-                const database = getKingdomABCData();
-                const selected = database[category][this.selected[category] ?? ""];
+                const database = getKingdomCHGData();
+                const id = this.selected[category] ?? "";
+                const selected = database[category][id];
                 if (selected) {
                     this.selected[category] = null;
                     await this.kingdom.update({
-                        [`build.${category}`]: selected,
+                        [`build.${category}`]: { id, ...selected },
                         [`build.boosts.${category}`]: [],
                     });
                 }
@@ -252,7 +296,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     ? current.filter((a) => a !== ability)
                     : [...current, ability];
                 const boosts = updated
-                    .filter((a) => !object.boosts.includes(a) && (!("flaw" in object) || object.flaw !== a))
+                    .filter((a) => !object.boosts.includes(a) && object.flaw !== a)
                     .slice(0, maxBoosts);
                 this.kingdom.update({ [`build.boosts.${sectionId}`]: boosts });
             });
@@ -291,6 +335,12 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     }
 
     protected override async _render(force?: boolean, options?: KingdomBuilderRenderOptions): Promise<void> {
+        // First check if this is active. If its not, it should close. This may occur if the GM cancels creation
+        if (this.kingdom.active === false) {
+            this.close({ force: true });
+            return;
+        }
+
         await super._render(force, options);
         if (options?.tab) {
             this._tabs.at(0)?.activate(options.tab, { triggerCallback: true });
@@ -311,7 +361,7 @@ interface KingdomBuilderSheetData {
         editable: boolean;
     };
     kingdom: Kingdom;
-    database: ReturnType<typeof getKingdomABCData>;
+    database: KingdomCHGData;
     categories: Record<KingdomBuildCategory, CategorySheetData>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
@@ -326,6 +376,8 @@ interface CategorySheetData {
     selected: string | null;
     /** The build entry currently being viewed (aka selected) */
     buildEntry?: KingdomCHG;
+    /** The feat item the selected build entry will grant */
+    featLink: string | null;
     stale: boolean;
 }
 

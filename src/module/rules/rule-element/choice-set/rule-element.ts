@@ -47,6 +47,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.allowedDrops ??= null;
         this.allowNoSelection ??= false;
+        this.rollOption ??= this.slug;
 
         this.flag = this.#setDefaultFlag(this);
         this.selection =
@@ -213,7 +214,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         return (source.flag =
             typeof source.flag === "string" && source.flag.length > 0
                 ? source.flag.replace(/[^-a-z0-9]/gi, "")
-                : sluggify(this.item.slug ?? this.item.name, { camel: "dromedary" }));
+                : sluggify(this.slug ?? this.item.slug ?? this.item.name, { camel: "dromedary" }));
     }
 
     /**

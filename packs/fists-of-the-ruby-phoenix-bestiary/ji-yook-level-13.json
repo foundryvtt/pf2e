@@ -761,7 +761,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>With a sharp twist of this item, you instantly create a screen of thick, opaque smoke in a burst centered on one corner of your space. All creatures within that area are concealed, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>\n<p>The radius of the burst is 20 feet.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>With a sharp twist of this item, you instantly create a screen of thick, opaque smoke in a burst centered on one corner of your space. All creatures within that area are concealed, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>\n<p>The radius of the burst is 20 feet.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1069,7 +1069,7 @@
                         "selector": "strike-damage"
                     },
                     {
-                        "domain": "damage-roll",
+                        "domain": "damage",
                         "key": "RollOption",
                         "option": "foxfire-blast",
                         "toggleable": true
@@ -1167,7 +1167,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ji-yook Strikes deal an additional 3d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Ji-yook Strikes deal an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1179,21 +1179,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

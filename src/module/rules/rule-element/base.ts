@@ -1,11 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckRoll } from "@system/check/index.ts";
+import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
@@ -89,7 +89,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 initial: undefined,
                 label: "PF2E.RuleEditor.General.Label",
             }),
-            priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
+            priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 100 }),
             ignored: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
@@ -369,6 +369,8 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
         ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;
 
+    get schema(): LaxSchemaField<TSchema>;
+
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
      * elements
@@ -480,9 +482,9 @@ namespace RuleElementPF2e {
     }
 
     export interface AfterRollParams {
-        roll: Rolled<CheckRoll> | null;
-        selectors: string[];
+        roll: Rolled<CheckRoll>;
         check: CheckModifier;
+        context: CheckRollContext;
         domains: string[];
         rollOptions: Set<string>;
     }

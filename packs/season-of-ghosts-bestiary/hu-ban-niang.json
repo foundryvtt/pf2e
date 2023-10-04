@@ -1,0 +1,747 @@
+{
+    "_id": "0QfL4oXQrDfhfZDs",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "OygihzBpkQzuBIYJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
+                }
+            },
+            "img": "icons/weapons/swords/sword-guard-blue.webp",
+            "name": "Longsword",
+            "sort": 100000,
+            "system": {
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "longsword",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "biGYRqhdAHwG63qg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.F4jOdM3qhYELTz1I"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/tattoos/warding-tattoo.webp",
+            "name": "Spider Lily Tattoo",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>The spider lily tattoo marks you as a trusted member of Granny Hu's network. This crimson tattoo fades and becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] within a day of being applied, reappearing only when you Activate it, when you gain the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition, or when you die. The higher the doomed value, the more vivid the color.</p>\n<p>If your tattoo is plainly visible, you gain a +1 item bonus to Intimidation checks against all creatures that can see the tattoo, but you take a –1 item penalty to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on those who understand the actual meaning of the spider lily tattoo (including all of Willowshore's citizens).</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision (concentrate)</p>\n<p><strong>Requirements</strong> Your tattoo isn't currently visible</p>\n<p><strong>Effect</strong> You make the tattoo visible. You can use this activation again to make the tattoo not visible, unless you have the doomed condition.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">f</span> envision (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> An undead creature detects you for the first time</p>\n<p><strong>Effect</strong> The spider lily tattoo manipulates your life force to make you appear to be undead for a short time. Attempt a @Check[type:deception|defense:perception] check against the triggering undead creature's Perception DC. On a success, the triggering undead believes you're undead as well—a mindless undead is likely to ignore you, while a sapient undead might react with curiosity or confusion. You can continue attempting Deception checks each round as a single action to Sustain the effect for up to 1 minute.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "spider-lily-tattoo",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "spider-lily-tattoo"
+                        ],
+                        "selector": "intimidation",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "spider-lily-tattoo",
+                            "action:make-an-impression"
+                        ],
+                        "selector": "diplomacy",
+                        "type": "item",
+                        "value": -1
+                    }
+                ],
+                "size": "med",
+                "slug": "spider-lily-tattoo",
+                "source": {
+                    "value": "Pathfinder #196: The Summer That Never Was"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical",
+                        "necromancy",
+                        "tattoo"
+                    ]
+                },
+                "usage": {
+                    "value": "tattooed-on-the-body"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ubFH1brOdytK2uwZ",
+            "img": "icons/sundries/misc/pipe-bone.webp",
+            "name": "Smoking Pipe",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": ""
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "jHxGlmXoCHiUGCFv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "OygihzBpkQzuBIYJ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "P3k4fqrqq96ysxax": {
+                        "damage": "2d8+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SINzM5NNW1nMlY2L",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "So Have You Heard?",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Granny Hu can shift a PC's reputation in Willowshore over the course of 2 hours of work. She attempts a Deception check against the target's @Check[type:deception|defense:deception]{Deception}, @Check[type:deception|defense:diplomacy]{Diplomacy}, or @Check[type:deception|defense:intimidation]{Intimidation} DC, whichever is highest. If the target is admired or revered by at least one faction in Willowshore, Granny Hu takes a –1 status penalty to her check, or –2 if the target is admired or revered by both factions. The target is then temporarily immune to So Have You Heard? for 1 week.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes a –2 circumstance penalty to Charisma-based skill checks when interacting with Willowshore residents for a week.</p>\n<p><strong>Success</strong> As critical success, but only a –1 circumstance penalty and for only 1 day.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> The plan backfires; not only is the target unaffected, but Granny Hu can't use So Have You Heard? for 1 month.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "exploration"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QEZc2a2zythejido",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Are You Sure About That?",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet who's visible to Granny Hu and who has been exposed to Want to Try Me? in the past week says or does something that would be against Granny Hu's interests</p>\n<hr />\n<p><strong>Effect</strong> Granny Hu makes a subtle gesture, reminding the triggering creature of their secret. The creature must succeed at a @Check[type:will|dc:22] Save or the triggering action is disrupted. Regardless of the outcome, the creature then becomes temporarily immune to this ability for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "petYD8BwpqXAO6am",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Nerves of Steel",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If Granny Hu succeeds at a save against a fear effect, she gets a critical success instead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LoNKzEELMKd1bQ9C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Want to Try Me?",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a creature</p>\n<hr />\n<p><strong>Effect</strong> Granny Hu threatens to expose a secret of the triggering creature. She attempts an @Check[type:intimidation|defense:will] check against the triggering creature's Will DC. Her reputation means she can threaten a PC even if she doesn't actually know a secret, but if she does know an especially dangerous or shameful one, she gains a +2 circumstance bonus to her Intimidation check.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, and the result of their Coerce or Demoralize attempt is reduced by one degree of success.</p>\n<p><strong>Success</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature is unaffected, gains a +1 circumstance bonus to their Coerce or Demoralize attempt, and is immune to Want to Try Me? for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wYTe1I9rW6DslTGv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "9tXWqNamVYtTBFKH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crafting",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "4jCvmVabhdlFxvzp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tmYc1o9sxLrgsZLi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Diplomacy",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TeA0ZWwSxJK4Kej4",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TqMZsNbXyo2GyHTb",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Society",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "dhW7BTnW2p4bocQk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Willowshore Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Hu Ban-Niang",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": "+1 status vs. fear, nerves of steel"
+            },
+            "hp": {
+                "details": "",
+                "max": 75,
+                "temp": 0,
+                "value": 75
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 11
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "LN"
+            },
+            "blurb": "Female human guard captain",
+            "creatureType": "",
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder #196: The Summer That Never Was"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "value": [
+                    "common",
+                    "halfling"
+                ]
+            },
+            "rarity": "unique",
+            "senses": {
+                "value": ""
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "human",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

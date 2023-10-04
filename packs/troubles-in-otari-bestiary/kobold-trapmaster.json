@@ -135,7 +135,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -625,7 +625,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kobold trapmaster deals an extra 1d6 damage to creatures that have the off-guard condition.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The kobold trapmaster deals an extra 1d6 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -636,21 +636,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },

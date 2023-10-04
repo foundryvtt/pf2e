@@ -230,7 +230,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -939,7 +939,7 @@
                     "value": [
                         "divine",
                         "necromancy",
-                        "negative"
+                        "void"
                     ]
                 },
                 "trigger": {
@@ -1095,7 +1095,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The strigoi servant deals 1d6 extra precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The strigoi servant deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1107,21 +1107,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
