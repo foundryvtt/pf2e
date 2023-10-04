@@ -496,7 +496,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             !this.item.system.description.gm &&
             !(this.item.isOfType("spell") && this.item.isVariant)
         ) {
-            const descriptionEditors = htmlQuery(html, ".descriptions");
+            const descriptionEditors = htmlQuery(html, ".tab[data-tab=description]");
             const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
             if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
 
