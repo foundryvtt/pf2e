@@ -156,7 +156,7 @@ class RuleElementForm<
 
     async render(): Promise<string> {
         const data = await this.getData();
-        return renderTemplate("systems/pf2e/templates/items/rules/outer.hbs", {
+        return renderTemplate("systems/pf2e/templates/items/rules/partials/outer.hbs", {
             ...data,
             template: await renderTemplate(this.template, data),
         });
