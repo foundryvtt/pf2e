@@ -36,6 +36,7 @@ import { MeleeWeaponGroup, WeaponGroup, WeaponReloadTime } from "@item/weapon/ty
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
+import * as R from "remeda";
 import enJSON from "static/lang/en.json";
 import reEnJSON from "static/lang/re-en.json";
 import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
@@ -69,7 +70,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
-import * as R from "remeda";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -236,6 +236,34 @@ const featCategories: Record<FeatCategory, string> = {
     deityboon: "PF2E.FeatTypeDeityboon",
     curse: "PF2E.FeatTypeCurse",
 };
+
+const creatureTypes = R.pick(creatureTraits, [
+    "aberration",
+    "animal",
+    "astral",
+    "beast",
+    "celestial",
+    "construct",
+    "dragon",
+    "dream",
+    "elemental",
+    "ethereal",
+    "fey",
+    "fiend",
+    "fungus",
+    "giant",
+    "humanoid",
+    "monitor",
+    "ooze",
+    "petitioner",
+    "plant",
+    "shadow",
+    "spirit",
+    "time",
+    "vitality",
+    "void",
+    "undead",
+]);
 
 const alignments: Record<Alignment, string> = {
     LG: "PF2E.AlignmentLG",
@@ -595,12 +623,13 @@ export const PF2ECONFIG = {
     featTraits,
     creatureTraits,
     kingmakerTraits,
-    monsterTraits: creatureTraits,
     npcAttackTraits,
     hazardTraits,
     vehicleTraits,
 
     traitsDescriptions: traitDescriptions,
+
+    creatureTypes,
 
     weaponHands: {
         1: "PF2E.WeaponHands1",
