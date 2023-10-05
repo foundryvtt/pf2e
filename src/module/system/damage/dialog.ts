@@ -35,6 +35,9 @@ class DamageModifierDialog extends Application {
     /** Was the roll button pressed? */
     isRolled = false;
 
+    /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
+    #originallyEnabled: Set<ModifierPF2e>;
+
     constructor(params: DamageDialogParams) {
         super();
 
@@ -42,6 +45,8 @@ class DamageModifierDialog extends Application {
         this.context = params.context;
         this.baseDamageType = params.formulaData.base.at(0)?.damageType ?? "untyped";
         this.isCritical = this.context.outcome === "criticalSuccess";
+
+        this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -108,7 +113,7 @@ class DamageModifierDialog extends Application {
             category: m.category,
             type: m.type,
             modifier: m.modifier,
-            hideIfDisabled: m.hideIfDisabled,
+            hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
             damageType: m.damageType,
             typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
             enabled: m.enabled,
