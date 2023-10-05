@@ -37,8 +37,6 @@ import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
-import enJSON from "static/lang/en.json";
-import reEnJSON from "static/lang/re-en.json";
 import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
@@ -173,9 +171,9 @@ const weaponCategories = {
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
 
-const baseArmorTypes = R.mapValues(enJSON.PF2E.Item.Armor.Base, (_v, slug) => `PF2E.Item.Armor.Base.${slug}`);
+const baseArmorTypes = R.mapValues(EN_JSON.PF2E.Item.Armor.Base, (_v, slug) => `PF2E.Item.Armor.Base.${slug}`);
 
-const baseWeaponTypes = R.mapValues(enJSON.PF2E.Weapon.Base, (_v, slug) => `PF2E.Weapon.Base.${slug}`);
+const baseWeaponTypes = R.mapValues(EN_JSON.PF2E.Weapon.Base, (_v, slug) => `PF2E.Weapon.Base.${slug}`);
 
 /** Base weapon types that are considered equivalent for all rules purposes */
 const equivalentWeapons = {
@@ -277,7 +275,7 @@ const alignments: Record<Alignment, string> = {
     CE: "PF2E.AlignmentCE",
 };
 
-const deityDomains = R.mapToObj(Object.keys(enJSON.PF2E.Item.Deity.Domain), (key) => {
+const deityDomains = R.mapToObj(Object.keys(EN_JSON.PF2E.Item.Deity.Domain), (key) => {
     const label = `PF2E.Item.Deity.Domain.${key}.Label`;
     const description = `PF2E.Item.Deity.Domain.${key}.Description`;
     return [sluggify(key) as DeityDomain, { label, description }];
@@ -362,7 +360,7 @@ export const PF2ECONFIG = {
         "incredibly-hard": "PF2E.DCAdjustmentIncrediblyHard",
     },
 
-    checkDCs: configFromLocalization(enJSON.PF2E.Check.DC, "PF2E.Check.DC"),
+    checkDCs: configFromLocalization(EN_JSON.PF2E.Check.DC, "PF2E.Check.DC"),
 
     skills: {
         acr: "PF2E.SkillAcr",
@@ -710,9 +708,9 @@ export const PF2ECONFIG = {
         wand: "PF2E.ConsumableTypeWand",
     },
 
-    identification: configFromLocalization(enJSON.PF2E.identification, "PF2E.identification"),
+    identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
-    ruleElement: configFromLocalization(reEnJSON.PF2E.RuleElement, "PF2E.RuleElement"),
+    ruleElement: configFromLocalization(RE_EN_JSON.PF2E.RuleElement, "PF2E.RuleElement"),
 
     preparationType: {
         prepared: "PF2E.PreparationTypePrepared",
@@ -1102,7 +1100,7 @@ export const PF2ECONFIG = {
     },
 
     // Year offsets relative to the current actual year
-    worldClock: mergeObject(configFromLocalization(enJSON.PF2E.WorldClock, "PF2E.WorldClock"), {
+    worldClock: mergeObject(configFromLocalization(EN_JSON.PF2E.WorldClock, "PF2E.WorldClock"), {
         AR: { yearOffset: 2700 },
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },
