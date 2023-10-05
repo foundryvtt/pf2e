@@ -236,6 +236,6 @@ declare global {
         /** The ID of the requesting User */
         userId?: string;
         /** Data returned as a result of the request */
-        data?: RequestData;
+        result: Record<string, unknown>[];
     }
 }

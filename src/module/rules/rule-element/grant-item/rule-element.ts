@@ -4,7 +4,6 @@ import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item"
 import { ItemGrantDeleteAction } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -128,12 +127,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         this.flag = String(ruleSource.flag);
 
         if (!this.test()) return;
-
-        // The grant may have come from a non-system compendium, so make sure it's fully migrated
-        const migrations = MigrationList.constructFromVersion(grantedItem.schemaVersion);
-        if (migrations.length > 0) {
-            await MigrationRunner.ensureSchemaVersion(grantedItem, migrations);
-        }
 
         // If we shouldn't allow duplicates, check for an existing item with this source ID
         const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
