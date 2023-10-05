@@ -6,7 +6,8 @@ import { tagify } from "@util";
 import * as R from "remeda";
 
 export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promise<void> {
-    const dialog = new Dialog({
+    const dialog = new Dialog(
+        {
             title: "Generate Skill/Save Prompt",
             content: `
                 <form class="skill-save-prompt">
@@ -75,20 +76,22 @@ export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promi
                 </form>
             `,
             buttons: {
-                    post: {
-                            label: "Generate Prompt",
-                            callback: generatePrompt
-                    },
-                    cancel: {
-                            label: "Cancel",
-                    },
+                post: {
+                    label: "Generate Prompt",
+                    callback: generatePrompt,
+                },
+                cancel: {
+                    label: "Cancel",
+                },
             },
             default: "post",
-            render: ($html: HTMLElement | JQuery) => _render($html, options)
-        }, {
-            id: "generate-skill-save-prompt"
-    });
-    
+            render: ($html: HTMLElement | JQuery) => _render($html, options),
+        },
+        {
+            id: "generate-skill-save-prompt",
+        }
+    );
+
     dialog.render(true);
 }
 
@@ -97,8 +100,8 @@ async function _render($html: HTMLElement | JQuery, options: ActionDefaultOption
 
     // Set up tagify fields
     const skillEl = html.querySelector<HTMLInputElement>("input[name='prompt.skills']");
-    tagify(skillEl, { whitelist: 
-        Object.fromEntries(Object.entries(CONFIG.PF2E.skillList).filter(([id, _]) => id !== "lore" )) 
+    tagify(skillEl, {
+        whitelist: Object.fromEntries(Object.entries(CONFIG.PF2E.skillList).filter(([id, _]) => id !== "lore")),
     });
 
     const saveEl = html.querySelector<HTMLInputElement>("input[name='prompt.save']");
@@ -118,10 +121,10 @@ async function _render($html: HTMLElement | JQuery, options: ActionDefaultOption
 
     // Setup tabs
     const tabs = new Tabs({
-        navSelector: ".sheet-navigation", 
-        contentSelector: ".sheet-content", 
+        navSelector: ".sheet-navigation",
+        contentSelector: ".sheet-content",
         initial: "skill",
-        callback: () => {} 
+        callback: () => {},
     });
     tabs.bind(html);
 
@@ -130,11 +133,11 @@ async function _render($html: HTMLElement | JQuery, options: ActionDefaultOption
         dcTools();
     });
 
-     // Show or hide Roll Options
-     html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
+    // Show or hide Roll Options
+    html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
         const rollOptionsEl = html.querySelector("div.roll-options");
         const rollOptionsAnchor = html.querySelector("div.form-group a.add-roll-options");
-        
+
         if (rollOptionsEl && rollOptionsAnchor) {
             if (rollOptionsEl.classList.contains("hidden")) {
                 rollOptionsEl.classList.remove("hidden");
@@ -145,33 +148,33 @@ async function _render($html: HTMLElement | JQuery, options: ActionDefaultOption
             }
         }
     });
-};
+}
 
 function generatePrompt($html: HTMLElement | JQuery): void {
     const html = (<JQuery>$html)[0];
 
     let types: string[] = [];
     let traits: string[] = [];
-    let extras: string[] = [];
+    const extras: string[] = [];
     const activeTab = html.querySelector("section.tab.active");
     if (activeTab instanceof HTMLElement) {
-        if (activeTab?.dataset.tab == "skill") {
+        if (activeTab?.dataset.tab === "skill") {
             // get skill tags
             types = types.concat(_getTags(html, "input#skill"));
             // get lore tags
-            types = types.concat(_getTags(html, "input#lores").map(t => _prepareLoreType(t)));
+            types = types.concat(_getTags(html, "input#lores").map((t) => _prepareLoreType(t)));
 
             // get trait tags
             traits = traits.concat(_getTags(html, "input#traits"));
             // get action tags
-            traits = traits.concat(_getTags(html, "input#actions").map(a => _prepareActionType(a)));
+            traits = traits.concat(_getTags(html, "input#actions").map((a) => _prepareActionType(a)));
 
             if (!!html.querySelector("input#secret:checked") && !traits.includes("secret")) {
                 traits.push("secret");
             }
-        } else if (activeTab?.dataset.tab == "save") {
+        } else if (activeTab?.dataset.tab === "save") {
             types = _getTags(html, "input#save");
-            if (!!html.querySelector("input#basic-save:checked")) extras.push("basic:true");
+            if (html.querySelector("input#basic-save:checked")) extras.push("basic:true");
         }
     }
 
@@ -179,17 +182,17 @@ function generatePrompt($html: HTMLElement | JQuery): void {
         let flavor = "";
         const titleEl = html.querySelector("input#title");
         if (titleEl instanceof HTMLInputElement && titleEl.value) {
-            flavor = `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>`
+            flavor = `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>`;
         }
-
 
         let dc = html.querySelector<HTMLInputElement>("input#dc")?.value;
         if (dc) {
-            const dcAdjustment = (html.querySelector<HTMLInputElement>("select#adjust-difficulty"))?.value as DCAdjustment;
+            const dcAdjustment = html.querySelector<HTMLInputElement>("select#adjust-difficulty")
+                ?.value as DCAdjustment;
             if (dcAdjustment) dc = adjustDC(+dc, dcAdjustment).toString();
         }
-        
-        const content = types.map(type => _prepareCheck(type, dc, traits, extras)).join("");
+
+        const content = types.map((type) => _prepareCheck(type, dc, traits, extras)).join("");
         console.log(content);
 
         ChatMessage.create({
@@ -202,11 +205,9 @@ function generatePrompt($html: HTMLElement | JQuery): void {
 
 function _getTags(html: HTMLElement, selector: string): string[] {
     const el = html.querySelector(selector);
-    const tagArray: TagifyValue[] = (el instanceof HTMLInputElement && el.value) 
-        ? JSON.parse(el.value) 
-        : [];
-    return tagArray.map(tag => tag.id || tag.value);
-};
+    const tagArray: TagifyValue[] = el instanceof HTMLInputElement && el.value ? JSON.parse(el.value) : [];
+    return tagArray.map((tag) => tag.id || tag.value);
+}
 
 function _prepareLoreType(type: string): string {
     return type.toLowerCase().replace("lore", "").trim().concat("-lore");
@@ -217,15 +218,13 @@ function _prepareActionType(type: string): string {
 }
 
 function _prepareCheck(type: string, dc: string | undefined, traits: string[], extras: string[]): string {
-    const parts = [ 
-        type, 
-        (dc ? `dc:${dc}` : null), 
-        (traits.length ? `traits:${traits.join(",")}` : null) 
-    ].concat(...extras).filter(p => p);
+    const parts = [type, dc ? `dc:${dc}` : null, traits.length ? `traits:${traits.join(",")}` : null]
+        .concat(...extras)
+        .filter((p) => p);
     return `<p>@Check[${parts.join("|")}]</p>`;
 }
 
 interface TagifyValue {
-    id: string,
-    value: string
+    id: string;
+    value: string;
 }
