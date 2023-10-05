@@ -14,7 +14,7 @@ import { DamageModifierDialog } from "./dialog.ts";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
 import {
-    CreateDamageFormulaParams,
+    DamageFormulaData,
     DamageCategoryUnique,
     DamageDieSize,
     DamageRollContext,
@@ -437,7 +437,7 @@ class WeaponDamagePF2e {
         const testedModifiers = extracted.modifiers;
         damageDice.push(...extracted.dice);
 
-        const damage: CreateDamageFormulaParams = {
+        const formulaData: DamageFormulaData = {
             base: [base],
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
@@ -449,24 +449,24 @@ class WeaponDamagePF2e {
         };
 
         // If a weapon deals no base damage, remove all bonuses, penalties, and modifiers to it.
-        if (!(damage.base[0].diceNumber || damage.base[0].modifier)) {
-            damage.dice = damage.dice.filter((d) => ![null, "precision"].includes(d.category));
-            damage.modifiers = damage.modifiers.filter((m) => ![null, "precision"].includes(m.category));
+        if (!(formulaData.base[0].diceNumber || formulaData.base[0].modifier)) {
+            formulaData.dice = formulaData.dice.filter((d) => ![null, "precision"].includes(d.category));
+            formulaData.modifiers = formulaData.modifiers.filter((m) => ![null, "precision"].includes(m.category));
         }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
         if (BUILD_MODE === "development" && !context.skipDialog) {
-            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
 
         const computedFormulas = {
             criticalFailure: null,
-            failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
-            success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
-            criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+            failure: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.FAILURE),
+            success: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.SUCCESS),
+            criticalSuccess: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
         };
 
         return {
@@ -475,7 +475,7 @@ class WeaponDamagePF2e {
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
             damage: {
-                ...damage,
+                ...formulaData,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
                 breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
             },
@@ -484,12 +484,12 @@ class WeaponDamagePF2e {
 
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
-        damage: CreateDamageFormulaParams,
+        damage: DamageFormulaData,
         degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
     ): AssembledFormula;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: DegreeOfSuccessIndex): AssembledFormula | null {
+    static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
+    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
         const base = damage.base.at(0);
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;

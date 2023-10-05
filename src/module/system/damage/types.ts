@@ -53,14 +53,14 @@ interface DamageRollContext extends BaseRollContext {
     mapIncreases?: ZeroToTwo;
 }
 
-interface CreateDamageFormulaParams {
+interface DamageFormulaData {
     base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
     ignoredResistances: { type: ResistanceType; max: number | null }[];
 }
 
-interface ResolvedDamageFormulaData extends CreateDamageFormulaParams {
+interface ResolvedDamageFormulaData extends DamageFormulaData {
     formula: Record<DegreeOfSuccessString, string | null>;
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }
@@ -112,7 +112,7 @@ type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDam
 export type {
     AfflictionDamageTemplate,
     BaseDamageData,
-    CreateDamageFormulaParams,
+    DamageFormulaData,
     CriticalInclusion,
     DamageCategory,
     DamageCategoryRenderData,
