@@ -16,6 +16,7 @@ export default abstract class Document<
     readonly _source: object;
     protected _configure(): void;
     get invalid(): boolean;
+    static validateJoint(data: SourceFromSchema<DataSchema>): void;
     /**
      * Create a new instance of this DataModel from a source record.
      * The source is presumed to be trustworthy and is not strictly validated.
