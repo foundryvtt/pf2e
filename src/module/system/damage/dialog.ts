@@ -144,12 +144,24 @@ class DamageModifierDialog extends Application {
         const hasVisibleModifiers = modifiers.filter((m) => m.show).length > 0;
         const hasVisibleDice = dice.filter((d) => d.show).length > 0;
 
+        // Render base formula
+        const baseResult = createDamageFormula({
+            base: this.formulaData.base,
+            modifiers: [],
+            dice: [],
+            ignoredResistances: [],
+        });
+        const baseRoll = new DamageRoll(baseResult.formula);
+        const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");
+
+        // Render final formula
         const result = createDamageFormula(this.formulaData);
         const roll = new DamageRoll(result.formula);
         const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
 
         return {
             appId: this.id,
+            baseFormula: baseFormulaTemplate,
             modifiers,
             dice,
             isCritical: this.isCritical,
@@ -209,7 +221,7 @@ class DamageModifierDialog extends Application {
             const type = String(parent.querySelector<HTMLSelectElement>(".add-modifier-type")?.value);
             const damageType = (parent.querySelector<HTMLSelectElement>(".add-modifier-damage-type")?.value ??
                 null) as DamageType;
-            const category = (parent.querySelector<HTMLSelectElement>(".add-modifier-category")?.value ??
+            const category = (parent.querySelector<HTMLSelectElement>(".add-modifier-category")?.value ||
                 null) as DamageCategoryUnique;
 
             const errors: string[] = [];
@@ -381,6 +393,7 @@ interface ModifierData extends BaseData {
 
 interface DamageDialogData {
     appId: string;
+    baseFormula: string;
     modifiers: ModifierData[];
     dice: DialogDiceData[];
     isCritical: boolean;
