@@ -1,9 +1,11 @@
+import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { adjustDC, DCAdjustment } from "@module/dc.ts";
-import { activePartyLoreSkills, dcAdjustmentsHtml, getActions } from "./helpers.ts";
+import { dcAdjustmentsHtml, getActions, loreSkillsFromActiveParty, loreSkillsFromActors } from "./helpers.ts";
 import { dcTools } from "./dc-tools.ts";
 import { tagify } from "@util";
+import * as R from "remeda";
 
-export async function skillSavePrompt(): Promise<void> {
+export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promise<void> {
     const dialog = new Dialog({
             title: "Generate Skill/Save Prompt",
             content: `
@@ -82,7 +84,7 @@ export async function skillSavePrompt(): Promise<void> {
                     },
             },
             default: "post",
-            render: _render
+            render: ($html: HTMLElement | JQuery) => _render($html, options)
         }, {
             id: "generate-skill-save-prompt"
     });
@@ -90,7 +92,7 @@ export async function skillSavePrompt(): Promise<void> {
     dialog.render(true);
 }
 
-async function _render($html: HTMLElement | JQuery): Promise<void> {
+async function _render($html: HTMLElement | JQuery, options: ActionDefaultOptions): Promise<void> {
     const html = (<JQuery>$html)[0];
 
     // Set up tagify fields
@@ -103,7 +105,9 @@ async function _render($html: HTMLElement | JQuery): Promise<void> {
     tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
 
     const loreEl = html.querySelector<HTMLInputElement>("input[name='prompt.lores']");
-    tagify(loreEl, { whitelist: activePartyLoreSkills(), enforceWhitelist: false });
+    const loreSkills = options.actors ? loreSkillsFromActors(options.actors) : loreSkillsFromActiveParty();
+    const loreOptions = R.isEmpty(loreSkills) ? {} : { whitelist: loreSkills, enforceWhitelist: false };
+    tagify(loreEl, loreOptions);
 
     const actionEl = html.querySelector<HTMLInputElement>("input[name='prompt.actions']");
     const actions = await getActions();

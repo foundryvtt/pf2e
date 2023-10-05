@@ -435,7 +435,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         });
 
         htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
-            game.pf2e.gm.skillSavePrompt();
+            game.pf2e.gm.skillSavePrompt({ actors: this.actor.members });
         });
     }
 
