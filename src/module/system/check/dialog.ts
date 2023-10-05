@@ -1,4 +1,4 @@
-import { MODIFIER_TYPES, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -18,6 +18,9 @@ export class CheckModifiersDialog extends Application {
     resolve: (value: boolean) => void;
     /** Has the promise been resolved? */
     isResolved = false;
+
+    /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
+    #originallyEnabled: Set<ModifierPF2e>;
 
     constructor(
         check: StatisticModifier,
@@ -41,6 +44,8 @@ export class CheckModifiersDialog extends Application {
         this.check = check;
         this.resolve = resolve;
         this.context = context;
+
+        this.#originallyEnabled = new Set(check.modifiers.filter((m) => m.enabled));
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -63,7 +68,10 @@ export class CheckModifiersDialog extends Application {
 
         return {
             appId: this.id,
-            modifiers: this.check.modifiers,
+            modifiers: this.check.modifiers.map((m) => ({
+                ...m,
+                hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
+            })),
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
@@ -225,7 +233,7 @@ export class CheckModifiersDialog extends Application {
 
 interface CheckDialogData {
     appId: string;
-    modifiers: readonly ModifierPF2e[];
+    modifiers: RawModifier[];
     totalModifier: number;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
