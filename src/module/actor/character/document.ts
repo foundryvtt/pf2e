@@ -734,9 +734,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Enforce a minimum of -5 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
         for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.trunc(Math.clamped(ability.mod, -5, 10));
-            // Record base modifier: same as stored modifier if in manual mode, and prior to RE modifications otherwise
-            ability.base = ability.mod;
+            ability.mod = Math.clamped(ability.mod, -5, 10);
+            // Record base (integer) modifier: same as stored modifier if in manual mode, and prior to RE
+            // modifications otherwise. The final prepared modifier is truncated after application of AE-likes.
+            ability.base = Math.trunc(ability.mod);
         }
     }
 
