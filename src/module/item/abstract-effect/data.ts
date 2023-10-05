@@ -7,6 +7,7 @@ import type { CheckRoll } from "@system/check/index.ts";
 interface AbstractEffectSystemSource extends ItemSystemSource {
     /** Whether this effect originated from a spell */
     fromSpell?: boolean;
+    expired?: boolean;
 }
 
 interface AbstractEffectSystemData extends ItemSystemData {
@@ -86,16 +87,25 @@ type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValueSource | Eff
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
+type EffectExpiryType = "turn-start" | "turn-end";
+
+interface DurationData {
+    value: number;
+    unit: TimeUnit | "unlimited" | "encounter";
+    expiry: EffectExpiryType | null;
+}
 
 export type {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    DurationData,
     EffectAuraData,
     EffectBadge,
     EffectBadgeFormulaSource,
     EffectBadgeSource,
     EffectBadgeValueSource,
     EffectContextData,
+    EffectExpiryType,
     EffectTrait,
     EffectTraits,
     TimeUnit,
