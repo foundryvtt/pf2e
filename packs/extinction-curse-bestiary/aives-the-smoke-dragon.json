@@ -734,38 +734,16 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], his Strikes deal an extra @Damage[1d8[poison]] damage, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], his Strikes deal an extra 1d8 poison damage, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "smoke-exhalation",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "poison",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "smoke-exhalation"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "smoke-exhalation"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "Until the cloud dissipates at the start of his next turn, Aives is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], his Strikes deal an extra @Damage[1d8[poison]] damage, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.",
-                        "title": "{item|name}"
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Smoke Exhalation",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Smoke Exhalation"
+                },
                 "slug": "smoke-exhalation",
                 "source": {
                     "value": ""
