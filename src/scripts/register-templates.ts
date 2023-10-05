@@ -14,6 +14,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/sidebar.hbs",
+        "systems/pf2e/templates/actors/character/partials/strike.hbs",
 
         // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.hbs",

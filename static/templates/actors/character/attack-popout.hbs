@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="tab actions attack-popout">
+        {{#if (eq popoutType "blast")}}
+            <div class="actions-container">
+                <div class=" actions-panels">
+                    {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}
+                </div>
+            </div>
+            <ol class="actions-list elemental-blasts">
+                {{#each elementalBlasts as |blast|}}
+                    {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast omitName=true}}
+                {{/each}}
+            </ol>
+        {{/if}}
+        {{#if (eq popoutType "strike")}}
+            <ol class="actions-list item-list strikes-list">
+                {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=strikeIndex omitName=true}}
+            </ol>
+        {{/if}}
+    </div>
+</div>

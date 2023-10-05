@@ -55,8 +55,13 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
             case "Action": {
-                if (!(typeof data.index === "number")) return;
-                return createActionMacro(data.index, slot);
+                if (typeof data.index !== "number" && !data.elementTrait) return;
+                return createActionMacro({
+                    actorUUID: data.actorUUID,
+                    actionIndex: data.index,
+                    slot,
+                    elementTrait: data.elementTrait,
+                });
             }
         }
     }
@@ -125,11 +130,13 @@ if (typeof result === "boolean") {
 
 type HotbarDropData = Partial<DropCanvasData> & {
     actorId?: string;
+    actorUUID?: ActorUUID;
     slot?: number;
     skill?: string;
     skillName?: string;
     index?: number;
     itemType?: string;
+    elementTrait?: string;
     pf2e?: {
         type: string;
         property: string;
