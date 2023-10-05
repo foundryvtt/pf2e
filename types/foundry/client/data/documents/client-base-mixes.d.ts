@@ -1908,7 +1908,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 }
 
 export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
-    protected _sheet: FormApplication<this> | null;
+    protected _sheet: DocumentSheet<this> | null;
 
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
