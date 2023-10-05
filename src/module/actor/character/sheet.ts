@@ -26,7 +26,6 @@ import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
@@ -1317,11 +1316,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         if (item.isOfType("feat")) {
-            // Ensure feats from non-system compendiums are current before checking for appropriate feat slots
-            const itemUUID = item.uuid;
-            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e.")) {
-                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
-            }
             const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }
