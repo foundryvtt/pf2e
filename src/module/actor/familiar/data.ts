@@ -13,7 +13,7 @@ import { StatisticTraceData } from "@system/statistic/index.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
-interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
+interface FamiliarSystemSource extends CreatureSystemSource {
     details: FamiliarDetailsSource;
     attributes: FamiliarAttributesSource;
     master: {
@@ -22,10 +22,18 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     };
 
     customModifiers?: never;
-
     resources?: never;
-
+    saves?: never;
+    skills?: never;
     traits?: never;
+}
+
+interface FamiliarAttributesSource {
+    hp: { value: number };
+    initiative?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
 }
 
 interface FamiliarDetailsSource extends CreatureDetailsSource {
@@ -49,15 +57,15 @@ interface FamiliarSystemData extends Omit<FamiliarSystemSource, SourceOmission>,
     traits: FamiliarTraitsData;
 }
 
-type SourceOmission = "attributes" | "customModifiers" | "details" | "toggles" | "resources" | "traits";
-
-interface FamiliarAttributesSource {
-    hp: { value: number };
-    initiative?: never;
-    immunities?: never;
-    weaknesses?: never;
-    resistances?: never;
-}
+type SourceOmission =
+    | "attributes"
+    | "customModifiers"
+    | "details"
+    | "toggles"
+    | "resources"
+    | "saves"
+    | "skills"
+    | "traits";
 
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };

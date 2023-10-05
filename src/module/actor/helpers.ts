@@ -80,12 +80,12 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
     if (!["flags", "items", "system"].some((k) => k in source)) {
         // The actor has no migratable data: set schema version and return early
-        source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+        source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
     }
 
     const lowestSchemaVersion = Math.min(
-        source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-        ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
+        source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+        ...(source.items ?? []).map((i) => i!.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
     );
     const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
     const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));

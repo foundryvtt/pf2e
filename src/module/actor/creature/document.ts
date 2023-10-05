@@ -372,10 +372,9 @@ abstract class CreaturePF2e<
 
     protected override prepareSynthetics(): void {
         super.prepareSynthetics();
-        const { customModifiers } = this.system;
 
         // Custom modifiers
-        for (const [selector, modifiers] of Object.entries(customModifiers)) {
+        for (const [selector, modifiers] of Object.entries(this.system.customModifiers)) {
             const syntheticModifiers = (this.synthetics.modifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
