@@ -19,16 +19,15 @@ import type {
     SkillAbbreviation,
     SkillLongForm,
 } from "@actor/types.ts";
-import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import type { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
-import { Alignment, CreatureTrait } from "./types.ts";
+import { Alignment, CreatureActorType, CreatureTrait } from "./types.ts";
 
-type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<
-    TType,
-    TSystemSource
->;
+type BaseCreatureSource<
+    TType extends CreatureActorType,
+    TSystemSource extends CreatureSystemSource
+> = BaseActorSourcePF2e<TType, TSystemSource>;
 
 /** Skill and Lore statistics for rolling. */
 type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
@@ -96,8 +95,6 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
     actions?: StrikeData[];
     resources?: CreatureResources;
 }
-
-type CreatureType = (typeof CREATURE_ACTOR_TYPES)[number];
 
 interface SenseData {
     type: SenseType;
@@ -234,6 +231,7 @@ export type {
     AbilityData,
     Attitude,
     BaseCreatureSource,
+    CreatureActorType,
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
@@ -247,7 +245,6 @@ export type {
     CreatureSystemSource,
     CreatureTraitsData,
     CreatureTraitsSource,
-    CreatureType,
     HeldShieldData,
     LabeledSpeed,
     Language,
