@@ -169,8 +169,7 @@
         .buttons {
             align-items: center;
             display: flex;
-            justify-content: flex-end;
-            width: 100%;
+            margin-left: auto;
         }
 
         button {
@@ -178,14 +177,16 @@
             border: 1px solid var(--alt-dark);
             border-radius: 0;
             color: var(--alt-dark);
-            min-width: 1.875rem;
+            min-width: 2.375rem;
             height: 1.875rem;
-            margin: 0 5px;
+            margin: 0;
             & + button {
-                margin-left: 0px;
-                margin-right: 0px;
-            }
-            width: auto;
+                margin-left: -1px;
+            }  
+        }
+
+        button:hover {
+            z-index: 1;
         }
     }
 
