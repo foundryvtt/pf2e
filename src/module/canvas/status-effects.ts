@@ -7,7 +7,6 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { EncounterPF2e } from "@module/encounter/index.ts";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
-import Translations from "static/lang/en.json";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -40,7 +39,7 @@ export class StatusEffects {
     }
 
     static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
-        return Translations.PF2E.condition;
+        return EN_JSON.PF2E.condition;
     }
 
     /**
