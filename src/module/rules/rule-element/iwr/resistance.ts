@@ -1,29 +1,17 @@
-import { ResistanceData } from "@actor/data/iwr.ts";
+import { Resistance } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import { ResolvableValueField } from "../data.ts";
-import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
     static override defineSchema(): ResistanceRuleSchema {
-        const { fields } = foundry.data;
-
-        const exceptionsOrDoubleVs = (): ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>> =>
-            new fields.ArrayField(
-                new fields.StringField({
-                    required: true,
-                    blank: false,
-                    choices: this.dictionary,
-                    initial: undefined,
-                })
-            );
-
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
-            exceptions: exceptionsOrDoubleVs(),
-            doubleVs: exceptionsOrDoubleVs(),
+            exceptions: this.createExceptionsField(this.dictionary),
+            doubleVs: this.createExceptionsField(this.dictionary),
         };
     }
 
@@ -31,11 +19,11 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
         return CONFIG.PF2E.resistanceTypes;
     }
 
-    get property(): ResistanceData[] {
+    get property(): Resistance[] {
         return this.actor.system.attributes.resistances;
     }
 
-    getIWR(value: number): ResistanceData[] {
+    getIWR(value: number): Resistance[] {
         if (value <= 0) return [];
 
         const resistances = this.property;
@@ -53,10 +41,12 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
         }
 
         return this.type.map(
-            (t): ResistanceData =>
-                new ResistanceData({
+            (t): Resistance =>
+                new Resistance({
                     type: t,
                     value,
+                    customLabel: t === "custom" ? this.label : null,
+                    definition: this.definition,
                     exceptions: this.exceptions,
                     doubleVs: this.doubleVs,
                     source: this.label,
@@ -68,16 +58,15 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 interface ResistanceRuleElement
     extends IWRRuleElement<ResistanceRuleSchema>,
         ModelPropsFromSchema<ResistanceRuleSchema> {
-    // Just a string at compile time, but ensured by parent class at runtime
     type: ResistanceType[];
     // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
-    exceptions: ResistanceType[];
+    exceptions: IWRException<ResistanceType>[];
 }
 
 type ResistanceRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     value: ResolvableValueField<true, false, false>;
-    exceptions: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
-    doubleVs: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
+    exceptions: StrictArrayField<IWRExceptionField<ResistanceType>>;
+    doubleVs: StrictArrayField<IWRExceptionField<ResistanceType>>;
 };
 
 export { ResistanceRuleElement };

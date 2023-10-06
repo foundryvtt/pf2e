@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 
@@ -190,7 +190,7 @@ interface IWREditorConstructorOptions extends Partial<DocumentSheetOptions> {
 interface IWREditorData<TActor extends ActorPF2e> extends DocumentSheetData<TActor> {
     header: string;
     category: ListCategory;
-    list: ImmunityData[] | WeaknessData[] | ResistanceData[];
+    list: Immunity[] | Weakness[] | Resistance[];
     sourceData: IWRSource<ImmunityType | WeaknessType | ResistanceType>[];
     types: Record<string, string>;
 }
