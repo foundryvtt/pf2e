@@ -1286,8 +1286,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weaponPotency) {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
-            if (!weapon.isMagical && !ABP.isEnabled) {
-                weapon.system.traits.value.push("magical", "evocation");
+            if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
+                weapon.system.traits.value.push("magical");
             }
         }
 
