@@ -14,7 +14,7 @@
                 </div>
             </header>
 
-            <div class="details-container-flex-row spell-components">
+            <div class="form-fields spell-components">
                 <label>
                     <input type="checkbox" name="{{base}}.components.command" {{checked action.components.command}} data-dtype="Boolean"/>
                     <span>{{localize "PF2E.Item.Activation.CommandSheetLabel"}}</span>
@@ -33,8 +33,8 @@
                 </label>
             </div>
 
-            <div class="details-container-flex-row">
-                <div class="details-container-flex-row activation-time">
+            <div class="form-fields">
+                <div class="form-fields activation-time">
                     <select name="{{base}}.actionCost.type" data-dtype="String">
                         {{#select action.actionCost.type}}
                             {{#each @root.actionTypes as |name type|}}
@@ -54,7 +54,7 @@
                 </div>
 
                 {{#if action.frequency}}
-                    <div class="details-container-flex-row frequency">
+                    <div class="form-fields frequency">
                         <input type="number" name="{{base}}.frequency.max" value="{{action.frequency.max}}" data-dtype="Number"/>
                         <span>{{localize "PF2E.Frequency.per"}}</span>
                         <select name="{{base}}.frequency.per" data-dtype="String">
