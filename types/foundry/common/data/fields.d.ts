@@ -442,7 +442,7 @@ interface StringFieldOptions<
 
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
-        TSourceProp extends string,
+        TSourceProp extends string = string,
         TModelProp = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = false,
