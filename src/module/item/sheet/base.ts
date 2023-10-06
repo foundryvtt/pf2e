@@ -130,6 +130,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             item,
             isPhysical: false,
             data: item.system,
+            fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
             options: this.options,
@@ -644,6 +645,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
     user: { isGM: boolean };
