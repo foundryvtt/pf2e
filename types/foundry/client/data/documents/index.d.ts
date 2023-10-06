@@ -23,6 +23,7 @@ import "./playlist.d.ts";
 import "./playlist-sound.d.ts";
 import "./roll-table.d.ts";
 import "./scene.d.ts";
+import "./setting.d.ts";
 import "./table-result.d.ts";
 import "./tile-document.d.ts";
 import "./token-document.d.ts";
