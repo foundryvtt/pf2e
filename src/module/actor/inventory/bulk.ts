@@ -16,14 +16,28 @@ export class InventoryBulk {
         this.actor = actor;
     }
 
+    get #actorStrength(): number {
+        return this.actor.isOfType("character", "npc") ? this.actor.abilities.str.mod : Infinity;
+    }
+
     get encumberedAfter(): number {
-        const strengthModifier = this.actor.isOfType("character", "npc") ? this.actor.abilities.str.mod : Infinity;
-        return Math.floor(strengthModifier + 5 + this.encumberedAfterAddend);
+        return Math.floor(this.#actorStrength + 5 + this.encumberedAfterAddend);
+    }
+
+    get encumberedAfterBreakdown(): string {
+        const addend = this.encumberedAfterAddend;
+        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        return `5 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
     }
 
     get max(): number {
-        const strengthModifier = this.actor.isOfType("character", "npc") ? this.actor.abilities.str.mod : Infinity;
-        return Math.floor(strengthModifier + 10 + this.maxAddend);
+        return Math.floor(this.#actorStrength + 10 + this.maxAddend);
+    }
+
+    get maxBreakdown(): string {
+        const addend = this.maxAddend;
+        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        return `10 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
     }
 
     get value(): Bulk {
