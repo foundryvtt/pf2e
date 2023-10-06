@@ -316,7 +316,7 @@ function createProficiencyModifier({
 }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant");
 
     const baseBonuses: [number, number, number, number, number] = pwolVariant
         ? [

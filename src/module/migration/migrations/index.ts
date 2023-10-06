@@ -271,3 +271,4 @@ export { Migration870MartialToProficiencies } from "./870-martial-to-proficienci
 export { Migration871MigrateRollActionMacroParams } from "./871-migrate-rollactionmacro-params.ts";
 export { Migration872MoveSchemaProperty } from "./872-move-schema-property.ts";
 export { Migration873RemoveBonusBulkLimit } from "./873-remove-bonus-bulk-limit.ts";
+export { Migration874MoveStaminaStuff } from "./874-move-stamina-stuff.ts";

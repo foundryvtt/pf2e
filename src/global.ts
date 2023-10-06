@@ -198,8 +198,8 @@ declare global {
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
-        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
-        get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
+        get(module: "pf2e", setting: "proficiencyVariant"): boolean;
+        get(module: "pf2e", setting: "staminaVariant"): boolean;
 
         get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
         get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;

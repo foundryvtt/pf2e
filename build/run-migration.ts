@@ -10,10 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
-import { Migration852AbilityScoresToModifiers } from "@module/migration/migrations/852-ability-scores-to-modifiers.ts";
-import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
-import { Migration854BracketedAbilityScoresToModifiers } from "@module/migration/migrations/854-bracketed-ability-scores-to-modifiers.ts";
 import { Migration855ApexEquipmentSystemData } from "@module/migration/migrations/855-apex-equipment-system-data.ts";
 import { Migration856NoSystemDotCustom } from "@module/migration/migrations/856-no-system-dot-custom.ts";
 import { Migration857WeaponSpecializationRE } from "@module/migration/migrations/857-weapon-spec-re.ts";
@@ -29,6 +25,7 @@ import { Migration868StrikeRERange } from "@module/migration/migrations/868-stri
 import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
 import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
 import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
+import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-move-stamina-stuff.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -39,10 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration851JustInnovationId(),
-    new Migration852AbilityScoresToModifiers(),
-    new Migration853RemasterLanguages(),
-    new Migration854BracketedAbilityScoresToModifiers(),
     new Migration855ApexEquipmentSystemData(),
     new Migration856NoSystemDotCustom(),
     new Migration857WeaponSpecializationRE(),
@@ -58,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration869RefreshMightyBulwark(),
     new Migration870MartialToProficiencies(),
     new Migration873RemoveBonusBulkLimit(),
+    new Migration874MoveStaminaStuff(),
 ];
 
 global.deepClone = <T>(original: T): T => {

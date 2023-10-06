@@ -104,14 +104,9 @@ interface DCOptions {
     rarity?: Rarity;
 }
 
-/**
- * Normal Level Based DCs
- * @param level
- * @param proficiencyWithoutLevel
- */
+/** Level-based DCs */
 function calculateDC(level: number, { proficiencyWithoutLevel, rarity = "common" }: DCOptions = {}): number {
-    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-    proficiencyWithoutLevel ??= pwlSetting === "ProficiencyWithoutLevel";
+    proficiencyWithoutLevel ??= game.settings.get("pf2e", "proficiencyVariant");
 
     // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
     // stored as a string, which we can't catch at compile time

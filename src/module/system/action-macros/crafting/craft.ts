@@ -29,7 +29,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
     const quantity = options.quantity ?? 1;
 
     // figure out DC from item
-    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
     const dc: CheckDC = options.difficultyClass ?? {
         value: calculateDC(item.level, { proficiencyWithoutLevel }),
         visible: true,

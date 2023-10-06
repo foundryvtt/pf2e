@@ -1,5 +1,5 @@
-import { CharacterAttributes, CharacterResources } from "@actor/character/data.ts";
 import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
 import { ItemPF2e } from "@item";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -39,7 +39,10 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
     const messages: PreCreate<ChatMessageSourcePF2e>[] = [];
 
     for (const actor of characters) {
-        const actorUpdates: ActorUpdates = { attributes: {}, resources: {} };
+        const actorUpdates: ActorUpdates = {
+            attributes: { hp: { value: actor._source.system.attributes.hp.value } },
+            resources: {},
+        };
         const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e<ActorPF2e>>[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
@@ -128,17 +131,15 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         }
 
         // Stamina points
-        const staminaEnabled = !!game.settings.get("pf2e", "staminaVariant");
-        const stamina = attributes.sp;
-        const resolve = attributes.resolve;
-
-        if (staminaEnabled) {
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            const stamina = attributes.hp.sp ?? { value: 0, max: 0 };
+            const resolve = resources.resolve ?? { value: 0, max: 0 };
             if (stamina.value < stamina.max) {
-                actorUpdates.attributes.sp = { value: stamina.max };
+                actorUpdates.attributes.hp = { value: stamina.max };
                 statements.push(localize("Message.StaminaPoints"));
             }
             if (resolve.value < resolve.max) {
-                actorUpdates.attributes.resolve = { value: resolve.max };
+                actorUpdates.resources.resolve = { value: resolve.max };
                 statements.push(localize("Message.Resolve"));
             }
         }
@@ -215,6 +216,6 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 }
 
 interface ActorUpdates {
-    attributes: DeepPartial<CharacterAttributes>;
-    resources: DeepPartial<CharacterResources>;
+    attributes: DeepPartial<CharacterAttributesSource> & { hp: { value: number } };
+    resources: DeepPartial<CharacterResourcesSource>;
 }
