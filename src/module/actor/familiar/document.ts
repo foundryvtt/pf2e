@@ -6,8 +6,9 @@ import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemType } from "@item/data/index.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
@@ -43,6 +44,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
     get masterAbilityModifier(): number {
         return this.masterAttributeModifier;
+    }
+
+    override get combatant(): CombatantPF2e<EncounterPF2e> | null {
+        return this.master?.combatant ?? null;
     }
 
     /** Re-render the sheet if data preparation is called from the familiar's master */
