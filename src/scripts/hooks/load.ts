@@ -18,12 +18,16 @@ import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
+import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
     listen(): void {
+        // Assign database backend to handle migrations
+        CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
+
         // Assign document classes
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;

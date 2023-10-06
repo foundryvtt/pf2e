@@ -26,7 +26,7 @@ import { createDamageFormula } from "./damage/formula.ts";
 import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { CreateDamageFormulaParams, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
+import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -745,7 +745,7 @@ async function augmentInlineDamageRoll(
             });
         })();
 
-        const damage: CreateDamageFormulaParams = {
+        const formulaData: DamageFormulaData = {
             base,
             modifiers,
             dice,
@@ -772,12 +772,12 @@ async function augmentInlineDamageRoll(
         };
 
         if (BUILD_MODE === "development" && !args.skipDialog) {
-            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
 
         applyDamageDiceOverrides(base, dice);
-        const { formula, breakdown } = createDamageFormula(damage);
+        const { formula, breakdown } = createDamageFormula(formulaData);
 
         const roll = new DamageRoll(formula);
         const template: SimpleDamageTemplate = {
@@ -785,7 +785,6 @@ async function augmentInlineDamageRoll(
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
             traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
-            notes: [],
             materials: [],
         };
 

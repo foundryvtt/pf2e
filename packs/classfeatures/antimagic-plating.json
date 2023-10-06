@@ -1,0 +1,48 @@
+{
+    "_id": "ySkTxnoNuDluk6Cb",
+    "img": "icons/magic/light/beam-impact-deflect-teal.webp",
+    "name": "Antimagic Plating",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether you used some clever adaptation of the magic-negating skymetal known as noqual or created magical protections of your own design, you've strengthened your armor against magic. While wearing the armor, you gain a +1 circumstance bonus to all saving throws against spells and to AC against spells. Against spells that target the armor directly (like heat metal), you instead gain a +4 circumstance bonus to all saving throws and to AC.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "item:type:spell"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

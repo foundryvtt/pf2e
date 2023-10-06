@@ -34,7 +34,7 @@ export async function createActionMacro(actionIndex: number, slot: number): Prom
     const action = actor?.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`;
-    const command = `game.pf2e.rollActionMacro("${action.item.id}", ${actionIndex}, "${action.slug}")`;
+    const command = `game.pf2e.rollActionMacro({ itemId: "${action.item.id}", slug: "${action.slug}" })`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
@@ -50,25 +50,19 @@ export async function createActionMacro(actionIndex: number, slot: number): Prom
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(
-    itemId: string,
-    _actionIndex: number,
-    actionSlug: string
-): Promise<ChatMessagePF2e | undefined> {
+export async function rollActionMacro({ itemId, slug }: RollActionMacroParams): Promise<ChatMessagePF2e | undefined> {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     if (!actor?.isOfType("character", "npc")) {
         ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
-        return undefined;
+        return;
     }
 
     const strikes: StrikeData[] = actor.system.actions;
-    const strike =
-        strikes.find((s) => s.item.id === itemId && s.slug === actionSlug) ??
-        strikes.find((s) => s.slug === actionSlug);
+    const strike = strikes.find((s) => s.item.id === itemId && s.slug === slug) ?? strikes.find((s) => s.slug === slug);
     if (!strike) {
         ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
-        return undefined;
+        return;
     }
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
@@ -172,4 +166,9 @@ if (item?.type === "condition") {
             { renderSheet: false }
         ));
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
+}
+
+interface RollActionMacroParams {
+    itemId?: string;
+    slug?: string;
 }

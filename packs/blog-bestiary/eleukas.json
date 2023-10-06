@@ -136,7 +136,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>Visperath deals an additional 1 acid damage on strikes, and @Damage[1d4[persistent,acid]] damage on a critical hit.</p>"
+                    "value": "<p>Visperath deals an additional 1 acid damage, and an additional 1d4 persistent acid damage on a critical hit.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -193,6 +193,15 @@
                         "key": "FlatModifier",
                         "selector": "{item|_id}-damage",
                         "value": 1
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
                     }
                 ],
                 "size": "med",
@@ -495,9 +504,19 @@
                     }
                 },
                 "description": {
-                    "value": "<p>+1 battle axe that deals an additional 1 acid damage, and an additional @Damage[1d4[persistent,acid]] damage on a critical hit</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

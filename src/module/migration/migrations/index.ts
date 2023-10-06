@@ -268,3 +268,6 @@ export { Migration867DamageRollDomainFix } from "./867-damage-roll-domain-fix.ts
 export { Migration868StrikeRERange } from "./868-strike-re-range.ts";
 export { Migration869RefreshMightyBulwark } from "./869-refresh-mighty-bulwark.ts";
 export { Migration870MartialToProficiencies } from "./870-martial-to-proficiencies.ts";
+export { Migration871MigrateRollActionMacroParams } from "./871-migrate-rollactionmacro-params.ts";
+export { Migration872MoveSchemaProperty } from "./872-move-schema-property.ts";
+export { Migration873RemoveBonusBulkLimit } from "./873-remove-bonus-bulk-limit.ts";

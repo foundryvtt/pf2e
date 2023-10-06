@@ -11,16 +11,8 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
  * @category RuleElement
  */
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
-    declare toggleable: boolean | "totm";
-
     constructor(source: RollOptionSource, options: RuleElementOptions) {
-        const sourceValue = source.value;
-
-        // This rule element behaves much like an override AE-like, so set its default priority to 50
-        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, options);
-
-        this.toggleable ??= false;
-        this.value = typeof sourceValue === "string" ? sourceValue : !!(source.value ?? !this.toggleable);
+        super(source, options);
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
@@ -41,9 +33,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     static override defineSchema(): RollOptionSchema {
         const { fields } = foundry.data;
 
-        return {
-            ...super.defineSchema(),
+        // This rule element behaves much like an override AE-like, so set its default priority to 50
+        const baseSchema = super.defineSchema();
+        baseSchema.priority.initial = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES.override;
 
+        return {
+            ...baseSchema,
             domain: new fields.StringField({
                 required: true,
                 nullable: false,
@@ -84,7 +79,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             ),
             value: new ResolvableValueField({
                 required: false,
-                initial: undefined,
+                initial: (d) => !d.toggleable,
                 validate: (v) => ["boolean", "string"].includes(typeof v),
                 validationError: "must be a boolean, string, or otherwise omitted",
             }),
@@ -96,7 +91,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         choices: ["totm"],
                         initial: undefined,
                     }),
-                    new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+                    new StrictBooleanField({ required: false, nullable: false, initial: false }),
                 ],
                 { required: false, nullable: false, initial: undefined }
             ),
@@ -372,9 +367,9 @@ type RollOptionSchema = RuleElementSchema & {
      * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
      * `true` unless also `togglable`, in which case to `false`.
      */
-    value: ResolvableValueField<false, false, false>;
+    value: ResolvableValueField<false, false, true>;
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
-    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, false>;
+    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
     /** If toggleable, the location to be found in an interface */
     placement: StringField<string, string, false, false, false>;
     /** An optional predicate to determine whether the toggle is interactable by the user */

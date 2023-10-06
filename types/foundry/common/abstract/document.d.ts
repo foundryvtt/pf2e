@@ -16,6 +16,19 @@ export default abstract class Document<
     readonly _source: object;
     protected _configure(): void;
     get invalid(): boolean;
+    static validateJoint(data: SourceFromSchema<DataSchema>): void;
+    /**
+     * Create a new instance of this DataModel from a source record.
+     * The source is presumed to be trustworthy and is not strictly validated.
+     * @param source    Initial document data which comes from a trusted source.
+     * @param [context] Model construction context
+     * @param [context.strict=false]   Models created from trusted source data are validated non-strictly
+     */
+    static fromSource<T extends Document>(
+        this: AbstractConstructorOf<T>,
+        source: Record<string, unknown>,
+        context?: DataModelConstructionOptions<null>
+    ): T;
 
     /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
     readonly parent: TParent;

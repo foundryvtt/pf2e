@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration850FlatFootedToOffGuard } from "@module/migration/migrations/850-flat-footed-to-off-guard.ts";
 import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
 import { Migration852AbilityScoresToModifiers } from "@module/migration/migrations/852-ability-scores-to-modifiers.ts";
 import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
@@ -29,6 +28,7 @@ import { Migration867DamageRollDomainFix } from "@module/migration/migrations/86
 import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
 import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
 import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
+import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -39,7 +39,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration850FlatFootedToOffGuard(),
     new Migration851JustInnovationId(),
     new Migration852AbilityScoresToModifiers(),
     new Migration853RemasterLanguages(),
@@ -58,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration868StrikeRERange(),
     new Migration869RefreshMightyBulwark(),
     new Migration870MartialToProficiencies(),
+    new Migration873RemoveBonusBulkLimit(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -209,7 +209,7 @@ async function migrate() {
                     }
 
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (updatedActor.system as { schema?: unknown }).schema;
+                    delete (updatedActor.system as { _migrations?: unknown })._migrations;
                     pruneFlags(source);
                     pruneFlags(updatedActor);
                     for (const item of source.items) {
@@ -217,7 +217,7 @@ async function migrate() {
                     }
 
                     for (const updatedItem of updatedActor.items) {
-                        delete (updatedItem.system as { schema?: unknown }).schema;
+                        delete (updatedItem.system as { _migrations?: unknown })._migrations;
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
                             delete (updatedItem.system as { spell?: unknown }).spell;
                         }
@@ -229,7 +229,7 @@ async function migrate() {
                     source.system.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (source.system as { slug?: unknown }).slug;
-                    delete (updatedItem.system as { schema?: unknown }).schema;
+                    delete (updatedItem.system as { _migrations?: unknown })._migrations;
                     delete (updatedItem.system as { slug?: unknown }).slug;
                     if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
                         delete (updatedItem.system as { spell?: unknown }).spell;

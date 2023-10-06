@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { DocumentSchemaRecord } from "@module/data.ts";
+import { MigrationRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
@@ -13,7 +13,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.87;
+    static LATEST_SCHEMA_VERSION = 0.873;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -88,11 +88,11 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
-            currentActor.system.schema ??= { version: null, lastMigration: null };
-            this.#updateSchemaRecord(currentActor.system.schema, latestMigration);
+            currentActor.system._migration ??= { version: null, previous: null };
+            this.#updateMigrationRecord(currentActor.system._migration, latestMigration);
             for (const itemSource of currentActor.items) {
-                itemSource.system.schema ??= { version: null, lastMigration: null };
-                this.#updateSchemaRecord(itemSource.system.schema, latestMigration);
+                itemSource.system._migration ??= { version: null, previous: null };
+                this.#updateMigrationRecord(itemSource.system._migration, latestMigration);
             }
         }
 
@@ -117,7 +117,7 @@ export class MigrationRunnerBase {
             }
         }
 
-        if (migrations.length > 0) this.#updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
+        if (migrations.length > 0) this.#updateMigrationRecord(current.system._migration, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -201,17 +201,15 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    #updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+    #updateMigrationRecord(migrations: MigrationRecord, latestMigration: MigrationBase): void {
         if (!("game" in globalThis && latestMigration)) return;
 
-        const fromVersion = typeof schema.version === "number" ? schema.version : null;
-        schema.version = latestMigration.version;
-        schema.lastMigration = {
-            version: {
-                schema: fromVersion,
-                foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.version : undefined,
-            },
+        const fromVersion = typeof migrations.version === "number" ? migrations.version : null;
+        migrations.version = latestMigration.version;
+        migrations.previous = {
+            schema: fromVersion,
+            foundry: game.version,
+            system: game.system.version,
         };
     }
 }

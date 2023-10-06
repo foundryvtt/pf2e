@@ -131,7 +131,7 @@ declare global {
     }
 
     /** A simple interface for World settings storage which imitates the API provided by localStorage */
-    class WorldSettingsStorage extends Map<string, unknown> {
+    class WorldSettingsStorage extends Collection<Setting> {
         constructor(settings: object);
 
         getItem(key: string): string | null;

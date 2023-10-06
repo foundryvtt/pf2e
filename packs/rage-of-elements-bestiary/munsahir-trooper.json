@@ -655,7 +655,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The munsahir gatecrasher's Strikes deal an extra @Damage[1d6[fire]] damage (included above). When the gatecrasher successfully performs a @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove] action, they also deal @Damage[1d6[fire]] damage to their target.</p>"
+                    "value": "<p>The munsahir gatecrasher's Strikes deal an extra 1d6 fire damage (included above). When the gatecrasher successfully performs a @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove] action, they also deal @Damage[1d6[fire]] damage to their target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -671,20 +671,21 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "success",
-                            "criticalSuccess"
+                            "criticalSuccess",
+                            "success"
                         ],
                         "predicate": [
                             {
                                 "or": [
-                                    "action:shove",
-                                    "action:grapple"
+                                    "action:grapple",
+                                    "action:shove"
                                 ]
                             }
                         ],
                         "selector": "athletics",
                         "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

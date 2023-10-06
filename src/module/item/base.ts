@@ -51,7 +51,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.system.schema?.version) || null;
+        return Number(this.system._migration?.version ?? this.system.schema?.version) || null;
     }
 
     get description(): string {
@@ -451,7 +451,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
                 // The item has no migratable data: set schema version and skip
-                source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
             }
             const item = new CONFIG.Item.documentClass(source);

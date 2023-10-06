@@ -14,14 +14,7 @@ import {
 } from "@util";
 import { createDamageFormula } from "./formula.ts";
 import { DamageRoll } from "./roll.ts";
-import {
-    BaseDamageData,
-    DamageCategoryUnique,
-    DamageDieSize,
-    CreateDamageFormulaParams,
-    DamageRollContext,
-    DamageType,
-} from "./types.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
 import * as R from "remeda";
 
@@ -30,15 +23,11 @@ import * as R from "remeda";
  * @category Other
  */
 class DamageModifierDialog extends Application {
-    base: BaseDamageData[];
-    /** The modifiers which are being edited. */
-    modifiers: ModifierPF2e[];
-    /** The damage dice that are being edited. */
-    dice: DamageDicePF2e[];
+    formulaData: DamageFormulaData;
+    context: DamageRollContext;
+
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
-    /** Relevant context for this roll, like roll options. */
-    context: Partial<DamageRollContext>;
     /** Is this critical damage? */
     isCritical: boolean;
     /** A Promise resolve method */
@@ -46,15 +35,18 @@ class DamageModifierDialog extends Application {
     /** Was the roll button pressed? */
     isRolled = false;
 
+    /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
+    #originallyEnabled: Set<ModifierPF2e>;
+
     constructor(params: DamageDialogParams) {
         super();
 
-        this.base = params.damage.base ?? [];
-        this.modifiers = params.damage.modifiers ?? [];
-        this.dice = params.damage.dice ?? [];
-        this.baseDamageType = params.damage.base.at(0)?.damageType ?? "untyped";
-        this.context = params.context ?? {};
+        this.formulaData = params.formulaData;
+        this.context = params.context;
+        this.baseDamageType = params.formulaData.base.at(0)?.damageType ?? "untyped";
         this.isCritical = this.context.outcome === "criticalSuccess";
+
+        this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -116,31 +108,22 @@ class DamageModifierDialog extends Application {
     }
 
     override async getData(): Promise<DamageDialogData> {
-        const showModifier = (m: ModifierPF2e): boolean => {
-            if (!this.isCritical && m.critical) {
-                return false;
-            }
-            if (!m.enabled && m.hideIfDisabled) {
-                return false;
-            }
-            return true;
-        };
-        const modifiers: ModifierData[] = this.modifiers.map((m) => ({
+        const modifiers: ModifierData[] = this.formulaData.modifiers.map((m) => ({
             label: m.label,
             category: m.category,
             type: m.type,
             modifier: m.modifier,
-            hideIfDisabled: m.hideIfDisabled,
+            hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
             damageType: m.damageType,
             typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
             enabled: m.enabled,
             ignored: m.ignored,
             critical: m.critical,
-            show: showModifier(m),
+            show: this.isCritical || !m.critical,
             icon: this.#getModifierIcon(m),
         }));
 
-        const dice: DialogDiceData[] = this.dice.map((d) => ({
+        const dice: DialogDiceData[] = this.formulaData.dice.map((d) => ({
             label: d.label,
             category: d.category,
             damageType: d.damageType,
@@ -161,17 +144,24 @@ class DamageModifierDialog extends Application {
         const hasVisibleModifiers = modifiers.filter((m) => m.show).length > 0;
         const hasVisibleDice = dice.filter((d) => d.show).length > 0;
 
-        const result = createDamageFormula({
-            base: this.base,
-            modifiers: this.modifiers,
-            dice: this.dice,
+        // Render base formula
+        const baseResult = createDamageFormula({
+            base: this.formulaData.base,
+            modifiers: [],
+            dice: [],
             ignoredResistances: [],
         });
+        const baseRoll = new DamageRoll(baseResult.formula);
+        const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");
+
+        // Render final formula
+        const result = createDamageFormula(this.formulaData);
         const roll = new DamageRoll(result.formula);
         const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
 
         return {
             appId: this.id,
+            baseFormula: baseFormulaTemplate,
             modifiers,
             dice,
             isCritical: this.isCritical,
@@ -196,14 +186,15 @@ class DamageModifierDialog extends Application {
 
         for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".modifier-container input[type=checkbox]")) {
             checkbox.addEventListener("click", () => {
+                const { dice, modifiers } = this.formulaData;
                 const modIndex = Number(checkbox.dataset.modifierIndex);
                 const dieIndex = Number(checkbox.dataset.diceIndex);
                 if (!Number.isNaN(modIndex)) {
-                    this.modifiers[modIndex].ignored = !checkbox.checked;
-                    applyStackingRules(this.modifiers);
+                    modifiers[modIndex].ignored = !checkbox.checked;
+                    this.#applyStackingRules();
                 } else if (!Number.isNaN(dieIndex)) {
-                    this.dice[dieIndex].ignored = !checkbox.checked;
-                    this.dice[dieIndex].enabled = checkbox.checked;
+                    dice[dieIndex].ignored = !checkbox.checked;
+                    dice[dieIndex].enabled = checkbox.checked;
                 }
                 this.render();
             });
@@ -230,7 +221,7 @@ class DamageModifierDialog extends Application {
             const type = String(parent.querySelector<HTMLSelectElement>(".add-modifier-type")?.value);
             const damageType = (parent.querySelector<HTMLSelectElement>(".add-modifier-damage-type")?.value ??
                 null) as DamageType;
-            const category = (parent.querySelector<HTMLSelectElement>(".add-modifier-category")?.value ??
+            const category = (parent.querySelector<HTMLSelectElement>(".add-modifier-category")?.value ||
                 null) as DamageCategoryUnique;
 
             const errors: string[] = [];
@@ -244,23 +235,23 @@ class DamageModifierDialog extends Application {
                 throw ErrorPF2e("Unexpected invalid modifier type");
             }
 
-            const name =
+            const label =
                 String(parent.querySelector<HTMLInputElement>(".add-modifier-name")?.value).trim() ||
                 game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
 
             if (errors.length > 0) {
                 ui.notifications.error(errors.join(" "));
             } else {
-                this.modifiers.push(
+                this.formulaData.modifiers.push(
                     new ModifierPF2e({
-                        label: name,
+                        label,
                         modifier: value,
                         type,
                         damageType,
                         damageCategory: category,
                     })
                 );
-                applyStackingRules(this.modifiers);
+                this.#applyStackingRules();
                 this.render();
             }
         });
@@ -287,7 +278,7 @@ class DamageModifierDialog extends Application {
             const faceLabel = game.i18n.localize(`PF2E.DamageDie${faces.toUpperCase()}`);
             const label = game.i18n.format("PF2E.Damage.Dialog.Bonus", { dice: `+${count}${faceLabel}` });
             const slug = sluggify(`${label}-${type}`);
-            this.dice.push(
+            this.formulaData.dice.push(
                 new DamageDicePF2e({
                     label,
                     category,
@@ -334,6 +325,12 @@ class DamageModifierDialog extends Application {
         }
     }
 
+    /** Apply stacking rules to the current set of modifiers, splitting by persistent/not-persistent */
+    #applyStackingRules() {
+        applyStackingRules(this.formulaData.modifiers.filter((m) => m.category !== "persistent"));
+        applyStackingRules(this.formulaData.modifiers.filter((m) => m.category === "persistent"));
+    }
+
     /** Show the damage roll dialog and wait for it to close */
     async resolve(): Promise<boolean> {
         this.render(true);
@@ -368,8 +365,8 @@ class DamageModifierDialog extends Application {
 }
 
 interface DamageDialogParams {
-    damage: CreateDamageFormulaParams;
-    context: Partial<DamageRollContext>;
+    formulaData: DamageFormulaData;
+    context: DamageRollContext;
 }
 
 interface BaseData {
@@ -396,6 +393,7 @@ interface ModifierData extends BaseData {
 
 interface DamageDialogData {
     appId: string;
+    baseFormula: string;
     modifiers: ModifierData[];
     dice: DialogDiceData[];
     isCritical: boolean;

@@ -111,7 +111,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const template: AfflictionDamageTemplate = {
                 name: `${this.name} - ${stageLabel}`,
                 damage: { roll, breakdown },
-                notes: [],
                 materials: [],
                 traits: this.system.traits.value,
                 modifiers: [],

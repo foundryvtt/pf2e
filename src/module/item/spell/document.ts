@@ -21,12 +21,7 @@ import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization, applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import {
-    BaseDamageData,
-    CreateDamageFormulaParams,
-    DamageRollContext,
-    SpellDamageTemplate,
-} from "@system/damage/types.ts";
+import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
@@ -345,7 +340,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damageDice.push(...extracted.dice);
         }
 
-        const damage: CreateDamageFormulaParams = {
+        const formulaData: DamageFormulaData = {
             base,
             modifiers,
             dice: damageDice,
@@ -353,7 +348,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         };
 
         if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
-            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
 
@@ -361,13 +356,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // This is similar to weapon's finalizeDamage(), and both will need to be centralized
         applyDamageDiceOverrides(base, damageDice);
 
-        const { formula, breakdown } = createDamageFormula(damage);
+        const { formula, breakdown } = createDamageFormula(formulaData);
         const roll = new DamageRoll(formula);
 
         const template: SpellDamageTemplate = {
             name: this.name,
             damage: { roll, breakdown },
-            notes: [],
             materials: roll.materials,
             traits: this.castingTraits,
             modifiers,

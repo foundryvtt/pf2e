@@ -1,35 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
-import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { MockActor } from "tests/mocks/actor.ts";
+import { MockChatMessage } from "tests/mocks/chat-message.ts";
+import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
 import { MockItem } from "tests/mocks/item.ts";
+import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
 import { MockMacro } from "tests/mocks/macro.ts";
 import { MockRollTable } from "tests/mocks/roll-table.ts";
-import { MockUser } from "tests/mocks/user.ts";
 import { MockScene } from "tests/mocks/scene.ts";
-import { MockChatMessage } from "tests/mocks/chat-message.ts";
-import characterJSON from "../../packs/iconics/amiri-level-1.json";
-import armorJSON from "../../packs/equipment/scale-mail.json";
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { MockUser } from "tests/mocks/user.ts";
 import { FoundryUtils } from "tests/utils.ts";
-import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
-import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
+import armorJSON from "../../packs/equipment/scale-mail.json";
+import characterJSON from "../../packs/iconics/amiri-level-1.json";
+import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
-characterData.system.schema = { version: 0, lastMigration: null };
+characterData.system._migration = { version: 0, previous: null };
 for (const item of characterData.items) {
     item.effects = [];
-    item.system.schema = { version: 0, lastMigration: null };
+    item.system._migration = { version: 0, previous: null };
 }
 
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.effects = [];
-armorData.system.schema = { version: 0, lastMigration: null };
+armorData.system._migration = { version: 0, previous: null };
 
 describe("test migration runner", () => {
     populateFoundryUtilFunctions();

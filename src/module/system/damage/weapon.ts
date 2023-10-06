@@ -14,7 +14,7 @@ import { DamageModifierDialog } from "./dialog.ts";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
 import {
-    CreateDamageFormulaParams,
+    DamageFormulaData,
     DamageCategoryUnique,
     DamageDieSize,
     DamageRollContext,
@@ -28,7 +28,6 @@ class WeaponDamagePF2e {
     static async fromNPCAttack({
         attack,
         actor,
-        domains,
         actionTraits = [],
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
@@ -73,7 +72,6 @@ class WeaponDamagePF2e {
         return WeaponDamagePF2e.calculate({
             weapon: attack,
             actor,
-            domains,
             damageDice,
             modifiers,
             actionTraits,
@@ -85,7 +83,6 @@ class WeaponDamagePF2e {
         weapon,
         actor,
         damageDice = [],
-        domains,
         modifiers = [],
         actionTraits = [],
         weaponPotency = null,
@@ -93,6 +90,7 @@ class WeaponDamagePF2e {
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const { baseDamage } = weapon;
         const { options } = context;
+        const domains = context.domains ?? [];
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
@@ -393,13 +391,12 @@ class WeaponDamagePF2e {
             );
         }
 
-        // Roll notes
+        // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
-
-        const notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
+        context.notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.type)
@@ -440,7 +437,7 @@ class WeaponDamagePF2e {
         const testedModifiers = extracted.modifiers;
         damageDice.push(...extracted.dice);
 
-        const damage: CreateDamageFormulaParams = {
+        const formulaData: DamageFormulaData = {
             base: [base],
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
@@ -452,35 +449,33 @@ class WeaponDamagePF2e {
         };
 
         // If a weapon deals no base damage, remove all bonuses, penalties, and modifiers to it.
-        if (!(damage.base[0].diceNumber || damage.base[0].modifier)) {
-            damage.dice = damage.dice.filter((d) => ![null, "precision"].includes(d.category));
-            damage.modifiers = damage.modifiers.filter((m) => ![null, "precision"].includes(m.category));
+        if (!(formulaData.base[0].diceNumber || formulaData.base[0].modifier)) {
+            formulaData.dice = formulaData.dice.filter((d) => ![null, "precision"].includes(d.category));
+            formulaData.modifiers = formulaData.modifiers.filter((m) => ![null, "precision"].includes(m.category));
         }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
         if (BUILD_MODE === "development" && !context.skipDialog) {
-            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
 
         const computedFormulas = {
             criticalFailure: null,
-            failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
-            success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
-            criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+            failure: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.FAILURE),
+            success: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.SUCCESS),
+            criticalSuccess: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
         };
 
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
-            notes,
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
-            domains: domains,
             damage: {
-                ...damage,
+                ...formulaData,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
                 breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
             },
@@ -489,12 +484,12 @@ class WeaponDamagePF2e {
 
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
-        damage: CreateDamageFormulaParams,
+        damage: DamageFormulaData,
         degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
     ): AssembledFormula;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
-    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: DegreeOfSuccessIndex): AssembledFormula | null {
+    static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
+    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
         const base = damage.base.at(0);
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
@@ -578,7 +573,6 @@ interface ConvertedNPCDamage extends WeaponDamage {
 interface WeaponDamageCalculateParams {
     weapon: WeaponPF2e | MeleePF2e;
     actor: CharacterPF2e | NPCPF2e | HazardPF2e;
-    domains: string[];
     actionTraits: TraitViewData[];
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
@@ -589,7 +583,6 @@ interface WeaponDamageCalculateParams {
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e;
     actor: NPCPF2e | HazardPF2e;
-    domains: string[];
     actionTraits: TraitViewData[];
     context: DamageRollContext;
 }

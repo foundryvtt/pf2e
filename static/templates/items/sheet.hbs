@@ -78,7 +78,7 @@
     <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
-            <section class="sheet-sidebar">
+            <section class="sidebar">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
@@ -87,20 +87,18 @@
         <div class="sheet-body">
             <!-- Item Description -->
             <section class="tab description" data-tab="description">
-                <div class="descriptions">
-                    {{#if user.isGM}}
-                        <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
-                            {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
-                        </section>
-                    {{/if}}
-                    <section class="main editor-container">
-                        {{#if (not isVariant)}}
-                            {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
-                        {{else}}
-                            {{{enrichedContent.description}}}
-                        {{/if}}
+                {{#if user.isGM}}
+                    <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
+                        {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
                     </section>
-                </div>
+                {{/if}}
+                <section class="main editor-container">
+                    {{#if (not isVariant)}}
+                        {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
+                    {{else}}
+                        {{{enrichedContent.description}}}
+                    {{/if}}
+                </section>
             </section>
 
             <!-- Item Details -->

@@ -232,7 +232,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "fortitude-dc",
+                            "reflex-dc"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

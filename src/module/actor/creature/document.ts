@@ -33,7 +33,14 @@ import {
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureSensePF2e } from "./sense.ts";
-import { Alignment, AlignmentTrait, CreatureTrait, CreatureUpdateContext, GetReachParameters } from "./types.ts";
+import {
+    Alignment,
+    AlignmentTrait,
+    CreatureTrait,
+    CreatureType,
+    CreatureUpdateContext,
+    GetReachParameters,
+} from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
@@ -49,6 +56,11 @@ abstract class CreaturePF2e<
     declare saves: Record<SaveType, Statistic>;
 
     declare perception: Statistic;
+
+    /** Types of creatures (as provided by bestiaries 1-3) of which this creature is a member */
+    get creatureTypes(): CreatureType[] {
+        return this.system.traits.value.filter((t): t is CreatureType => t in CONFIG.PF2E.creatureTypes).sort();
+    }
 
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
@@ -372,10 +384,9 @@ abstract class CreaturePF2e<
 
     protected override prepareSynthetics(): void {
         super.prepareSynthetics();
-        const { customModifiers } = this.system;
 
         // Custom modifiers
-        for (const [selector, modifiers] of Object.entries(customModifiers)) {
+        for (const [selector, modifiers] of Object.entries(this.system.customModifiers)) {
             const syntheticModifiers = (this.synthetics.modifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
