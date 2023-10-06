@@ -665,9 +665,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.slug = sluggify(changed.system.slug) || null;
         }
 
-        // Sort traits
-        if (Array.isArray(changed.system?.traits?.value)) {
-            changed.system?.traits?.value.sort();
+        // Sort traits for easier visual scanning in breakpoints
+        if (changed.system?.traits) {
+            if (Array.isArray(changed.system.traits.value)) {
+                changed.system.traits.value.sort();
+            }
+
+            if (Array.isArray(changed.system.traits.otherTags)) {
+                changed.system.traits.otherTags = changed.system.traits.otherTags.map((t) => sluggify(t)).sort();
+            }
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
