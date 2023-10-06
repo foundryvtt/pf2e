@@ -1,7 +1,7 @@
 <ol class="form-list">
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.SaveLabel"}}</label>
-        <div class="details-container-flex-row">
+        <div class="form-fields">
             <input type="number" name="system.save.value" value="{{data.save.value}}">
             <select name="system.save.type">
                 {{#select data.save.type}}
@@ -33,7 +33,7 @@
 
             {{#each stage.damage as |damage id|}}
                 <div class="formula-section">
-                    <div class="details-container-flex-row">
+                    <div class="form-fields">
                         <input type="text" name="system.stages.{{stageId}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <select name="system.stages.{{stageId}}.damage.{{id}}.category">
                             {{#select damage.category}}

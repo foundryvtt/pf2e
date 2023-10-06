@@ -33,7 +33,7 @@
 
     <div class="form-group">
         <label class="short">{{localize "PF2E.SpellComponentsLabel"}}</label>
-        <div class="details-container-flex-row spell-components">
+        <div class="form-fields spell-components">
             <label>
                 <input type="checkbox" name="system.components.focus" {{checked data.components.focus}} />
                 <span>{{localize "PF2E.SpellComponentShortF"}}</span>
@@ -170,7 +170,7 @@
 
         {{#each data.damage.value as |damage id|}}
             <div class="formula-section">
-                <div class="details-container-flex-row">
+                <div class="form-fields">
                     <input type="text" name="system.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                     <label>
                         <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
