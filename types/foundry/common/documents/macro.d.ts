@@ -22,7 +22,7 @@ export default class BaseMacro extends Document<null> {
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: PreDocumentId<MacroSource>,
+        data: MacroSource,
         options: DocumentModificationContext<null>,
         user: BaseUser
     ): Promise<boolean | void>;

@@ -48,7 +48,7 @@ declare global {
         override prepareBaseData(): void;
 
         protected override _preCreate(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options: DocumentModificationContext<null>,
             user: User
         ): Promise<boolean | void>;

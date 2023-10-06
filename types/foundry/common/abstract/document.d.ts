@@ -629,7 +629,7 @@ declare global {
         ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 
-    type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: null };
+    type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: string | null };
 
     type DocumentUpdateData<T extends Document = Document> = Partial<T["_source"]> | Record<string, unknown>;
 
