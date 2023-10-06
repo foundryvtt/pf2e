@@ -100,7 +100,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // The Actor and its Items
-        const actorData = this.actor.toObject(false) as ActorPF2e;
+        const actorData = this.actor.toObject(false);
 
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;

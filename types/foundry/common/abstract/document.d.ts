@@ -643,15 +643,9 @@ declare global {
 
     type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 
-    type RawObject<T extends Document> = {
-        [P in keyof T["_source"]]: T[P] extends EmbeddedCollection<infer U>
-            ? RawObject<U>[]
-            : T[P] extends Document
-            ? RawObject<T[P]>
-            : T[P] extends Document[]
-            ? RawObject<T[P][number]>[]
-            : T[P];
-    };
+    type RawObject<TDocument extends Document> = TDocument extends { system: infer TSystem }
+        ? Omit<TDocument, "system"> & { system: TSystem }
+        : TDocument["_source"];
 
     interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
         save?: boolean;

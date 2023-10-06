@@ -99,7 +99,7 @@ interface NPCSpeedSheetData {
     adjustedLower: boolean;
 }
 
-type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
+type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<RawObject<TItem>, "traits"> & {
     glyph: string;
     imageUrl: string;
     traits: {
