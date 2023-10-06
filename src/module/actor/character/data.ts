@@ -111,9 +111,6 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
         }[];
     };
     initiative: CreatureInitiativeSource;
-
-    bonusLimitBulk: number;
-    bonusEncumbranceBulk: number;
     sp: {
         value: number;
         max: number;

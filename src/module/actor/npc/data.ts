@@ -181,10 +181,6 @@ interface NPCAttributes
     spellDC: { value: number } | null;
     /** And a fake class-or-spell DC to go along with it */
     classOrSpellDC: { value: number };
-
-    /** Rarely needed for an NPC but always available! */
-    bonusEncumbranceBulk: number;
-    bonusLimitBulk: number;
 }
 
 interface NPCDetails extends NPCDetailsSource, CreatureDetails {

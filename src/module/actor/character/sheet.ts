@@ -301,13 +301,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        // Show hints for some things being modified
-        const baseData = actor.toObject();
-        sheetData.adjustedBonusEncumbranceBulk =
-            actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
-        sheetData.adjustedBonusLimitBulk =
-            actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
-
         sheetData.tabVisibility = deepClone(actor.flags.pf2e.sheetTabs);
 
         // Enrich content
@@ -1526,8 +1519,6 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     heritage: HeritagePF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
-    adjustedBonusEncumbranceBulk: boolean;
-    adjustedBonusLimitBulk: boolean;
     attributeBoostsAllocated: boolean;
     biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
