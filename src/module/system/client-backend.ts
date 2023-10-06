@@ -15,13 +15,21 @@ class ClientDatabaseBackendPF2e extends ClientDatabaseBackend {
             return super._getDocuments(documentClass, context, user);
         }
 
-        // Dispatch the request
-        const request = { action: "get", type, ...R.pick(context, ["query", "options", "pack"]) };
-        const response = await SocketInterface.dispatch("modifyDocument", request);
+        const result = await (async () => {
+            // Run the documents through Babeles translation if the module is active
+            if ("babele" in game) {
+                const documents = (await super._getDocuments(documentClass, context, user)) as (ActorPF2e | ItemPF2e)[];
+                return documents.map((d) => d.toObject());
+            }
+            // Else dispatch the request
+            const request = { action: "get", type, ...R.pick(context, ["query", "options", "pack"]) };
+            const response = await SocketInterface.dispatch("modifyDocument", request);
+            return response.result;
+        })();
 
         // Create Document objects
         return Promise.all(
-            response.result.map(async (data) => {
+            result.map(async (data) => {
                 const document = documentClass.fromSource(data, { pack: context.pack }) as ActorPF2e | ItemPF2e;
                 const migrations = MigrationList.constructFromVersion(document.schemaVersion);
                 if (migrations.length > 0) {

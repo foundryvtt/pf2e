@@ -26,7 +26,7 @@ export default abstract class Document<
      */
     static fromSource<T extends Document>(
         this: AbstractConstructorOf<T>,
-        source: Record<string, unknown>,
+        source: Document["_source"] | Record<string, unknown>,
         context?: DataModelConstructionOptions<null>
     ): T;
 
