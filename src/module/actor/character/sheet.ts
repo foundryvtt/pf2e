@@ -1585,4 +1585,5 @@ interface ElementalBlastSheetConfig extends ElementalBlastConfig {
     };
 }
 
-export { CharacterSheetPF2e, type CharacterSheetTabVisibility };
+export { CharacterSheetPF2e };
+export type { CharacterSheetData, CharacterSheetTabVisibility };
