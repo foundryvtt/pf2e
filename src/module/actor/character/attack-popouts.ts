@@ -46,20 +46,20 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         super(object, options);
 
         if (!options.type) {
-            throw ErrorPF2e("AttackPopout is missing mandatory 'type' option!");
+            throw ErrorPF2e('AttackPopout is missing mandatory "type" option.');
         }
 
         if (options.type === "blast") {
             if (!options.elementTrait) {
-                throw ErrorPF2e("AttackPopout of type 'blast' is missing mandatory 'elementalTrait' option!");
+                throw ErrorPF2e('AttackPopout of type "blast" is missing mandatory "elementalTrait" option.');
             }
             this.#elementTrait = options.elementTrait;
         } else {
             if (!options.strikeSlug) {
-                throw ErrorPF2e("AttackPopout of type 'strike' is missing mandatory 'strikeSlug' option!");
+                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "strikeSlug" option.');
             }
             if (!options.strikeItemId) {
-                throw ErrorPF2e("AttackPopout of type 'strike' is missing mandatory 'strikeItemId' option!");
+                throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "strikeItemId" option.');
             }
             this.#strikeSlug = options.strikeSlug;
             this.#strikeItemId = options.strikeItemId;
