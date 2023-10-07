@@ -146,15 +146,19 @@
                     {{editor enrichedContent.publicNotes target="system.details.publicNotes" button=true editable=editable}}
                 </div>
             </div>
+
             {{!-- Private Notes --}}
-            <div class="notes-section private-notes section-container">
-                <div class="section-header">
-                    <h4>{{localize "PF2E.NPC.PrivateNotes"}}</h4>
+            {{#if user.isGM}}
+                <div class="notes-section private-notes section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.NPC.PrivateNotes"}}</h4>
+                    </div>
+                    <div class="notes-text">
+                        {{editor enrichedContent.privateNotes target="system.details.privateNotes" button=true editable=editable}}
+                    </div>
                 </div>
-                <div class="notes-text">
-                    {{editor enrichedContent.privateNotes target="system.details.privateNotes" button=true editable=editable}}
-                </div>
-            </div>
+            {{/if}}
+
             {{!-- Source --}}
             <div class="source section-container headerless">
                 <div class="section-body flexrow">

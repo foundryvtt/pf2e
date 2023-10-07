@@ -8,12 +8,10 @@
 /* ----------------------------------------- */
 /* Sheet Structure                           */
 /* ----------------------------------------- */
-.pf2e.actor {
-    .window-content {
-        padding: 5px;
-        font-size: var(--font-size-13);
-        overflow-y: hidden;
-    }
+.pf2e.actor form {
+    font-size: var(--font-size-13);
+    height: 100%;
+    padding: 0.25rem;
 
     .sheet-header {
         display: flex;
@@ -21,7 +19,7 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         flex: 0 0 100%;
-        height: 48px;
+        height: 3rem;
 
         > * {
             flex: 1;
@@ -33,7 +31,7 @@
 
             > input {
                 @include serif-condensed;
-                height: 40px;
+                height: 2.5rem;
                 width: 100%;
                 margin: 2px;
                 font-size: var(--font-size-36);
@@ -50,87 +48,76 @@
         flex-wrap: nowrap;
     }
 
-    form {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+    input {
+        &[type="text"],
+        &[type="number"] {
+            background: rgba(black, 0.025);
+            border: 1px solid transparent;
+            color: var(--color-text-dark-input);
+            height: calc(100% - 2px);
+            margin: 1px 0;
+            padding: 0;
+            width: calc(100% - 2px);
 
-        input {
-            &[type="text"],
-            &[type="number"] {
-                background: rgba(black, 0.025);
-                border: 1px solid transparent;
-                color: var(--color-text-dark-input);
-                height: calc(100% - 2px);
-                margin: 1px 0;
-                padding: 0;
-                width: calc(100% - 2px);
-
-                &:hover:not(:disabled),
-                &:focus {
-                    border: 1px solid black;
-                    box-shadow: 0 0 10px #00005a;
-                }
+            &:hover:not(:disabled),
+            &:focus {
+                border: 1px solid black;
+                box-shadow: 0 0 10px #00005a;
             }
         }
+    }
 
-        select {
-            font-size: var(--font-size-10);
-            height: var(--font-size-18);
-            background: rgba(255, 255, 255, 0.5);
-        }
+    select {
+        font-size: var(--font-size-10);
+        height: var(--font-size-18);
+        background: rgba(255, 255, 255, 0.5);
+    }
 
-        label {
-            display: block;
-        }
+    label {
+        display: block;
+    }
 
-        .mce-panel span {
-            display: inherit;
-        }
+    .mce-panel span {
+        display: inherit;
+    }
 
-        &.editable .rollable:hover {
-            color: #000;
-            text-shadow: 0 0 10px #00005a;
-            cursor: pointer;
-        }
+    &.editable .rollable:hover {
+        color: #000;
+        text-shadow: 0 0 10px #00005a;
+        cursor: pointer;
+    }
 
-        .sheet-tabs {
-            font-weight: 500;
-            height: 30px;
+    .sheet-tabs {
+        font-weight: 500;
+        height: 30px;
 
-            > .list-row {
-                line-height: 2rem;
-                padding-top: 3px;
-                font-size: var(--font-size-12);
-                text-align: center;
+        > .list-row {
+            line-height: 2rem;
+            padding-top: 3px;
+            font-size: var(--font-size-12);
+            text-align: center;
 
-                &:last-of-type {
-                    padding-right: 4px;
-                }
+            &:last-of-type {
+                padding-right: 4px;
+            }
 
-                &.active {
-                    color: var(--text-dark);
-                    font-weight: 700;
-                }
+            &.active {
+                color: var(--text-dark);
+                font-weight: 700;
             }
         }
+    }
 
-        .tab {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .tag-legacy {
-            float: left;
-            margin: 0 2px 2px 0;
-            padding: 0 3px;
-            font-size: var(--font-size-10);
-            line-height: 16px;
-            border: 1px solid var(--color-border-light-2);
-            border-radius: 3px;
-            white-space: normal;
-            font-weight: 500;
-        }
+    .tag-legacy {
+        float: left;
+        margin: 0 2px 2px 0;
+        padding: 0 3px;
+        font-size: var(--font-size-10);
+        line-height: 16px;
+        border: 1px solid var(--color-border-light-2);
+        border-radius: 3px;
+        white-space: normal;
+        font-weight: 500;
     }
 }
 
@@ -205,14 +192,6 @@
     }
 
     &.npc-sheet {
-        .sheet-upper {
-            height: 220px;
-
-            .sheet-showcase {
-                height: calc(220px - 48px);
-            }
-        }
-
         .sheet-lower {
             height: calc(100% - 220px - 32px);
         }
