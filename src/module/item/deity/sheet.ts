@@ -48,7 +48,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         super.activateListeners($html);
 
         // Create tagify selection inputs
-        const html = $html.get(0)!;
+        const html = $html[0];
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
 
         tagify(getInput("system.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
