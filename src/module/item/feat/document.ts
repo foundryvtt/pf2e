@@ -100,7 +100,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.onlyLevel1 = true;
         }
 
-        // `Infinity` stored as `null` in JSON, so change back
+        // `Infinity` is stored as `null` in JSON, so change back
         this.system.maxTakable ??= Infinity;
 
         // Feats takable only at level 1 can never be taken multiple times
