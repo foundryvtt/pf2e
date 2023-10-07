@@ -102,6 +102,8 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
     hp: {
         value: number;
         temp: number;
+        /** Stamina points: present if Stamina variant is enabled  */
+        sp?: { value: number };
     };
     speed: {
         value: number;
@@ -111,15 +113,6 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
         }[];
     };
     initiative: CreatureInitiativeSource;
-    sp: {
-        value: number;
-        max: number;
-        details: string;
-    };
-    resolve: {
-        value: number;
-        max: number;
-    };
 }
 
 interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {
@@ -217,6 +210,9 @@ interface AttributeBoostsSource {
 interface CharacterResourcesSource {
     heroPoints: ValueAndMax;
     focus?: { value: number; max?: never };
+    crafting?: { infusedReagents?: { value: number } };
+    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+    resolve?: { value: number };
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -418,6 +414,7 @@ interface CharacterResources extends CreatureResources {
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
     crafting: { infusedReagents: ValueAndMax };
+    resolve?: ValueAndMax;
 }
 
 interface CharacterPerception extends PerceptionData {
@@ -485,9 +482,6 @@ interface CharacterAttributes extends Omit<CharacterAttributesSource, Attributes
      */
     shield: HeldShieldData;
 
-    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number; max: number };
-
     /** Whether this actor is under a polymorph effect */
     polymorphed: boolean;
 
@@ -499,6 +493,7 @@ type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 interface CharacterHitPoints extends HitPointsStatistic {
     recoveryMultiplier: number;
     recoveryAddend: number;
+    sp?: ValueAndMax;
 }
 
 interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSource, "size" | "value"> {
@@ -539,6 +534,7 @@ export type {
     CharacterFlags,
     CharacterProficiency,
     CharacterResources,
+    CharacterResourcesSource,
     CharacterSaveData,
     CharacterSaves,
     CharacterSkillData,

@@ -1237,7 +1237,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
-            sp: this.isOfType("character") ? this.attributes.sp : undefined,
+            sp: this.isOfType("character") ? this.attributes.hp.sp : undefined,
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
         const hpDamage = hpUpdate.totalApplied;

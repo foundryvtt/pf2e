@@ -59,7 +59,7 @@ interface ValueAndMaybeMax {
     max?: number;
 }
 
-type ValueAndMax = Required<ValueAndMaybeMax>;
+interface ValueAndMax extends Required<ValueAndMaybeMax> {}
 
 function goesToEleven(value: number): value is ZeroToEleven {
     return value >= 0 && value <= 11;

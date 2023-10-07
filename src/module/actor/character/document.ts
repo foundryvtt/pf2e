@@ -540,12 +540,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             if (game.settings.get("pf2e", "staminaVariant")) {
                 const halfClassHp = Math.floor(classHP / 2);
-                systemData.attributes.sp.max = (halfClassHp + systemData.abilities.con.mod) * this.level;
-                systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
+                systemData.attributes.hp.sp = {
+                    value: systemData.attributes.hp.sp?.value ?? 0,
+                    max: (halfClassHp + systemData.abilities.con.mod) * this.level,
+                };
+                systemData.resources.resolve = {
+                    value: systemData.resources.resolve?.value ?? 0,
+                    max: systemData.abilities[systemData.details.keyability.value].mod,
+                };
 
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, "untyped"));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, "untyped"));
+                delete systemData.resources.resolve;
 
                 // Facilitate level-zero variant play by always adding the constitution modifier at at least level 1
                 const conHP = systemData.abilities.con.mod * Math.max(this.level, 1);
@@ -1824,21 +1831,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
-            if (changed.system?.attributes?.sp) {
-                changed.system.attributes.sp.value = Math.clamped(
-                    changed.system?.attributes?.sp?.value || 0,
-                    0,
-                    systemData.attributes.sp.max
-                );
+            if (changed.system?.attributes?.hp?.sp) {
+                changed.system.attributes.hp.sp.value =
+                    Math.floor(
+                        Math.clamped(
+                            changed.system.attributes.hp.sp?.value ?? 0,
+                            0,
+                            systemData.attributes.hp.sp?.max ?? 0
+                        )
+                    ) || 0;
             }
 
             // Do not allow resolve to go over max
-            if (changed.system?.attributes?.resolve) {
-                changed.system.attributes.resolve.value = Math.clamped(
-                    changed.system?.attributes?.resolve?.value || 0,
-                    0,
-                    systemData.attributes.resolve.max
-                );
+            if (changed.system?.resources?.resolve) {
+                changed.system.resources.resolve.value =
+                    Math.floor(
+                        Math.clamped(
+                            changed.system.resources.resolve.value ?? 0,
+                            0,
+                            systemData.resources.resolve?.max ?? 0
+                        )
+                    ) || 0;
             }
         }
 
