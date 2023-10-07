@@ -22,37 +22,18 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "1st-level Swashbuckler class feature",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:swashbuckler",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:swashbuckler-style"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Battledancer"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Braggart"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Fencer"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Gymnast"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Wit"
-                    }
-                ],
                 "flag": "swashbucklersStyle",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Swashbuckler.Style.Prompt"
             },
             {
                 "key": "GrantItem",
+                "replaceSelf": true,
                 "uuid": "{item|flags.pf2e.rulesSelections.swashbucklersStyle}"
             }
         ],
