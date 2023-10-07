@@ -1,7 +1,7 @@
-import { ImmunityData } from "@actor/data/iwr.ts";
+import { Immunity } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import type { StrictArrayField } from "@system/schema-data-fields.ts";
+import { IWRRuleElement, IWRRuleSchema, type IWRExceptionField, IWRException } from "./base.ts";
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
@@ -9,12 +9,9 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     readonly value = null;
 
     static override defineSchema(): ImmunityRuleSchema {
-        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            exceptions: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
-            ),
+            exceptions: this.createExceptionsField(this.dictionary),
         };
     }
 
@@ -22,15 +19,15 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
         return CONFIG.PF2E.immunityTypes;
     }
 
-    get property(): ImmunityData[] {
+    get property(): Immunity[] {
         return this.actor.system.attributes.immunities;
     }
 
-    getIWR(): ImmunityData[] {
+    getIWR(): Immunity[] {
         return this.type
             .map(
-                (t): ImmunityData =>
-                    new ImmunityData({
+                (t): Immunity =>
+                    new Immunity({
                         type: t,
                         exceptions: this.exceptions,
                         source: this.label,
@@ -50,15 +47,12 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
 }
 
 interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromSchema<ImmunityRuleSchema> {
-    // Just a string at compile time, but ensured by parent class at runtime
     type: ImmunityType[];
-
-    // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
-    exceptions: ImmunityType[];
+    exceptions: IWRException<ImmunityType>[];
 }
 
 type ImmunityRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
-    exceptions: ArrayField<StringField<ImmunityType, ImmunityType, true, false, false>>;
+    exceptions: StrictArrayField<IWRExceptionField<ImmunityType>>;
 };
 
 export { ImmunityRuleElement };

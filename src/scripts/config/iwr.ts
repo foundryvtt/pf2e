@@ -16,6 +16,7 @@ const immunityTypes = {
     controlled: "PF2E.Damage.IWR.Type.controlled",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
     curse: "PF2E.Damage.IWR.Type.curse",
+    custom: "", // Label provided by rule element
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
@@ -110,6 +111,7 @@ const weaknessTypes = {
     cold: "PF2E.Damage.RollFlavor.cold",
     "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    custom: "", // Label provided by rule element
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",
@@ -170,6 +172,7 @@ const resistanceTypes = {
     cold: "PF2E.Damage.RollFlavor.cold",
     "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    custom: "", // Label provided by rule element
     "damage-from-spells": "PF2E.Damage.IWR.Type.damage-from-spells",
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",

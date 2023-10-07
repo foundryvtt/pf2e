@@ -438,16 +438,12 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             new ImmunityRuleElement({ key: "Immunity", ...immunity }, { parent: this.item }).afterPrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement(
-                { key: "Weakness", ...weakness, override: true },
-                { parent: this.item }
-            ).afterPrepareData();
+            const args = { key: "Weakness", ...weakness, override: true };
+            new WeaknessRuleElement(args, { parent: this.item }).afterPrepareData();
         }
         for (const resistance of this.overrides.resistances) {
-            new ResistanceRuleElement(
-                { key: "Resistance", ...resistance, override: true },
-                { parent: this.item }
-            ).afterPrepareData();
+            const args = { key: "Resistance", ...resistance, override: true };
+            new ResistanceRuleElement(args, { parent: this.item }).afterPrepareData();
         }
     }
 

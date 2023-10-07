@@ -58,7 +58,7 @@ import {
     StrikeData,
 } from "./data/base.ts";
 import { ActorSourcePF2e, ActorType } from "./data/index.ts";
-import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr.ts";
+import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
     auraAffectsActor,
@@ -714,9 +714,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const { attributes } = this.system;
         attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
-        attributes.immunities = attributes.immunities?.map((i) => new ImmunityData(i)) ?? [];
-        attributes.weaknesses = attributes.weaknesses?.map((w) => new WeaknessData(w)) ?? [];
-        attributes.resistances = attributes.resistances?.map((r) => new ResistanceData(r)) ?? [];
+        attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
+        attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
+        attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
 
         const traits: ActorTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
