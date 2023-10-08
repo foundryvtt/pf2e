@@ -22,56 +22,11 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "label": "1st-level Bard class feature",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:bard",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:bard-muse"
                     ]
                 },
-                "choices": [
-                    {
-                        "img": "icons/magic/control/hypnosis-mesmerism-watch.webp",
-                        "label": "PF2E.SpecificRule.Bard.Muse.Enigma",
-                        "predicate": [
-                            {
-                                "not": "feature:enigma"
-                            }
-                        ],
-                        "value": "enigma"
-                    },
-                    {
-                        "img": "systems/pf2e/icons/features/classes/maestro.webp",
-                        "label": "PF2E.SpecificRule.Bard.Muse.Maestro",
-                        "predicate": [
-                            {
-                                "not": "feature:maestro"
-                            }
-                        ],
-                        "value": "maestro"
-                    },
-                    {
-                        "img": "systems/pf2e/icons/features/classes/polymath.webp",
-                        "label": "PF2E.SpecificRule.Bard.Muse.Polymath",
-                        "predicate": [
-                            {
-                                "not": "feature:polymath"
-                            }
-                        ],
-                        "value": "polymath"
-                    },
-                    {
-                        "img": "systems/pf2e/icons/features/classes/warrior.webp",
-                        "label": "PF2E.SpecificRule.Bard.Muse.Warrior",
-                        "predicate": [
-                            {
-                                "not": "feature:warrior"
-                            }
-                        ],
-                        "value": "warrior"
-                    }
-                ],
                 "flag": "muse",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Bard.Muse.Prompt"
