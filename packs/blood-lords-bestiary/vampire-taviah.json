@@ -1028,7 +1028,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "damage:type:bludgeoning",
+                                    "item:material:cold-iron"
+                                ],
+                                "label": "PF2E.IWR.Custom.ColdIronBludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": "vampire-vetalarana-basic-vetalarana-vulnerabilities",
                 "source": {
                     "value": "Pathfinder Book of the Dead"
@@ -1535,14 +1550,6 @@
             "resistances": [
                 {
                     "type": "mental",
-                    "value": 10
-                },
-                {
-                    "exceptions": [
-                        "cold-iron",
-                        "bludgeoning"
-                    ],
-                    "type": "physical",
                     "value": 10
                 }
             ],
