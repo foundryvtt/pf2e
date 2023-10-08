@@ -1,6 +1,6 @@
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { isObject, setHasElement } from "@util/misc.ts";
-import { ItemSystemData } from "./base.ts";
+import { ItemReferenceSource, ItemSystemData } from "./base.ts";
 import { ItemSourcePF2e, MagicItemSource, PhysicalItemSource } from "./index.ts";
 
 function isItemSystemData(data: unknown): data is ItemSystemData {
@@ -39,4 +39,8 @@ function isInventoryItem(type: string): boolean {
     return false;
 }
 
-export { hasInvestedProperty, isInventoryItem, isItemSystemData, isPhysicalData };
+function isItemReference(source: unknown): source is ItemReferenceSource {
+    return isObject(source) && "sourceId" in source;
+}
+
+export { hasInvestedProperty, isInventoryItem, isItemReference, isItemSystemData, isPhysicalData };

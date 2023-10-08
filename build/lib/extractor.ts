@@ -1,6 +1,6 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
+import { isItemReference, isPhysicalData } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
@@ -14,6 +14,7 @@ import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.t
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
+import { ItemReferences } from "./item-references.ts";
 
 declare global {
     interface Global {
@@ -29,6 +30,7 @@ global.window = global.document.defaultView!;
 interface ExtractArgs {
     packDb: string;
     disablePresort?: boolean;
+    convertReferences?: boolean;
     logWarnings?: boolean;
 }
 
@@ -67,12 +69,16 @@ class PackExtractor {
         "spellcasting",
     ]);
 
+    declare itemReferences: ItemReferences;
+
     disablePresort: boolean;
+    convertReferences: boolean;
 
     constructor(params: ExtractArgs) {
         this.emitWarnings = !!params.logWarnings;
         this.packDB = params.packDb;
         this.disablePresort = !!params.disablePresort;
+        this.convertReferences = !!params.convertReferences;
 
         this.tempDataPath = path.resolve(process.cwd(), "packs-temp");
         this.dataPath = path.resolve(process.cwd(), "packs");
@@ -96,6 +102,11 @@ class PackExtractor {
         await fs.promises.mkdir(this.tempDataPath);
 
         this.#populateIdNameMap();
+
+        this.itemReferences = new ItemReferences({
+            idNameMap: this.#idsToNames.Item,
+            convertUUIDs: this.#convertUUIDs.bind(this),
+        });
 
         const foundryPacks = (this.packDB === "all" ? fs.readdirSync(packsPath) : [this.packDB])
             .filter((f) => f !== ".gitkeep")
@@ -240,10 +251,15 @@ class PackExtractor {
 
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
-            sanitized.items = sanitized.items.map((itemSource) => {
+            // Convert items to references if possible
+            if (this.convertReferences) {
+                sanitized.items = this.itemReferences.toReferences(sanitized.items);
+            }
+            for (const itemSource of sanitized.items) {
+                if (isItemReference(itemSource)) continue;
                 CompendiumPack.convertUUIDs(itemSource, { to: "names", map: this.#idsToNames.Item });
-                return this.#sanitizeDocument(itemSource, { isEmbedded: true });
-            });
+                this.#sanitizeDocument(itemSource, { isEmbedded: true });
+            }
         }
 
         if (isItemSource(sanitized)) {
@@ -796,6 +812,9 @@ class PackExtractor {
 
     #sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
         return Array.from(spells).sort((a, b) => {
+            if (isItemReference(a) || isItemReference(b)) {
+                return 0;
+            }
             const spellA = a as SpellSource;
             const spellB = b as SpellSource;
             const aLevel = spellA.system.level;

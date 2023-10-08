@@ -14,6 +14,7 @@ import type { DamageRoll } from "@system/damage/roll.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { ActorType } from "./index.ts";
 import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, WeaknessSource } from "./iwr.ts";
+import { ItemReferenceSource } from "@item/data/base.ts";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
@@ -27,6 +28,7 @@ interface ActorFlagsPF2e extends foundry.documents.ActorFlags {
         rollOptions: RollOptionFlags;
         /** IDs of granted items that are tracked */
         trackedItems: Record<string, string>;
+        itemReferences?: ItemReferenceSource[];
         [key: string]: unknown;
     };
 }

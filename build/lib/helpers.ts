@@ -20,4 +20,25 @@ const getFilesRecursively = (directory: string, filePaths: string[] = []): strin
     return filePaths;
 };
 
-export { getFilesRecursively, PackError };
+const deepClone = <T>(original: T): T => {
+    // Simple types
+    if (typeof original !== "object" || original === null) return original;
+
+    // Arrays
+    if (Array.isArray(original)) return original.map(deepClone) as unknown as T;
+
+    // Dates
+    if (original instanceof Date) return new Date(original) as T & Date;
+
+    // Unsupported advanced objects
+    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
+
+    // Other objects
+    const clone: Record<string, unknown> = {};
+    for (const k of Object.keys(original)) {
+        clone[k] = deepClone((original as Record<string, unknown>)[k]);
+    }
+    return clone as T;
+};
+
+export { deepClone, getFilesRecursively, PackError };

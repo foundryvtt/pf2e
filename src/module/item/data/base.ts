@@ -2,7 +2,9 @@ import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
-import { PhysicalItemTrait } from "@item/physical/data.ts";
+import type { PhysicalItemTrait, PhysicalSystemSource } from "@item/physical/data.ts";
+import type { PhysicalItemType } from "@item/physical/types.ts";
+import type { SpellSystemSource } from "@item/spell/data.ts";
 import { MigrationRecord, OneToThree, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ItemType } from "./index.ts";
@@ -48,6 +50,7 @@ interface ItemFlagsPF2e extends foundry.documents.ItemFlags {
         rulesSelections: Record<string, string | number | object | null>;
         itemGrants: Record<string, ItemGrantData>;
         grantedBy: ItemGrantData | null;
+        fromReference?: boolean;
         [key: string]: unknown;
     };
 }
@@ -57,6 +60,7 @@ interface ItemSourceFlagsPF2e extends DeepPartial<foundry.documents.ItemFlags> {
         rulesSelections?: Record<string, string | number | object>;
         itemGrants?: Record<string, ItemGrantSource>;
         grantedBy?: ItemGrantSource | null;
+        fromReference?: boolean;
         [key: string]: unknown;
     };
 }
@@ -109,6 +113,37 @@ interface Frequency extends FrequencySource {
     value: number;
 }
 
+interface ItemReferenceBaseSource {
+    _id: string;
+    flags?: {
+        pf2e: {
+            fromReference: boolean;
+        };
+    };
+    sort: number;
+    sourceId: ItemUUID;
+    type: string;
+}
+
+interface SpellReferenceSource extends ItemReferenceBaseSource {
+    system?: {
+        location: SpellSystemSource["location"];
+    };
+    type: "spell";
+}
+
+interface PhyiscalItemReferenceSource extends ItemReferenceBaseSource {
+    system: {
+        containerId?: PhysicalSystemSource["containerId"];
+        equipped: PhysicalSystemSource["equipped"];
+        quantity: PhysicalSystemSource["quantity"];
+        usage: PhysicalSystemSource["usage"];
+    };
+    type: PhysicalItemType;
+}
+
+type ItemReferenceSource = SpellReferenceSource | PhyiscalItemReferenceSource;
+
 export type {
     ActionCost,
     ActionType,
@@ -120,11 +155,14 @@ export type {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
+    ItemReferenceSource,
     ItemSystemData,
     ItemSystemSource,
     ItemTrait,
     ItemTraits,
     ItemTraitsNoRarity,
     OtherTagsOnly,
+    PhyiscalItemReferenceSource,
     RarityTraitAndOtherTags,
+    SpellReferenceSource,
 };

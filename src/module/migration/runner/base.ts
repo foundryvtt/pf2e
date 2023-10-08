@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e, isItemReference } from "@item/data/index.ts";
 import { MigrationRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -63,12 +63,17 @@ export class MigrationRunnerBase {
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
         const currentActor = deepClone(actor);
+        const isCompendiumSource = !("game" in globalThis);
 
         for (const migration of migrations) {
             for (const currentItem of currentActor.items) {
+                if (isCompendiumSource && isItemReference(currentItem)) {
+                    // TODO: Support migration of item references
+                    continue;
+                }
                 await migration.preUpdateItem?.(currentItem, currentActor);
                 if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.preUpdateItem?.(currentItem.system.spell);
+                    await migration.preUpdateItem?.(currentItem.system.spell, currentActor);
                 }
             }
         }
@@ -77,6 +82,10 @@ export class MigrationRunnerBase {
             await migration.updateActor?.(currentActor);
 
             for (const currentItem of currentActor.items) {
+                if (isCompendiumSource && isItemReference(currentItem)) {
+                    // TODO: Support migration of item references
+                    continue;
+                }
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
                 if (currentItem.type === "consumable" && currentItem.system.spell) {
@@ -86,7 +95,7 @@ export class MigrationRunnerBase {
         }
 
         // Don't set schema record on compendium JSON
-        if ("game" in globalThis) {
+        if (!isCompendiumSource) {
             const latestMigration = migrations.slice(-1)[0];
             currentActor.system._migration ??= { version: null, previous: null };
             this.#updateMigrationRecord(currentActor.system._migration, latestMigration);

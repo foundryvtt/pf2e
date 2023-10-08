@@ -17,6 +17,11 @@ const args = argv
                 type: "boolean",
                 default: false,
             })
+            .option("convertReferences", {
+                describe: "Converts items to references if possible.",
+                type: "boolean",
+                default: false,
+            })
             .option("logWarnings", {
                 describe: "Turns on logging out warnings about extracted data.",
                 type: "boolean",

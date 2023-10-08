@@ -1,5 +1,5 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, MeleeSource, isPhysicalData } from "@item/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, isItemReference, isPhysicalData } from "@item/data/index.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
@@ -9,16 +9,11 @@ import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts"
 import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
+import systemJSON from "../../static/system.json" assert { type: "json" };
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
-
-interface PackMetadata {
-    system: string;
-    name: string;
-    path: string;
-    type: CompendiumDocumentType;
-}
+import { ItemReferences } from "./item-references.ts";
 
 /** A rule element, possibly an Aura, ChoiceSet, GrantItem */
 interface REMaybeWithUUIDs extends RuleElementSource {
@@ -56,6 +51,7 @@ class CompendiumPack {
     systemId: string;
     data: PackEntry[];
     folders: DBFolder[];
+    itemReferences: ItemReferences;
 
     static outDir = path.resolve(process.cwd(), "dist/packs");
     static #namesToIds: {
@@ -71,8 +67,6 @@ class CompendiumPack {
         RollTable: new Map(),
     };
 
-    static #packsMetadata = JSON.parse(fs.readFileSync("static/system.json", "utf-8")).packs as PackMetadata[];
-
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
         compendium:
@@ -81,9 +75,8 @@ class CompendiumPack {
     };
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
-        const metadata = CompendiumPack.#packsMetadata.find(
-            (pack) => path.basename(pack.path) === path.basename(packDir)
-        );
+        const packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
+        const metadata = packsMetadata.find((pack) => path.basename(pack.path) === path.basename(packDir));
         if (metadata === undefined) {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
         }
@@ -107,6 +100,9 @@ class CompendiumPack {
         if (!packMap) {
             throw PackError(`Compendium ${this.packId} (${packDir}) was not found.`);
         }
+        this.itemReferences = new ItemReferences({
+            idNameMap: CompendiumPack.#namesToIds.Item,
+        });
 
         parsedData.sort((a, b) => {
             if (a._id === b._id) {
@@ -128,6 +124,17 @@ class CompendiumPack {
         for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
             packMap.set(docSource.name, docSource._id!);
+
+            // Move references first to ensure clean item data afterwards
+            if ("items" in docSource) {
+                docSource.items = docSource.items.flatMap((itemSource) => {
+                    if (isItemReference(itemSource)) {
+                        this.itemReferences.moveToFlag(docSource, itemSource);
+                        return [];
+                    }
+                    return itemSource;
+                });
+            }
 
             // Check img paths
             if ("img" in docSource && typeof docSource.img === "string") {
@@ -169,12 +176,16 @@ class CompendiumPack {
                 } else if ("items" in docSource && ["npc", "hazard"].includes(docSource.type)) {
                     // Ensure all linked-weapon IDs point to a weapon
                     const attackItems = docSource.items.filter((i): i is MeleeSource => i.type === "melee");
+                    const weaponFound = (actorSource: ActorSourcePF2e, linkedWeapon?: string): boolean => {
+                        const itemReferences = actorSource.flags?.pf2e?.itemReferences ?? [];
+                        return (
+                            actorSource.items.some((i) => i._id === linkedWeapon && i.type === "weapon") ||
+                            itemReferences.some((r) => r._id === linkedWeapon && r.type === "weapon")
+                        );
+                    };
                     for (const item of attackItems) {
                         const { linkedWeapon } = item.flags?.pf2e ?? {};
-                        const weaponFound = linkedWeapon
-                            ? docSource.items.some((i) => i._id === linkedWeapon && i.type === "weapon")
-                            : false;
-                        if (linkedWeapon && !weaponFound) {
+                        if (linkedWeapon && !weaponFound(docSource, linkedWeapon)) {
                             throw PackError(`Dangling linked weapon reference on ${docSource.name} in ${this.packId}`);
                         }
                     }
@@ -481,4 +492,4 @@ interface ConvertUUIDOptions {
 }
 
 export { CompendiumPack, PackError, isActorSource, isItemSource };
-export type { PackMetadata, REMaybeWithUUIDs };
+export type { REMaybeWithUUIDs };
