@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
+import * as R from "remeda";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
     category: ListCategory;
@@ -16,9 +17,9 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         }
         this.category = options.category;
         this.types = {
-            immunities: CONFIG.PF2E.immunityTypes,
-            weaknesses: CONFIG.PF2E.weaknessTypes,
-            resistances: CONFIG.PF2E.resistanceTypes,
+            immunities: R.omit(CONFIG.PF2E.immunityTypes, ["custom"]),
+            weaknesses: R.omit(CONFIG.PF2E.weaknessTypes, ["custom"]),
+            resistances: R.omit(CONFIG.PF2E.resistanceTypes, ["custom"]),
         }[this.category];
     }
 
