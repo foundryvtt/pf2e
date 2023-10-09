@@ -144,7 +144,7 @@ const askLevelPopupTemplate = (): string => {
 
 function showXP(partyLevel: number, partySize: number, npcLevels: number[], hazards: HazardPF2e[]): void {
     const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazards, {
-        proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
+        proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant"),
     });
     new Dialog({
         title: "XP",

@@ -26,7 +26,6 @@ import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
@@ -263,7 +262,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.data.details.keyability.singleOption = actor.class?.system.keyAbility.value.length === 1;
 
         // Is the stamina variant rule enabled?
-        sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
+        sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant");
 
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.actions = this.#prepareAbilities();
@@ -301,13 +300,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang)
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
-
-        // Show hints for some things being modified
-        const baseData = actor.toObject();
-        sheetData.adjustedBonusEncumbranceBulk =
-            actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
-        sheetData.adjustedBonusLimitBulk =
-            actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
         sheetData.tabVisibility = deepClone(actor.flags.pf2e.sheetTabs);
 
@@ -1317,11 +1309,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         if (item.isOfType("feat")) {
-            // Ensure feats from non-system compendiums are current before checking for appropriate feat slots
-            const itemUUID = item.uuid;
-            if (itemUUID.startsWith("Compendium") && !itemUUID.startsWith("Compendium.pf2e.")) {
-                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
-            }
             const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }
@@ -1532,8 +1519,6 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     heritage: HeritagePF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
-    adjustedBonusEncumbranceBulk: boolean;
-    adjustedBonusLimitBulk: boolean;
     attributeBoostsAllocated: boolean;
     biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
@@ -1600,4 +1585,5 @@ interface ElementalBlastSheetConfig extends ElementalBlastConfig {
     };
 }
 
-export { CharacterSheetPF2e, type CharacterSheetTabVisibility };
+export { CharacterSheetPF2e };
+export type { CharacterSheetData, CharacterSheetTabVisibility };

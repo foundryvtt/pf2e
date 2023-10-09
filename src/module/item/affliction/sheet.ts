@@ -83,6 +83,10 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 damage: {},
                 conditions: {},
                 effects: [],
+                duration: {
+                    value: -1,
+                    unit: "unlimited",
+                },
             };
 
             const id = randomID();

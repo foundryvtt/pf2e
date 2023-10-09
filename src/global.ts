@@ -61,6 +61,8 @@ import type { ModuleArt } from "@system/module-art.ts";
 import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
+import type EnJSON from "static/lang/en.json";
+import type ReEnJSON from "static/lang/re-en.json";
 import type Peggy from "peggy";
 
 interface GamePF2e
@@ -198,8 +200,8 @@ declare global {
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
-        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
-        get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
+        get(module: "pf2e", setting: "proficiencyVariant"): boolean;
+        get(module: "pf2e", setting: "staminaVariant"): boolean;
 
         get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
         get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;
@@ -270,5 +272,7 @@ declare global {
 
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
+    const EN_JSON: typeof EnJSON;
+    const RE_EN_JSON: typeof ReEnJSON;
     const ROLL_PARSER: Peggy.Parser;
 }

@@ -11,7 +11,8 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
+import { AfflictionFlags, AfflictionSource, AfflictionStageData, AfflictionSystemData } from "./data.ts";
+import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
 
 /** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
 const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
@@ -45,6 +46,10 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return this.system.stage;
     }
 
+    get stageData(): AfflictionStageData | null {
+        return Object.values(this.system.stages).at(this.stage - 1) ?? null;
+    }
+
     get maxStage(): number {
         return Object.keys(this.system.stages).length || 1;
     }
@@ -71,6 +76,11 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             return 0;
         }
         return this.system.onset.value * (DURATION_UNITS[this.system.onset.unit] ?? 0);
+    }
+
+    get remainingStageDuration(): { expired: boolean; remaining: number } {
+        const stageDuration = this.stageData?.duration ?? { unit: "unlimited" };
+        return calculateRemainingDuration(this, { ...stageDuration, expiry: "turn-end" });
     }
 
     override prepareBaseData(): void {
@@ -111,7 +121,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const template: AfflictionDamageTemplate = {
                 name: `${this.name} - ${stageLabel}`,
                 damage: { roll, breakdown },
-                notes: [],
                 materials: [],
                 traits: this.system.traits.value,
                 modifiers: [],
@@ -144,7 +153,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const itemsToDelete = this.getLinkedItems().map((i) => i.id);
         await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
 
-        const currentStage = Object.values(this.system.stages).at(this.stage - 1);
+        const currentStage = this.stageData;
         if (!currentStage) return;
 
         // Get all conditions we need to add or update
@@ -224,9 +233,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     async createStageMessage(): Promise<void> {
         const actor = this.actor;
         if (!actor) return;
-
-        const currentStage = Object.values(this.system.stages).at(this.stage - 1);
-        if (!currentStage) return;
 
         const damage = this.getStageDamage(this.stage);
         if (damage) {

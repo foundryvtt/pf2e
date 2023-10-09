@@ -12,10 +12,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
  */
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     constructor(source: RollOptionSource, options: RuleElementOptions) {
-        const sourceValue = source.value;
         super(source, options);
-
-        this.value = typeof sourceValue === "string" ? sourceValue : !!(source.value ?? this.toggleable);
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
@@ -82,7 +79,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             ),
             value: new ResolvableValueField({
                 required: false,
-                initial: undefined,
+                initial: (d) => !d.toggleable,
                 validate: (v) => ["boolean", "string"].includes(typeof v),
                 validationError: "must be a boolean, string, or otherwise omitted",
             }),
@@ -370,7 +367,7 @@ type RollOptionSchema = RuleElementSchema & {
      * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
      * `true` unless also `togglable`, in which case to `false`.
      */
-    value: ResolvableValueField<false, false, false>;
+    value: ResolvableValueField<false, false, true>;
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
     toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
     /** If toggleable, the location to be found in an interface */

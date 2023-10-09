@@ -16,6 +16,19 @@ export default abstract class Document<
     readonly _source: object;
     protected _configure(): void;
     get invalid(): boolean;
+    static validateJoint(data: SourceFromSchema<DataSchema>): void;
+    /**
+     * Create a new instance of this DataModel from a source record.
+     * The source is presumed to be trustworthy and is not strictly validated.
+     * @param source    Initial document data which comes from a trusted source.
+     * @param [context] Model construction context
+     * @param [context.strict=false]   Models created from trusted source data are validated non-strictly
+     */
+    static fromSource<T extends Document>(
+        this: AbstractConstructorOf<T>,
+        source: Record<string, unknown>,
+        context?: DataModelConstructionOptions<null>
+    ): T;
 
     /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
     readonly parent: TParent;
@@ -616,7 +629,7 @@ declare global {
         ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 
-    type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: null };
+    type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: string | null };
 
     type DocumentUpdateData<T extends Document = Document> = Partial<T["_source"]> | Record<string, unknown>;
 
@@ -630,15 +643,9 @@ declare global {
 
     type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 
-    type RawObject<T extends Document> = {
-        [P in keyof T["_source"]]: T[P] extends EmbeddedCollection<infer U>
-            ? RawObject<U>[]
-            : T[P] extends Document
-            ? RawObject<T[P]>
-            : T[P] extends Document[]
-            ? RawObject<T[P][number]>[]
-            : T[P];
-    };
+    type RawObject<TDocument extends Document> = TDocument extends { system: infer TSystem }
+        ? Omit<TDocument, "system"> & { system: TSystem }
+        : TDocument["_source"];
 
     interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
         save?: boolean;

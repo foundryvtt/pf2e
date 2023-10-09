@@ -435,16 +435,16 @@ class PackExtractor {
                 if ("type" in docSource) {
                     if (isActorSource(docSource) || isItemSource(docSource)) {
                         docSource.name = docSource.name.trim();
-                        delete (docSource as { ownership?: unknown }).ownership;
-                        delete (docSource as { effects?: unknown }).effects;
-                        delete (docSource.system as { schema?: unknown }).schema;
+                        delete (docSource as { ownership?: object }).ownership;
+                        delete (docSource as { effects?: object[] }).effects;
+                        delete (docSource.system as { _migration?: object })._migration;
                     }
 
                     if (isActorSource(docSource)) {
                         this.#lastActor = docSource;
 
                         if (docSource.prototypeToken?.name === docSource.name) {
-                            delete (docSource as { prototypeToken?: unknown }).prototypeToken;
+                            delete (docSource as { prototypeToken?: object }).prototypeToken;
                         } else if (docSource.prototypeToken) {
                             const withToken: {
                                 img: ImageFilePath;

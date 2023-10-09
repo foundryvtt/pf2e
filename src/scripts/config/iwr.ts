@@ -16,6 +16,7 @@ const immunityTypes = {
     controlled: "PF2E.Damage.IWR.Type.controlled",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
     curse: "PF2E.Damage.IWR.Type.curse",
+    custom: "", // Label provided by rule element
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
@@ -59,6 +60,7 @@ const immunityTypes = {
     olfactory: "PF2E.Damage.IWR.Type.olfactory",
     orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     paralyzed: "PF2E.Damage.IWR.Type.paralyzed",
+    "persistent-damage": "PF2E.Damage.IWR.Type.persistent-damage",
     petrified: "PF2E.Damage.IWR.Type.petrified",
     physical: "PF2E.Damage.IWR.Type.physical",
     piercing: "PF2E.Damage.RollFlavor.piercing",
@@ -93,6 +95,7 @@ const immunityTypes = {
     void: "PF2E.Damage.RollFlavor.void",
     water: "PF2E.Damage.IWR.Type.water",
     wood: "PF2E.Damage.IWR.Type.wood",
+    wounded: "PF2E.Damage.IWR.Type.wounded",
 };
 
 const weaknessTypes = {
@@ -108,6 +111,7 @@ const weaknessTypes = {
     cold: "PF2E.Damage.RollFlavor.cold",
     "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    custom: "", // Label provided by rule element
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",
@@ -168,6 +172,7 @@ const resistanceTypes = {
     cold: "PF2E.Damage.RollFlavor.cold",
     "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    custom: "", // Label provided by rule element
     "damage-from-spells": "PF2E.Damage.IWR.Type.damage-from-spells",
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",

@@ -130,6 +130,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             item,
             isPhysical: false,
             data: item.system,
+            fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
             options: this.options,
@@ -453,9 +454,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        // Update Tab visibility (in case this is a tab without a sidebar)
-        this.updateSidebarVisibility(this._tabs[0].active);
-
         // Lore items
         htmlQuery(html, ".add-skill-variant")?.addEventListener("click", (): void => {
             if (!this.item.isOfType("lore")) return;
@@ -499,7 +497,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             !this.item.system.description.gm &&
             !(this.item.isOfType("spell") && this.item.isVariant)
         ) {
-            const descriptionEditors = htmlQuery(html, ".descriptions");
+            const descriptionEditors = htmlQuery(html, ".tab[data-tab=description]");
             const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
             if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
 
@@ -539,22 +537,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }
                 },
             });
-        }
-    }
-
-    /** When tabs are changed, change visibility of elements such as the sidebar */
-    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
-        super._onChangeTab(event, tabs, active);
-        this.updateSidebarVisibility(active);
-    }
-
-    /** Internal function to update the sidebar visibility based on the current tab */
-    private updateSidebarVisibility(activeTab: string) {
-        const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
-        const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
-        if (sidebarHeader && sidebar) {
-            sidebarHeader.style.visibility = activeTab === "rules" ? "hidden" : "";
-            sidebar.style.display = activeTab === "rules" ? "none" : "";
         }
     }
 
@@ -663,6 +645,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
     user: { isGM: boolean };

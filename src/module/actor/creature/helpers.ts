@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ImmunityData } from "@actor/data/iwr.ts";
+import { Immunity } from "@actor/data/iwr.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
 import { AbilityItemPF2e, ConditionPF2e, MeleePF2e, WeaponPF2e } from "@item";
@@ -103,7 +103,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
         for (const immunityType of constructImmunities) {
             if (!immunities.some((i) => i.type === immunityType)) {
                 immunities.push(
-                    new ImmunityData({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") })
+                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") })
                 );
             }
         }
@@ -111,7 +111,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
 
     // "They are immune to all mental effects." – CRB pg. 634
     if (traits.has("mindless") && !immunities.some((i) => i.type === "mental")) {
-        immunities.push(new ImmunityData({ type: "mental", source: game.i18n.localize("PF2E.TraitMindless") }));
+        immunities.push(new Immunity({ type: "mental", source: game.i18n.localize("PF2E.TraitMindless") }));
     }
 }
 

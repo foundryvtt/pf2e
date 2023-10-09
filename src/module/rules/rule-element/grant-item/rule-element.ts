@@ -4,8 +4,7 @@ import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item"
 import { ItemGrantDeleteAction } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { ChoiceSetSource } from "../choice-set/data.ts";
@@ -39,7 +38,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             this.reevaluateOnUpdate = true;
             this.allowDuplicate = true;
         } else if (this.reevaluateOnUpdate) {
-            this.replaceSelf = false;
             this.allowDuplicate = false;
         }
 
@@ -68,18 +66,22 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
-            flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
-            reevaluateOnUpdate: new fields.BooleanField({ required: false }),
-            inMemoryOnly: new fields.BooleanField({ required: false }),
-            replaceSelf: new fields.BooleanField({ required: false }),
-            allowDuplicate: new fields.BooleanField({ initial: true }),
-            alterations: new fields.ArrayField(new fields.EmbeddedDataField(ItemAlteration), {
-                required: false,
+            uuid: new fields.StringField({
+                required: true,
                 nullable: false,
-                initial: [],
+                blank: false,
+                initial: undefined,
+                label: "PF2E.UUID.Label",
             }),
-            track: new fields.BooleanField({ required: false }),
+            flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
+            reevaluateOnUpdate: new fields.BooleanField({ label: "PF2E.RuleEditor.GrantItem.ReevaluateOnUpdate" }),
+            inMemoryOnly: new fields.BooleanField(),
+            allowDuplicate: new fields.BooleanField({
+                initial: true,
+                label: "PF2E.RuleEditor.GrantItem.AllowDuplicate",
+            }),
+            alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
+            track: new fields.BooleanField(),
         };
     }
 
@@ -129,18 +131,9 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         if (!this.test()) return;
 
-        // The grant may have come from a non-system compendium, so make sure it's fully migrated
-        const migrations = MigrationList.constructFromVersion(grantedItem.schemaVersion);
-        if (migrations.length > 0) {
-            await MigrationRunner.ensureSchemaVersion(grantedItem, migrations);
-        }
-
         // If we shouldn't allow duplicates, check for an existing item with this source ID
         const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
         if (!this.allowDuplicate && existingItem) {
-            if (this.replaceSelf) {
-                pendingItems.splice(pendingItems.indexOf(itemSource), 1);
-            }
             this.#setGrantFlags(itemSource, existingItem);
 
             ui.notifications.info(
@@ -198,13 +191,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 const slug = item.slug ?? sluggify(item.name);
                 this.actor.rollOptions.all[`self:${prefix}:${slug}`] = true;
             }
-        }
-
-        // If the granted item is replacing the granting item, swap it out and return early
-        if (this.replaceSelf) {
-            pendingItems.findSplice((i) => i === itemSource, grantedSource);
-            await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
-            return;
         }
 
         this.grantedId = grantedSource._id;
@@ -400,7 +386,6 @@ interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPr
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
-    replaceSelf?: unknown;
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
     inMemoryOnly?: unknown;

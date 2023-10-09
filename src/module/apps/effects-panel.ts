@@ -1,10 +1,10 @@
-import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
-import { EffectExpiryType } from "@item/effect/data.ts";
 import { ActorPF2e } from "@actor";
+import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
+import type { EffectExpiryType } from "@item/abstract-effect/index.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {

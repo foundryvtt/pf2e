@@ -442,7 +442,7 @@ interface StringFieldOptions<
 
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
-        TSourceProp extends string,
+        TSourceProp extends string = string,
         TModelProp = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = false,
@@ -613,7 +613,7 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TModelProp extends abstract.DataModel = abstract.DataModel,
+    TModelProp extends abstract.DataModel | abstract.Document = abstract.DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true

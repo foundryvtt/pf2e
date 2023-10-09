@@ -13,7 +13,13 @@ import { DamagePF2e } from "@system/damage/damage.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { BaseDamageData, DamageRollContext, DamageType, SimpleDamageTemplate } from "@system/damage/types.ts";
+import {
+    BaseDamageData,
+    DamageFormulaData,
+    DamageRollContext,
+    DamageType,
+    SimpleDamageTemplate,
+} from "@system/damage/types.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
@@ -28,6 +34,7 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
+import { DamageModifierDialog } from "@system/damage/dialog.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;
@@ -385,27 +392,13 @@ class ElementalBlast {
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);
 
-        const damageData = createDamageFormula(
-            {
-                dice: damageSynthetics.dice,
-                modifiers,
-                base: [baseDamage],
-                ignoredResistances: [],
-            },
-            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
-        );
-        const roll = new DamageRoll(damageData.formula);
-
-        if (params.getFormula) return roll.formula;
-
-        const damageTemplate: SimpleDamageTemplate = {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
-            notes: [],
-            traits: item.system.traits.value,
-            materials: [],
+        const formulaData: DamageFormulaData = {
+            dice: damageSynthetics.dice,
             modifiers,
-            damage: { roll, breakdown: damageData.breakdown },
+            base: [baseDamage],
+            ignoredResistances: [],
         };
+
         const damageContext: DamageRollContext = {
             type: "damage-roll",
             sourceType: "attack",
@@ -415,6 +408,27 @@ class ElementalBlast {
             options: context.options,
             domains,
             ...eventToRollParams(params.event),
+        };
+
+        if (BUILD_MODE === "development" && !params.getFormula && !damageContext.skipDialog) {
+            const rolled = await new DamageModifierDialog({ formulaData, context: damageContext }).resolve();
+            if (!rolled) return null;
+        }
+
+        const damageData = createDamageFormula(
+            formulaData,
+            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+        );
+        const roll = new DamageRoll(damageData.formula);
+
+        if (params.getFormula) return roll.formula;
+
+        const damageTemplate: SimpleDamageTemplate = {
+            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
+            traits: item.system.traits.value,
+            materials: [],
+            modifiers,
+            damage: { roll, breakdown: damageData.breakdown },
         };
 
         return DamagePF2e.roll(damageTemplate, damageContext);

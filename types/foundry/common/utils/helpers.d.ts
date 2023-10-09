@@ -59,7 +59,7 @@ export function duplicate<T>(original: T): T;
 export function mergeObject<T extends object, U extends object = T>(
     original: T,
     other: U,
-    { insertKeys, insertValues, overwrite, inplace, enforceTypes, performDeletions }?: MergeObjectOptions,
+    options?: MergeObjectOptions,
     _d?: number
 ): T & U;
 

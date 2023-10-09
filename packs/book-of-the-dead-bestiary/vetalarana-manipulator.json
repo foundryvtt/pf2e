@@ -628,7 +628,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.GP3wewkQXEPrLxYj"
                 }
             },
-            "img": "systems/pf2e/icons/spells/subconscious-suggestion.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Subconscious Suggestion",
             "sort": 600000,
             "system": {
@@ -3441,7 +3441,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "item:material:cold-iron"
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalColdIron"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": "vampire-vetalarana-basic-vetalarana-vulnerabilities",
                 "source": {
                     "value": "Pathfinder Book of the Dead"
@@ -3829,14 +3844,6 @@
             "resistances": [
                 {
                     "type": "mental",
-                    "value": 10
-                },
-                {
-                    "exceptions": [
-                        "magical",
-                        "cold-iron"
-                    ],
-                    "type": "physical",
                     "value": 10
                 }
             ],

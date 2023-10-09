@@ -3,7 +3,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
-import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data.ts";
+import { MigrationRecord, OneToThree, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ItemType } from "./index.ts";
 
@@ -87,7 +87,11 @@ interface ItemSystemSource {
     };
     rules: RuleElementSource[];
     slug: string | null;
-    schema: DocumentSchemaRecord;
+
+    /** A record of this actor's current world schema version as well a log of the last migration to occur */
+    _migration: MigrationRecord;
+    /** Legacy location of `MigrationRecord` */
+    schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
 }
 
 type ItemSystemData = ItemSystemSource;

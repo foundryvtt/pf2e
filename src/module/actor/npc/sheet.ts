@@ -160,7 +160,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
 
         // Tagify the traits selection
         const traitsEl = htmlQuery<HTMLInputElement>(html, 'input[name="system.traits.value"]');
-        tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
+        tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
 
         // Subscribe to roll events
         const rollables = ["a.rollable", ".item-icon.rollable"].join(", ");

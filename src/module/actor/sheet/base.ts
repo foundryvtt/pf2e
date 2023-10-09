@@ -100,7 +100,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // The Actor and its Items
-        const actorData = this.actor.toObject(false) as ActorPF2e;
+        const actorData = this.actor.toObject(false);
 
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
@@ -923,6 +923,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
+            actorUUID: this.actor.uuid,
             sceneId: canvas.scene?.id ?? null,
             tokenId: this.actor.token?.id ?? null,
             ...item?.toDragData(),
@@ -941,6 +942,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return "itemType" in baseDragData && baseDragData.itemType === "melee"
                     ? { index: Number(actionIndex) }
                     : { type: "Action", index: Number(actionIndex) };
+            }
+
+            // ... an elemental blast
+            const elementTrait = previewElement?.dataset.element;
+            if (elementTrait) {
+                return {
+                    type: "Action",
+                    elementTrait,
+                };
             }
 
             // ... a roll-option toggle?

@@ -168,6 +168,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+        systemData.duration = mergeObject(systemData.duration, {
+            value: -1,
+            unit: "unlimited",
+            expiry: null,
+        });
 
         // Append numeric badge value to condition name, set item image according to configured style
         if (typeof this.badge?.value === "number") {

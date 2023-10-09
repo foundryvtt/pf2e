@@ -142,7 +142,7 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preCreate(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options: DocumentModificationContext<TParent>,
             user: User
         ): Promise<boolean | void>;

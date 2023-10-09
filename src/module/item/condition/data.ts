@@ -1,4 +1,4 @@
-import { AbstractEffectSystemData, AbstractEffectSystemSource } from "@item/abstract-effect/data.ts";
+import { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData } from "@item/abstract-effect/data.ts";
 import { BaseItemSourcePF2e, OtherTagsOnly } from "@item/data/base.ts";
 import { DamageType } from "@system/damage/index.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
@@ -37,6 +37,7 @@ interface ConditionSystemData
     extends Omit<ConditionSystemSource, "fromSpell">,
         Omit<AbstractEffectSystemData, "level" | "slug" | "traits"> {
     persistent?: PersistentDamageData;
+    duration: DurationData;
 }
 
 interface PersistentDamageData extends PersistentSourceData {

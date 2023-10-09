@@ -37,9 +37,8 @@ declare global {
             time: boolean;
         };
 
-        /* -------------------------------------------- */
-        /*  Embedded Documents                          */
-        /* -------------------------------------------- */
+        /** Configure the DatabaseBackend used to perform Document operations */
+        DatabaseBackend: ClientDatabaseBackend;
 
         /** Configuration for the Actor document */
         Actor: {

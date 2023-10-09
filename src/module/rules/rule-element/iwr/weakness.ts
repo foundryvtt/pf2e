@@ -1,20 +1,16 @@
-import { WeaknessData } from "@actor/data/iwr.ts";
+import { Weakness } from "@actor/data/iwr.ts";
 import { WeaknessType } from "@actor/types.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import { ResolvableValueField } from "../data.ts";
-import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
     static override defineSchema(): WeaknessRuleSchema {
-        const { fields } = foundry.data;
-
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
-            exceptions: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
-            ),
+            exceptions: this.createExceptionsField(this.dictionary),
         };
     }
 
@@ -22,11 +18,11 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
         return CONFIG.PF2E.weaknessTypes;
     }
 
-    get property(): WeaknessData[] {
+    get property(): Weakness[] {
         return this.actor.system.attributes.weaknesses;
     }
 
-    getIWR(value: number): WeaknessData[] {
+    getIWR(value: number): Weakness[] {
         if (value <= 0) return [];
 
         const weaknesses = this.property;
@@ -46,7 +42,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
 
         return this.type.map(
             (t) =>
-                new WeaknessData({
+                new Weakness({
                     type: t,
                     value,
                     exceptions: this.exceptions,
@@ -61,12 +57,12 @@ interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelP
     type: WeaknessType[];
 
     // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
-    exceptions: WeaknessType[];
+    exceptions: IWRException<WeaknessType>[];
 }
 
 type WeaknessRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     value: ResolvableValueField<true, false, false>;
-    exceptions: ArrayField<StringField<WeaknessType, WeaknessType, true, false, false>>;
+    exceptions: StrictArrayField<IWRExceptionField>;
 };
 
 export { WeaknessRuleElement };

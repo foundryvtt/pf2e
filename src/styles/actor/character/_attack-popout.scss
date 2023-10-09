@@ -1,0 +1,47 @@
+.attack-popout {
+    @import "./actions";
+    @import "../tabs/actions";
+
+    &.actions {
+        margin: 0.25em 0.1em 0 0.4em;
+    }
+
+    .actions-container {
+        padding: 0.5em 0 0.5em 0.4em;
+    }
+
+    ol.actions-list {
+        li.strike {
+            border: unset;
+            .ammo {
+                select.linked {
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+                    appearance: none;
+                    background-color: var(--alt);
+                    background-image: url("/assets/icons/chevron-down.svg");
+                    background-position: right 0.25em top 50%;
+                    background-repeat: no-repeat;
+                    background-size: 1em auto;
+                    border-radius: 2px;
+                    border: 1px solid #53422a;
+                    color: var(--text-light);
+                    height: auto;
+                    padding: 0.25rem 1.1rem 0.25rem 0.25rem;
+                    position: relative;
+                    text-overflow: ellipsis;
+
+                    &[data-compatible="false"] {
+                        color: #ffffff99;
+                    }
+
+                    option,
+                    optgroup {
+                        color: var(--text-light);
+                        background-color: var(--alt);
+                    }
+                }
+            }
+        }
+    }
+}

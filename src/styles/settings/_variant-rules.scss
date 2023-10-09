@@ -1,0 +1,21 @@
+#variant-rules-settings form {
+    .form-group.abp select {
+        flex: 0;
+    }
+
+    .proficiency-modifiers {
+        column-gap: 0.5em;
+        display: grid;
+        grid-template:
+            "untrained trained expert master legendary" auto "hint hint hint hint hint" auto
+            / 1fr 1fr 1fr 1fr 1fr;
+
+        .hint {
+            grid-area: hint;
+        }
+
+        .modifier label {
+            font-size: var(--font-size-12);
+        }
+    }
+}

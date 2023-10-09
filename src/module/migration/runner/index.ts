@@ -35,12 +35,12 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updated) document.updateSource(updated);
         }
 
-        document.updateSource({ "system.schema.version": currentVersion });
+        document.updateSource({ "system._migration.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
         if ("items" in document && "token" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
-                    item.updateSource({ "system.schema.version": currentVersion });
+                    item.updateSource({ "system._migration.version": currentVersion });
                 }
             }
         }
@@ -230,7 +230,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         const documents = await compendium.getDocuments();
         const lowestSchemaVersion = Math.min(
             MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-            ...documents.map((d) => d.system.schema.version).filter((d): d is number => !!d)
+            ...documents.map((d) => d.system._migration.version).filter((d): d is number => !!d)
         );
 
         const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);

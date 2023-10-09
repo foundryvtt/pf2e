@@ -3,12 +3,14 @@
     data-damage-type={{action.damageType}}
     data-item-id="{{action.item.id}}"
     data-item-type="{{action.item.type}}"
+    draggable="true"
 >
     <div class="item-name rollable">
         <div class="item-image strike framed">
             <img src="{{action.img}}" /> <i class="fa-solid fa-message"></i>
         </div>
         <div class="actions-title">
+        {{#unless omitName}}
             <div class="action-name">
                 <h4>{{localize action.label}}</h4>
                 <div class="item-controls">
@@ -17,6 +19,7 @@
                     {{/if}}
                 </div>
             </div>
+        {{/unless}}
         {{#> attackDamage action=action melee=true}}{{/attackDamage}}
         </div>
     </div>

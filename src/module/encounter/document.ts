@@ -78,7 +78,7 @@ class EncounterPF2e extends Combat {
             fightyPartyMembers.length,
             opposition.filter((e) => e.isOfType("character", "npc")).map((e) => e.level),
             opposition.filter((e): e is HazardPF2e => e.isOfType("hazard")),
-            { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" }
+            { proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") }
         );
         const threat = result.rating;
         const budget = { spent: result.totalXP, max: result.encounterBudgets[threat], partyLevel };

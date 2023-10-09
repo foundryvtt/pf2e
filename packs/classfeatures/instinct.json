@@ -22,43 +22,16 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Barbarian.Instinct.Drops",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:barbarian",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:barbarian-instinct"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Animal Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Fury Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Giant Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Spirit Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Superstition Instinct"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Elemental Instinct"
-                    }
-                ],
                 "flag": "instinct",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Barbarian.Instinct.Prompt"
             },
             {
-                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
             }

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { NON_DAMAGE_WEAKNESSES, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import * as R from "remeda";
 import { DamageInstance, DamageRoll } from "./roll.ts";
@@ -24,7 +24,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const instances = roll.instances as Rolled<DamageInstance>[];
     const persistent: Rolled<DamageInstance>[] = []; // Persistent damage instances filtered for immunities
     const ignoredResistances = (roll.options.ignoredResistances ?? []).map(
-        (ir) => new ResistanceData({ type: ir.type, value: ir.max ?? Infinity })
+        (ir) => new Resistance({ type: ir.type, value: ir.max ?? Infinity })
     );
 
     const nonDamageWeaknesses = weaknesses.filter(
@@ -113,7 +113,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const splashWeakness = splashDamage ? weaknesses.find((w) => w.type === "splash-damage") ?? null : null;
             const precisionWeakness = precisionDamage > 0 ? weaknesses.find((r) => r.type === "precision") : null;
             const highestWeakness = R.compact([...mainWeaknesses, precisionWeakness, splashWeakness]).reduce(
-                (highest: WeaknessData | null, w) =>
+                (highest: Weakness | null, w) =>
                     w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
                 null
             );

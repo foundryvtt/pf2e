@@ -80,12 +80,12 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
     if (!["flags", "items", "system"].some((k) => k in source)) {
         // The actor has no migratable data: set schema version and return early
-        source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+        source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
     }
 
     const lowestSchemaVersion = Math.min(
-        source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-        ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
+        source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+        ...(source.items ?? []).map((i) => i!.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
     );
     const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
     const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
@@ -213,7 +213,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
             [`encounter:threat:${threat}`, !!threat],
             [`encounter:round:${encounter.round}`, true],
             [`encounter:turn:${Number(encounter.turn) + 1}`, true],
-            ["self:participant:own-turn", encounter.combatant?.actor === actor],
+            ["self:participant:own-turn", encounter.combatant === participant],
             [`self:participant:initiative:roll:${initiativeRoll}`, true],
             [`self:participant:initiative:rank:${initiativeRank}`, true],
             [`self:participant:initiative:stat:${initiativeStatistic}`, !!initiativeStatistic],
@@ -466,7 +466,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 item,
                 viewOnly: params.getFormula ?? false,
                 statistic: strike,
-                target: { token: game.user.targets.first() ?? null },
+                target: { token: params.target ?? game.user.targets.first() ?? null },
                 defense: "armor",
                 domains,
                 options: new Set([...baseOptions, ...params.options]),
@@ -572,7 +572,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
                 actor: context.self.actor,
-                domains,
                 actionTraits: [attackTrait],
                 context: damageContext,
             });

@@ -8,6 +8,8 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
+import { DURATION_UNITS } from "./values.ts";
+import { calculateRemainingDuration } from "./helpers.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -50,6 +52,19 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     /** Whether this effect originated from a spell */
     get fromSpell(): boolean {
         return this.system.fromSpell;
+    }
+
+    get totalDuration(): number {
+        const { duration } = this.system;
+        if (["unlimited", "encounter"].includes(duration.unit)) {
+            return Infinity;
+        } else {
+            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
+        }
+    }
+
+    get remainingDuration(): { expired: boolean; remaining: number } {
+        return calculateRemainingDuration(this, this.system.duration);
     }
 
     override getRollOptions(prefix = this.type): string[] {

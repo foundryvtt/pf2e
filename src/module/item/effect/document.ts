@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { EffectBadge, EffectTrait } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
-import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
@@ -24,48 +23,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     get isExpired(): boolean {
         return this.system.expired;
-    }
-
-    get totalDuration(): number {
-        const { duration } = this.system;
-        if (["unlimited", "encounter"].includes(duration.unit)) {
-            return Infinity;
-        } else {
-            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
-        }
-    }
-
-    get remainingDuration(): { expired: boolean; remaining: number } {
-        const duration = this.totalDuration;
-        const { unit, expiry } = this.system.duration;
-        if (unit === "encounter") {
-            const isExpired = this.system.expired;
-            return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
-        } else if (duration === Infinity) {
-            return { expired: false, remaining: Infinity };
-        } else {
-            const start = this.system.start.value;
-            const { combatant } = game.combat ?? {};
-
-            // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
-            const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
-            const remaining = start + duration + addend - game.time.worldTime;
-            const result = { remaining, expired: remaining <= 0 };
-
-            if (remaining === 0 && combatant?.actor) {
-                const startInitiative = this.system.start.initiative ?? 0;
-                const currentInitiative = combatant.initiative ?? 0;
-
-                // A familiar won't be represented in the encounter tracker: use the master in its place
-                const fightyActor = this.actor?.isOfType("familiar") ? this.actor.master ?? this.actor : this.actor;
-                const isEffectTurnStart =
-                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
-
-                result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
-            }
-
-            return result;
-        }
     }
 
     /** Whether this effect emits an aura */

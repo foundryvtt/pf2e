@@ -51,7 +51,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.system.schema?.version) || null;
+        return Number(this.system._migration?.version ?? this.system.schema?.version) || null;
     }
 
     get description(): string {
@@ -451,7 +451,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
                 // The item has no migratable data: set schema version and skip
-                source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
             }
             const item = new CONFIG.Item.documentClass(source);
@@ -665,9 +665,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.slug = sluggify(changed.system.slug) || null;
         }
 
-        // Sort traits
-        if (Array.isArray(changed.system?.traits?.value)) {
-            changed.system?.traits?.value.sort();
+        // Sort traits for easier visual scanning in breakpoints
+        if (changed.system?.traits) {
+            if (Array.isArray(changed.system.traits.value)) {
+                changed.system.traits.value.sort();
+            }
+
+            if (Array.isArray(changed.system.traits.otherTags)) {
+                changed.system.traits.otherTags = changed.system.traits.otherTags.map((t) => sluggify(t)).sort();
+            }
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max

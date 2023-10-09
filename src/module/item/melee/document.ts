@@ -201,7 +201,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     ): Promise<ChatMessagePF2e | undefined> {
         if (!create) return undefined; // Nothing useful to do
         const strike = this.actor?.system.actions?.find((s) => s.item === this);
-        return strike ? game.pf2e.rollActionMacro(this.id, 0, strike.slug) : undefined;
+        return strike ? game.pf2e.rollActionMacro({ itemId: this.id, slug: strike.slug }) : undefined;
     }
 }
 
