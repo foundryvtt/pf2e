@@ -1,6 +1,11 @@
 <div class="image-container">
-    <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
-    <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+    <img
+        class="profile-img"
+        src="{{actor.img}}"
+        {{#if editable}}data-edit="img"{{/if}}
+        alt="{{actor.name}}"
+    />
+    <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
 </div>
 
 <div class="side-bar-section armor-section">
