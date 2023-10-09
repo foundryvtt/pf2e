@@ -16,18 +16,18 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         return {
             ...super.defineSchema(),
             alternate: new fields.BooleanField(),
-            text: new fields.StringField({ blank: false, nullable: false, initial: undefined }),
+            text: new fields.StringField({ blank: false, nullable: true, initial: null }),
         };
     }
 
-    #validate(): void {
-        if (this.alternate && !this.text) {
-            return this.failValidation("An alternate critical specialization must include substitute text");
+    static override validateJoint(data: SourceFromSchema<CritSpecRuleSchema>): void {
+        super.validateJoint(data);
+        if (data.alternate && !data.text) {
+            throw Error("  alternate: must also include text");
         }
     }
 
     override beforePrepareData(): void {
-        this.#validate();
         if (this.ignored) return;
 
         const synthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>): CritSpecEffect | null => {
@@ -108,7 +108,7 @@ type CritSpecRuleSchema = RuleElementSchema & {
     /** Whether this critical specialization note substitutes for the standard one of a given weapon group */
     alternate: BooleanField;
     /** Alternative note text: if not provided, the standard one for a given weapon group is used */
-    text: StringField<string, string, false, false, false>;
+    text: StringField<string, string, false, true, true>;
 };
 
 export { CritSpecRuleElement };
