@@ -23,7 +23,7 @@ declare global {
      * let actor = game.actors.get(actorId);
      * ```
      */
-    class Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
+    class Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
         overrides: Omit<DeepPartial<this["_source"]>, "prototypeToken">;
 
@@ -44,7 +44,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** Provide a thumbnail image path used to represent this document. */
-        get thumbnail(): ImageFilePath;
+        get thumbnail(): this["img"];
 
         /** Provide an object which organizes all embedded Item instances by their type */
         get itemTypes(): object;
@@ -152,7 +152,7 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preCreate(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options: DocumentModificationContext<TParent>,
             user: User
         ): Promise<boolean | void>;
@@ -164,7 +164,7 @@ declare global {
          * @param [options.fromCompendium] Does this creation workflow originate via compendium import?
          */
         protected _applyDefaultTokenSettings(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options?: { fromCompendium?: boolean }
         ): DeepPartial<this["_source"]>;
 
@@ -206,11 +206,11 @@ declare global {
         ): void;
     }
 
-    interface Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
+    interface Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
         readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 
-        get sheet(): ActorSheet<this>;
+        get sheet(): ActorSheet<Actor>;
 
         get uuid(): ActorUUID;
 

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import { CheckModifier } from "@actor/modifiers.ts";
+import type { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -8,7 +8,7 @@ import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {

@@ -1,8 +1,8 @@
 import type { Document, EmbeddedCollection } from "./abstract/module.d.ts";
 
 declare global {
-    interface DocumentConstructionContext<TParent extends Document | null> {
-        parent?: TParent;
+    interface DocumentConstructionContext<TParent extends Document | null>
+        extends DataModelConstructionOptions<TParent> {
         pack?: string | null;
         [key: string]: unknown;
     }
@@ -44,7 +44,10 @@ declare global {
     /* ----------------------------------------- */
 
     /** A single point, expressed as an object {x, y} */
-    type Point = PIXI.Point | { x: number; y: number };
+    interface Point {
+        x: number;
+        y: number;
+    }
 
     /** A single point, expressed as an array [x,y] */
     type PointArray = [number, number];

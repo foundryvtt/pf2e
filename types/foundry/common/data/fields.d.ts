@@ -1,4 +1,3 @@
-import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
 import type * as abstract from "../abstract/module.d.ts";
 import type { TombstoneDataSchema } from "./data.d.ts";
 import type { DataModelValidationFailure } from "./validation-failure.d.ts";
@@ -277,7 +276,7 @@ export class SchemaField<
      */
     constructor(fields: TDataSchema, options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
 
-    protected static override get _defaults(): DataFieldOptions<DataSchema, boolean, boolean, boolean>;
+    protected static override get _defaults(): DataFieldOptions<object, boolean, boolean, boolean>;
 
     /** The contained field definitions. */
     fields: TDataSchema;
@@ -613,7 +612,7 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TModelProp extends abstract.DataModel | abstract.Document = abstract.DataModel,
+    TModelProp extends abstract.DataModel = abstract.DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -645,7 +644,7 @@ export class EmbeddedDataField<
     protected override _initialize(fields: DataSchema): DataSchema;
 
     override initialize(
-        value: MaybeSchemaProp<TModelProp["schema"]["fields"], TRequired, TNullable, THasInitial>,
+        value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
         model: ConstructorOf<abstract.DataModel>,
         options?: object
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
@@ -653,6 +652,43 @@ export class EmbeddedDataField<
     override toObject(
         value: TModelProp
     ): MaybeSchemaProp<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>;
+}
+
+/** A subclass of {@link EmbeddedDataField} which supports a single embedded Document. */
+export class EmbeddedDocumentField<
+    TModelProp extends abstract.Document,
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends EmbeddedDataField<TModelProp, TRequired, TNullable, THasInitial> {
+    /**
+     * @param model   The type of Document which is embedded.
+     * @param options Options which configure the behavior of the field.
+     */
+    constructor(
+        model: ConstructorOf<TModelProp>,
+        options?: DataFieldOptions<TModelProp["_source"], TRequired, TNullable, THasInitial>
+    );
+
+    static override get _defaults(): DataFieldOptions<object, boolean, true, boolean>;
+
+    static override hierarchical: boolean;
+
+    override initialize(
+        value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
+        model: ConstructorOf<TModelProp>,
+        options?: Record<string, unknown>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+
+    /* -------------------------------------------- */
+    /*  Embedded Document Operations                */
+    /* -------------------------------------------- */
+
+    /**
+     * Return the embedded document(s) as a Collection.
+     * @param parent The parent document.
+     */
+    getCollection(parent: abstract.Document): Collection<TModelProp>;
 }
 
 /**
@@ -668,7 +704,7 @@ export class EmbeddedCollectionField<
 > extends ArrayField<
     TDocument["schema"],
     TSourceProp,
-    EmbeddedCollection<TDocument>,
+    abstract.EmbeddedCollection<TDocument>,
     TRequired,
     TNullable,
     THasInitial
@@ -703,10 +739,10 @@ export class EmbeddedCollectionField<
     override initialize(
         _value: unknown,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
     override toObject(
-        value: EmbeddedCollection<TDocument>
+        value: abstract.EmbeddedCollection<TDocument>
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     override apply(
@@ -723,10 +759,10 @@ export class EmbeddedCollectionField<
  */
 export class EmbeddedCollectionDeltaField<
     TDocument extends foundry.abstract.Document,
-    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | TombstoneDataSchema)[] = (
-        | SourceFromSchema<TDocument["schema"]["fields"]>
-        | TombstoneDataSchema
-    )[],
+    TSource extends (
+        | DocumentSourceFromSchema<TDocument["schema"]["fields"], true>
+        | SourceFromSchema<TombstoneDataSchema>
+    )[] = (DocumentSourceFromSchema<TDocument["schema"]["fields"], true> | SourceFromSchema<TombstoneDataSchema>)[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -912,7 +948,7 @@ export class AlphaField<
 /** A special `ObjectField` which captures a mapping of User IDs to Document permission levels. */
 export class DocumentOwnershipField extends ObjectField<{ [K in string]?: DocumentOwnershipLevel }> {
     protected static override get _defaults(): ObjectFieldOptions<
-        { [K in string]?: DocumentOwnershipLevel },
+        Record<string, DocumentOwnershipLevel | undefined>,
         true,
         false,
         true
@@ -1038,6 +1074,16 @@ declare global {
 
     type SourceFromSchema<TDataSchema extends DataSchema> = {
         [K in keyof TDataSchema]: SourcePropFromDataField<TDataSchema[K]>;
+    };
+
+    type DocumentSourceFromSchema<TDataSchema extends DataSchema, THasId extends boolean = boolean> = {
+        [K in keyof TDataSchema]: K extends "_id"
+            ? THasId extends true
+                ? string
+                : THasId extends false
+                ? null
+                : string | null
+            : SourcePropFromDataField<TDataSchema[K]>;
     };
 
     type HexColorString = `#${string}`;

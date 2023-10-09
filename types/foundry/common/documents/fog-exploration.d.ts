@@ -2,14 +2,21 @@ import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type * as documents from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
 
-/** The FogExploration Document model. */
+/**
+ * The Document definition for FogExploration.
+ * Defines the DataSchema and common behaviors for FogExploration which are shared between both client and server.
+ * @memberof documents
+ *
+ * @param data    Initial data from which to construct the FogExploration
+ * @param context Construction context options
+ */
 export default class BaseFogExploration extends Document<null, FogExplorationSchema> {
     static override get metadata(): FogExplorationMetadata;
 
     static override defineSchema(): FogExplorationSchema;
 
     protected override _preUpdate(
-        changed: DocumentUpdateData<this>,
+        changed: Record<string, unknown>,
         options: DocumentModificationContext<null>,
         user: documents.BaseUser
     ): Promise<boolean | void>;
@@ -18,8 +25,6 @@ export default class BaseFogExploration extends Document<null, FogExplorationSch
 export default interface BaseFogExploration
     extends Document<null, FogExplorationSchema>,
         ModelPropsFromSchema<FogExplorationSchema> {
-    readonly _source: FogExplorationSource;
-
     get documentName(): FogExplorationMetadata["name"];
 }
 

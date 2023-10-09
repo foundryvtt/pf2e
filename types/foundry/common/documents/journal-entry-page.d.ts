@@ -17,8 +17,6 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
     extends abstract.Document<TParent, JournalEntryPageSchema>,
         ModelPropsFromSchema<JournalEntryPageSchema> {
-    readonly _source: SourceFromSchema<JournalEntryPageSchema>;
-
     get documentName(): (typeof BaseJournalEntryPage)["metadata"]["name"];
 }
 

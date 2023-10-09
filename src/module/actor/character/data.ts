@@ -52,9 +52,9 @@ import type { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
-interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemSource> {
+type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & {
     flags: DeepPartial<CharacterFlags>;
-}
+};
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {

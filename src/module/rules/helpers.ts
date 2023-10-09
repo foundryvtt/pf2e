@@ -158,7 +158,7 @@ function isBracketedValue(value: unknown): value is BracketedValue {
 }
 
 async function processPreUpdateActorHooks(
-    changed: DocumentUpdateData<ActorPF2e>,
+    changed: Record<string, unknown>,
     { pack }: { pack: string | null }
 ): Promise<void> {
     const actorId = String(changed._id);

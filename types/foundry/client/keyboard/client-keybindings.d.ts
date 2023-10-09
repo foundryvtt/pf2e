@@ -157,9 +157,7 @@ declare global {
         private static _onToggleCharacterSheet(
             event: KeyboardEvent,
             context: KeyboardEventContext
-        ):
-            | ActorSheet<Actor<TokenDocument<Scene | null> | null>>
-            | Promise<ActorSheet<Actor<TokenDocument<Scene | null> | null>>>;
+        ): ActorSheet<Actor> | Promise<ActorSheet<Actor>>;
 
         /**
          * Handle action to target the currently hovered token.

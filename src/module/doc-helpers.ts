@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { isObject } from "@util";
 import { CombatantPF2e } from "./encounter/index.ts";
 import { MigrationList, MigrationRunner } from "./migration/index.ts";

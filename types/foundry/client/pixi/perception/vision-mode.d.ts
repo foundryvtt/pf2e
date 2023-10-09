@@ -49,10 +49,7 @@ declare global {
                 adaptive: boolean;
             };
             defaults: Partial<
-                Pick<
-                    TokenDocument<Scene | null>["sight"],
-                    "attenuation" | "brightness" | "saturation" | "contrast" | "range"
-                >
+                Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">
             >;
         };
 

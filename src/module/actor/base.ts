@@ -137,9 +137,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
-    static override getDefaultArtwork(
-        actorData: foundry.documents.ActorSource | PreDocumentId<foundry.documents.ActorSource>
-    ): {
+    static override getDefaultArtwork(actorData: foundry.documents.ActorSource): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
@@ -582,11 +580,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     static override updateDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        updates?: DocumentUpdateData<TDocument>[],
+        updates?: Record<string, unknown>[],
         context?: DocumentUpdateContext<TDocument["parent"]>
     ): Promise<TDocument[]>;
     static override async updateDocuments(
-        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        updates: Record<string, unknown>[] = [],
         context: DocumentModificationContext<TokenDocumentPF2e | null> = {}
     ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
         // Process rule element hooks for each actor update
@@ -1764,7 +1762,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /* -------------------------------------------- */
 
     protected override _applyDefaultTokenSettings(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options?: { fromCompendium?: boolean }
     ): DeepPartial<this["_source"]> {
         const diff = super._applyDefaultTokenSettings(data, options);
@@ -1869,9 +1867,9 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     prototypeToken: PrototypeTokenPF2e<this>;
 
-    get sheet(): ActorSheetPF2e<this>;
+    get sheet(): ActorSheetPF2e<ActorPF2e>;
 
-    update(data: DocumentUpdateData<this>, options?: ActorUpdateContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this>;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
@@ -1879,12 +1877,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         linked?: boolean,
         document?: boolean
     ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
-
-    _preCreate(
-        data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e
-    ): Promise<boolean | void>;
 
     /** See implementation in class */
     createEmbeddedDocuments(
@@ -1906,17 +1898,17 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
-        updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 

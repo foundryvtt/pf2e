@@ -1,6 +1,7 @@
 import type * as abstract from "../abstract/module.d.ts";
-import type { TombstoneData } from "../data/data.d.ts";
+import type { TombstoneData, TombstoneDataSchema, TombstoneSource } from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import { ItemSchema } from "./item.js";
 import type { BaseActiveEffect, BaseActor, BaseItem, ItemSource } from "./module.d.ts";
 
 /**
@@ -26,9 +27,7 @@ export default class BaseActorDelta<TParent extends abstract.Document | null> ex
 
 export default interface BaseActorDelta<TParent extends abstract.Document | null>
     extends abstract.Document<TParent, ActorDeltaSchema>,
-        ModelPropsFromSchema<ActorDeltaSchema> {
-    readonly _source: ActorDeltaSource;
-}
+        ModelPropsFromSchema<ActorDeltaSchema> {}
 
 interface ActorDeltaMetadata extends abstract.DocumentMetadata {
     name: "ActorDelta";
@@ -48,7 +47,10 @@ type ActorDeltaSchema = {
     type: fields.StringField<string, string, false, true, true>;
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
     system: fields.ObjectField<object, object, true, true, true>;
-    items: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>, (ItemSource | TombstoneData<null>["_source"])[]>;
+    items: fields.EmbeddedCollectionDeltaField<
+        BaseItem<BaseActor>,
+        (DocumentSourceFromSchema<ItemSchema, true> | SourceFromSchema<TombstoneDataSchema>)[]
+    >;
     effects: fields.EmbeddedCollectionDeltaField<BaseActiveEffect<BaseActor>>;
     ownership: fields.DocumentOwnershipField;
     flags: fields.ObjectField<DocumentFlags>;

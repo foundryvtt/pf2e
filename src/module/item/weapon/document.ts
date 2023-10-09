@@ -477,15 +477,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override clone(
-        data: DocumentUpdateData<this> | undefined,
+        data: Record<string, unknown> | undefined,
         options: Omit<WeaponCloneOptions, "save"> & { save: true }
     ): Promise<this>;
-    override clone(
-        data?: DocumentUpdateData<this>,
-        options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
-    ): this;
-    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this>;
-    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
+    override clone(data?: Record<string, unknown>, options?: Omit<WeaponCloneOptions, "save"> & { save?: false }): this;
+    override clone(data?: Record<string, unknown>, options?: WeaponCloneOptions): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, options?: WeaponCloneOptions): this | Promise<this> {
         const clone = super.clone(data, options);
         if (options?.altUsage && clone instanceof WeaponPF2e) {
             clone.altUsageType = options.altUsage;

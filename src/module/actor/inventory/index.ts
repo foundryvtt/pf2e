@@ -1,15 +1,15 @@
 import { ActorPF2e } from "@actor";
-import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Coins } from "@item/physical/data.ts";
+import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 
 class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<PhysicalItemPF2e<TActor>> {
-    declare actor: TActor;
-    declare bulk: InventoryBulk;
+    actor: TActor;
+    bulk: InventoryBulk;
 
     constructor(actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
@@ -165,7 +165,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             let quantityToRemove = coinsToRemove[denomination];
             const coinItems = coinsByDenomination.get(denomination);
             if (!!quantityToRemove && coinItems) {
-                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
+                const itemsToUpdate: EmbeddedDocumentUpdateData[] = [];
                 const itemsToDelete: string[] = [];
                 for (const item of coinItems) {
                     if (quantityToRemove === 0) break;

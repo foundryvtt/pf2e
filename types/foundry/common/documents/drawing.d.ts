@@ -1,10 +1,20 @@
-import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
 import type * as data from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
 import type * as documents from "./module.d.ts";
 
-/** The Drawing embedded document model. */
-export default class BaseDrawing<TParent extends documents.BaseScene | null> extends Document<TParent, DrawingSchema> {
+/**
+ * The Document definition for a Drawing.
+ * Defines the DataSchema and common behaviors for a Drawing which are shared between both client and server.
+ * @memberof documents
+ *
+ * @param data    Initial data from which to construct the Drawing
+ * @param context Construction context options
+ */
+export default class BaseDrawing<TParent extends documents.BaseScene | null> extends abstract.Document<
+    TParent,
+    DrawingSchema
+> {
     /* ---------------------------------------- */
     /*  Model Configuration                     */
     /* ---------------------------------------- */
@@ -27,19 +37,22 @@ export default class BaseDrawing<TParent extends documents.BaseScene | null> ext
 }
 
 export default interface BaseDrawing<TParent extends documents.BaseScene | null>
-    extends Document<TParent, DrawingSchema>,
+    extends abstract.Document<TParent, DrawingSchema>,
         ModelPropsFromSchema<DrawingSchema> {
-    readonly _source: DrawingSource;
-
     get documentName(): DrawingMetadata["name"];
 }
 
-interface DrawingMetadata extends DocumentMetadata {
+interface DrawingMetadata extends abstract.DocumentMetadata {
     name: "Drawing";
     collection: "drawings";
     label: "DOCUMENT.Drawing";
     labelPlural: "DOCUMENT.Drawings";
     isEmbedded: true;
+    permissions: {
+        create: "DRAWING_CREATE";
+        update: abstract.MetadataPermission;
+        delete: abstract.MetadataPermission;
+    };
 }
 
 type DrawingSchema = {

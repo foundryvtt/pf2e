@@ -1,6 +1,4 @@
 import type * as fields from "../data/fields.d.ts";
-import type { EmbeddedCollection } from "./embedded-collection.d.mts";
-import type { Document } from "./module.d.ts";
 
 /**
  * The abstract base class which defines the data schema contained within a Document.
@@ -8,7 +6,7 @@ import type { Document } from "./module.d.ts";
  * @param [options={}] Options which affect DataModel construction
  */
 export default abstract class DataModel<
-    TParent extends DataModel | Document | null = _DataModel | null,
+    TParent extends DataModel | null = _DataModel | null,
     TSchema extends fields.DataSchema = fields.DataSchema
 > {
     constructor(
@@ -145,7 +143,7 @@ export default abstract class DataModel<
      * @returns An object containing the changed keys and values
      */
     updateSource(
-        changes?: DeepPartial<this["_source"]> | undefined,
+        changes?: Record<string, unknown> | undefined,
         options?: DocumentSourceUpdateContext
     ): DeepPartial<this["_source"]>;
 
@@ -204,8 +202,6 @@ export default abstract class DataModel<
     static migrateDataSafe(source: object): object;
 }
 
-export type RawObject<TModel extends _DataModel> = TModel["_source"];
-
 export interface DataModelValidationOptions {
     changes?: object;
     clean?: boolean;
@@ -216,7 +212,11 @@ export interface DataModelValidationOptions {
 }
 
 declare global {
-    interface DataModelConstructionOptions<TParent extends DataModel | Document | null> {
+    type RawObject<TModel extends DataModel> = TModel extends { system: infer TSystem }
+        ? Omit<TModel, "system"> & { system: TSystem }
+        : TModel["_source"];
+
+    interface DataModelConstructionOptions<TParent extends DataModel | null> {
         /** @param [parent=null] A parent DataModel instance to which this DataModel belongs */
         parent?: TParent;
         /** @param [strict=true] Control the strictness of validation for initially provided data */
@@ -229,4 +229,4 @@ declare global {
     }
 }
 
-type _DataModel = DataModel<_DataModel | null, fields.DataSchema> | Document;
+type _DataModel = DataModel<_DataModel | null, fields.DataSchema>;

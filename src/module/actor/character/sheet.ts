@@ -1431,7 +1431,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         itemSource: ItemSourcePF2e
     ): Promise<CollectionValue<TActor["items"]>[]>;
     protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id);
+        const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getNearestFeatSlotId(event);
             if (featSlot) {

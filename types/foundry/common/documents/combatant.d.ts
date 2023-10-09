@@ -5,12 +5,14 @@ import type * as fields from "../data/fields.d.ts";
 /** The Combat document model. */
 export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent, CombatantSchema> {
     static override get metadata(): CombatantMetadata;
+
+    static override defineSchema(): CombatantSchema;
 }
 
 export default interface BaseCombatant<TParent extends BaseCombat | null>
     extends Document<TParent, CombatantSchema>,
         ModelPropsFromSchema<CombatantSchema> {
-    readonly _source: CombatantSource;
+    get documentName(): CombatantMetadata["name"];
 }
 
 interface CombatantMetadata extends DocumentMetadata {

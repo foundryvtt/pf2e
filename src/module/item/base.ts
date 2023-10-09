@@ -30,7 +30,7 @@ import { ItemSheetPF2e } from "./sheet/base.ts";
 import { MAGIC_TRADITIONS } from "./spell/values.ts";
 import { ItemInstances } from "./types.ts";
 
-/** Override and extend the basic :class:`Item` implementation */
+/** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
@@ -77,7 +77,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: object,
         options?: Record<string, unknown>
     ): Promise<TDocument | undefined>;
-    static override fromDropData(data: object, options?: Record<string, unknown>): Promise<ClientDocument | undefined> {
+    static override fromDropData(
+        data: object,
+        options?: Record<string, unknown>
+    ): Promise<foundry.abstract.Document | undefined> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
             const item = fromUuidSync(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
@@ -296,7 +299,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
-        const updates: DocumentUpdateData<this> = { img: updatedImage, system: latestSource.system };
+        const updates: Partial<foundry.documents.ItemSource> = { img: updatedImage, system: latestSource.system };
 
         if (options.name) updates.name = latestSource.name;
 
@@ -441,9 +444,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
         context: DocumentModificationContext<ActorPF2e | null> = {}
-    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null>[]> {
+    ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
-        const sources = data.map((d) => (d instanceof ItemPF2e ? d.toObject() : d));
+        const sources = data.map((d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d));
 
         // Migrate source in case of importing from an old compendium
         for (const source of [...sources]) {
@@ -586,7 +589,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async deleteDocuments(
         ids: string[] = [],
         context: DocumentModificationContext<ActorPF2e | null> = {}
-    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null>[]> {
+    ): Promise<foundry.abstract.Document[]> {
         ids = Array.from(new Set(ids));
         const actor = context.parent;
         if (actor) {
@@ -617,12 +620,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
         // Sort traits
-        this._source.system.traits?.value?.sort();
+        this._source.system.traits.value?.sort();
 
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
@@ -740,14 +743,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (!(this.actor && game.user.id === userId)) return;
 
         if (!(this.actor.isOfType("creature") && this.canUserModify(game.user, "update"))) return;
-        const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
+        const actorUpdates: Record<string, unknown> = {};
         for (const rule of this.rules) rule.onDelete?.(actorUpdates);
 
         // Remove attack effect from melee items if this deleted item was the source
         if (this.actor.isOfType("npc") && ["action", "consumable"].includes(this.type)) {
             const slug = this.slug ?? sluggify(this.name);
             if (!this.actor.isToken) {
-                const itemUpdates: DocumentUpdateData<this>[] = [];
+                const itemUpdates: Record<string, unknown>[] = [];
                 for (const attack of this.actor.itemTypes.melee) {
                     const attackEffects = attack.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {

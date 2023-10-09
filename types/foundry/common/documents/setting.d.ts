@@ -20,7 +20,7 @@ export default class BaseSetting extends Document<null, SettingSchema> {
 }
 
 export default interface BaseSetting extends Document<null, SettingSchema>, ModelPropsFromSchema<SettingSchema> {
-    readonly _source: SettingSource;
+    get documentName(): SettingMetadata["name"];
 }
 
 interface SettingMetadata extends DocumentMetadata {

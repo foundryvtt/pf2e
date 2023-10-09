@@ -43,7 +43,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      * @return An array of updated data once the operation is complete
      */
     updateAll(
-        transformation: DocumentUpdateData<TDocument> | ((document: TDocument) => DocumentUpdateData<TDocument>),
+        transformation: Record<string, unknown> | ((document: TDocument) => Record<string, unknown>),
         condition?: ((document: TDocument) => boolean) | null,
         options?: DocumentModificationContext<null>
     ): Promise<TDocument[]>;

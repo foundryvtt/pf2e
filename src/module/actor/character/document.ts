@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, FamiliarPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
@@ -28,7 +28,7 @@ import {
     SKILL_DICTIONARY,
     SKILL_EXPANDED,
 } from "@actor/values.ts";
-import {
+import type {
     AncestryPF2e,
     BackgroundPF2e,
     ClassPF2e,
@@ -36,10 +36,9 @@ import {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
-    ItemPF2e,
     PhysicalItemPF2e,
-    WeaponPF2e,
 } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
@@ -335,7 +334,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
+        type SystemDataPartial = DeepPartial<
+            Pick<CharacterSystemData, "build" | "crafting" | "proficiencies" | "saves">
+        > & { abilities: Abilities };
+        const systemData: SystemDataPartial = this.system;
         const existingBoosts = systemData.build?.attributes?.boosts;
         const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
 

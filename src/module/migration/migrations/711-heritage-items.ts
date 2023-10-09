@@ -267,7 +267,7 @@ type MaybeWithHeritageFeatType<TSource extends ItemSourcePF2e = ItemSourcePF2e> 
     };
 };
 
-interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"> {
+interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system" | "_stats"> {
     system: HeritageSystemSourceWithNoAncestrySlug;
 }
 

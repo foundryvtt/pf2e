@@ -55,7 +55,7 @@ export class MigrationRunnerBase {
 
         // since we've been deleting them as we process, the ones remaining need to be deleted
         for (const source of origSources.values()) {
-            diffs.deleted.push(source._id);
+            diffs.deleted.push(source._id!);
         }
 
         return diffs;

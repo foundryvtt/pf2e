@@ -1,8 +1,8 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -10,7 +10,7 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
@@ -207,7 +207,7 @@ export class ActionMacroHelpers {
 
                     const distance = ((): number | null => {
                         const reach =
-                            selfActor instanceof CreaturePF2e && weapon?.isOfType("weapon")
+                            selfActor.isOfType("creature") && weapon?.isOfType("weapon")
                                 ? selfActor.getReach({ action: "attack", weapon }) ?? null
                                 : null;
                         return selfToken?.object && targetData?.token?.object
@@ -272,7 +272,7 @@ export class ActionMacroHelpers {
         token: TokenDocumentPF2e | null;
         actor: ActorPF2e | null;
     } {
-        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
+        const targets = Array.from(game.user.targets).filter((t) => t.actor?.isOfType("creature"));
         const target = targets.shift()?.document ?? null;
         const targetActor = target?.actor ?? null;
         return {

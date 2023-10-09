@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor/index.ts";
-import type { ItemPF2e } from "@item/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ItemSystemSource } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import type { ItemPF2e } from "@item/index.ts";
 
 export class MockItem {
     readonly _source: ItemSourcePF2e;
@@ -13,7 +13,7 @@ export class MockItem {
         this.parent = options.parent ?? null;
     }
 
-    get id(): string {
+    get id(): string | null {
         return this._source._id;
     }
 
@@ -42,7 +42,7 @@ export class MockItem {
     }
 
     static async updateDocuments(
-        updates: DocumentUpdateData<ItemPF2e<ActorPF2e | null>>[] = [],
+        updates: Record<string, unknown>[] = [],
         _context: DocumentModificationContext<ActorPF2e | null> = {}
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
