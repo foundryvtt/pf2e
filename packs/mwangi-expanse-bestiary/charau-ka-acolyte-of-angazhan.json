@@ -1581,13 +1581,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
-                    "value": "ranged"
+                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -1627,9 +1624,7 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "deadly-d6",
                         "thrown-20"
                     ]
                 },
@@ -1671,7 +1666,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "deadly-d6",
                         "thrown-20"
                     ]
                 },
@@ -1828,7 +1822,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:thrown"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "deadly-d6"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
