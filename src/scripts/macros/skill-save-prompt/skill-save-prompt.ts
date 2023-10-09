@@ -1,7 +1,13 @@
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
-import { adjustDC, DCAdjustment } from "@module/dc.ts";
-import { dcAdjustmentsHtml, getActions, loreSkillsFromActiveParty, loreSkillsFromActors } from "./helpers.ts";
-import { dcTools } from "./dc-tools.ts";
+import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
+import {
+    dcAdjustmentsHtml,
+    getActions,
+    loreSkillsFromActiveParty,
+    loreSkillsFromActors,
+    proficiencyRanksHtml,
+} from "./helpers.ts";
+import { ProficiencyRank } from "@item/data/index.ts";
 import { tagify } from "@util";
 import * as R from "remeda";
 
@@ -16,11 +22,36 @@ export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promi
                         <input id="title" name="title" type="text" />
                     </div>
                     <hr>
-                    <div class="form-group dc">
-                        <label for="dc">DC</label>
-                        <input id="dc" name="dc" type="text" />
-                        <i class="fa-solid fa-wrench"></i>
-                    </div>
+                    <nav class="dc-navigation">
+                        <h4 class="sheet-tabs tabs" data-tab-container="primary">
+                            <a class="active" data-tab="set-dc">Set DC</a>
+                            <a data-tab="simple-dc">Simple DC</a>
+                            <a data-tab="level-dc">Level-Based DC</a>
+                        </h4>
+                    </nav>
+                    <section class="dc-content">
+                        <section class="tab active" data-tab="set-dc">
+                            <div class="form-group dc">
+                                <label for="dc">Set DC</label>
+                                <input id="dc" name="dc" type="text" />
+                            </div>
+                        </section>
+                        <section class="tab active" data-tab="simple-dc">
+                            <div class="form-group">
+                                <label for="simple-dc">Simple DC</label>
+                                <select id="simple-dc" name="simple-dc">
+                                    <option></option>
+                                    ${proficiencyRanksHtml()}
+                                </select>
+                            </div>
+                        </section>
+                        <section class="tab active" data-tab="level-dc">
+                            <div class="form-group">
+                                <label for="level-dc">Level</label>
+                                <input id="level-dc" name="level-dc" type="text" />
+                            </div>
+                        </section>
+                    </section>
                     <div class="form-group">
                         <label for="adjust-difficulty">Adjust Difficulty</label>
                         <select id="adjust-difficulty" name="adjust-difficulty">
@@ -29,14 +60,14 @@ export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promi
                         </select>
                     </div>
                     <hr>
-                    <nav class="sheet-navigation">
+                    <nav class="skill-save-navigation">
                         <h4 class="sheet-tabs tabs" data-tab-container="primary">
                             <a class="active" data-tab="skill">Skills</a>
                             <a data-tab="save">Saves</a>
                         </h4>
                     </nav>
-                    <section class="sheet-content">
-                        <section class="tab item-skill active" data-tab="skill">
+                    <section class="skill-save-content">
+                        <section class="tab skill-prompt active" data-tab="skill">
                             <div class="form-group">
                                 <input id="skill" name="prompt.skills" placeholder="Choose Skills" data-dtype="JSON"></input>
                             </div>
@@ -63,7 +94,7 @@ export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promi
                                 </div>
                             </div>
                         </section>
-                        <section class="tab item-save" data-tab="save">
+                        <section class="tab save-prompt" data-tab="save">
                             <div class="form-group">
                                 <input id="save" name="prompt.save" placeholder="Choose Saving Throws" data-dtype="JSON"></input>
                             </div>
@@ -72,7 +103,7 @@ export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promi
                                 <input id="basic-save" name="basic-save" type="checkbox" />
                             </div>
                         </section>
-                    </section
+                    </section>
                 </form>
             `,
             buttons: {
@@ -120,18 +151,20 @@ async function _render($html: HTMLElement | JQuery, options: ActionDefaultOption
     tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
 
     // Setup tabs
-    const tabs = new Tabs({
-        navSelector: ".sheet-navigation",
-        contentSelector: ".sheet-content",
+    const skillSaveTabs = new Tabs({
+        navSelector: ".skill-save-navigation",
+        contentSelector: ".skill-save-content",
         initial: "skill",
         callback: () => {},
     });
-    tabs.bind(html);
-
-    // Open DC calculation dialog when clicked
-    html.querySelector("div.form-group.dc i.fa-solid.fa-wrench")?.addEventListener("click", () => {
-        dcTools();
+    skillSaveTabs.bind(html);
+    const dcTabs = new Tabs({
+        navSelector: ".dc-navigation",
+        contentSelector: ".dc-content",
+        initial: "set-dc",
+        callback: () => {},
     });
+    dcTabs.bind(html);
 
     // Show or hide Roll Options
     html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
@@ -156,9 +189,9 @@ function generatePrompt($html: HTMLElement | JQuery): void {
     let types: string[] = [];
     let traits: string[] = [];
     const extras: string[] = [];
-    const activeTab = html.querySelector("section.tab.active");
-    if (activeTab instanceof HTMLElement) {
-        if (activeTab?.dataset.tab === "skill") {
+    const activeSkillSaveTab = html.querySelector("section.skill-save-content section.tab.active");
+    if (activeSkillSaveTab instanceof HTMLElement) {
+        if (activeSkillSaveTab?.dataset.tab === "skill") {
             // get skill tags
             types = types.concat(_getTags(html, "input#skill"));
             // get lore tags
@@ -172,7 +205,7 @@ function generatePrompt($html: HTMLElement | JQuery): void {
             if (!!html.querySelector("input#secret:checked") && !traits.includes("secret")) {
                 traits.push("secret");
             }
-        } else if (activeTab?.dataset.tab === "save") {
+        } else if (activeSkillSaveTab?.dataset.tab === "save") {
             types = _getTags(html, "input#save");
             if (html.querySelector("input#basic-save:checked")) extras.push("basic:true");
         }
@@ -185,15 +218,8 @@ function generatePrompt($html: HTMLElement | JQuery): void {
             flavor = `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>`;
         }
 
-        let dc = html.querySelector<HTMLInputElement>("input#dc")?.value;
-        if (dc) {
-            const dcAdjustment = html.querySelector<HTMLInputElement>("select#adjust-difficulty")
-                ?.value as DCAdjustment;
-            if (dcAdjustment) dc = adjustDC(+dc, dcAdjustment).toString();
-        }
-
+        const dc = _getDC(html);
         const content = types.map((type) => _prepareCheck(type, dc, traits, extras)).join("");
-        console.log(content);
 
         ChatMessage.create({
             user: game.user.id,
@@ -203,6 +229,32 @@ function generatePrompt($html: HTMLElement | JQuery): void {
     }
 }
 
+function _getDC(html: HTMLElement): string | undefined {
+    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
+    const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+
+    let dc: string | undefined = undefined;
+    const activeDCTab = html.querySelector("section.dc-content section.tab.active");
+    if (activeDCTab instanceof HTMLElement) {
+        if (activeDCTab?.dataset.tab === "set-dc") {
+            dc = html.querySelector<HTMLInputElement>("input#dc")?.value;
+        } else if (activeDCTab?.dataset.tab === "simple-dc") {
+            const profRank = html.querySelector<HTMLInputElement>("select#simple-dc")?.value as ProficiencyRank;
+            if (profRank) dc = calculateSimpleDC(profRank, { proficiencyWithoutLevel }).toString();
+        } else if (activeDCTab?.dataset.tab === "level-dc") {
+            const level = html.querySelector<HTMLInputElement>("input#level-dc")?.value;
+            if (level) dc = calculateDC(+level, { proficiencyWithoutLevel }).toString();
+        }
+    }
+
+    if (dc) {
+        const dcAdjustment = html.querySelector<HTMLInputElement>("select#adjust-difficulty")?.value as DCAdjustment;
+        if (dcAdjustment) dc = adjustDC(+dc, dcAdjustment).toString();
+    }
+
+    return dc;
+}
+
 function _getTags(html: HTMLElement, selector: string): string[] {
     const el = html.querySelector(selector);
     const tagArray: TagifyValue[] = el instanceof HTMLInputElement && el.value ? JSON.parse(el.value) : [];
@@ -210,7 +262,9 @@ function _getTags(html: HTMLElement, selector: string): string[] {
 }
 
 function _prepareLoreType(type: string): string {
-    return type.toLowerCase().replace("lore", "").trim().concat("-lore");
+    let loreType = type.toLowerCase().replaceAll(" ", "-").trim();
+    if (!loreType.includes("lore")) loreType = loreType.concat("-lore");
+    return loreType;
 }
 
 function _prepareActionType(type: string): string {

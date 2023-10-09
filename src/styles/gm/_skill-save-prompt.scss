@@ -1,49 +1,35 @@
-form.skill-save-prompt {
-  margin-bottom: 10px;
-
-  > nav a.active {
-    text-decoration: underline;
-  }
-
-  tags.tagify {
-    background-color: rgba(0, 0, 0, 0.075);
-    border: 1px solid var(--color-border-light-tertiary);
-    border-radius: 3px;
-  }
-
-  input#dc {
-    flex: 2.75;
-  }
-
-  i.fa-solid.fa-wrench {
-    flex: 0.25;
-    text-align: right;
-  }
-
-  i.fa-solid.fa-wrench:hover {
-    text-shadow: 0 0 8px var(--color-shadow-primary);
-  }
-  
-  .form-group.secret {
-    justify-content: flex-end;
-    text-align: right;
-
-    input {
-      margin-right: 0;
-    }
-  }
-}
-
 div#generate-skill-save-prompt {
   height: auto !important;
-}
 
-div#skill-save-prompt-dc-dialog, div#generate-skill-save-prompt {
   .dialog-buttons {
     flex: 0 1 auto;
   }
 
-  select {
-    text-transform: capitalize;
+  form.skill-save-prompt {
+    margin-bottom: 10px;
+  
+    > nav a.active {
+      text-decoration: underline;
+    }
+  
+    tags.tagify {
+      background-color: rgba(0, 0, 0, 0.075);
+      border: 1px solid var(--color-border-light-tertiary);
+      border-radius: 3px;
+    }
+    
+    .form-group.secret {
+      justify-content: flex-end;
+      text-align: right;
+    }
+  
+    input#secret, input#basic-save {
+      margin-right: 0;
+    }
+
+    select {
+      height: var(--form-field-height);
+      text-transform: capitalize;
+    }
   }
 }
