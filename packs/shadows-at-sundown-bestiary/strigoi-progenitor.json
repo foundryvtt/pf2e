@@ -4828,7 +4828,28 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "item:type:weapon",
+                                    {
+                                        "or": [
+                                            "item:material:silver",
+                                            "item:weapons-shedding-bright-light"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalSilverWeaponsOrMagicalWeaponsBrightLight"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
                 "slug": "vampire-strigoi-strigoi-weaknesses",
                 "source": {
                     "value": "Pathfinder Adventure: Shadows at Sundown"
@@ -5299,17 +5320,6 @@
             "perception": {
                 "value": 23
             },
-            "resistances": [
-                {
-                    "exceptions": [
-                        "magical",
-                        "silver",
-                        "weapons-shedding-bright-light"
-                    ],
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
             "speed": {
                 "otherSpeeds": [
                     {
