@@ -34,7 +34,8 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
         "type" in docSource &&
         isObject(docSource.system) &&
         !("text" in docSource) && // JournalEntryPage
-        !isActorSource(docSource)
+        !isActorSource(docSource) &&
+        !isItemReference(docSource)
     );
 }
 

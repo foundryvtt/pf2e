@@ -3,7 +3,7 @@ import path from "path";
 import * as R from "remeda";
 import systemJSON from "../../static/system.json" assert { type: "json" };
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { isPhysicalData, type ItemSourcePF2e, type PhysicalItemSource } from "@item/data/index.ts";
+import { isItemReference, isPhysicalData, type ItemSourcePF2e, type PhysicalItemSource } from "@item/data/index.ts";
 import type { ItemReferenceSource, PhyiscalItemReferenceSource, SpellReferenceSource } from "@item/data/base.ts";
 import type { SpellSource } from "@item/spell/data.ts";
 import { sluggify } from "@util";
@@ -14,7 +14,6 @@ import { PackEntry } from "./types.ts";
 class ItemReferences {
     #metadata: CompendiumMetadata[];
     #idNameMap: Map<string, Map<string, string>>;
-    /** Only exists while extracting */
     #convertUUIDs?: ItemReferencesOptions["convertUUIDs"];
 
     static #itemCache = new Map<string, ItemSourcePF2e>();
@@ -26,9 +25,12 @@ class ItemReferences {
     }
 
     /** Replaces actor items with item references if possible */
-    toReferences(items: ItemSourcePF2e[]): ItemSourcePF2e[] {
+    toReferences(items: (ItemSourcePF2e | ItemReferenceSource)[]): ItemSourcePF2e[] {
         for (let i = 0; i < items.length; i++) {
             const source = deepClone(items[i]);
+            // Skip existing references
+            if (isItemReference(source)) continue;
+
             switch (source.type) {
                 case "armor":
                 case "backpack":
@@ -39,20 +41,20 @@ class ItemReferences {
                 case "weapon": {
                     const reference = this.#convertPhysicalItem(source);
                     if (reference) {
-                        (items as (ItemSourcePF2e | ItemReferenceSource)[])[i] = reference;
+                        items[i] = reference;
                     }
                     break;
                 }
                 case "spell": {
                     const reference = this.#convertSpell(source);
                     if (reference) {
-                        (items as (ItemSourcePF2e | ItemReferenceSource)[])[i] = reference;
+                        items[i] = reference;
                     }
                     break;
                 }
             }
         }
-        return items;
+        return items as ItemSourcePF2e[];
     }
 
     /** Move reference data to an actor flag during build to get it past DataModel validation */
@@ -69,6 +71,16 @@ class ItemReferences {
         } else {
             actorSource.flags.pf2e.itemReferences.push(reference);
         }
+    }
+
+    /** Restore existing item references prior to extracting */
+    restoreFromFlag(items: ItemSourcePF2e[], references: ItemReferenceSource[]): ItemSourcePF2e[] {
+        const sanitized = references.map((reference) => {
+            reference.sourceId = CompendiumPack.convertUUID(reference.sourceId, { to: "name", map: this.#idNameMap });
+            delete reference.flags;
+            return reference;
+        });
+        return [...items, ...sanitized].sort((a, b) => a.sort - b.sort) as ItemSourcePF2e[];
     }
 
     #convertPhysicalItem(source: PhysicalItemSource): PhyiscalItemReferenceSource | null {
@@ -101,6 +113,7 @@ class ItemReferences {
                 sort: source.sort,
                 sourceId,
                 system: {
+                    level: source.system.level,
                     location: source.system.location,
                 },
                 type: "spell",

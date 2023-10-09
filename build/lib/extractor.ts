@@ -314,6 +314,14 @@ class PackExtractor {
     }
 
     #sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { isEmbedded: false }): T {
+        if (isActorSource(docSource)) {
+            // Restore item references from actor flag
+            const references = docSource.flags?.pf2e?.itemReferences;
+            if (references) {
+                docSource.items = this.itemReferences.restoreFromFlag(docSource.items, references);
+            }
+        }
+
         // Clear non-core/pf2e flags
         for (const flagScope in docSource.flags) {
             if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
@@ -812,9 +820,6 @@ class PackExtractor {
 
     #sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
         return Array.from(spells).sort((a, b) => {
-            if (isItemReference(a) || isItemReference(b)) {
-                return 0;
-            }
             const spellA = a as SpellSource;
             const spellB = b as SpellSource;
             const aLevel = spellA.system.level;
@@ -829,8 +834,14 @@ class PackExtractor {
                     return levelDiff;
                 }
             }
+            const nameA = isItemReference(spellA)
+                ? spellA.sourceId.substring(spellA.sourceId.lastIndexOf(".") + 1)
+                : spellA.name;
+            const nameB = isItemReference(spellB)
+                ? spellB.sourceId.substring(spellB.sourceId.lastIndexOf(".") + 1)
+                : spellB.name;
 
-            return a.name.localeCompare(b.name);
+            return nameA.localeCompare(nameB);
         }) as SpellSource[];
     }
 

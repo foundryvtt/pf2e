@@ -127,6 +127,7 @@ interface ItemReferenceBaseSource {
 
 interface SpellReferenceSource extends ItemReferenceBaseSource {
     system?: {
+        level: SpellSystemSource["level"];
         location: SpellSystemSource["location"];
     };
     type: "spell";
