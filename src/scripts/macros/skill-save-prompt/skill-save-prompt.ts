@@ -230,8 +230,7 @@ function generatePrompt($html: HTMLElement | JQuery): void {
 }
 
 function _getDC(html: HTMLElement): string | undefined {
-    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-    const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
 
     let dc: string | undefined = undefined;
     const activeDCTab = html.querySelector("section.dc-content section.tab.active");

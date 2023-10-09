@@ -62,8 +62,7 @@ async function getActions(): Promise<{}> {
 }
 
 function proficiencyRanksHtml(): string {
-    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-    const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
     return PROFICIENCY_RANKS.map(
         (rank) => `<option value="${rank}">${rank} (${calculateSimpleDC(rank, { proficiencyWithoutLevel })})</option>`
     ).join("");
