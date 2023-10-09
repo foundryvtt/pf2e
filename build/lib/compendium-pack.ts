@@ -1,6 +1,6 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, isPhysicalData } from "@item/data/index.ts";
-import { FEAT_CATEGORIES } from "@item/feat/values.ts";
+import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -268,7 +268,7 @@ class CompendiumPack {
                 docSource.system.equipped = { carryType: "worn" };
             } else if (docSource.type === "feat") {
                 const featCategory = docSource.system.category;
-                if (!setHasElement(FEAT_CATEGORIES, featCategory)) {
+                if (!setHasElement(FEAT_OR_FEATURE_CATEGORIES, featCategory)) {
                     throw PackError(`${docSource.name} has an unrecognized feat category: ${featCategory}`);
                 }
             }

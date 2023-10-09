@@ -511,19 +511,20 @@ interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     };
 }
 
-interface SlottedFeat<T extends FeatLike = FeatPF2e> {
+interface FeatSlot<TItem extends FeatLike = FeatPF2e> {
     id: string;
-    level: number | string;
-    feat?: T;
+    label: string;
+    level: number | null;
+    feat?: TItem;
 }
 
-interface BonusFeat<T extends FeatLike = FeatPF2e> {
+interface BonusFeatSlot<T extends FeatLike = FeatPF2e> {
     feat: T;
 }
 
 export type {
     BaseWeaponProficiencyKey,
-    BonusFeat,
+    BonusFeatSlot,
     CategoryProficiencies,
     CharacterAbilities,
     CharacterAttributes,
@@ -546,8 +547,8 @@ export type {
     CharacterTraitsSource,
     ClassDCData,
     FeatLike,
+    FeatSlot,
     MagicTraditionProficiencies,
     MartialProficiency,
-    SlottedFeat,
     WeaponGroupProficiencyKey,
 };

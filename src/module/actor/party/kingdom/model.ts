@@ -3,6 +3,9 @@ import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
@@ -35,9 +38,6 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
-import { extractModifierAdjustments } from "@module/rules/helpers.ts";
-import { ZeroToFour } from "@module/data.ts";
-import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 const { DataModel } = foundry.abstract;
 

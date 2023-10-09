@@ -26,6 +26,7 @@ import { Migration870MartialToProficiencies } from "@module/migration/migrations
 import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
 import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-move-stamina-stuff.ts";
 import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
+import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration873RemoveBonusBulkLimit(),
     new Migration874MoveStaminaStuff(),
     new Migration875SetInnovationIdEarly(),
+    new Migration876FeatLevelTaken(),
 ];
 
 global.deepClone = <T>(original: T): T => {
