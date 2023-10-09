@@ -381,6 +381,12 @@ export const USER_PERMISSIONS: {
         disableGM: true;
         defaultRole: typeof USER_ROLES.TRUSTED;
     };
+    CARDS_CREATE: {
+        label: "PERMISSION.CardsCreate";
+        hint: "PERMISSION.CardsCreateHint";
+        disableGM: false;
+        defaultRole: typeof USER_ROLES.ASSISTANT;
+    };
     DRAWING_CREATE: {
         label: "PERMISSION.DrawingCreate";
         hint: "PERMISSION.DrawingCreateHint";

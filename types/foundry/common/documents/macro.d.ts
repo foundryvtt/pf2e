@@ -1,6 +1,6 @@
-import type { DataModel, Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseUser } from "./module.d.ts";
+import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type { BaseUser } from "./module.d.ts";
 
 /** The Macro document model. */
 export default class BaseMacro extends Document<null> {
