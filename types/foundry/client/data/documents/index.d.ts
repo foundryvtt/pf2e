@@ -4,6 +4,7 @@ import "./actor-delta.d.ts";
 import "./adventure.d.ts";
 import "./ambient-light-document.d.ts";
 import "./ambient-sound-document.d.ts";
+import "./card.d.ts";
 import "./cards.d.ts";
 import "./chat-message.d.ts";
 import "./client-base-mixes.d.ts";
