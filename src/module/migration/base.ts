@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemReferenceSource } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ScenePF2e } from "@scene/index.ts";
 
@@ -51,6 +52,21 @@ interface MigrationBase {
      * @param actorSource If the item is part of an actor, this is set to the actor. For instance
      */
     updateItem?(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void>;
+
+    /**
+     * Update the item reference to the latest schema version, handling changes that must happen before any other
+     * migration in a given list. Only available during compendium JSON migrations.
+     * @param source Item reference to update. This should be an `ItemReferenceSource` from the previous version
+     * @param actorSource If the item is part of an actor, this is set to the actor source
+     */
+    preUpdateItemReference?(source: ItemReferenceSource, actorSource?: ActorSourcePF2e): Promise<void>;
+
+    /**
+     * Update the item reference to the latest schema version. Only available during compendium JSON migrations.
+     * @param source Item reference to update. This should be an `ItemReferenceSource` from the previous version.
+     * @param actorSource If the item is part of an actor, this is set to the actor. For instance
+     */
+    updateItemReference?(source: ItemReferenceSource, actorSource?: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the macro to the latest schema version.

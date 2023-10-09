@@ -68,12 +68,12 @@ export class MigrationRunnerBase {
         for (const migration of migrations) {
             for (const currentItem of currentActor.items) {
                 if (isCompendiumSource && isItemReference(currentItem)) {
-                    // TODO: Support migration of item references
-                    continue;
-                }
-                await migration.preUpdateItem?.(currentItem, currentActor);
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.preUpdateItem?.(currentItem.system.spell, currentActor);
+                    await migration.preUpdateItemReference?.(currentItem, currentActor);
+                } else {
+                    await migration.preUpdateItem?.(currentItem, currentActor);
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.preUpdateItem?.(currentItem.system.spell, currentActor);
+                    }
                 }
             }
         }
@@ -83,13 +83,13 @@ export class MigrationRunnerBase {
 
             for (const currentItem of currentActor.items) {
                 if (isCompendiumSource && isItemReference(currentItem)) {
-                    // TODO: Support migration of item references
-                    continue;
-                }
-                await migration.updateItem?.(currentItem, currentActor);
-                // Handle embedded spells
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.updateItem?.(currentItem.system.spell, currentActor);
+                    await migration.updateItemReference?.(currentItem, currentActor);
+                } else {
+                    await migration.updateItem?.(currentItem, currentActor);
+                    // Handle embedded spells
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.updateItem?.(currentItem.system.spell, currentActor);
+                    }
                 }
             }
         }
