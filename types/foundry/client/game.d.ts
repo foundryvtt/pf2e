@@ -54,19 +54,7 @@ declare global {
         keyboard: KeyboardManager;
 
         /** A mapping of installed modules */
-        modules: Collection<{
-            id: string;
-            active: boolean;
-            esmodules: Set<string>;
-            scripts: Set<string>;
-            flags: DocumentFlags;
-            title: string;
-            compatibility: {
-                minimum?: string;
-                verified?: string;
-                maximum?: string;
-            };
-        }>;
+        modules: Collection<Module>;
 
         /** The user role permissions setting */
         permissions: Record<string, number[]>;
@@ -208,68 +196,7 @@ declare global {
         /**
          * Metadata regarding the game System which powers this World
          */
-        get system(): {
-            id: string;
-            title: string;
-            version: string;
-            gridUnits: string;
-            data: {
-                authors: string[];
-                availability: number;
-                bugs: string;
-                changelog: string;
-                compatibleCoreVersion: string;
-                description: string;
-                download: string;
-                esmodules: string[];
-                gridDistance: number;
-                initiative: string;
-                keywords: string[];
-                languages: {
-                    lang: string;
-                    name: string;
-                    path: string;
-                }[];
-                license: string;
-                manifest: string;
-                minimumCoreVersion: string;
-                name: string;
-                packs: {
-                    entity: CompendiumDocumentType;
-                    label: string;
-                    module: string;
-                    name: string;
-                    path: string;
-                    system: string;
-                }[];
-                readme: string;
-                schema: number;
-                scripts: string[];
-                socket: boolean;
-                styles: string[];
-                templateVersion: number;
-                title: string;
-                unavailable: boolean;
-                url: string;
-            };
-            documentTypes: {
-                Actor: string[];
-                ChatMessage: string[];
-                Combat: string[];
-                Folder: string[];
-                Item: string[];
-                JournalEntry: string[];
-                Macro: ["chat", "script"];
-                Playlist: string[];
-                RollTable: string[];
-                Scene: string[];
-                User: string[];
-            };
-            model: {
-                Actor: Record<string, object>;
-                Item: Record<string, object>;
-            };
-        };
+        get system(): System;
 
         /** A convenience accessor for the currently active Combat encounter */
         get combat(): TCombat | null;

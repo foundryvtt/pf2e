@@ -72,7 +72,7 @@ export class CompendiumOwnershipField extends fields.ObjectField<Record<UserRole
 }
 
 /** A special SetField which provides additional validation and initialization behavior specific to compendium packs. */
-export class PackageCompendiumPacks<TSchema extends CompendiumPackSchema> extends fields.SetField<
+export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> extends fields.SetField<
     fields.SchemaField<TSchema>
 > {
     protected override _cleanType(value: Record<string, unknown>[], options?: Record<string, unknown>): void;
@@ -114,10 +114,10 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
     hasStorage: boolean;
 
     /**
-     * @param {PackageManifestData} data  Source data for the package
+     * @param data         Source data for the package
      * @param [options={}] Options which affect DataModel construction
      */
-    constructor(data: object, options?: DataModelConstructionOptions<null>);
+    constructor(data: PackageManifestData, options?: DataModelConstructionOptions<null>);
 
     /**
      * Define the package type in CONST.PACKAGE_TYPES that this class represents.
@@ -147,11 +147,11 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
 
     /**
      * Check the given compatibility data against the current installation state and determine its availability.
-     * @param {Partial<PackageManifestData>} data  The compatibility data to test.
-     * @param {ReleaseData} [release]              A specific software release for which to test availability.
-     *                                             Tests against the current release by default.
+     * @param data      The compatibility data to test.
+     * @param [release] A specific software release for which to test availability.
+     *                  Tests against the current release by default.
      */
-    static testAvailability(data?: Record<string, unknown>, release?: object): PackageAvailabilityCode;
+    static testAvailability(data?: Partial<PackageManifestData>, release?: ReleaseData): PackageAvailabilityCode;
 
     /**
      *
@@ -186,31 +186,39 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
      * @return A Promise which resolves to a constructed ServerPackage instance
      * @throws An error if the retrieved manifest data is invalid
      */
-    static fromRemoteManifest(manifestUrl: string, options?: { strict?: boolean }): Promise<object>;
+    static fromRemoteManifest<T extends BasePackage<BasePackageSchema>>(
+        this: ConstructorOf<T>,
+        manifestUrl: string,
+        options?: { strict?: boolean }
+    ): Promise<T | null>;
 }
 
 export default interface BasePackage<TDataSchema extends BasePackageSchema>
     extends DataModel<null, TDataSchema>,
         ModelPropsFromSchema<BasePackageSchema> {}
 
+/**
+ * The data structure of a package manifest. This data structure is extended by BasePackage subclasses to add additional
+ * type-specific fields.
+ */
 type BasePackageSchema = {
-    // Package metadata
+    /** The machine-readable unique package id, should be lower-case with no spaces or special characters */
     id: fields.StringField<string, string, true, false, false>;
+    /** The human-readable package title, containing spaces and special characters */
     title: fields.StringField<string, string, true, false, false>;
+    /** An optional package description, may contain HTML */
     description: fields.StringField<string, string, true, false, true>;
-    authors: fields.SetField<
-        fields.SchemaField<{
-            name: fields.StringField<string, string, true, false, false>;
-            email: fields.StringField<string, string, false, false, false>;
-            url: fields.StringField<string, string, false, false, false>;
-            discord: fields.StringField<string, string, false, false, false>;
-            flags: fields.ObjectField<DocumentFlags>;
-        }>
-    >;
+    /** An array of author objects who are co-authors of this package. Preferred to the singular author field. */
+    authors: fields.SetField<fields.SchemaField<PackageAuthorSchema>>;
+    /** A web url where more details about the package may be found */
     url: fields.StringField<string, string, false, false, false>;
+    /** A web url or relative file path where license details may be found */
     license: fields.StringField<string, string, false, false, false>;
+    /** A web url or relative file path where readme instructions may be found */
     readme: fields.StringField<string, string, false, false, false>;
+    /** A web url where bug reports may be submitted and tracked */
     bugs: fields.StringField<string, string, false, false, false>;
+    /** A web url where notes detailing package updates are available */
     changelog: fields.StringField<string, string, false, false, false>;
     flags: fields.ObjectField<DocumentFlags>;
     media: fields.SetField<
@@ -224,46 +232,79 @@ type BasePackageSchema = {
         }>
     >;
 
-    // Package versioning
-    version: fields.StringField<string, string, true, false, true>;
+    /** The current package version */
+    version: fields.StringField<string, string, true, boolean, true>;
+    /** The compatibility of this version with the core Foundry software */
     compatibility: PackageCompatibility;
-
-    // Included content
+    /** An array of urls or relative file paths for JavaScript files which should be included */
     scripts: fields.SetField<fields.StringField<string, string, true, false, false>>;
+    /** An array of urls or relative file paths for ESModule files which should be included */
     esmodules: fields.SetField<fields.StringField<string, string, true, false, false>>;
+    /** An array of urls or relative file paths for CSS stylesheet files which should be included */
     styles: fields.SetField<fields.StringField<string, string, true, false, false>>;
-    languages: fields.SetField<
-        fields.SchemaField<{
-            lang: fields.StringField<string, string, true, false, false>;
-            name: fields.StringField<string, string, false, false, true>;
-            path: fields.StringField<string, string, true, false, false>;
-            system: fields.StringField<string, string, false, false, false>;
-            module: fields.StringField<string, string, false, false, false>;
-            flags: fields.ObjectField<DocumentFlags>;
-        }>
-    >;
-    packs: PackageCompendiumPacks<CompendiumPackSchema>;
+    /** An array of language data objects which are included by this package */
+    languages: fields.SetField<fields.SchemaField<PackageLanguageSchema>>;
+    /** An array of compendium packs which are included by this package */
+    packs: PackageCompendiumPacks<PackageCompendiumSchema>;
     packFolders: fields.SetField<PackageCompendiumFolder>;
-
-    // Package relationships
+    /** An organized object of relationships to other Packages */
     relationships: PackageRelationships;
+    /** Whether to require a package-specific socket namespace for this package */
     socket: fields.BooleanField;
-
-    // Package downloading
+    /** A publicly accessible web URL which provides the latest available package manifest file. Required in order to support module updates. */
     manifest: fields.StringField;
+    /** A publicly accessible web URL where the source files for this package may be downloaded. Required in order to support module installation. */
     download: fields.StringField<string, string, false, false, false>;
+    /** Whether this package uses the protected content access system. */
     protected: fields.BooleanField;
     exclusive: fields.BooleanField;
     persistentStorage: fields.BooleanField;
 };
 
-type CompendiumPackSchema = {
+type PackageAuthorSchema = {
+    /** The author name */
     name: fields.StringField<string, string, true, false, false>;
+    /** The author email address */
+    email: fields.StringField<string, string, false, false, false>;
+    /** A website url for the author */
+    url: fields.StringField<string, string, false, false, false>;
+    /** A Discord username for the author */
+    discord: fields.StringField<string, string, false, false, false>;
+    flags: fields.ObjectField<DocumentFlags>;
+};
+export type PackageAuthorData = ModelPropsFromSchema<PackageAuthorSchema>;
+
+type PackageCompendiumSchema = {
+    /** The canonical compendium name. This should contain no spaces or special characters */
+    name: fields.StringField<string, string, true, false, false>;
+    /** The human-readable compendium name */
     label: fields.StringField<string, string, true, false, false>;
     banner: fields.StringField<string, string, false, false, false>;
+    /** The local relative path to the compendium source directory. The filename should match the name attribute */
     path: fields.StringField<string, string, false, false, true>;
+    /** The specific document type that is contained within this compendium pack */
     type: fields.StringField<CompendiumDocumentType, CompendiumDocumentType, true, false, false>;
+    /** Denote that this compendium pack requires a specific game system to function properly */
     system: fields.StringField<string, string, false, false, false>;
     ownership: CompendiumOwnershipField;
     flags: fields.ObjectField<DocumentFlags>;
 };
+export type PackageCompendiumData = ModelPropsFromSchema<PackageCompendiumSchema>;
+
+type PackageLanguageSchema = {
+    /** A string language code which is validated by Intl.getCanonicalLocales */
+    lang: fields.StringField<string, string, true, false, false>;
+    /** The human-readable language name */
+    name: fields.StringField<string, string, false, false, true>;
+    /** The relative path to included JSON translation strings */
+    path: fields.StringField<string, string, true, false, false>;
+    /** Only apply this set of translations when a specific system is being used */
+    system: fields.StringField<string, string, false, false, false>;
+    /** Only apply this set of translations when a specific module is active */
+    module: fields.StringField<string, string, false, false, false>;
+    flags: fields.ObjectField<DocumentFlags>;
+};
+export type PackageLanguageData = ModelPropsFromSchema<PackageLanguageSchema>;
+export type PackageManifestData = SourceFromSchema<BasePackageSchema>;
+
+export interface ReleaseData {}
