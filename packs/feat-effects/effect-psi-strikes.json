@@ -1,0 +1,50 @@
+{
+    "_id": "BIHU3o499fsa1bwt",
+    "img": "icons/magic/symbols/runes-star-magenta.webp",
+    "name": "Effect: Psi Strikes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Psi Strikes]</p>\n<p>The attack deals an extra 1d6 force damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": {
+                    "attacks": true
+                },
+                "flag": "effectPsiStrikes",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "force",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPsiStrikes}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
