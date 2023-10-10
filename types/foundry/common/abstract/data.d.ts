@@ -192,7 +192,7 @@ export default abstract class DataModel<
      * @param source The candidate source data from which the model will be constructed
      * @returns Migrated source data, if necessary
      */
-    static migrateData<TSource extends object>(source: TSource): TSource;
+    static migrateData(source: Record<string, unknown>): SourceFromSchema<fields.DataSchema>;
 
     /**
      * Wrap data migration in a try/catch which attempts it safely
