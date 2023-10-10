@@ -122,15 +122,18 @@ export default abstract class Document<
     /**
      * Clone a document, creating a new document by combining current data with provided overrides.
      * The cloned document is ephemeral and not yet saved to the database.
-     * @param [data={}]                Additional data which overrides current document data at the time of creation
-     * @param [options={}]             Additional options which customize the creation workflow
-     * @param [options.save=false]    Save the clone to the World database?
-     * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
+     * @param [data={}]              Additional data which overrides current document data at the time of creation
+     * @param [context={}]           Additional options which customize the creation workflow
+     * @param [context.save=false]   Save the clone to the World database?
+     * @param [context.keepId=false] Keep the original Document ID? Otherwise the ID will become undefined
      * @returns The cloned Document instance
      */
-    clone(data: Record<string, unknown> | undefined, options: DocumentCloneOptions & { save: true }): Promise<this>;
-    clone(data?: Record<string, unknown>, options?: DocumentCloneOptions & { save?: false }): this;
-    clone(data?: Record<string, unknown>, options?: DocumentCloneOptions): this | Promise<this>;
+    override clone(
+        data: Record<string, unknown> | undefined,
+        context: DocumentCloneContext & { save: true }
+    ): Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
 
     /**
      * For Documents which include game system data, migrate the system data object to conform to its latest data model.
@@ -645,7 +648,7 @@ declare global {
 
     type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
 
-    interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
+    interface DocumentCloneContext extends Omit<DocumentConstructionContext<null>, "parent"> {
         save?: boolean;
         keepId?: boolean;
     }

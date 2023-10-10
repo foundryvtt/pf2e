@@ -74,6 +74,9 @@ export default abstract class DataModel<
     /*  Data Initialization                     */
     /* ---------------------------------------- */
 
+    /** A generator that orders the DataFields in the DataSchema into an expected initialization order. */
+    protected static _initializationOrder(): Generator<Record<string, fields.DataField>>;
+
     /**
      * Initialize the instance by copying data from the source object to instance attributes.
      * This mirrors the workflow of SchemaField#initialize but with some added functionality.
@@ -83,6 +86,14 @@ export default abstract class DataModel<
 
     /** Reset the state of this data instance back to mirror the contained source data, erasing any changes. */
     reset(): void;
+
+    /**
+     * Clone a model, creating a new data model by combining current data with provided overrides.
+     * @param [data={}]    Additional data which overrides current document data at the time of creation
+     * @param [context={}] Context options passed to the data model constructor
+     * @returns The cloned Document instance
+     */
+    clone(data?: Record<string, unknown>, context?: DataModelConstructionOptions<TParent>): this;
 
     /* ---------------------------------------- */
     /*  Data Validation Methods                 */
@@ -126,7 +137,7 @@ export default abstract class DataModel<
      * @param data The candidate data object to validate
      * @throws An error if a validation failure is detected
      */
-    static validateJoint(data: object): void;
+    static validateJoint(data: SourceFromSchema<fields.DataSchema>): void;
 
     /* ---------------------------------------- */
     /*  Data Management                         */
