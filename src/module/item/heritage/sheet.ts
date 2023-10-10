@@ -6,7 +6,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            dragDrop: [{ dropSelector: ".sheet-sidebar" }],
+            dragDrop: [{ dropSelector: ".sidebar" }],
         };
     }
 
