@@ -23,7 +23,7 @@ export default class BaseWall<TParent extends BaseScene | null> extends Document
 export default interface BaseWall<TParent extends BaseScene | null>
     extends Document<TParent, WallSchema>,
         ModelPropsFromSchema<WallSchema> {
-    readonly _source: WallSource;
+    get documentName(): WallMetadata["name"];
 }
 
 interface WallMetadata extends DocumentMetadata {
