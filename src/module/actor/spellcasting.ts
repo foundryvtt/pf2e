@@ -68,9 +68,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<Base
         itemUpdates: ((Record<string, unknown> | Partial<SpellcastingEntrySource>) & { _id: string })[];
         actorUpdates: { "system.resources.focus.value": number } | null;
     } {
-        type SpellcastingUpdate =
-            | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>
-            | EmbeddedDocumentUpdateData<SpellcastingEntryPF2e>[];
+        type SpellcastingUpdate = EmbeddedDocumentUpdateData | EmbeddedDocumentUpdateData[];
 
         const itemUpdates = this.contents.flatMap((entry): SpellcastingUpdate => {
             if (!(entry instanceof SpellcastingEntryPF2e)) return [];

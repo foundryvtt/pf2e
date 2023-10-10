@@ -135,7 +135,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 console.warn(error);
             }
         }
-        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id));
+        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id!));
         updatedActor.items = [...itemDiff.inserted, ...finalUpdated];
 
         return updatedActor;

@@ -1355,7 +1355,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
-    protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown> {
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
         const data = super._getSubmitData(updateData);
         processTagifyInSubmitData(this.form, data);
 

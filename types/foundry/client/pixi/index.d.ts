@@ -51,7 +51,7 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
-import "./canvas.d.ts";
+import "./board.d.ts";
 import "./core/index.d.ts";
 import "./groups/index.d.ts";
 import "./layers/controls/ruler.d.ts";

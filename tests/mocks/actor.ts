@@ -47,12 +47,12 @@ export class MockActor {
         }
 
         for (const source of this._source.items) {
-            const item = this.items.get(source._id);
+            const item = this.items.get(source._id!);
             if (item) {
                 (item as { _source: object })._source = duplicate(source);
             } else {
                 this.items.set(
-                    source._id,
+                    source._id!,
                     new MockItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e<ActorPF2e>
                 );
             }
@@ -68,7 +68,7 @@ export class MockActor {
     }
 
     static async updateDocuments(
-        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        updates: Record<string, unknown>[] = [],
         _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {}
     ): Promise<ActorPF2e[]> {
         return updates.flatMap((update) => {
@@ -121,7 +121,7 @@ export class MockActor {
 
     async deleteEmbeddedDocuments(type: string, ids: string[]): Promise<void> {
         if (type === "Item") {
-            this._source.items = this._source.items.filter((source: { _id: string }) => !ids.includes(source._id));
+            this._source.items = this._source.items.filter((i) => !ids.includes(i._id!));
         }
         this.prepareData();
     }

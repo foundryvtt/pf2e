@@ -9,23 +9,12 @@ declare global {
      * @see {@link PlaylistConfig}        The Playlist configuration application
      */
     class Playlist extends ClientBasePlaylist {
-        constructor(data: PreCreate<foundry.documents.PlaylistSource>, context?: DocumentConstructionContext<null>);
-
-        /**
-         * Each sound which is played within the Playlist has a created Howl instance.
-         * The keys of this object are the sound IDs and the values are the Howl instances.
-         */
-        audio: Record<string, unknown>;
-
-        /** Playlists may have a playback order which defines the sequence of Playlist Sounds */
-        protected _playbackOrder: string[];
-
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
 
-        /** The playback mode for the Playlist instance */
-        get mode(): PlaylistMode;
+        /** Playlists may have a playback order which defines the sequence of Playlist Sounds */
+        protected _playbackOrder: string[];
 
         /**
          * The order in which sounds within this playlist will be played (if sequential or shuffled)
@@ -33,10 +22,19 @@ declare global {
          */
         get playbackOrder(): string[];
 
-        /** An indicator for whether any Sound within the Playlist is currently playing */
-        get playing(): boolean;
-
         override get visible(): boolean;
+
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
+
+        /**
+         * Find all content links belonging to a given {@link Playlist} or {@link PlaylistSound}.
+         * @param doc  The Playlist or PlaylistSound.
+         */
+        protected static _getSoundContentLinks(doc: Playlist | PlaylistSound<Playlist | null>): NodeListOf<Element>;
+
+        override prepareDerivedData(): void;
 
         /**
          * Begin simultaneous playback for all sounds in the Playlist.
@@ -90,7 +88,7 @@ declare global {
         protected _sortSounds(a: PlaylistSound<this>, b: PlaylistSound<this>): number;
 
         protected override _preUpdate(
-            data: DocumentUpdateData<this>,
+            data: Record<string, unknown>,
             options: DocumentModificationContext<null>,
             user: User
         ): Promise<void>;

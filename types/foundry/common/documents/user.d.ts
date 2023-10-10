@@ -57,9 +57,7 @@ export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<nul
 export default interface BaseUser<TCharacter extends BaseActor<null> = BaseActor<null>>
     extends Document<null, UserSchema<TCharacter>>,
         ModelPropsFromSchema<UserSchema<TCharacter>> {
-    readonly _source: UserSource;
-
-    get documentName(): "User";
+    get documentName(): UserMetadata["name"];
 }
 
 interface UserMetadata extends DocumentMetadata {

@@ -301,7 +301,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
-    override onPrepareSynthetics(this: PhysicalItemPF2e<ActorPF2e>): void {
+    override onPrepareSynthetics(): void {
         this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
     }
 
@@ -499,7 +499,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

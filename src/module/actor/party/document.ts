@@ -66,7 +66,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     override updateSource(
-        data?: DocumentUpdateData<PartyPF2e>,
+        data?: Record<string, unknown>,
         options?: DocumentSourceUpdateContext
     ): DeepPartial<this["_source"]> {
         if (!this.campaign) return super.updateSource(data, options);

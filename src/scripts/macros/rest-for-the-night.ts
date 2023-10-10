@@ -1,6 +1,5 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
-import { ItemPF2e } from "@item";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
@@ -43,7 +42,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             attributes: { hp: { value: actor._source.system.attributes.hp.value } },
             resources: {},
         };
-        const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e<ActorPF2e>>[] = [];
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
 

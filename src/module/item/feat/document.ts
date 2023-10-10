@@ -177,7 +177,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: PreDocumentId<FeatSource>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

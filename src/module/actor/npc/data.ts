@@ -32,9 +32,9 @@ import type { MeleePF2e } from "@item";
 import { Rarity, Size } from "@module/data.ts";
 import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 
-interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
+type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
-}
+};
 
 type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };

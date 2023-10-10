@@ -1,13 +1,13 @@
-import { ActorPF2e } from "@actor";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { DCSlug } from "@actor/types.ts";
-import { ItemPF2e } from "@item";
-import { WeaponTrait } from "@item/weapon/types.ts";
-import { RollNotePF2e } from "@module/notes.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckRoll, CheckType } from "@system/check/index.ts";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { ActorPF2e } from "@actor";
+import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import type { DCSlug } from "@actor/types.ts";
+import type { ItemPF2e } from "@item";
+import type { WeaponTrait } from "@item/weapon/types.ts";
+import type { RollNotePF2e } from "@module/notes.ts";
+import type { TokenDocumentPF2e } from "@scene";
+import type { CheckRoll, CheckType } from "@system/check/index.ts";
+import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 

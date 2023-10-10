@@ -345,7 +345,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const dropSlotType = dropItemEl?.dataset.itemType;
         const dropContainerType = dropContainerEl?.dataset.containerType;
 
-        const item = this.actor.items.get(itemSource._id);
+        const item = this.actor.items.get(itemSource._id!);
         if (!item) return [];
 
         // if they are dragging onto another spell, it's just sorting the spells

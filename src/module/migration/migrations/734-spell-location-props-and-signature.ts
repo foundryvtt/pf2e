@@ -24,7 +24,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
             const entryData: SpellcastingEntrySystemDataOld = entrySource.system;
             if (!entryData.signatureSpells) continue;
 
-            const isSignature = entryData.signatureSpells.value.includes(spellSource._id);
+            const isSignature = entryData.signatureSpells.value.includes(spellSource._id ?? "");
             if (isSignature) {
                 spellData.location.signature = true;
             }

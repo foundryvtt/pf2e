@@ -1,66 +1,147 @@
 import type * as CONST from "../constants.d.ts";
-import type { DataSchema, SchemaField } from "../data/fields.d.ts";
+import type { DataField, DataSchema } from "../data/fields.d.ts";
+import type * as documents from "../documents/module.d.ts";
 import type BaseUser from "../documents/user.d.ts";
+import type DataModel from "./data.d.ts";
 import type { DataModelValidationOptions } from "./data.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
+import type * as abstract from "./module.d.ts";
 
 /** The abstract base interface for all Document types. */
 export default abstract class Document<
     TParent extends Document | null = _Document | null,
     TSchema extends DataSchema = DataSchema
-> {
-    constructor(data: object, context?: DocumentConstructionContext<Document | null>);
+> extends DataModel<TParent, TSchema> {
+    protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 
-    // Properties from `DataModel` ported over during system types transition
-    _id: string | null;
-    readonly _source: object;
-    protected _configure(): void;
-    get invalid(): boolean;
-    static validateJoint(data: SourceFromSchema<DataSchema>): void;
     /**
-     * Create a new instance of this DataModel from a source record.
-     * The source is presumed to be trustworthy and is not strictly validated.
-     * @param source    Initial document data which comes from a trusted source.
-     * @param [context] Model construction context
-     * @param [context.strict=false]   Models created from trusted source data are validated non-strictly
+     * An immutable reverse-reference to the name of the collection that this Document exists in on its parent, if any.
      */
-    static fromSource<T extends Document>(
-        this: AbstractConstructorOf<T>,
-        source: Record<string, unknown>,
-        context?: DataModelConstructionOptions<null>
-    ): T;
-
-    /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
-    readonly parent: TParent;
+    readonly parentCollection: string | null;
 
     /** An immutable reference to a containing Compendium collection to which this Document belongs. */
     readonly pack: string | null;
 
-    get schema(): SchemaField<TSchema>;
+    protected override _initialize(options?: Record<string, unknown>): void;
 
-    // actually in `DataModel`
-    static defineSchema(): DataSchema;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
 
-    /** Perform one-time initialization tasks which only occur when the Document is first constructed. */
-    protected _initialize(): void;
-
-    /**
-     * Initialize the source data for a new DataModel instance.
-     * One-time migrations and initial cleaning operations are applied to the source data.
-     * @param data      The candidate source data from which the model will be constructed
-     * @param [options] Options provided to the model constructor
-     * @returns Migrated and cleaned source data which will be stored to the model instance
-     * System note: actually in `DataModel`
-     */
-    protected _initializeSource(
-        data: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>
-    ): this["_source"];
+    /** Default metadata which applies to each instance of this Document type. */
+    static get metadata(): DocumentMetadata;
 
     /**
-     * Reset the state of this data instance back to mirror the contained source data, erasing any changes.
+     * The database backend used to execute operations and handle results.
+     * @type {abstract.DatabaseBackend}
      */
-    reset(): void;
+    static get database(): abstract.DatabaseBackend;
+
+    /** Return a reference to the implemented subclass of this base document type. */
+    static get implementation(): typeof Document;
+
+    /** The named collection to which this Document belongs. */
+    static get collectionName(): string;
+    /** The named collection to which this Document belongs. */
+    get collectionName(): string;
+
+    /** The canonical name of this Document type, for example "Actor". */
+    static get documentName(): string;
+    /** The canonical name of this Document type, for example "Actor". */
+    get documentName(): string;
+
+    /** Does this Document support additional sub-types? */
+    static get hasTypeData(): boolean;
+
+    /* -------------------------------------------- */
+    /*  Model Properties                            */
+    /* -------------------------------------------- */
+
+    /** The Embedded Document hierarchy for this Document. */
+    static get hierarchy(): Record<string, DataField>;
+
+    /**
+     * Determine the collection this Document exists in on its parent, if any.
+     * @param [parentCollection]  An explicitly provided parent collection name.
+     */
+    protected _getParentCollection(parentCollection: string): string | null;
+
+    /** The canonical identifier for this Document. */
+    get id(): string;
+
+    /** Test whether this Document is embedded within a parent Document */
+    get isEmbedded(): boolean;
+
+    /* ---------------------------------------- */
+    /*  Model Permissions                       */
+    /* ---------------------------------------- */
+
+    /**
+     * Test whether a given User has a sufficient role in order to create Documents of this type in general.
+     * @param user The User being tested
+     * @return Does the User have a sufficient role to create?
+     */
+    static canUserCreate(user: documents.BaseUser): boolean;
+
+    /**
+     * Get the explicit permission level that a User has over this Document, a value in CONST.DOCUMENT_OWNERSHIP_LEVELS.
+     * This method returns the value recorded in Document ownership, regardless of the User's role.
+     * To test whether a user has a certain capability over the document, testUserPermission should be used.
+     * @param {documents.BaseUser} user     The User being tested
+     * @returns {number|null}               A numeric permission level from CONST.DOCUMENT_OWNERSHIP_LEVELS or null
+     */
+    getUserLevel(user: documents.BaseUser): DocumentOwnershipLevel | null;
+
+    /**
+     * Test whether a certain User has a requested permission level (or greater) over the Document
+     * @param user       The User being tested
+     * @param permission The permission level from DOCUMENT_PERMISSION_LEVELS to test
+     * @param options    Additional options involved in the permission test
+     * @param [options.exact=false] Require the exact permission level requested?
+     * @return Does the user have this permission level over the Document?
+     */
+    testUserPermission(
+        user: BaseUser,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean }
+    ): boolean;
+
+    /**
+     * Test whether a given User has permission to perform some action on this Document
+     * @param user   The User attempting modification
+     * @param action The attempted action
+     * @param [data] Data involved in the attempted action
+     * @return Does the User have permission?
+     */
+    canUserModify(user: BaseUser, action: UserAction, data?: Record<string, unknown>): boolean;
+
+    /* ---------------------------------------- */
+    /*  Model Methods                           */
+    /* ---------------------------------------- */
+
+    /**
+     * Clone a document, creating a new document by combining current data with provided overrides.
+     * The cloned document is ephemeral and not yet saved to the database.
+     * @param [data={}]                Additional data which overrides current document data at the time of creation
+     * @param [options={}]             Additional options which customize the creation workflow
+     * @param [options.save=false]    Save the clone to the World database?
+     * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
+     * @returns The cloned Document instance
+     */
+    clone(data: Record<string, unknown> | undefined, options: DocumentCloneOptions & { save: true }): Promise<this>;
+    clone(data?: Record<string, unknown>, options?: DocumentCloneOptions & { save?: false }): this;
+    clone(data?: Record<string, unknown>, options?: DocumentCloneOptions): this | Promise<this>;
+
+    /**
+     * For Documents which include game system data, migrate the system data object to conform to its latest data model.
+     * The data model is defined by the template.json specification included by the game system.
+     * @returns The migrated system data object
+     */
+    migrateSystemData(): Record<string, unknown>;
+
+    /* -------------------------------------------- */
+    /*  Database Operations                         */
+    /* -------------------------------------------- */
 
     /**
      * Validate the data contained in the document to check for type and content
@@ -83,52 +164,6 @@ export default abstract class Document<
      */
     validate(options?: DataModelValidationOptions): boolean;
 
-    /* -------------------------------------------- */
-    /*  Configuration                               */
-    /* -------------------------------------------- */
-
-    /** Default metadata which applies to each instance of this Document type. */
-    static get metadata(): DocumentMetadata;
-
-    /**
-     * The database backend used to execute operations and handle results
-     * @type {DatabaseBackend}
-     */
-    static get database(): object;
-
-    /** Return a reference to the implemented subclass of this base document type. */
-    static get implementation(): typeof Document;
-
-    /* -------------------------------------------- */
-    /*  Properties                                  */
-    /* -------------------------------------------- */
-
-    /** The named collection to which this Document belongs. */
-    static get collectionName(): string;
-
-    /** The canonical name of this Document type, for example "Actor". */
-    get documentName(): string;
-
-    /** The canonical name of this Document type, for example "Actor". */
-    static get documentName(): string;
-
-    /** The canonical identifier for this Document */
-    get id(): string;
-
-    /** Test whether this Document is embedded within a parent Document */
-    get isEmbedded(): boolean;
-
-    /* ---------------------------------------- */
-    /*  Methods                                 */
-    /* ---------------------------------------- */
-
-    /**
-     * Test whether a given User has a sufficient role in order to create Documents of this type.
-     * @param user The User being tested
-     * @return Does the User have a sufficient role to create?
-     */
-    static canUserCreate(user: BaseUser): boolean;
-
     /**
      * Get the explicit permission level that a User has over this Document, a value in CONST.DOCUMENT_OWNERSHIP_LEVELS.
      * This method returns the value recorded in Document ownership, regardless of the User's role.
@@ -144,54 +179,6 @@ export default abstract class Document<
      * @returns                Migrated source data, if necessary
      */
     static migrateData<TSource extends object>(source: TSource): TSource;
-
-    /**
-     * Update the DataModel locally by applying an object of changes to its source data.
-     * The provided changes are cleaned, validated, and stored to the source data object for this model.
-     * The source data is then re-initialized to apply those changes to the prepared data.
-     * The method returns an object of differential changes which modified the original data.
-     *
-     * @param changes      New values which should be applied to the data model
-     * @param [options={}] Options which determine how the new data is merged
-     * @returns An object containing the changed keys and values
-     */
-    updateSource(data?: DocumentUpdateData, options?: DocumentSourceUpdateContext): DeepPartial<this["_source"]>;
-
-    /**
-     * Clone a document, creating a new document by combining current data with provided overrides.
-     * The cloned document is ephemeral and not yet saved to the database.
-     * @param [data={}]                Additional data which overrides current document data at the time of creation
-     * @param [options={}]             Additional options which customize the creation workflow
-     * @param [options.save=false]    Save the clone to the World database?
-     * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
-     * @returns The cloned Document instance
-     */
-    clone(data: DocumentUpdateData<this> | undefined, options: DocumentCloneOptions & { save: true }): Promise<this>;
-    clone(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions & { save?: false }): this;
-    clone(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions): this | Promise<this>;
-
-    /**
-     * Test whether a certain User has a requested permission level (or greater) over the Document
-     * @param user The User being tested
-     * @param permission The permission level from DOCUMENT_PERMISSION_LEVELS to test
-     * @param options Additional options involved in the permission test
-     * @param [options.exact=false] Require the exact permission level requested?
-     * @return Does the user have this permission level over the Document?
-     */
-    testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
-    ): boolean;
-
-    /**
-     * Test whether a given User has permission to perform some action on this Document
-     * @param user   The User attempting modification
-     * @param action The attempted action
-     * @param [data] Data involved in the attempted action
-     * @return Does the User have permission?
-     */
-    canUserModify(user: BaseUser, action: UserAction, data?: Record<string, unknown>): boolean;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -222,8 +209,7 @@ export default abstract class Document<
      * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
      * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static createDocuments<TDocument extends Document<any>>(
+    static createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
         context?: DocumentModificationContext<TDocument["parent"]>
@@ -256,7 +242,7 @@ export default abstract class Document<
      */
     static updateDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        updates?: DocumentUpdateData<TDocument>[],
+        updates?: Record<string, unknown>[],
         context?: DocumentModificationContext<TDocument["parent"]>
     ): Promise<TDocument[]>;
 
@@ -287,8 +273,7 @@ export default abstract class Document<
      * const actor = await pack.getDocument(documentId);
      * const deleted = await Actor.deleteDocuments([actor.id], {pack: "mymodule.mypack"});
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static deleteDocuments<TDocument extends Document<any>>(
+    static deleteDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
         context?: DocumentModificationContext<TDocument["parent"]>
@@ -350,7 +335,7 @@ export default abstract class Document<
      * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
      * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
      */
-    update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this>;
 
     /**
                  * Delete the current Document.
@@ -364,6 +349,25 @@ export default abstract class Document<
     /* -------------------------------------------- */
     /*  Embedded Operations                         */
     /* -------------------------------------------- */
+
+    /**
+     * A compatibility method that returns the appropriate name of an embedded collection within this Document.
+     * @param name An existing collection name or a document name.
+     * @returns The provided collection name if it exists, the first available collection for the
+     *          document name provided, or null if no appropriate embedded collection could be found.
+     * @example Passing an existing collection name.
+     * ```js
+     * Actor.getCollectionName("items");
+     * // returns "items"
+     * ```
+     *
+     * @example Passing a document name.
+     * ```js
+     * Actor.getCollectionName("Item");
+     * // returns "items"
+     * ```
+     */
+    static getCollectionName(name: string): string | null;
 
     /**
      * Obtain a reference to the Array of source data within the data object for a certain embedded Document name
@@ -394,7 +398,7 @@ export default abstract class Document<
      */
     createEmbeddedDocuments(
         embeddedName: string,
-        data: PreCreate<object>[],
+        data: object[],
         context?: DocumentModificationContext<this>
     ): Promise<Document[]>;
 
@@ -411,7 +415,7 @@ export default abstract class Document<
                  */
     updateEmbeddedDocuments(
         embeddedName: string,
-        updateData: EmbeddedDocumentUpdateData<Document>[],
+        updateData: EmbeddedDocumentUpdateData[],
         context?: DocumentUpdateContext<this>
     ): Promise<Document[]>;
 
@@ -485,7 +489,7 @@ export default abstract class Document<
      * @returns A return value of false indicates the creation operation should be cancelled.
      */
     protected _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: BaseUser
     ): Promise<boolean | void>;
@@ -606,34 +610,32 @@ type MetadataPermission =
     | ((...args: any[]) => boolean);
 
 export interface DocumentMetadata {
-    collection: string;
-    embedded: Record<string, string>;
-    hasSystemData: boolean;
-    isEmbedded?: boolean;
-    isPrimary?: boolean;
     name: string;
+    collection: string;
+    indexed: boolean;
+    compendiumIndexFields: string[];
     label: string;
-    pack: null;
+    coreTypes: string[] | number[];
+    embedded: Record<string, string>;
     permissions: {
         create: MetadataPermission;
         update: MetadataPermission;
         delete: MetadataPermission;
     };
-    types: string[] | Record<string, number>;
+    preserveOnImport: string[];
 }
 
 type _Document = Document<_Document | null>;
 
 declare global {
-    type PreCreate<T extends object> = T extends { name: string; type: string }
+    type PreCreate<T extends SourceFromSchema<DataSchema>> = T extends { name: string; type: string }
         ? Omit<DeepPartial<T>, "_id" | "name" | "type"> & { _id?: Maybe<string>; name: string; type: T["type"] }
         : DeepPartial<T>;
 
-    type PreDocumentId<T extends object> = Omit<T, "_id"> & { _id: string | null };
-
-    type DocumentUpdateData<T extends Document = Document> = Partial<T["_source"]> | Record<string, unknown>;
-
-    type EmbeddedDocumentUpdateData<T extends Document> = DocumentUpdateData<T> & { _id: string };
+    type EmbeddedDocumentUpdateData = {
+        _id: string;
+        [key: string]: unknown;
+    };
 
     interface DocumentRenderOptions extends RenderOptions {
         data?: {
@@ -642,10 +644,6 @@ declare global {
     }
 
     type DocumentFlags = Record<string, Record<string, unknown> | undefined>;
-
-    type RawObject<TDocument extends Document> = TDocument extends { system: infer TSystem }
-        ? Omit<TDocument, "system"> & { system: TSystem }
-        : TDocument["_source"];
 
     interface DocumentCloneOptions extends Omit<DocumentConstructionContext<null>, "parent"> {
         save?: boolean;

@@ -37,8 +37,6 @@ export default class BaseNote<TParent extends documents.BaseScene | null> extend
 export default interface BaseNote<TParent extends documents.BaseScene | null>
     extends Document<TParent, NoteSchema>,
         ModelPropsFromSchema<NoteSchema> {
-    readonly _source: NoteSource;
-
     get documentName(): NoteMetadata["name"];
 }
 

@@ -55,7 +55,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -469,7 +469,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -887,7 +887,7 @@ export class ClientBaseActiveEffect<
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -1191,7 +1191,7 @@ export class ClientBaseActiveEffect<
 
 export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | null> | null> extends foundry.documents
     .BaseActor<TParent> {
-    protected _sheet: DocumentSheet<this> | null;
+    protected _sheet: DocumentSheet<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>> | null;
 
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
@@ -1246,7 +1246,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -1605,7 +1605,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -1963,7 +1963,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -2321,7 +2321,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -2679,7 +2679,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -3037,7 +3037,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -3395,7 +3395,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -3754,7 +3754,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -4112,7 +4112,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -4883,7 +4883,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -5243,7 +5243,7 @@ export class ClientBaseItem<
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -5601,7 +5601,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -5960,7 +5960,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -6318,7 +6318,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -6677,7 +6677,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -7092,7 +7092,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -7505,7 +7505,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -7864,7 +7864,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -8222,7 +8222,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -8580,7 +8580,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -8938,7 +8938,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -9297,7 +9297,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -9655,7 +9655,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -10068,7 +10068,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -10481,7 +10481,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -10839,7 +10839,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication<this>;
+    get sheet(): DocumentSheet<this>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;

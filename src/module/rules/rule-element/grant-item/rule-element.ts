@@ -285,7 +285,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (!this.flag) throw ErrorPF2e("Unexpected failure looking up RE flag key");
         flags.pf2e.itemGrants[this.flag] = {
             // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
-            id: grantee instanceof ItemPF2e ? grantee.id : grantee._id,
+            id: grantee instanceof ItemPF2e ? grantee.id : grantee._id!,
             // The on-delete action determines what will happen to the granter item when the granted item is deleted:
             // Default to "detach" (do nothing).
             onDelete: this.onDeleteActions?.grantee ?? "detach",

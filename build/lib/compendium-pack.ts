@@ -260,7 +260,7 @@ class CompendiumPack {
 
         if (isItemSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Item" }) };
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id!, { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 

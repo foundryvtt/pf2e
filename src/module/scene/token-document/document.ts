@@ -8,7 +8,6 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
-import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
@@ -479,7 +478,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
-    delta: ActorDeltaPF2e<this> | null;
 }
 
 export { TokenDocumentPF2e };

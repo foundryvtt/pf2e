@@ -414,7 +414,7 @@ class PackExtractor {
             if (key === "_id") {
                 topLevel = docSource;
                 if (docSource.folder === null) {
-                    delete docSource.folder;
+                    delete (docSource as { folder?: null }).folder;
                 }
                 delete (docSource as { _stats?: unknown })._stats;
 

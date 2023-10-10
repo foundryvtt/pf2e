@@ -596,7 +596,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         event: ElementDragEvent,
         itemSource: ItemSourcePF2e
     ): Promise<ItemPF2e<PartyPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id);
+        const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
             const featSlot = this.#getNearestFeatSlotId(event);
             if (!featSlot) return [];

@@ -10,6 +10,7 @@ import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
+import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -34,7 +35,6 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { DamageModifierDialog } from "@system/damage/dialog.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;

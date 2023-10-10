@@ -910,7 +910,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return flag;
     }
 
-    override async update(data: DocumentUpdateData<this>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
+    override async update(data: Record<string, unknown>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
         if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(
@@ -923,7 +923,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

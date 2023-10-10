@@ -126,7 +126,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Log whether this effect originated from a spell */
     protected override _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

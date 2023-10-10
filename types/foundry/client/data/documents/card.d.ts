@@ -70,22 +70,19 @@ declare global {
          *                                  for example the displayed face
          * @returns {Promise<Card>}         A reference to this card after it has been passed to another parent document
          */
-        pass(to: Cards, options?: { updateData?: DocumentUpdateData<Card<TParent>> }): Promise<Card<Cards> | undefined>;
+        pass(to: Cards, options?: { updateData?: Record<string, unknown> }): Promise<Card<Cards> | undefined>;
 
         /**
          * @alias Card#pass
          * @see Card#pass
          */
-        play(to: Cards, options?: { updateData?: DocumentUpdateData<Card<TParent>> }): Promise<Card<Cards> | undefined>;
+        play(to: Cards, options?: { updateData?: Record<string, unknown> }): Promise<Card<Cards> | undefined>;
 
         /**
          * @alias Card#pass
          * @see Card#pass
          */
-        discard(
-            to: Cards,
-            options?: { updateData?: DocumentUpdateData<Card<TParent>> }
-        ): Promise<Card<Cards> | undefined>;
+        discard(to: Cards, options?: { updateData?: Record<string, unknown> }): Promise<Card<Cards> | undefined>;
 
         /**
          * Recall this Card to its original Cards parent.

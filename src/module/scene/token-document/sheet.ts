@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";
-import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     static override get defaultOptions(): DocumentSheetOptions {

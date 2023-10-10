@@ -19,8 +19,6 @@ export default class BaseFolder extends Document<null, FolderSchema> {
 }
 
 export default interface BaseFolder extends Document<null, FolderSchema>, ModelPropsFromSchema<FolderSchema> {
-    readonly _source: FolderSource;
-
     get documentName(): FolderMetadata["name"];
 }
 

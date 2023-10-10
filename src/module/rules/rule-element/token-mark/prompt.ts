@@ -1,5 +1,5 @@
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication.ts";
 
 /** Prompt the user to target a token */

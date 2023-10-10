@@ -38,7 +38,7 @@ import type {
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
-} from "@scene/index.ts";
+} from "@scene";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
@@ -60,9 +60,9 @@ import type { ModuleArt } from "@system/module-art.ts";
 import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
+import type Peggy from "peggy";
 import type EnJSON from "static/lang/en.json";
 import type ReEnJSON from "static/lang/re-en.json";
-import type Peggy from "peggy";
 
 interface GamePF2e
     extends Game<

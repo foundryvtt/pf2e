@@ -1,10 +1,10 @@
 import type { CanvasBaseToken } from "./client-base-mixes.d.ts";
 
 declare global {
-    class TokenDocument<TParent extends Scene | null> extends CanvasBaseToken<TParent> {
+    class TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
         constructor(
             data: PreCreate<foundry.documents.TokenSource>,
-            context?: TokenDocumentConstructionContext<TParent, Actor<TokenDocument<Scene | null>> | null>
+            context?: TokenDocumentConstructionContext<TParent, Actor<TokenDocument> | null>
         );
 
         /** An array of detection modes which are available to this Token */
@@ -99,7 +99,7 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preUpdate(
-            data: DocumentUpdateData<this>,
+            data: Record<string, unknown>,
             options: TokenUpdateContext<TParent>,
             user: User
         ): Promise<boolean | void>;
@@ -189,16 +189,14 @@ declare global {
         static getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription;
     }
 
-    interface TokenDocument<TParent extends Scene | null> extends CanvasBaseToken<TParent> {
+    interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
         get object(): Token<this> | null;
         get sheet(): TokenConfig<this>;
         get uuid(): TokenDocumentUUID;
     }
 
-    interface TokenDocumentConstructionContext<
-        TParent extends Scene | null,
-        TActor extends Actor<TokenDocument<Scene | null>> | null
-    > extends DocumentConstructionContext<TParent> {
+    interface TokenDocumentConstructionContext<TParent extends Scene | null, TActor extends Actor<TokenDocument> | null>
+        extends DocumentConstructionContext<TParent> {
         actor?: TActor;
     }
 

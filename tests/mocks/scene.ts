@@ -1,7 +1,7 @@
 import { FoundryUtils } from "../utils.ts";
 
 export class MockScene {
-    _source: Partial<foundry.documents.SceneSource> & { _id: string; name: string };
+    _source: foundry.documents.SceneSource;
 
     constructor(data: Partial<foundry.documents.SceneSource>) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,7 +9,7 @@ export class MockScene {
         this._source.tokens = [];
     }
 
-    get id(): string {
+    get id(): string | null {
         return this._source._id;
     }
 
@@ -69,7 +69,7 @@ export class MockScene {
     updateEmbeddedEntity(entityType: string, changes: { _id: string }): void {
         let obj: foundry.documents.TokenSource | undefined;
         if (entityType === "Token") {
-            obj = this._source.tokens?.find((x) => x._id === changes._id);
+            obj = this._source.tokens?.find((t) => t._id === changes._id);
         }
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(obj!, k, v);
