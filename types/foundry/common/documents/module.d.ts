@@ -12,7 +12,7 @@ export { default as BaseCombatant, CombatantSource } from "./combatant.ts";
 export { default as BaseDrawing, DrawingSource } from "./drawing.ts";
 export { default as BaseFogExploration, FogExplorationSource } from "./fog-exploration.ts";
 export { default as BaseFolder, FolderSource } from "./folder.ts";
-export { default as BaseItem, ItemFlags, ItemSource } from "./item.ts";
+export { default as BaseItem, ItemFlags, ItemSchema, ItemSource } from "./item.ts";
 export { default as BaseJournalEntryPage } from "./journal-entry-page.ts";
 export { default as BaseJournalEntry, JournalEntrySource } from "./journal-entry.ts";
 export { default as BaseMacro, MacroSource } from "./macro.ts";

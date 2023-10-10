@@ -6,6 +6,7 @@ import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { MigrationRecord, OneToThree, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ItemType } from "./index.ts";
+import type * as fields from "../../../../types/foundry/common/data/fields.d.ts";
 
 type BaseItemSourcePF2e<
     TType extends ItemType,
@@ -107,6 +108,10 @@ interface FrequencySource {
     per: FrequencyInterval;
 }
 
+type ItemSchemaPF2e = Omit<foundry.documents.ItemSchema, "system"> & {
+    system: fields.TypeDataField;
+};
+
 interface Frequency extends FrequencySource {
     value: number;
 }
@@ -122,6 +127,7 @@ export type {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
+    ItemSchemaPF2e,
     ItemSystemData,
     ItemSystemSource,
     ItemTrait,

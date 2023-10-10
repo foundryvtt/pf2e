@@ -65,7 +65,7 @@ interface ItemMetadata extends abstract.DocumentMetadata {
     };
 }
 
-type ItemSchema<TType extends string = string, TSystemSource extends object = object> = {
+export type ItemSchema<TType extends string = string, TSystemSource extends object = object> = {
     /** The _id which uniquely identifies this Item document */
     _id: fields.DocumentIdField;
     /** The name of this Item */
@@ -90,7 +90,7 @@ type ItemSchema<TType extends string = string, TSystemSource extends object = ob
     _stats: fields.DocumentStatsField;
 };
 
-type ItemSource<TType extends string = string, TSystemSource extends object = object> = SourceFromSchema<
+export type ItemSource<TType extends string = string, TSystemSource extends object = object> = SourceFromSchema<
     ItemSchema<TType, TSystemSource>
 >;
 

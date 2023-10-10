@@ -300,7 +300,7 @@ const KINGDOM_SCHEMA = {
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
     /** A collection of settlements controlled by this kingdom, and its related data */
     settlements: new RecordField<
-        StringField<string, string, true, false>,
+        StringField<string, string, true, false, false>,
         SchemaField<
             typeof KINGDOM_SETTLEMENT_SCHEMA,
             SourceFromSchema<typeof KINGDOM_SETTLEMENT_SCHEMA>,
