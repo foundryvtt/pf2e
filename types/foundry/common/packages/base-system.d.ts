@@ -25,7 +25,13 @@ export default class BaseSystem extends packages.BasePackage<BaseSystemSchema> {
     get template(): object;
 
     /** An alias for the structured data model organized by document class and type. */
-    get model(): object;
+    get model(): Record<"Actor" | "Card" | "Cards" | "Item" | "JournalEntryPage", object>;
+}
+
+export default interface BaseSystem
+    extends packages.BasePackage<BaseSystemSchema>,
+        ModelPropsFromSchema<BaseSystemSchema> {
+    version: string;
 }
 
 type BaseSystemSchema = packages.BasePackageSchema & {
