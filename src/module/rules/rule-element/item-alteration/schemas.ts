@@ -118,7 +118,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         { validateForItem: itemHasCounterBadge }
     ),
-    bulk: new ItemAlterationValidator({
+    "bulk-value": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
         value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
@@ -128,7 +128,16 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
-
+    "bulk-worn": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["armor", "backpack"] }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
+            required: true,
+            nullable: false,
+            choices: BULK_VALUES,
+            initial: undefined,
+        } as const),
+    }),
     category: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["armor"] }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
