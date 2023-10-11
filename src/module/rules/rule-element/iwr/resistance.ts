@@ -49,7 +49,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
                     definition: this.definition,
                     exceptions: this.exceptions,
                     doubleVs: this.doubleVs,
-                    source: this.label,
+                    source: this.item.name,
                 })
         );
     }
