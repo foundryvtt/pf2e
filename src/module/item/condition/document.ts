@@ -214,7 +214,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
         };
 
-        const conditions = this.actor.itemTypes.condition;
+        const conditions = this.actor.conditions.active;
 
         // Deactivate conditions naturally overridden by this one
         if (this.system.overrides.length > 0) {
