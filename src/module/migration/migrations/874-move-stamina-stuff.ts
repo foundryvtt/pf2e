@@ -38,7 +38,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
         source.system.rules = recursiveReplaceString(source.system.rules, (text) =>
             text
                 .replace(/^system\.attributes\.sp\.max$/, "system.attributes.hp.sp.max")
-                .replace(/^system\.attributes\.resolve.max$/, "system.resoures.resolve.max")
+                .replace(/^system\.attributes\.resolve.max$/, "system.resources.resolve.max")
         );
     }
 

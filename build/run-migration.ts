@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration855ApexEquipmentSystemData } from "@module/migration/migrations/855-apex-equipment-system-data.ts";
 import { Migration856NoSystemDotCustom } from "@module/migration/migrations/856-no-system-dot-custom.ts";
 import { Migration857WeaponSpecializationRE } from "@module/migration/migrations/857-weapon-spec-re.ts";
 import { Migration858FakeWeaponSpecialization } from "@module/migration/migrations/858-fake-weapon-specialization.ts";
@@ -26,6 +25,7 @@ import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/8
 import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
 import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
 import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-move-stamina-stuff.ts";
+import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -36,7 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration855ApexEquipmentSystemData(),
     new Migration856NoSystemDotCustom(),
     new Migration857WeaponSpecializationRE(),
     new Migration858FakeWeaponSpecialization(),
@@ -52,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration870MartialToProficiencies(),
     new Migration873RemoveBonusBulkLimit(),
     new Migration874MoveStaminaStuff(),
+    new Migration875SetInnovationIdEarly(),
 ];
 
 global.deepClone = <T>(original: T): T => {

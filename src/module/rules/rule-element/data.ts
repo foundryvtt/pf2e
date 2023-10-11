@@ -10,8 +10,7 @@ type RuleElementSource = {
     label?: unknown;
     slug?: unknown;
     predicate?: unknown;
-    /** The place in order of application (ascending), among an actor's list of rule elements */
-    priority?: number;
+    priority?: unknown;
     ignored?: unknown;
     requiresInvestment?: unknown;
     requiresEquipped?: unknown;
