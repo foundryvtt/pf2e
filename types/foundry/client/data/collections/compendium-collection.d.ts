@@ -245,7 +245,6 @@ declare global {
         label: string;
         path: string;
         private?: string;
-        module?: string;
         package?: string;
         packageName: string;
         packageType: "world" | "system" | "module";
