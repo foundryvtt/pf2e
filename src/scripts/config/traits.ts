@@ -609,6 +609,7 @@ const featTraits = {
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
+    circus: "PF2E.TraitCircus",
     class: "PF2E.Class",
     composite: "PF2E.TraitComposite",
     concentrate: "PF2E.TraitConcentrate",
@@ -744,7 +745,6 @@ const actionTraits = {
         "volley-30",
         "volley-50",
     ]),
-    circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
 
