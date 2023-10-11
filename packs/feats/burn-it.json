@@ -55,6 +55,27 @@
                 "slug": "burn-it-persistent",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "slug": "burn-it-splash",
+                "value": 1,
+                "damageCategory": "splash",
+                "damageType": "fire",
+                "predicate": [
+                    {
+                        "and": [
+                            {
+                                "or": [
+                                    "item:trait:alchemical",
+                                    "item:type:spell"
+                                ]
+                            },
+                            "item:trait:splash"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
