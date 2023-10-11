@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
+import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
 
 /** Extend CompendiumDirectory to support a search bar */
 class CompendiumDirectoryPF2e extends CompendiumDirectory {
@@ -63,27 +63,24 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const options = super._getEntryContextOptions();
 
-        if (BUILD_MODE === "development" || game.settings.get("pf2e", "dataTools")) {
-            options.push({
-                name: "COMPENDIUM.Migrate",
-                icon: fontAwesomeIcon("crow").outerHTML,
-                condition: ($li) => {
-                    const compendium = game.packs.get($li.data("pack"), { strict: true });
-                    const actorOrItem =
-                        compendium.documentClass === CONFIG.Actor.documentClass ||
-                        compendium.documentClass === CONFIG.Item.documentClass;
-                    const isSystemCompendium = compendium.metadata.packageType === "system";
-                    return game.user.isGM && actorOrItem && !isSystemCompendium && !compendium.locked;
-                },
-                callback: async ($li) => {
-                    const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
-                        ActorPF2e<null> | ItemPF2e<null>
-                    >;
-                    const runner = new MigrationRunner(MigrationList.constructFromVersion(null));
-                    runner.runCompendiumMigration(compendium);
-                },
-            });
-        }
+        options.push({
+            name: "COMPENDIUM.MigrationStatus",
+            icon: fontAwesomeIcon("info").outerHTML,
+            condition: ($li) => {
+                const compendium = game.packs.get($li.data("pack"), { strict: true });
+                const actorOrItem =
+                    compendium.documentClass === CONFIG.Actor.documentClass ||
+                    compendium.documentClass === CONFIG.Item.documentClass;
+                const isSystemCompendium = compendium.metadata.packageType === "system";
+                return game.user.isGM && actorOrItem && !isSystemCompendium;
+            },
+            callback: async ($li) => {
+                const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
+                    ActorPF2e<null> | ItemPF2e<null>
+                >;
+                new CompendiumMigrationStatus(compendium).render(true);
+            },
+        });
 
         return options;
     }

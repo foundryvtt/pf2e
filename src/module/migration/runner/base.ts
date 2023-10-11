@@ -19,6 +19,14 @@ export class MigrationRunnerBase {
 
     static RECOMMENDED_SAFE_VERSION = 0.634;
 
+    /** The minimum schema version for the foundry version number */
+    static FOUNDRY_SCHEMA_VERSIONS = {
+        0.8: 0.634,
+        9: 0.7,
+        10: 0.781,
+        11: 0.841,
+    };
+
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
     }
