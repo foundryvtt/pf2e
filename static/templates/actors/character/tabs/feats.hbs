@@ -1,6 +1,6 @@
 <div class="tab feats feats-pane" data-group="primary" data-tab="feats">
     {{#each feats as |section|}}
-        <div class="feat-section" data-category-id="{{section.id}}">
+        <div class="feat-section" data-group-id="{{section.id}}">
             <h3 class="header">
                 {{localize section.label}}
                 <button
@@ -9,7 +9,7 @@
                     data-type="feat"
                     data-filter="{{section.featFilter}},conjunction-or"
                 >
-                    <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                 </button>
             </h3>
             <ol class="actions-list directory-list" data-foundry-list>

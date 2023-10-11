@@ -10,13 +10,13 @@ import { getActionTypeLabel, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
-import { FeatCategory, FeatTrait } from "./types.ts";
+import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
     declare grants: (FeatPF2e | HeritagePF2e)[];
 
-    get category(): FeatCategory {
+    get category(): FeatOrFeatureCategory {
         return this.system.category;
     }
 
@@ -68,6 +68,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         super.prepareBaseData();
 
         this.group = null;
+        this.system.level.taken ??= null;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;
@@ -183,9 +184,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
-            this.updateSource({ "system.location": null });
+            this._source.system.location = null;
+            delete this._source.system.level.taken;
             if (this._source.system.frequency) {
-                this.updateSource({ "system.frequency.-=value": null });
+                delete this._source.system.frequency.value;
             }
         }
 

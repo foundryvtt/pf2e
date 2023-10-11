@@ -30,7 +30,7 @@ import {
 } from "@item";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { DeityDomain } from "@item/deity/types.ts";
-import { FeatCategory } from "@item/feat/index.ts";
+import { FeatOrFeatureCategory } from "@item/feat/index.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { MeleeWeaponGroup, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
@@ -222,7 +222,7 @@ const sizeTypes: Record<Size, string> = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
-const featCategories: Record<FeatCategory, string> = {
+const featCategories: Record<FeatOrFeatureCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
     ancestryfeature: "PF2E.FeatTypeAncestryfeature",
     class: "PF2E.FeatTypeClass",

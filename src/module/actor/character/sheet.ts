@@ -1271,10 +1271,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    #getNearestFeatSlotId(event: DragEvent) {
-        const categoryId = htmlClosest(event.target, "[data-category-id]")?.dataset.categoryId;
-        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
-        return typeof categoryId === "string" ? { slotId, categoryId } : null;
+    #getFeatSlotData(event: DragEvent): { groupId: string; slotId: string | null } | null {
+        const groupId = htmlClosest(event.target, "[data-group-id]")?.dataset.groupId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId || null;
+        return groupId ? { groupId, slotId } : null;
     }
 
     /** Toggle availability of the roll-initiative link on the sidebar */
@@ -1309,8 +1309,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         if (item.isOfType("feat")) {
-            const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
-            return await this.actor.feats.insertFeat(item, featSlot);
+            const slotData = this.#getFeatSlotData(event);
+            return this.actor.feats.insertFeat(item, slotData);
         }
 
         return super._onDropItem(event, data);
@@ -1433,9 +1433,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("feat")) {
-            const featSlot = this.#getNearestFeatSlotId(event);
+            const featSlot = this.#getFeatSlotData(event);
             if (featSlot) {
-                const group = this.actor.feats.get(featSlot.categoryId) ?? null;
+                const group = this.actor.feats.get(featSlot.groupId) ?? null;
                 const resorting = item.group === group && !group?.slotted;
                 if (group?.slotted && !featSlot.slotId) {
                     return [];

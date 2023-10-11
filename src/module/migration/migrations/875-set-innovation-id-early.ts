@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { MigrationBase } from "../base.js";
+import { MigrationBase } from "../base.ts";
 
 /** Set very low priority orders on AE-likes setting inventor innovation ID. */
 export class Migration875SetInnovationIdEarly extends MigrationBase {

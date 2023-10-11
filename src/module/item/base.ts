@@ -659,7 +659,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Ensure level is a positive integer
-        if (changed.system?.level) {
+        if (changed.system?.level && "value" in changed.system.level) {
             changed.system.level.value = Math.max(0, Math.trunc(Number(changed.system.level.value) || 0));
         }
 

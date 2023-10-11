@@ -1056,7 +1056,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             this.feats.createGroup(section);
         }
 
-        this.feats.assignFeats();
+        this.feats.assignToSlots();
 
         // These are not handled by character feats
         const feats = this.itemTypes.feat
