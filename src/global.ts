@@ -62,7 +62,6 @@ import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type Peggy from "peggy";
 import type EnJSON from "static/lang/en.json";
-import type ReEnJSON from "static/lang/re-en.json";
 
 interface GamePF2e
     extends Game<
@@ -271,6 +270,5 @@ declare global {
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
-    const RE_EN_JSON: typeof ReEnJSON;
     const ROLL_PARSER: Peggy.Parser;
 }
