@@ -6126,23 +6126,21 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "ac",
                         "key": "RollOption",
                         "option": "shard-shield",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
                         "predicate": [
+                            "shard-shield",
                             {
                                 "lte": [
                                     "hp-remaining",
                                     150
                                 ]
                             }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shard-shield"
                         ],
                         "selector": "ac",
                         "type": "circumstance",

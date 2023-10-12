@@ -55,6 +55,19 @@
                 "value": "@actor.abilities.con.mod+3"
             },
             {
+                "definition": [
+                    "origin:mode:undead"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromUndead",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "custom",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
                 "damageType": "{item|flags.pf2e.rulesSelections.spiritRage}",
                 "key": "AdjustModifier",
                 "mode": "upgrade",

@@ -44,9 +44,10 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
             (t) =>
                 new Weakness({
                     type: t,
+                    customLabel: t === "custom" ? this.label : null,
                     value,
                     exceptions: this.exceptions,
-                    source: this.label,
+                    source: this.item.name,
                 })
         );
     }

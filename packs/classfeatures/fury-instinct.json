@@ -64,6 +64,31 @@
                 "value": 6
             },
             {
+                "exceptions": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "label": "PF2E.IWR.Custom.NonWeapons"
+                    }
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "physical",
+                "value": "@actor.abilities.con.mod + 3"
+            },
+            {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [

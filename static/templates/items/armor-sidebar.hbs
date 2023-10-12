@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="system.weight.value">
+        <select data-property="system.weight.value" data-value-base="{{item._source.system.weight.value}}">
             {{#select data.weight.value}}
                 <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
                 {{#each bulkTypes as |name type|}}
@@ -18,7 +18,11 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select name="system.equippedBulk.value" {{disabled bulkDisabled}}>
+        <select
+            data-property="system.equippedBulk.value"
+            data-value-base="{{item._source.system.equippedBulk.value}}"
+            {{disabled bulkDisabled}}
+        >
             {{#select data.equippedBulk.value}}
                 <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
                 <option value="0">{{localize "PF2E.NegligibleOption"}}</option>

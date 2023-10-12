@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorTypeLabel"}}</label>
-    <select name="system.category">
+    <select data-property="system.category" data-value-base="{{item._source.system.category}}">
         {{#select data.category}}
             {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
@@ -12,7 +12,7 @@
 {{#if (and item.isArmor (not item.isBarding))}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
-        <select name="system.group">
+        <select data-property="system.group" data-value-base="{{item._source.system.group}}">
             {{#select item.group}}
                 <option value=""></option>
                 {{#each groups as |name type|}}
@@ -144,37 +144,78 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
-    <input type="number"
+    <input
+        type="number"
         value="{{item.system.acBonus}}"
+        data-property="system.acBonus"
+        data-value-base="{{item._source.system.acBonus}}"
         {{#if (gt item.acBonus item._source.system.acBonus)}}
             class="adjusted-higher"
         {{else if (lt item.acBonus item._source.system.acBonus)}}
             class="adjusted-lower"
         {{/if}}
-        data-property="system.acBonus"
-        data-value-base="{{json item._source.system.acBonus}}"
     />
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorSpeedLabel"}}</label>
-    <input type="number" name="system.speedPenalty" value="{{data.speedPenalty}}" />
+    <input
+        type="number"
+        value="{{data.speedPenalty}}"
+        data-property="system.speedPenalty"
+        data-value-base="{{item._source.system.speedPenalty}}"
+        {{#if (gt item.speedPenalty item._source.system.speedPenalty)}}
+            class="adjusted-higher"
+        {{else if (lt item.speedPenalty item._source.system.speedPenalty)}}
+            class="adjusted-lower"
+        {{/if}}
+    />
 </div>
 
 {{#if item.isArmor}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorDexLabel"}}</label>
-        <input type="number" name="system.dexCap" value="{{data.dexCap}}" />
+        <input
+            type="number"
+            value="{{data.dexCap}}"
+            data-property="system.dexCap"
+            data-value-base="{{item._source.system.dexCap}}"
+            {{#if (gt item.dexCap item._source.system.dexCap)}}
+                class="adjusted-higher"
+            {{else if (lt item.dexCap item._source.system.dexCap)}}
+                class="adjusted-lower"
+            {{/if}}
+        />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
-        <input type="number"{{#if (and item.isArmor item.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.checkPenalty" data-value-base="{{item._source.system.checkPenalty}}" value="{{data.checkPenalty}}" />
+        <input
+            type="number"
+            value="{{data.checkPenalty}}"
+            data-property="system.checkPenalty"
+            data-value-base="{{item._source.system.checkPenalty}}"
+            {{#if (gt item.checkPenalty item._source.system.checkPenalty)}}
+                class="adjusted-higher"
+            {{else if (lt item.checkPenalty item._source.system.checkPenalty)}}
+                class="adjusted-lower"
+            {{/if}}
+        />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.ArmorStrengthLabel"}}</label>
-        <input type="number" name="system.strength" value="{{data.strength}}" />
+        <input
+            type="number"
+            value="{{data.strength}}"
+            data-property="system.strength"
+            data-value-base="{{item._source.system.strength}}"
+            {{#if (gt item.strength item._source.system.strength)}}
+                class="adjusted-lower"
+            {{else if (lt item.strength item._source.system.strength)}}
+                class="adjusted-higher"
+            {{/if}}
+        />
     </div>
 {{/if}}
 
