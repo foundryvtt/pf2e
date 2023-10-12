@@ -35,7 +35,7 @@
             },
             {
                 "damageType": "fire",
-                "diceNumber": "{item|flags.pf2e.rulesSelections.fieryBody.unarmedDice}",
+                "diceNumber": "ternary(gte(@item.level, 9),2,1)",
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Fiery Body",
@@ -55,42 +55,9 @@
                 "key": "DamageDice",
                 "label": "Fiery Body",
                 "predicate": [
-                    "fire",
-                    {
-                        "not": "item:fiery-body"
-                    }
+                    "fire"
                 ],
                 "selector": "spell-damage"
-            },
-            {
-                "adjustName": true,
-                "choices": [
-                    {
-                        "label": "PF2E.SpellLevel7",
-                        "predicate": [
-                            {
-                                "lte": [
-                                    "parent:level",
-                                    8
-                                ]
-                            }
-                        ],
-                        "value": {
-                            "unarmedDice": 1
-                        }
-                    },
-                    {
-                        "label": "PF2E.SpellLevel9",
-                        "predicate": [
-                            "parent:level:9"
-                        ],
-                        "value": {
-                            "unarmedDice": 2
-                        }
-                    }
-                ],
-                "flag": "fieryBody",
-                "key": "ChoiceSet"
             }
         ],
         "source": {
