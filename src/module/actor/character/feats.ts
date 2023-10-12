@@ -95,11 +95,14 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             });
         }
 
-        const backgroundSkillFeats = actor.background && {
-            id: actor.background.id,
-            level: 1,
-            label: game.i18n.localize("PF2E.FeatBackgroundShort"),
-        };
+        const backgroundSkillFeats =
+            actor.background && Object.keys(actor.background.system.items ?? {}).length > 0
+                ? {
+                      id: actor.background.id,
+                      level: 1,
+                      label: game.i18n.localize("PF2E.FeatBackgroundShort"),
+                  }
+                : null;
         this.createGroup({
             id: "skill",
             label: "PF2E.FeatSkillHeader",
