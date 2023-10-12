@@ -1,16 +1,17 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
-import { HeritagePF2e, ItemPF2e } from "@item";
+import { ItemPF2e, type HeritagePF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { UserPF2e } from "@module/user/index.ts";
-import { getActionTypeLabel, sluggify } from "@util";
+import type { UserPF2e } from "@module/user/index.ts";
+import { getActionTypeLabel, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
+import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
@@ -47,11 +48,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     get isFeature(): boolean {
-        return ["classfeature", "ancestryfeature"].includes(this.category);
+        return setHasElement(FEATURE_CATEGORIES, this.category);
     }
 
     get isFeat(): boolean {
-        return !this.isFeature;
+        return setHasElement(FEAT_CATEGORIES, this.category);
     }
 
     /** Whether this feat must be taken at character level 1 */
