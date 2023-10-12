@@ -4850,8 +4850,16 @@
                             {
                                 "definition": [
                                     "item:magical",
-                                    "item:type:weapon",
-                                    "item:weapons-shedding-bright-light"
+                                    "item:weapons-shedding-bright-light",
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
                                 ],
                                 "label": "PF2E.IWR.Custom.MagicalWeaponsBrightLight"
                             }
