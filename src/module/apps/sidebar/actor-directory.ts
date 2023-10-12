@@ -49,7 +49,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.documentId ?? "");
-            if (!actor?.testUserPermission(game.user, "OBSERVER")) {
+            if (!actor?.testUserPermission(game.user, "LIMITED")) {
                 element.querySelector("span.actor-level")?.remove();
             }
         }
@@ -140,6 +140,25 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             });
         }
 
+        // Extend core collapse all button to close folder-likes
+        const collapseAll = htmlQuery(html, ".collapse-all");
+        collapseAll?.addEventListener("click", (event) => {
+            this.collapseAll();
+
+            const folderEls = htmlQueryAll(html, ".folder-like");
+            for (const folderEl of folderEls) {
+                const entryId = folderEl?.dataset.entryId ?? "";
+                if (folderEl && entryId) {
+                    event.stopPropagation();
+                    this.extraFolders[entryId] = true;
+                    folderEl.classList.toggle("collapsed", true);
+                    if (this.popOut) this.setPosition();
+
+                    this.saveActivePartyFolderState();
+                }
+            }
+        });
+
         this.#appendBrowseButton(html);
     }
 
@@ -184,7 +203,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
     }
 
-    /** Overriden to prevent highlighting of certain types of draggeed data (such as parties) */
+    /** Overriden to prevent highlighting of certain types of dragged data (such as parties) */
     protected override _onDragHighlight(event: DragEvent): void {
         if (event.type === "dragenter" && this.#draggingParty) {
             return event.stopPropagation();
