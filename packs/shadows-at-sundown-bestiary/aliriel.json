@@ -4427,15 +4427,34 @@
                             {
                                 "definition": [
                                     "item:magical",
-                                    "item:type:weapon",
+                                    "item:material:silver",
                                     {
                                         "or": [
-                                            "item:material:silver",
-                                            "item:weapons-shedding-bright-light"
+                                            "item:type:melee",
+                                            "item:type:weapon"
                                         ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
                                     }
                                 ],
-                                "label": "PF2E.IWR.Custom.MagicalSilverWeaponsOrMagicalWeaponsBrightLight"
+                                "label": "PF2E.IWR.Custom.MagicalSilverWeapons"
+                            },
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "item:weapons-shedding-bright-light",
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalWeaponsBrightLight"
                             }
                         ],
                         "key": "Resistance",
