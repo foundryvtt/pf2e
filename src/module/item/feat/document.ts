@@ -60,7 +60,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** The maximum number of times this feat can be taken */
-    get maxTakeable(): number {
+    get maxTakable(): number {
         return this.system.maxTakable;
     }
 
@@ -143,11 +143,13 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     override prepareSiblingData(): void {
-        const itemGrants = this.flags.pf2e.itemGrants;
-        this.grants = Object.values(itemGrants).flatMap((grant) => {
+        this.grants = Object.values(this.flags.pf2e.itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
             return (item?.isOfType("feat") && !item.system.location) || item?.isOfType("heritage") ? [item] : [];
         });
+        for (const grant of this.grants.filter((g): g is FeatPF2e<NonNullable<TParent>> => g.isOfType("feat"))) {
+            grant.system.level.taken = this.system.level.taken;
+        }
     }
 
     override async getChatData(
@@ -247,11 +249,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
         const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;
-        const { maxTakeable } = this;
-        if (maxTakeable === 1 && timesTaken > 1) {
+        const { maxTakable } = this;
+        if (maxTakable === 1 && timesTaken > 1) {
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanOnce", actorItemNames));
-        } else if (timesTaken > maxTakeable) {
-            const formatParams = { ...actorItemNames, maxTakeable, timesTaken };
+        } else if (timesTaken > maxTakable) {
+            const formatParams = { ...actorItemNames, maxTakable, timesTaken };
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
         }
     }
