@@ -1,12 +1,14 @@
+import type { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { TokenPF2e } from "@module/canvas/token/index.ts";
+import type { TokenPF2e } from "@module/canvas/token/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { EncounterPF2e } from "@module/encounter/index.ts";
+import type { EncounterPF2e } from "@module/encounter/index.ts";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
+import * as R from "remeda";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -208,10 +210,13 @@ export class StatusEffects {
             return;
         }
 
-        for (const token of canvas.tokens.controlled) {
-            const { actor } = token;
-            if (!(actor && slug)) continue;
-
+        const tokensAndActors = R.uniqBy(
+            R.compact(
+                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null))
+            ),
+            ([, a]) => a
+        );
+        for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
             if (slug === "persistent-damage") {
                 await new PersistentDialog(actor).render(true);
@@ -224,9 +229,9 @@ export class StatusEffects {
 
             if (event.type === "click") {
                 if (typeof condition?.value === "number") {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
+                    game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
                 } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
-                    await token.actor?.increaseCondition(slug);
+                    actor.increaseCondition(slug);
                 } else {
                     this.#toggleStatus(token, control, event);
                 }
@@ -235,11 +240,11 @@ export class StatusEffects {
                 if (event.ctrlKey && slug !== "dead") {
                     // Remove all conditions
                     const conditionIds = actor.conditions.bySlug(slug, { temporary: false }).map((c) => c.id);
-                    await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
+                    actor.deleteEmbeddedDocuments("Item", conditionIds);
                 } else if (condition?.value) {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
+                    game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
                 } else {
-                    await this.#toggleStatus(token, control, event);
+                    this.#toggleStatus(token, control, event);
                 }
             }
         }
