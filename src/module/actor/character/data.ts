@@ -513,7 +513,7 @@ interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
 interface FeatSlot<TItem extends FeatLike = FeatPF2e> {
     id: string;
-    label: string;
+    label: string | null;
     level: number | null;
     feat?: TItem;
 }

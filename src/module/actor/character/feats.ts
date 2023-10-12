@@ -303,7 +303,8 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         if (slot) {
             slot.feat = feat;
         } else {
-            this.feats.push({ feat });
+            const label = feat.category === "classfeature" ? feat.system.level?.value.toString() ?? null : null;
+            this.feats.push({ feat, label });
         }
         feat.group = this;
 
