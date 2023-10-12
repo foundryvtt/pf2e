@@ -1,7 +1,8 @@
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
-import { Bulk } from "./bulk.ts";
+import { Bulk, STACK_DEFINITIONS, weightToBulk } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
+import { BulkData } from "./data.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
@@ -131,5 +132,20 @@ function generateItemName(item: PhysicalItemPF2e): string {
     return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
 }
 
+/**  Convert of scattershot bulk data on a physical item into a single object */
+function organizeBulkData(item: PhysicalItemPF2e): BulkData {
+    const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
+    const per = stackData?.size ?? 1;
+
+    const heldOrStowed = stackData?.lightBulk ?? weightToBulk(item.system.weight.value)?.toLightBulk() ?? 0;
+    const worn = item.system.equippedBulk.value
+        ? weightToBulk(item.system.equippedBulk.value)?.toLightBulk() ?? 0
+        : heldOrStowed;
+
+    const value = item.isOfType("armor", "equipment", "backpack") && item.isEquipped ? worn : heldOrStowed;
+
+    return { heldOrStowed, worn, value, per };
+}
+
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName, organizeBulkData };

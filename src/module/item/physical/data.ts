@@ -165,6 +165,7 @@ interface Price extends PartialPrice {
 
 export type {
     BasePhysicalItemSource,
+    BulkData,
     Coins,
     EquippedData,
     IdentificationData,

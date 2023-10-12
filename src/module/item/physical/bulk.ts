@@ -15,7 +15,7 @@ type StackDefinitions = Record<string, StackDefinition | undefined>;
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-const stackDefinitions: StackDefinitions = {
+const STACK_DEFINITIONS: StackDefinitions = {
     bolts: {
         size: 10,
         lightBulk: 1,
@@ -251,4 +251,4 @@ function weightToBulk(weight: Maybe<string | number>): Bulk | null {
     return null;
 }
 
-export { Bulk, stackDefinitions, weightToBulk };
+export { Bulk, STACK_DEFINITIONS, weightToBulk };

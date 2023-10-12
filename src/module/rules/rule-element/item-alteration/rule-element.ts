@@ -11,9 +11,10 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     static override defineSchema(): ItemAlterationRuleSchema {
         const { fields } = foundry.data;
 
+        // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
-        baseSchema.priority.initial = (d) => PRIORITIES[String(d.mode)] ?? 50;
+        baseSchema.priority.initial = (d) => (PRIORITIES[String(d.mode)] ?? 50) + 100;
 
         return {
             ...baseSchema,
@@ -41,7 +42,8 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         }
     }
 
-    override beforePrepareData(): void {
+    override onApplyActiveEffects(): void {
+        // Predicate testing is done per item among specified item type
         if (this.ignored) return;
 
         const actorRollOptions = this.predicate.length > 0 ? this.actor.getRollOptions() : [];
