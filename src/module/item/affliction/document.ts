@@ -37,6 +37,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return {
             type: "counter",
             value: this.stage,
+            min: 1,
             max: this.maxStage,
             label,
         };

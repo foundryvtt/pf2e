@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { EffectBadge, EffectTrait } from "@item/abstract-effect/data.ts";
+import { EffectBadge, EffectBadgeSource, EffectTrait } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -55,8 +55,9 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badge.type === "formula") {
                 badge.label = null;
             } else {
+                badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-                badge.value = Math.clamped(badge.value, 1, badge.max);
+                badge.value = Math.clamped(badge.value, badge.min, badge.max);
                 badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
             }
         }
@@ -159,26 +160,45 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (duration.value === -1) duration.value = 1;
         }
 
+        type BadgeUpdateData = DeepPartial<EffectBadgeSource> & DeepPartial<Record<string, unknown>>;
         const currentBadge = this.system.badge;
-        const badgeChange = changed.system?.badge;
-        if (badgeChange?.type && badgeChange.type !== currentBadge?.type) {
-            // If the badge type changes, reset the value
-            badgeChange.value = 1;
-        } else if (currentBadge?.type === "counter" && typeof badgeChange?.value === "number") {
-            const maxValue = ((): number => {
-                if ("labels" in badgeChange && Array.isArray(badgeChange.labels)) {
-                    return badgeChange.labels.length;
+        const badgeChange = (changed.system?.badge ?? null) as BadgeUpdateData | null;
+        if (badgeChange) {
+            const badgeTypeChanged = badgeChange?.type && badgeChange.type !== currentBadge?.type;
+            const labels =
+                "labels" in badgeChange && Array.isArray(badgeChange.labels)
+                    ? badgeChange.labels
+                    : currentBadge?.labels;
+
+            if (badgeTypeChanged) {
+                // If the badge type changes, reset the value and min/max
+                badgeChange.value = 1;
+            } else if (currentBadge?.type === "counter") {
+                const [minValue, maxValue] = ((): [number, number] => {
+                    const configuredMin = Number(badgeChange.min ?? currentBadge.min);
+                    const configuredMax = Number(badgeChange.max ?? currentBadge.max);
+
+                    // Even if there are labels setting a max, an AE may have reduced the max (ex: oracle curses)
+                    return labels ? [1, Math.min(labels.length, configuredMax)] : [configuredMin, configuredMax];
+                })();
+
+                // Delete the item if it goes below the minimum value, but only if it is embedded
+                if (typeof badgeChange.value === "number" && badgeChange.value < minValue && this.actor) {
+                    await this.actor.deleteEmbeddedDocuments("Item", [this.id]);
+                    return false;
                 }
-                if ("max" in badgeChange && typeof badgeChange.max === "number") {
-                    return badgeChange.max;
-                }
-                return currentBadge.max;
-            })();
-            const newValue = (badgeChange.value = Math.min(badgeChange.value, maxValue));
-            if (newValue <= 0) {
-                // Only delete the item if it is embedded
-                await this.actor?.deleteEmbeddedDocuments("Item", [this.id]);
-                return false;
+
+                const currentValue = Number(badgeChange.value ?? currentBadge.value ?? 1);
+                badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
+            }
+
+            if (badgeTypeChanged || labels || badgeChange.min === null) {
+                delete badgeChange.min;
+                badgeChange["-=min"] = null;
+            }
+            if (badgeTypeChanged || labels || badgeChange.max === null) {
+                delete badgeChange.max;
+                badgeChange["-=max"] = null;
             }
         }
 
