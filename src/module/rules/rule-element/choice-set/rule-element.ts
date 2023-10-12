@@ -426,7 +426,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         return filteredItems
             .filter((i) =>
-                i instanceof FeatPF2e ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakeable : true
+                i instanceof FeatPF2e ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true
             )
             .map((f) => ({
                 value: choices.slugsAsValues ? f.slug ?? sluggify(f.name) : f.uuid,
