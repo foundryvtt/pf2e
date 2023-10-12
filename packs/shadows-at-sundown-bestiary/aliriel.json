@@ -4428,7 +4428,15 @@
                                 "definition": [
                                     "item:magical",
                                     "item:material:silver",
-                                    "item:type:weapon"
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
                                 ],
                                 "label": "PF2E.IWR.Custom.MagicalSilverWeapons"
                             },
