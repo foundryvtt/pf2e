@@ -15,7 +15,6 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
-const RE_EN_JSON = JSON.parse(fs.readFileSync("./static/lang/re-en.json", { encoding: "utf-8" }));
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
@@ -102,7 +101,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
-            RE_EN_JSON: JSON.stringify(RE_EN_JSON),
             ROLL_PARSER: Peggy.generate(rollGrammar, { output: "source" }),
         },
         esbuild: { keepNames: true },

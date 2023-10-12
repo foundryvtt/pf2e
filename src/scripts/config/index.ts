@@ -710,8 +710,6 @@ export const PF2ECONFIG = {
 
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
-    ruleElement: configFromLocalization(RE_EN_JSON.PF2E.RuleElement, "PF2E.RuleElement"),
-
     preparationType: {
         prepared: "PF2E.PreparationTypePrepared",
         spontaneous: "PF2E.PreparationTypeSpontaneous",
