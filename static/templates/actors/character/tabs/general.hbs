@@ -1,10 +1,13 @@
 <div class="tab character" data-group="primary" data-tab="character">
     <section class="character-details">
-        <div class="frame-container">
-            <div class="frame image-container">
-                <img class="actor-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-                <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
-            </div>
+        <div class="image-container">
+            <img
+                class="actor-image"
+                src="{{actor.img}}"
+                alt="{{actor.name}}"
+                {{#if editable}}data-edit="img"{{/if}}
+            />
+            <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
         <div class="alignment">
             <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
