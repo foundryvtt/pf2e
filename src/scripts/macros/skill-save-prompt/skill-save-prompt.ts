@@ -115,18 +115,8 @@ class SkillSavePromptDialog extends Application<SkillSavePromptDialogOptions> {
 
         // Show or hide Roll Options
         html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
-            const rollOptionsEl = html.querySelector("div.roll-options");
-            const rollOptionsAnchor = html.querySelector("div.form-group a.add-roll-options");
-
-            if (rollOptionsEl && rollOptionsAnchor) {
-                if (rollOptionsEl.classList.contains("hidden")) {
-                    rollOptionsEl.classList.remove("hidden");
-                    rollOptionsAnchor.innerHTML = `<i class="fas fa-minus"></i> Roll Options`;
-                } else {
-                    rollOptionsEl.classList.add("hidden");
-                    rollOptionsAnchor.innerHTML = `<i class="fas fa-plus"></i> Roll Options`;
-                }
-            }
+            const sectionEl = html.querySelector("section.skill-save-content");
+            if (sectionEl) sectionEl.classList.toggle("show-roll-options");
         });
 
         // Setup buttons

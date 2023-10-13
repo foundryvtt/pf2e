@@ -4,10 +4,6 @@ import { CharacterSkill } from "@actor/character/types.ts";
 function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, string> {
     const actorsArray = Array.isArray(actors) ? actors : [actors];
     const characters = actorsArray.filter((a): a is CharacterPF2e => a?.type === "character");
-    return loreSkillsFromCharacters(characters);
-}
-
-function loreSkillsFromCharacters(characters: CharacterPF2e[]): Record<string, string> {
     return Object.fromEntries(
         characters
             .flatMap((m) => Object.values(m.skills))
