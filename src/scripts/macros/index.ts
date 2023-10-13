@@ -4,6 +4,7 @@ export { rollActionMacro, rollItemMacro } from "./hotbar.ts";
 export { perceptionForSelected } from "./perception-for-selected-tokens.ts";
 export { raiseAShield } from "./raise-a-shield.ts";
 export { restForTheNight } from "./rest-for-the-night.ts";
+export { skillSavePrompt } from "./skill-save-prompt/index.ts";
 export { stealthForSelected } from "./stealth-for-selected-tokens.ts";
 export { steelYourResolve } from "./steel-your-resolve.ts";
 export { launchTravelSheet } from "./travel/index.ts";

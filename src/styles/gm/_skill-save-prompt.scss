@@ -1,0 +1,67 @@
+div#generate-skill-save-prompt {
+  height: auto !important;
+
+  .dialog-buttons {
+    flex: 0 1 auto;
+  }
+
+  form.skill-save-prompt {
+    margin-bottom: 10px;
+  
+    > nav a.active {
+      text-decoration: underline;
+    }
+
+    section.skill-save-content {
+      .form-group.secret {
+        justify-content: flex-end;
+        text-align: right;
+      }
+
+      .roll-options {
+        display: none;
+      }
+
+      a.add-roll-options {
+        i.fa-plus {
+          display: inline;
+        }
+
+        i.fa-minus {
+          display: none;
+        }
+      }
+    
+      input#secret, input#basic-save {
+        margin-right: 0;
+      }
+
+      &.show-roll-options {
+        .roll-options {
+          display: block;
+        }
+
+        a.add-roll-options {
+          i.fa-plus {
+            display: none;
+          }
+  
+          i.fa-minus {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    select {
+      height: var(--form-field-height);
+      text-transform: capitalize;
+    }
+
+    tags.tagify {
+      background-color: rgba(0, 0, 0, 0.075);
+      border: 1px solid var(--color-border-light-tertiary);
+      border-radius: 3px;
+    }
+  }
+}
