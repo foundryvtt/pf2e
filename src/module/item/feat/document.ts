@@ -15,7 +15,7 @@ import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
-    declare grants: (FeatPF2e | HeritagePF2e)[];
+    declare grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
 
     get category(): FeatOrFeatureCategory {
         return this.system.category;

@@ -1,21 +1,21 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import type { FeatPF2e, ItemPF2e } from "@item";
+import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
+import { ItemSystemData } from "@item/data/base.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
+import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { BonusFeatSlot, FeatLike, FeatSlot } from "./data.ts";
-import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 
 class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
     /** Feats belonging no actual group ("bonus feats" in rules text) */
-    declare unorganized: FeatGroup<TActor>;
+    bonus: FeatGroup<TActor>;
 
     constructor(private actor: TActor) {
         super();
 
         const classFeatSlots = actor.class?.grantedFeatSlots;
 
-        this.unorganized = new FeatGroup(actor, {
+        this.bonus = new FeatGroup(actor, {
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
         });
@@ -163,7 +163,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "system.location": null }]);
         }
 
-        return group?.insertFeat(feat, slotId) ?? this.unorganized.insertFeat(feat);
+        return group?.insertFeat(feat, slotId) ?? this.bonus.insertFeat(feat);
     }
 
     /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
@@ -207,9 +207,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             // Find the group then assign the feat
             const location = feat.system.location ?? "";
             const group = groupsBySlot[location] ?? this.get(location) ?? this.get(feat.category);
-            if (!group?.assignFeat(feat)) {
-                this.unorganized.feats.push({ feat });
-            }
+            group?.assignFeat(feat) || this.bonus.assignFeat(feat);
         }
 
         this.get("classfeature").feats.sort((a, b) => (a.feat?.level || 0) - (b.feat?.level || 0));
@@ -221,7 +219,31 @@ interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGr
     get(key: string): FeatGroup<TActor> | undefined;
 }
 
-interface FeatSlotCreationData extends Omit<FeatSlot, "feat" | "level"> {
+/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
+interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    category: string;
+    group: FeatGroup<NonNullable<TParent>, this> | null;
+    isFeat: boolean;
+    isFeature: boolean;
+    system: ItemSystemData & {
+        location: string | null;
+    };
+}
+
+interface FeatSlot<TItem extends FeatLike | HeritagePF2e = FeatPF2e> {
+    id: string;
+    label?: Maybe<string>;
+    level: number | null;
+    feat?: Maybe<TItem>;
+    children: FeatSlot<FeatLike | HeritagePF2e>[];
+}
+
+interface FeatNotSlot<T extends FeatLike = FeatPF2e> {
+    feat: T;
+    children: FeatSlot<FeatLike | HeritagePF2e>[];
+}
+
+interface FeatSlotCreationData extends Omit<FeatSlot, "children" | "feat" | "level"> {
     level?: Maybe<number>;
 }
 
@@ -239,7 +261,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
     id: string;
     label: string;
-    feats: (FeatSlot<TItem> | BonusFeatSlot<TItem>)[] = [];
+    feats: (FeatSlot<TItem> | FeatNotSlot<TItem>)[] = [];
     /** Whether the feats are slotted by level or free-form */
     slotted = false;
     /** Will move to sheet data later */
@@ -274,11 +296,16 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                     continue;
                 }
 
-                const slot = { ...slotData, level: slotData.level ?? null };
+                const slot = { ...slotData, level: slotData.level ?? null, children: [] };
                 this.feats.push(slot);
                 this.slots[slot.id] = slot;
             }
         }
+    }
+
+    /** Is this category slotted and without any empty slots */
+    get isFull(): boolean {
+        return this.slotted && Object.values(this.slots).every((s) => !!s?.feat);
     }
 
     /** Assigns a feat to its correct slot during data preparation, returning true if successful */
@@ -300,20 +327,31 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             return false;
         }
 
+        const childSlots = this.#getChildSlots(feat);
         if (slot) {
             slot.feat = feat;
+            slot.children = childSlots;
         } else {
             const label = feat.category === "classfeature" ? feat.system.level?.value.toString() ?? null : null;
-            this.feats.push({ feat, label });
+            this.feats.push({ feat, label, children: childSlots });
         }
         feat.group = this;
 
         return true;
     }
 
-    /** Is this category slotted and without any empty slots */
-    get isFull(): boolean {
-        return this.slotted && Object.values(this.slots).every((s) => !!s?.feat);
+    #getChildSlots(feat: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>>[] {
+        if (!feat?.isOfType("feat")) return [];
+
+        return feat.grants.map((grant): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>> => {
+            return {
+                id: grant.id,
+                label: null,
+                level: grant.system.level?.taken ?? null,
+                feat: grant,
+                children: this.#getChildSlots(grant),
+            };
+        });
     }
 
     isFeatValid(feat: TItem): boolean {

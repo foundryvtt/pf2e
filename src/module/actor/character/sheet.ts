@@ -266,7 +266,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.actions = this.#prepareAbilities();
-        sheetData.feats = [...actor.feats, actor.feats.unorganized];
+        sheetData.feats = [...actor.feats, actor.feats.bonus];
 
         const craftingFormulas = await actor.getCraftingFormulas();
         const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);

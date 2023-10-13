@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
 import {
@@ -35,9 +34,8 @@ import {
     TraitViewData,
 } from "@actor/data/base.ts";
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
-import type { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
+import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ItemSystemData } from "@item/data/base.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
@@ -48,7 +46,6 @@ import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
-import type { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
@@ -500,31 +497,8 @@ interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSo
     senses: CreatureSensePF2e[];
 }
 
-/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
-interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    category: string;
-    group: FeatGroup<Exclude<TParent, null>, this> | null;
-    isFeat: boolean;
-    isFeature: boolean;
-    system: ItemSystemData & {
-        location: string | null;
-    };
-}
-
-interface FeatSlot<TItem extends FeatLike = FeatPF2e> {
-    id: string;
-    label: string | null;
-    level: number | null;
-    feat?: TItem;
-}
-
-interface BonusFeatSlot<T extends FeatLike = FeatPF2e> {
-    feat: T;
-}
-
 export type {
     BaseWeaponProficiencyKey,
-    BonusFeatSlot,
     CategoryProficiencies,
     CharacterAbilities,
     CharacterAttributes,
@@ -546,8 +520,6 @@ export type {
     CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
-    FeatLike,
-    FeatSlot,
     MagicTraditionProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
