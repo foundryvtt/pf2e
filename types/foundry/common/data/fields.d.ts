@@ -592,7 +592,7 @@ export interface ArrayField<
 export class SetField<
     TElementField extends DataField,
     TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
-    TModelProp extends Set<SourcePropFromDataField<TElementField>> = Set<SourcePropFromDataField<TElementField>>,
+    TModelProp extends Set<ModelPropFromDataField<TElementField>> = Set<ModelPropFromDataField<TElementField>>,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
