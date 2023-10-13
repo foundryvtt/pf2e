@@ -6,6 +6,7 @@ import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import type { TokenPF2e } from "@module/canvas/token/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { EncounterPF2e } from "@module/encounter/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
@@ -184,7 +185,7 @@ export class StatusEffects {
 
         if (token.id !== this.#lastCombatantToken && typeof combatant.initiative === "number" && !combatant.defeated) {
             this.#lastCombatantToken = token.id;
-            this.#createChatMessage(token.object, combatant.hidden);
+            this.#createChatMessage(token, combatant.hidden);
         }
     }
 
@@ -285,40 +286,25 @@ export class StatusEffects {
         }
     }
 
-    /** Creates a ChatMessage with the Actors current status effects. */
-    static #createChatMessage(token: TokenPF2e | null, whisper = false): Promise<ChatMessagePF2e | undefined> | null {
-        if (!token) return null;
+    /** Create a ChatMessage with the actor's current conditions. */
+    static async #createChatMessage(token: TokenDocumentPF2e | null, whisper = false): Promise<Maybe<ChatMessagePF2e>> {
+        if (!token?.actor) return null;
 
-        // Get the active applied conditions.
-        // Iterate the list to create the chat and bubble chat dialog.
-        const conditions = token.actor?.conditions.active ?? [];
-        const statusEffectList = conditions.map((condition): string => {
-            const conditionInfo = StatusEffects.conditions[condition.slug];
-            const summary = conditionInfo.summary ?? "";
-            return `
-                <li><img src="${condition.img}" title="${summary}">
-                    <span class="statuseffect-li">
-                        <span class="statuseffect-li-text">${condition.name}</span>
-                        <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
-                    </span>
-                </li>`;
-        });
+        const conditions = await Promise.all(
+            token.actor.conditions.active.map(async (c) => ({
+                ...R.pick(c, ["name", "img"]),
+                description: await TextEditor.enrichHTML(c.description, { async: true }),
+            }))
+        );
+        if (conditions.length === 0) return null;
 
-        if (statusEffectList.length === 0) return null;
-
-        const content = `
-            <div class="dice-roll">
-                <div class="dice-result">
-                    <div class="dice-total statuseffect-message">
-                        <ul>${statusEffectList.join("")}</ul>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const messageSource: DeepPartial<foundry.documents.ChatMessageSource> = {
+        const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
+        const messageSource: Partial<foundry.documents.ChatMessageSource> = {
             user: game.user.id,
-            speaker: { alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }) },
+            speaker: {
+                ...ChatMessagePF2e.getSpeaker({ token, actor: token.actor }),
+                alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }),
+            },
             content,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
