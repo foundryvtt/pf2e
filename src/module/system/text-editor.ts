@@ -597,13 +597,27 @@ class TextEditorPF2e extends TextEditor {
             extraRollOptions,
         });
 
+        // Determine base formula (pre-heighten) that we may show on mouse-over
+        const baseFormula = (() => {
+            const baseRollData = {
+                ...(item?.getRollData() ?? {}),
+                actor: { level: (item && "level" in item ? item.level : null) ?? 1 },
+            };
+            return new DamageRoll(params.formula, baseRollData).formula;
+        })();
+
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
+        const formula = roll.formula;
         const element = createHTMLElement("a", {
-            classes: ["inline-roll", "roll"],
-            children: [damageDiceIcon(roll), args.inlineLabel ?? roll.formula],
+            classes: R.compact(["inline-roll", "roll", baseFormula !== formula ? "altered" : null]),
+            children: [damageDiceIcon(roll), args.inlineLabel ?? formula],
             dataset: {
                 formula: roll._formula,
-                tooltip: roll.formula,
+                tooltip: args.inlineLabel
+                    ? formula
+                    : baseFormula !== formula
+                    ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
+                    : null,
                 damageRoll: params.formula,
                 pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,
