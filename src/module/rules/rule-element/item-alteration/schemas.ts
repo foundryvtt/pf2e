@@ -118,7 +118,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         { validateForItem: itemHasCounterBadge }
     ),
-    "bulk-value": new ItemAlterationValidator({
+    "bulk-held-or-stowed": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
         value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
