@@ -100,7 +100,8 @@ export const InlineRollLinks = {
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
                     const actors = getSelectedOrOwnActors();
-                    if (actors.length === 0 && parent && !tupleHasValue(SAVE_TYPES, pf2Check)) {
+                    const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
+                    if (parent?.isOfType("party") || (actors.length === 0 && parent && !isSave)) {
                         return [parent];
                     }
 
