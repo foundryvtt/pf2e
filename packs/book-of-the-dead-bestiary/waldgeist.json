@@ -971,7 +971,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p><strong>Effect</strong> The waldgeist touches a tree to merge with it, possessing it for up to 1 minute. They can end this possession early as a free action at the start of their turn. While the waldgeist possesses a tree, they lose the incorporeal trait, fly Speed, all resistances, their non-constant spells, and their lignifying hand Strike. Additionally, their size increases to Huge, they gain resistance 5 to bludgeoning and piercing damage, weakness 10 to fire, Speed 20 feet, and the following branch Strike.</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> branch (reach 15 feet) [[/r 1d20+20 #Branch Strike]]{+20}, <strong>Damage</strong> @Damage[(2d12+9)[bludgeoning]].</p>\n<p>While a waldgeist possesses a tree, any damage that would be dealt to the waldgeist is instead dealt to the tree. The tree has 60 Hit Points. When the tree is reduced to 0 Hit Points, the waldgeist is immediately ejected, and the tree is destroyed.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p><strong>Effect</strong> The waldgeist touches a tree to merge with it, possessing it for up to 1 minute. They can end this possession early as a free action at the start of their turn. While the waldgeist possesses a tree, they lose the incorporeal trait, fly Speed, all resistances, their non-constant spells, and their lignifying hand Strike. Additionally, their size increases to Huge, they gain resistance 5 to bludgeoning and piercing damage, weakness 10 to fire, Speed 20 feet, and the following branch Strike.</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> branch (reach 15 feet) +20, <strong>Damage</strong> 2d12+9 bludgeoning.</p>\n<p>While a waldgeist possesses a tree, any damage that would be dealt to the waldgeist is instead dealt to the tree. The tree has 60 Hit Points. When the tree is reduced to 0 Hit Points, the waldgeist is immediately ejected, and the tree is destroyed.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -981,7 +981,108 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "possess-tree",
+                        "toggleable": true
+                    },
+                    {
+                        "add": [
+                            "incorporeal"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "possess-tree"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "not": "possess-tree"
+                            }
+                        ],
+                        "selector": "fly",
+                        "value": 30
+                    },
+                    {
+                        "doubleVs": [
+                            "non-magical"
+                        ],
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "vitality"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "possess-tree"
+                            }
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "possess-tree"
+                        ],
+                        "value": "huge"
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "possess-tree"
+                        ],
+                        "type": [
+                            "bludgeoning",
+                            "piercing"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "possess-tree"
+                        ],
+                        "type": "fire",
+                        "value": 10
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "possess-tree"
+                        ],
+                        "selector": "land",
+                        "value": 20
+                    },
+                    {
+                        "attackModifier": 20,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 9
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Branch",
+                        "predicate": [
+                            "possess-tree"
+                        ],
+                        "replaceAll": true,
+                        "slug": "branch",
+                        "traits": [
+                            "reach-15"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1177,28 +1278,8 @@
             "perception": {
                 "value": 18
             },
-            "resistances": [
-                {
-                    "doubleVs": [
-                        "non-magical"
-                    ],
-                    "exceptions": [
-                        "force",
-                        "ghost-touch",
-                        "vitality"
-                    ],
-                    "type": "all-damage",
-                    "value": 5
-                }
-            ],
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "fly",
-                        "value": 30
-                    }
-                ],
-                "special": "",
+                "otherSpeeds": [],
                 "value": 0
             }
         },
@@ -1250,7 +1331,6 @@
                 "value": "sm"
             },
             "value": [
-                "incorporeal",
                 "spirit",
                 "undead"
             ]
