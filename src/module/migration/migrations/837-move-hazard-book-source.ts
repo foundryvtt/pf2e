@@ -25,5 +25,8 @@ type MaybeWithMisplacedSource = ActorSourcePF2e & {
     system: {
         source?: unknown;
         "-=source"?: null;
+        details: {
+            source?: object;
+        };
     };
 };

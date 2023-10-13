@@ -2,6 +2,7 @@ import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { PublicationData } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
@@ -462,9 +463,8 @@ class PackExtractor {
                         if (docSource.type === "character") {
                             delete (docSource.system.details.biography as { visibility?: unknown }).visibility;
                         } else if (docSource.type === "npc") {
-                            const source: Partial<NPCSystemSource["details"]["source"]> =
-                                docSource.system.details.source;
-                            if (!source.author?.trim()) delete source.author;
+                            const publication: Partial<PublicationData> = docSource.system.details.publication;
+                            if (!publication.authors?.trim()) delete publication.authors;
 
                             const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
                             if (!speed.details?.trim()) delete speed.details;
@@ -505,6 +505,9 @@ class PackExtractor {
         if (source.system.traits?.otherTags?.length === 0) {
             delete (source.system.traits as { otherTags?: unknown }).otherTags;
         }
+
+        const publication: Partial<PublicationData> = source.system.publication;
+        if (!publication.authors?.trim()) delete publication.authors;
 
         if (isPhysicalData(source)) {
             delete (source.system as { identification?: unknown }).identification;

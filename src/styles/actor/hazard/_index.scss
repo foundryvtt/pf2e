@@ -46,6 +46,11 @@
         }
     }
 
+    select {
+        font-size: var(--font-size-12);
+        height: 2em;
+    }
+
     .container {
         display: flex;
         background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
@@ -97,20 +102,23 @@
                 padding: 4px 0;
             }
         }
-    }
 
-    .source {
-        margin-top: 4px;
-        .section-body {
-            display: flex;
-            gap: 4px;
-            padding: 0 6px;
-            .source-input {
-                flex: 1;
+        &.publication {
+            margin-top: 0.5rem;
+
+            .section-header {
+                background: none;
+                color: var(--color-pf-primary);
             }
-            label {
-                flex: 0;
-                font-weight: bold;
+
+            .section-body {
+                @include publication-data;
+                border-top: none;
+                padding: 0.25rem 0.5rem;
+
+                input[type="text"] {
+                    background: rgba(black, 0.05);
+                }
             }
         }
     }

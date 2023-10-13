@@ -62,6 +62,10 @@ $faded-color: #7a7971;
         margin: 10px 6px 10px 0;
     }
 
+    select {
+        background: none;
+    }
+
     .sidebar {
         flex: 10rem 0 0;
         height: 100%;
@@ -238,8 +242,9 @@ $faded-color: #7a7971;
                     margin-right: 0.2em;
                 }
             }
+
             select {
-                background: none;
+                font-size: var(--font-size-11);
                 text-transform: unset;
             }
         }
@@ -531,7 +536,7 @@ $faded-color: #7a7971;
                     width: auto;
                     cursor: pointer;
                     font-size: var(--font-size-9);
-                    line-height: 15px;
+                    line-height: var(--font-size-15);
                     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
                     background: var(--secondary);
                     color: var(--text-light);
@@ -556,8 +561,8 @@ $faded-color: #7a7971;
 
     select {
         flex: auto 0 0;
-        padding: 4px !important;
-        height: auto !important;
+        padding: 4px;
+        height: auto;
         font-family: var(--sans-serif);
         font-weight: 500;
         text-transform: uppercase;
@@ -600,70 +605,61 @@ $faded-color: #7a7971;
         &.active {
             display: flex;
             flex-direction: column;
-            padding-right: 15px;
-        }
-
-        .details-label {
-            padding: 4px;
-            font-family: var(--sans-serif);
-            font-size: var(--font-size-10);
-            font-weight: 800;
-            line-height: 1;
-            text-transform: uppercase;
-            color: var(--primary);
-            margin-right: 2px;
-            white-space: nowrap;
+            gap: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-right: 0.75rem;
         }
 
         .notes-section {
-            flex: 1 0 auto;
             display: flex;
             flex-direction: column;
-        }
 
-        .notes-text {
-            padding: 4px;
-            color: #333;
-            flex-grow: 1;
-
-            .editor {
-                height: 100%;
-                .editor-edit {
-                    background: var(--primary);
-                    color: var(--text-light);
-                }
-
-                .editor-content {
-                    text-indent: 8px;
-                    min-height: 75px;
-                    height: 100%;
-                }
-
-                a.editor-edit {
-                    padding: 2px 2px 2px 4px;
-                }
-            }
-        }
-
-        .source {
-            flex-shrink: 0;
-
-            .section-body {
-                border-width: 2px;
-            }
-
-            label {
-                margin-right: 4px;
-                flex: 0;
+            > h4 {
+                color: var(--primary);
+                font-family: var(--sans-serif);
+                font-size: var(--font-size-11);
                 font-weight: 700;
+                line-height: 1;
+                margin: 0 2px 0 0;
+                padding: 4px;
+                text-transform: uppercase;
+                white-space: nowrap;
             }
 
-            input::placeholder {
-                color: var(--color-text-dark-6);
+            > .notes-text {
+                padding: 0 4px 4px;
+                color: var(--text-dark);
+                flex-grow: 1;
+
+                .editor {
+                    height: 100%;
+
+                    .editor-content {
+                        min-height: 75px;
+                    }
+
+                    .editor-edit {
+                        background: var(--primary);
+                        color: var(--text-light);
+                    }
+
+                    a.editor-edit {
+                        padding: 2px 2px 2px 4px;
+                    }
+                }
             }
 
-            .source-input {
-                flex: 2;
+            &.publication {
+                margin-top: auto;
+
+                .notes-text {
+                    @include publication-data;
+
+                    input[type="text"] {
+                        background: rgba(black, 0.05);
+                        padding: 1px 3px;
+                    }
+                }
             }
         }
 

@@ -82,6 +82,13 @@ interface MigratedDocumentMigrationRecord {
 
 type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRecord;
 
+interface PublicationData {
+    title: string;
+    authors: string;
+    license: "ORC" | "OGL";
+    remaster: boolean;
+}
+
 export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
 
 export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
@@ -145,6 +152,7 @@ export type {
     OneToFour,
     OneToTen,
     OneToThree,
+    PublicationData,
     Rarity,
     Size,
     TraitsWithRarity,

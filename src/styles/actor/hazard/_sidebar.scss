@@ -34,6 +34,7 @@
     .health {
         input {
             width: 34px;
+
             &.current {
                 text-align: end;
             }
@@ -57,13 +58,14 @@
         width: 100%;
     }
 
+    h2 {
+        font-weight: 500;
+        font-size: var(--font-size-16);
+    }
+
     .initiative {
         display: flex;
-        font-size: var(--font-size-18);
-
-        h2 {
-            font-size: inherit;
-        }
+        font-size: var(--font-size-16);
 
         .roll-init {
             display: flex;
@@ -78,16 +80,13 @@
     .sidebar-saves {
         display: flex;
         justify-content: space-between;
-        h2 {
-            font-size: var(--font-size-18);
-        }
 
         .save {
             align-items: center;
             display: flex;
             flex: 1;
             flex-direction: column;
-            font-size: var(--font-size-18);
+            font-size: var(--font-size-16);
         }
 
         input {
@@ -99,10 +98,6 @@
     .emits-sound {
         .hint:hover {
             text-shadow: 0 0 8px var(--color-shadow-primary);
-        }
-
-        select {
-            font-size: var(--font-size-12);
         }
     }
 

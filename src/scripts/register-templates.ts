@@ -158,6 +158,9 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/scene/token/partials/appearance.hbs",
         "systems/pf2e/templates/scene/token/partials/identity.hbs",
         "systems/pf2e/templates/scene/token/partials/lighting.hbs",
+
+        // Partials for multiple document types
+        "systems/pf2e/templates/partials/publication-data.hbs",
     ];
 
     loadTemplates(templatePaths);
