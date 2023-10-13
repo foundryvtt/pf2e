@@ -144,13 +144,13 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         // Extend core collapse all button to close folder-likes
         const collapseAll = htmlQuery(html, ".collapse-all");
         collapseAll?.addEventListener("click", (event) => {
+            event.stopPropagation();
             this.collapseAll();
 
             const folderEls = htmlQueryAll(html, ".folder-like");
             for (const folderEl of folderEls) {
                 const entryId = folderEl?.dataset.entryId ?? "";
                 if (folderEl && entryId) {
-                    event.stopPropagation();
                     this.extraFolders[entryId] = true;
                     folderEl.classList.toggle("collapsed", true);
                     if (this.popOut) this.setPosition();
