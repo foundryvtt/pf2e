@@ -43,7 +43,7 @@ class SkillSavePromptDialog extends Application<SkillSavePromptDialogOptions> {
 
     override async getData(): Promise<SkillSavePromptDialogData> {
         this.#actions = await getActions();
-        this.#lores = this.options.actors ? loreSkillsFromActors(this.options.actors) : loreSkillsFromActiveParty();
+        this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party.members ?? []);
 
         return {
             proficiencyRanks: this.#prepareProficiencyRanks(),
