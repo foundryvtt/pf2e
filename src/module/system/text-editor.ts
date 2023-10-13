@@ -354,9 +354,10 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
+        // Determine DC visibility. Players and Parties show their DCs by default.
         const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
             ? rawParams.showDC
-            : actor?.hasPlayerOwner || game.settings.get("pf2e", "metagame_showDC")
+            : actor?.hasPlayerOwner || actor?.isOfType("party") || game.settings.get("pf2e", "metagame_showDC")
             ? "all"
             : "gm";
 
