@@ -306,30 +306,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Enrich content
         const rollData = actor.getRollData();
         const biography = (sheetData.biography = actor.system.details.biography);
-        sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.backstory = await TextEditor.enrichHTML(biography.backstory, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.campaignNotes = await TextEditor.enrichHTML(biography.campaignNotes, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.allies = await TextEditor.enrichHTML(biography.allies, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.enemies = await TextEditor.enrichHTML(biography.enemies, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.organizations = await TextEditor.enrichHTML(biography.organizations, {
-            rollData,
-            async: true,
-        });
+        const enrichPromises = {
+            appearance: TextEditor.enrichHTML(biography.appearance, { rollData, async: true }),
+            backstory: TextEditor.enrichHTML(biography.backstory, { rollData, async: true }),
+            campaignNotes: TextEditor.enrichHTML(biography.campaignNotes, { rollData, async: true }),
+            allies: TextEditor.enrichHTML(biography.allies, { rollData, async: true }),
+            enemies: TextEditor.enrichHTML(biography.enemies, { rollData, async: true }),
+            organizations: TextEditor.enrichHTML(biography.organizations, { rollData, async: true }),
+        };
+        await Promise.all(Object.values(enrichPromises));
+        for (const [key, content] of Object.entries(enrichPromises)) {
+            sheetData.enrichedContent[key] = await content;
+        }
 
         // Elemental Blasts
         try {
