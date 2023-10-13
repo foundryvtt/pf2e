@@ -54,23 +54,18 @@
             / 120px 130px 1fr;
         margin-top: 4px;
 
-        .frame-container {
+        .image-container {
             grid-area: img;
-            margin-left: 5px;
-        }
-        .frame {
+            margin-left: 0.25rem;
             z-index: 3;
+
             .actor-image {
+                @include brown-border;
+                border-radius: 0;
+                max-height: 11rem;
                 object-fit: cover;
                 object-position: top;
-                border: none;
-                border-radius: 0;
-                max-height: 178px;
                 width: 100%;
-                @include brown-border;
-            }
-            [data-action="show-image"] {
-                bottom: 5px;
             }
         }
 
