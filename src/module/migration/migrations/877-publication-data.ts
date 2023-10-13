@@ -13,7 +13,7 @@ export class Migration877PublicationData extends MigrationBase {
         oldData: { value?: unknown; author?: unknown }
     ): void {
         const title = typeof oldData.value === "string" ? oldData.value.trim() : "";
-        const authors = typeof oldData.author === "string" ? oldData.author : "";
+        const authors = typeof oldData.author === "string" ? oldData.author.trim() : "";
         const license = title === "Pathfinder Player Core" ? "ORC" : "OGL";
         const remaster = ["Pathfinder Player Core", "Pathfinder Rage of Elements"].includes(title);
         const publication = { title, authors, license, remaster } as const;
@@ -50,8 +50,10 @@ export class Migration877PublicationData extends MigrationBase {
     override async updateItem(source: ItemWithOldPublicationData): Promise<void> {
         // Data entry script snafu?
         if ("details" in source.system && R.isObject(source.system.details)) {
-            const title = source.system.details.value;
-            if (typeof title === "string") source.system.source = { value: title };
+            const oldDataInWrongPlace = source.system.details.source;
+            if (R.isObject(oldDataInWrongPlace) && typeof oldDataInWrongPlace.value === "string") {
+                source.system.source = { value: oldDataInWrongPlace.value.trim() };
+            }
             if ("game" in globalThis) {
                 source.system["-=details"] = null;
             } else {
