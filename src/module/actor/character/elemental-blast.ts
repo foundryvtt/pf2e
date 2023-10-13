@@ -285,12 +285,10 @@ class ElementalBlast {
     /** Make an impulse attack roll as part of an elemental blast. */
     async attack(params: BlastAttackParams): Promise<Rolled<CheckRoll> | null> {
         const { statistic, actionCost } = this;
-        const actionSlug = "elemental-blast";
-        const kineticAura = this.actor.itemTypes.effect.find((e) => e.slug === "effect-kinetic-aura");
         if (!(statistic && this.item)) throw ErrorPF2e("Unable to blast");
-        if (!kineticAura) throw ErrorPF2e("No kinetic gate");
-
-        const meleeOrRanged = params.melee ? "melee" : "ranged";
+        if (!this.actor.rollOptions.all["self:effect:kinetic-aura"]) {
+            throw ErrorPF2e("No kinetic gate");
+        }
 
         const { element, damageType } = params;
         if (!element) throw ErrorPF2e("No element provided");
@@ -303,11 +301,9 @@ class ElementalBlast {
         }
 
         const blastConfig = this.#getBlastConfig(element, damageType);
-        const melee = !!(params.melee ?? true);
+        const melee = !!(params.melee ??= true);
         const item = this.#createModifiedItem({ config: blastConfig, damageType, melee });
         if (!item) return null;
-
-        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
 
         const thisToken = this.actor.getActiveTokens(true, false).shift() ?? null;
         const targetToken = game.user.targets.first() ?? null;
@@ -316,17 +312,20 @@ class ElementalBlast {
             return null;
         }
 
-        const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-            title: item.name,
-            glyph: actionCost.toString(),
-            subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
-        });
+        const actionSlug = "elemental-blast";
         const blastStatistic = statistic.extend({
             check: {
                 domains: [`${actionSlug}-attack-roll`],
                 modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
             },
         });
+        const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            title: item.name,
+            glyph: actionCost.toString(),
+            subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
+        });
+        const meleeOrRanged = params.melee ? "melee" : "ranged";
+        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
 
         return blastStatistic.roll({
             identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
