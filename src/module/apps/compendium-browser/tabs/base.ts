@@ -263,7 +263,7 @@ export abstract class CompendiumBrowserTab {
     /** Ensure all index fields are present in the index data */
     protected hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
         for (const field of indexFields) {
-            if (getProperty(data, field) === undefined) {
+            if (getProperty(data, field) === undefined && !/\.(?:source|publication)/.test(field)) {
                 return false;
             }
         }

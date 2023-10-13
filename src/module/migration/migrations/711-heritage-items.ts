@@ -204,7 +204,6 @@ export class Migration711HeritageItems extends MigrationBase {
                     rarity: traits.rarity,
                     otherTags: [],
                 },
-                source: feature.system.source,
             },
         };
     }
@@ -271,7 +270,7 @@ interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"
     system: HeritageSystemSourceWithNoAncestrySlug;
 }
 
-interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry"> {
+interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry" | "publication"> {
     ancestry: { uuid: ItemUUID; name: string } | null;
 }
 

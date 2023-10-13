@@ -1,0 +1,28 @@
+<input type="text" name="{{path}}.title" class="title" value="{{data.title}}" placeholder="Title" />
+<div class="authors">
+    <label for="{{options.id}}-publication-authors">Author(s)</label>
+    <input
+        type="text"
+        name="{{path}}.authors"
+        id="{{options.id}}-publication-authors"
+        value="{{data.authors}}"
+    />
+</div>
+<div class="license">
+    <label for="{{options.id}}-publication-license">License</label>
+    <select name="{{path}}.license" id="{{options.id}}-publication-license">
+        {{#select data.license}}
+            <option value="OGL">OGL</option>
+            <option value="ORC">ORC</option>
+        {{/select}}
+    </select>
+</div>
+<div class="remaster">
+    <label for="{{options.id}}-publication-remaster">Remaster?</label>
+    <input
+        type="checkbox"
+        name="{{path}}.remaster"
+        id="{{options.id}}-publication-remaster"
+        {{checked data.remaster}}
+    />
+</div>

@@ -24,7 +24,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "priceInCopper",
         "traits",
         "rarity",
-        "source",
+        "publication",
     ];
 
     #localizeCoins = localizer("PF2E.CurrencyAbbreviations");
@@ -43,7 +43,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
         const kitFields = ["img", "system.price", "system.traits"];
-        const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
+        const baseFields = [
+            ...kitFields,
+            "system.stackGroup",
+            "system.level.value",
+            "system.publication",
+            "system.source",
+        ];
         const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
         const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
         const consumableFields = [...baseFields, "system.consumableType.value"];
@@ -52,7 +58,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             "system.denomination.value",
             "system.value.value",
         ];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
@@ -90,12 +96,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
 
-                    // Prepare source
-                    const source = itemData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    // Prepare publication source
+                    const { system } = itemData;
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
 
                     // Infer magical trait from runes
                     const traits = itemData.system.traits.value ?? [];
@@ -157,7 +162,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }

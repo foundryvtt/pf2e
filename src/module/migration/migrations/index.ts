@@ -274,3 +274,4 @@ export { Migration873RemoveBonusBulkLimit } from "./873-remove-bonus-bulk-limit.
 export { Migration874MoveStaminaStuff } from "./874-move-stamina-stuff.ts";
 export { Migration875SetInnovationIdEarly } from "./875-set-innovation-id-early.ts";
 export { Migration876FeatLevelTaken } from "./876-feat-level-taken.ts";
+export { Migration877PublicationData } from "./877-publication-data.ts";

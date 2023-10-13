@@ -11,8 +11,9 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     protected index = [
         "img",
-        "system.details.level.value",
         "system.details.alignment.value",
+        "system.details.level.value",
+        "system.details.publication.title",
         "system.details.source.value",
         "system.traits",
     ];
@@ -29,7 +30,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         "actorSize",
         "traits",
         "rarity",
-        "source",
+        "publication",
     ];
 
     constructor(browser: CompendiumBrowser) {
@@ -40,10 +41,8 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
-
         const bestiaryActors: CompendiumBrowserIndexData[] = [];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
         const indexFields = [...this.index];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -59,12 +58,12 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                // Prepare source
-                const source = actorData.system.details.source.value;
-                const sourceSlug = sluggify(source);
-                if (source) {
-                    sources.add(source);
-                }
+
+                // Prepare publication source
+                const { details } = actorData.system;
+                const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
+                const sourceSlug = sluggify(pubSource);
+                if (pubSource) publications.add(pubSource);
 
                 bestiaryActors.push({
                     type: actorData.type,
@@ -90,7 +89,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.alignments.options = this.generateCheckboxOptions(CONFIG.PF2E.alignments, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.creatureTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
     }

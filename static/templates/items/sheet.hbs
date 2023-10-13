@@ -104,10 +104,13 @@
             <!-- Item Details -->
             <section class="tab details" data-tab="details">
                 {{> (lookup . "detailsTemplate")}}
-                <div class="form-group">
-                    <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
-                    <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
-                </div>
+
+                <fieldset class="publication">
+                    <legend>Publication</legend>
+                    <div class="data">
+                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.publication" data=data.publication}}
+                    </div>
+                </fieldset>
             </section>
 
             <!-- Mystification Details -->
