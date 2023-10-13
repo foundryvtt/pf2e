@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
-import { getActions, loreSkillsFromActiveParty, loreSkillsFromActors } from "./helpers.ts";
+import { getActions, loreSkillsFromActors } from "./helpers.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { htmlQuery, signedInteger, tagify } from "@util";
@@ -43,7 +43,7 @@ class SkillSavePromptDialog extends Application<SkillSavePromptDialogOptions> {
 
     override async getData(): Promise<SkillSavePromptDialogData> {
         this.#actions = await getActions();
-        this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party.members ?? []);
+        this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party?.members ?? []);
 
         return {
             proficiencyRanks: this.#prepareProficiencyRanks(),

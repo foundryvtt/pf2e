@@ -1,15 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { CharacterSkill } from "@actor/character/types.ts";
 
-function loreSkillsFromActiveParty(): Record<string, string> {
-    const activePartyChars: CharacterPF2e[] = [];
-    if (game.actors.party && game.actors.party.members.length) {
-        const members = game.actors.party.members;
-        activePartyChars.push(...members.filter((a): a is CharacterPF2e => a?.type === "character"));
-    }
-    return loreSkillsFromCharacters(activePartyChars);
-}
-
 function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, string> {
     const actorsArray = Array.isArray(actors) ? actors : [actors];
     const characters = actorsArray.filter((a): a is CharacterPF2e => a?.type === "character");
@@ -37,4 +28,4 @@ async function getActions(): Promise<Record<string, string>> {
     }
 }
 
-export { getActions, loreSkillsFromActiveParty, loreSkillsFromActors };
+export { getActions, loreSkillsFromActors };
