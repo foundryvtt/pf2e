@@ -1,283 +1,236 @@
+import { CharacterPF2e } from "@actor";
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
-import {
-    dcAdjustmentsHtml,
-    getActions,
-    loreSkillsFromActiveParty,
-    loreSkillsFromActors,
-    proficiencyRanksHtml,
-} from "./helpers.ts";
+import { getActions, loreSkillsFromActiveParty, loreSkillsFromActors } from "./helpers.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
-import { tagify } from "@util";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { htmlQuery, signedInteger, tagify } from "@util";
 import * as R from "remeda";
 
-export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promise<void> {
-    const dialog = new Dialog(
-        {
-            title: "Generate Skill/Save Prompt",
-            content: `
-                <form class="skill-save-prompt">
-                    <div class="form-group">
-                        <label for="title">Prompt Title</label>
-                        <input id="title" name="title" type="text" />
-                    </div>
-                    <hr>
-                    <nav class="dc-navigation">
-                        <h4 class="sheet-tabs tabs" data-tab-container="primary">
-                            <a class="active" data-tab="set-dc">Set DC</a>
-                            <a data-tab="simple-dc">Simple DC</a>
-                            <a data-tab="level-dc">Level-Based DC</a>
-                        </h4>
-                    </nav>
-                    <section class="dc-content">
-                        <section class="tab active" data-tab="set-dc">
-                            <div class="form-group dc">
-                                <label for="dc">Set DC</label>
-                                <input id="dc" name="dc" type="text" />
-                            </div>
-                        </section>
-                        <section class="tab active" data-tab="simple-dc">
-                            <div class="form-group">
-                                <label for="simple-dc">Simple DC</label>
-                                <select id="simple-dc" name="simple-dc">
-                                    <option></option>
-                                    ${proficiencyRanksHtml()}
-                                </select>
-                            </div>
-                        </section>
-                        <section class="tab active" data-tab="level-dc">
-                            <div class="form-group">
-                                <label for="level-dc">Level</label>
-                                <input id="level-dc" name="level-dc" type="text" />
-                            </div>
-                        </section>
-                    </section>
-                    <div class="form-group">
-                        <label for="adjust-difficulty">Adjust Difficulty</label>
-                        <select id="adjust-difficulty" name="adjust-difficulty">
-                            <option></option>
-                            ${dcAdjustmentsHtml()}
-                        </select>
-                    </div>
-                    <hr>
-                    <nav class="skill-save-navigation">
-                        <h4 class="sheet-tabs tabs" data-tab-container="primary">
-                            <a class="active" data-tab="skill">Skills</a>
-                            <a data-tab="save">Saves</a>
-                        </h4>
-                    </nav>
-                    <section class="skill-save-content">
-                        <section class="tab skill-prompt active" data-tab="skill">
-                            <div class="form-group">
-                                <input id="skill" name="prompt.skills" placeholder="Choose Skills" data-dtype="JSON"></input>
-                            </div>
-                            <div class="form-group lores">
-                                <input id="lores" name="prompt.lores" placeholder="Choose or Add Custom Lores" data-dtype="JSON"></input>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group add-roll-options-group">
-                                    <a class="add-roll-options"><i class="fas fa-plus"></i> Roll Options</a>
-                                </div>   
-                                <div class="form-group secret">
-                                    <label for="secret">Secret Check</label> 
-                                    <input id="secret" name="secret" type="checkbox" />  
-                                </div> 
-                            </div>
-                            <div class="roll-options hidden">
-                                <div class="form-group">
-                                    
-                                    <input id="actions" name="prompt.actions" placeholder="Actions" data-dtype="JSON"></input>
-                                </div>
-                                <div class="form-group">
-                                    
-                                    <input id="traits" name="prompt.traits" placeholder="Roll Options" data-dtype="JSON"></input>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="tab save-prompt" data-tab="save">
-                            <div class="form-group">
-                                <input id="save" name="prompt.save" placeholder="Choose Saving Throws" data-dtype="JSON"></input>
-                            </div>
-                            <div class="form-group">
-                                <label for="basic-save">Basic</label>
-                                <input id="basic-save" name="basic-save" type="checkbox" />
-                            </div>
-                        </section>
-                    </section>
-                </form>
-            `,
-            buttons: {
-                post: {
-                    label: "Generate Prompt",
-                    callback: generatePrompt,
-                },
-                cancel: {
-                    label: "Cancel",
-                },
-            },
-            default: "post",
-            render: ($html: HTMLElement | JQuery) => _render($html, options),
-        },
-        {
-            id: "generate-skill-save-prompt",
-        }
-    );
-
-    dialog.render(true);
+interface SkillSavePromptDialogOptions extends ApplicationOptions {
+    actors: CharacterPF2e[];
 }
 
-async function _render($html: HTMLElement | JQuery, options: ActionDefaultOptions): Promise<void> {
-    const html = (<JQuery>$html)[0];
-
-    // Set up tagify fields
-    const skillEl = html.querySelector<HTMLInputElement>("input[name='prompt.skills']");
-    tagify(skillEl, {
-        whitelist: Object.fromEntries(Object.entries(CONFIG.PF2E.skillList).filter(([id, _]) => id !== "lore")),
-    });
-
-    const saveEl = html.querySelector<HTMLInputElement>("input[name='prompt.save']");
-    tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
-
-    const loreEl = html.querySelector<HTMLInputElement>("input[name='prompt.lores']");
-    const loreSkills = options.actors ? loreSkillsFromActors(options.actors) : loreSkillsFromActiveParty();
-    const loreOptions = R.isEmpty(loreSkills) ? {} : { whitelist: loreSkills, enforceWhitelist: false };
-    tagify(loreEl, loreOptions);
-
-    const actionEl = html.querySelector<HTMLInputElement>("input[name='prompt.actions']");
-    const actions = await getActions();
-    tagify(actionEl, { whitelist: actions, enforceWhitelist: false });
-
-    const traitEl = html.querySelector<HTMLInputElement>("input[name='prompt.traits']");
-    tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
-
-    // Setup tabs
-    const skillSaveTabs = new Tabs({
-        navSelector: ".skill-save-navigation",
-        contentSelector: ".skill-save-content",
-        initial: "skill",
-        callback: () => {},
-    });
-    skillSaveTabs.bind(html);
-    const dcTabs = new Tabs({
-        navSelector: ".dc-navigation",
-        contentSelector: ".dc-content",
-        initial: "set-dc",
-        callback: () => {},
-    });
-    dcTabs.bind(html);
-
-    // Show or hide Roll Options
-    html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
-        const rollOptionsEl = html.querySelector("div.roll-options");
-        const rollOptionsAnchor = html.querySelector("div.form-group a.add-roll-options");
-
-        if (rollOptionsEl && rollOptionsAnchor) {
-            if (rollOptionsEl.classList.contains("hidden")) {
-                rollOptionsEl.classList.remove("hidden");
-                rollOptionsAnchor.innerHTML = `<i class="fas fa-minus"></i> Roll Options`;
-            } else {
-                rollOptionsEl.classList.add("hidden");
-                rollOptionsAnchor.innerHTML = `<i class="fas fa-plus"></i> Roll Options`;
-            }
-        }
-    });
+interface SkillSavePromptDialogData {
+    proficiencyRanks: SelectData[];
+    dcAdjustments: SelectData[];
 }
 
-function generatePrompt($html: HTMLElement | JQuery): void {
-    const html = (<JQuery>$html)[0];
-
-    let types: string[] = [];
-    let traits: string[] = [];
-    const extras: string[] = [];
-    const activeSkillSaveTab = html.querySelector("section.skill-save-content section.tab.active");
-    if (activeSkillSaveTab instanceof HTMLElement) {
-        if (activeSkillSaveTab?.dataset.tab === "skill") {
-            // get skill tags
-            types = types.concat(_getTags(html, "input#skill"));
-            // get lore tags
-            types = types.concat(_getTags(html, "input#lores").map((t) => _prepareLoreType(t)));
-
-            // get trait tags
-            traits = traits.concat(_getTags(html, "input#traits"));
-            // get action tags
-            traits = traits.concat(_getTags(html, "input#actions").map((a) => _prepareActionType(a)));
-
-            if (!!html.querySelector("input#secret:checked") && !traits.includes("secret")) {
-                traits.push("secret");
-            }
-        } else if (activeSkillSaveTab?.dataset.tab === "save") {
-            types = _getTags(html, "input#save");
-            if (html.querySelector("input#basic-save:checked")) extras.push("basic:true");
-        }
-    }
-
-    if (types.length) {
-        let flavor = "";
-        const titleEl = html.querySelector("input#title");
-        if (titleEl instanceof HTMLInputElement && titleEl.value) {
-            flavor = `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>`;
-        }
-
-        const dc = _getDC(html);
-        const content = types.map((type) => _prepareCheck(type, dc, traits, extras)).join("");
-
-        ChatMessage.create({
-            user: game.user.id,
-            flavor,
-            content,
-        });
-    }
-}
-
-function _getDC(html: HTMLElement): string | undefined {
-    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
-
-    let dc: string | undefined = undefined;
-    const activeDCTab = html.querySelector("section.dc-content section.tab.active");
-    if (activeDCTab instanceof HTMLElement) {
-        if (activeDCTab?.dataset.tab === "set-dc") {
-            dc = html.querySelector<HTMLInputElement>("input#dc")?.value;
-        } else if (activeDCTab?.dataset.tab === "simple-dc") {
-            const profRank = html.querySelector<HTMLInputElement>("select#simple-dc")?.value as ProficiencyRank;
-            if (profRank) dc = calculateSimpleDC(profRank, { proficiencyWithoutLevel }).toString();
-        } else if (activeDCTab?.dataset.tab === "level-dc") {
-            const level = html.querySelector<HTMLInputElement>("input#level-dc")?.value;
-            if (level) dc = calculateDC(+level, { proficiencyWithoutLevel }).toString();
-        }
-    }
-
-    if (dc) {
-        const dcAdjustment = html.querySelector<HTMLInputElement>("select#adjust-difficulty")?.value as DCAdjustment;
-        if (dcAdjustment) dc = adjustDC(+dc, dcAdjustment).toString();
-    }
-
-    return dc;
-}
-
-function _getTags(html: HTMLElement, selector: string): string[] {
-    const el = html.querySelector(selector);
-    const tagArray: TagifyValue[] = el instanceof HTMLInputElement && el.value ? JSON.parse(el.value) : [];
-    return tagArray.map((tag) => tag.id || tag.value);
-}
-
-function _prepareLoreType(type: string): string {
-    let loreType = type.toLowerCase().replaceAll(" ", "-").trim();
-    if (!loreType.includes("lore")) loreType = loreType.concat("-lore");
-    return loreType;
-}
-
-function _prepareActionType(type: string): string {
-    return `action:${type.toLowerCase().replace("action:", "").trim()}`;
-}
-
-function _prepareCheck(type: string, dc: string | undefined, traits: string[], extras: string[]): string {
-    const parts = [type, dc ? `dc:${dc}` : null, traits.length ? `traits:${traits.join(",")}` : null]
-        .concat(...extras)
-        .filter((p) => p);
-    return `<p>@Check[${parts.join("|")}]</p>`;
+interface SelectData {
+    value: string;
+    label: string;
 }
 
 interface TagifyValue {
     id: string;
     value: string;
+}
+
+class SkillSavePromptDialog extends Application<SkillSavePromptDialogOptions> {
+    #actions?: Record<string, string>;
+    #lores?: Record<string, string>;
+
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
+            classes: ["dialog"],
+            id: "generate-skill-save-prompt",
+            template: "systems/pf2e/templates/gm/skill-save-prompt/skill-save-prompt.hbs",
+            title: game.i18n.localize("PF2E.Actor.Party.SkillSavePrompt.Title"),
+            width: 400,
+        };
+    }
+
+    override async getData(): Promise<SkillSavePromptDialogData> {
+        this.#actions = await getActions();
+        this.#lores = this.options.actors ? loreSkillsFromActors(this.options.actors) : loreSkillsFromActiveParty();
+
+        return {
+            proficiencyRanks: this.#prepareProficiencyRanks(),
+            dcAdjustments: this.#prepareDCAdjustments(),
+        };
+    }
+
+    #prepareProficiencyRanks(): SelectData[] {
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
+        return PROFICIENCY_RANKS.map((value) => ({
+            value,
+            label: `${value} (${calculateSimpleDC(value, { proficiencyWithoutLevel })})`,
+        }));
+    }
+
+    #prepareDCAdjustments(): SelectData[] {
+        return Object.entries(CONFIG.PF2E.dcAdjustments)
+            .filter(([value, _]) => value !== "normal")
+            .map(([value, name]) => {
+                return {
+                    value,
+                    label: `${game.i18n.localize(name)} (${signedInteger(adjustDC(0, value as DCAdjustment))})`,
+                };
+            });
+    }
+
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        const html = $html[0];
+
+        // Set up tagify fields
+
+        const skillEl = html.querySelector<HTMLInputElement>("input[name='prompt.skills']");
+        const skills = Object.fromEntries(Object.entries(CONFIG.PF2E.skillList).filter(([id, _]) => id !== "lore"));
+        tagify(skillEl, { whitelist: skills });
+
+        const saveEl = html.querySelector<HTMLInputElement>("input[name='prompt.save']");
+        tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
+
+        const loreEl = html.querySelector<HTMLInputElement>("input[name='prompt.lores']");
+        const loreOptions = R.isEmpty(this.#lores || {}) ? {} : { whitelist: this.#lores };
+        tagify(loreEl, loreOptions);
+
+        const actionEl = html.querySelector<HTMLInputElement>("input[name='prompt.actions']");
+        const actionOptions = R.isEmpty(this.#actions || {})
+            ? {}
+            : { whitelist: this.#actions, enforceWhitelist: false };
+        tagify(actionEl, actionOptions);
+
+        const traitEl = html.querySelector<HTMLInputElement>("input[name='prompt.traits']");
+        tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
+
+        // Setup tabs
+
+        const skillSaveTabs = new Tabs({
+            navSelector: ".skill-save-navigation",
+            contentSelector: ".skill-save-content",
+            initial: "skill",
+            callback: () => {},
+        });
+        skillSaveTabs.bind(html);
+
+        const dcTabs = new Tabs({
+            navSelector: ".dc-navigation",
+            contentSelector: ".dc-content",
+            initial: "set-dc",
+            callback: () => {},
+        });
+        dcTabs.bind(html);
+
+        // Show or hide Roll Options
+        html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
+            const rollOptionsEl = html.querySelector("div.roll-options");
+            const rollOptionsAnchor = html.querySelector("div.form-group a.add-roll-options");
+
+            if (rollOptionsEl && rollOptionsAnchor) {
+                if (rollOptionsEl.classList.contains("hidden")) {
+                    rollOptionsEl.classList.remove("hidden");
+                    rollOptionsAnchor.innerHTML = `<i class="fas fa-minus"></i> Roll Options`;
+                } else {
+                    rollOptionsEl.classList.add("hidden");
+                    rollOptionsAnchor.innerHTML = `<i class="fas fa-plus"></i> Roll Options`;
+                }
+            }
+        });
+
+        // Setup buttons
+        htmlQuery(html, "[data-action=post]")?.addEventListener("click", async () => {
+            this.generatePrompt($html);
+            this.close();
+        });
+
+        htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
+            this.close();
+        });
+    }
+
+    generatePrompt($html: HTMLElement | JQuery): void {
+        const html = (<JQuery>$html)[0];
+
+        let types: string[] = [];
+        let traits: string[] = [];
+        const extras: string[] = [];
+        const activeSkillSaveTab = htmlQuery(html, "section.skill-save-content section.tab.active");
+        if (activeSkillSaveTab?.dataset.tab === "skill") {
+            // get skill tags
+            types = types.concat(this.#htmlQueryTags(html, "input#skill"));
+            // get lore tags
+            types = types.concat(this.#htmlQueryTags(html, "input#lores").map((t) => this.#formatLoreType(t)));
+
+            // get trait tags
+            traits = traits.concat(this.#htmlQueryTags(html, "input#traits"));
+            // get action tags
+            traits = traits.concat(this.#htmlQueryTags(html, "input#actions").map((a) => this.#formatActionType(a)));
+
+            if (!!html.querySelector("input#secret:checked") && !traits.includes("secret")) {
+                traits.push("secret");
+            }
+        } else if (activeSkillSaveTab?.dataset.tab === "save") {
+            types = this.#htmlQueryTags(html, "input#save");
+            if (htmlQuery(html, "input#basic-save:checked")) extras.push("basic:true");
+        }
+
+        if (types.length) {
+            let flavor = "";
+            const titleEl = htmlQuery(html, "input#title");
+            if (titleEl instanceof HTMLInputElement && titleEl.value) {
+                flavor = `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>`;
+            }
+
+            const dc = this.#getDC(html);
+            const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+
+            ChatMessage.create({
+                user: game.user.id,
+                flavor,
+                content,
+            });
+        }
+    }
+
+    #htmlQueryTags(html: HTMLElement, selector: string): string[] {
+        const el = htmlQuery(html, selector);
+        const tagArray: TagifyValue[] = el instanceof HTMLInputElement && el.value ? JSON.parse(el.value) : [];
+        return tagArray.map((tag) => tag.id || tag.value);
+    }
+
+    #formatLoreType(type: string): string {
+        let loreType = type.toLowerCase().replaceAll(" ", "-").trim();
+        if (!loreType.includes("lore")) loreType = loreType.concat("-lore");
+        return loreType;
+    }
+
+    #formatActionType(type: string): string {
+        return `action:${type.toLowerCase().replace("action:", "").trim()}`;
+    }
+
+    #getDC(html: HTMLElement): string | undefined {
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
+
+        let dc: string | undefined = undefined;
+        const activeDCTab = htmlQuery(html, "section.dc-content section.tab.active");
+        if (activeDCTab?.dataset.tab === "set-dc") {
+            dc = htmlQuery<HTMLInputElement>(html, "input#dc")?.value;
+        } else if (activeDCTab?.dataset.tab === "simple-dc") {
+            const profRank = htmlQuery<HTMLInputElement>(html, "select#simple-dc")?.value as ProficiencyRank;
+            if (profRank) dc = calculateSimpleDC(profRank, { proficiencyWithoutLevel }).toString();
+        } else if (activeDCTab?.dataset.tab === "level-dc") {
+            const level = htmlQuery<HTMLInputElement>(html, "input#level-dc")?.value;
+            if (level) dc = calculateDC(+level, { proficiencyWithoutLevel }).toString();
+        }
+
+        if (dc) {
+            const dcAdjustment = htmlQuery<HTMLInputElement>(html, "select#adjust-difficulty")?.value as DCAdjustment;
+            if (dcAdjustment) dc = adjustDC(+dc, dcAdjustment).toString();
+        }
+
+        return dc;
+    }
+
+    #constructCheck(type: string, dc: string | undefined, traits: string[], extras: string[]): string {
+        const parts = [type, dc ? `dc:${dc}` : null, traits.length ? `traits:${traits.join(",")}` : null]
+            .concat(...extras)
+            .filter((p) => p);
+        return `<p>@Check[${parts.join("|")}]</p>`;
+    }
+}
+
+export async function skillSavePrompt(options: ActionDefaultOptions = {}): Promise<void> {
+    new SkillSavePromptDialog(options.actors ? { actors: options.actors as CharacterPF2e[] } : {}).render(true);
 }

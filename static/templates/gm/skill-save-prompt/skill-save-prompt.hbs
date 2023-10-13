@@ -1,0 +1,105 @@
+<div>
+    <div class="dialog-content">
+        <form class="skill-save-prompt">
+            <div class="form-group">
+                <label for="title">{{localize "PF2E.Actor.Party.SkillSavePrompt.PromptTitle"}}</label>
+                <input id="title" name="title" type="text" />
+            </div>
+            <hr>
+            <nav class="dc-navigation">
+                <h4 class="sheet-tabs tabs" data-tab-container="primary">
+                    <a class="active" data-tab="set-dc">{{localize "PF2E.Actor.Party.SkillSavePrompt.SetDC"}}</a>
+                    <a data-tab="simple-dc">{{localize "PF2E.Actor.Party.SkillSavePrompt.SimpleDC"}}</a>
+                    <a data-tab="level-dc">{{localize "PF2E.Actor.Party.SkillSavePrompt.LevelDC"}}</a>
+                </h4>
+            </nav>
+            <section class="dc-content">
+                <section class="tab active" data-tab="set-dc">
+                    <div class="form-group dc">
+                        <label for="dc">{{localize "PF2E.Actor.Party.SkillSavePrompt.SetDC"}}</label>
+                        <input id="dc" name="dc" type="text" />
+                    </div>
+                </section>
+                <section class="tab active" data-tab="simple-dc">
+                    <div class="form-group">
+                        <label for="simple-dc">{{localize "PF2E.Actor.Party.SkillSavePrompt.SimpleDC"}}</label>
+                        <select id="simple-dc" name="simple-dc">
+                            <option></option>
+                            {{#each @root.proficiencyRanks}}
+                                <option value="{{this.value}}">{{this.label}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </section>
+                <section class="tab active" data-tab="level-dc">
+                    <div class="form-group">
+                        <label for="level-dc">{{localize "PF2E.LevelLabel"}}</label>
+                        <input id="level-dc" name="level-dc" type="text" />
+                    </div>
+                </section>
+            </section>
+            <div class="form-group">
+                <label for="adjust-difficulty">{{localize "PF2E.Actor.Party.SkillSavePrompt.AdjustDifficulty"}}</label>
+                <select id="adjust-difficulty" name="adjust-difficulty">
+                    <option></option>
+                    {{#each @root.dcAdjustments}}
+                        <option value="{{this.value}}">{{this.label}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <hr>
+            <nav class="skill-save-navigation">
+                <h4 class="sheet-tabs tabs" data-tab-container="primary">
+                    <a class="active" data-tab="skill">{{localize "PF2E.SkillsLabel"}}</a>
+                    <a data-tab="save">{{localize "PF2E.SavesHeader"}}</a>
+                </h4>
+            </nav>
+            <section class="skill-save-content">
+                <section class="tab skill-prompt active" data-tab="skill">
+                    <div class="form-group">
+                        <input id="skill" name="prompt.skills" placeholder="Choose Skills" data-dtype="JSON"></input>
+                    </div>
+                    <div class="form-group lores">
+                        <input id="lores" name="prompt.lores" placeholder="Choose Lores" data-dtype="JSON"></input>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group add-roll-options-group">
+                            <a class="add-roll-options"><i class="fas fa-plus"></i> {{localize "PF2E.ChatRollDetails.RollOptions"}}</a>
+                        </div>   
+                        <div class="form-group secret">
+                            <label for="secret">{{localize "PF2E.Actor.Party.SkillSavePrompt.SecretCheck"}}</label> 
+                            <input id="secret" name="secret" type="checkbox" />  
+                        </div> 
+                    </div>
+                    <div class="roll-options hidden">
+                        <div class="form-group">
+                            
+                            <input id="actions" name="prompt.actions" placeholder="Actions" data-dtype="JSON"></input>
+                        </div>
+                        <div class="form-group">
+                            
+                            <input id="traits" name="prompt.traits" placeholder="Roll Options" data-dtype="JSON"></input>
+                        </div>
+                    </div>
+                </section>
+                <section class="tab save-prompt" data-tab="save">
+                    <div class="form-group">
+                        <input id="save" name="prompt.save" placeholder="Choose Saving Throws" data-dtype="JSON"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="basic-save">{{localize "PF2E.SpellBasicSaveOption"}}</label>
+                        <input id="basic-save" name="basic-save" type="checkbox" />
+                    </div>
+                </section>
+            </section>
+        </form>
+    </div>
+    <div class="dialog-buttons">
+        <button class="dialog-button post default bright" data-action="post">
+            {{localize "PF2E.Actor.Party.SkillSavePrompt.Post"}}
+        </button>
+        <button class="dialog-button cancel" data-action="cancel">
+            {{localize "Cancel"}}
+        </button>
+    </div>
+</div>

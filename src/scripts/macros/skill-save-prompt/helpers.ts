@@ -1,17 +1,5 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { calculateSimpleDC, DCAdjustment } from "@module/dc.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
-
-const dcAdjustmentsLabel = new Map<DCAdjustment, string>([
-    ["incredibly-easy", "-10"],
-    ["very-easy", "-5"],
-    ["easy", "-2"],
-    ["normal", "0"],
-    ["hard", "+2"],
-    ["very-hard", "+5"],
-    ["incredibly-hard", "+10"],
-]);
 
 function loreSkillsFromActiveParty(): Record<string, string> {
     const activePartyChars: CharacterPF2e[] = [];
@@ -37,19 +25,7 @@ function loreSkillsFromCharacters(characters: CharacterPF2e[]): Record<string, s
     );
 }
 
-function dcAdjustmentsHtml(): string {
-    return Object.entries(CONFIG.PF2E.dcAdjustments)
-        .filter(([value, _]) => value !== "normal")
-        .map(
-            ([value, name]) =>
-                `<option value="${value}">${game.i18n.localize(name)} (${dcAdjustmentsLabel.get(
-                    value as DCAdjustment
-                )})</option>`
-        )
-        .join("");
-}
-
-async function getActions(): Promise<{}> {
+async function getActions(): Promise<Record<string, string>> {
     const indexFields = ["system.slug"];
     const pack = game.packs.get("pf2e.actionspf2e");
     if (pack) {
@@ -61,11 +37,4 @@ async function getActions(): Promise<{}> {
     }
 }
 
-function proficiencyRanksHtml(): string {
-    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
-    return PROFICIENCY_RANKS.map(
-        (rank) => `<option value="${rank}">${rank} (${calculateSimpleDC(rank, { proficiencyWithoutLevel })})</option>`
-    ).join("");
-}
-
-export { dcAdjustmentsHtml, getActions, loreSkillsFromActiveParty, loreSkillsFromActors, proficiencyRanksHtml };
+export { getActions, loreSkillsFromActiveParty, loreSkillsFromActors };
