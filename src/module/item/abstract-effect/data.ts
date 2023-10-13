@@ -26,11 +26,13 @@ interface EffectBadgeBase extends EffectBadgeBaseSource {
 
 interface EffectBadgeCounterSource extends EffectBadgeBaseSource {
     type: "counter";
+    min?: number;
     max?: number;
     value: number;
 }
 
 interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
+    min: number;
     max: number;
 }
 
@@ -46,6 +48,7 @@ interface EffectBadgeValueSource extends EffectBadgeBaseSource {
 }
 
 interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
+    min: number;
     max: number;
 }
 

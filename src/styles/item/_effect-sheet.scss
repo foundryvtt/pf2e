@@ -1,10 +1,60 @@
-.sheet-content .sidebar .inventory-details .form-group {
-    select {
-        max-width: fit-content;
+.sheet-content .sidebar {
+    .inventory-details .form-group {
+        select {
+            max-width: fit-content;
+        }
+
+        .form-group.duration label {
+            max-width: fit-content;
+            padding-right: 0.1em;
+        }
     }
 
-    .form-group.duration label {
-        max-width: fit-content;
-        padding-right: 0.1em;
+    .badge-label-row {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+        width: 100%;
+        label {
+            cursor: pointer;
+            max-width: unset;
+        }
+
+        input[type="radio"] {
+            margin: 0;
+            top: 0;
+        }
+
+        .badge-value {
+            margin-right: 0.1rem;
+            width: 3ch;
+            font-weight: bold;
+            text-align: end;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            text-align: end;
+        }
+    }
+
+    .badge-label-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0.5em 0 0.25em 0;
+    }
+
+    .add-badge {
+        display: flex;
+        align-items: center;
+        select {
+            flex: 1;
+            max-width: unset;
+        }
+        button {
+            flex: 0;
+            line-height: 1.2em;
+        }
     }
 }
