@@ -472,24 +472,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        // Tooltipped info circles
-        for (const infoCircle of htmlQueryAll(html, "i.fa-info-circle[title]")) {
-            if (infoCircle.classList.contains("small")) {
-                $(infoCircle).tooltipster({
-                    maxWidth: 275,
-                    position: "right",
-                    theme: "crb-hover",
-                    contentAsHTML: true,
-                });
-            } else if (infoCircle.classList.contains("large")) {
-                $(infoCircle).tooltipster({
-                    maxWidth: 400,
-                    theme: "crb-hover",
-                    contentAsHTML: true,
-                });
-            }
-        }
-
         // Add a link to add GM notes
         if (
             this.isEditable &&

@@ -1,5 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
-
+<form class="{{cssClass}}" autocomplete="off" data-tooltip-class="pf2e">
     <!-- ITEM SHEET HEADER -->
     <header class="sheet-header">
         {{!-- Source image in case of change during data preparation --}}
@@ -23,7 +22,7 @@
 
             {{#if itemType}}
                 <span class="level">
-                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle" data-tooltip="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
                     <input
                         type="number"

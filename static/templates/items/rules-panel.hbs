@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="{{options.id}}-uuid">
                     <span>{{localize "PF2E.UUID.Label"}}</span>
-                    <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.UUID"}}"></i>
+                    <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Rules.Hint.UUID"></i>
                 </label>
                 <input id="{{options.id}}-uuid" disabled value="{{item.uuid}}" />
                 <div class="item-controls">
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="{{options.id}}-source-id">
                         <span>{{localize "PF2E.UUID.SourceId"}}</span>
-                        <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.SourceId"}}"></i>
+                        <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Rules.Hint.SourceId"></i>
                     </label>
                     <input id="{{options.id}}-source-id" disabled value="{{item.sourceId}}" />
                     <div class="item-controls">
@@ -34,11 +34,11 @@
             <div class="form-group">
                 <label for="{{options.id}}-slug">
                     <span>{{localize "PF2E.Slug"}}</span>
-                    <i class="fa-solid fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.Slug"}}"></i>
+                    <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Rules.Hint.Slug"></i>
                 </label>
                 <input id="{{options.id}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
                 <div class="item-controls">
-                    <a data-action="regenerate-slug" title="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"><i class="fa-solid fa-fw fa-sync-alt"></i></a>
+                    <a data-action="regenerate-slug" data-tooltip="PF2E.Item.Rules.RegenerateSlug"><i class="fa-solid fa-fw fa-sync-alt"></i></a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     {{/each}}
                 {{/select}}
             </select>
-            <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
+            <a class="add-rule-element"><i class="fa-solid fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
         </div>
     </div>
 {{/if}}
