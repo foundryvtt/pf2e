@@ -134,6 +134,8 @@ abstract class IWR<TType extends IWRType> {
             }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
+            case "weapons":
+                return ["item:type:weapon"];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
