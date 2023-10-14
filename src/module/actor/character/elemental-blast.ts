@@ -5,7 +5,12 @@ import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
-import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
@@ -386,7 +391,11 @@ class ElementalBlast {
                 },
             ],
         };
-        const damageSynthetics = extractDamageSynthetics(this.actor, [baseDamage], domains, { test: context.options });
+        const damageSynthetics = processDamageCategoryStacking([baseDamage], {
+            modifiers: extractModifiers(this.actor.synthetics, domains, { test: context.options }),
+            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, { test: context.options }),
+            test: context.options,
+        });
         const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);
