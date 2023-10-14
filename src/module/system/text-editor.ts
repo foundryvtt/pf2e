@@ -6,7 +6,12 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
@@ -754,8 +759,11 @@ async function augmentInlineDamageRoll(
 
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
-            return extractDamageSynthetics(actor, base, domains, {
-                resolvables: rollData ?? {},
+
+            const extractOptions = { resolvables: rollData ?? {}, test: options };
+            return processDamageCategoryStacking(base, {
+                modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
+                dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
                 test: options,
             });
         })();
