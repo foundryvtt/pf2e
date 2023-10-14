@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { CharacterSkill } from "@actor/character/types.ts";
 
 function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, string> {
