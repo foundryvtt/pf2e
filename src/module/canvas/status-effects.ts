@@ -25,6 +25,8 @@ export class StatusEffects {
         blackWhite: "systems/pf2e/icons/conditions-2/",
     };
 
+    static #conditionSummaries: Record<ConditionSlug, { name: string; rules: string; summary: string }> | null = null;
+
     /** Set the theme for condition icons on tokens */
     static initialize(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
@@ -42,7 +44,14 @@ export class StatusEffects {
     }
 
     static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
-        return EN_JSON.PF2E.condition;
+        return (this.#conditionSummaries ??= R.mapToObj(Array.from(CONDITION_SLUGS), (s) => [
+            s,
+            {
+                name: game.i18n.localize(`PF2E.condition.${s}.name`),
+                rules: game.i18n.localize(`PF2E.condition.${s}.rules`),
+                summary: game.i18n.localize(`PF2E.condition.${s}.summary`),
+            },
+        ]));
     }
 
     /**
