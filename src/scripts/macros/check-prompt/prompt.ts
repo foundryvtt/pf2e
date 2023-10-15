@@ -202,7 +202,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     }
 
     #constructCheck(type: string, dc: number | null, traits: string[], extras: string[]): string {
-        const parts = [type, dc ? `dc:${dc}` : null, traits.length ? `traits:${traits.join(",")}` : null]
+        const parts = [
+            type,
+            Number.isInteger(dc) ? `dc:${dc}` : null,
+            traits.length ? `traits:${traits.join(",")}` : null,
+        ]
             .concat(...extras)
             .filter((p) => p);
         return `<p>@Check[${parts.join("|")}]</p>`;
