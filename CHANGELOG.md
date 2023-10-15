@@ -1,3 +1,12 @@
+## 5.7.1
+
+### Bugfixes
+
+-   (Cerapter) Fix bonus feats not appearing on the character sheet
+-   (In3luki) Fix stamina max value on character sheet and stamina restoration in rest for the night macro
+-   (stwlam) Fix selectors for check prompt skills/saves inputs
+-   (stwlam) Fix styling quirks on simple NPC sheet
+
 ## 5.7.0
 
 ### System Improvements
@@ -36,6 +45,7 @@
 ### Data Updates
 
 -   (Ariphaos) Add effect and correct spell details for Lift Nature's Caul
+-   (CrackJackFlood) Brushup most alchemical bombs
 -   (Dire Weasel) Add automation for Alchemical Golem's Alchemical Injection, Aurumvorax's Tenacious Stance, Azer's Burning Touch, Kragala's Percussive Reverberation, Thresholder Hermeticist's Cruel Anatomist, Thrown Weapon Mastery, Visperath's persistent acid damage, Waldgeist's Possess Tree, Change Shape Strike (Pukwudgie, Harmony In Agony, Weeping Jack)
 -   (Dire Weasel) Add custom resistance exceptions to Dragonshard Guardian, Aliriel, Strigoi Progenitor
 -   (Dire Weasel) Add effect for Ghostbane Fulu, Ghost Strike, Psi Strikes, Spider Climb, Stormbreaker Fulu
@@ -82,7 +92,6 @@
 -   (Tikael) Add Shatter Glass reaction
 -   (Tikael) Adding missing traits to Straugh's claw strike
 -   (Tikael) Automate Lock On feat
--   (Tikael) Brushup most alchemical bombs
 -   (Tikael) Fix rule element on Fearless Sash
 -   (Tikael) Move ancestry text to journals and refresh pregens
 -   (Tikael) Move class details to journals, refresh class item on pregens
