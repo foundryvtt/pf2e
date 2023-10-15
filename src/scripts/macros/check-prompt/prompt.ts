@@ -125,9 +125,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         const traits: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
-        if (activeSkillSaveTab?.dataset.tab === "skill") {
+        if (activeSkillSaveTab?.dataset.tab === "skills") {
             // get skill tags
-            types.push(...this.#htmlQueryTags(html, "input#check-prompt-skill"));
+            types.push(...this.#htmlQueryTags(html, "input#check-prompt-skills"));
             // get lore tags
             types.push(...this.#htmlQueryTags(html, "input#check-prompt-lores").map((t) => this.#formatLoreType(t)));
 
@@ -141,12 +141,12 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             if (!!html.querySelector("input#check-prompt-secret:checked") && !traits.includes("secret")) {
                 traits.push("secret");
             }
-        } else if (activeSkillSaveTab?.dataset.tab === "save") {
-            types.push(...this.#htmlQueryTags(html, "input#check-prompt-save"));
+        } else if (activeSkillSaveTab?.dataset.tab === "saves") {
+            types.push(...this.#htmlQueryTags(html, "input#check-prompt-saves"));
             if (htmlQuery(html, "input#check-prompt-basic-save:checked")) extras.push("basic:true");
         }
 
-        if (types.length) {
+        if (types.length > 0) {
             const titleEl = htmlQuery<HTMLInputElement>(html, "input#check-prompt-title");
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
