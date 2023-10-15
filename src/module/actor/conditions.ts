@@ -20,11 +20,6 @@ class ActorConditions<TActor extends ActorPF2e> {
         return this.#idMap.filter((c) => !c.inMemoryOnly);
     }
 
-    /** Return the number of conditions */
-    get length(): number {
-        return this.#idMap.contents.length;
-    }
-
     /** Convenience getters for active badged conditions, especially for use by @actor resolvables in rule elements */
     get clumsy(): ConditionPF2e<TActor> | null {
         return this.bySlug("clumsy", { active: true }).shift() ?? null;
