@@ -1,0 +1,67 @@
+#generate-check-prompt {
+    // Necessary for growing form height without re-render
+    height: auto !important;
+
+    .dialog-content {
+        > nav a.active {
+            text-decoration: underline;
+        }
+
+        section.check-prompt-content {
+            .form-group.secret {
+                justify-content: end;
+                text-align: right;
+            }
+
+            .roll-options {
+                display: none;
+            }
+
+            a.add-roll-options {
+                i.fa-plus {
+                    display: inline;
+                }
+
+                i.fa-minus {
+                    display: none;
+                }
+            }
+
+            input#check-prompt-secret,
+            input#check-prompt-basic-save {
+                margin-right: 0;
+            }
+
+            &.show-roll-options {
+                .roll-options {
+                    display: block;
+                }
+
+                a.add-roll-options {
+                    i.fa-plus {
+                        display: none;
+                    }
+
+                    i.fa-minus {
+                        display: inline;
+                    }
+                }
+            }
+        }
+
+        select {
+            height: var(--form-field-height);
+            text-transform: capitalize;
+        }
+
+        tags.tagify {
+            background-color: rgba(0, 0, 0, 0.075);
+            border: 1px solid var(--color-border-light-tertiary);
+            border-radius: 3px;
+        }
+    }
+
+    .dialog-buttons {
+        flex: 0 1 auto;
+    }
+}
