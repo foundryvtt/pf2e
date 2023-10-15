@@ -133,7 +133,7 @@ class PackLoader {
         const progress = new Progress({ max: packs.length });
 
         const loadedSources = new Set<string>();
-        const indexFields = ["system.details.source.value", "system.source.value"];
+        const indexFields = ["system.publication.title", "system.source.value"];
         const knownDocumentTypes = ["Actor", "Item"];
 
         for (const packId of packs) {
@@ -160,8 +160,8 @@ class PackLoader {
 
     #getSourceFromDocument(document: CompendiumIndexData): string {
         // There are two possible fields where the source can be, check them in order
-        if (document.system?.details?.source?.value) {
-            return document.system.details.source.value;
+        if (document.system?.publication?.title) {
+            return document.system.publication.title;
         }
 
         if (document.system?.source?.value) {

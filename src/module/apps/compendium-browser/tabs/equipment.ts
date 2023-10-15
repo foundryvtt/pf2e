@@ -24,7 +24,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         "priceInCopper",
         "traits",
         "rarity",
-        "publication",
+        "source",
     ];
 
     #localizeCoins = localizer("PF2E.CurrencyAbbreviations");

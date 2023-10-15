@@ -30,7 +30,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         "actorSize",
         "traits",
         "rarity",
-        "publication",
+        "source",
     ];
 
     constructor(browser: CompendiumBrowser) {
