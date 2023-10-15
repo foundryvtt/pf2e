@@ -1,5 +1,4 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
-import { itemIsOfType } from "@item/helpers.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
