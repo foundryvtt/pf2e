@@ -1150,7 +1150,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The babau attacks with the intent of creating a particularly horrific and gory wound. The babau makes a melee Strike. This counts as two attacks when calculating the demon's multiple attack penalty. If this Strike hits, the babau deals an additional [[/r 2d6]] damage of the same damage type, and the creature struck is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                    "value": "<p>The babau attacks with the intent of creating a particularly horrific and gory wound. The babau makes a melee Strike. This counts as two attacks when calculating the demon's multiple attack penalty. If this Strike hits, the babau deals an additional 2d6 damage of the same damage type, and the creature struck is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1164,7 +1164,7 @@
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "option": "grevious-strike",
+                        "option": "grievous-strike",
                         "toggleable": true
                     },
                     {
@@ -1172,9 +1172,19 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "grevious-strike"
+                            "grievous-strike"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "grievous-strike"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

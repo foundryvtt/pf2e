@@ -6,7 +6,12 @@ import { NPCAttackDamage } from "@item/melee/data.ts";
 import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, setHasElement } from "@util";
@@ -411,9 +416,15 @@ class WeaponDamagePF2e {
             options.add(option);
         }
 
-        // Attach modifier adjustments from property runes
+        // Attach modifier adjustments from synthetics and property runes
         for (const modifier of modifiers) {
-            modifier.adjustments.push(...propertyRuneAdjustments.filter((a) => a.slug === modifier.slug));
+            const propRuneAdjustments = propertyRuneAdjustments.filter((a) => a.slug === modifier.slug);
+            const extractedAdjustments = extractModifierAdjustments(
+                actor.synthetics.modifierAdjustments,
+                domains,
+                modifier.slug
+            );
+            modifier.adjustments.push(...propRuneAdjustments, ...extractedAdjustments);
         }
 
         // Synthetics
@@ -427,11 +438,11 @@ class WeaponDamagePF2e {
             materials: Array.from(materials),
         };
 
-        const extracted = extractDamageSynthetics(actor, [base], domains, {
-            resolvables: { weapon },
-            injectables: { weapon },
+        const extractOptions = { test: options, resolvables: { weapon }, injectables: { weapon } };
+        const extracted = processDamageCategoryStacking([base], {
+            modifiers: [modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
+            dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
             test: options,
-            extraModifiers: modifiers,
         });
 
         const testedModifiers = extracted.modifiers;

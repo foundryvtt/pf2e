@@ -305,16 +305,17 @@ class CheckPF2e {
                 .map((t) => toTagElement(t)) ?? [];
 
         const { item } = context;
-        const itemTraits = item?.isOfType("weapon", "melee")
-            ? Array.from(item.traits)
-                  .map((t): TraitViewData => {
-                      const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
-                      obj.label = game.i18n.localize(obj.label);
-                      return obj;
-                  })
-                  .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
-                  .map((t): HTMLElement => toTagElement(t, "alt"))
-            : [];
+        const itemTraits =
+            item?.isOfType("weapon", "melee") && context.type !== "saving-throw"
+                ? Array.from(item.traits)
+                      .map((t): TraitViewData => {
+                          const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                          obj.label = game.i18n.localize(obj.label);
+                          return obj;
+                      })
+                      .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
+                      .map((t): HTMLElement => toTagElement(t, "alt"))
+                : [];
 
         const properties = ((): HTMLElement[] => {
             const range = item?.isOfType("action", "weapon") ? item.range : null;
@@ -351,7 +352,11 @@ class CheckPF2e {
             children: [...modifiers, ...tagsFromOptions],
         });
 
-        return [traitsAndProperties, document.createElement("hr"), modifiersAndExtras];
+        return R.compact([
+            traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
+            document.createElement("hr"),
+            modifiersAndExtras,
+        ]);
     }
 
     /** Reroll a rolled check given a chat message. */

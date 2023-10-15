@@ -12,6 +12,7 @@ import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
+    checkPrompt,
     editPersistent,
     encouragingWords,
     launchTravelSheet,
@@ -21,7 +22,6 @@ import {
     rollActionMacro,
     rollItemMacro,
     showEarnIncomePopup,
-    skillSavePrompt,
     stealthForSelected,
     steelYourResolve,
     treatWounds,
@@ -85,10 +85,10 @@ export const SetGamePF2e = {
             effectTracker: new EffectTracker(),
             gm: {
                 calculateXP,
+                checkPrompt,
                 editPersistent,
                 launchTravelSheet,
                 perceptionForSelected,
-                skillSavePrompt,
                 stealthForSelected,
                 xpFromEncounter,
             },
