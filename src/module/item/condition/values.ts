@@ -24,6 +24,7 @@ const CONDITION_SLUGS = new Set([
     "immobilized",
     "indifferent",
     "invisible",
+    "malevolence",
     "observed",
     "off-guard",
     "paralyzed",

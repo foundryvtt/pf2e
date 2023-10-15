@@ -159,6 +159,7 @@ const conditionTypes: Record<ConditionSlug, string> = {
     helpful: "PF2E.ConditionTypeHelpful",
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
+    malevolence: "PF2E.ConditionTypeMalevolence",
     observed: "PF2E.ConditionTypeObserved",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
