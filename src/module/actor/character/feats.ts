@@ -317,7 +317,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         const slot: FeatSlot<TItem> | undefined = this.slots[slotId];
         if (!slot && this.slotted) return false;
 
-        if (setHasElement(FEAT_CATEGORIES, this.id) && feat.category !== this.id) {
+        if (setHasElement(FEAT_CATEGORIES, this.id) && this.id !== "bonus" && feat.category !== this.id) {
             // If this feat group has an ID of a feat category, only allow feats of that category
             return false;
         }
