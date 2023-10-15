@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
-import { localizer } from "@util";
+import type { Statistic } from "@system/statistic/index.ts";
+import { fontAwesomeIcon, localizer } from "@util";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const localize = localizer("PF2E.Actions.EncouragingWords");
@@ -14,8 +14,8 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return;
     }
 
-    const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
-        dip.roll({
+    const encouragingWordsMacro = async (DC: number, bonus: number, diplomacy: Statistic) => {
+        diplomacy.roll({
             dc: { value: DC },
             extraRollOptions: ["action:encouraging-words"],
             callback: async (roll: Rolled<Roll>) => {
@@ -95,12 +95,12 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     `,
         buttons: {
             yes: {
-                icon: `<i class="fas fa-hand-holding-dipical"></i>`,
+                icon: fontAwesomeIcon("hand-holding-medical").outerHTML,
                 label: localize("Title"),
                 callback: applyChanges,
             },
             no: {
-                icon: `<i class="fas fa-times"></i>`,
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: localize("Cancel"),
             },
         },

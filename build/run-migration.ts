@@ -10,9 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration856NoSystemDotCustom } from "@module/migration/migrations/856-no-system-dot-custom.ts";
-import { Migration857WeaponSpecializationRE } from "@module/migration/migrations/857-weapon-spec-re.ts";
-import { Migration858FakeWeaponSpecialization } from "@module/migration/migrations/858-fake-weapon-specialization.ts";
 import { Migration859MaterialTypeGrade } from "@module/migration/migrations/859-material-type-grade.ts";
 import { Migration860RMGroup } from "@module/migration/migrations/860-rm-group.ts";
 import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862-specific-magic-armor.ts";
@@ -28,6 +25,7 @@ import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-m
 import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
 import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
+import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -38,9 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration856NoSystemDotCustom(),
-    new Migration857WeaponSpecializationRE(),
-    new Migration858FakeWeaponSpecialization(),
     new Migration859MaterialTypeGrade(),
     new Migration860RMGroup(),
     new Migration862SpecificMagicArmor(),
@@ -56,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration875SetInnovationIdEarly(),
     new Migration876FeatLevelTaken(),
     new Migration877PublicationData(),
+    new Migration878TakeABreather(),
 ];
 
 global.deepClone = <T>(original: T): T => {
