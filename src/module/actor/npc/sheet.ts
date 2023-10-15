@@ -57,7 +57,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         this.#prepareAlignment(sheetData.data);
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
-        sheetData.effectItems = this.actor.itemTypes.effect;
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {

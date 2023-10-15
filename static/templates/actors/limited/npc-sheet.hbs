@@ -19,12 +19,12 @@
             </div>
             <div class="side-bar-section-content">
                 <div class="effects-list inventory-list">
-                    {{#each conditions as |condition index|}}
+                    {{#each document.conditions.active as |condition index|}}
                         <div class="item item-name effect expandable" title="{{condition.name}}" data-item-id="{{condition._id}}" data-action-index="{{index}}">
                             <div class="item-image" style="background-image: url({{condition.img}})"></div>
                         </div>
                     {{/each}}
-                    {{#each effectItems as |effect|}}
+                    {{#each document.itemTypes.effect as |effect|}}
                         {{#if @first}}<div class="separator"></div>{{/if}}
                         <div class="item effect expandable" title="{{effect.name}}" data-item-id="{{effect._id}}">
                             <div class="item-image" style="background-image: url({{effect.img}})"></div>
