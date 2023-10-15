@@ -1076,7 +1076,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "hunted-prey"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "unfair-aim",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "hunted-prey",
+                            "ranged",
+                            "unfair-aim"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
