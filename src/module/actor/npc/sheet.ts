@@ -43,7 +43,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         const options = super.defaultOptions;
         return {
             ...options,
-            classes: [...options.classes, "pf2e", "npc"],
+            classes: [...options.classes, "pf2e", "npc", "simple"],
             scrollY: [".sidebar", ".inventory-list"],
         };
     }
