@@ -2,8 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
-import { FEAT_CATEGORIES } from "@item/feat/values.ts";
-import { setHasElement, sluggify, tupleHasValue } from "@util";
+import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
@@ -316,11 +315,6 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                 : feat.system.location ?? "";
         const slot: FeatSlot<TItem> | undefined = this.slots[slotId];
         if (!slot && this.slotted) return false;
-
-        if (setHasElement(FEAT_CATEGORIES, this.id) && this.id !== "bonus" && feat.category !== this.id) {
-            // If this feat group has an ID of a feat category, only allow feats of that category
-            return false;
-        }
 
         if (slot?.feat) {
             console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
