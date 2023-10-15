@@ -1,4 +1,5 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
+import { itemIsOfType } from "@item/helpers.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
@@ -49,10 +50,13 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.documentId ?? "");
-            const requiredPermission = actor?.isOfType("character", "familiar", "vehicle") ? "LIMITED" : "OBSERVER";
-            if (!actor?.testUserPermission(game.user, requiredPermission)) {
-                element.querySelector("span.actor-level")?.remove();
-            }
+            const hideLevel = actor?.isOfType("character", "familiar", "vehicle")
+                ? !actor?.testUserPermission(game.user, "LIMITED")
+                : actor?.isOfType("npc")
+                ? actor.visible
+                : !actor?.testUserPermission(game.user, "OBSERVER");
+
+            if (hideLevel) element.querySelector("span.actor-level")?.remove();
         }
 
         // Implements folder-like collapse/expand functionality for folder-likes.
@@ -145,7 +149,6 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         const collapseAll = htmlQuery(html, ".collapse-all");
         collapseAll?.addEventListener("click", (event) => {
             event.stopPropagation();
-            this.collapseAll();
 
             const folderEls = htmlQueryAll(html, ".folder-like");
             for (const folderEl of folderEls) {
@@ -153,11 +156,11 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 if (folderEl && entryId) {
                     this.extraFolders[entryId] = true;
                     folderEl.classList.toggle("collapsed", true);
-                    if (this.popOut) this.setPosition();
-
-                    this.saveActivePartyFolderState();
                 }
             }
+
+            this.collapseAll();
+            this.saveActivePartyFolderState();
         });
 
         this.#appendBrowseButton(html);
