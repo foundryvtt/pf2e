@@ -34,7 +34,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         source.label ??= options.parent.name;
-        super(source, { parent: options.parent, strict: true, fallback: false });
+        super(source, { parent: options.parent, strict: options.strict ?? true, fallback: false });
         const { item } = this;
 
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
@@ -494,6 +494,7 @@ interface ResolveValueParams {
 
 type RuleElementOptions = {
     parent: ItemPF2e<ActorPF2e>;
+    strict?: boolean;
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */

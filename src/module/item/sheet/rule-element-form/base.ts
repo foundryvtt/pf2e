@@ -56,7 +56,11 @@ class RuleElementForm<
                 if (!RuleElementClass) return null as TObject;
                 const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
                 const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
-                return new RuleElementClass(deepClone(this.rule), { parent: item, suppressWarnings: true }) as TObject;
+                return new RuleElementClass(deepClone(this.rule), {
+                    parent: item,
+                    strict: false,
+                    suppressWarnings: true,
+                }) as TObject;
             })();
 
         this.schema = this.object?.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
