@@ -1181,7 +1181,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The babau makes an attack with the intent of creating a particularly horrific and gory wound. It make a melee Strike. This counts as two attacks when calculating their multiple attack penalty. If this Strike hits, the babau deals an additional [[/r 1d6]] damage and the creature struck is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} for 1 round; this @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition cannot be removed by retching.</p>"
+                    "value": "<p>The babau makes an attack with the intent of creating a particularly horrific and gory wound. It make a melee Strike. This counts as two attacks when calculating their multiple attack penalty. If this Strike hits, the babau deals an additional 1d6 damage and the creature struck is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} for 1 round; this @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition cannot be removed by retching.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1206,6 +1206,16 @@
                             "grievous-strike"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "grievous-strike"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
