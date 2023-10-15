@@ -24,6 +24,7 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
@@ -119,15 +120,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 R.mapValues(sheetData.data.proficiencies.attacks as Record<string, MartialProficiency>, (data, key) => {
                     const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
                     const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
-                    if (key in CONFIG.PF2E.weaponCategories) {
+                    if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
                         const locKey = sluggify(key, { camel: "bactrian" });
-                        data.label = `PF2E.Actor.Character.Proficiency.Attack.${locKey}`;
+                        data.label = setHasElement(WEAPON_CATEGORIES, key)
+                            ? `PF2E.Actor.Character.Proficiency.Attack.${locKey}`
+                            : CONFIG.PF2E.weaponCategories[key];
                     } else if (Array.isArray(groupMatch)) {
                         const weaponGroup = groupMatch[1] as WeaponGroup;
-                        data.label = CONFIG.PF2E.weaponGroups[weaponGroup];
+                        data.label = CONFIG.PF2E.weaponGroups[weaponGroup] ?? weaponGroup;
                     } else if (Array.isArray(baseWeaponMatch)) {
                         const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
-                        data.label = CONFIG.PF2E.baseWeaponTypes[baseWeapon];
+                        data.label = CONFIG.PF2E.baseWeaponTypes[baseWeapon] ?? baseWeapon;
+                    } else {
+                        data.label = key;
                     }
                     const rank = data.rank ?? 0;
                     data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
