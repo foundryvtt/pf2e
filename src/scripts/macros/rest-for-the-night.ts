@@ -134,7 +134,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             const stamina = attributes.hp.sp ?? { value: 0, max: 0 };
             const resolve = resources.resolve ?? { value: 0, max: 0 };
             if (stamina.value < stamina.max) {
-                actorUpdates.attributes.hp = { value: stamina.max };
+                actorUpdates.attributes.hp.sp = { value: stamina.max };
                 statements.push(localize("Message.StaminaPoints"));
             }
             if (resolve.value < resolve.max) {
