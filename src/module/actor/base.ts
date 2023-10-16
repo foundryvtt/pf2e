@@ -1235,7 +1235,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
-            sp: this.isOfType("character") ? this.attributes.hp.sp : undefined,
+            sp: this.isOfType("character") ? this.attributes.hp.sp : null,
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
         const hpDamage = hpUpdate.totalApplied;
@@ -1555,7 +1555,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
     private calculateHealthDelta(args: {
         hp: { max: number; value: number; temp: number };
-        sp?: { max: number; value: number };
+        sp?: Maybe<{ max: number; value: number }>;
         delta: number;
     }) {
         const updates: Record<string, number> = {};
@@ -1573,7 +1573,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
-            updates["system.attributes.sp.value"] = Math.max(sp.value - applied, 0);
+            updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
 
             return applied;
         })();

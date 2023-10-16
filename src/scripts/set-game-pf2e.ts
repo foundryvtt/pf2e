@@ -24,7 +24,9 @@ import {
     showEarnIncomePopup,
     stealthForSelected,
     steelYourResolve,
+    takeABreather,
     treatWounds,
+    xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
 import { ActionMacros, SystemActions } from "@system/action-macros/index.ts";
@@ -34,7 +36,6 @@ import { EffectTracker } from "@system/effect-tracker.ts";
 import { ModuleArt } from "@system/module-art.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
-import { xpFromEncounter } from "./macros/xp/dialog.ts";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -50,6 +51,7 @@ export const SetGamePF2e = {
             restForTheNight,
             earnIncome: showEarnIncomePopup,
             steelYourResolve,
+            takeABreather,
             treatWounds,
             ...ActionMacros,
         })) {

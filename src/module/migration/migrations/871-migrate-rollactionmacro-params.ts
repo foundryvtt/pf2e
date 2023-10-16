@@ -1,11 +1,11 @@
-import { MacroSchema } from "types/foundry/common/documents/macro.js";
+import type { MacroSource } from "types/foundry/common/documents/macro.d.ts";
 import { MigrationBase } from "../base.ts";
 
-/** Migrate rollActionMacro function paramas to an object */
+/** Migrate rollActionMacro function parameters to an object */
 export class Migration871MigrateRollActionMacroParams extends MigrationBase {
     static override version = 0.871;
 
-    override async updateMacro(source: SourceFromSchema<MacroSchema>): Promise<void> {
+    override async updateMacro(source: MacroSource): Promise<void> {
         if (source.type !== "script") return;
 
         const matches = source.command.matchAll(/game\.pf2e\.rollActionMacro\("(.+)".*"(.+)"\)/gm);
