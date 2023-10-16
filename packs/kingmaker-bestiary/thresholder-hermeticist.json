@@ -137,7 +137,12 @@
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
-                    "die": ""
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 3,
+                        "type": "acid"
+                    }
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 3d6 persistent acid damage, and 3 acid splash damage. You gain a +2 item bonus to attack rolls.</p>"
@@ -170,7 +175,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 250
+                    }
                 },
                 "propertyRune1": {
                     "value": null
@@ -194,24 +201,7 @@
                 "reload": {
                     "value": "-"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "acid-flask-greater",
                 "splashDamage": {
@@ -228,6 +218,7 @@
                         "alchemical",
                         "bomb",
                         "consumable",
+                        "infused",
                         "splash"
                     ]
                 },
@@ -631,7 +622,8 @@
                     "value": [
                         "alchemical",
                         "consumable",
-                        "elixir"
+                        "elixir",
+                        "infused"
                     ]
                 },
                 "usage": {
@@ -713,7 +705,8 @@
                         "alchemical",
                         "consumable",
                         "elixir",
-                        "healing"
+                        "healing",
+                        "infused"
                     ]
                 },
                 "usage": {
@@ -796,6 +789,7 @@
                         "consumable",
                         "elixir",
                         "illusion",
+                        "infused",
                         "visual"
                     ]
                 },

@@ -25,7 +25,12 @@
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
-                    "die": ""
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 1,
+                        "type": "acid"
+                    }
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 1d6 persistent acid damage, and 1 acid splash damage.</p>"
@@ -84,24 +89,7 @@
                 "reload": {
                     "value": "-"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Lesser.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Lesser.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "acid-flask-lesser",
                 "splashDamage": {

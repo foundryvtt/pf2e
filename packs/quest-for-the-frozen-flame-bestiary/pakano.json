@@ -116,7 +116,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.4pVGwkVi6izoUuLC"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/weapon.svg",
+            "img": "icons/consumables/food/soup-broth-bowl-wooden-yellow.webp",
             "name": "Tallow Bomb (Moderate)",
             "sort": 200000,
             "system": {
@@ -132,10 +132,15 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 0,
-                    "die": ""
+                    "die": "",
+                    "persistent": {
+                        "faces": 4,
+                        "number": 2,
+                        "type": "fire"
+                    }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>A mixture of rendered animal fat and acids designed to ignite the fat when exposed to air, a tallow bomb creates a splash of burning oil that adheres to skin, clothes, and hair. A tallow bomb deals the listed fire damage, persistent fire damage, and splash damage.</p>\n<p>On a critical hit, a living creature taking persistent fire damage from a tallow bomb is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the stench of burning fat and can't reduce its sickened value below 1 while the persistent fire damage lasts.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2d4 persistent fire damage and 2 fire splash damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>A mixture of rendered animal fat and acids designed to ignite the fat when exposed to air, a tallow bomb creates a splash of burning oil that adheres to skin, clothes, and hair. A tallow bomb deals the listed fire damage, persistent fire damage, and splash damage.</p>\n<p>On a critical hit, a living creature taking persistent fire damage from a tallow bomb is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the stench of burning fat and can't reduce its sickened value below 1 while the persistent fire damage lasts.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2d4 persistent fire damage and 2 fire splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -195,22 +200,15 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.TallowBomb.Moderate.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.TallowBomb.Moderate.criticalSuccess"
+                        "text": "PF2E.BombNotes.TallowBomb.criticalSuccess",
+                        "title": "{item|name}"
                     }
                 ],
                 "size": "med",
-                "slug": null,
+                "slug": "tallow-bomb-moderate",
                 "splashDamage": {
                     "value": 2
                 },

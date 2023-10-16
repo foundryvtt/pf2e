@@ -1296,7 +1296,12 @@
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
-                    "die": ""
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 2,
+                        "type": "acid"
+                    }
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
@@ -1355,24 +1360,7 @@
                 "reload": {
                     "value": "-"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Moderate.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "acid-flask-moderate",
                 "splashDamage": {
@@ -1427,7 +1415,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes off-guard until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",

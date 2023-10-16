@@ -135,7 +135,12 @@
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
-                    "die": ""
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 4,
+                        "type": "acid"
+                    }
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 4d6 persistent acid damage, and 4 acid splash damage. You gain a +3 item bonus to attack rolls.</p>"
@@ -194,24 +199,7 @@
                 "reload": {
                     "value": "-"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Major.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Major.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "acid-flask-major",
                 "splashDamage": {
@@ -264,7 +252,12 @@
                 "damage": {
                     "damageType": "fire",
                     "dice": 4,
-                    "die": "d8"
+                    "die": "d8",
+                    "persistent": {
+                        "faces": null,
+                        "number": 4,
+                        "type": "fire"
+                    }
                 },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 4d8 fire damage, 4 persistent fire damage, and 4 fire splash damage. You gain a +3 item bonus to attack rolls.</p>"
@@ -323,24 +316,7 @@
                 "reload": {
                     "value": "-"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AlchemistsFire.Major.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AlchemistsFire.Major.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "alchemists-fire-major",
                 "splashDamage": {
@@ -514,7 +490,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>You gain a +3 item bonus to attack rolls, the bomb deals 4d6 cold damage and 4 cold splash damage, and the target takes a -15-foot penalty.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Frost Vial (Major)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>You gain a +3 item bonus to attack rolls, the bomb deals 4d6 cold damage and 4 cold splash damage, and the target takes a -15-foot penalty.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Frost Vial (Major)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
