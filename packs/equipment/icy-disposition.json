@@ -35,7 +35,22 @@
             "title": "Pathfinder #164: Hands of the Devil"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "value": 1,
+                "type": "status",
+                "predicate": [
+                    "mental"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "@actor.level"
+            }
+        ],
         "size": "med",
         "stackGroup": null,
         "traits": {
