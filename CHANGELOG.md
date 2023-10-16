@@ -1,3 +1,25 @@
+## 5.7.2
+
+### System Improvements
+
+-   (stwlam) Add support for core secret token disposition feature
+
+### Bugfixes
+
+-   (In3luki) Fix compendium browser publication source loading
+-   (JellyfishJail) Fix check prompt showing DC 0 checks
+-   (stwlam) Fix issue causing damage types to sometimes be lost when using dice doubling on critical hits
+-   (stwlam) Fix advanced weapons utilizing non-advanced category proficiencies
+-   (stwlam) Fix Take a Breather macro and application of damage to stamina points
+-   (stwlam) Fix issue causing general skill feats to not appear in general feat group on PC sheet
+
+### Data Updates
+
+-   (cgollubske) Adding rules for icy disposition
+-   (Dire Weasel) Remove inline damage links from Necrotic Bomb
+-   (Dire Weasel) Update some NPC bomb strikes
+-   (stwlam) Add crossbow other-tag to Lancer weapon
+
 ## 5.7.1
 
 ### Bugfixes
@@ -58,7 +80,6 @@
 -   (Dire Weasel) Add toggle for Limb Extension
 -   (Dire Weasel) Brush up automation for Blade Magus and Ivarsa's Arcane Cascade, some skeleton bestiary abilities
 -   (Dire Weasel) Brush up Vilree's Alchemical Crossbow effect
--   (Dire Weasel) Fix Chronomancer's Secrets so that it can be taken a second time
 -   (Dire Weasel) Fix damage on Major Blood Bomb
 -   (Dire Weasel) Fix domain on Gloom Blade's RollOption
 -   (Dire Weasel) Fix effect for Entwined Roots
