@@ -9,7 +9,7 @@
                 <div class="form-fields">
                     <select id="{{options.id}}-new-type" class="iwr-type" data-property="type">
                         <option value=""></option>
-                        {{selectOptions types localize=true}}
+                        {{selectOptions types localize=true sort=true}}
                     </select>
                     {{#unless (eq category "immunities")}}
                         <input type="number" min="1" data-property="value" placeholder="5" />
@@ -48,7 +48,7 @@
                             {{#if iwr.source}}
                                 <option value="{{iwr.type}}" selected>{{iwr.typeLabel}}</option>
                             {{else}}
-                                {{selectOptions @root.types selected=iwr.type localize=true}}
+                                {{selectOptions @root.types selected=iwr.type localize=true sort=true}}
                             {{/if}}
                         </select>
                         {{#unless (eq @root.category "immunities")}}
