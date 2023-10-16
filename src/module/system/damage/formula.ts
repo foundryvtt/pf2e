@@ -286,7 +286,7 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
     const diceTerms = positiveDice.map((term) => {
         const number = doubleDice ? term.dice.number * 2 : term.dice.number;
         const faces = term.dice.faces;
-        return doubleDice ? `(${number}d${faces}[doubled])` : `${number}d${faces}`;
+        return doubleDice ? `${number}d${faces}[doubled]` : `${number}d${faces}`;
     });
 
     // Create the final term. Double the modifier here if dice doubling is enabled
