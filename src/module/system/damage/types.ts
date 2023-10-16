@@ -7,10 +7,10 @@ import { DamageRoll } from "./roll.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
-type MaterialDamageEffect = keyof ConfigPF2e["PF2E"]["materialDamageEffects"];
-type DamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
+type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
+type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
 
 /**
  * `null`: double on crit (includes most damage)
@@ -112,12 +112,12 @@ type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDam
 export type {
     AfflictionDamageTemplate,
     BaseDamageData,
-    DamageFormulaData,
     CriticalInclusion,
     DamageCategory,
     DamageCategoryRenderData,
     DamageCategoryUnique,
     DamageDieSize,
+    DamageFormulaData,
     DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,
