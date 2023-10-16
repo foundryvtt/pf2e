@@ -126,7 +126,11 @@
                                             </a>
                                         {{/if}}
                                         {{#unless virtual}}
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                            {{#if spell.isReference}}
+                                                <a class="item-control item-edit" title="{{localize "PF2E.Item.References.ViewItemTitle"}}"><i class="fa-solid fa-fw fa-eye"></i></a>
+                                            {{else}}
+                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                            {{/if}}
                                             <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                                         {{/unless}}
                                     {{/if}}

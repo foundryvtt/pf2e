@@ -7,6 +7,7 @@ import { ZeroToTen } from "@module/data.ts";
 import { Statistic, StatisticChatData } from "@system/statistic/index.ts";
 import { SpellCollection } from "./collection.ts";
 import { SpellcastingEntrySystemData } from "./data.ts";
+import { SpellReferences } from "./references.ts";
 
 interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | null> {
     id: string;
@@ -24,6 +25,7 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     statistic?: Statistic | null;
     tradition: MagicTradition | null;
     spells: SpellCollection<NonNullable<TActor>, this> | null;
+    references?: SpellReferences | null;
     system?: SpellcastingEntrySystemData;
 
     getSheetData(): Promise<SpellcastingSheetData>;

@@ -336,6 +336,10 @@ class CompendiumPack {
                     }
                 }
             }
+        } else if (itemIsOfType(source, "spellcastingEntry") && source.system.references) {
+            for (const reference of Object.values(source.system.references)) {
+                reference.sourceId = CompendiumPack.convertUUID(reference.sourceId, convertOptions);
+            }
         }
 
         source.system.rules = source.system.rules.map((r) =>

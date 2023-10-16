@@ -25,6 +25,8 @@ import { ActorSheetPF2e } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillAbbreviation, SkillData } from "./data.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
+import { SpellReferences } from "@item/spellcasting-entry/references.ts";
+import { ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -33,6 +35,10 @@ import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     /** A DocumentSheet class presenting additional, per-actor settings */
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
+    /** A cache for fully resolved spell references */
+    readonly spellCache = new Map<string, SpellPF2e<ActorPF2e>>();
+    /** Are the referenced compendium documents cached? */
+    #spellReferencesCached: boolean | null = null;
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<CreatureSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
@@ -108,6 +114,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     protected async prepareSpellcasting(): Promise<SpellcastingSheetData[]> {
+        if (this.#spellReferencesCached === null) {
+            this.#spellReferencesCached = false;
+            await SpellReferences.cacheAll(this.actor.spellcasting.collections);
+            this.#spellReferencesCached = true;
+        }
+
         const entries = await Promise.all(this.actor.spellcasting.map(async (entry) => entry.getSheetData()));
         return entries.sort((a, b) => a.sort - b.sort);
     }
@@ -115,6 +127,13 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
     protected getProficiencyIcon(level: ZeroToFour): string {
         return [...Array(level)].map(() => fontAwesomeIcon("check-circle").outerHTML).join("");
+    }
+
+    override render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this> {
+        if (this.#spellReferencesCached === false) {
+            ui.notifications.info("PF2E.Item.References.CachingInfo", { localize: true });
+        }
+        return super.render(force, options);
     }
 
     override activateListeners($html: JQuery): void {
@@ -193,7 +212,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 }
             })();
 
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
+            const item = this.actor.items.get(itemId, { strict: true });
+            item.update({ [itemProperty]: value });
         });
 
         // Toggle Dying or Wounded

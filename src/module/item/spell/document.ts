@@ -76,6 +76,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     declare overlays: SpellOverlayCollection;
 
+    /** Is this spell based on a compendium reference? */
+    isReference = false;
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext<TParent> = {}) {
         super(data, context);
         this.isFromConsumable = !!context.fromConsumable;
@@ -466,6 +469,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
         variant.trickMagicEntry = this.trickMagicEntry;
+        variant.isReference = this.isReference;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(variant.traits);
         processSanctification(variant);
@@ -854,6 +858,37 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         };
     }
 
+    override async sortRelative({
+        updateData = {},
+        ...sortOptions
+    }: { updateData?: Partial<EmbeddedDocumentUpdateData> } & SortingOptions<this>): Promise<void> {
+        const sorting = SortingHelpers.performIntegerSort(this, sortOptions);
+        const updates: EmbeddedDocumentUpdateData[] = [];
+        for (const sortResult of sorting) {
+            const spell = sortResult.target;
+            // Reference sorting
+            if (spell.isReference) {
+                const entryId = spell.spellcasting?.id;
+                if (!entryId) continue;
+                updates.push({
+                    _id: entryId,
+                    [`system.references.${spell.id}.sort`]: sortResult.update.sort,
+                });
+                // Update cached reference spell
+                spell.updateSource({ sort: sortResult.update.sort });
+                continue;
+            }
+            // Normal sorting
+            const update = mergeObject(updateData, sortResult.update, { inplace: false });
+            update._id = spell.id;
+            updates.push(update as EmbeddedDocumentUpdateData);
+        }
+        // Perform updates
+        if (updates.length > 0) {
+            this.actor?.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
     async rollAttack(
         this: SpellPF2e<ActorPF2e>,
         event: MouseEvent | JQuery.ClickEvent,
@@ -985,8 +1020,25 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 data,
                 options as DocumentUpdateContext<ActorPF2e>,
             ) as Promise<this | undefined>;
+        } else if (this.isReference) {
+            return this.spellcasting?.references?.update(
+                this.id,
+                data,
+                options as DocumentUpdateContext<ActorPF2e>,
+            ) as Promise<this | undefined>;
         }
         return super.update(data, options);
+    }
+
+    override async delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined> {
+        if (this.isReference) {
+            await this.spellcasting?.references?.deleteReference(
+                this.id,
+                context as DocumentModificationContext<ActorPF2e>,
+            );
+            return this;
+        }
+        return super.delete(context);
     }
 
     protected override async _preCreate(

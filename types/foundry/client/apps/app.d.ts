@@ -347,7 +347,7 @@ declare global {
         label: string;
         class: string;
         icon: string;
-        onclick: ((event: Event) => void) | null;
+        onclick: ((event: MouseEvent) => void) | null;
     }
 
     interface RenderOptions extends Partial<ApplicationOptions> {

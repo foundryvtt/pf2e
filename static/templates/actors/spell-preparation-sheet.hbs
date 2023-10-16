@@ -104,7 +104,11 @@
                             {{/unless}}
                             {{#if @root.editable}}
                                 <div class="item-controls">
-                                    <a class="control" data-action="edit-spell" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-edit fa-fw"></i></a>
+                                    {{#if spell.isReference}}
+                                        <a class="control" data-action="edit-spell" data-tooltip="PF2E.Item.References.ViewItemTitle"><i class="fa-solid fa-eye fa-fw"></i></a>
+                                    {{else}}
+                                        <a class="control" data-action="edit-spell" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-edit fa-fw"></i></a>
+                                    {{/if}}
                                     <a class="control" data-action="delete-spell" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash fa-fw"></i></a>
                                 </div>
                             {{/if}}

@@ -146,11 +146,23 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
     protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<Item<TActor>[]> {
         const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
         const spellSources = sources.filter((source): source is SpellSource => source.type === "spell");
-        for (const spellSource of spellSources) {
+
+        // Create references if possible
+        const withSourceId = spellSources.filter((s) => !!s.flags.core?.sourceId);
+        for (const spellSource of withSourceId) {
+            await this.item.references?.create({
+                sourceId: spellSource.flags.core!.sourceId!,
+                sort: 10_000,
+            });
+        }
+
+        // Create embedded items
+        const withoutSourceId = spellSources.filter((s) => !s.flags.core?.sourceId);
+        for (const spellSource of withoutSourceId) {
             spellSource.system.location.value = this.item.id;
         }
 
-        return super._onDropItemCreate(spellSources);
+        return super._onDropItemCreate(withoutSourceId);
     }
 
     /** Allow transferring spells between open windows */
@@ -158,13 +170,31 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         event: DragEvent,
         itemData: ItemSourcePF2e,
     ): Promise<CollectionValue<TActor["items"]>[]>;
-    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
+    protected override async _onSortItem(
+        event: DragEvent,
+        itemData: ItemSourcePF2e,
+    ): Promise<ItemPF2e<ActorPF2e>[] | void> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id!);
-        if (itemData.system.location.value !== this.item.id && spell?.isOfType("spell")) {
+        if (!spell?.isOfType("spell")) {
+            return super._onSortItem(event, itemData);
+        }
+
+        if (itemData.system.location.value !== this.item.id) {
             const addedSpell = await this.item.spells?.addSpell(spell);
             return [addedSpell ?? []].flat();
+        }
+
+        if (spell.isReference) {
+            const dropTarget = htmlClosest(event.target, "[data-item-id]");
+            if (!dropTarget) return;
+            const target = this.item.spells?.get(dropTarget.dataset.itemId, { strict: true });
+            if (!target || spell.id === target.id) return;
+            const siblings = (this.item.spells?.contents ?? []).filter(
+                (s) => s.id !== spell.id && s.system.level.value === spell.level,
+            );
+            return spell.sortRelative({ target, siblings });
         }
 
         return super._onSortItem(event, itemData);

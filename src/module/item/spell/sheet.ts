@@ -26,6 +26,7 @@ import type {
     SpellSystemSource,
 } from "./index.ts";
 import { MAGIC_TRADITIONS } from "./values.ts";
+import { SpellReferences } from "@item/spellcasting-entry/references.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -38,6 +39,8 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    closing: Promise<void> | null = null;
+
     static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
@@ -60,7 +63,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
-        const { isCantrip, isFocusSpell, isRitual } = this.item;
+        const { isCantrip, isFocusSpell, isRitual, isReference } = this.item;
+
+        if (isReference) {
+            this.options.editable = false;
+        }
 
         const descriptionPrepend = await createDescriptionPrepend(this.item, { includeTraditions: true });
         sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
@@ -367,6 +374,48 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 break;
             }
         }
+    }
+
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (this.item.isReference && this.item.actor?.canUserModify(game.user, "update")) {
+            // Always insert before close button if possible
+            const closeButtonIndex = buttons.findIndex((b) => b.class === "close");
+            buttons.splice(closeButtonIndex, 0, {
+                class: "reference-to-item",
+                icon: "fa-solid fa-edit",
+                label: "PF2E.EditItemTitle",
+                onclick: async () => {
+                    const spell = await SpellReferences.toItem(this.item.spellcasting, this.item.id);
+                    if (spell) {
+                        await this.close({ force: true });
+                        spell.sheet.render(true);
+                    }
+                },
+            });
+        } else if (!this.item.isReference && BUILD_MODE === "development") {
+            buttons.unshift({
+                class: "item-to-reference",
+                icon: "fa-solid fa-compress",
+                label: "PF2E.Item.References.ToReferenceDialog.ButtonLabel",
+                onclick: async (event) => {
+                    const spell = await SpellReferences.fromSpell(this.item, this.item.spellcasting, {
+                        skipDialog: event.shiftKey,
+                    });
+                    // Work around the spell keeping the same id and the same spell sheet
+                    // Close is triggered from the original item being deleted so it's not awaitable
+                    await this.closing;
+                    spell?.sheet.render(true);
+                },
+            });
+        }
+        return buttons;
+    }
+
+    override async close(options?: { force?: boolean }): Promise<void> {
+        this.closing = super.close(options);
+        await this.closing;
+        this.closing = null;
     }
 
     private getAvailableHeightenLevels() {

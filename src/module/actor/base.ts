@@ -431,6 +431,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
     }
 
+    resetItemTypesCache(): void {
+        this._itemTypes = null;
+    }
+
     /** Apply effects from an aura: will later be expanded to handle effects from measured templates */
     async applyAreaEffects(aura: AuraData, origin: { actor: ActorPF2e; token: TokenDocumentPF2e }): Promise<void> {
         if (

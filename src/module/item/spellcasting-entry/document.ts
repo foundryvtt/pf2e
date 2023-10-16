@@ -16,12 +16,15 @@ import {
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
 } from "./types.ts";
+import { SpellReferences } from "./references.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
     implements SpellcastingEntry<TParent>
 {
     declare spells: SpellCollection<NonNullable<TParent>, this> | null;
+
+    declare references: SpellReferences | null;
 
     /** Spellcasting attack and dc data created during actor preparation */
     declare statistic: Statistic;
@@ -108,6 +111,8 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 check: { type: "check" },
             });
         }
+
+        this.references = this.actor ? new SpellReferences(this as SpellcastingEntryPF2e<ActorPF2e>) : null;
     }
 
     override prepareSiblingData(this: SpellcastingEntryPF2e<ActorPF2e>): void {

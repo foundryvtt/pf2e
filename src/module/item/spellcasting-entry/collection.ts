@@ -5,6 +5,7 @@ import { ErrorPF2e, groupBy, ordinalString } from "@util";
 import { SlotKey } from "./data.ts";
 import { RitualSpellcasting } from "./rituals.ts";
 import { ActiveSpell, BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotRank } from "./types.ts";
+import { SpellReferences } from "./references.ts";
 
 class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
     SpellPF2e<TActor>
@@ -88,17 +89,37 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             );
         }
 
-        const heightenedUpdate =
-            canHeighten && heightenedRank >= spell.baseRank
-                ? { "system.location.heightenedLevel": heightenedRank }
-                : {};
+        const isHeigthened = canHeighten && heightenedRank >= spell.baseRank;
+        const heightenedUpdate = isHeigthened ? { "system.location.heightenedLevel": heightenedRank } : {};
 
         if (spell.actor === actor) {
+            // Reference
+            if (spell.isReference) {
+                const spellEntryId = spell.spellcasting?.id;
+                if (spellEntryId && this.id !== spellEntryId) {
+                    // Differnt entry
+                    await spell.spellcasting?.references?.move(spell.id, this.id);
+                    return (this.entry.references?.spellCache.get(spell.id) as SpellPF2e<TActor>) ?? null;
+                } else if (isHeigthened) {
+                    // Same entry
+                    return spell.update(heightenedUpdate) as Promise<SpellPF2e<TActor>>;
+                }
+                return null;
+            }
+            // Full item
             return spell.update({
                 "system.location.value": this.id,
                 ...heightenedUpdate,
             }) as Promise<SpellPF2e<TActor> | null>;
         } else {
+            // Create reference if possible
+            const result = await SpellReferences.fromSpell(spell, this.entry, {
+                heightenTo: isHeigthened ? heightenedRank : null,
+            });
+            if (result) {
+                return result as SpellPF2e<TActor>;
+            }
+            // Otherwise create an embedded item
             const source = spell.clone({ "system.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
 
@@ -188,13 +209,16 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         // Anything past this point must be a `SpellcastingEntryPF2e`
         this.#assertEntryIsDocument(this.entry);
 
+        // Resolve spell references first
+        await this.entry.references?.resolve();
+
         const results: SpellcastingSlotRank[] = [];
         const spells = this.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
         const signatureSpells = spells.filter((s) => s.system.location.signature);
 
         const isFlexible = this.entry.isFlexible;
 
-        if (this.entry.isPrepared && this.entry instanceof SpellcastingEntryPF2e) {
+        if (this.entry.isPrepared) {
             // Prepared Spells. Active spells are what's been prepped.
             for (let rank = 0; rank <= this.highestRank; rank++) {
                 const data = this.entry.system.slots[`slot${rank}` as SlotKey];

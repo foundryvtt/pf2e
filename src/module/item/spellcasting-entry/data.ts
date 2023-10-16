@@ -4,6 +4,7 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
+import { SpellReferenceSource } from "@item/spellcasting-entry/references.ts";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToEleven}`;
@@ -52,6 +53,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         slug: string;
         value: ZeroToFour;
     };
+    references: Record<string, SpellReferenceSource>;
     slots: Record<SlotKey, SpellSlotData>;
     autoHeightenLevel: {
         value: OneToTen | null;
