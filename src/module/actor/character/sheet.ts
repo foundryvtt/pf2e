@@ -132,7 +132,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
                         data.label = CONFIG.PF2E.baseWeaponTypes[baseWeapon] ?? baseWeapon;
                     } else {
-                        data.label = key;
+                        data.label ??= key;
                     }
                     const rank = data.rank ?? 0;
                     data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
