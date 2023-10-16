@@ -53,21 +53,6 @@
     {{> "systems/pf2e/templates/items/partials/self-applied-effect.hbs"}}
 {{/unless}}
 
-<div class="form-group stacked">
-    <label for="{{fieldIdPrefix}}other-tags">{{localize "PF2E.Item.OtherTags.Label"}}</label>
-    <div class="form-fields">
-        <input
-            class="pf2e-tagify"
-            type="text"
-            name="system.traits.otherTags"
-            id="{{fieldIdPrefix}}other-tags"
-            value="{{json item.system.traits.otherTags}}"
-            data-dtype="JSON"
-        />
-    </div>
-    <p class="hint">{{localize "PF2E.Item.OtherTags.Hint"}}</p>
-</div>
-
 {{#if canHaveKeyOptions}}
     <div class="form-group stacked">
         <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Label"}}</label>
@@ -84,4 +69,4 @@
     </div>
 {{/if}}
 
-
+{{> "systems/pf2e/templates/items/partials/other-tags.hbs"}}

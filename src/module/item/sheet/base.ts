@@ -433,6 +433,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             tagElement.append(traitsPrepend.content);
         }
 
+        // Tagify other-tags input if present
+        tagify(htmlQuery<HTMLInputElement>(html, 'input[type=text][name="system.traits.otherTags"]'), { maxTags: 6 });
+
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
         for (const input of modifiedPropertyFields) {
