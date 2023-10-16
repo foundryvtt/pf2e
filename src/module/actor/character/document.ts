@@ -836,7 +836,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
 
         return new ArmorStatistic(this, {
-            rank: proficiency?.rank ?? 0,
+            rank: proficiency.rank,
             attribute: attributeModifier.ability!,
             modifiers: [attributeModifier],
         });
@@ -1227,8 +1227,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
-        const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p && (p.definition?.test(weaponProficiencyOptions) ?? true))
+        const syntheticRanks = R.compact(Object.values(proficiencies.attacks))
+            .filter((p) => p.immutable && (p.definition?.test(weaponProficiencyOptions) ?? true))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
@@ -1761,9 +1761,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     rank: proficiency.rank,
                     domains: [],
                 });
-                proficiency.value = proficiencyBonus.modifier;
-                const sign = proficiencyBonus.modifier < 0 ? "" : "+";
-                proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
+                proficiency.value = proficiencyBonus.value;
+                proficiency.breakdown = `${proficiencyBonus.label} ${signedInteger(proficiencyBonus.value)}`;
             }
         }
     }
