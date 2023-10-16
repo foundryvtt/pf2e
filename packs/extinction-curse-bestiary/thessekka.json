@@ -1337,8 +1337,18 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "pBIeBoL52efIGwSL": {
-                        "damage": "4",
+                    "0": {
+                        "damage": "1",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "3d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "3",
                         "damageType": "acid"
                     }
                 },
@@ -1350,24 +1360,7 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AcidFlask.Greater.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1403,8 +1396,18 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "x4kQLhzCSfYuFS9b": {
-                        "damage": "3d8+3",
+                    "0": {
+                        "damage": "3d8",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "3",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "3",
                         "damageType": "fire"
                     }
                 },
@@ -1416,24 +1419,7 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AlchemistsFire.Greater.success"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.AlchemistsFire.Greater.criticalSuccess"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1469,8 +1455,13 @@
                     "value": 27
                 },
                 "damageRolls": {
-                    "TmARds5UmPmiGjD1": {
-                        "damage": "3d6+3",
+                    "0": {
+                        "damage": "3d6",
+                        "damageType": "cold"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "3",
                         "damageType": "cold"
                     }
                 },
@@ -1897,7 +1888,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Thessekka's bombs with the splash trait deal [[/r 4 #additional splash]]{4 additional splash damage} and deal splash damage to all creatures within 10 feet.</p>"
+                    "value": "<p>Thessekka's bombs with the splash trait deal 4 additional splash damage and deal splash damage to all creatures within 10 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1909,13 +1900,23 @@
                 },
                 "rules": [
                     {
+                        "damageCategory": "splash",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:splash"
+                        ],
+                        "selector": "alchemical-bomb-damage",
+                        "value": 4
+                    },
+                    {
                         "key": "Note",
                         "predicate": [
                             "item:trait:splash"
                         ],
-                        "selector": "strike-damage",
+                        "selector": "alchemical-bomb-damage",
                         "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
