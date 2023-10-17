@@ -370,6 +370,123 @@
                 "selector": "survival",
                 "type": "status",
                 "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:air:critical",
+                    "item:trait:air"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Air",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:earth:critical",
+                    "item:trait:earth"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Earth",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:metal:critical",
+                    "item:trait:metal"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Metal",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:wood:critical",
+                    "item:trait:wood"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Wood",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:fire:critical",
+                    "item:trait:fire"
+                ],
+                "selector": "elemental-blast-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:metal:critical",
+                    "item:trait:metal"
+                ],
+                "selector": "elemental-blast-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:fire:critical",
+                    "item:trait:fire"
+                ],
+                "selector": "elemental-blast-damage",
+                "value": "@blast.flags.pf2e.attackItemBonus"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:metal:critical",
+                    "item:trait:metal"
+                ],
+                "selector": "elemental-blast-damage",
+                "value": "@blast.flags.pf2e.attackItemBonus"
+            },
+            {
+                "critical": true,
+                "damageCategory": "splash",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:water:critical",
+                    "item:trait:water"
+                ],
+                "selector": "elemental-blast-damage",
+                "value": "ternary(gte(@actor.level,17),10,ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,9),6,ternary(gte(@actor.level,5),4,2))))"
             }
         ],
         "traits": {
