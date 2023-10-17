@@ -1298,6 +1298,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
                 weapon.system.traits.value.push("magical");
             }
+
+            // Update logged value in case a rule element has changed it
+            weapon.flags.pf2e.attackItemBonus = weaponPotency.bonus;
         }
 
         const shoddyPenalty = createShoddyPenalty(this, weapon, attackDomains);

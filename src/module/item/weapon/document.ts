@@ -370,6 +370,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             ? ["evocation", "magical"]
             : [];
         this.system.traits.value = R.uniq([baseTraits, magicTraits].flat()).sort();
+
+        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
     }
 
     private prepareRunes(): void {

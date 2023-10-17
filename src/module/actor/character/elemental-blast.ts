@@ -174,6 +174,10 @@ class ElementalBlast {
             throw failure.asError();
         }
 
+        // Set in the same fashion as weapons
+        item.flags.pf2e.attackItemBonus =
+            statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))?.value ?? 0;
+
         // In case of infusions, get separate MAPs for melee and ranged attacks
         const maps = (() => {
             const domains = [...statistic.check.domains, "elemental-blast-attack-roll"];
@@ -355,7 +359,7 @@ class ElementalBlast {
     async damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | string | null> {
         if (!this.statistic) return null;
 
-        const melee = !!(params.melee ?? true);
+        const melee = !!(params.melee ??= true);
         const blastConfig = this.#getBlastConfig(params.element, params.damageType);
         if (!blastConfig) return null;
 
@@ -368,6 +372,9 @@ class ElementalBlast {
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first() ?? null;
+        item.flags.pf2e.attackItemBonus =
+            blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
+                ?.value ?? 0;
 
         const context = await this.actor.getDamageRollContext({
             viewOnly: params.getFormula ?? false,
@@ -392,8 +399,14 @@ class ElementalBlast {
             ],
         };
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
-            modifiers: extractModifiers(this.actor.synthetics, domains, { test: context.options }),
-            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, { test: context.options }),
+            modifiers: extractModifiers(this.actor.synthetics, domains, {
+                test: context.options,
+                resolvables: { blast: item },
+            }),
+            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, {
+                test: context.options,
+                resolvables: { blast: item },
+            }),
             test: context.options,
         });
         const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);

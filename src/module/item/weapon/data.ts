@@ -41,6 +41,8 @@ type WeaponFlags = ItemFlagsPF2e & {
          * modifier, and damage will also not be recalculated.
          */
         fixedAttack?: number | null;
+        /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
+        attackItemBonus: number;
     };
 };
 
