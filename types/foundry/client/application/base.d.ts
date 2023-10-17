@@ -205,7 +205,7 @@ declare global {
          * @param rgx   The regular expression to test against
          * @param html  The HTML element which should be filtered
          */
-        protected _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
+        protected _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement | null): void;
 
         /**
          * Define whether a user is able to begin a dragstart workflow for a given drag selector
