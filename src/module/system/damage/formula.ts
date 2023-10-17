@@ -250,7 +250,12 @@ function createPartialFormulas(
                 ? `(${expression})`
                 : expression;
         })();
-        const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
+        const flavored =
+            term && category && category !== "persistent"
+                ? term.endsWith("]")
+                    ? `(${term})[${category}]`
+                    : `${term}[${category}]`
+                : term;
         return flavored || [];
     });
 }
