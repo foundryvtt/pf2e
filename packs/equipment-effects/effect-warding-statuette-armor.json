@@ -1,0 +1,56 @@
+{
+    "_id": "Empv55xGFN2Mk3cu",
+    "img": "icons/commodities/treasure/figurine-idol.webp",
+    "name": "Effect: Warding Statuette - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warding Statuette]</p>\n<p>You gain resistance 1 against ranged weapon attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    },
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.RangedWeaponAttacks",
+                "type": "custom",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
