@@ -416,19 +416,6 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "junction:water:critical",
-                    "item:trait:water"
-                ],
-                "selector": "elemental-blast-damage",
-                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Water",
-                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "junction:wood:critical",
                     "item:trait:wood"
                 ],
@@ -488,6 +475,18 @@
                 ],
                 "selector": "elemental-blast-damage",
                 "value": "@blast.flags.pf2e.attackItemBonus"
+            },
+            {
+                "critical": true,
+                "damageCategory": "splash",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:water:critical",
+                    "item:trait:water"
+                ],
+                "selector": "elemental-blast-damage",
+                "value": "ternary(gte(@actor.level,17),10,ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,9),6,ternary(gte(@actor.level,5),4,2))))"
             }
         ],
         "traits": {
