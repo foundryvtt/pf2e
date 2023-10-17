@@ -49,7 +49,6 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
         tagify(getInput("system.prerequisites.value"), { maxTags: 6 });
         tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
-        tagify(getInput("system.traits.otherTags"), { maxTags: 6 });
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
