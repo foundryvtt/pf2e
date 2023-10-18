@@ -20,7 +20,42 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "priority": 90,
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "priority": 99,
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
