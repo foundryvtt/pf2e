@@ -30,6 +30,7 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
                     new Immunity({
                         type: t,
                         customLabel: t === "custom" ? this.label : null,
+                        definition: this.definition,
                         exceptions: this.exceptions,
                         source: this.item.name,
                     })
