@@ -440,7 +440,11 @@ class WeaponDamagePF2e {
 
         // Synthetics
 
-        const extractOptions = { test: options, resolvables: { weapon }, injectables: { weapon } };
+        const extractOptions = {
+            test: options,
+            resolvables: { weapon, target: context.target?.actor ?? null },
+            injectables: { weapon },
+        };
         const extracted = processDamageCategoryStacking(base, {
             modifiers: [modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
             dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
