@@ -253,9 +253,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     override async activateEditor(
         name: string,
-        options: Partial<TinyMCE.EditorOptions> = {},
+        options: EditorCreateOptions = {},
         initialContent?: string
-    ): Promise<TinyMCE.Editor> {
+    ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
