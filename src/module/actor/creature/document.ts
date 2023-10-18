@@ -262,6 +262,7 @@ abstract class CreaturePF2e<
         attributes.flanking.flankable = true;
         attributes.flanking.offGuardable = true;
         attributes.reach = { base: 0, manipulate: 0 };
+        attributes.speed = mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
 
         if (attributes.initiative) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
