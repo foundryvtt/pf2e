@@ -6,6 +6,7 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
 import {
     extractDamageDice,
     extractModifierAdjustments,
@@ -659,19 +660,35 @@ function getCheckDC({
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc?.startsWith("resolve") && actor) {
-            params.immutable ||= "true";
-            const resolve = dc.match(/resolve\((.+?)\)$/);
-            const value = resolve && resolve?.length > 0 ? resolve[1] : "";
-            const saferEval = (resolveString: string): number => {
-                try {
-                    const rollData = item?.getRollData() ?? actor?.getRollData();
-                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
-                } catch {
-                    return 0;
+        if (dc && (item || actor)) {
+            const resolveDC = (prefix: string): number | undefined => {
+                if (dc.startsWith(prefix)) {
+                    const match = dc.match(`^${prefix}\\((.+?)\\)$`);
+                    const value = match && match.length > 0 ? match[1] : "";
+                    const saferEval = (resolveString: string): number => {
+                        try {
+                            const rollData = item?.getRollData() ?? actor!.getRollData();
+                            return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
+                        } catch {
+                            return 0;
+                        }
+                    };
+                    return Number(saferEval(value));
                 }
+                return undefined;
             };
-            return Number(saferEval(value));
+
+            const resolve = resolveDC("resolve");
+            if (resolve !== undefined) {
+                params.immutable ||= "true";
+                return resolve;
+            }
+
+            const levelBased = resolveDC("levelBased");
+            if (levelBased !== undefined) {
+                params.immutable ||= "true";
+                return calculateDC(levelBased);
+            }
         }
         return Number(dc) || undefined;
     })();
