@@ -33,39 +33,7 @@
                 "selector": "strike-damage",
                 "slug": "fearsome-brute",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 2
-                        },
-                        {
-                            "start": 3,
-                            "value": 3
-                        }
-                    ],
-                    "field": "actor|system.skills.itm.rank"
-                }
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "multiply",
-                "predicate": [
-                    "target:condition:frightened:2"
-                ],
-                "selector": "strike-damage",
-                "slug": "fearsome-brute",
-                "value": 2
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "multiply",
-                "predicate": [
-                    "target:condition:frightened:3"
-                ],
-                "selector": "strike-damage",
-                "slug": "fearsome-brute",
-                "value": 3
+                "value": "2 * @target.conditions.frightened.badge.value"
             },
             {
                 "key": "AdjustModifier",
@@ -73,14 +41,14 @@
                 "predicate": [
                     {
                         "gte": [
-                            "target:condition:frightened",
-                            4
+                            "skill:rank:itm",
+                            3
                         ]
                     }
                 ],
                 "selector": "strike-damage",
                 "slug": "fearsome-brute",
-                "value": 4
+                "value": 1.5
             }
         ],
         "traits": {
