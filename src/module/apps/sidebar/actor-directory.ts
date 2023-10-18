@@ -18,7 +18,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             "system.details.level.value",
             "system.attributes.adjustment",
             "system.details.members",
-            "system.campaign.type"
+            "system.campaign.type",
+            "prototypeToken.actorLink"
         );
         return options;
     }
@@ -52,8 +53,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             const hideLevel = actor?.isOfType("character", "familiar", "vehicle")
                 ? !actor?.testUserPermission(game.user, "LIMITED")
                 : actor?.isOfType("npc")
-                ? actor.visible
-                : !actor?.testUserPermission(game.user, "OBSERVER");
+                ? !actor?.testUserPermission(game.user, "OBSERVER")
+                : false;
 
             if (hideLevel) element.querySelector("span.actor-level")?.remove();
         }
