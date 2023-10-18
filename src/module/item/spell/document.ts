@@ -340,7 +340,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         })
                 );
 
-            const extractOptions = { resolvables: { spell: this }, test: options };
+            const extractOptions = {
+                resolvables: { spell: this, target: damageOptions.target ?? null },
+                test: options,
+            };
             const extracted = processDamageCategoryStacking(base, {
                 modifiers: [attributeModifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
                 dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
