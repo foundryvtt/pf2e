@@ -126,9 +126,9 @@ declare global {
          */
         activateEditor(
             name: string,
-            options?: Partial<TinyMCE.EditorOptions>,
+            options?: EditorCreateOptions,
             initialContent?: string
-        ): Promise<TinyMCE.Editor>;
+        ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
         /**
          * Handle saving the content of a specific editor by name
@@ -222,5 +222,95 @@ declare global {
         mce: TinyMCE.Editor | null;
         options: Partial<TinyMCE.EditorOptions>;
         target: string;
+    }
+
+    /** A simple implementation of the FormApplication pattern which is specialized in editing Entity instances */
+    class DocumentSheet<
+        TDocument extends foundry.abstract.Document = foundry.abstract.Document,
+        TOptions extends DocumentSheetOptions = DocumentSheetOptions
+    > extends FormApplication<TDocument, TOptions> {
+        constructor(object: TDocument, options?: Partial<TOptions>);
+
+        static override get defaultOptions(): DocumentSheetOptions;
+
+        /** A convenience accessor for the object property of the inherited FormApplication instance */
+        get document(): TDocument;
+
+        override get id(): string;
+
+        override get isEditable(): boolean;
+
+        override get title(): string;
+
+        override close(options?: { force?: boolean | undefined }): Promise<void>;
+
+        override getData(
+            options?: Partial<TOptions>
+        ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
+
+        protected override _activateCoreListeners(html: JQuery): void;
+
+        override activateEditor(
+            name: string,
+            options?: EditorCreateOptions,
+            initialContent?: string
+        ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
+
+        override render(force?: boolean, options?: RenderOptions): this | Promise<this>;
+
+        protected override _renderOuter(options: RenderOptions): Promise<JQuery>;
+
+        /** Create an ID link button in the document sheet header which displays the document ID and copies to clipboard */
+        protected _createDocumentIdLink(html: JQuery): void;
+
+        /**
+         * Test whether a certain User has permission to view this Document Sheet.
+         * @param user The user requesting to render the sheet
+         * @returns Does the User have permission to view this sheet?
+         */
+        protected _canUserView(user: User): boolean;
+
+        /** Create objects for managing the functionality of secret blocks within this Document's content. */
+        protected _createSecretHandlers(): HTMLSecret[];
+
+        /* -------------------------------------------- */
+        /*  Event Handlers                              */
+        /* -------------------------------------------- */
+
+        protected override _getHeaderButtons(): ApplicationHeaderButton[];
+
+        /**
+         * Get the HTML content that a given secret block is embedded in.
+         * @param secret The secret block.
+         */
+        protected _getSecretContent(secret: HTMLElement): string;
+
+        /**
+         * Update the HTML content that a given secret block is embedded in.
+         * @param secret  The secret block.
+         * @param content The new content.
+         * @returns The updated Document.
+         */
+        protected _updateSecret(secret: HTMLElement, content: string): Promise<TDocument>;
+
+        protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+    }
+
+    interface DocumentSheetOptions extends FormApplicationOptions {
+        classes: string[];
+        template: string;
+        viewPermission: number;
+        sheetConfig: boolean;
+    }
+
+    interface DocumentSheetData<TDocument extends foundry.abstract.Document = foundry.abstract.Document> {
+        cssClass: string;
+        editable: boolean;
+        document: TDocument;
+        data: {};
+        limited: boolean;
+        options: FormApplicationOptions;
+        owner: boolean;
+        title: string;
     }
 }

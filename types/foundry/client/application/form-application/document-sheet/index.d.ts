@@ -1,6 +1,5 @@
 import "./active-effect-config.d.ts";
 import "./actor-sheet.d.ts";
-import "./base.d.ts";
 import "./combatant-config.d.ts";
 import "./item-sheet.d.ts";
 import "./journal-page-sheet.d.ts";
