@@ -288,7 +288,7 @@ class CheckPF2e {
             span.innerText = tag.label;
 
             if (tag.name) span.dataset.slug = tag.name;
-            if (tag.description) span.dataset.description = tag.description;
+            if (tag.description) span.dataset.tooltip = tag.description;
 
             return span;
         };
@@ -330,7 +330,10 @@ class CheckPF2e {
             }
         })();
 
-        const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits"] });
+        const traitsAndProperties = createHTMLElement("div", {
+            classes: ["tags", "traits"],
+            dataset: { tooltipClass: "pf2e" },
+        });
         if (itemTraits.length === 0 && properties.length === 0) {
             traitsAndProperties.append(...traits);
         } else {
@@ -671,7 +674,6 @@ class CheckPF2e {
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
         const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.hbs", {
-            target: targetData,
             dc: dcData,
             result: resultData,
         });
@@ -692,7 +694,15 @@ class CheckPF2e {
                 classes: ["adjusted", adjustment.direction],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
-            adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
+
+            if (adjustment.circumstances.length > 0) {
+                adjustedNode.dataset.tooltip = adjustment.circumstances
+                    .map(
+                        (a: { label: string; value: number }) =>
+                            createHTMLElement("div", { children: [`${a.label}: ${signedInteger(a.value)}`] }).outerHTML
+                    )
+                    .join("\n");
+            }
         }
         convertXMLNode(html, "unadjusted", {
             visible: resultData.visible,
@@ -704,7 +714,7 @@ class CheckPF2e {
                 classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value], "adjusted"],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
-            adjustedNode.dataset.adjustment = game.i18n.localize(degree.adjustment.label);
+            adjustedNode.dataset.tooltip = degree.adjustment.label;
         }
 
         convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });
