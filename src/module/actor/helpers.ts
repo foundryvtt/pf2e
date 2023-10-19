@@ -334,7 +334,7 @@ function getStrikeDamageDomains(
             ...extractModifiers(actor.synthetics, domains, {
                 resolvables: { weapon },
                 test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
-            }).filter((m) => m.type === "ability"),
+            }).filter((m) => !m.ignored && m.type === "ability"),
         ].reduce((best, candidate) =>
             candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best
         );
