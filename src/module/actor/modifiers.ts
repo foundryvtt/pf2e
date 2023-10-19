@@ -243,6 +243,7 @@ class ModifierPF2e implements RawModifier {
 
     /** Sets the ignored property after testing the predicate */
     test(options: string[] | Set<string>): void {
+        if (this.predicate.length === 0) return;
         const rollOptions = this.rule ? [...options, ...this.rule.item.getRollOptions("parent")] : options;
         this.ignored = !this.predicate.test(rollOptions);
     }
