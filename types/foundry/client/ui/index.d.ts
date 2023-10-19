@@ -1,9 +1,11 @@
 import "./context.d.ts";
 import "./dialog.d.ts";
-import "./drag-drop.d.ts";
+import "./dragdrop.d.ts";
 import "./editor.d.ts";
 import "./filepicker.d.ts";
 import "./notifications.d.ts";
+import "./prosemirror.d.ts";
+import "./secrets.d.ts";
 import "./tabs.d.ts";
 import "./tooltip.d.ts";
 import "./tour.d.ts";

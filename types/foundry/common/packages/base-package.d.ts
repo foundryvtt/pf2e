@@ -79,9 +79,9 @@ export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> ext
 
     override initialize(
         value: SourceFromSchema<TSchema>[],
-        model?: ConstructorOf<DataModel>,
+        model: ConstructorOf<DataModel>,
         options?: Record<string, unknown>
-    ): Set<SourceFromSchema<TSchema>>;
+    ): Set<ModelPropsFromSchema<TSchema>>;
 
     /** Extend the logic for validating the complete set of packs to ensure uniqueness. */
     protected override _validateElements(value: unknown[], options?: Record<string, unknown>): void;

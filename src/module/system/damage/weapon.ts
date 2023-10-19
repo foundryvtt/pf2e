@@ -15,13 +15,14 @@ import {
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, setHasElement } from "@util";
+import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
 import {
-    DamageFormulaData,
     DamageCategoryUnique,
     DamageDieSize,
+    DamageFormulaData,
     DamageRollContext,
     MaterialDamageEffect,
     WeaponBaseDamageData,
@@ -147,6 +148,19 @@ class WeaponDamagePF2e {
             rule.beforeRoll?.(domains, options);
         }
 
+        // Splash damage
+        const splashDamage = weapon.isOfType("weapon") ? Number(weapon.system.splashDamage?.value) : 0;
+        if (splashDamage > 0) {
+            const modifier = new ModifierPF2e({
+                slug: "splash",
+                label: "PF2E.WeaponSplashDamageLabel",
+                modifier: splashDamage,
+                damageCategory: "splash",
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "splash"),
+            });
+            modifiers.push(modifier);
+        }
+
         if (weapon.isOfType("weapon")) {
             // Kickback trait
             if (weaponTraits.includes("kickback")) {
@@ -172,19 +186,6 @@ class WeaponDamagePF2e {
             const twoHandFaces = Number(twoHandSize?.replace("d", "") ?? "NaN");
             if (handsHeld === 2 && setHasElement(DAMAGE_DIE_FACES, twoHandSize) && twoHandFaces > baseDieFaces) {
                 baseDamage.die = twoHandSize;
-            }
-
-            // Splash damage
-            const splashDamage = Number(weapon.system.splashDamage?.value);
-            if (splashDamage > 0) {
-                const modifier = new ModifierPF2e({
-                    slug: "splash",
-                    label: "PF2E.WeaponSplashDamageLabel",
-                    modifier: splashDamage,
-                    damageCategory: "splash",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "splash"),
-                });
-                modifiers.push(modifier);
             }
 
             // Scatter damage
@@ -277,31 +278,6 @@ class WeaponDamagePF2e {
                 weapon.system.damage.dice -= weapon.system.runes.striking;
                 weapon.system.runes.striking = 0;
             }
-        }
-
-        // Persistent damage inherent to the weapon
-        if (baseDamage.persistent?.faces) {
-            damageDice.push(
-                new DamageDicePF2e({
-                    selector: `${weapon.id}-damage`,
-                    slug: "weapon-persistent",
-                    label: "PF2E.ConditionTypePersistent",
-                    diceNumber: baseDamage.persistent.number,
-                    dieSize: `d${baseDamage.persistent.faces}`,
-                    damageType: baseDamage.persistent.type,
-                    category: "persistent",
-                })
-            );
-        } else if (baseDamage.persistent?.number) {
-            modifiers.push(
-                new ModifierPF2e({
-                    slug: "weapon-persistent",
-                    label: "PF2E.ConditionTypePersistent",
-                    modifier: baseDamage.persistent.number,
-                    damageType: baseDamage.persistent.type,
-                    damageCategory: "persistent",
-                })
-            );
         }
 
         // Critical specialization effects
@@ -427,19 +403,49 @@ class WeaponDamagePF2e {
             modifier.adjustments.push(...propRuneAdjustments, ...extractedAdjustments);
         }
 
+        const baseUncategorized = ((): WeaponBaseDamageData | null => {
+            const diceNumber = baseDamage.die ? baseDamage.dice : 0;
+            return diceNumber > 0 || baseDamage.modifier > 0
+                ? {
+                      diceNumber,
+                      dieSize: baseDamage.die,
+                      modifier: baseDamage.modifier,
+                      damageType: baseDamage.damageType,
+                      category: "category" in baseDamage && baseDamage.category === "persistent" ? "persistent" : null,
+                      materials: Array.from(materials),
+                  }
+                : null;
+        })();
+
+        const basePersistent = ((): WeaponBaseDamageData | null => {
+            if (baseDamage.persistent?.faces) {
+                return {
+                    diceNumber: baseDamage.persistent.number,
+                    dieSize: `d${baseDamage.persistent.faces}`,
+                    damageType: baseDamage.persistent.type,
+                    category: "persistent",
+                };
+            } else if (baseDamage.persistent?.number) {
+                return {
+                    modifier: baseDamage.persistent.number,
+                    damageType: baseDamage.persistent.type,
+                    category: "persistent",
+                };
+            }
+            return null;
+        })();
+        if (!(baseUncategorized || basePersistent || splashDamage)) return null;
+
+        const base = R.compact([baseUncategorized, basePersistent]);
+
         // Synthetics
 
-        const base: WeaponBaseDamageData = {
-            diceNumber: baseDamage.die ? baseDamage.dice : 0,
-            dieSize: baseDamage.die,
-            modifier: baseDamage.modifier,
-            damageType: baseDamage.damageType,
-            category: "category" in baseDamage && baseDamage.category === "persistent" ? "persistent" : null,
-            materials: Array.from(materials),
+        const extractOptions = {
+            test: options,
+            resolvables: { weapon, target: context.target?.actor ?? null },
+            injectables: { weapon },
         };
-
-        const extractOptions = { test: options, resolvables: { weapon }, injectables: { weapon } };
-        const extracted = processDamageCategoryStacking([base], {
+        const extracted = processDamageCategoryStacking(base, {
             modifiers: [modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
             dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
             test: options,
@@ -449,7 +455,7 @@ class WeaponDamagePF2e {
         damageDice.push(...extracted.dice);
 
         const formulaData: DamageFormulaData = {
-            base: [base],
+            base,
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
             // extra dice from abilities, critical specialization effects, property runes, weapon traits,
@@ -502,35 +508,37 @@ class WeaponDamagePF2e {
     static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
     static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
-        const base = damage.base.at(0);
-        const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-        if (!base) return null;
+        for (const base of damage.base) {
+            const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
 
-        // Test that a damage modifier is compatible with the prior check result
-        const outcomeMatches = (m: { critical: boolean | null }): boolean =>
-            m.critical === null || (critical && m.critical) || (!critical && !m.critical);
+            // Test that a damage modifier is compatible with the prior check result
+            const outcomeMatches = (m: { critical: boolean | null }): boolean =>
+                m.critical === null || (critical && m.critical) || (!critical && !m.critical);
 
-        // First, increase or decrease the damage die. This can only be done once, so we
-        // only need to find the presence of a rule that does this
-        const hasUpgrade = damage.dice.some((d) => d.enabled && d.override?.upgrade && outcomeMatches(d));
-        const hasDowngrade = damage.dice.some((d) => d.enabled && d.override?.downgrade && (critical || !d.critical));
-        if (base.dieSize && hasUpgrade && !hasDowngrade) {
-            base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
-        } else if (base.dieSize && hasDowngrade && !hasUpgrade) {
-            base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
-        }
+            // First, increase or decrease the damage die. This can only be done once, so we
+            // only need to find the presence of a rule that does this
+            const hasUpgrade = damage.dice.some((d) => d.enabled && d.override?.upgrade && outcomeMatches(d));
+            const hasDowngrade = damage.dice.some(
+                (d) => d.enabled && d.override?.downgrade && (critical || !d.critical)
+            );
+            if (base.dieSize && hasUpgrade && !hasDowngrade) {
+                base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
+            } else if (base.dieSize && hasDowngrade && !hasUpgrade) {
+                base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
+            }
 
-        // Override next, to ensure the dice stacking works properly
-        const damageOverrides = damage.dice.filter(
-            (d): d is DamageDicePF2e & { override: DamageDiceOverride } => !!(d.enabled && d.override)
-        );
-        for (const override of damageOverrides) {
-            if ((critical && override.critical !== false) || (!critical && !override.critical)) {
-                base.dieSize = override.override?.dieSize ?? base.dieSize;
-                base.damageType = override.override?.damageType ?? base.damageType;
-                base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
-                for (const die of damage.dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
-                    die.damageType = override.override?.damageType ?? die.damageType;
+            // Override next, to ensure the dice stacking works properly
+            const damageOverrides = damage.dice.filter(
+                (d): d is DamageDicePF2e & { override: DamageDiceOverride } => !!(d.enabled && d.override)
+            );
+            for (const override of damageOverrides) {
+                if ((critical && override.critical !== false) || (!critical && !override.critical)) {
+                    base.dieSize = override.override?.dieSize ?? base.dieSize;
+                    base.damageType = override.override?.damageType ?? base.damageType;
+                    base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
+                    for (const die of damage.dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
+                        die.damageType = override.override?.damageType ?? die.damageType;
+                    }
                 }
             }
         }

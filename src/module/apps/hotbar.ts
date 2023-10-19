@@ -2,12 +2,12 @@ import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
-import { ErrorPF2e, isObject, setHasElement } from "@util";
+import { ErrorPF2e, htmlClosest, isObject, setHasElement } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
     override async _onDrop(event: ElementDragEvent): Promise<void> {
-        const li = event.target.closest<HTMLElement>(".macro");
+        const li = htmlClosest(event.target, ".macro");
         const slot = Number(li?.dataset.slot) || null;
         if (!slot) return;
 
@@ -38,8 +38,12 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
 
                 if (item.isOfType("condition", "effect")) {
                     return createToggleEffectMacro(item, slot);
+                } else if (uuid?.startsWith("Compendium.")) {
+                    ui.notifications.error("PF2E.Macro.NoCompendiumItem", { localize: true });
+                    return;
+                } else {
+                    return HotbarPF2e.#createItemMacro(item, slot);
                 }
-                return HotbarPF2e.#createItemMacro(item, slot);
             }
             case "RollOption": {
                 const item = fromUuidSync(data.uuid ?? "");

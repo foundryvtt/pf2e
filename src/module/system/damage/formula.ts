@@ -1,11 +1,11 @@
 import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { addSign, groupBy, sortBy, sum } from "@util";
+import { groupBy, signedInteger, sortBy, sum } from "@util";
 import * as R from "remeda";
 import {
-    DamageFormulaData,
     CriticalInclusion,
     DamageCategoryUnique,
+    DamageFormulaData,
     DamagePartialTerm,
     DamageType,
     MaterialDamageEffect,
@@ -106,20 +106,28 @@ function createDamageFormula(
 
     // Add modifiers
     for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
-        // A genuine bonus must match against both damage type and category: e.g., a bonus to flat damage must
-        // not be applied to persistent damage--nor vice versa
-        const matchingBase =
-            modifier.kind === "bonus"
-                ? damage.base.find(
+        // A genuine bonus or penalty must match against both damage type and category: e.g., a bonus to flat damage
+        // must not be applied to persistent damage--nor vice versa
+        const bonusableDamage = [
+            ...damage.base,
+            ...damage.dice,
+            ...damage.modifiers.filter((m) => m.value > 0 && m.type === "untyped"),
+        ];
+        const matchingDamage =
+            modifier.kind === "modifier"
+                ? bonusableDamage.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ??
+                  damage.base.at(0)
+                : bonusableDamage.find(
                       (b) => b.damageType === (modifier.damageType ?? b.damageType) && b.category === modifier.category
-                  )
-                : damage.base.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ?? damage.base.at(0);
-        if (!matchingBase) continue;
-        const damageType = modifier.damageType ?? matchingBase.damageType;
+                  );
+        if (!matchingDamage) continue;
+        const damageType = modifier.damageType ?? matchingDamage.damageType ?? "untyped";
 
         const list = typeMap.get(damageType) ?? [];
         list.push({
-            label: BONUS_BASE_LABELS.includes(modifier.label) ? null : `${modifier.label} ${addSign(modifier.value)}`,
+            label: BONUS_BASE_LABELS.includes(modifier.label)
+                ? null
+                : `${modifier.label} ${signedInteger(modifier.value)}`,
             dice: null,
             modifier: modifier.value,
             damageType,
@@ -145,7 +153,7 @@ function instancesFromTypeMap(
     { degree, persistent = false }: { degree: DegreeOfSuccessIndex; persistent?: boolean }
 ): AssembledFormula[] {
     return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): AssembledFormula | never[] => {
-        // Filter persistent (or filter out) based on persistent option
+        // Skip persistent damage depending on option
         const partials = typePartials.filter((p) => (p.category === "persistent") === persistent);
         if (partials.length === 0) return [];
 
@@ -337,7 +345,7 @@ function parseTermsFromSimpleFormula(
 }
 
 interface PartialFormulaParams {
-    /** Whether critical damage is to be inconcluded in the generated formula and also doubled */
+    /** Whether critical damage is to be included in the generated formula and also doubled */
     criticalInclusion: CriticalInclusion[];
     /** Whether to double the dice of these partials */
     doubleDice?: boolean;
