@@ -11,7 +11,7 @@
                     {{/select}}
                 </select>
                 <div class="item-controls">
-                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    <a data-action="overlay-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </div>
         </h3>
@@ -21,7 +21,7 @@
             <div class="form-fields">
                 <input type="text" name="{{base}}.name" value="{{overlay.name}}" />
                 <div class="item-controls">
-                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    <a data-action="overlay-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
                 <a data-action="overlay-remove-property" data-property="damage"><i class="fa fa-times" ></i></a>
                 {{localize "PF2E.FormulaPlaceholder"}}
                 <div class="item-controls">
-                    <i class="fas fa-plus" data-action="damage-create"></i>
+                    <i class="fa-solid fa-plus" data-action="damage-create"></i>
                 </div>
             </h3>
 
@@ -166,8 +166,8 @@
                                 data-title="PF2E.DamageCategoriesLabel"
                                 data-config-types="damageCategories"
                                 data-property="{{../dataPath}}.damage.value.{{id}}.type.categories"
-                            ><i class="fas fa-edit"></i></a>
-                            <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-trash"></i></a>
+                            ><i class="fa-solid fa-edit"></i></a>
+                            <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
                     {{#if damage.type.categories}}
