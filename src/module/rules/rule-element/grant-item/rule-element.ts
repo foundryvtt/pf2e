@@ -240,13 +240,14 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     /** Add an in-memory-only condition to the actor */
-    override beforePrepareData(): void {
+    override onApplyActiveEffects(): void {
         const condition = this.#createInMemoryCondition();
         if (!condition) return;
 
         const { actor } = this;
         condition.rules = condition.prepareRuleElements();
         for (const rule of condition.rules) {
+            rule.onApplyActiveEffects?.();
             rule.beforePrepareData?.();
             actor.rules.push(rule);
         }
