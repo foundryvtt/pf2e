@@ -19,8 +19,9 @@ export function calculateRemainingDuration(
 
     const duration = durationData.value * (DURATION_UNITS[durationData.unit] ?? 0);
 
-    // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
-    const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
+    // Prevent effects that expire at end of current turn or round from expiring immediately outside of encounters
+    const addend =
+        !combatant && duration === 0 && unit === "rounds" && ["turn-end", "round-end"].includes(expiry ?? "") ? 1 : 0;
     const remaining = start + duration + addend - game.time.worldTime;
     const result = { remaining, expired: remaining <= 0 };
 
@@ -30,10 +31,17 @@ export function calculateRemainingDuration(
 
         // A familiar won't be represented in the encounter tracker: use the master in its place
         const fightyActor = effect.actor?.isOfType("familiar") ? effect.actor.master ?? effect.actor : effect.actor;
-        const isEffectTurnStart =
+        const atTurnStart = () =>
             startInitiative === currentInitiative && combatant.actor === (effect.origin ?? fightyActor);
 
-        result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
+        result.expired =
+            expiry === "turn-start"
+                ? atTurnStart()
+                : expiry === "turn-end"
+                ? currentInitiative < startInitiative
+                : expiry === "round-end"
+                ? remaining <= 0 && game.time.worldTime > start
+                : false;
     }
 
     return result;

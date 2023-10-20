@@ -90,7 +90,7 @@ type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValueSource | Eff
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
-type EffectExpiryType = "turn-start" | "turn-end";
+type EffectExpiryType = "turn-start" | "turn-end" | "round-end";
 
 interface DurationData {
     value: number;
