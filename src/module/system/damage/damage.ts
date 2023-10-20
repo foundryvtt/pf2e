@@ -9,6 +9,7 @@ import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
 import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { createHTMLElement } from "@util";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -58,7 +59,7 @@ export class DamagePF2e {
                         span.className = "tag";
                         if (cssClass) span.classList.add(cssClass);
                         span.dataset[dataAttr] = tag.value;
-                        span.dataset.description = description;
+                        if (description) span.dataset.tooltip = description;
                         span.innerText = tag.label;
 
                         return span.outerHTML;
@@ -112,10 +113,10 @@ export class DamagePF2e {
 
             const otherTags = [itemTraits, properties, materialEffects].join("");
 
-            flavor +=
-                otherTags.length > 0
-                    ? `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`
-                    : `<div class="tags">${traits}</div><hr>`;
+            const tagsElem = createHTMLElement("div", { classes: ["tags"], dataset: { tooltipClass: "pf2e" } });
+            tagsElem.innerHTML = otherTags.length > 0 ? `${traits}<hr class="vr" />${otherTags}` : traits;
+            flavor += tagsElem.outerHTML;
+            flavor += "\n<hr />";
         }
 
         // Add breakdown to flavor
