@@ -102,21 +102,23 @@
     }
 
     dd {
-        text-transform: capitalize;
         display: inline-block;
+        text-transform: capitalize;
 
         select {
-            width: 6em;
             margin-left: 0.5em;
+            width: 6em;
         }
     }
 
     ul.result-list {
-        width: 100%;
-        float: right;
-        display: block;
-        margin: 0;
+        display: flex;
+        flex-direction: column;
         height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
         // 'overflow: auto' causes excessive layout/redraw times
         // Use a fixed setting instead, to avoid stuttering
         overflow: visible scroll;
@@ -126,51 +128,40 @@
                 background-color: rgba(0, 0, 0, 0.12);
             }
 
-            line-height: var(--font-size-32);
-            margin: 2px 0;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.25rem;
 
             > * {
-                align-self: center;
+                align-items: center;
+                display: flex;
+                height: 2rem;
+                justify-content: center;
             }
 
             > .image {
-                height: 32px;
-                max-width: 32px;
+                max-width: 2rem;
             }
 
             > .name {
-                line-height: 1em;
-                padding-left: 5px;
-            }
-
-            > .tags {
-                justify-content: center;
-                margin-left: 0.5em;
-                max-width: 6em;
+                justify-content: start;
             }
 
             > .level {
                 flex-grow: 1;
                 font-weight: 900;
-                height: 32px;
-                max-width: 18px;
-                text-align: center;
+                max-width: 1.5em;
             }
 
             > .price {
                 flex: none;
-                height: 32px;
-                margin-right: 10px;
+                justify-content: end;
+                margin-right: var(--font-size-10);
                 min-width: 5em;
-                text-align: right;
             }
 
             > .end {
-                font-weight: 900;
-                height: 32px;
-                margin-right: 3px;
-                max-width: 100px;
-                text-align: right;
+                margin-right: 0.5em;
             }
 
             &:hover {
