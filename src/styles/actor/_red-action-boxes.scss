@@ -153,7 +153,7 @@
             border-bottom: none;
         }
 
-        .attack-name {
+        > h4 {
             align-items: center;
             display: flex;
             flex-wrap: wrap;
@@ -163,12 +163,17 @@
             margin: 0 4px 0 0;
             white-space: nowrap;
 
-            & > span {
+            > span,
+            > a {
                 display: flex;
                 gap: 3px;
                 line-height: 1.125rem;
                 margin-right: 4px;
             }
+        }
+
+        > .description {
+            flex-basis: 100%;
         }
     }
 
@@ -180,7 +185,7 @@
             border-bottom: 1px solid var(--color-border-light-tertiary);
         }
 
-        h4 {
+        > h4 {
             align-items: center;
             display: flex;
             gap: 0.25rem;

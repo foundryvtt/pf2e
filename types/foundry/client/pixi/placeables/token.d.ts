@@ -2,9 +2,7 @@ export {};
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
-    class Token<
-        TDocument extends TokenDocument<Scene | null> = TokenDocument<Scene | null>
-    > extends PlaceableObject<TDocument> {
+    class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
         constructor(document: TDocument);
 
         static override embeddedName: "Token";
@@ -573,8 +571,7 @@ declare global {
         protected override _onDragEnd(): void;
     }
 
-    interface Token<TDocument extends TokenDocument<Scene | null> = TokenDocument<Scene | null>>
-        extends PlaceableObject<TDocument> {
+    interface Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
         get layer(): TokenLayer<this>;
     }
 

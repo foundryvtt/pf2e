@@ -17,6 +17,7 @@
                     {{#select data.duration.expiry}}
                         <option value="turn-start">{{localize "PF2E.Item.Effect.Expiry.StartOfTurn"}}</option>
                         <option value="turn-end">{{localize "PF2E.Item.Effect.Expiry.EndOfTurn"}}</option>
+                        <option value="round-end">{{localize "PF2E.Item.Effect.Expiry.EndOfRound"}}</option>
                     {{/select}}
                 </select>
             </div>
@@ -77,36 +78,46 @@
         {{/if}}
 
         {{#if data.badge.labels}}
-            <h4>{{localize "PF2E.Item.Effect.Badge.Labels.Label" type=badgeType}}</h4>
-        {{/if}}
-        {{#each data.badge.labels as |label idx|}}
-            <div class="badge-label-row details-container-flex-row">
-                {{#unless (eq @root.data.badge.type "formula")}}
-                    <label>
-                        <input
-                            type="radio"
-                            name="system.badge.value"
-                            value="{{add idx 1}}"
-                            data-dtype="Number"
-                            tabindex="-1"
-                            {{checked (eq @root.data.badge.value (add idx 1))}}
-                        />
-                        <span class="badge-value">{{add idx 1}}</span>
-                    </label>
-                {{/unless}}
-                <input type="text" name="system.badge.labels.{{idx}}" value="{{label}}" placeholder="{{localize "PF2E.Item.Effect.Badge.Labels.Placeholder"}}" />
-                {{#if @root.options.editable}}
-                    <div class="item-controls">
-                        <a data-action="badge-delete-label" data-idx="{{idx}}"><i class="fa-solid fa-fw fa-times"></i></a>
-                    </div>
-                {{/if}}
+            <h4 class="badge-label-header">
+                {{localize "PF2E.Item.Effect.Badge.Labels.Label" type=badgeType}}
+                <a class="add-badge" data-action="badge-add-label"><i class="fa-solid fa-fw fa-plus"></i></a>
+            </h4>
+            {{#each data.badge.labels as |label idx|}}
+                <div class="badge-label-row form-fields">
+                    {{#unless (eq @root.data.badge.type "formula")}}
+                        <label>
+                            <input
+                                type="radio"
+                                name="system.badge.value"
+                                value="{{add idx 1}}"
+                                data-dtype="Number"
+                                tabindex="-1"
+                                {{checked (eq @root.data.badge.value (add idx 1))}}
+                            />
+                            <span class="badge-value">{{add idx 1}}</span>
+                        </label>
+                    {{/unless}}
+                    <input type="text" name="system.badge.labels.{{idx}}" value="{{label}}" placeholder="{{localize "PF2E.Item.Effect.Badge.Labels.Placeholder"}}" />
+                    {{#if @root.options.editable}}
+                        <div class="item-controls">
+                            <a data-action="badge-delete-label" data-idx="{{idx}}"><i class="fa-solid fa-fw fa-times"></i></a>
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        {{else}}
+            <div class="form-group">
+                <label>{{localize "PF2E.Item.Effect.Badge.Range"}}</label>
+                <div class="form-fields">
+                    <input type="number" name="system.badge.min" value="{{document._source.system.badge.min}}" placeholder="1"/>
+                    -
+                    <input type="number" name="system.badge.max" value="{{document._source.system.badge.max}}" placeholder="Infinity"/>
+                </div>
             </div>
-        {{/each}}
-        <div class="form-fields">
             <button type="button" data-action="badge-add-label">
                 <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.Item.Effect.Badge.Labels.Add"}}
             </button>
-        </div>
+        {{/if}}
     {{else}}
         <div class="add-badge">
             <select class="badge-type">

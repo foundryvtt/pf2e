@@ -29,12 +29,12 @@ import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
-import { Rarity, Size } from "@module/data.ts";
+import { PublicationData, Rarity, Size } from "@module/data.ts";
 import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 
-interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
+type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
-}
+};
 
 type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };
@@ -95,21 +95,16 @@ interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
-
-    /** Which sourcebook this creature comes from. */
-    source: {
-        value: string;
-        author: string;
-    };
-
     /** The type of this creature (such as 'undead') */
     creatureType: string;
     /** A very brief description */
     blurb: string;
-    /** The in depth descripton and any other public notes */
+    /** The in-depth description and any other public notes */
     publicNotes: string;
     /** The private GM notes */
     privateNotes: string;
+    /** Information concerning the publication from which this actor originates */
+    publication: PublicationData;
 }
 
 type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
@@ -181,10 +176,6 @@ interface NPCAttributes
     spellDC: { value: number } | null;
     /** And a fake class-or-spell DC to go along with it */
     classOrSpellDC: { value: number };
-
-    /** Rarely needed for an NPC but always available! */
-    bonusEncumbranceBulk: number;
-    bonusLimitBulk: number;
 }
 
 interface NPCDetails extends NPCDetailsSource, CreatureDetails {

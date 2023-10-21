@@ -1,5 +1,5 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { stackDefinitions } from "@item/physical/bulk.ts";
+import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
 import { Coins, Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { Rarity } from "@module/data.ts";
@@ -23,7 +23,7 @@ class CraftingFormula implements CraftingFormulaData {
             dc ??
             calculateDC(item.level, {
                 rarity: item.rarity,
-                proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
+                proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant"),
             });
 
         /** Use the passed batch size if provided or otherwise according to the following */
@@ -62,7 +62,7 @@ class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return stackDefinitions[this.item.system.stackGroup ?? ""]?.size ?? 1;
+        return STACK_DEFINITIONS[this.item.system.stackGroup ?? ""]?.size ?? 1;
     }
 
     get defaultBatchSize(): number {

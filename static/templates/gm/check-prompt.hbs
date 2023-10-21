@@ -1,0 +1,104 @@
+<form>
+    <div class="dialog-content">
+        <div class="form-group">
+            <label for="check-prompt-title">{{localize "PF2E.Actor.Party.CheckPrompt.PromptTitle"}}</label>
+            <input id="check-prompt-title" name="title" type="text" />
+        </div>
+        <hr>
+        <nav class="dc-navigation">
+            <h4 class="sheet-tabs tabs" data-tab-container="primary">
+                <a class="active" data-tab="set-dc">{{localize "PF2E.Actor.Party.CheckPrompt.SetDC"}}</a>
+                <a data-tab="simple-dc">{{localize "PF2E.Actor.Party.CheckPrompt.SimpleDC"}}</a>
+                <a data-tab="level-dc">{{localize "PF2E.Actor.Party.CheckPrompt.LevelDC"}}</a>
+            </h4>
+        </nav>
+        <section class="dc-content">
+            <section class="tab active" data-tab="set-dc">
+                <div class="form-group dc">
+                    <label for="check-prompt-dc">{{localize "PF2E.Actor.Party.CheckPrompt.SetDC"}}</label>
+                    <input type="number" id="check-prompt-dc" name="dc" />
+                </div>
+            </section>
+            <section class="tab active" data-tab="simple-dc">
+                <div class="form-group">
+                    <label for="check-prompt-simple-dc">{{localize "PF2E.Actor.Party.CheckPrompt.SimpleDC"}}</label>
+                    <select id="check-prompt-simple-dc" name="simple-dc">
+                        <option></option>
+                        {{#each @root.proficiencyRanks}}
+                            <option value="{{this.value}}">{{this.label}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </section>
+            <section class="tab active" data-tab="level-dc">
+                <div class="form-group">
+                    <label for="check-prompt-level-dc">{{localize "PF2E.LevelLabel"}}</label>
+                    <input type="number" id="check-prompt-level-dc" name="level-dc" />
+                </div>
+            </section>
+        </section>
+        <div class="form-group">
+            <label for="check-prompt-adjust-difficulty">{{localize "PF2E.Actor.Party.CheckPrompt.AdjustDifficulty"}}</label>
+            <select id="check-prompt-adjust-difficulty" name="adjust-difficulty">
+                <option></option>
+                {{#each @root.dcAdjustments}}
+                    <option value="{{this.value}}">{{this.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <hr>
+        <nav class="skill-save-navigation">
+            <h4 class="sheet-tabs tabs" data-tab-container="primary">
+                <a class="active" data-tab="skills">{{localize "PF2E.Actor.Party.CheckPrompt.SkillsPerception"}}</a>
+                <a data-tab="saves">{{localize "PF2E.SavesHeader"}}</a>
+            </h4>
+        </nav>
+        <section class="check-prompt-content">
+            <section class="tab skill-prompt active" data-tab="skills">
+                <div class="form-group">
+                    <input id="check-prompt-skills" placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.ChooseSkills"}}" />
+                </div>
+                <div class="form-group lores">
+                    <input id="check-prompt-lores" placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.ChooseLores"}}" />
+                </div>
+                <div class="form-group">
+                    <div class="form-group add-roll-options-group">
+                        <a class="add-roll-options"><i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i> {{localize "PF2E.ChatRollDetails.RollOptions"}}</a>
+                    </div>
+                    <div class="form-group secret">
+                        <label for="check-prompt-secret">{{localize "PF2E.Actor.Party.CheckPrompt.SecretCheck"}}</label>
+                        <input id="check-prompt-secret" name="secret" type="checkbox" />
+                    </div>
+                </div>
+                <div class="roll-options hidden">
+                    <div class="form-group">
+                        <input id="check-prompt-actions" placeholder="{{localize "PF2E.ActionActionsLabel"}}" />
+                    </div>
+                    <div class="form-group">
+                        <input id="check-prompt-traits" placeholder="{{localize "PF2E.ChatRollDetails.RollOptions"}}" />
+                    </div>
+                </div>
+            </section>
+            <section class="tab save-prompt" data-tab="saves">
+                <div class="form-group">
+                    <input id="check-prompt-saves" placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.ChooseSaves"}}" />
+                </div>
+                <div class="form-group">
+                    <label for="check-prompt-basic-save">{{localize "PF2E.SpellBasicSaveOption"}}</label>
+                    <input id="check-prompt-basic-save" name="basic-save" type="checkbox" />
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <hr />
+
+    <div class="dialog-buttons">
+        <button type="button" class="dialog-button post default bright" data-action="post">
+            {{localize "PF2E.Actor.Party.CheckPrompt.Post"}}
+        </button>
+        <button type="button" class="dialog-button cancel" data-action="cancel">
+            {{localize "Cancel"}}
+        </button>
+    </div>
+</form>

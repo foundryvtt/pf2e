@@ -1,20 +1,23 @@
-<section class="sheet-sidebar sidebar sidebar-loot">
+<section class="sheet-sidebar sidebar sidebar-loot" data-tooltip-class="pf2e">
     <div class="image-container">
-        <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-        <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+        <img class="actor-image" src="{{actor.img}}" alt="{{actor.name}}"{{#if editable}} data-edit="img"{{/if}} />
+        <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
     </div>
 
     {{#if (and user.isGM isLoot)}}
-        <section class="gm-settings">
-            <section class="loot-distribution">
-                <button class= "split-coins" type="button" name="split-coins" value="1"><i class="fa fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
-                <button class= "loot-npcs" type="button" name="loot-npc"><i class="fas fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
-            </section>
-            <label class="hidden-when-empty" title="{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}">
-                <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
-                <input type="checkbox" name="system.hiddenWhenEmpty" data-dtype="Boolean" {{checked data.hiddenWhenEmpty}} />
-            </label>
-        </section>
+        <div class="gm-settings">
+            <div class="loot-distribution" data-sidebar-buttons="">
+                <button type="button" data-action="split-coins"><i class="fa-solid fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
+                <button type="button" data-action="loot-npcs"><i class="fa-solid fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+            </div>
+            <div class="form-group">
+                <label for="{{document.uuid}}-hidden-when-empty">
+                    <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
+                    <i class="fa-solid fa-info-circle" data-tooltip="PF2E.loot.HiddenWhenEmpty.Hint"></i>
+                </label>
+                <input type="checkbox" id="{{document.uuid}}-hidden-when-empty" name="system.hiddenWhenEmpty" {{checked data.hiddenWhenEmpty}} />
+            </div>
+        </div>
     {{/if}}
 
     {{#if owner}}

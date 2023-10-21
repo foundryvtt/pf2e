@@ -1,6 +1,5 @@
 import type { ActorPF2e } from "@actor";
 import type { ScenePF2e } from "@scene";
-import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 
 export class MockToken {
     actor: ActorPF2e | null;
@@ -29,7 +28,7 @@ export class MockToken {
     }
 
     update(
-        changes: EmbeddedDocumentUpdateData<TokenDocumentPF2e<this["parent"]>>,
+        changes: EmbeddedDocumentUpdateData,
         context: SceneEmbeddedModificationContext<NonNullable<this["parent"]>> = {}
     ): void {
         changes["_id"] = this.id;

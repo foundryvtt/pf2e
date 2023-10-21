@@ -73,10 +73,10 @@
     {{~#each items as |item i|}}
     <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
-        <a class="name">{{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}</a>
+        <a class="name">{{item.name}}{{#unless item.pack}}<i class="fa-solid fa-globe" data-tooltip="PF2E.AncestryFeatures"></i>{{/unless}}</a>
         <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
         <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-        <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
+        <a class="remove" data-action="remove"><i class="fa-solid fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
         {{~/if}}
@@ -85,7 +85,7 @@
 </ul>
 {{~/inline~}}
 
-<div class="form-group-stacked item-ref-group" data-valid-drops="ancestryfeature">
+<div class="form-group stacked item-ref-group" data-valid-drops="ancestryfeature">
     <label for="data.traits">
         {{localize "PF2E.AncestryFeatures"}}
     </label>

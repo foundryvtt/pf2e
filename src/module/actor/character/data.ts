@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
 import {
@@ -35,9 +34,8 @@ import {
     TraitViewData,
 } from "@actor/data/base.ts";
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
-import type { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
+import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ItemSystemData } from "@item/data/base.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
@@ -48,13 +46,12 @@ import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
-import type { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
-interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemSource> {
+type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & {
     flags: DeepPartial<CharacterFlags>;
-}
+};
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -102,6 +99,8 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
     hp: {
         value: number;
         temp: number;
+        /** Stamina points: present if Stamina variant is enabled  */
+        sp?: { value: number };
     };
     speed: {
         value: number;
@@ -111,18 +110,6 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
         }[];
     };
     initiative: CreatureInitiativeSource;
-
-    bonusLimitBulk: number;
-    bonusEncumbranceBulk: number;
-    sp: {
-        value: number;
-        max: number;
-        details: string;
-    };
-    resolve: {
-        value: number;
-        max: number;
-    };
 }
 
 interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {
@@ -220,6 +207,9 @@ interface AttributeBoostsSource {
 interface CharacterResourcesSource {
     heroPoints: ValueAndMax;
     focus?: { value: number; max?: never };
+    crafting?: { infusedReagents?: { value: number } };
+    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+    resolve?: { value: number };
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -421,6 +411,7 @@ interface CharacterResources extends CreatureResources {
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
     crafting: { infusedReagents: ValueAndMax };
+    resolve?: ValueAndMax;
 }
 
 interface CharacterPerception extends PerceptionData {
@@ -488,9 +479,6 @@ interface CharacterAttributes extends Omit<CharacterAttributesSource, Attributes
      */
     shield: HeldShieldData;
 
-    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number; max: number };
-
     /** Whether this actor is under a polymorph effect */
     polymorphed: boolean;
 
@@ -502,36 +490,15 @@ type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 interface CharacterHitPoints extends HitPointsStatistic {
     recoveryMultiplier: number;
     recoveryAddend: number;
+    sp?: ValueAndMax;
 }
 
 interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSource, "size" | "value"> {
     senses: CreatureSensePF2e[];
 }
 
-/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
-interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    category: string;
-    group: FeatGroup<Exclude<TParent, null>, this> | null;
-    isFeat: boolean;
-    isFeature: boolean;
-    system: ItemSystemData & {
-        location: string | null;
-    };
-}
-
-interface SlottedFeat<T extends FeatLike = FeatPF2e> {
-    id: string;
-    level: number | string;
-    feat?: T;
-}
-
-interface BonusFeat<T extends FeatLike = FeatPF2e> {
-    feat: T;
-}
-
 export type {
     BaseWeaponProficiencyKey,
-    BonusFeat,
     CategoryProficiencies,
     CharacterAbilities,
     CharacterAttributes,
@@ -542,6 +509,7 @@ export type {
     CharacterFlags,
     CharacterProficiency,
     CharacterResources,
+    CharacterResourcesSource,
     CharacterSaveData,
     CharacterSaves,
     CharacterSkillData,
@@ -552,9 +520,7 @@ export type {
     CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
-    FeatLike,
     MagicTraditionProficiencies,
     MartialProficiency,
-    SlottedFeat,
     WeaponGroupProficiencyKey,
 };

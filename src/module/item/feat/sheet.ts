@@ -6,8 +6,7 @@ import {
 import { SelfEffectReference } from "@item/ability/index.ts";
 import { FeatPF2e } from "@item/feat/document.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
-import { htmlQuery, tagify } from "@util";
-import Tagify from "@yaireo/tagify";
+import { tagify } from "@util";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
@@ -35,8 +34,6 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
-            prerequisites: JSON.stringify(this.item.system.prerequisites?.value ?? []),
-            isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
             canHaveKeyOptions: featCanHaveKeyOptions(this.item),
@@ -49,13 +46,9 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const html = $html[0];
         activateActionSheetListeners(this.item, html);
 
-        const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
-        if (prerequisites) {
-            new Tagify(prerequisites, { editTags: 1 });
-        }
-
-        const keyOptionsInput = htmlQuery<HTMLInputElement>(html, 'input[name="system.subfeatures.keyOptions"]');
-        tagify(keyOptionsInput, { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
+        const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
+        tagify(getInput("system.prerequisites.value"), { maxTags: 6 });
+        tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
@@ -88,8 +81,6 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    prerequisites: string;
-    isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
     canHaveKeyOptions: boolean;

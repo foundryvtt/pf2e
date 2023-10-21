@@ -1,4 +1,4 @@
-<div class="form-group-stacked kit-list">
+<div class="form-group stacked kit-list">
     <label for="system.traits">{{localize "PF2E.KitItems"}}</label>
     {{#> kitItems @root}}system.{{/kitItems}}
 </div>
@@ -9,11 +9,11 @@
             <li class="kit-item" data-pack-id="{{item.pack}}" data-index="{{key}}" data-item-id="{{item.id}}" {{#if item.isContainer}}data-container-id="{{key}}"{{/if}}>
                 <img class="kit-item-image" src="{{item.img}}" />
                 <input type="number" class="kit-item-quantity" value="{{item.quantity}}" name="{{@partial-block}}items.{{key}}.quantity" />
-                <div class="kit-item-name">{{item.name}}{{#if item.fromWorld}}<i class="fa fa-globe" title="{{localize "PF2E.KitWorldItem"}}"></i>{{/if}}</div>
+                <div class="kit-item-name">{{item.name}}{{#if item.fromWorld}}<i class="fa-solid fa-globe" data-tooltip="PF2E.KitWorldItem"></i>{{/if}}</div>
                 <input type="hidden" value="{{item.uuid}}" name="{{@partial-block}}items.{{key}}.uuid" data-dtype="String" />
                 <input type="hidden" value="{{item.name}}" name="{{@partial-block}}items.{{key}}.name" type="hidden" data-dtype="String" />
                 <input type="hidden" value="{{item.isContainer}}" name="{{@partial-block}}items.{{key}}.isContainer" data-dtype="Boolean" />
-                <a class="kit-item-remove" data-action="remove"><i class="fa fa-times"></i></a>
+                <a class="kit-item-remove" data-action="remove"><i class="fa-solid fa-times"></i></a>
                 {{#if item.items}}
                     {{#> kitItems item}}{{@partial-block}}items.{{key}}.{{/kitItems}}
                 {{/if}}

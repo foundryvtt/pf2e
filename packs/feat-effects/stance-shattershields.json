@@ -1,0 +1,65 @@
+{
+    "_id": "Njb4eLx5VngDIDpo",
+    "img": "icons/skills/melee/shield-damaged-broken-brown.webp",
+    "name": "Stance: Shattershields",
+    "system": {
+        "badge": {
+            "max": 4,
+            "min": 0,
+            "type": "counter",
+            "value": 4
+        },
+        "description": {
+            "value": "<p>Four plates of pitted metal float around you to intercept attacks. You and allies in your kinetic aura gain a +1 circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Shattershields"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "radius": "@actor.flags.pf2e.kineticist.auraRadius",
+                "slug": "kinetic-aura",
+                "traits": [
+                    "kineticist",
+                    "primal",
+                    "metal"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

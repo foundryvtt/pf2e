@@ -2,7 +2,7 @@ import { AttributeString } from "@actor/types.ts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
-import { FeatCategory } from "@item/feat/types.ts";
+import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
@@ -42,15 +42,15 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
     /** Is the dropped feat or feature valid for the given section? */
     #isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
-        const validCategories = (htmlClosest(event.target, ".abc-list")?.dataset.validDrops?.split(" ") ?? []).filter(
-            (f): f is FeatCategory => setHasElement(FEAT_CATEGORIES, f)
-        );
+        const validCategories = (
+            htmlClosest(event.target, "[data-valid-drops]")?.dataset.validDrops?.split(" ") ?? []
+        ).filter((f): f is FeatOrFeatureCategory => setHasElement(FEAT_CATEGORIES, f));
         if (validCategories.includes(feat.category)) {
             return true;
         }
 
         const goodCategories = validCategories.map((c) => game.i18n.localize(CONFIG.PF2E.featCategories[c]));
-        if (goodCategories.length === 1) {
+        if (goodCategories.length > 0) {
             const badCategory = game.i18n.localize(CONFIG.PF2E.featCategories[feat.category]);
             const warning = game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
                 badType: badCategory,

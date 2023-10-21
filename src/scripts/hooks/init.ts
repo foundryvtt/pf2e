@@ -86,9 +86,9 @@ export const Init = {
                 title: "PF2E",
                 items: [
                     {
-                        title: "Icons A D T F R",
+                        title: "Icons 1 2 3 F R",
                         inline: "span",
-                        classes: ["pf2-icon"],
+                        classes: ["action-glyph"],
                         wrapper: true,
                     },
                     {

@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { EffectBadge, EffectTrait } from "@item/abstract-effect/data.ts";
+import { EffectBadge, EffectBadgeSource, EffectTrait } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
-import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
@@ -24,48 +23,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     get isExpired(): boolean {
         return this.system.expired;
-    }
-
-    get totalDuration(): number {
-        const { duration } = this.system;
-        if (["unlimited", "encounter"].includes(duration.unit)) {
-            return Infinity;
-        } else {
-            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
-        }
-    }
-
-    get remainingDuration(): { expired: boolean; remaining: number } {
-        const duration = this.totalDuration;
-        const { unit, expiry } = this.system.duration;
-        if (unit === "encounter") {
-            const isExpired = this.system.expired;
-            return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
-        } else if (duration === Infinity) {
-            return { expired: false, remaining: Infinity };
-        } else {
-            const start = this.system.start.value;
-            const { combatant } = game.combat ?? {};
-
-            // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
-            const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
-            const remaining = start + duration + addend - game.time.worldTime;
-            const result = { remaining, expired: remaining <= 0 };
-
-            if (remaining === 0 && combatant?.actor) {
-                const startInitiative = this.system.start.initiative ?? 0;
-                const currentInitiative = combatant.initiative ?? 0;
-
-                // A familiar won't be represented in the encounter tracker: use the master in its place
-                const fightyActor = this.actor?.isOfType("familiar") ? this.actor.master ?? this.actor : this.actor;
-                const isEffectTurnStart =
-                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
-
-                result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
-            }
-
-            return result;
-        }
     }
 
     /** Whether this effect emits an aura */
@@ -98,8 +55,9 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badge.type === "formula") {
                 badge.label = null;
             } else {
+                badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-                badge.value = Math.clamped(badge.value, 1, badge.max);
+                badge.value = Math.clamped(badge.value, badge.min, badge.max);
                 badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
             }
         }
@@ -171,7 +129,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
@@ -202,26 +160,45 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (duration.value === -1) duration.value = 1;
         }
 
+        type BadgeUpdateData = DeepPartial<EffectBadgeSource> & DeepPartial<Record<string, unknown>>;
         const currentBadge = this.system.badge;
-        const badgeChange = changed.system?.badge;
-        if (badgeChange?.type && badgeChange.type !== currentBadge?.type) {
-            // If the badge type changes, reset the value
-            badgeChange.value = 1;
-        } else if (currentBadge?.type === "counter" && typeof badgeChange?.value === "number") {
-            const maxValue = ((): number => {
-                if ("labels" in badgeChange && Array.isArray(badgeChange.labels)) {
-                    return badgeChange.labels.length;
+        const badgeChange = (changed.system?.badge ?? null) as BadgeUpdateData | null;
+        if (badgeChange) {
+            const badgeTypeChanged = badgeChange?.type && badgeChange.type !== currentBadge?.type;
+            const labels =
+                "labels" in badgeChange && Array.isArray(badgeChange.labels)
+                    ? badgeChange.labels
+                    : currentBadge?.labels;
+
+            if (badgeTypeChanged) {
+                // If the badge type changes, reset the value and min/max
+                badgeChange.value = 1;
+            } else if (currentBadge?.type === "counter") {
+                const [minValue, maxValue] = ((): [number, number] => {
+                    const configuredMin = Number(badgeChange.min ?? currentBadge.min);
+                    const configuredMax = Number(badgeChange.max ?? currentBadge.max);
+
+                    // Even if there are labels setting a max, an AE may have reduced the max (ex: oracle curses)
+                    return labels ? [1, Math.min(labels.length, configuredMax)] : [configuredMin, configuredMax];
+                })();
+
+                // Delete the item if it goes below the minimum value, but only if it is embedded
+                if (typeof badgeChange.value === "number" && badgeChange.value < minValue && this.actor) {
+                    await this.actor.deleteEmbeddedDocuments("Item", [this.id]);
+                    return false;
                 }
-                if ("max" in badgeChange && typeof badgeChange.max === "number") {
-                    return badgeChange.max;
-                }
-                return currentBadge.max;
-            })();
-            const newValue = (badgeChange.value = Math.min(badgeChange.value, maxValue));
-            if (newValue <= 0) {
-                // Only delete the item if it is embedded
-                await this.actor?.deleteEmbeddedDocuments("Item", [this.id]);
-                return false;
+
+                const currentValue = Number(badgeChange.value ?? currentBadge.value ?? 1);
+                badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
+            }
+
+            if (badgeTypeChanged || labels || badgeChange.min === null) {
+                delete badgeChange.min;
+                badgeChange["-=min"] = null;
+            }
+            if (badgeTypeChanged || labels || badgeChange.max === null) {
+                delete badgeChange.max;
+                badgeChange["-=max"] = null;
             }
         }
 

@@ -1,5 +1,5 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
-import { htmlQueryAll } from "@util";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
 import {
     BasePhysicalItemSource,
@@ -11,7 +11,6 @@ import {
     PreciousMaterialGrade,
 } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -140,7 +139,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0];
 
         $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
@@ -180,14 +178,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 this.item.update({ [`system.activations.${id}.-=frequency`]: null });
             }
         });
-
-        for (const hintHoverZone of htmlQueryAll(html, "i[data-action=hint-tooltip]")) {
-            $(hintHoverZone).tooltipster({
-                maxWidth: Number(hintHoverZone.dataset.tooltipWidth) || 350,
-                theme: "crb-hover",
-                content: game.i18n.localize(hintHoverZone.title),
-            });
-        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

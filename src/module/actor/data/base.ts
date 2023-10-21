@@ -13,30 +13,25 @@ import type { CheckRoll } from "@system/check/roll.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { ActorType } from "./index.ts";
-import type {
-    ImmunityData,
-    ImmunitySource,
-    ResistanceData,
-    ResistanceSource,
-    WeaknessData,
-    WeaknessSource,
-} from "./iwr.ts";
+import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, WeaknessSource } from "./iwr.ts";
 
 /** Base interface for all actor data */
-interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends ActorSystemSource = ActorSystemSource>
-    extends foundry.documents.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
+type BaseActorSourcePF2e<
+    TType extends ActorType,
+    TSystemSource extends ActorSystemSource = ActorSystemSource
+> = foundry.documents.ActorSource<TType, TSystemSource, ItemSourcePF2e> & {
     flags: DeepPartial<ActorFlagsPF2e>;
     prototypeToken: PrototypeTokenSourcePF2e;
-}
+};
 
-interface ActorFlagsPF2e extends foundry.documents.ActorFlags {
+type ActorFlagsPF2e = foundry.documents.ActorFlags & {
     pf2e: {
         rollOptions: RollOptionFlags;
         /** IDs of granted items that are tracked */
         trackedItems: Record<string, string>;
         [key: string]: unknown;
     };
-}
+};
 
 interface ActorSystemSource {
     details?: ActorDetailsSource;
@@ -79,9 +74,9 @@ interface ActorSystemData extends ActorSystemSource {
 interface ActorAttributes extends ActorAttributesSource {
     hp?: ActorHitPoints;
     ac?: { value: number };
-    immunities: ImmunityData[];
-    weaknesses: WeaknessData[];
-    resistances: ResistanceData[];
+    immunities: Immunity[];
+    weaknesses: Weakness[];
+    resistances: Resistance[];
     initiative?: InitiativeData;
     shield?: {
         raised: boolean;
@@ -269,17 +264,17 @@ interface Rollable {
     roll: RollFunction;
 }
 
-interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
-    flags: foundry.data.PrototypeToken<ActorPF2e>["flags"] & {
+type PrototypeTokenSourcePF2e = foundry.data.PrototypeTokenSource & {
+    flags: {
         pf2e?: {
             linkToActorSize?: boolean;
             autoscale?: boolean;
         };
     };
-}
+};
 
 interface PrototypeTokenPF2e<TParent extends ActorPF2e | null> extends foundry.data.PrototypeToken<TParent> {
-    flags: foundry.data.PrototypeToken<NonNullable<TParent>>["flags"] & {
+    flags: DocumentFlags & {
         pf2e: {
             linkToActorSize: boolean;
             autoscale: boolean;

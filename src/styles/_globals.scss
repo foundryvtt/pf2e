@@ -131,6 +131,23 @@ a.foundry-href {
     }
 }
 
+a.content-link {
+    line-height: 1.6em;
+
+    // Automatically italicize spell content links
+    &:has(i.fa-sparkles) {
+        font-style: italic;
+    }
+}
+
+#tooltip a.content-link {
+    color: var(--color-text-dark-primary);
+}
+
+.inline-roll.altered {
+    color: var(--color-text-dark-improved);
+}
+
 /* ----------------------------------------- */
 /* PF2E Action Custom Element                */
 /* ----------------------------------------- */
@@ -318,6 +335,23 @@ a[href]:hover {
 
 #tinymce {
     @include journal-styling;
+}
+
+// System theme Foundry tooltips
+#tooltip.pf2e {
+    @include corner-boxes;
+    background: rgba(black, 0.9);
+    font-size: var(--font-size-14);
+    padding: 0.25rem 0;
+    text-align: left;
+
+    h1,
+    h2,
+    h3 {
+        font-size: var(--font-size-12);
+        font-weight: 500;
+        text-align: left;
+    }
 }
 
 /* ----------------------------------------- */

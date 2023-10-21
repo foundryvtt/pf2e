@@ -1,13 +1,15 @@
+import type { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { TokenPF2e } from "@module/canvas/token/index.ts";
+import type { TokenPF2e } from "@module/canvas/token/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { EncounterPF2e } from "@module/encounter/index.ts";
+import type { EncounterPF2e } from "@module/encounter/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
-import Translations from "static/lang/en.json";
+import * as R from "remeda";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
@@ -22,6 +24,8 @@ export class StatusEffects {
         default: "systems/pf2e/icons/conditions/",
         blackWhite: "systems/pf2e/icons/conditions-2/",
     };
+
+    static #conditionSummaries: Record<ConditionSlug, { name: string; rules: string; summary: string }> | null = null;
 
     /** Set the theme for condition icons on tokens */
     static initialize(): void {
@@ -40,7 +44,14 @@ export class StatusEffects {
     }
 
     static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
-        return Translations.PF2E.condition;
+        return (this.#conditionSummaries ??= R.mapToObj(Array.from(CONDITION_SLUGS), (s) => [
+            s,
+            {
+                name: game.i18n.localize(`PF2E.condition.${s}.name`),
+                rules: game.i18n.localize(`PF2E.condition.${s}.rules`),
+                summary: game.i18n.localize(`PF2E.condition.${s}.summary`),
+            },
+        ]));
     }
 
     /**
@@ -183,7 +194,7 @@ export class StatusEffects {
 
         if (token.id !== this.#lastCombatantToken && typeof combatant.initiative === "number" && !combatant.defeated) {
             this.#lastCombatantToken = token.id;
-            this.#createChatMessage(token.object, combatant.hidden);
+            this.#createChatMessage(token, combatant.hidden);
         }
     }
 
@@ -209,10 +220,13 @@ export class StatusEffects {
             return;
         }
 
-        for (const token of canvas.tokens.controlled) {
-            const { actor } = token;
-            if (!(actor && slug)) continue;
-
+        const tokensAndActors = R.uniqBy(
+            R.compact(
+                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null))
+            ),
+            ([, a]) => a
+        );
+        for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
             if (slug === "persistent-damage") {
                 await new PersistentDialog(actor).render(true);
@@ -225,9 +239,9 @@ export class StatusEffects {
 
             if (event.type === "click") {
                 if (typeof condition?.value === "number") {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
+                    game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
                 } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
-                    await token.actor?.increaseCondition(slug);
+                    actor.increaseCondition(slug);
                 } else {
                     this.#toggleStatus(token, control, event);
                 }
@@ -236,11 +250,11 @@ export class StatusEffects {
                 if (event.ctrlKey && slug !== "dead") {
                     // Remove all conditions
                     const conditionIds = actor.conditions.bySlug(slug, { temporary: false }).map((c) => c.id);
-                    await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
+                    actor.deleteEmbeddedDocuments("Item", conditionIds);
                 } else if (condition?.value) {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
+                    game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
                 } else {
-                    await this.#toggleStatus(token, control, event);
+                    this.#toggleStatus(token, control, event);
                 }
             }
         }
@@ -281,40 +295,25 @@ export class StatusEffects {
         }
     }
 
-    /** Creates a ChatMessage with the Actors current status effects. */
-    static #createChatMessage(token: TokenPF2e | null, whisper = false): Promise<ChatMessagePF2e | undefined> | null {
-        if (!token) return null;
+    /** Create a ChatMessage with the actor's current conditions. */
+    static async #createChatMessage(token: TokenDocumentPF2e | null, whisper = false): Promise<Maybe<ChatMessagePF2e>> {
+        if (!token?.actor) return null;
 
-        // Get the active applied conditions.
-        // Iterate the list to create the chat and bubble chat dialog.
-        const conditions = token.actor?.conditions.active ?? [];
-        const statusEffectList = conditions.map((condition): string => {
-            const conditionInfo = StatusEffects.conditions[condition.slug];
-            const summary = conditionInfo.summary ?? "";
-            return `
-                <li><img src="${condition.img}" title="${summary}">
-                    <span class="statuseffect-li">
-                        <span class="statuseffect-li-text">${condition.name}</span>
-                        <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
-                    </span>
-                </li>`;
-        });
+        const conditions = await Promise.all(
+            token.actor.conditions.active.map(async (c) => ({
+                ...R.pick(c, ["name", "img"]),
+                description: await TextEditor.enrichHTML(c.description, { async: true }),
+            }))
+        );
+        if (conditions.length === 0) return null;
 
-        if (statusEffectList.length === 0) return null;
-
-        const content = `
-            <div class="dice-roll">
-                <div class="dice-result">
-                    <div class="dice-total statuseffect-message">
-                        <ul>${statusEffectList.join("")}</ul>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const messageSource: DeepPartial<foundry.documents.ChatMessageSource> = {
+        const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
+        const messageSource: Partial<foundry.documents.ChatMessageSource> = {
             user: game.user.id,
-            speaker: { alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }) },
+            speaker: {
+                ...ChatMessagePF2e.getSpeaker({ token, actor: token.actor }),
+                alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }),
+            },
             content,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };

@@ -36,7 +36,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
     /* -------------------------------------------- */
 
     protected override _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: BaseUser
     ): Promise<boolean | void>;
@@ -45,7 +45,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
 export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>
     extends Document<TParent, ActiveEffectSchema>,
         ModelPropsFromSchema<ActiveEffectSchema> {
-    readonly _source: SourceFromSchema<ActiveEffectSchema>;
+    get documentName(): ActiveEffectMetadata["name"];
 }
 
 export interface ActiveEffectMetadata extends DocumentMetadata {

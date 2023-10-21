@@ -3,14 +3,16 @@ import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject } from "@util";
+import * as R from "remeda";
 import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
-export function isHomebrewFlagCategory(
-    value: object & { [K in string]?: unknown }
-): value is Record<string, string | LabelAndDescription> {
-    return Object.entries(value).every(
-        ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
+export function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
+    return (
+        R.isObject(value) &&
+        Object.entries(value).every(
+            ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
+        )
     );
 }
 

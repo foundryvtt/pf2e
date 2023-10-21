@@ -282,7 +282,45 @@ const classTraits: Record<ClassTrait, string> = {
     wizard: "PF2E.TraitWizard",
 };
 
-const spellOtherTraits = {
+const alignmentTraits: Record<AlignmentTrait, string> = {
+    chaotic: "PF2E.TraitChaotic",
+    evil: "PF2E.TraitEvil",
+    good: "PF2E.TraitGood",
+    lawful: "PF2E.TraitLawful",
+};
+
+const damageTraits = {
+    ...alignmentTraits,
+    ...elementTraits,
+    ...energyDamageTypes,
+    light: "PF2E.TraitLight",
+    magical: "PF2E.TraitMagical",
+    mental: "PF2E.TraitMental",
+    nonlethal: "PF2E.TraitNonlethal",
+    plant: "PF2E.TraitPlant",
+    radiation: "PF2E.TraitRadiation",
+    vitality: "PF2E.TraitVitality",
+    void: "PF2E.TraitVoid",
+};
+
+const magicSchools: Record<MagicSchool, string> = {
+    abjuration: "PF2E.TraitAbjuration",
+    conjuration: "PF2E.TraitConjuration",
+    divination: "PF2E.TraitDivination",
+    enchantment: "PF2E.TraitEnchantment",
+    evocation: "PF2E.TraitEvocation",
+    illusion: "PF2E.TraitIllusion",
+    necromancy: "PF2E.TraitNecromancy",
+    transmutation: "PF2E.TraitTransmutation",
+};
+
+const spellTraits = {
+    ...alignmentTraits,
+    ...classTraits,
+    ...damageTraits,
+    ...elementTraits,
+    ...magicSchools,
+    ...magicTraditions,
     amp: "PF2E.TraitAmp",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
@@ -339,48 +377,6 @@ const spellOtherTraits = {
     visual: "PF2E.TraitVisual",
 };
 
-const alignmentTraits: Record<AlignmentTrait, string> = {
-    chaotic: "PF2E.TraitChaotic",
-    evil: "PF2E.TraitEvil",
-    good: "PF2E.TraitGood",
-    lawful: "PF2E.TraitLawful",
-};
-
-const damageTraits = {
-    ...alignmentTraits,
-    ...elementTraits,
-    ...energyDamageTypes,
-    light: "PF2E.TraitLight",
-    magical: "PF2E.TraitMagical",
-    mental: "PF2E.TraitMental",
-    nonlethal: "PF2E.TraitNonlethal",
-    plant: "PF2E.TraitPlant",
-    radiation: "PF2E.TraitRadiation",
-    vitality: "PF2E.TraitVitality",
-    void: "PF2E.TraitVoid",
-};
-
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
-};
-
-const spellTraits = {
-    ...alignmentTraits,
-    ...classTraits,
-    ...damageTraits,
-    ...elementTraits,
-    ...magicSchools,
-    ...magicTraditions,
-    ...spellOtherTraits,
-};
-
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
@@ -418,17 +414,8 @@ const weaponTraits = {
     "deadly-d4": "PF2E.TraitDeadlyD4",
     "deadly-d6": "PF2E.TraitDeadlyD6",
     "deadly-d8": "PF2E.TraitDeadlyD8",
-    "deadly-2d8": "PF2E.TraitDeadly2D8",
-    "deadly-3d8": "PF2E.TraitDeadly3D8",
-    "deadly-4d8": "PF2E.TraitDeadly4D8",
     "deadly-d10": "PF2E.TraitDeadlyD10",
-    "deadly-2d10": "PF2E.TraitDeadly2D10",
-    "deadly-3d10": "PF2E.TraitDeadly3D10",
-    "deadly-4d10": "PF2E.TraitDeadly4D10",
     "deadly-d12": "PF2E.TraitDeadlyD12",
-    "deadly-2d12": "PF2E.TraitDeadly2D12",
-    "deadly-3d12": "PF2E.TraitDeadly3D12",
-    "deadly-4d12": "PF2E.TraitDeadly4D12",
     death: "PF2E.TraitDeath",
     disarm: "PF2E.TraitDisarm",
     disease: "PF2E.TraitDisease",
@@ -572,6 +559,15 @@ const npcAttackTraits = {
     ...preciousMaterials,
     ...rangeTraits,
     curse: "PF2E.TraitCurse",
+    "deadly-2d8": "PF2E.TraitDeadly2D8",
+    "deadly-3d8": "PF2E.TraitDeadly3D8",
+    "deadly-4d8": "PF2E.TraitDeadly4D8",
+    "deadly-2d10": "PF2E.TraitDeadly2D10",
+    "deadly-3d10": "PF2E.TraitDeadly3D10",
+    "deadly-4d10": "PF2E.TraitDeadly4D10",
+    "deadly-2d12": "PF2E.TraitDeadly2D12",
+    "deadly-3d12": "PF2E.TraitDeadly3D12",
+    "deadly-4d12": "PF2E.TraitDeadly4D12",
     incorporeal: "PF2E.TraitIncorporeal",
     radiation: "PF2E.TraitRadiation",
     "reach-0": "PF2E.TraitReach0",
@@ -609,6 +605,7 @@ const featTraits = {
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
+    circus: "PF2E.TraitCircus",
     class: "PF2E.Class",
     composite: "PF2E.TraitComposite",
     concentrate: "PF2E.TraitConcentrate",
@@ -744,7 +741,6 @@ const actionTraits = {
         "volley-30",
         "volley-50",
     ]),
-    circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
 
@@ -1407,7 +1403,6 @@ export {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
-    spellOtherTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,

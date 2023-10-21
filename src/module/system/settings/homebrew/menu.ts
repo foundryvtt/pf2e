@@ -22,6 +22,7 @@ import {
     tupleHasValue,
 } from "@util";
 import Tagify from "@yaireo/tagify";
+import * as R from "remeda";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
     CustomDamageData,
@@ -271,7 +272,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
-            if (!isObject<Record<string, unknown>>(homebrew)) continue;
+            if (!R.isObject(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
                 // some are handled elsewhere

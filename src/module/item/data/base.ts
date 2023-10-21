@@ -3,14 +3,17 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
-import { MigrationRecord, OneToThree, Rarity } from "@module/data.ts";
+import { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
+import type * as fields from "../../../../types/foundry/common/data/fields.d.ts";
 import { ItemType } from "./index.ts";
 
-interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
-    extends foundry.documents.ItemSource<TType, TSystemSource> {
+type BaseItemSourcePF2e<
+    TType extends ItemType,
+    TSystemSource extends ItemSystemSource = ItemSystemSource
+> = foundry.documents.ItemSource<TType, TSystemSource> & {
     flags: ItemSourceFlagsPF2e;
-}
+};
 
 type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait | KingmakerTrait;
 
@@ -78,15 +81,15 @@ interface ItemSystemSource {
         gm: string;
         value: string;
     };
-    source: {
-        value: string;
-    };
     traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
     options?: {
         value: string[];
     };
     rules: RuleElementSource[];
     slug: string | null;
+
+    /** Information concerning the publication from which this item originates */
+    publication: PublicationData;
 
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     _migration: MigrationRecord;
@@ -105,6 +108,10 @@ interface FrequencySource {
     per: FrequencyInterval;
 }
 
+type ItemSchemaPF2e = Omit<foundry.documents.ItemSchema, "system"> & {
+    system: fields.TypeDataField;
+};
+
 interface Frequency extends FrequencySource {
     value: number;
 }
@@ -120,6 +127,7 @@ export type {
     ItemGrantData,
     ItemGrantDeleteAction,
     ItemGrantSource,
+    ItemSchemaPF2e,
     ItemSystemData,
     ItemSystemSource,
     ItemTrait,

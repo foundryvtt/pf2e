@@ -23,6 +23,7 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 name: grantedSkillFeat.name,
                 level: 1,
             };
+            grantedSkillFeat.system.level.taken = 1;
             grantedSkillFeat.system.location = this.id;
         }
     }

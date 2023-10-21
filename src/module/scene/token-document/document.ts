@@ -8,7 +8,6 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
-import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
@@ -192,12 +191,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
-        this.disposition = alliance
-            ? {
-                  party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-                  opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
-              }[alliance]
-            : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+        this.disposition =
+            this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
+                ? CONST.TOKEN_DISPOSITIONS.SECRET
+                : alliance
+                ? {
+                      party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                      opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
+                  }[alliance]
+                : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
     /** Reset sight defaults if using rules-based vision */
@@ -479,7 +481,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
-    delta: ActorDeltaPF2e<this> | null;
 }
 
 export { TokenDocumentPF2e };

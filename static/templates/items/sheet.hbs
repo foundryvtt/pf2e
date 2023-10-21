@@ -1,5 +1,4 @@
 <form class="{{cssClass}}" autocomplete="off">
-
     <!-- ITEM SHEET HEADER -->
     <header class="sheet-header">
         {{!-- Source image in case of change during data preparation --}}
@@ -23,7 +22,7 @@
 
             {{#if itemType}}
                 <span class="level">
-                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle" data-tooltip="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
                     <input
                         type="number"
@@ -78,7 +77,7 @@
     <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
-            <section class="sidebar">
+            <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
@@ -102,12 +101,15 @@
             </section>
 
             <!-- Item Details -->
-            <section class="tab details" data-tab="details">
+            <section class="tab details" data-tab="details" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "detailsTemplate")}}
-                <div class="form-group">
-                    <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
-                    <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
-                </div>
+
+                <fieldset class="publication">
+                    <legend>Publication</legend>
+                    <div class="data">
+                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.publication" data=data.publication}}
+                    </div>
+                </fieldset>
             </section>
 
             <!-- Mystification Details -->
@@ -117,7 +119,7 @@
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
-                <section class="tab rules" data-tab="rules">
+                <section class="tab rules" data-tab="rules" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
                     {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
                 </section>

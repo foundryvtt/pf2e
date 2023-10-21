@@ -1,22 +1,31 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
+import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
-import { objectHasKey, setHasElement } from "@util";
+import { isObject, objectHasKey, setHasElement } from "@util";
 
-abstract class IWRData<TType extends IWRType> {
+abstract class IWR<TType extends IWRType> {
     readonly type: TType;
 
-    readonly exceptions: TType[];
+    readonly exceptions: IWRException<TType>[];
+
+    /** A definition for a custom IWR */
+    readonly definition: PredicatePF2e | null;
 
     source: string | null;
+
+    /** A label for a custom IWR */
+    readonly #customLabel: string | null;
 
     protected abstract readonly typeLabels: Record<TType, string>;
 
     constructor(data: IWRConstructorData<TType>) {
         this.type = data.type;
         this.exceptions = deepClone(data.exceptions ?? []);
+        this.definition = data.definition ?? null;
         this.source = data.source ?? null;
+        this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
     }
 
     abstract get label(): string;
@@ -34,15 +43,18 @@ abstract class IWRData<TType extends IWRType> {
             .trim();
     }
 
+    /** A label consisting of just the type */
     get typeLabel(): string {
-        return game.i18n.localize(this.typeLabels[this.type]);
+        return game.i18n.localize(this.#customLabel ?? this.typeLabels[this.type]);
     }
 
-    protected describe(iwrType: TType): PredicateStatement[] {
+    protected describe(iwrType: IWRException<TType>): PredicateStatement[] {
         // Non-damaging IWR
         if (setHasElement(CONDITION_SLUGS, iwrType)) {
             return ["item:type:condition", `item:slug:${iwrType}`];
         }
+
+        if (isObject(iwrType)) return iwrType.definition;
 
         switch (iwrType) {
             case "air":
@@ -65,6 +77,8 @@ abstract class IWRData<TType extends IWRType> {
                 return ["item:group:axe"];
             case "critical-hits":
                 return ["damage:component:critical"];
+            case "custom":
+                return this.definition ?? [];
             case "damage-from-spells":
                 return ["damage", "item:type:spell", "impulse"];
             case "disease":
@@ -181,10 +195,19 @@ abstract class IWRData<TType extends IWRType> {
     }
 
     /** Construct an object argument for Localization#format (see also PF2E.Actor.IWR.CompositeLabel in en.json) */
-    protected createFormatData({ list, prefix }: { list: TType[]; prefix: string }): Record<string, string> {
+    protected createFormatData({
+        list,
+        prefix,
+    }: {
+        list: IWRException<TType>[];
+        prefix: string;
+    }): Record<string, string> {
         return list
             .slice(0, 4)
-            .map((e, i) => ({ [`${prefix}${i + 1}`]: game.i18n.localize(this.typeLabels[e]) }))
+            .map((exception, index) => {
+                const label = typeof exception === "string" ? this.typeLabels[exception] : exception.label;
+                return { [`${prefix}${index + 1}`]: game.i18n.localize(label) };
+            })
             .reduce((accum, obj) => ({ ...accum, ...obj }), {});
     }
 
@@ -195,13 +218,15 @@ abstract class IWRData<TType extends IWRType> {
 
 type IWRConstructorData<TType extends IWRType> = {
     type: TType;
-    exceptions?: TType[];
+    exceptions?: IWRException<TType>[];
+    customLabel?: Maybe<string>;
+    definition?: Maybe<PredicatePF2e>;
     source?: string | null;
 };
 
-type IWRDisplayData<TType extends IWRType> = Pick<IWRData<TType>, "type" | "exceptions" | "source" | "label">;
+type IWRDisplayData<TType extends IWRType> = Pick<IWR<TType>, "type" | "exceptions" | "source" | "label">;
 
-class ImmunityData extends IWRData<ImmunityType> implements ImmunitySource {
+class Immunity extends IWR<ImmunityType> implements ImmunitySource {
     protected readonly typeLabels = CONFIG.PF2E.immunityTypes;
 
     /** No value on immunities, so the full label is the same as the application label */
@@ -212,12 +237,12 @@ class ImmunityData extends IWRData<ImmunityType> implements ImmunitySource {
 
 interface IWRSource<TType extends IWRType = IWRType> {
     type: TType;
-    exceptions?: TType[];
+    exceptions?: IWRException<TType>[];
 }
 
 type ImmunitySource = IWRSource<ImmunityType>;
 
-class WeaknessData extends IWRData<WeaknessType> implements WeaknessSource {
+class Weakness extends IWR<WeaknessType> implements WeaknessSource {
     protected readonly typeLabels = CONFIG.PF2E.weaknessTypes;
 
     value: number;
@@ -231,6 +256,7 @@ class WeaknessData extends IWRData<WeaknessType> implements WeaknessSource {
         const type = this.typeLabel;
         const exceptions = this.createFormatData({ list: this.exceptions, prefix: "exception" });
         const key = `Exceptions${this.exceptions.length}DoubleVs0`;
+
         return game.i18n.format(`PF2E.Damage.IWR.CompositeLabel.${key}`, { type, value: this.value, ...exceptions });
     }
 
@@ -242,20 +268,22 @@ class WeaknessData extends IWRData<WeaknessType> implements WeaknessSource {
     }
 }
 
-type WeaknessDisplayData = IWRDisplayData<WeaknessType> & Pick<WeaknessData, "value">;
+type WeaknessDisplayData = IWRDisplayData<WeaknessType> & Pick<Weakness, "value">;
 
 interface WeaknessSource extends IWRSource<WeaknessType> {
     value: number;
 }
 
-class ResistanceData extends IWRData<ResistanceType> implements ResistanceSource {
+class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     protected readonly typeLabels = CONFIG.PF2E.resistanceTypes;
 
     value: number;
 
-    readonly doubleVs: ResistanceType[];
+    readonly doubleVs: IWRException<ResistanceType>[];
 
-    constructor(data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: ResistanceType[] }) {
+    constructor(
+        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] }
+    ) {
         super(data);
         this.value = data.value;
         this.doubleVs = deepClone(data.doubleVs ?? []);
@@ -308,11 +336,11 @@ class ResistanceData extends IWRData<ResistanceType> implements ResistanceSource
     }
 }
 
-type ResistanceDisplayData = IWRDisplayData<ResistanceType> & Pick<ResistanceData, "value" | "doubleVs">;
+type ResistanceDisplayData = IWRDisplayData<ResistanceType> & Pick<Resistance, "value" | "doubleVs">;
 
 interface ResistanceSource extends IWRSource<ResistanceType> {
     value: number;
-    doubleVs?: ResistanceType[];
+    doubleVs?: IWRException<ResistanceType>[];
 }
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
@@ -330,5 +358,5 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export { ImmunityData, NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData };
+export { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness };
 export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

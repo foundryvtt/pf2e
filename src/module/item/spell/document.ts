@@ -11,7 +11,12 @@ import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractDamageSynthetics } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -327,12 +332,21 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             modifier: attributes[attribute].mod,
                             damageType: d.type.value,
                             damageCategory: d.type.subtype || null,
+                            adjustments: extractModifierAdjustments(
+                                actor.synthetics.modifierAdjustments,
+                                domains,
+                                `ability-${k}`
+                            ),
                         })
                 );
 
-            const extracted = extractDamageSynthetics(actor, base, domains, {
-                extraModifiers: attributeModifiers,
-                resolvables: { spell: this },
+            const extractOptions = {
+                resolvables: { spell: this, target: damageOptions.target ?? null },
+                test: options,
+            };
+            const extracted = processDamageCategoryStacking(base, {
+                modifiers: [attributeModifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
+                dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
                 test: options,
             });
 
@@ -910,7 +924,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return flag;
     }
 
-    override async update(data: DocumentUpdateData<this>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
+    override async update(data: Record<string, unknown>, options: DocumentUpdateContext<TParent> = {}): Promise<this> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
         if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(
@@ -923,7 +937,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

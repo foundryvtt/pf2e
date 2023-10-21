@@ -381,6 +381,12 @@ export const USER_PERMISSIONS: {
         disableGM: true;
         defaultRole: typeof USER_ROLES.TRUSTED;
     };
+    CARDS_CREATE: {
+        label: "PERMISSION.CardsCreate";
+        hint: "PERMISSION.CardsCreateHint";
+        disableGM: false;
+        defaultRole: typeof USER_ROLES.ASSISTANT;
+    };
     DRAWING_CREATE: {
         label: "PERMISSION.DrawingCreate";
         hint: "PERMISSION.DrawingCreateHint";
@@ -686,6 +692,7 @@ declare global {
     type MacroScope = (typeof MACRO_SCOPES)[number];
     type MacroType = (typeof MACRO_TYPES)[keyof typeof MACRO_TYPES];
     type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
+    type PackageAvailabilityCode = (typeof PACKAGE_AVAILABILITY_CODES)[keyof typeof PACKAGE_AVAILABILITY_CODES];
     type PackageType = (typeof PACKAGE_TYPES)[number];
     type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];
     type PlaylistSortMode = (typeof PLAYLIST_SORT_MODES)[keyof typeof PLAYLIST_SORT_MODES];

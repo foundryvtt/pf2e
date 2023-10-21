@@ -270,3 +270,9 @@ export { Migration869RefreshMightyBulwark } from "./869-refresh-mighty-bulwark.t
 export { Migration870MartialToProficiencies } from "./870-martial-to-proficiencies.ts";
 export { Migration871MigrateRollActionMacroParams } from "./871-migrate-rollactionmacro-params.ts";
 export { Migration872MoveSchemaProperty } from "./872-move-schema-property.ts";
+export { Migration873RemoveBonusBulkLimit } from "./873-remove-bonus-bulk-limit.ts";
+export { Migration874MoveStaminaStuff } from "./874-move-stamina-stuff.ts";
+export { Migration875SetInnovationIdEarly } from "./875-set-innovation-id-early.ts";
+export { Migration876FeatLevelTaken } from "./876-feat-level-taken.ts";
+export { Migration877PublicationData } from "./877-publication-data.ts";
+export { Migration878TakeABreather } from "./878-take-a-breather.ts";

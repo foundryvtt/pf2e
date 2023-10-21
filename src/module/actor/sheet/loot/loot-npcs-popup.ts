@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor/base.ts";
-import { PhysicalItemPF2e } from "@item";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import type { ActorPF2e } from "@actor";
+import type { PhysicalItemPF2e } from "@item";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {

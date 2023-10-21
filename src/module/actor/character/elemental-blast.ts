@@ -5,11 +5,17 @@ import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
-import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
+import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -34,7 +40,6 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { DamageModifierDialog } from "@system/damage/dialog.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;
@@ -169,6 +174,10 @@ class ElementalBlast {
             throw failure.asError();
         }
 
+        // Set in the same fashion as weapons
+        item.flags.pf2e.attackItemBonus =
+            statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))?.value ?? 0;
+
         // In case of infusions, get separate MAPs for melee and ranged attacks
         const maps = (() => {
             const domains = [...statistic.check.domains, "elemental-blast-attack-roll"];
@@ -285,12 +294,10 @@ class ElementalBlast {
     /** Make an impulse attack roll as part of an elemental blast. */
     async attack(params: BlastAttackParams): Promise<Rolled<CheckRoll> | null> {
         const { statistic, actionCost } = this;
-        const actionSlug = "elemental-blast";
-        const kineticAura = this.actor.itemTypes.effect.find((e) => e.slug === "effect-kinetic-aura");
         if (!(statistic && this.item)) throw ErrorPF2e("Unable to blast");
-        if (!kineticAura) throw ErrorPF2e("No kinetic gate");
-
-        const meleeOrRanged = params.melee ? "melee" : "ranged";
+        if (!this.actor.rollOptions.all["self:effect:kinetic-aura"]) {
+            throw ErrorPF2e("No kinetic gate");
+        }
 
         const { element, damageType } = params;
         if (!element) throw ErrorPF2e("No element provided");
@@ -303,11 +310,9 @@ class ElementalBlast {
         }
 
         const blastConfig = this.#getBlastConfig(element, damageType);
-        const melee = !!(params.melee ?? true);
+        const melee = !!(params.melee ??= true);
         const item = this.#createModifiedItem({ config: blastConfig, damageType, melee });
         if (!item) return null;
-
-        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
 
         const thisToken = this.actor.getActiveTokens(true, false).shift() ?? null;
         const targetToken = game.user.targets.first() ?? null;
@@ -316,17 +321,20 @@ class ElementalBlast {
             return null;
         }
 
-        const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-            title: item.name,
-            glyph: actionCost.toString(),
-            subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
-        });
+        const actionSlug = "elemental-blast";
         const blastStatistic = statistic.extend({
             check: {
                 domains: [`${actionSlug}-attack-roll`],
                 modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
             },
         });
+        const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            title: item.name,
+            glyph: actionCost.toString(),
+            subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
+        });
+        const meleeOrRanged = params.melee ? "melee" : "ranged";
+        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
 
         return blastStatistic.roll({
             identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
@@ -351,7 +359,7 @@ class ElementalBlast {
     async damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | string | null> {
         if (!this.statistic) return null;
 
-        const melee = !!(params.melee ?? true);
+        const melee = !!(params.melee ??= true);
         const blastConfig = this.#getBlastConfig(params.element, params.damageType);
         if (!blastConfig) return null;
 
@@ -364,6 +372,9 @@ class ElementalBlast {
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first() ?? null;
+        item.flags.pf2e.attackItemBonus =
+            blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
+                ?.value ?? 0;
 
         const context = await this.actor.getDamageRollContext({
             viewOnly: params.getFormula ?? false,
@@ -387,7 +398,17 @@ class ElementalBlast {
                 },
             ],
         };
-        const damageSynthetics = extractDamageSynthetics(this.actor, [baseDamage], domains, { test: context.options });
+        const damageSynthetics = processDamageCategoryStacking([baseDamage], {
+            modifiers: extractModifiers(this.actor.synthetics, domains, {
+                test: context.options,
+                resolvables: { blast: item },
+            }),
+            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, {
+                test: context.options,
+                resolvables: { blast: item, target: context.target?.actor ?? null },
+            }),
+            test: context.options,
+        });
         const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);

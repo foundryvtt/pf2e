@@ -2,6 +2,7 @@ import { SaveType } from "@actor/types.ts";
 import {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    DurationData,
     EffectAuraData,
     EffectContextData,
     EffectTraits,
@@ -31,7 +32,7 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
     stage: number;
     stages: Record<string, AfflictionStageData>;
     onset?: AfflictionOnset;
-    duration: AfflictionDuration;
+    duration: DurationData;
     start: {
         value: number;
         initiative: number | null;
@@ -59,12 +60,7 @@ interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
     effects: AfflictionEffectData[];
-}
-
-interface AfflictionDuration {
-    value: number;
-    unit: TimeUnit | "unlimited";
-    expiry: AfflictionExpiryType | null;
+    duration: Omit<DurationData, "expiry">;
 }
 
 interface AfflictionConditionData {
@@ -82,7 +78,6 @@ type AfflictionExpiryType = "turn-end";
 
 export type {
     AfflictionExpiryType,
-    AfflictionDuration,
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionFlags,
@@ -90,4 +85,5 @@ export type {
     AfflictionSource,
     AfflictionStageData,
     AfflictionSystemData,
+    AfflictionSystemSource,
 };

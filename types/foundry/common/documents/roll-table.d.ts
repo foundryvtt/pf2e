@@ -3,11 +3,14 @@ import type * as fields from "../data/fields.d.ts";
 import type * as documents from "./module.d.ts";
 
 /**
- * The RollTable document model.
- * @param data Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * The Document definition for a RollTable.
+ * Defines the DataSchema and common behaviors for a RollTable which are shared between both client and server.
  */
 export default class BaseRollTable extends Document<null, RollTableSchema> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
     static override get metadata(): RollTableMetadata;
 
     static override defineSchema(): RollTableSchema;
@@ -17,8 +20,6 @@ export default class BaseRollTable extends Document<null, RollTableSchema> {
 }
 
 export default interface BaseRollTable extends Document<null, RollTableSchema>, ModelPropsFromSchema<RollTableSchema> {
-    readonly _source: RollTableSource;
-
     /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
     readonly results: EmbeddedCollection<documents.BaseTableResult<this>>;
 
@@ -28,11 +29,11 @@ export default interface BaseRollTable extends Document<null, RollTableSchema>, 
 interface RollTableMetadata extends DocumentMetadata {
     name: "RollTable";
     collection: "tables";
+    indexed: true;
+    compendiumIndexFields: ["_id", "name", "description", "img", "sort", "folder"];
+    embedded: { TableResult: "results" };
     label: "DOCUMENT.RollTable";
-    embedded: {
-        TableResult: "results";
-    };
-    isPrimary: true;
+    labelPlural: "DOCUMENT.RollTables";
 }
 
 type RollTableSchema = {

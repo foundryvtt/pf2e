@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "domain": "all",
@@ -52,6 +57,19 @@
                     "feature:raging-resistance"
                 ],
                 "type": "void",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "definition": [
+                    "origin:mode:undead"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromUndead",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "custom",
                 "value": "@actor.abilities.con.mod+3"
             },
             {
@@ -105,10 +123,10 @@
                 "value": "ghost-touch"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
+            "otherTags": [
+                "barbarian-instinct"
+            ],
             "rarity": "common",
             "value": [
                 "barbarian"

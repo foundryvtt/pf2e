@@ -1,6 +1,22 @@
+import * as R from "remeda";
+import { materialDamageEffects } from "./damage.ts";
+
+const materialIWR = R.mapValues(
+    // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
+    R.omit(materialDamageEffects, [
+        "keep-stone",
+        "peachwood",
+        "sisterstone-dusk",
+        "sisterstone-scarlet",
+        "sovereign-steel",
+        "warpglass",
+    ]),
+    (_v, k) => `PF2E.Damage.IWR.Type.${k}`
+);
+
 const immunityTypes = {
+    ...materialIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
-    adamantine: "PF2E.Damage.IWR.Type.adamantine",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     auditory: "PF2E.Damage.IWR.Type.auditory",
@@ -10,12 +26,12 @@ const immunityTypes = {
     chaotic: "PF2E.Damage.RollFlavor.chaotic",
     clumsy: "PF2E.Damage.IWR.Type.clumsy",
     cold: "PF2E.Damage.RollFlavor.cold",
-    "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     confused: "PF2E.Damage.IWR.Type.confused",
     conjuration: "PF2E.Damage.IWR.Type.conjuration",
     controlled: "PF2E.Damage.IWR.Type.controlled",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
     curse: "PF2E.Damage.IWR.Type.curse",
+    custom: "", // Label provided by rule element
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
@@ -50,14 +66,12 @@ const immunityTypes = {
     mental: "PF2E.Damage.RollFlavor.mental",
     metal: "PF2E.Damage.IWR.Type.metal",
     "misfortune-effects": "PF2E.Damage.IWR.Type.misfortune-effects",
-    mithral: "PF2E.Damage.IWR.Type.mithral",
     necromancy: "PF2E.Damage.IWR.Type.necromancy",
     "non-magical": "PF2E.Damage.IWR.Type.non-magical",
     "nonlethal-attacks": "PF2E.Damage.IWR.Type.nonlethal-attacks",
     "object-immunities": "PF2E.Damage.IWR.Type.object-immunities",
     "off-guard": "PF2E.Damage.IWR.Type.off-guard",
     olfactory: "PF2E.Damage.IWR.Type.olfactory",
-    orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     paralyzed: "PF2E.Damage.IWR.Type.paralyzed",
     "persistent-damage": "PF2E.Damage.IWR.Type.persistent-damage",
     petrified: "PF2E.Damage.IWR.Type.petrified",
@@ -74,7 +88,6 @@ const immunityTypes = {
     "salt-water": "PF2E.Damage.IWR.Type.salt-water",
     scrying: "PF2E.Damage.IWR.Type.scrying",
     sickened: "PF2E.Damage.IWR.Type.sickened",
-    silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sleep: "PF2E.Damage.IWR.Type.sleep",
     slowed: "PF2E.Damage.IWR.Type.slowed",
@@ -98,8 +111,8 @@ const immunityTypes = {
 };
 
 const weaknessTypes = {
+    ...materialIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
-    adamantine: "PF2E.Damage.IWR.Type.adamantine",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     "arrow-vulnerability": "PF2E.Damage.IWR.Type.arrow-vulnerability",
@@ -108,9 +121,8 @@ const weaknessTypes = {
     bludgeoning: "PF2E.Damage.RollFlavor.bludgeoning",
     chaotic: "PF2E.Damage.RollFlavor.chaotic",
     cold: "PF2E.Damage.RollFlavor.cold",
-    "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
-    darkwood: "PF2E.Damage.IWR.Type.darkwood",
+    custom: "", // Label provided by rule element
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",
     emotion: "PF2E.Damage.IWR.Type.emotion",
@@ -126,10 +138,8 @@ const weaknessTypes = {
     magical: "PF2E.Damage.IWR.Type.magical",
     mental: "PF2E.Damage.RollFlavor.mental",
     metal: "PF2E.Damage.RollFlavor.metal",
-    mithral: "PF2E.Damage.IWR.Type.mithral",
     "non-magical": "PF2E.Damage.IWR.Type.non-magical",
     "nonlethal-attacks": "PF2E.Damage.IWR.Type.nonlethal-attacks",
-    orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     physical: "PF2E.Damage.IWR.Type.physical",
     piercing: "PF2E.Damage.RollFlavor.piercing",
     plant: "PF2E.Damage.IWR.Type.plant",
@@ -138,7 +148,6 @@ const weaknessTypes = {
     radiation: "PF2E.Damage.IWR.Type.radiation",
     salt: "PF2E.Damage.IWR.Type.salt",
     "salt-water": "PF2E.Damage.IWR.Type.salt-water",
-    silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
     spells: "PF2E.Damage.IWR.Type.spells",
@@ -151,7 +160,6 @@ const weaknessTypes = {
     vorpal: "PF2E.Damage.IWR.Type.vorpal",
     "vorpal-fear": "PF2E.Damage.IWR.Type.vorpal-fear",
     "vulnerable-to-sunlight": "PF2E.Damage.IWR.Type.vulnerable-to-sunlight",
-    warpglass: "PF2E.Damage.IWR.Type.warpglass",
     water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
     "weapons-shedding-bright-light": "PF2E.Damage.IWR.Type.weapons-shedding-bright-light",
@@ -159,8 +167,8 @@ const weaknessTypes = {
 };
 
 const resistanceTypes = {
+    ...materialIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
-    adamantine: "PF2E.Damage.IWR.Type.adamantine",
     air: "PF2E.Damage.RollFlavor.air",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -168,10 +176,9 @@ const resistanceTypes = {
     bludgeoning: "PF2E.Damage.RollFlavor.bludgeoning",
     chaotic: "PF2E.Damage.RollFlavor.chaotic",
     cold: "PF2E.Damage.RollFlavor.cold",
-    "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    custom: "", // Label provided by rule element
     "damage-from-spells": "PF2E.Damage.IWR.Type.damage-from-spells",
-    darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",
     energy: "PF2E.Damage.IWR.Type.energy",
@@ -185,11 +192,9 @@ const resistanceTypes = {
     magical: "PF2E.Damage.IWR.Type.magical",
     mental: "PF2E.Damage.RollFlavor.mental",
     metal: "PF2E.Damage.RollFlavor.metal",
-    mithral: "PF2E.Damage.IWR.Type.mithral",
     "non-magical": "PF2E.Damage.IWR.Type.non-magical",
     nonlethal: "PF2E.Damage.IWR.Type.nonlethal",
     "nonlethal-attacks": "PF2E.Damage.IWR.Type.nonlethal-attacks",
-    orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     physical: "PF2E.Damage.IWR.Type.physical",
     piercing: "PF2E.Damage.RollFlavor.piercing",
     plant: "PF2E.Damage.IWR.Type.plant",
@@ -199,7 +204,6 @@ const resistanceTypes = {
     radiation: "PF2E.Damage.IWR.Type.radiation",
     salt: "PF2E.Damage.IWR.Type.salt",
     "salt-water": "PF2E.Damage.IWR.Type.salt-water",
-    silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
     spells: "PF2E.Damage.IWR.Type.spells",
@@ -209,7 +213,6 @@ const resistanceTypes = {
     void: "PF2E.Damage.RollFlavor.void",
     vorpal: "PF2E.Damage.IWR.Type.vorpal",
     "vorpal-adamantine": "PF2E.Damage.IWR.Type.vorpal-adamantine",
-    warpglass: "PF2E.Damage.IWR.Type.warpglass",
     water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
     "weapons-shedding-bright-light": "PF2E.Damage.IWR.Type.weapons-shedding-bright-light",

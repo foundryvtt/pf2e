@@ -63,8 +63,6 @@ interface BaseRawModifier {
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean | null;
-    /** Any notes about this modifier. */
-    notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Hide this modifier in UIs if it is disabled */
@@ -129,7 +127,6 @@ class ModifierPF2e implements RawModifier {
     predicate: PredicatePF2e;
     critical: boolean | null;
     traits: string[];
-    notes: string;
     hideIfDisabled: boolean;
 
     /**
@@ -161,7 +158,6 @@ class ModifierPF2e implements RawModifier {
                   enabled: args[3],
                   ignored: args[4],
                   source: args[5],
-                  notes: args[6],
               }
             : args[0];
 
@@ -179,7 +175,6 @@ class ModifierPF2e implements RawModifier {
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = new PredicatePF2e(params.predicate ?? []);
-        this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
@@ -248,6 +243,7 @@ class ModifierPF2e implements RawModifier {
 
     /** Sets the ignored property after testing the predicate */
     test(options: string[] | Set<string>): void {
+        if (this.predicate.length === 0) return;
         const rollOptions = this.rule ? [...options, ...this.rule.item.getRollOptions("parent")] : options;
         this.ignored = !this.predicate.test(rollOptions);
     }
@@ -316,7 +312,7 @@ function createProficiencyModifier({
 }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant");
 
     const baseBonuses: [number, number, number, number, number] = pwolVariant
         ? [

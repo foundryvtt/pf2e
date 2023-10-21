@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
-import { FeatSlotLevel } from "@actor/character/feats.ts";
+import { FeatSlotCreationData } from "@actor/character/feats.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
@@ -37,13 +37,13 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         return this.system.savingThrows;
     }
 
-    get grantedFeatSlots(): { ancestry: FeatSlotLevel[]; class: number[]; skill: number[]; general: number[] } {
+    get grantedFeatSlots(): Record<"ancestry" | "class" | "skill" | "general", (number | FeatSlotCreationData)[]> {
         const actorLevel = this.actor?.level ?? 0;
         const system = this.system;
 
-        const ancestryLevels: FeatSlotLevel[] = system.ancestryFeatLevels.value;
+        const ancestryLevels: (number | FeatSlotCreationData)[] = deepClone(system.ancestryFeatLevels.value);
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
-            ancestryLevels.unshift({ id: "ancestry-bonus", label: "1" });
+            ancestryLevels.unshift({ id: "ancestry-bonus", level: 1, label: "1" });
             for (let level = 3; level <= actorLevel; level += 4) {
                 const index = (level + 1) / 2;
                 ancestryLevels.splice(index, 0, level);
@@ -52,9 +52,9 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         return {
             ancestry: ancestryLevels,
-            class: system.classFeatLevels.value,
-            skill: system.skillFeatLevels.value,
-            general: system.generalFeatLevels.value,
+            class: [...system.classFeatLevels.value],
+            skill: [...system.skillFeatLevels.value],
+            general: [...system.generalFeatLevels.value],
         };
     }
 

@@ -1,12 +1,12 @@
 import {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    DurationData,
     EffectAuraData,
     EffectBadge,
     EffectBadgeSource,
     EffectContextData,
     EffectTraits,
-    TimeUnit,
 } from "@item/abstract-effect/index.ts";
 import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 
@@ -27,17 +27,13 @@ interface EffectSystemSource extends AbstractEffectSystemSource {
         value: number;
         initiative: number | null;
     };
-    duration: {
-        value: number;
-        unit: TimeUnit | "unlimited" | "encounter";
+    duration: DurationData & {
         sustained: boolean;
-        expiry: EffectExpiryType | null;
     };
     tokenIcon: {
         show: boolean;
     };
     unidentified: boolean;
-    expired?: boolean;
     /** A numeric value or dice expression of some rules significance to the effect */
     badge: EffectBadgeSource | null;
     /** Origin, target, and roll context of the action that spawned this effect */
@@ -50,6 +46,4 @@ interface EffectSystemData extends Omit<EffectSystemSource, "fromSpell">, Omit<A
     remaining: string;
 }
 
-type EffectExpiryType = "turn-start" | "turn-end";
-
-export type { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export type { EffectFlags, EffectSource, EffectSystemData };

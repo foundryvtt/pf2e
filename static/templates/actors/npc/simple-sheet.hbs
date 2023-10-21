@@ -98,23 +98,23 @@
                 {{/with}}
             </div>
             {{!-- Traits Dropdowns --}}
-            <div class="flexrow" style="justify-content: space-between; width: 100%;">
-                <div class="flexrow" style="flex: auto;">
-                    <select class="rarity-select traits-list-item rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
+            <div class="flexrow">
+                <div class="flexrow tags paizo-style">
+                    <select class="rarity-select traits-list-item tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
                         {{#select data.traits.rarity}}
                             {{#each rarity as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
-                    <select class="alignment-select traits-list-item alignment" data-property="system.details.alignment.value">
+                    <select class="alignment-select traits-list-item tag alignment" data-property="system.details.alignment.value">
                         {{#select data.details.alignment.value}}
                             {{#each alignments as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
-                    <select class="size-select traits-list-item size" data-property="system.traits.size.value">
+                    <select class="size-select traits-list-item tag size" data-property="system.traits.size.value">
                         {{#select data.traits.size.value}}
                             {{#each actorSizes as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
@@ -137,33 +137,31 @@
         {{!--  Body  --}}
         {{!--        --}}
         <section class="sheet-body notes">
-            {{!-- Public Notes --}}
+            {{!-- Description --}}
             <div class="notes-section public-notes section-container">
-                <div class="section-header">
-                    <h4>{{localize "PF2E.NPC.PublicNotes"}}</h4>
-                </div>
+                <h4>{{localize "PF2E.NPC.PublicNotes"}}</h4>
                 <div class="notes-text">
                     {{editor enrichedContent.publicNotes target="system.details.publicNotes" button=true editable=editable}}
                 </div>
             </div>
-            {{!-- Private Notes --}}
-            <div class="notes-section private-notes section-container">
-                <div class="section-header">
+
+            {{#if user.isGM}}
+                {{!-- Private Notes --}}
+                <div class="notes-section private-notes section-container">
                     <h4>{{localize "PF2E.NPC.PrivateNotes"}}</h4>
+                    <div class="notes-text">
+                        {{editor enrichedContent.privateNotes target="system.details.privateNotes" button=true editable=editable}}
+                    </div>
                 </div>
-                <div class="notes-text">
-                    {{editor enrichedContent.privateNotes target="system.details.privateNotes" button=true editable=editable}}
+
+                {{!-- Publication --}}
+                <div class="notes-section publication">
+                    <h4>Publication</h4>
+                    <div class="notes-text">
+                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
+                    </div>
                 </div>
-            </div>
-            {{!-- Source --}}
-            <div class="source section-container headerless">
-                <div class="section-body flexrow">
-                    <label>{{localize "PF2E.Source.Label"}}:</label>
-                    <input class="source-input" name="system.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
-                    <label>{{localize "PF2E.Source.AuthorLabel"}}:</label>
-                    <input name="system.details.source.author" type="text" value="{{data.details.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
-                </div>
-            </div>
+            {{/if}}
         </section>
     </div>
 </form>

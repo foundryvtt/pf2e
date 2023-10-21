@@ -20,6 +20,9 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        const log = htmlQuery(html, "#chat-log");
+        if (log) log.dataset.tooltipDirection = "UP";
+
         this.activateClickListener(html);
 
         html.addEventListener("dblclick", async (event): Promise<void> => {

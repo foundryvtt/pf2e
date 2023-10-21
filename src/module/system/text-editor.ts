@@ -6,7 +6,12 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifierAdjustments,
+    extractModifiers,
+    processDamageCategoryStacking,
+} from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
@@ -354,9 +359,10 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
+        // Determine DC visibility. Players and Parties show their DCs by default.
         const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
             ? rawParams.showDC
-            : actor?.hasPlayerOwner || game.settings.get("pf2e", "metagame_showDC")
+            : actor?.hasPlayerOwner || actor?.isOfType("party") || game.settings.get("pf2e", "metagame_showDC")
             ? "all"
             : "gm";
 
@@ -596,13 +602,27 @@ class TextEditorPF2e extends TextEditor {
             extraRollOptions,
         });
 
+        // Determine base formula (pre-heighten) that we may show on mouse-over
+        const baseFormula = (() => {
+            const baseRollData = {
+                ...(item?.getRollData() ?? {}),
+                actor: { level: (item && "level" in item ? item.level : null) ?? 1 },
+            };
+            return new DamageRoll(params.formula, baseRollData).formula;
+        })();
+
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
+        const formula = roll.formula;
         const element = createHTMLElement("a", {
-            classes: ["inline-roll", "roll"],
-            children: [damageDiceIcon(roll), args.inlineLabel ?? roll.formula],
+            classes: R.compact(["inline-roll", "roll", baseFormula !== formula ? "altered" : null]),
+            children: [damageDiceIcon(roll), args.inlineLabel ?? formula],
             dataset: {
                 formula: roll._formula,
-                tooltip: roll.formula,
+                tooltip: args.inlineLabel
+                    ? formula
+                    : baseFormula !== formula
+                    ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
+                    : null,
                 damageRoll: params.formula,
                 pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,
@@ -739,8 +759,11 @@ async function augmentInlineDamageRoll(
 
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
-            return extractDamageSynthetics(actor, base, domains, {
-                resolvables: rollData ?? {},
+
+            const extractOptions = { resolvables: rollData ?? {}, test: options };
+            return processDamageCategoryStacking(base, {
+                modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
+                dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
                 test: options,
             });
         })();

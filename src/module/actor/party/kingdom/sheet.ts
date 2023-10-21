@@ -3,9 +3,10 @@ import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
+import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -23,7 +24,9 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
+import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
+import { calculateKingdomCollectionData } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
 import {
     KingdomAbilityData,
@@ -44,9 +47,6 @@ import {
     KINGDOM_SETTLEMENT_TYPE_LABELS,
     KINGDOM_SKILL_LABELS,
 } from "./values.ts";
-import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { calculateKingdomCollectionData } from "./helpers.ts";
-import Sortable from "sortablejs";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -583,9 +583,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
-            const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "bonus", slotId: null };
-            const group = featSlot.categoryId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
-            return group.insertFeat(item, featSlot);
+            const slotData = this.#getFeatSlotData(event) ?? { groupId: "bonus", slotId: null };
+            const group = slotData.groupId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
+            return group.insertFeat(item, slotData.slotId);
         }
 
         return super._onDropItem(event, data);
@@ -596,17 +596,17 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         event: ElementDragEvent,
         itemSource: ItemSourcePF2e
     ): Promise<ItemPF2e<PartyPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id);
+        const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
-            const featSlot = this.#getNearestFeatSlotId(event);
+            const featSlot = this.#getFeatSlotData(event);
             if (!featSlot) return [];
 
-            const group = featSlot.categoryId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
+            const group = featSlot.groupId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
             const resorting = item.group === group && !group?.slotted;
             if (group?.slotted && !featSlot.slotId) {
                 return [];
             } else if (!resorting) {
-                return group.insertFeat(item, featSlot);
+                return group.insertFeat(item, featSlot.slotId);
             }
         }
 
@@ -628,10 +628,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    #getNearestFeatSlotId(event: ElementDragEvent) {
-        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
-        return typeof categoryId === "string" ? { slotId, categoryId } : null;
+        return typeof groupId === "string" ? { slotId, groupId } : null;
     }
 
     /** Override to not auto-disable fields on a thing meant to be used by players */

@@ -8,9 +8,9 @@ import { DamageRollContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
-interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
+type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
-}
+};
 
 export interface ItemOriginFlag {
     type: ItemType;

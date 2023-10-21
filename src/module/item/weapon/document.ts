@@ -370,6 +370,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             ? ["evocation", "magical"]
             : [];
         this.system.traits.value = R.uniq([baseTraits, magicTraits].flat()).sort();
+
+        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
     }
 
     private prepareRunes(): void {
@@ -477,18 +479,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override clone(
-        data: DocumentUpdateData<this> | undefined,
-        options: Omit<WeaponCloneOptions, "save"> & { save: true }
+        data: Record<string, unknown> | undefined,
+        context: Omit<WeaponCloneContext, "save"> & { save: true }
     ): Promise<this>;
-    override clone(
-        data?: DocumentUpdateData<this>,
-        options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
-    ): this;
-    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this>;
-    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
-        const clone = super.clone(data, options);
-        if (options?.altUsage && clone instanceof WeaponPF2e) {
-            clone.altUsageType = options.altUsage;
+    override clone(data?: Record<string, unknown>, context?: Omit<WeaponCloneContext, "save"> & { save?: false }): this;
+    override clone(data?: Record<string, unknown>, context?: WeaponCloneContext): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: WeaponCloneContext): this | Promise<this> {
+        const clone = super.clone(data, context);
+        if (context?.altUsage && clone instanceof WeaponPF2e) {
+            clone.altUsageType = context.altUsage;
         }
 
         return clone;
@@ -756,7 +755,7 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     get traits(): Set<WeaponTrait>;
 }
 
-interface WeaponCloneOptions extends DocumentCloneOptions {
+interface WeaponCloneContext extends DocumentCloneContext {
     /** If this clone is an alternative usage, the type */
     altUsage?: "melee" | "thrown";
 }

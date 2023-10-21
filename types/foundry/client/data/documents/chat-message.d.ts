@@ -70,8 +70,8 @@ declare global {
             alias,
         }?: {
             scene?: Scene | null;
-            actor?: Actor<TokenDocument<Scene | null> | null> | null;
-            token?: TokenDocument<Scene | null> | null;
+            actor?: Actor | null;
+            token?: TokenDocument | null;
             alias?: string;
         }): foundry.documents.ChatSpeakerData;
 
@@ -92,7 +92,7 @@ declare global {
             alias,
         }: {
             scene?: Scene;
-            actor: Actor<TokenDocument<Scene | null> | null>;
+            actor: Actor;
             alias?: string;
         }): {
             scene: string | null;
@@ -121,9 +121,7 @@ declare global {
          * Obtain an Actor instance which represents the speaker of this message (if any)
          * @param speaker The speaker data object
          */
-        static getSpeakerActor(
-            speaker: DeepPartial<foundry.documents.ChatSpeakerData>
-        ): Actor<TokenDocument<Scene | null> | null> | null;
+        static getSpeakerActor(speaker: DeepPartial<foundry.documents.ChatSpeakerData>): Actor | null;
 
         /** Obtain a data object used to evaluate any dice rolls associated with this particular chat message */
         getRollData(): object;

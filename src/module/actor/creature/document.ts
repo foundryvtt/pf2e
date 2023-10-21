@@ -8,13 +8,13 @@ import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
-import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { LightLevels } from "@scene/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -262,6 +262,7 @@ abstract class CreaturePF2e<
         attributes.flanking.flankable = true;
         attributes.flanking.offGuardable = true;
         attributes.reach = { base: 0, manipulate: 0 };
+        attributes.speed = mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
 
         if (attributes.initiative) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -737,22 +738,22 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     get hitPoints(): HitPointsSummary;
 
     /** Expand DocumentModificationContext for creatures */
-    update(data: DocumentUpdateData<this>, options?: CreatureUpdateContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: CreatureUpdateContext<TParent>): Promise<this>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
-        updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 

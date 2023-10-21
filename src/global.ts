@@ -38,12 +38,13 @@ import type {
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
-} from "@scene/index.ts";
+} from "@scene";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
+    checkPrompt,
     editPersistent,
     launchTravelSheet,
     perceptionForSelected,
@@ -61,6 +62,7 @@ import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@s
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type Peggy from "peggy";
+import type EnJSON from "static/lang/en.json";
 
 interface GamePF2e
     extends Game<
@@ -84,6 +86,7 @@ interface GamePF2e
         rollItemMacro: typeof rollItemMacro;
         gm: {
             calculateXP: typeof calculateXP;
+            checkPrompt: typeof checkPrompt;
             editPersistent: typeof editPersistent;
             launchTravelSheet: typeof launchTravelSheet;
             perceptionForSelected: typeof perceptionForSelected;
@@ -196,8 +199,8 @@ declare global {
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
-        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
-        get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
+        get(module: "pf2e", setting: "proficiencyVariant"): boolean;
+        get(module: "pf2e", setting: "staminaVariant"): boolean;
 
         get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
         get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;
@@ -268,5 +271,6 @@ declare global {
 
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
+    const EN_JSON: typeof EnJSON;
     const ROLL_PARSER: Peggy.Parser;
 }

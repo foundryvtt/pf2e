@@ -14,6 +14,7 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
+const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
@@ -99,6 +100,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
+            EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: Peggy.generate(rollGrammar, { output: "source" }),
         },
         esbuild: { keepNames: true },
@@ -124,6 +126,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 },
                 watch: { buildDelay: 100 },
             },
+            target: "es2022",
         },
         server: {
             port: 30001,

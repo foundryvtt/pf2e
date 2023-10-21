@@ -230,7 +230,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             const leveled = spells.filter((spell) => !spell.isCantrip);
 
             if (cantrips.length) {
-                const active = await Promise.all(cantrips.map(async (spell) => ({ spell })));
+                const active = cantrips.map((spell) => ({ spell }));
                 results.push({
                     label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
                     level: 0,
@@ -240,7 +240,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             }
 
             if (leveled.length) {
-                const active = await Promise.all(leveled.map(async (spell) => ({ spell })));
+                const active = leveled.map((spell) => ({ spell }));
                 results.push({
                     label: actor.type === "character" ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
@@ -259,13 +259,11 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                 if (alwaysShowHeader || spells.length) {
                     const uses =
                         this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
-                    const active = await Promise.all(
-                        spells.map(async (spell) => ({
-                            spell,
-                            expended: this.entry.isInnate && !spell.system.location.uses?.value,
-                            uses: this.entry.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
-                        }))
-                    );
+                    const active = spells.map((spell) => ({
+                        spell,
+                        expended: this.entry.isInnate && !spell.system.location.uses?.value,
+                        uses: this.entry.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
+                    }));
 
                     // These entries hide if there are no active spells at that level, or if there are no spell slots
                     const hideForSpontaneous = this.entry.isSpontaneous && uses?.max === 0 && active.length === 0;
@@ -329,18 +327,16 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
     async #getRitualData(): Promise<SpellCollectionData> {
         const groupedByRank = groupBy(Array.from(this.values()), (s) => s.rank);
-        const ranks = await Promise.all(
-            Array.from(groupedByRank.entries())
-                .sort(([a], [b]) => a - b)
-                .map(
-                    async ([level, spells]): Promise<SpellcastingSlotRank> => ({
-                        label: CONFIG.PF2E.spellLevels[level as OneToTen],
-                        level: level as ZeroToTen,
-                        isCantrip: false,
-                        active: await Promise.all(spells.map(async (spell) => ({ spell }))),
-                    })
-                )
-        );
+        const ranks = Array.from(groupedByRank.entries())
+            .sort(([a], [b]) => a - b)
+            .map(
+                ([level, spells]): SpellcastingSlotRank => ({
+                    label: CONFIG.PF2E.spellLevels[level as OneToTen],
+                    level: level as ZeroToTen,
+                    isCantrip: false,
+                    active: spells.map((spell) => ({ spell })),
+                })
+            );
 
         return { levels: ranks, spellPrepList: null };
     }

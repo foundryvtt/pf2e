@@ -119,6 +119,10 @@
             gap: 2px;
         }
 
+        i.fa-info-circle {
+            cursor: help;
+        }
+
         > nav {
             display: flex;
             align-items: baseline;
@@ -222,6 +226,7 @@
                 overflow: hidden scroll;
                 padding-left: 0.5rem;
 
+                // DESCRIPTION
                 &.description {
                     display: flex;
                     flex-direction: column;
@@ -297,7 +302,7 @@
                     }
                 }
 
-                /** Details */
+                // DETAILS
                 &.details {
                     padding: 0.5rem 0.5rem 0;
 
@@ -320,6 +325,10 @@
 
                     .tags .tag {
                         font-size: var(--font-size-10);
+                    }
+
+                    fieldset.publication .data {
+                        @include publication-data;
                     }
                 }
             }
@@ -350,10 +359,6 @@
             .item-controls {
                 float: right;
             }
-        }
-
-        .form-group .item-controls {
-            flex: 0 1 auto;
         }
 
         .form-list {
@@ -409,12 +414,9 @@
         }
 
         .form-group {
-            margin: 2px 0;
-            font-weight: 500;
-
             &.scalable {
                 height: auto;
-                min-height: 24px;
+                min-height: 1.5rem;
 
                 ul.traits-list {
                     list-style-type: none;
@@ -429,20 +431,8 @@
                 max-width: 9em;
             }
 
-            & > input[type="checkbox"] {
-                margin-left: auto;
-            }
-
-            input[type="checkbox"]:last-child {
-                margin-right: 0;
-            }
-
-            .checkbox-pair {
-                display: flex;
-                align-items: center;
-                span {
-                    font-weight: 400;
-                }
+            .item-controls {
+                flex: 0 1 auto;
             }
 
             input.adjusted-higher:not(:focus) {
@@ -454,10 +444,6 @@
                 font-weight: 700;
                 color: $adjusted-lower;
             }
-        }
-
-        .tags {
-            padding-left: 0;
         }
 
         .details-container,
@@ -481,11 +467,7 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
 
-        .details-container-flex-row {
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-
+        .form-fields {
             & > label {
                 display: flex;
                 align-items: center;
@@ -495,17 +477,6 @@
             select {
                 flex: 1;
                 width: auto;
-            }
-
-            input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-                flex-basis: auto;
-            }
-
-            input[type="checkbox"]:first-child:last-child {
-                margin-left: auto;
-                justify-self: flex-end;
             }
         }
 

@@ -1,4 +1,4 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
+<form autocomplete="off" data-tooltip-class="pf2e">
     <div class="attribute-rows">
         <header class="row{{#if manual}} not-eligible{{/if}}">
             <div class="row-heading">
@@ -18,7 +18,7 @@
             {{#if ancestryBoosts}}
                 <div class="row-heading">
                     {{#if ancestryBoosts.remaining}}<div class="remaining extra">{{ancestryBoosts.remaining}}</div>{{/if}}
-                    <img class="" src="{{ancestry.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy"/>
+                    <img src="{{ancestry.img}}" alt="{{ancestry.name}}" loading="lazy" />
                     <div class="label">
                         <div class="title">{{localize "TYPES.Item.ancestry"}}</div>
                         <div class="description" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">{{ancestry.name}}</div>
@@ -42,13 +42,13 @@
                 <h2>{{localize "PF2E.Actor.Character.AttributeBuilder.Boosts"}}</h2>
                 <ul class="boost-details">
                     {{#each ancestryBoosts.labels as |boost|}}
-                        <li><i class="fas fa-circle"></i>{{boost}}</li>
+                        <li><i class="fa-solid fa-circle"></i>{{boost}}</li>
                     {{/each}}
                 </ul>
                 <h2>{{localize "PF2E.Actor.Character.AttributeBuilder.Flaws"}}</h2>
                 <ul class="boost-details">
                     {{#each ancestryBoosts.flawLabels as |flaw|}}
-                        <li><i class="fas fa-circle"></i>{{flaw}}</li>
+                        <li><i class="fa-solid fa-circle"></i>{{flaw}}</li>
                     {{/each}}
                 </ul>
             </div>
@@ -60,10 +60,10 @@
                 <div class="row-heading">
                     {{#if voluntaryFlaws.remaining}}<div class="remaining extra">{{voluntaryFlaws.remaining}}</div>{{/if}}
                     <div class="label">
-                        <div class="description" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">
+                        <div class="description" data-tooltip="PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Description">
                             {{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title"}}
                         </div>
-                        <label class="extra" data-tooltip-content="#{{actor.id}}-legacy-voluntary-flaw-tooltip">
+                        <label class="extra" data-tooltip="PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.LegacyDescription">
                             {{localize "PF2E.Actor.Character.AttributeBuilder.LegacyFlaws"}} <i class="fa-solid fa-info-circle small"></i>
                             <input type="checkbox" data-action="toggle-legacy-voluntary-flaw" {{checked legacyFlaws}}>
                         </label>
@@ -71,9 +71,6 @@
                 </div>
                 {{> attributeRow buttons=voluntaryFlaws.buttons}}
             {{/if}}
-
-            <div class="hover-content" id="{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Description"}}</div>
-            <div class="hover-content" id="{{actor.id}}-legacy-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.LegacyDescription"}}</div>
         </section>
 
         <hr />
@@ -83,7 +80,7 @@
             {{#if backgroundBoosts}}
                 <div class="row-heading" data-tooltip-content="#{{actor.id}}-background-tooltip">
                     {{#if backgroundBoosts.remaining}}<div class="remaining extra">{{backgroundBoosts.remaining}}</div>{{/if}}
-                    <img class="" src="{{background.img}}" title="{{background.name}}" width="32" height="32" loading="lazy"/>
+                    <img src="{{background.img}}" alt="{{background.name}}" loading="lazy" />
                     <div class="label">
                         <div class="title">{{localize "PF2E.Background"}}</div>
                         <div class="description">{{background.name}}</div>
@@ -122,7 +119,7 @@
         <section class="row{{#if manual}} not-eligible{{/if}}">
             {{#if class}}
                 <div class="row-heading">
-                    <img class="" src="{{class.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy" />
+                    <img src="{{class.img}}" alt="{{class.name}}" loading="lazy" />
                     <div>
                         <div class="title">{{localize "PF2E.Class"}}</div>
                         <div class="description">{{class.name}}</div>
@@ -273,7 +270,7 @@
             type="button"
             data-attribute="{{attribute}}"
             data-action="{{type}}"
-            class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{#if button.partial}} partial{{/if}}{{/if}}{{#if button.locked}} locked{{/if}}"
+            class="boost-button {{type}} {{number}}{{#if button.selected}} selected{{#if button.partial}} partial{{/if}}{{/if}}{{#if button.locked}} locked{{/if}}"
             {{disabled (and button.disabled (not button.selected))}}
         >
             {{#if button.locked}}<i class="fa-solid fa-lock"></i>{{/if}}

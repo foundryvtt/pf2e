@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
         "rules": [
             {
                 "definition": [
@@ -44,14 +49,6 @@
                 "mode": "override",
                 "property": "ac-bonus",
                 "value": 5
-            },
-            {
-                "itemId": "{actor|flags.pf2e.innovationId}",
-                "itemType": "armor",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "property": "check-penalty",
-                "value": -2
             },
             {
                 "itemId": "{actor|flags.pf2e.innovationId}",
@@ -84,11 +81,24 @@
                 "mode": "add",
                 "property": "traits",
                 "value": "bulwark"
+            },
+            {
+                "itemId": "{actor|flags.pf2e.innovationId}",
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "bulk-held-or-stowed",
+                "value": 4
+            },
+            {
+                "itemId": "{actor|flags.pf2e.innovationId}",
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "bulk-worn",
+                "value": 3
             }
         ],
-        "source": {
-            "value": "Pathfinder Guns & Gears"
-        },
         "traits": {
             "rarity": "common",
             "value": [

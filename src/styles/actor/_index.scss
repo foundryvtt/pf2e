@@ -23,8 +23,8 @@ $header-height: 89px; /* Adjust height of the header */
 
         [data-action="show-image"] {
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: 0.25rem;
+            right: 0.025rem;
         }
     }
 
@@ -38,7 +38,7 @@ $header-height: 89px; /* Adjust height of the header */
         position: relative;
         font-size: var(--font-size-16);
         height: 24px;
-        width: 24px;
+        min-width: 24px; // Prevent long item names from reducing width
 
         &.framed {
             background-color: var(--tertiary);
@@ -105,6 +105,10 @@ $header-height: 89px; /* Adjust height of the header */
         &.unique {
             background-color: var(--color-rarity-unique);
         }
+    }
+
+    &.character {
+        @import "character/attack-popout";
     }
 
     &.character .crb-style {

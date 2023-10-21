@@ -1,15 +1,22 @@
 import { ActorPF2e } from "@actor";
-import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
-import { Coins } from "@item/physical/data.ts";
-import { DENOMINATIONS } from "@item/physical/values.ts";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
-import { ErrorPF2e, groupBy } from "@util";
-import { InventoryBulk } from "./bulk.ts";
+import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Coins } from "@item/physical/data.ts";
+import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
+import { DENOMINATIONS } from "@item/physical/values.ts";
+import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
+import { InventoryBulk } from "./bulk.ts";
 
-class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
-    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
+class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<PhysicalItemPF2e<TActor>> {
+    actor: TActor;
+    bulk: InventoryBulk;
+
+    constructor(actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
+        this.actor = actor;
+
+        // Created in the constructor so its ready for RE modification
+        this.bulk = new InventoryBulk(this.actor);
     }
 
     get coins(): CoinsPF2e {
@@ -33,10 +40,6 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         }
 
         return null;
-    }
-
-    get bulk(): InventoryBulk {
-        return new InventoryBulk(this.actor);
     }
 
     /** Find an item already owned by the actor that can stack with the given item */
@@ -162,7 +165,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
             let quantityToRemove = coinsToRemove[denomination];
             const coinItems = coinsByDenomination.get(denomination);
             if (!!quantityToRemove && coinItems) {
-                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
+                const itemsToUpdate: EmbeddedDocumentUpdateData[] = [];
                 const itemsToDelete: string[] = [];
                 for (const item of coinItems) {
                     if (quantityToRemove === 0) break;

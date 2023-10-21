@@ -1,4 +1,4 @@
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 
 export const TargetToken = {

@@ -1,0 +1,217 @@
+.sheet.actor.loot form {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    section.sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 100%;
+        border-right: 1px solid var(--color-text-light-7);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+        > * {
+            flex: 0;
+        }
+
+        .image-container {
+            display: flex;
+            > img.actor-image {
+                flex: none;
+                border: none;
+                border-bottom: 1px solid var(--color-text-light-7);
+            }
+
+            [data-action="show-image"] {
+                bottom: 3px;
+                right: 2px;
+            }
+        }
+
+        .gm-settings {
+            border-bottom: 1px solid var(--color-text-light-7);
+            display: flex;
+            flex-direction: column;
+            padding: 0.25rem;
+
+            .loot-distribution {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                button {
+                    background-color: var(--tertiary);
+
+                    &:not(:hover) {
+                        @include button;
+                    }
+                }
+            }
+
+            label {
+                font-weight: 500;
+            }
+        }
+
+        .sidebar-meta {
+            border-top: 1px solid var(--color-text-light-7);
+        }
+
+        .hidden-when-empty,
+        .bulk {
+            align-self: end;
+        }
+
+        .bulk {
+            line-height: 1.5em;
+            margin-right: 8px;
+        }
+
+        > .editor,
+        .description {
+            flex-basis: auto;
+            min-height: 40px;
+            flex: 1;
+        }
+
+        > .editor {
+            > .tox-tinymce {
+                .tox-edit-area {
+                    min-height: 120px;
+                }
+            }
+        }
+
+        .description,
+        .editor-content {
+            padding: 0.25rem;
+            overflow: hidden scroll;
+        }
+    }
+
+    .sheet-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.2rem;
+
+        padding-top: 0.25rem;
+        border-bottom: 1px solid var(--color-text-light-7);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+        h1 {
+            margin: 0;
+            border: none;
+            flex: 1;
+
+            padding-left: 0.5rem;
+
+            > input {
+                height: 40px;
+                width: 100%;
+                margin: 2px;
+                border: none;
+            }
+        }
+
+        h1,
+        input {
+            font-family: var(--serif-condensed);
+            font-size: var(--font-size-36);
+            font-weight: 700;
+        }
+
+        .sheet-type {
+            i {
+                padding: 0 0.25rem 0 0.5rem;
+                font-size: var(--font-size-16);
+            }
+        }
+
+        .tags {
+            align-items: center;
+            display: flex;
+            flex: 0 0 auto;
+            margin-left: auto;
+            margin-right: 0.5em;
+
+            .tag {
+                color: var(--text-light);
+                font-size: var(--font-size-16);
+                height: unset;
+                padding: 0.1em 0.4em;
+
+                option {
+                    background-color: #5e0000;
+                    color: inherit;
+                    font-size: inherit;
+                }
+            }
+        }
+
+        .currency {
+            margin-bottom: 8px;
+        }
+    }
+
+    .sheet-body {
+        padding: 0.5rem;
+    }
+
+    section.content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+
+        .inventory {
+            overflow: hidden;
+
+            .inventory-list {
+                --border-color: var(--secondary-background);
+                margin-bottom: 2px;
+
+                .item-controls {
+                    flex: 0 0 4rem;
+
+                    a.item-toggle-equip {
+                        display: none;
+                    }
+                }
+            }
+
+            .inventory-header {
+                background: var(--primary-background);
+                color: var(--text-light);
+            }
+        }
+    }
+}
+
+.loot-actor-popup {
+    flex: unset;
+
+    .confirm-button {
+        @include button;
+        width: calc(100% - 6px);
+        height: 2.5em;
+        margin-top: 1em;
+        background-color: var(--tertiary);
+    }
+
+    .checkboxes {
+        label {
+            display: block;
+            padding-right: 10px;
+            padding-left: 22px;
+            text-indent: -22px;
+        }
+        input {
+            vertical-align: middle;
+        }
+        label span {
+            vertical-align: middle;
+        }
+    }
+}

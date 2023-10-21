@@ -13,6 +13,11 @@
         "description": {
             "value": "<p><strong>Aspect</strong> earth</p>\n<p>Your relic draws strength from the earth underfoot to lighten your load. As long as your relic is on your person and you are standing on the ground, you can carry 1 more Bulk than normal before becoming encumbered, and you increase your maximum Bulk by 2. At 6th level and every 4 levels thereafter, increase the Bulk you can carry before becoming encumbered by 1 and your maximum Bulk by 2.</p>"
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Gamemastery Guide"
+        },
         "requirements": {
             "value": ""
         },
@@ -20,7 +25,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "system.attributes.bonusEncumbranceBulk",
+                "path": "inventory.bulk.encumberedAfterAddend",
                 "value": {
                     "brackets": [
                         {
@@ -52,7 +57,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "system.attributes.bonusLimitBulk",
+                "path": "inventory.bulk.maxAddend",
                 "value": {
                     "brackets": [
                         {
@@ -82,9 +87,6 @@
                 }
             }
         ],
-        "source": {
-            "value": "Pathfinder Gamemastery Guide"
-        },
         "traits": {
             "value": [
                 "earth",

@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your elemental lineage manifests as magma and molten rock, and you can focus the magma into your hand to attack your foes. You gain a magma spike unarmed attack, which requires a free hand to use. This is an agile, finesse, unarmed attack in the brawling weapon group that deals @Damage[1d4[piercing]] damage, as well as @Damage[1[fire]] damage. Instead of the normal critical specialization effect, the target takes @Damage[1d6[persistent,fire]] damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks.</p>"
+            "value": "<p>Your elemental lineage manifests as magma and molten rock, and you can focus the magma into your hand to attack your foes. You gain a magma spike unarmed attack, which requires a free hand to use. This is an agile, finesse, unarmed attack in the brawling weapon group that deals 1d4 piercing damage, as well as 1 fire damage. Instead of the normal critical specialization effect, the target takes 1d6 persistent fire damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks.</p>"
         },
         "level": {
             "value": 1
@@ -19,6 +19,11 @@
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "rules": [
             {
@@ -31,10 +36,9 @@
                     }
                 },
                 "group": "brawling",
-                "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
+                "img": "systems/pf2e/icons/unarmed-attacks/magma-spike.webp",
                 "key": "Strike",
                 "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
-                "range": null,
                 "traits": [
                     "agile",
                     "finesse",
@@ -45,21 +49,33 @@
                 "damageType": "fire",
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
-                "selector": "{item|_id}-damage",
+                "selector": "{item|id}-damage",
                 "value": 1
             },
             {
                 "alternate": true,
+                "damageDice": {
+                    "category": "persistent",
+                    "damageType": "fire",
+                    "faces": 6,
+                    "number": 1
+                },
                 "key": "CriticalSpecialization",
                 "predicate": [
-                    "item:id:{item|_id}"
-                ],
-                "text": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpikeCriticalSpecialization"
+                    "item:id:{item|id}"
+                ]
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "label": "PF2E.ItemBonusLabel",
+                "selector": "{item|id}-damage",
+                "type": "item",
+                "value": "@weapon.flags.pf2e.attackItemBonus"
             }
         ],
-        "source": {
-            "value": "Pathfinder Lost Omens: Ancestry Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

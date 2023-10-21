@@ -130,6 +130,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             item,
             isPhysical: false,
             data: item.system,
+            fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
             options: this.options,
@@ -252,9 +253,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     override async activateEditor(
         name: string,
-        options: Partial<TinyMCE.EditorOptions> = {},
+        options: EditorCreateOptions = {},
         initialContent?: string
-    ): Promise<TinyMCE.Editor> {
+    ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
@@ -432,6 +433,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             tagElement.append(traitsPrepend.content);
         }
 
+        // Tagify other-tags input if present
+        tagify(htmlQuery<HTMLInputElement>(html, 'input[type=text][name="system.traits.otherTags"]'), { maxTags: 6 });
+
         // Handle select and input elements that show modified prepared values until focused
         const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
         for (const input of modifiedPropertyFields) {
@@ -469,24 +473,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 const index = event.currentTarget.dataset.skillVariantIndex;
                 this.item.update({ [`system.variants.-=${index}`]: null });
             });
-        }
-
-        // Tooltipped info circles
-        for (const infoCircle of htmlQueryAll(html, "i.fa-info-circle[title]")) {
-            if (infoCircle.classList.contains("small")) {
-                $(infoCircle).tooltipster({
-                    maxWidth: 275,
-                    position: "right",
-                    theme: "crb-hover",
-                    contentAsHTML: true,
-                });
-            } else if (infoCircle.classList.contains("large")) {
-                $(infoCircle).tooltipster({
-                    maxWidth: 400,
-                    theme: "crb-hover",
-                    contentAsHTML: true,
-                });
-            }
         }
 
         // Add a link to add GM notes
@@ -644,6 +630,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
     user: { isGM: boolean };

@@ -1,33 +1,38 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseRollTable, BaseUser } from "./module.d.ts";
+import type * as documents from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
 
 /** The TableResult document model. */
-export default class BaseTableResult<TParent extends BaseRollTable | null> extends Document<
+export default class BaseTableResult<TParent extends documents.BaseRollTable | null> extends Document<
     TParent,
     TableResultSchema
 > {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
     static override get metadata(): TableResultMetadata;
 
     static override defineSchema(): TableResultSchema;
 
     override testUserPermission(
-        user: BaseUser,
+        user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean }
     ): boolean;
 }
 
-export default interface BaseTableResult<TParent extends BaseRollTable | null>
+export default interface BaseTableResult<TParent extends documents.BaseRollTable | null>
     extends Document<TParent, TableResultSchema> {
-    readonly _source: TableResultSource;
+    get documentName(): TableResultMetadata["name"];
 }
 
 interface TableResultMetadata extends DocumentMetadata {
     name: "TableResult";
     collection: "results";
     label: "DOCUMENT.TableResult";
-    types: typeof CONST.TABLE_RESULT_TYPES;
+    labelPlural: "DOCUMENT.TableResults";
+    coreTypes: TableResultType[];
 }
 
 type TableResultSchema = {

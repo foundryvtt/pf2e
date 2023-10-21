@@ -1,15 +1,16 @@
 import type { ActorPF2e } from "@actor";
-import { type ItemPF2e, type PhysicalItemPF2e } from "@item";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { FrequencyInterval } from "@item/data/base.ts";
 import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { organizeBulkData } from "@item/physical/helpers.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementPF2e } from "../base.ts";
+import type { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
 
@@ -18,7 +19,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "ac-bonus",
         "badge-max",
         "badge-value",
-        "bulk",
+        "bulk-held-or-stowed",
+        "bulk-worn",
         "category",
         "check-penalty",
         "dex-cap",
@@ -126,10 +128,24 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 badge.value = Math.clamped(newValue, 1, max);
                 return;
             }
-            case "bulk": {
+            case "bulk-held-or-stowed": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                data.alteration.value = String(data.alteration.value);
                 if (!validator.isValid(data)) return;
                 data.item.system.weight.value = data.alteration.value;
+                if (data.item instanceof foundry.abstract.DataModel) {
+                    data.item.system.bulk = organizeBulkData(data.item);
+                }
+                return;
+            }
+            case "bulk-worn": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                data.alteration.value = String(data.alteration.value);
+                if (!validator.isValid(data)) return;
+                data.item.system.equippedBulk.value = data.alteration.value;
+                if (data.item instanceof foundry.abstract.DataModel) {
+                    data.item.system.bulk = organizeBulkData(data.item);
+                }
                 return;
             }
             case "category": {

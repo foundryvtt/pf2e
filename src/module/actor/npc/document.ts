@@ -55,7 +55,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     get identificationDCs(): CreatureIdentificationData {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
         return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
     }
 
@@ -114,14 +114,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         attributes.spellDC = null;
         attributes.classDC = ((): { value: number } => {
-            const proficiencyWithoutLevel =
-                game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+            const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
             const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
         attributes.classOrSpellDC = { value: attributes.classDC.value };
-        attributes.bonusEncumbranceBulk = attributes.bonusLimitBulk = 0;
 
         // Set default ritual attack and DC values if none are stored */
         this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});

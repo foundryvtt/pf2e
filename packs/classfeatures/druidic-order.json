@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "key": "ActiveEffectLike",
@@ -32,37 +37,11 @@
             },
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "level 1 druid class feature",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:druid",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:druid-order"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Animal Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Flame Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Leaf Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Stone Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Storm Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Wave Order"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Wild Order"
-                    }
-                ],
                 "flag": "druidicOrder",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt"
@@ -72,9 +51,6 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

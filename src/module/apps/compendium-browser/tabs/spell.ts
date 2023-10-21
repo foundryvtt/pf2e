@@ -36,8 +36,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
         const spells: CompendiumBrowserIndexData[] = [];
-        const times: Set<string> = new Set();
-        const sources: Set<string> = new Set();
+        const times = new Set<string>();
+        const publications = new Set<string>();
         const indexFields = [
             "img",
             "system.level.value",
@@ -45,7 +45,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             "system.traditions.value",
             "system.time",
             "system.traits",
-            "system.source.value",
+            "system.publication",
+            "system.source",
         ];
 
         const data = this.browser.packLoader.loadPacks("Item", this.browser.loadedPacks("spell"), indexFields);
@@ -87,12 +88,11 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         spellData.system.time.img = "systems/pf2e/icons/actions/LongerAction.webp";
                     }
 
-                    // Prepare source
-                    const source = spellData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    // Prepare publication source
+                    const { system } = spellData;
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
 
                     spells.push({
                         type: spellData.type,
@@ -129,7 +129,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         }
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({

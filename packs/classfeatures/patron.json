@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
         "rules": [
             {
                 "key": "ActiveEffectLike",
@@ -54,45 +59,11 @@
             },
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "level 1 Witch feature",
-                    "predicate": [
-                        "item:trait:witch",
-                        "item:level:1"
+                "choices": {
+                    "filter": [
+                        "item:tag:witch-patron"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Baba Yaga Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Curse Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Fate Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Fervor Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Night Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Rune Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Wild Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Winter Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Mosquito Witch Patron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Pacts Patron"
-                    }
-                ],
                 "flag": "patron",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
@@ -102,9 +73,6 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.patron}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

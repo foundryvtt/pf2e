@@ -5,27 +5,48 @@ import { Size } from "@module/data.ts";
 import { groupBy } from "@util";
 
 export class InventoryBulk {
-    /** The current bulk carried by the actor */
-    value: Bulk;
-    /** The number of Bulk units the actor can carry before being encumbered */
-    encumberedAfter: number;
-    /** The maximum bulk the actor can carry */
-    max: number;
+    actor: ActorPF2e;
+
+    #value: Bulk | null = null;
+
+    encumberedAfterAddend = 0;
+    maxAddend = 0;
 
     constructor(actor: ActorPF2e) {
-        this.value = InventoryBulk.computeTotalBulk(
-            actor.inventory.filter((i) => !i.isInContainer),
-            actor.size
+        this.actor = actor;
+    }
+
+    get #actorStrength(): number {
+        return this.actor.isOfType("character", "npc") ? this.actor.abilities.str.mod : Infinity;
+    }
+
+    get encumberedAfter(): number {
+        return Math.floor(this.#actorStrength + 5 + this.encumberedAfterAddend);
+    }
+
+    get encumberedAfterBreakdown(): string {
+        const addend = this.encumberedAfterAddend;
+        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        return `5 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
+    }
+
+    get max(): number {
+        return Math.floor(this.#actorStrength + 10 + this.maxAddend);
+    }
+
+    get maxBreakdown(): string {
+        const addend = this.maxAddend;
+        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        return `10 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
+    }
+
+    get value(): Bulk {
+        if (this.#value) return this.#value;
+        this.#value = InventoryBulk.computeTotalBulk(
+            this.actor.inventory.filter((i) => !i.isInContainer),
+            this.actor.size
         );
-
-        const actorIsPCOrNPC = actor.isOfType("character", "npc");
-        const strengthModifier = actorIsPCOrNPC ? actor.abilities.str.mod : Infinity;
-        const [bonusBulkLimit, bonusEncumbranceBulk] = actorIsPCOrNPC
-            ? [actor.attributes.bonusLimitBulk, actor.attributes.bonusEncumbranceBulk]
-            : [0, 0];
-
-        this.max = Math.floor(strengthModifier + bonusBulkLimit + 10);
-        this.encumberedAfter = Math.floor(strengthModifier + bonusEncumbranceBulk + 5);
+        return this.#value;
     }
 
     get encumberedPercentage(): number {

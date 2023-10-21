@@ -2,7 +2,14 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.AbilityBoost"}}
-            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="system.boosts.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
+            <a
+                class="tag-selector"
+                data-tag-selector="basic"
+                data-title="PF2E.AbilityBoost"
+                data-config-types="abilities"
+                data-property="system.boosts.{{idx}}"
+                data-no-custom="true"
+            ><i class="fa-solid fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
@@ -38,10 +45,10 @@
         {{~#each items as |item i|}}
             <li data-index="{{i}}" data-item-uuid="{{item.uuid}}">
                 <img src="{{item.img}}">
-                <a class="name">{{item.name}}{{#if item.fromWorld}}<i class="fa fa-globe" title="{{localize "PF2E.BackgroundSkillFeats"}}"></i>{{/if}}</a>
+                <a class="name">{{item.name}}{{#if item.fromWorld}}<i class="fa-solid fa-globe" data-tooltip="PF2E.BackgroundSkillFeats"></i>{{/if}}</a>
                 <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
                 <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-                <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
+                <a class="remove" data-action="remove"><i class="fa-solid fa-times"></i></a>
                 {{#if item.items~}}
                     {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
                 {{~/if}}
@@ -50,7 +57,7 @@
     </ul>
 {{~/inline~}}
 
-<div class="form-group-stacked item-ref-group" data-valid-drops="skill">
+<div class="form-group stacked item-ref-group" data-valid-drops="skill">
     <label for="data.traits">
         {{localize "PF2E.BackgroundSkillFeats"}}
     </label>

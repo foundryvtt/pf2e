@@ -1,22 +1,23 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
-import { HeritagePF2e, ItemPF2e } from "@item";
+import { ItemPF2e, type HeritagePF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { UserPF2e } from "@module/user/index.ts";
-import { getActionTypeLabel, sluggify } from "@util";
+import type { UserPF2e } from "@module/user/index.ts";
+import { getActionTypeLabel, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
-import { FeatCategory, FeatTrait } from "./types.ts";
+import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
+import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
 
 class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup | null;
-    declare grants: (FeatPF2e | HeritagePF2e)[];
+    declare grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
 
-    get category(): FeatCategory {
+    get category(): FeatOrFeatureCategory {
         return this.system.category;
     }
 
@@ -47,11 +48,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     get isFeature(): boolean {
-        return ["classfeature", "ancestryfeature"].includes(this.category);
+        return setHasElement(FEATURE_CATEGORIES, this.category);
     }
 
     get isFeat(): boolean {
-        return !this.isFeature;
+        return setHasElement(FEAT_CATEGORIES, this.category);
     }
 
     /** Whether this feat must be taken at character level 1 */
@@ -60,7 +61,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** The maximum number of times this feat can be taken */
-    get maxTakeable(): number {
+    get maxTakable(): number {
         return this.system.maxTakable;
     }
 
@@ -68,6 +69,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         super.prepareBaseData();
 
         this.group = null;
+        this.system.level.taken ??= null;
 
         // Handle legacy data with empty-string locations
         this.system.location ||= null;
@@ -100,7 +102,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.onlyLevel1 = true;
         }
 
-        // `Infinity` stored as `null` in JSON, so change back
+        // `Infinity` is stored as `null` in JSON, so change back
         this.system.maxTakable ??= Infinity;
 
         // Feats takable only at level 1 can never be taken multiple times
@@ -142,11 +144,13 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     override prepareSiblingData(): void {
-        const itemGrants = this.flags.pf2e.itemGrants;
-        this.grants = Object.values(itemGrants).flatMap((grant) => {
+        this.grants = Object.values(this.flags.pf2e.itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
             return (item?.isOfType("feat") && !item.system.location) || item?.isOfType("heritage") ? [item] : [];
         });
+        for (const grant of this.grants.filter((g): g is FeatPF2e<NonNullable<TParent>> => g.isOfType("feat"))) {
+            grant.system.level.taken = this.system.level.taken;
+        }
     }
 
     override async getChatData(
@@ -177,15 +181,16 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: PreDocumentId<FeatSource>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
-            this.updateSource({ "system.location": null });
+            this._source.system.location = null;
+            delete this._source.system.level.taken;
             if (this._source.system.frequency) {
-                this.updateSource({ "system.frequency.-=value": null });
+                delete this._source.system.frequency.value;
             }
         }
 
@@ -245,11 +250,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
         const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;
-        const { maxTakeable } = this;
-        if (maxTakeable === 1 && timesTaken > 1) {
+        const { maxTakable } = this;
+        if (maxTakable === 1 && timesTaken > 1) {
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanOnce", actorItemNames));
-        } else if (timesTaken > maxTakeable) {
-            const formatParams = { ...actorItemNames, maxTakeable, timesTaken };
+        } else if (timesTaken > maxTakable) {
+            const formatParams = { ...actorItemNames, maxTakable, timesTaken };
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
         }
     }

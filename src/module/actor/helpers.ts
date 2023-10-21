@@ -213,7 +213,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
             [`encounter:threat:${threat}`, !!threat],
             [`encounter:round:${encounter.round}`, true],
             [`encounter:turn:${Number(encounter.turn) + 1}`, true],
-            ["self:participant:own-turn", encounter.combatant?.actor === actor],
+            ["self:participant:own-turn", encounter.combatant === participant],
             [`self:participant:initiative:roll:${initiativeRoll}`, true],
             [`self:participant:initiative:rank:${initiativeRank}`, true],
             [`self:participant:initiative:stat:${initiativeStatistic}`, !!initiativeStatistic],
@@ -334,7 +334,7 @@ function getStrikeDamageDomains(
             ...extractModifiers(actor.synthetics, domains, {
                 resolvables: { weapon },
                 test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
-            }).filter((m) => m.type === "ability"),
+            }).filter((m) => !m.ignored && m.type === "ability"),
         ].reduce((best, candidate) =>
             candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best
         );
@@ -466,7 +466,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 item,
                 viewOnly: params.getFormula ?? false,
                 statistic: strike,
-                target: { token: game.user.targets.first() ?? null },
+                target: { token: params.target ?? game.user.targets.first() ?? null },
                 defense: "armor",
                 domains,
                 options: new Set([...baseOptions, ...params.options]),

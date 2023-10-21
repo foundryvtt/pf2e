@@ -14,7 +14,6 @@
         align-items: baseline;
         display: block;
         flex: 0;
-        padding-right: 16px;
 
         h1 {
             display: flex;
@@ -27,18 +26,30 @@
         }
 
         p.hint {
-            margin: auto auto 1em;
+            margin: auto auto 0.5em;
         }
 
         .item-controls {
             flex: 0;
             white-space: nowrap;
         }
+
+        .search {
+            margin-bottom: 0.5em;
+        }
     }
 
     .sheet-content {
         overflow: hidden scroll;
         padding-bottom: 1em;
-        padding-right: 8px; // easier resize gripping
+        padding-right: 6px; // easier resize gripping
+
+        .item-image {
+            cursor: pointer;
+        }
+
+        [hidden] {
+            display: none;
+        }
     }
 }

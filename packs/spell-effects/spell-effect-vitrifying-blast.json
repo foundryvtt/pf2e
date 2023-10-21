@@ -1,0 +1,50 @@
+{
+    "_id": "UFfItbPq9cVq3LNa",
+    "img": "icons/magic/water/projectiles-ice-faceted-shard-salvo-gray.webp",
+    "name": "Spell Effect: Vitrifying Blast",
+    "system": {
+        "badge": {
+            "max": 3,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Vitrifying Blast]</em></p>\n<p>The target gains weakness to sonic and bludgeoning damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": [
+                    "bludgeoning",
+                    "sonic"
+                ],
+                "value": "@item.system.badge.value*3"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -5,11 +5,13 @@ declare global {
     class TextEditor {
         /**
          * Create a Rich Text Editor. The current implementation uses TinyMCE
-         * @param options   Configuration options provided to the Editor init
-         * @param content   Initial HTML or text content to populate the editor with
-         * @return          The editor instance.
+         * @param options Configuration options provided to the Editor init
+         * @param [options.engine=tinymce] Which rich text editor engine to use, "tinymce" or "prosemirror". TinyMCE
+         *                                 is deprecated and will be removed in a later version.
+         * @param content Initial HTML or text content to populate the editor with
+         * @returns The editor instance.
          */
-        static create(options?: Partial<TinyMCE.EditorOptions>, content?: string): Promise<TinyMCE.Editor>;
+        static create(options?: EditorCreateOptions, content?: string): Promise<TinyMCE.Editor | ProseMirrorEditor>;
 
         /** A list of elements that are retained when truncating HTML. */
         protected static _PARAGRAPH_ELEMENTS: Set<string>;
@@ -193,4 +195,8 @@ declare global {
         rolls?: boolean;
         rollData?: Record<string, unknown>;
     }
+
+    type EditorCreateOptions = Partial<TinyMCE.EditorOptions | ProseMirrorEditorOptions> & {
+        engine?: "tinymce" | "prosemirror";
+    };
 }

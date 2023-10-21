@@ -117,7 +117,7 @@ declare global {
 
     interface GridDrawOptions {
         type?: GridType | null;
-        dimensions?: CanvasDimensions | null;
+        dimensions?: SceneDimensions | null;
         gridColor?: string | null;
         gridAlpha?: number | null;
     }

@@ -56,10 +56,14 @@ class RuleElementForm<
                 if (!RuleElementClass) return null as TObject;
                 const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
                 const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
-                return new RuleElementClass(deepClone(this.rule), { parent: item, suppressWarnings: true }) as TObject;
+                return new RuleElementClass(deepClone(this.rule), {
+                    parent: item,
+                    strict: false,
+                    suppressWarnings: true,
+                }) as TObject;
             })();
 
-        this.schema = this.object?.constructor.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
+        this.schema = this.object?.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
     }
 
     get item(): ItemPF2e {
@@ -96,11 +100,13 @@ class RuleElementForm<
     }
 
     async getData(): Promise<RuleElementFormSheetData<TSource, TObject>> {
-        const localization = CONFIG.PF2E.ruleElement;
-        const key = String(this.rule.key).replace(/^PF2E\.RuleElement\./, "");
-        const label = game.i18n.localize(localization[key as keyof typeof localization] ?? localization.Unrecognized);
-        const recognized = label !== game.i18n.localize(localization.Unrecognized);
-
+        const [label, recognized] = ((): [string, boolean] => {
+            const locPath = `PF2E.RuleElement.${this.rule.key}`;
+            const localized = game.i18n.localize(locPath);
+            return localized === locPath
+                ? [game.i18n.localize("PF2E.RuleElement.Unrecognized"), false]
+                : [localized, true];
+        })();
         const mergedRule = mergeObject(this.getInitialValue(), this.rule);
 
         return {

@@ -7,20 +7,20 @@
     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}
 >
     <header class="card-header flexrow">
-        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
+        <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}</h3>
         <h4>{{data.rankLabel}}</h4>
     </header>
 
-    <section class="item-properties tags">
+    <section class="item-properties tags" data-tooltip-class="pf2e">
         {{~#if data.actionTraits}}
-            {{#each data.actionTraits}}
-                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+            {{#each data.actionTraits as |trait|}}
+                <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
             {{/each}}
             <hr class="vr" />
         {{~/if}}
-        {{#each data.spellTraits}}
-            <span class="tag tag_alt" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+        {{#each data.spellTraits as |trait|}}
+            <span class="tag tag_alt" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
         {{/each}}
     </section>
 

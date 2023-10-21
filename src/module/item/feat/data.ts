@@ -9,7 +9,7 @@ import {
     ItemTraits,
 } from "@item/data/base.ts";
 import { OneToThree } from "@module/data.ts";
-import { FeatCategory, FeatTrait } from "./types.ts";
+import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
@@ -18,10 +18,10 @@ interface PrerequisiteTagData {
 }
 
 interface FeatSystemSource extends ItemSystemSource {
-    level: { value: number };
+    level: FeatLevelSource;
     traits: FeatTraits;
     /** The category of feat or feature of this item */
-    category: FeatCategory;
+    category: FeatOrFeatureCategory;
     /** Whether this feat must be taken at character level 1 */
     onlyLevel1: boolean;
     /** The maximum number of times this feat can be taken by a character. A value of `null` indicates no limit */
@@ -42,7 +42,14 @@ interface FeatSystemSource extends ItemSystemSource {
     selfEffect?: SelfEffectReferenceSource | null;
 }
 
+interface FeatLevelSource {
+    value: number;
+    taken?: number | null;
+}
+
 interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
+    level: FeatLevelData;
+
     /** `null` is set to `Infinity` during data preparation */
     maxTakable: number;
     frequency?: Frequency;
@@ -50,6 +57,8 @@ interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
     /** A self-applied effect for simple actions */
     selfEffect: SelfEffectReference | null;
 }
+
+interface FeatLevelData extends Required<FeatLevelSource> {}
 
 interface FeatSubfeatures {
     keyOptions: AttributeString[];

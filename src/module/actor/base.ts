@@ -58,7 +58,7 @@ import {
     StrikeData,
 } from "./data/base.ts";
 import { ActorSourcePF2e, ActorType } from "./data/index.ts";
-import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr.ts";
+import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
     auraAffectsActor,
@@ -137,9 +137,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
-    static override getDefaultArtwork(
-        actorData: foundry.documents.ActorSource | PreDocumentId<foundry.documents.ActorSource>
-    ): {
+    static override getDefaultArtwork(actorData: foundry.documents.ActorSource): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
@@ -582,11 +580,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     static override updateDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        updates?: DocumentUpdateData<TDocument>[],
+        updates?: Record<string, unknown>[],
         context?: DocumentUpdateContext<TDocument["parent"]>
     ): Promise<TDocument[]>;
     static override async updateDocuments(
-        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        updates: Record<string, unknown>[] = [],
         context: DocumentModificationContext<TokenDocumentPF2e | null> = {}
     ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
         // Process rule element hooks for each actor update
@@ -714,9 +712,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const { attributes } = this.system;
         attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
-        attributes.immunities = attributes.immunities?.map((i) => new ImmunityData(i)) ?? [];
-        attributes.weaknesses = attributes.weaknesses?.map((w) => new WeaknessData(w)) ?? [];
-        attributes.resistances = attributes.resistances?.map((r) => new ResistanceData(r)) ?? [];
+        attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
+        attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
+        attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
 
         const traits: ActorTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
@@ -1237,7 +1235,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
-            sp: this.isOfType("character") ? this.attributes.sp : undefined,
+            sp: this.isOfType("character") ? this.attributes.hp.sp : null,
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
         const hpDamage = hpUpdate.totalApplied;
@@ -1557,7 +1555,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Determine actor updates for applying damage/healing across temporary hit points, stamina, and then hit points */
     private calculateHealthDelta(args: {
         hp: { max: number; value: number; temp: number };
-        sp?: { max: number; value: number };
+        sp?: Maybe<{ max: number; value: number }>;
         delta: number;
     }) {
         const updates: Record<string, number> = {};
@@ -1575,7 +1573,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
-            updates["system.attributes.sp.value"] = Math.max(sp.value - applied, 0);
+            updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
 
             return applied;
         })();
@@ -1764,7 +1762,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /* -------------------------------------------- */
 
     protected override _applyDefaultTokenSettings(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options?: { fromCompendium?: boolean }
     ): DeepPartial<this["_source"]> {
         const diff = super._applyDefaultTokenSettings(data, options);
@@ -1869,9 +1867,9 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     prototypeToken: PrototypeTokenPF2e<this>;
 
-    get sheet(): ActorSheetPF2e<this>;
+    get sheet(): ActorSheetPF2e<ActorPF2e>;
 
-    update(data: DocumentUpdateData<this>, options?: ActorUpdateContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this>;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
@@ -1879,12 +1877,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         linked?: boolean,
         document?: boolean
     ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
-
-    _preCreate(
-        data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e
-    ): Promise<boolean | void>;
 
     /** See implementation in class */
     createEmbeddedDocuments(
@@ -1906,17 +1898,17 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
-        updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
-        updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
+        updateData: EmbeddedDocumentUpdateData[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 

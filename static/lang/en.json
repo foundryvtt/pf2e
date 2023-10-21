@@ -21,7 +21,7 @@
         "UnknownCombatant": "Unknown Participant"
     },
     "COMPENDIUM": {
-        "Migrate": "Migrate Compendium"
+        "MigrationStatus": "Migration Status"
     },
     "CONTROLS": {
         "AdjustSceneDarkness": "Adjust Scene Darkness",
@@ -252,6 +252,7 @@
                 "SpellPreparation": {
                     "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
                     "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet. ",
+                    "Search": "Search Spells",
                     "Title": "{actor}: Spell Preparation"
                 },
                 "Spellcasting": {
@@ -353,6 +354,21 @@
             },
             "Party": {
                 "BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started.",
+                "CheckPrompt": {
+                    "AdjustDifficulty": "Adjust Difficulty",
+                    "ChooseLores": "Choose Lores",
+                    "ChooseSaves": "Choose Saves",
+                    "ChooseSkills": "Choose Skills/Perception",
+                    "LevelDC": "Level-Based DC",
+                    "Post": "Generate Prompt",
+                    "PromptTitle": "Prompt Title",
+                    "SecretCheck": "Secret Check",
+                    "SetDC": "Set DC",
+                    "SimpleDC": "Simple DC",
+                    "SkillsPerception": "Skills/Perception",
+                    "Title": "Generate Check Prompt",
+                    "TitleShort": "Check Prompt"
+                },
                 "Coin": "Coin",
                 "ClearActivities": {
                     "Label": "Clear",
@@ -606,7 +622,6 @@
         "Bonus": "Bonus",
         "BonusBulk": "Bonus Bulk Maximum",
         "BonusBulkTitle": "Add or subtract from your bulk limit",
-        "BonusEncumbranceBulkLabel": "Add Encumbered Bulk",
         "BonusHPLabel": "Bonus HP",
         "BonusHPperLevel": "Bonus HP per Level",
         "BonusHPperLevelTitle": "Applies once for every level (CON mod is added separately)",
@@ -618,7 +633,6 @@
             "status": "Status Bonus",
             "untyped": "Untyped Bonus"
         },
-        "BonusLimitBulkLabel": "Add Max Bulk",
         "BonusSPLabel": "Bonus SP",
         "BonusSPperLevel": "Bonus SP per Level",
         "BonusSPperLevelTitle": "Applies once for every level (CON mod is added separately)",
@@ -788,6 +802,18 @@
             "TakeLabel": "Take Item",
             "Title": "Compendium Browser"
         },
+        "CompendiumMigrationStatus": {
+            "Document": "Document",
+            "Foundry": "Foundry",
+            "FoundryOld": "0.7 or older",
+            "Invalid": "Invalid",
+            "LockedTooltip": "Unable to migrate - compendium is locked",
+            "MigrateCompendium": "Migrate Compendium",
+            "Schema": "Schema",
+            "Size": "Size",
+            "Title": "Migration Status",
+            "UpToDate": "Up to Date"
+        },
         "Condition": {
             "ActiveLabel": "Active",
             "DurationNumberLabel": "Rounds",
@@ -825,6 +851,7 @@
         "ConditionTypeImmobilized": "Immobilized",
         "ConditionTypeIndifferent": "Indifferent",
         "ConditionTypeInvisible": "Invisible",
+        "ConditionTypeMalevolence": "Malevolence",
         "ConditionTypeObserved": "Observed",
         "ConditionTypeOffGuard": "Off-Guard",
         "ConditionTypeParalyzed": "Paralyzed",
@@ -995,6 +1022,7 @@
                 },
                 "Type": {
                     "abjuration": "abjuration",
+                    "abysium": "abysium",
                     "adamantine": "adamantine",
                     "all-damage": "all damage",
                     "area-damage": "area damage",
@@ -1017,6 +1045,7 @@
                     "death-effects": "death effects",
                     "disease": "disease",
                     "divination": "divination",
+                    "djezet": "djezet",
                     "doomed": "doomed",
                     "drained": "drained",
                     "emotion": "emotion",
@@ -1037,6 +1066,7 @@
                     "illusion": "illusion",
                     "immobilized": "immobilized",
                     "inhaled": "inhaled",
+                    "inubrix": "inubrix",
                     "light": "light",
                     "magic": "magic",
                     "magical": "magical",
@@ -1047,6 +1077,7 @@
                     "non-magical": "non-magical",
                     "nonlethal": "nonlethal",
                     "nonlethal-attacks": "nonlethal attacks",
+                    "noqual": "noqual",
                     "object-immunities": "object immunities",
                     "off-guard": "off-guard",
                     "olfactory": "olfactory",
@@ -1065,6 +1096,7 @@
                     "salt": "salt",
                     "salt-water": "salt water",
                     "scrying": "scrying",
+                    "siccatite": "siccatite",
                     "sickened": "sickened",
                     "silver": "silver",
                     "sleep": "sleep",
@@ -1086,7 +1118,6 @@
                     "vorpal-adamantine": "vorpal adamantine",
                     "vorpal-fear": "vorpal fear",
                     "vulnerable-to-sunlight": "vulnerable to sunlight",
-                    "warpglass": "warpglass",
                     "water": "water",
                     "weapons": "weapons",
                     "weapons-shedding-bright-light": "weapons shedding bright light",
@@ -1444,6 +1475,9 @@
                 "InvalidDomains": "{type} domains must be sluggified and end with -damage"
             }
         },
+        "InlineDamage": {
+            "Base": "Base: {formula}"
+        },
         "InlineTemplateErrors": {
             "DistanceMissing": "Error in @Template: distance parameter is mandatory",
             "DistanceNoNumber": "Error in @Template: dimension {distance} is not a number",
@@ -1601,7 +1635,7 @@
             "Deity": {
                 "Alignment": "Alignment",
                 "Category": {
-                    "Hint": "Pantheons of deities and philosophies & spiritualities not associated with any deity can be followed instead of a particular deity. Clerics and Champions must follow a deity or pantheon.",
+                    "Hint": "Pantheons of deities and philosophies not associated with any deity can be followed instead of a particular deity. Clerics and Champions must follow a deity or pantheon.",
                     "Label": "Category",
                     "Pantheon": "Pantheon",
                     "Philosophy": "Philosophy"
@@ -1774,6 +1808,10 @@
                         "Description": "You perform the unexpected and inexplicable.",
                         "Label": "Magic"
                     },
+                    "Metal": {
+                        "Description": "You manipulate flexible, mutable metal.",
+                        "Label": "Metal"
+                    },
                     "Might": {
                         "Description": "Your physical power is bolstered by divine strength.",
                         "Label": "Might"
@@ -1902,6 +1940,10 @@
                         "Description": "You hold power over wealth, trade, and treasure.",
                         "Label": "Wealth"
                     },
+                    "Wood": {
+                        "Description": "You command the indomitable power of wood.",
+                        "Label": "Wood"
+                    },
                     "Wyrmkin": {
                         "Description": "You draw on the power of dragons, linnorms, and other powerful reptilian creatures.",
                         "Label": "Wyrmkin"
@@ -1922,10 +1964,12 @@
                     "Hint": "Almost all deities have a single favored weapon, but a few have both a favored weapon and unarmed attack.",
                     "Label": "Favored Weapon(s)"
                 },
-                "FollowerAlignments": "Follower Alignments"
+                "FollowerAlignments": "Follower Alignments",
+                "Spellcasting": "Spellcasting"
             },
             "Effect": {
                 "Expiry": {
+                    "EndOfRound": "End of Round",
                     "EndOfTurn": "End of Turn",
                     "ExpiresOn": "Expires On",
                     "StartOfTurn": "Start of Turn"
@@ -1938,6 +1982,7 @@
                         "Hint": "The values of a badge can be given descriptive labels. They should be short enough to fit in the effects panel. Labels also serve as a natural maximum value for a badge.",
                         "Placeholder": "New Label"
                     },
+                    "Range": "Range",
                     "ReevaluateFormula": {
                         "Label": "Reevaluate?",
                         "Never": "Never",
@@ -1976,7 +2021,7 @@
                 "Warning": {
                     "InvalidCategory": "Cannot add feat \"{item}\" to {category}: feat type is invalid.",
                     "TakenAfterLevel1": "{item} must be taken at level 1, but {actor} is at level {actorLevel}.",
-                    "TakenMoreThanMax": "{item} may only be {maxTaken} times, but {actor} has selected it {timesTaken} times.",
+                    "TakenMoreThanMax": "{item} may only be taken {maxTakable} times, but {actor} has selected it {timesTaken} times.",
                     "TakenMoreThanOnce": "{item} may only be taken once, but {actor} has selected it an additional time."
                 }
             },
@@ -1992,6 +2037,10 @@
             },
             "IconLabel": "Icon",
             "NameLabel": "Name",
+            "OtherTags": {
+                "Label": "Other Tags",
+                "Hint": "Additional tags beyond traits to help classify an item"
+            },
             "Physical": {
                 "Broken": "Broken",
                 "Bulk": {
@@ -2117,6 +2166,7 @@
                     "Clear": "Clear Placed Templates",
                     "Place": "Place {size}-{unit} {shape}"
                 },
+                "Rank": "Rank",
                 "Variants": {
                     "DeleteDialogText": "Are you sure you want to delete '{variantName}'?",
                     "DeleteDialogTitle": "Delete Spell Variant",
@@ -2398,7 +2448,8 @@
                 "Off": "OFF",
                 "On": "ON"
             },
-            "Plural": "Macros"
+            "Plural": "Macros",
+            "NoCompendiumItem": "A macro cannot be created from a compendium item that isn't an effect or condition."
         },
         "MacroActionNoActionError": "This action no longer exists!",
         "MacroActionNoActorError": "This actor no longer exists!",
@@ -3053,17 +3104,13 @@
                 }
             },
             "Variant": {
-                "AbilityScore": {
-                    "GradualBoosts": {
-                        "Hint": "Spread out attribute boosts across multiple levels. Players gain a boost every level except 6, 11, and 16.",
-                        "Name": "Gradual Attribute Boosts"
-                    },
-                    "Title": "Attribute Variants"
+                "GradualBoosts": {
+                    "Hint": "Spread out attribute boosts across multiple levels. Players gain a boost every level except 6, 11, and 16.",
+                    "Name": "Gradual Attribute Boosts"
                 },
                 "AncestryParagon": {
-                    "Hint": "Grant additional feat slots for the ancestry paragon variant from Gamemastery Guide pg 194",
-                    "Name": "Ancestry Paragon Variant Rules",
-                    "Title": "Ancestry Paragon"
+                    "Hint": "Grant additional feat slots for the ancestry paragon variant from Gamemastery Guide pg 194.",
+                    "Name": "Ancestry Paragon"
                 },
                 "AutomaticBonus": {
                     "Choices": {
@@ -3072,61 +3119,29 @@
                         "noABP": "Do not use ABP"
                     },
                     "Hint": "Reload Required: Support for Automatic Bonus Progression variant rules, except skills/apex ability.",
-                    "Name": "Automatic Bonus Variant Rules",
-                    "Title": "Automatic Bonus Progression"
+                    "Name": "Automatic Bonus Progression"
                 },
                 "DualClass": {
                     "Hint": "Grant additional feat slots for the dual class variant from Gamemastery Guide pg 192. This variant only adds feat slots, and always adds a level 1 feat slot.",
-                    "Name": "Dual Class Variant Rules",
-                    "Title": "Dual Class"
-                },
-                "ExpertModifier": {
-                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.",
-                    "Name": "Expert proficiency modifier"
+                    "Name": "Dual Class"
                 },
                 "FreeArchetype": {
                     "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194",
-                    "Name": "Free Archetype Variant Rules",
-                    "Title": "Free Archetype"
+                    "Name": "Free Archetype"
                 },
                 "Hint": "Enable and configure variant rules like Proficiency Without Level or the Stamina system.",
                 "Label": "Toggle Variant Rules",
-                "LegendaryModifier": {
-                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.",
-                    "Name": "Legendary proficiency modifier"
-                },
-                "MasterModifier": {
-                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.",
-                    "Name": "Master proficiency modifier"
-                },
                 "Name": "Variant Rules",
                 "Proficiency": {
-                    "Choices": {
-                        "ProficiencyWithLevel": "Use Default rules",
-                        "ProficiencyWithoutLevel": "Use Variant rules"
-                    },
                     "Hint": "Play with the proficiency without level variant from Gamemastery Guide pg 198.",
-                    "Name": "Proficiency without Level Variant Rules",
-                    "Title": "Proficiency without Level"
+                    "ModifiersHint": "Set the modifier value for each proficiency rank.",
+                    "Name": "Proficiency without Level"
                 },
                 "Stamina": {
-                    "Choices": {
-                        "0": "Do not use Stamina",
-                        "1": "Use Stamina"
-                    },
-                    "Hint": "Play with the stamina variant from Gamemastery Guide pg 200",
-                    "Name": "Stamina Variant Rules",
-                    "Title": "Stamina"
+                    "Hint": "Play with the stamina variant from Gamemastery Guide pg 200.",
+                    "Name": "Stamina"
                 },
-                "Title": "Variant Rules Settings",
-                "TrainedModifier": {
-                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.",
-                    "Name": "Trained proficiency modifier"
-                },
-                "UntrainedModifier": {
-                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules, recommended with variant rules is -2. Requires recalculation by reload or modifying a value per actor.",
-                    "Name": "Untrained proficiency modifier"
-                }
+                "Title": "Variant Rules"
             },
             "WorldClock": {
                 "DateTheme": {
@@ -3423,7 +3438,7 @@
         "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
-        "StatusEffects": "{name}'s status effects:",
+        "StatusEffects": "{name}'s conditions",
         "StealthLabel": "Stealth",
         "Strike": {
             "Combined": {
@@ -3497,6 +3512,10 @@
         "Token": {
             "Appearance": "Appearance",
             "Flanking": "Flanking",
+            "SecretDisposition": {
+                "Label": "Secret Disposition",
+                "Hint": "Activate the \"secret\" disposition, which displays a purple border for owners and no border or cursor change for all others."
+            },
             "Size": {
                 "Dimensions": "Dimensions",
                 "Label": "Size",
@@ -5724,19 +5743,19 @@
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
             "GiveSubtitle": "Give item",
             "HiddenWhenEmpty": {
-                "Hint": "Hide this actor's token(s) when its inventory is empty",
-                "Label": "Hidden when empty"
+                "Hint": "Hide this actor's token(s) when its inventory is empty.",
+                "Label": "Hidden When Empty"
             },
             "InsufficientCurrencyError": "Insufficient currency for purchase by {buyer}",
             "InsufficientFundsMessage": "{buyer} reaches for their coins but comes up short!",
             "LootDescription": "Allows for distribution of coins across players",
             "LootLabel": "Loot",
             "LootMessage": "{looter} loots {quantity} × {item} off {corpse}.",
-            "LootNPCsLabel": "Loot selected tokens",
+            "LootNPCsLabel": "Loot Selected Tokens",
             "LootNPCsPopupHeader": "Choose tokens to loot from",
             "LootNamePlaceholder": "Loot",
             "LootSubtitle": "Loot item",
-            "MerchantDescription": "Allows players to purchase items directly from the sheet.",
+            "MerchantDescription": "Allows players to purchase items directly from the sheet",
             "MerchantLabel": "Merchant",
             "MoveLoot": "Move Items",
             "MoveLootMessage": "How many items do you wish to move?",

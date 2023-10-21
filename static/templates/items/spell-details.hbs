@@ -33,7 +33,7 @@
 
     <div class="form-group">
         <label class="short">{{localize "PF2E.SpellComponentsLabel"}}</label>
-        <div class="details-container-flex-row spell-components">
+        <div class="form-fields spell-components">
             <label>
                 <input type="checkbox" name="system.components.focus" {{checked data.components.focus}} />
                 <span>{{localize "PF2E.SpellComponentShortF"}}</span>
@@ -164,13 +164,13 @@
         <h3>
             {{localize "PF2E.FormulaPlaceholder"}}
             <div class="item-controls">
-                <i class="fas fa-fw fa-plus" data-action="damage-create"></i>
+                <i class="fa-solid fa-fw fa-plus" data-action="damage-create"></i>
             </div>
         </h3>
 
         {{#each data.damage.value as |damage id|}}
-            <div class="formula-section">
-                <div class="details-container-flex-row">
+            <div class="form-group">
+                <div class="form-fields">
                     <input type="text" name="system.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                     <label>
                         <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
@@ -193,8 +193,14 @@
                         {{/select}}
                     </select>
                     <div class="item-controls">
-                        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.DamageCategoriesLabel" data-config-types="materialDamageEffects" data-property="system.damage.value.{{id}}.type.categories"><i class="fas fa-fw fa-edit"></i></a>
-                        <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-fw fa-trash"></i></a>
+                        <a
+                            class="tag-selector"
+                            data-tag-selector="basic"
+                            data-title="PF2E.DamageCategoriesLabel"
+                            data-config-types="materialDamageEffects"
+                            data-property="system.damage.value.{{id}}.type.categories"
+                        ><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                     </div>
                 </div>
                 {{#if damage.type.categories}}
@@ -211,18 +217,18 @@
 
 {{#unless data.heightening.type}}
     {{#if canHeighten}}
-        <button type="button" data-action="heightening-interval-create"><i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
+        <button type="button" data-action="heightening-interval-create"><i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
     {{/if}}
 {{/unless}}
 
 {{#if (eq data.heightening.type "interval")}}
     <div class="form-list">
-        <h3>
-            {{localize "PF2E.SpellScalingInterval.Header"}}
+        <div class="form-group">
+            <h3>{{localize "PF2E.SpellScalingInterval.Header"}}</h3>
             <div class="item-controls">
-                <i class="fas fa-fw fa-trash" data-action="heightening-delete" data-idx="{{idx}}"></i>
+                <i class="fa-solid fa-fw fa-trash" data-action="heightening-delete" data-idx="{{idx}}"></i>
             </div>
-        </h3>
+        </div>
 
         <div class="form-group">
             <label class="short">{{localize "PF2E.SpellScalingInterval.Label"}}</label>
@@ -251,7 +257,7 @@
     {{/each}}
     {{#if canHeighten}}
         <button type="button" data-action="heightening-fixed-create" data-overlay-type="heightening">
-            <i class="fas fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
+            <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
         </button>
     {{/if}}
 {{/unless}}
@@ -262,20 +268,20 @@
 </div>
 {{#if (not isVariant)}}
     <div class="form-list variants" data-can-drop="true">
-        <h3>
-            {{localize "PF2E.Item.Spell.Variants.LabelPlural"}}
+        <div class="form-group">
+            <h3>{{localize "PF2E.Item.Spell.Variants.LabelPlural"}}</h3>
             <div class="item-controls">
-                <i class="fas fa-fw fa-plus" data-action="variant-create"></i>
+                <i class="fa-solid fa-fw fa-plus" data-action="variant-create"></i>
             </div>
-        </h3>
+        </div>
 
         {{#each variants as |variant|}}
             <div class="variant" data-variant-id="{{variant.id}}">
                 <label>{{variant.name}}</label>
                 <span class="action-glyph">{{variant.actions}}</span>
                 <div class="item-controls">
-                    <a data-action="variant-edit" data-id="{{variant.id}}"><i class="fas fa-fw fa-edit"></i></a>
-                    <a data-action="variant-delete" data-id="{{variant.id}}"><i class="fas fa-fw fa-trash"></i></a>
+                    <a data-action="variant-edit" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                    <a data-action="variant-delete" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                 </div>
             </div>
         {{/each}}

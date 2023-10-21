@@ -8,7 +8,7 @@ import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
-import { Bulk, stackDefinitions, weightToBulk } from "./bulk.ts";
+import { Bulk } from "./bulk.ts";
 import {
     IdentificationStatus,
     ItemActivation,
@@ -19,7 +19,7 @@ import {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice } from "./helpers.ts";
+import { CoinsPF2e, computeLevelRarityPrice, organizeBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -235,20 +235,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        // Temporary conversion of scattershot bulk data into a single object
-        systemData.bulk = (() => {
-            const stackData = stackDefinitions[systemData.stackGroup ?? ""] ?? null;
-            const per = stackData?.size ?? 1;
-
-            const heldOrStowed = stackData?.lightBulk ?? weightToBulk(systemData.weight.value)?.toLightBulk() ?? 0;
-            const worn = systemData.equippedBulk.value
-                ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
-                : heldOrStowed;
-
-            const value = this.isOfType("armor", "backpack") && this.isEquipped ? worn : heldOrStowed;
-
-            return { heldOrStowed, worn, value, per };
-        })();
+        systemData.bulk = organizeBulkData(this);
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {
@@ -301,7 +288,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
-    override onPrepareSynthetics(this: PhysicalItemPF2e<ActorPF2e>): void {
+    override onPrepareSynthetics(): void {
         this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
     }
 
@@ -499,7 +486,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {

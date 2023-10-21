@@ -43,7 +43,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         const options = super.defaultOptions;
         return {
             ...options,
-            classes: [...options.classes, "pf2e", "npc"],
+            classes: [...options.classes, "pf2e", "npc", "simple"],
             scrollY: [".sidebar", ".inventory-list"],
         };
     }
@@ -57,7 +57,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         this.#prepareAlignment(sheetData.data);
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
-        sheetData.effectItems = this.actor.itemTypes.effect;
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {

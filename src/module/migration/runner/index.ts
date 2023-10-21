@@ -135,7 +135,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 console.warn(error);
             }
         }
-        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id));
+        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id!));
         updatedActor.items = [...itemDiff.inserted, ...finalUpdated];
 
         return updatedActor;
@@ -222,20 +222,15 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
+    /** Migrates all documents in a compendium. Since getDocuments() already migrates, this merely loads and saves them */
     async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
         compendium: CompendiumCollection<T>
     ): Promise<void> {
+        const pack = compendium.metadata.id;
+
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }));
-
         const documents = await compendium.getDocuments();
-        const lowestSchemaVersion = Math.min(
-            MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-            ...documents.map((d) => d.system._migration.version).filter((d): d is number => !!d)
-        );
-
-        const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);
-        await this.#migrateDocuments(compendium, migrations);
-
+        await compendium.documentClass.updateDocuments(documents, { diff: false, recursive: false, pack });
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }));
     }
 

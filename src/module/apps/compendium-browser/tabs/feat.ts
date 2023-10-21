@@ -26,7 +26,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumBrowserIndexData[] = [];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
         const indexFields = [
             "img",
             "system.actionType.value",
@@ -37,8 +37,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.featType.value",
             "system.level.value",
             "system.prerequisites.value",
-            "system.source.value",
             "system.traits",
+            "system.publication",
+            "system.source",
         ];
 
         const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
@@ -99,11 +100,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     }
 
                     // Prepare source
-                    const source = featData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    const pubSource = featData.system.publication?.title ?? featData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
 
                     // Only store essential data
                     feats.push({
@@ -129,7 +128,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.featCategories);
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");

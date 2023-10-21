@@ -59,7 +59,7 @@ interface ValueAndMaybeMax {
     max?: number;
 }
 
-type ValueAndMax = Required<ValueAndMaybeMax>;
+interface ValueAndMax extends Required<ValueAndMaybeMax> {}
 
 function goesToEleven(value: number): value is ZeroToEleven {
     return value >= 0 && value <= 11;
@@ -81,6 +81,13 @@ interface MigratedDocumentMigrationRecord {
 }
 
 type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRecord;
+
+interface PublicationData {
+    title: string;
+    authors: string;
+    license: "ORC" | "OGL";
+    remaster: boolean;
+}
 
 export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
 
@@ -145,6 +152,7 @@ export type {
     OneToFour,
     OneToTen,
     OneToThree,
+    PublicationData,
     Rarity,
     Size,
     TraitsWithRarity,

@@ -1,4 +1,3 @@
-import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
 import type * as abstract from "../abstract/module.d.ts";
 import type { TombstoneDataSchema } from "./data.d.ts";
 import type { DataModelValidationFailure } from "./validation-failure.d.ts";
@@ -277,7 +276,7 @@ export class SchemaField<
      */
     constructor(fields: TDataSchema, options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
 
-    protected static override get _defaults(): DataFieldOptions<DataSchema, boolean, boolean, boolean>;
+    protected static override get _defaults(): DataFieldOptions<object, boolean, boolean, boolean>;
 
     /** The contained field definitions. */
     fields: TDataSchema;
@@ -442,11 +441,11 @@ interface StringFieldOptions<
 
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
-        TSourceProp extends string,
+        TSourceProp extends string = string,
         TModelProp = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = false,
-        THasInitial extends boolean = boolean
+        THasInitial extends boolean = true
     >
     extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>
     implements StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
@@ -593,7 +592,7 @@ export interface ArrayField<
 export class SetField<
     TElementField extends DataField,
     TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
-    TModelProp extends Set<SourcePropFromDataField<TElementField>> = Set<SourcePropFromDataField<TElementField>>,
+    TModelProp extends Set<ModelPropFromDataField<TElementField>> = Set<ModelPropFromDataField<TElementField>>,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -613,7 +612,7 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TModelProp extends abstract.DataModel | abstract.Document = abstract.DataModel,
+    TModelProp extends abstract.DataModel = abstract.DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -645,7 +644,7 @@ export class EmbeddedDataField<
     protected override _initialize(fields: DataSchema): DataSchema;
 
     override initialize(
-        value: MaybeSchemaProp<TModelProp["schema"]["fields"], TRequired, TNullable, THasInitial>,
+        value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
         model: ConstructorOf<abstract.DataModel>,
         options?: object
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
@@ -653,6 +652,43 @@ export class EmbeddedDataField<
     override toObject(
         value: TModelProp
     ): MaybeSchemaProp<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>;
+}
+
+/** A subclass of {@link EmbeddedDataField} which supports a single embedded Document. */
+export class EmbeddedDocumentField<
+    TModelProp extends abstract.Document,
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends EmbeddedDataField<TModelProp, TRequired, TNullable, THasInitial> {
+    /**
+     * @param model   The type of Document which is embedded.
+     * @param options Options which configure the behavior of the field.
+     */
+    constructor(
+        model: ConstructorOf<TModelProp>,
+        options?: DataFieldOptions<TModelProp["_source"], TRequired, TNullable, THasInitial>
+    );
+
+    static override get _defaults(): DataFieldOptions<object, boolean, true, boolean>;
+
+    static override hierarchical: boolean;
+
+    override initialize(
+        value: MaybeSchemaProp<TModelProp["_source"], TRequired, TNullable, THasInitial>,
+        model: ConstructorOf<TModelProp>,
+        options?: Record<string, unknown>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+
+    /* -------------------------------------------- */
+    /*  Embedded Document Operations                */
+    /* -------------------------------------------- */
+
+    /**
+     * Return the embedded document(s) as a Collection.
+     * @param parent The parent document.
+     */
+    getCollection(parent: abstract.Document): Collection<TModelProp>;
 }
 
 /**
@@ -668,7 +704,7 @@ export class EmbeddedCollectionField<
 > extends ArrayField<
     TDocument["schema"],
     TSourceProp,
-    EmbeddedCollection<TDocument>,
+    abstract.EmbeddedCollection<TDocument>,
     TRequired,
     TNullable,
     THasInitial
@@ -703,10 +739,10 @@ export class EmbeddedCollectionField<
     override initialize(
         _value: unknown,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
     override toObject(
-        value: EmbeddedCollection<TDocument>
+        value: abstract.EmbeddedCollection<TDocument>
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     override apply(
@@ -723,10 +759,10 @@ export class EmbeddedCollectionField<
  */
 export class EmbeddedCollectionDeltaField<
     TDocument extends foundry.abstract.Document,
-    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | TombstoneDataSchema)[] = (
-        | SourceFromSchema<TDocument["schema"]["fields"]>
-        | TombstoneDataSchema
-    )[],
+    TSource extends (
+        | DocumentSourceFromSchema<TDocument["schema"]["fields"], true>
+        | SourceFromSchema<TombstoneDataSchema>
+    )[] = (DocumentSourceFromSchema<TDocument["schema"]["fields"], true> | SourceFromSchema<TombstoneDataSchema>)[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -785,50 +821,6 @@ export class ForeignDocumentField<
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
-}
-
-/** A subclass of `ObjectField` which supports a system-level data object. */
-export class TypeDataField<TSourceProp extends object = object, TModelProp = TSourceProp> extends ObjectField<
-    TSourceProp,
-    TModelProp
-> {
-    /**
-     * @param document The base document class which belongs in this field
-     * @param options  Options which configure the behavior of the field
-     */
-    constructor(
-        document: ConstructorOf<abstract.DataModel>,
-        options?: ObjectFieldOptions<TSourceProp, true, false, true>
-    );
-
-    /** The canonical document name of the document type which belongs in this field */
-    document: ConstructorOf<abstract.DataModel>;
-
-    protected static override get _defaults(): ObjectFieldOptions<object, true, false, true>;
-
-    /** A convenience accessor for the name of the document type associated with this SystemDataField */
-    get documentName(): string;
-
-    /**
-     * Get the DataModel definition that should be used for this type of document.
-     * @param type The Document instance type
-     * @returns The DataModel class, or null
-     */
-    getModelForType(type: string): ConstructorOf<abstract.DataModel> | null;
-
-    getInitialValue(data: unknown): TSourceProp;
-
-    protected override _cleanType(
-        value: unknown,
-        options?: CleanFieldOptions
-    ): MaybeSchemaProp<TSourceProp, true, false, true>;
-
-    override initialize(
-        value: string,
-        model?: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<TModelProp, true, false, true>;
-
-    toObject(value: TModelProp): TSourceProp;
 }
 
 /** A special `StringField` which records a standardized CSS color string. */
@@ -912,7 +904,7 @@ export class AlphaField<
 /** A special `ObjectField` which captures a mapping of User IDs to Document permission levels. */
 export class DocumentOwnershipField extends ObjectField<{ [K in string]?: DocumentOwnershipLevel }> {
     protected static override get _defaults(): ObjectFieldOptions<
-        { [K in string]?: DocumentOwnershipLevel },
+        Record<string, DocumentOwnershipLevel | undefined>,
         true,
         false,
         true
@@ -992,6 +984,69 @@ type DocumentStatsSchema = {
     lastModifiedBy: ForeignDocumentField<string>;
 };
 
+/** A subclass of `ObjectField` which supports a system-level data object. */
+export class TypeDataField<
+    TSourceProp extends object = object,
+    TModelProp = TSourceProp,
+    TDocument extends abstract.Document = abstract.Document
+> extends ObjectField<TSourceProp, TModelProp> {
+    /**
+     * @param document The base document class which belongs in this field
+     * @param options  Options which configure the behavior of the field
+     */
+    constructor(document: ConstructorOf<TDocument>, options?: ObjectFieldOptions<TSourceProp, true, false, true>);
+
+    /** The canonical document name of the document type which belongs in this field */
+    document: ConstructorOf<TDocument>;
+
+    protected static override get _defaults(): ObjectFieldOptions<object, true, false, true>;
+
+    static override recursive: boolean;
+
+    /**
+     * Return the package that provides the sub-type for the given model.
+     * @param {DataModel} model       The model instance created for this sub-type.
+     * @returns {System|Module|null}
+     */
+    static getModelProvider(model: abstract.DataModel): abstract.DataModel | null;
+
+    /** A convenience accessor for the name of the document type associated with this TypeDataField */
+    get documentName(): TDocument["documentName"];
+
+    /**
+     * Get the DataModel definition that should be used for this type of document.
+     * @param type The Document instance type
+     * @returns {typeof DataModel|null}  The DataModel class or null
+     */
+    getModelForType(type: string): typeof abstract.DataModel | null;
+
+    override getInitialValue(data: object): TSourceProp;
+
+    protected override _cleanType(value: unknown, options?: CleanFieldOptions): TSourceProp;
+
+    override initialize(
+        value: TSourceProp,
+        model?: ConstructorOf<TDocument>,
+        options?: Record<string, unknown>
+    ): MaybeSchemaProp<TModelProp, true, false, true>;
+
+    protected override _validateType(
+        data: unknown,
+        options?: Record<string, unknown>
+    ): void | DataModelValidationFailure;
+
+    override _validateModel(changes: TSourceProp, options?: Record<string, unknown>): void;
+
+    override toObject(value: TModelProp): TSourceProp;
+
+    /**
+     * Migrate this field's candidate source data.
+     * @param sourceData Candidate source data of the root model
+     * @param fieldData  The value of this field within the source data
+     */
+    migrateSource(sourceData: Record<string, unknown>, fieldData: Record<string, unknown>): void;
+}
+
 // System utility types
 
 export type SourcePropFromDataField<T> = T extends DataField<
@@ -1038,6 +1093,16 @@ declare global {
 
     type SourceFromSchema<TDataSchema extends DataSchema> = {
         [K in keyof TDataSchema]: SourcePropFromDataField<TDataSchema[K]>;
+    };
+
+    type DocumentSourceFromSchema<TDataSchema extends DataSchema, THasId extends boolean = boolean> = {
+        [K in keyof TDataSchema]: K extends "_id"
+            ? THasId extends true
+                ? string
+                : THasId extends false
+                ? null
+                : string | null
+            : SourcePropFromDataField<TDataSchema[K]>;
     };
 
     type HexColorString = `#${string}`;

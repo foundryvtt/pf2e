@@ -57,26 +57,12 @@ function extractDamageDice(
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
 }
 
-function extractDamageSynthetics(
-    actor: ActorPF2e,
+function processDamageCategoryStacking(
     base: BaseDamageData[],
-    selectors: string[],
-    options: TestableDeferredValueParams & { extraModifiers?: ModifierPF2e[] }
+    options: { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[]; test: Set<string> }
 ): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
-    for (const modifier of options.extraModifiers ?? []) {
-        modifier.adjustments = extractModifierAdjustments(
-            actor.synthetics.modifierAdjustments,
-            selectors,
-            modifier.slug
-        );
-    }
-
-    const extractedModifiers = extractModifiers(actor.synthetics, selectors, options);
-    const dice = extractDamageDice(actor.synthetics.damageDice, selectors, options);
-
-    const groupedModifiers = R.groupBy([options.extraModifiers ?? [], extractedModifiers].flat(), (m) =>
-        m.category === "persistent" ? "persistent" : "main"
-    );
+    const { dice } = options;
+    const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
 
     const modifiers = [
         ...new StatisticModifier("damage", groupedModifiers.main ?? [], options.test).modifiers,
@@ -158,7 +144,7 @@ function isBracketedValue(value: unknown): value is BracketedValue {
 }
 
 async function processPreUpdateActorHooks(
-    changed: DocumentUpdateData<ActorPF2e>,
+    changed: Record<string, unknown>,
     { pack }: { pack: string | null }
 ): Promise<void> {
     const actorId = String(changed._id);
@@ -195,7 +181,6 @@ async function processPreUpdateActorHooks(
 
 export {
     extractDamageDice,
-    extractDamageSynthetics,
     extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,
     extractModifierAdjustments,
@@ -204,5 +189,6 @@ export {
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,
+    processDamageCategoryStacking,
     processPreUpdateActorHooks,
 };

@@ -14,6 +14,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/sidebar.hbs",
+        "systems/pf2e/templates/actors/character/partials/strike.hbs",
 
         // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.hbs",
@@ -126,6 +127,7 @@ export function registerTemplates(): void {
         // Item Sheet Partials (sub-partials)
         "systems/pf2e/templates/items/partials/ability-activation.hbs",
         "systems/pf2e/templates/items/partials/duration.hbs",
+        "systems/pf2e/templates/items/partials/other-tags.hbs",
         "systems/pf2e/templates/items/partials/self-applied-effect.hbs",
 
         // Loot partials
@@ -157,6 +159,9 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/scene/token/partials/appearance.hbs",
         "systems/pf2e/templates/scene/token/partials/identity.hbs",
         "systems/pf2e/templates/scene/token/partials/lighting.hbs",
+
+        // Partials for multiple document types
+        "systems/pf2e/templates/partials/publication-data.hbs",
     ];
 
     loadTemplates(templatePaths);

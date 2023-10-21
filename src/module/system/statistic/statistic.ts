@@ -21,7 +21,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
@@ -440,7 +440,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? [extractDegreeOfSuccessAdjustments(actor.synthetics, domains)].flat() : [];
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, domains) : [];
 
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {

@@ -63,19 +63,6 @@
                 "common"
             ],
             "exploration": [],
-            "attributes": {
-                "bonusLimitBulk": 0,
-                "bonusEncumbranceBulk": 0,
-                "sp": {
-                    "value": 0,
-                    "max": 0,
-                    "details": ""
-                },
-                "resolve": {
-                    "value": 0,
-                    "max": 0
-                }
-            },
             "details": {
                 "biography": {
                     "appearance": "",
@@ -262,14 +249,16 @@
                 }
             },
             "details": {
-                "source": {
-                    "value": "",
-                    "author": ""
-                },
                 "creatureType": "",
                 "blurb": "",
                 "publicNotes": "",
-                "privateNotes": ""
+                "privateNotes": "",
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                }
             }
         },
         "hazard": {
@@ -315,9 +304,11 @@
                 "description": "",
                 "reset": "",
                 "routine": "",
-                "source": {
-                    "value": "",
-                    "author": ""
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
                 }
             },
             "statusEffects": [],
@@ -382,9 +373,6 @@
         },
         "vehicle": {
             "templates": [],
-            "source": {
-                "value": ""
-            },
             "attributes": {
                 "ac": {
                     "value": 10,
@@ -430,7 +418,13 @@
                 "crew": "1 pilot",
                 "passengers": "",
                 "pilotingCheck": "",
-                "speed": 0
+                "speed": 0,
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                }
             },
             "traits": {
                 "value": [],
@@ -477,9 +471,6 @@
                     "gm": "",
                     "value": ""
                 },
-                "source": {
-                    "value": ""
-                },
                 "rules": [],
                 "slug": null,
                 "_migration": {
@@ -488,6 +479,12 @@
                 },
                 "traits": {
                     "otherTags": []
+                },
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
                 }
             },
             "traits": {
@@ -578,7 +575,8 @@
             ],
             "duration": {
                 "value": -1,
-                "unit": "unlimited"
+                "unit": "unlimited",
+                "expiry": null
             },
             "save": {
                 "type": "fortitude",
@@ -1185,7 +1183,9 @@
             ],
             "group": null,
             "duration": {
-                "value": 0
+                "value": -1,
+                "unit": "unlimited",
+                "expiry": null
             },
             "value": {
                 "isValued": false,
@@ -1209,8 +1209,8 @@
             "duration": {
                 "value": -1,
                 "unit": "unlimited",
-                "sustained": false,
-                "expiry": "turn-start"
+                "expiry": null,
+                "sustained": false
             },
             "start": {
                 "value": 0,

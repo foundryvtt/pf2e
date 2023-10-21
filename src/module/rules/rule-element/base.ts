@@ -4,14 +4,12 @@ import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifie
 import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
-
-const { DataModel } = foundry.abstract;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -19,10 +17,8 @@ const { DataModel } = foundry.abstract;
  *
  * @category RuleElement
  */
-abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends DataModel<
-    ItemPF2e<ActorPF2e>,
-    TSchema
-> {
+abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
+    .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
     protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
 
     sourceIndex: number | null;
@@ -38,7 +34,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         source.label ??= options.parent.name;
-        super(source, { parent: options.parent, strict: true, fallback: false });
+        super(source, { parent: options.parent, strict: options.strict ?? true, fallback: false });
         const { item } = this;
 
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
@@ -498,6 +494,7 @@ interface ResolveValueParams {
 
 type RuleElementOptions = {
     parent: ItemPF2e<ActorPF2e>;
+    strict?: boolean;
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */

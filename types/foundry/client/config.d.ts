@@ -466,9 +466,7 @@ declare global {
                 feelTremor: DetectionModeTremor;
                 seeAll: DetectionModeAll;
                 senseAll: DetectionModeAll;
-            } & {
-                [K in string]?: DetectionMode;
-            };
+            } & Record<string, DetectionMode | undefined>;
         };
 
         /** Configure the default Token text style so that it may be reused and overridden by modules */

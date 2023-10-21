@@ -31,9 +31,10 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             "system.category",
             "system.traits.value",
             "system.actionType.value",
-            "system.source.value",
+            "system.publication",
+            "system.source",
         ];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
@@ -52,12 +53,12 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     // update icons for any passive actions
                     if (actionData.system.actionType.value === "passive") actionData.img = getActionIcon("passive");
 
-                    // Prepare source
-                    const source = actionData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    // Prepare publication source
+                    const { system } = actionData;
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
                     actions.push({
                         type: actionData.type,
                         name: actionData.name,
@@ -81,7 +82,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
             R.pick(CONFIG.PF2E.actionCategories, ["familiar"])
         );
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }

@@ -2,17 +2,17 @@ import type { ClientBaseItem } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
-     * The client-side Item document which extends the common BaseItem abstraction.
-     * Each Item document contains ItemData which defines its data schema.
-     * @see {@link data.ItemData}              The Item data schema
+     * The client-side Item document which extends the common BaseItem model.
+     *
      * @see {@link documents.Items}            The world-level collection of Item documents
      * @see {@link applications.ItemSheet}     The Item configuration application
      */
-    class Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null> extends ClientBaseItem<TParent> {
+    class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
         /** A convenience alias of Item#parent which is more semantically intuitive */
         get actor(): TParent;
 
-        img: ImageFilePath;
+        /** Provide a thumbnail image path used to represent this document. */
+        get thumbnail(): this["img"];
 
         /** A convenience alias of Item#isEmbedded which is preserves legacy support */
         get isOwned(): boolean;
@@ -23,13 +23,22 @@ declare global {
          */
         get transferredEffects(): CollectionValue<this["effects"]>[];
 
-        /** A convenience reference to the item type (data.type) of this Item */
-        get type(): string;
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Item */
         getRollData(): object;
 
-        protected override _getSheetClass(): ConstructorOf<NonNullable<this["_sheet"]>>;
+        /* -------------------------------------------- */
+        /*  Event Handlers                              */
+        /* -------------------------------------------- */
+
+        protected override _preCreate(
+            data: this["_source"],
+            options: DocumentModificationContext<TParent>,
+            user: User
+        ): Promise<boolean | void>;
 
         protected static override _onCreateDocuments<TDocument extends foundry.abstract.Document>(
             this: ConstructorOf<TDocument>,
@@ -44,7 +53,7 @@ declare global {
         ): void;
     }
 
-    interface Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null> extends ClientBaseItem<TParent> {
+    interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
         get uuid(): ItemUUID;
 
         _sheet: ItemSheet<this> | null;

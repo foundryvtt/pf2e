@@ -2,7 +2,7 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
+        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
 <div class="hitpoints">
@@ -42,12 +42,12 @@
         <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
             <span class="pips">
-                {{#times data.attributes.wounded.value}}<i class="fas fa-dot-circle"></i>{{/times}}
-                {{#times dying.remainingWounded}}<i class="far fa-circle"></i>{{/times}}
+                {{#times data.attributes.wounded.value}}<i class="fa-solid fa-dot-circle"></i>{{/times}}
+                {{#times dying.remainingWounded}}<i class="fa-regular fa-circle"></i>{{/times}}
             </span>
         </a>
         <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
-            <i class="fas fa-bed"></i>
+            <i class="fa-solid fa-bed"></i>
         </a>
     </div>
 </div>
@@ -68,14 +68,13 @@
                     id="{{options.id}}-pc-stamina"
                     class="left"
                     type="number"
-                    inputmode="numeric"
                     min="0"
-                    max="{{data.attributes.sp.max}}"
-                    name="system.attributes.sp.value"
-                    value="{{data.attributes.sp.value}}"
+                    max="{{data.attributes.hp.sp.max}}"
+                    name="system.attributes.hp.sp.value"
+                    value="{{data.attributes.hp.sp.value}}"
                 />
                 <span class="divider">&sol;</span>
-                <input class="right" type="number" value="{{data.attributes.sp.max}}" disabled="disabled" />
+                <input class="right" type="number" value="{{data.attributes.hp.sp.max}}" disabled="disabled" />
             </span>
         </li>
         <li class="resolve">
@@ -85,14 +84,13 @@
                     id="{{options.id}}-pc-resolve"
                     class="left"
                     type="number"
-                    inputmode="numeric"
                     min="0"
-                    max="{{data.attributes.resolve.max}}"
-                    name="system.attributes.resolve.value"
-                    value="{{data.attributes.resolve.value}}"
+                    max="{{data.resources.resolve.max}}"
+                    name="system.resources.resolve.value"
+                    value="{{data.resources.resolve.value}}"
                 />
                 <span class="divider">&sol;</span>
-                <input class="right" type="number" value="{{data.attributes.resolve.max}}" disabled="disabled" />
+                <input class="right" type="number" value="{{data.resources.resolve.max}}" disabled="disabled" />
             </span>
         </li>
     </ol>
@@ -102,7 +100,7 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-armor-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
+        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
 <div class="armor-class">
@@ -176,10 +174,10 @@
         <div class="shield-status">
             {{#if data.attributes.shield.destroyed}}
                 <span class="sidebar_label">{{localize "PF2E.Item.Physical.Destroyed"}}</span>
-                <i class="far fa-times-circle"></i>
+                <i class="fa-regular fa-times-circle"></i>
             {{else}}
                 <span class="sidebar_label">{{localize "PF2E.Item.Physical.Broken"}}</span>
-                {{#if data.attributes.shield.broken}}<i class="far fa-times-circle"></i>{{else}}<i class="far fa-circle"></i>{{/if}}
+                {{#if data.attributes.shield.broken}}<i class="fa-regular fa-times-circle"></i>{{else}}<i class="fa-regular fa-circle"></i>{{/if}}
             {{/if}}
         </div>
     </div>
@@ -192,7 +190,7 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
+        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
 <div class="roll-data perception-sidebar">
@@ -201,7 +199,7 @@
     </a>
 
     <a class="roll-icon attribute-name" data-action="perception-check" data-secret="true" title="{{localize "PF2E.Check.Specific.Perception.Secret"}}">
-        <i class="fas fa-eye-slash"></i>
+        <i class="fa-solid fa-eye-slash"></i>
     </a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
 
@@ -220,7 +218,7 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
+        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
 <div class="roll-data initiative-sidebar">
@@ -279,7 +277,7 @@
     <div class="sidebar_title">
         <h2>{{#if (gt classDCs.dcs.length 1)}}{{localize "PF2E.Actor.Character.ClassDC.Plural"}}{{else}}{{localize "PF2E.Actor.Character.ClassDC.Label"}}{{/if}}</h2>
         {{#unless classDCs.perDCDetails}}
-            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-{{classDCs.primary}}-modifiers"><i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}</button>
+            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-{{classDCs.primary}}-modifiers"><i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}</button>
         {{/unless}}
     </div>
     {{#each classDCs.dcs as |classDC|}}
@@ -291,7 +289,7 @@
             <div class="classdc-rank">
                 <span class="pf-rank {{classDC.rankSlug}}">{{classDC.rankName}}</span>
                 {{#if ../classDCs.perDCDetails}}
-                    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers"><i class="fa-solid fa-eye"></i></button>
                 {{/if}}
             </div>
             {{#with classDC}}

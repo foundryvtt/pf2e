@@ -1,25 +1,25 @@
 <li class="item flexrow" data-entry-uuid="{{entry.uuid}}" data-type="Item">
     <div class="image">
-        <img src="{{entry.img}}" title="{{entry.name}}" width="32" height="32" loading="lazy" />
+        <img src="{{entry.img}}" alt="{{entry.name}}" loading="lazy" />
     </div>
     <div class="name">
         <a class="item-link">{{entry.name}}</a>
     </div>
     <div class="tags paizo-style">
         {{#unless (eq entry.rarity "common")}}
-            <span class="tag rarity {{entry.rarity}}">
+            <span class="tag rarity {{entry.rarity}}" data-tooltip="PF2E.Rarity">
                 {{lookup (lookup filterData.checkboxes.rarity.options entry.rarity) "label"}}
             </span>
         {{/unless}}
     </div>
-    <div class="price" title="Item Price">{{entry.price}}</div>
+    <div class="price" data-tooltip="PF2E.PriceLabel">{{entry.price}}</div>
     <div class="level">
-        <span title="Item level">{{entry.level}}</span>
+        <span data-tooltip="PF2E.LevelLabel">{{entry.level}}</span>
     </div>
-    <a class="equipment-controls" data-action="take-item" title="{{localize "PF2E.CompendiumBrowser.TakeLabel"}}">
-        <i class="far fa-hand-rock"></i>
+    <a class="equipment-controls" data-action="take-item" data-tooltip="PF2E.CompendiumBrowser.TakeLabel">
+        <i class="fa-regular fa-hand-rock"></i>
     </a>
-        <a class="equipment-controls" data-action="buy-item" title="{{localize "PF2E.CompendiumBrowser.BuyLabel"}}">
-            <i class="fas fa-coins"></i>
+        <a class="equipment-controls" data-action="buy-item" data-tooltip="PF2E.CompendiumBrowser.BuyLabel">
+            <i class="fa-solid fa-coins"></i>
         </a>
 </li>

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import { CheckModifier } from "@actor/modifiers.ts";
+import type { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -8,7 +8,7 @@ import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
@@ -288,7 +288,7 @@ class CheckPF2e {
             span.innerText = tag.label;
 
             if (tag.name) span.dataset.slug = tag.name;
-            if (tag.description) span.dataset.description = tag.description;
+            if (tag.description) span.dataset.tooltip = tag.description;
 
             return span;
         };
@@ -305,16 +305,17 @@ class CheckPF2e {
                 .map((t) => toTagElement(t)) ?? [];
 
         const { item } = context;
-        const itemTraits = item?.isOfType("weapon", "melee")
-            ? Array.from(item.traits)
-                  .map((t): TraitViewData => {
-                      const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
-                      obj.label = game.i18n.localize(obj.label);
-                      return obj;
-                  })
-                  .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
-                  .map((t): HTMLElement => toTagElement(t, "alt"))
-            : [];
+        const itemTraits =
+            item?.isOfType("weapon", "melee") && context.type !== "saving-throw"
+                ? Array.from(item.traits)
+                      .map((t): TraitViewData => {
+                          const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                          obj.label = game.i18n.localize(obj.label);
+                          return obj;
+                      })
+                      .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
+                      .map((t): HTMLElement => toTagElement(t, "alt"))
+                : [];
 
         const properties = ((): HTMLElement[] => {
             const range = item?.isOfType("action", "weapon") ? item.range : null;
@@ -329,7 +330,10 @@ class CheckPF2e {
             }
         })();
 
-        const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits"] });
+        const traitsAndProperties = createHTMLElement("div", {
+            classes: ["tags", "traits"],
+            dataset: { tooltipClass: "pf2e" },
+        });
         if (itemTraits.length === 0 && properties.length === 0) {
             traitsAndProperties.append(...traits);
         } else {
@@ -351,7 +355,11 @@ class CheckPF2e {
             children: [...modifiers, ...tagsFromOptions],
         });
 
-        return [traitsAndProperties, document.createElement("hr"), modifiersAndExtras];
+        return R.compact([
+            traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
+            document.createElement("hr"),
+            modifiersAndExtras,
+        ]);
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -666,7 +674,6 @@ class CheckPF2e {
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
         const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.hbs", {
-            target: targetData,
             dc: dcData,
             result: resultData,
         });
@@ -687,7 +694,15 @@ class CheckPF2e {
                 classes: ["adjusted", adjustment.direction],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
-            adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
+
+            if (adjustment.circumstances.length > 0) {
+                adjustedNode.dataset.tooltip = adjustment.circumstances
+                    .map(
+                        (a: { label: string; value: number }) =>
+                            createHTMLElement("div", { children: [`${a.label}: ${signedInteger(a.value)}`] }).outerHTML
+                    )
+                    .join("\n");
+            }
         }
         convertXMLNode(html, "unadjusted", {
             visible: resultData.visible,
@@ -699,7 +714,7 @@ class CheckPF2e {
                 classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value], "adjusted"],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
-            adjustedNode.dataset.adjustment = game.i18n.localize(degree.adjustment.label);
+            adjustedNode.dataset.tooltip = degree.adjustment.label;
         }
 
         convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });

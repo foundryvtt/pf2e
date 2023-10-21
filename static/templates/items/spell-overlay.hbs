@@ -2,7 +2,7 @@
     {{#if (eq type "heighten")}}
         <h3 class="form-group">
             <label>{{localize "PF2E.SpellScalingOverlay.Label"}}</label>
-            <div class="details-container-flex-row">
+            <div class="form-fields">
                 <select data-action="change-level">
                     {{#select level}}
                         {{#each heightenLevels as |key|}}
@@ -11,17 +11,17 @@
                     {{/select}}
                 </select>
                 <div class="item-controls">
-                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    <a data-action="overlay-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </div>
         </h3>
     {{else}}
         <div class="form-group">
             <label>{{localize "PF2E.Item.NameLabel"}}</label>
-            <div class="details-container-flex-row">
+            <div class="form-fields">
                 <input type="text" name="{{base}}.name" value="{{overlay.name}}" />
                 <div class="item-controls">
-                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    <a data-action="overlay-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 <a data-action="overlay-remove-property" data-property="components"><i class="fa fa-times" ></i></a>
                 {{localize "PF2E.SpellComponentsLabel"}}
             </label>
-            <div class="details-container-flex-row spell-components">
+            <div class="form-fields spell-components">
                 <label>
                     <input type="checkbox" name="{{dataPath}}.components.focus" {{checked system.components.focus}} />
                     <span>{{localize "PF2E.SpellComponentShortF"}}</span>
@@ -132,13 +132,13 @@
                 <a data-action="overlay-remove-property" data-property="damage"><i class="fa fa-times" ></i></a>
                 {{localize "PF2E.FormulaPlaceholder"}}
                 <div class="item-controls">
-                    <i class="fas fa-plus" data-action="damage-create"></i>
+                    <i class="fa-solid fa-plus" data-action="damage-create"></i>
                 </div>
             </h3>
 
             {{#each system.damage.value as |damage id|}}
                 <div class="formula-section">
-                    <div class="details-container-flex-row">
+                    <div class="form-fields">
                         <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
                             <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
@@ -166,8 +166,8 @@
                                 data-title="PF2E.DamageCategoriesLabel"
                                 data-config-types="damageCategories"
                                 data-property="{{../dataPath}}.damage.value.{{id}}.type.categories"
-                            ><i class="fas fa-edit"></i></a>
-                            <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-trash"></i></a>
+                            ><i class="fa-solid fa-edit"></i></a>
+                            <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
                     {{#if damage.type.categories}}

@@ -29,7 +29,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         title: localize("Title"),
         content: localize("Content"),
         yes: () => {
-            const { resolve, sp } = actor.system.attributes;
+            const sp = actor.system.attributes.hp.sp ?? { value: 0, max: 0 };
+            const resolve = actor.system.resources.resolve ?? { value: 0, max: 0 };
             const spRatio = `${sp.value}/${sp.max}`;
             const recoverStamina = localize("RecoverStamina", { name: actor.name, ratio: spRatio });
             const noStamina = localize("NoStamina", { name: actor.name });
@@ -37,8 +38,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
                 toChat(actor.name, recoverStamina);
                 const newSP = sp.value + Math.floor(sp.max / 2);
                 actor.update({
-                    "system.attributes.sp.value": Math.min(newSP, sp.max),
-                    "system.attributes.resolve.value": resolve.value - 1,
+                    "system.attributes.hp.sp.value": Math.min(newSP, sp.max),
+                    "system.resources.resolve.value": resolve.value - 1,
                 });
             } else {
                 toChat(actor.name, noStamina);

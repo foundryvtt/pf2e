@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, FamiliarPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
@@ -28,7 +28,7 @@ import {
     SKILL_DICTIONARY,
     SKILL_EXPANDED,
 } from "@actor/values.ts";
-import {
+import type {
     AncestryPF2e,
     BackgroundPF2e,
     ClassPF2e,
@@ -36,10 +36,9 @@ import {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
-    ItemPF2e,
     PhysicalItemPF2e,
-    WeaponPF2e,
 } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
@@ -335,7 +334,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
+        type SystemDataPartial = DeepPartial<
+            Pick<CharacterSystemData, "build" | "crafting" | "proficiencies" | "saves">
+        > & { abilities: Abilities };
+        const systemData: SystemDataPartial = this.system;
         const existingBoosts = systemData.build?.attributes?.boosts;
         const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
 
@@ -540,12 +542,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             if (game.settings.get("pf2e", "staminaVariant")) {
                 const halfClassHp = Math.floor(classHP / 2);
-                systemData.attributes.sp.max = (halfClassHp + systemData.abilities.con.mod) * this.level;
-                systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
+                systemData.attributes.hp.sp = {
+                    value: systemData.attributes.hp.sp?.value ?? 0,
+                    max: (halfClassHp + systemData.abilities.con.mod) * this.level,
+                };
+                systemData.resources.resolve = {
+                    value: systemData.resources.resolve?.value ?? 0,
+                    max: systemData.abilities[systemData.details.keyability.value].mod,
+                };
 
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, "untyped"));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, "untyped"));
+                delete systemData.resources.resolve;
 
                 // Facilitate level-zero variant play by always adding the constitution modifier at at least level 1
                 const conHP = systemData.abilities.con.mod * Math.max(this.level, 1);
@@ -734,9 +743,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Enforce a minimum of -5 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
         for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.trunc(Math.clamped(ability.mod, -5, 10));
-            // Record base modifier: same as stored modifier if in manual mode, and prior to RE modifications otherwise
-            ability.base = ability.mod;
+            ability.mod = Math.clamped(ability.mod, -5, 10);
+            // Record base (integer) modifier: same as stored modifier if in manual mode, and prior to RE
+            // modifications otherwise. The final prepared modifier is truncated after application of AE-likes.
+            ability.base = Math.trunc(ability.mod);
         }
     }
 
@@ -826,7 +836,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
 
         return new ArmorStatistic(this, {
-            rank: proficiency?.rank ?? 0,
+            rank: proficiency.rank,
             attribute: attributeModifier.ability!,
             modifiers: [attributeModifier],
         });
@@ -1046,7 +1056,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             this.feats.createGroup(section);
         }
 
-        this.feats.assignFeats();
+        this.feats.assignToSlots();
 
         // These are not handled by character feats
         const feats = this.itemTypes.feat
@@ -1217,8 +1227,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
-        const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p && (p.definition?.test(weaponProficiencyOptions) ?? true))
+        const syntheticRanks = R.compact(Object.values(proficiencies.attacks))
+            .filter((p) => p.immutable && (p.definition?.test(weaponProficiencyOptions) ?? true))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
@@ -1285,9 +1295,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weaponPotency) {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             // In case of a WeaponPotency RE, add traits to establish the weapon as being magical
-            if (!weapon.isMagical && !ABP.isEnabled) {
-                weapon.system.traits.value.push("magical", "evocation");
+            if (!weapon.isMagical && (weaponPotency.type === "item" || !ABP.isEnabled(weapon.actor))) {
+                weapon.system.traits.value.push("magical");
             }
+
+            // Update logged value in case a rule element has changed it
+            weapon.flags.pf2e.attackItemBonus = weaponPotency.bonus;
         }
 
         const shoddyPenalty = createShoddyPenalty(this, weapon, attackDomains);
@@ -1509,7 +1522,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     item: weapon,
                     domains: attackDomains,
                     statistic: action,
-                    target: { token: game.user.targets.first() ?? null },
+                    target: { token: params.target ?? game.user.targets.first() ?? null },
                     defense: "armor",
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
@@ -1751,9 +1764,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     rank: proficiency.rank,
                     domains: [],
                 });
-                proficiency.value = proficiencyBonus.modifier;
-                const sign = proficiencyBonus.modifier < 0 ? "" : "+";
-                proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
+                proficiency.value = proficiencyBonus.value;
+                proficiency.breakdown = `${proficiencyBonus.label} ${signedInteger(proficiencyBonus.value)}`;
             }
         }
     }
@@ -1823,21 +1835,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
-            if (changed.system?.attributes?.sp) {
-                changed.system.attributes.sp.value = Math.clamped(
-                    changed.system?.attributes?.sp?.value || 0,
-                    0,
-                    systemData.attributes.sp.max
-                );
+            if (changed.system?.attributes?.hp?.sp) {
+                changed.system.attributes.hp.sp.value =
+                    Math.floor(
+                        Math.clamped(
+                            changed.system.attributes.hp.sp?.value ?? 0,
+                            0,
+                            systemData.attributes.hp.sp?.max ?? 0
+                        )
+                    ) || 0;
             }
 
             // Do not allow resolve to go over max
-            if (changed.system?.attributes?.resolve) {
-                changed.system.attributes.resolve.value = Math.clamped(
-                    changed.system?.attributes?.resolve?.value || 0,
-                    0,
-                    systemData.attributes.resolve.max
-                );
+            if (changed.system?.resources?.resolve) {
+                changed.system.resources.resolve.value =
+                    Math.floor(
+                        Math.clamped(
+                            changed.system.resources.resolve.value ?? 0,
+                            0,
+                            systemData.resources.resolve?.max ?? 0
+                        )
+                    ) || 0;
             }
         }
 

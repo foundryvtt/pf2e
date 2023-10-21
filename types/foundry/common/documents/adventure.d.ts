@@ -51,8 +51,6 @@ export default class BaseAdventure extends Document<null, AdventureSchema> {
 }
 
 export default interface BaseAdventure extends Document<null, AdventureSchema>, ModelPropsFromSchema<AdventureSchema> {
-    readonly _source: AdventureSource;
-
     get documentName(): AdventureMetadata["name"];
 }
 
