@@ -282,7 +282,45 @@ const classTraits: Record<ClassTrait, string> = {
     wizard: "PF2E.TraitWizard",
 };
 
-const spellOtherTraits = {
+const alignmentTraits: Record<AlignmentTrait, string> = {
+    chaotic: "PF2E.TraitChaotic",
+    evil: "PF2E.TraitEvil",
+    good: "PF2E.TraitGood",
+    lawful: "PF2E.TraitLawful",
+};
+
+const damageTraits = {
+    ...alignmentTraits,
+    ...elementTraits,
+    ...energyDamageTypes,
+    light: "PF2E.TraitLight",
+    magical: "PF2E.TraitMagical",
+    mental: "PF2E.TraitMental",
+    nonlethal: "PF2E.TraitNonlethal",
+    plant: "PF2E.TraitPlant",
+    radiation: "PF2E.TraitRadiation",
+    vitality: "PF2E.TraitVitality",
+    void: "PF2E.TraitVoid",
+};
+
+const magicSchools: Record<MagicSchool, string> = {
+    abjuration: "PF2E.TraitAbjuration",
+    conjuration: "PF2E.TraitConjuration",
+    divination: "PF2E.TraitDivination",
+    enchantment: "PF2E.TraitEnchantment",
+    evocation: "PF2E.TraitEvocation",
+    illusion: "PF2E.TraitIllusion",
+    necromancy: "PF2E.TraitNecromancy",
+    transmutation: "PF2E.TraitTransmutation",
+};
+
+const spellTraits = {
+    ...alignmentTraits,
+    ...classTraits,
+    ...damageTraits,
+    ...elementTraits,
+    ...magicSchools,
+    ...magicTraditions,
     amp: "PF2E.TraitAmp",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
@@ -337,48 +375,6 @@ const spellOtherTraits = {
     teleportation: "PF2E.TraitTeleportation",
     "true-name": "PF2E.TraitTrueName",
     visual: "PF2E.TraitVisual",
-};
-
-const alignmentTraits: Record<AlignmentTrait, string> = {
-    chaotic: "PF2E.TraitChaotic",
-    evil: "PF2E.TraitEvil",
-    good: "PF2E.TraitGood",
-    lawful: "PF2E.TraitLawful",
-};
-
-const damageTraits = {
-    ...alignmentTraits,
-    ...elementTraits,
-    ...energyDamageTypes,
-    light: "PF2E.TraitLight",
-    magical: "PF2E.TraitMagical",
-    mental: "PF2E.TraitMental",
-    nonlethal: "PF2E.TraitNonlethal",
-    plant: "PF2E.TraitPlant",
-    radiation: "PF2E.TraitRadiation",
-    vitality: "PF2E.TraitVitality",
-    void: "PF2E.TraitVoid",
-};
-
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
-};
-
-const spellTraits = {
-    ...alignmentTraits,
-    ...classTraits,
-    ...damageTraits,
-    ...elementTraits,
-    ...magicSchools,
-    ...magicTraditions,
-    ...spellOtherTraits,
 };
 
 const weaponTraits = {
@@ -1407,7 +1403,6 @@ export {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
-    spellOtherTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,
