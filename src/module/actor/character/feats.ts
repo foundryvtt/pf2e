@@ -32,11 +32,10 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
 
         // Find every ancestry and versatile heritage the actor counts as, then get all the traits that match them,
         // falling back to homebrew
-        const ancestryTraitsFilter = (
+        const ancestryTraitsFilter =
             actor.system.details.ancestry?.countsAs
                 .map((t) => getVanillaOrHomebrewTrait(t))
-                .filter((e): e is Exclude<typeof e, null> => e !== null) ?? []
-        ).map((x) => `traits-${x}`);
+                .flatMap((t) => (t ? `traits-${t}` : [])) ?? [];
 
         this.createGroup({
             id: "ancestry",
