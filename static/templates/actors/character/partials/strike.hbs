@@ -7,17 +7,15 @@
         <div class="actions-title">
             {{#unless omitName}}
                 <div class="action-name">
-                    <h4>
-                        {{action.label}}
-                        {{#if action.item.isTemporary}}
-                            <i
-                                class="fa-solid fa-info-circle"
-                                data-tooltip="PF2E.TemporaryItemToolTip"
-                                data-tooltip-class="pf2e"
-                                data-tooltip-direction="RIGHT"
-                            ></i>
-                        {{/if}}
-                    </h4>
+                    <h4>{{action.label}}</h4>
+                    {{#if action.item.isTemporary}}
+                        <i
+                            class="fa-solid fa-info-circle"
+                            data-tooltip="PF2E.TemporaryItemToolTip"
+                            data-tooltip-class="pf2e"
+                            data-tooltip-direction="RIGHT"
+                        ></i>
+                    {{/if}}
                 </div>
             {{/unless}}
 

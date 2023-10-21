@@ -406,8 +406,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 // Set damage-formula tooltips
                 strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
                     if (!formula) return;
-                    button.title = formula.toString();
-                    $(button).tooltipster({ position: "top", theme: "crb-hover" });
+                    button.dataset.tooltip = formula.toString();
                 });
             }
         }
