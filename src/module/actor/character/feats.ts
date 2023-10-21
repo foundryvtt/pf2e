@@ -30,22 +30,24 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             supported: ["classfeature"],
         });
 
+        // Find every ancestry and versatile heritage the actor counts as, then get all the traits that match them,
+        // falling back to homebrew
+        const ancestryTraitsFilter =
+            actor.system.details.ancestry?.countsAs
+                .map((t) => getVanillaOrHomebrewTrait(t))
+                .flatMap((t) => (t ? `traits-${t}` : [])) ?? [];
+
         this.createGroup({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
-            featFilter: actor.system.details.ancestry?.countsAs.map((t) => `traits-${t}`) ?? [],
+            featFilter: ancestryTraitsFilter,
             supported: ["ancestry"],
             slots: classFeatSlots?.ancestry ?? [],
         });
 
         // Attempt to acquire the trait corresponding with actor's class, falling back to homebrew variations
         const classSlug = actor.class ? actor.class.slug ?? sluggify(actor.class.name) : null;
-        const classTrait =
-            (classSlug ?? "") in CONFIG.PF2E.featTraits
-                ? classSlug
-                : `hb_${classSlug}` in CONFIG.PF2E.featTraits
-                ? `hb_${classSlug}`
-                : null;
+        const classTrait = getVanillaOrHomebrewTrait(classSlug);
 
         const classFeatFilter = !classTrait
             ? // A class hasn't been selected: no useful pre-filtering available
@@ -394,6 +396,10 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
         return changed;
     }
+}
+
+function getVanillaOrHomebrewTrait(slug: string | null) {
+    return (slug ?? "") in CONFIG.PF2E.featTraits ? slug : `hb_${slug}` in CONFIG.PF2E.featTraits ? `hb_${slug}` : null;
 }
 
 function isBoonOrCurse(feat: FeatPF2e) {
