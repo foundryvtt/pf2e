@@ -1,9 +1,7 @@
-.sheet.actor.loot {
-    form {
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-    }
+.sheet.actor.loot form {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 
     section.sidebar {
         display: flex;
@@ -24,6 +22,7 @@
                 border: none;
                 border-bottom: 1px solid var(--color-text-light-7);
             }
+
             [data-action="show-image"] {
                 bottom: 3px;
                 right: 2px;
@@ -37,14 +36,21 @@
             padding: 0.25rem;
 
             .loot-distribution {
-                @include button;
-                background-color: var(--tertiary);
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                button {
+                    background-color: var(--tertiary);
+
+                    &:not(:hover) {
+                        @include button;
+                    }
+                }
             }
 
             label {
-                display: flex;
-                align-items: center;
-                font-weight: bold;
+                font-weight: 500;
             }
         }
 
