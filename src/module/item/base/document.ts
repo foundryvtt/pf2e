@@ -560,7 +560,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const rules = item.prepareRuleElements({ suppressWarnings: true });
             for (const rule of rules) {
                 const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
-                await rule.preCreate?.({ itemSource, ruleSource, pendingItems: outputSources, context });
+                await rule.preCreate?.({
+                    itemSource,
+                    ruleSource,
+                    pendingItems: outputSources,
+                    tempItems: items,
+                    context,
+                });
             }
         }
 
@@ -804,7 +810,7 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     onPrepareSynthetics?(this: ItemPF2e<ActorPF2e>): void;
 
     /** Returns items that should also be added when this item is created */
-    createGrantedItems(options?: object): Promise<ItemPF2e[]>;
+    createGrantedItems?(options?: object): Promise<ItemPF2e[]>;
 
     /** Returns items that should also be deleted should this item be deleted */
     getLinkedItems?(): ItemPF2e<ActorPF2e>[];

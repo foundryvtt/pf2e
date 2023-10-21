@@ -116,6 +116,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
+
         ruleSource.flag =
             typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
                 ? sluggify(ruleSource.flag, { camel: "dromedary" })
@@ -172,7 +173,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             rule.onApplyActiveEffects?.();
         }
 
-        this.#applyChoiceSelections(tempGranted);
+        this.#applyChoicePreselections(tempGranted);
 
         try {
             for (const alteration of this.alterations) {
@@ -183,6 +184,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         if (this.ignored) return;
+
+        args.tempItems.push(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
@@ -228,7 +231,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
+        await this.preCreate({ itemSource, pendingItems, ruleSource, tempItems: [], context, reevaluation: true });
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
@@ -266,7 +269,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         return null;
     }
 
-    #applyChoiceSelections(grantedItem: ItemPF2e<ActorPF2e>): void {
+    /** Apply preselected choices to the granted item's choices sets. */
+    #applyChoicePreselections(grantedItem: ItemPF2e<ActorPF2e>): void {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(

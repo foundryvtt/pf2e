@@ -463,7 +463,9 @@ namespace RuleElementPF2e {
         /** The source of the rule in `itemSource`'s `system.rules` array */
         ruleSource: T;
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
-        pendingItems: PreCreate<ItemSourcePF2e>[];
+        pendingItems: ItemSourcePF2e[];
+        /** Items temporarily constructed from pending item source */
+        tempItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.createDocuments` call */
         context: DocumentModificationContext<ActorPF2e | null>;
         /** Whether this preCreate run is from a pre-update reevaluation */

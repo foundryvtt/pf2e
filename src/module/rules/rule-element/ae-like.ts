@@ -90,27 +90,32 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         );
     }
 
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    override async preCreate(): Promise<void> {
+        if (this.phase === "applyAEs") this.#applyAELike();
+    }
+
     /** Apply the modifications immediately after proper ActiveEffects are applied */
     override onApplyActiveEffects(): void {
-        if (this.phase === "applyAEs") this.applyAELike();
+        if (this.phase === "applyAEs") this.#applyAELike();
     }
 
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
     override beforePrepareData(): void {
-        if (this.phase === "beforeDerived") this.applyAELike();
+        if (this.phase === "beforeDerived") this.#applyAELike();
     }
 
     /** Apply the modifications at the conclusion of the actor's derived-data preparation */
     override afterPrepareData(): void {
-        if (this.phase === "afterDerived") this.applyAELike();
+        if (this.phase === "afterDerived") this.#applyAELike();
     }
 
     /** Apply the modifications prior to a Check (roll) */
     override beforeRoll(_domains: string[], rollOptions: Set<string>): void {
-        if (this.phase === "beforeRoll") this.applyAELike(rollOptions);
+        if (this.phase === "beforeRoll") this.#applyAELike(rollOptions);
     }
 
-    protected applyAELike(rollOptions?: Set<string>): void {
+    #applyAELike(rollOptions?: Set<string>): void {
         if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
