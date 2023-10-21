@@ -1,3 +1,43 @@
+## 5.7.3
+
+### System Improvements
+
+-   (stwlam) Add round-end expiry option for effects
+-   (stwlam) Add search input on spell preparation dialog
+-   (stwlam) Include `@target` as resolvable in strike, spell, and blast damage rolls
+
+### Bugfixes
+
+-   (Cerapter) Fix ancestry featgroup not being able to filter for homebrew ancestries
+-   (Cerapter) Include custom IWR definitions in weaknesses and immunities
+-   (stwlam) Prevent error from being thrown in some circumstances when damage dice doubling is enabled
+-   (stwlam) Fix issue causing some oracular curse effects to not automatically adjust condition values
+-   (stwlam) Fix issue causing thief rogues to roll unarmed strike damage with no attribute modifier
+-   (Supe) Prevent party-actor data preparation failure when familiar data preparation fails
+
+### Data Updates
+
+-   (Cora) Make minor Kingmaker data entry tweaks and fixes
+-   (CrackJackFlood) Add inert effects for Rage of Elements stances
+-   (CrackJackFlood) Brush up effects for scouting
+-   (Dire Weasel) Add automation for NPC Expanded Splash and update bomb Strikes
+-   (Dire Weasel) Add custom resistance for Maliadi's Collar of Fire
+-   (Dire Weasel) Add effect for Vitrifying Blast and Warding Statuette
+-   (Dire Weasel) Add infused alchemical items to Blue Viper's (Level 20) inventory, infused trait to several NPC items
+-   (Dire Weasel) Add otherTags to Rune Patron and Way of the Spellshot
+-   (Dire Weasel) Brush up automation for some skeleton bestiary abilities and Vewslog's Deadeye
+-   (Dire Weasel) Refresh copies of NPC bomb strikes
+-   (Jesse) Add size increase for heightened Righteous Might spell effect
+-   (jfn4th) Fix rarely occuring aberrant rendering of actions on PC sheet
+-   (stwlam) Add alternate crit spec effect to Lavasoul feat's Magma Spike
+-   (stwlam) Expire Devise a Stratagem effect at end of current round
+-   (stwlam) Improve automation of Fearsome Brute feat
+-   (Tikael) Add missing spells to FotRP actor
+-   (Tikael) Automate Kineticist critical junctions
+-   (Tikael) Automate Buckler Expertise feat
+-   (Tikael) Fix DC of inline save in Mountain Quake
+-   (TiloBuechsenschuss) Fix strike names for Vegetable Lamb and spell variants for Falling Stars
+
 ## 5.7.2
 
 ### System Improvements
