@@ -62,7 +62,6 @@ import {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
-    spellOtherTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,
@@ -598,8 +597,6 @@ export const PF2ECONFIG = {
     },
 
     magicTraditions,
-    spellOtherTraits,
-
     magicSchools,
     classTraits,
     ancestryTraits,
