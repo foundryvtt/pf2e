@@ -96,7 +96,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     override prepareBaseData(): void {
+        // Provide base structure for parent method
+        this.system.details.level = { value: 0 };
+
         super.prepareBaseData();
+
         this.members = this.system.details.members
             .map((m) => fromUuidSync(m.uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"))
@@ -143,7 +147,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 (m) => m.level
             )
         );
-        this.system.details.level = { value: partyLevel };
+        this.system.details.level.value = partyLevel;
     }
 
     /** Run rule elements (which may occur if it contains a kingdom) */

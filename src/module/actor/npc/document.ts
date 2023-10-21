@@ -108,7 +108,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
         const { level } = details;
-        level.base = level.value;
+        level.base = Math.clamped(level.value, -1, 100);
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 

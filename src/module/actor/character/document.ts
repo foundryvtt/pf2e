@@ -694,7 +694,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Resources
         const { focus, crafting } = this.system.resources;
-        focus.max = Math.clamped(focus.max, 0, focus.cap);
+        focus.max = Math.floor(Math.clamped(focus.max, 0, focus.cap));
+        crafting.infusedReagents.max = Math.floor(crafting.infusedReagents.max) || 0;
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
         if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
@@ -1810,6 +1811,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         user: UserPF2e
     ): Promise<boolean | void> {
         const systemData = this.system;
+
+        // Clamp infused reagents
+        if (typeof changed.system?.resources?.crafting?.infusedReagents?.value === "number") {
+            changed.system.resources.crafting.infusedReagents.value =
+                Math.max(0, Math.floor(changed.system.resources.crafting.infusedReagents.value)) || 0;
+        }
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
         if (changed.system?.details?.level || changed.system?.build?.attributes) {
