@@ -741,13 +741,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        $html.find("i.fa-info-circle.small[title]").tooltipster({
-            maxWidth: 275,
-            position: "right",
-            theme: "crb-hover",
-            contentAsHTML: true,
-        });
-
         this.#activateBlastListeners(actionsPanel);
 
         {

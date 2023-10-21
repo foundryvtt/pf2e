@@ -298,8 +298,6 @@ class AttributeBuilder extends Application {
             theme: "crb-hover",
         });
 
-        $html.find("div.tooltip").tooltipster();
-
         // Input handling for manual attribute score entry
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             input.addEventListener("focus", () => {
