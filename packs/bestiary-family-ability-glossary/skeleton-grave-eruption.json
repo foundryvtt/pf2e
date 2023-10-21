@@ -21,7 +21,41 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "grave-eruption",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "melee",
+                    "grave-eruption"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "melee",
+                    "grave-eruption"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}",
+                "visibility": "owner"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
