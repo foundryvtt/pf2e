@@ -1,6 +1,6 @@
 <div class="control-area">
     <div class="sortcontainer" id="tagfilter">
-        <input name="textFilter" type="search" value="{{filterData.search.text}}" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
+        <input name="textFilter" type="search" value="{{filterData.search.text}}" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" />
         <dl>
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
@@ -14,15 +14,15 @@
                 <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">
                     {{#if (eq filterData.order.direction "asc")}}
                         {{#if (eq filterData.order.by "name")}}
-                            <i class="fas fa-sort-alpha-up"></i>
+                            <i class="fa-solid fa-sort-alpha-up"></i>
                         {{else}}
-                            <i class="fas fa-sort-numeric-up"></i>
+                            <i class="fa-solid fa-sort-numeric-up"></i>
                         {{/if}}
                     {{else}}
                         {{#if (eq filterData.order.by "name")}}
-                            <i class="fas fa-sort-alpha-down-alt"></i>
+                            <i class="fa-solid fa-sort-alpha-down-alt"></i>
                         {{else}}
-                            <i class="fas fa-sort-numeric-down-alt"></i>
+                            <i class="fa-solid fa-sort-numeric-down-alt"></i>
                         {{/if}}
                     {{/if}}
                 </a>
