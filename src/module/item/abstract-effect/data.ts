@@ -104,6 +104,7 @@ export type {
     DurationData,
     EffectAuraData,
     EffectBadge,
+    EffectBadgeCounter,
     EffectBadgeFormulaSource,
     EffectBadgeSource,
     EffectBadgeValueSource,
