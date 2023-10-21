@@ -1,15 +1,15 @@
 <div class="pf2e chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
-        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}</h3>
     </header>
-    <div class="tags">
+
+    <div class="tags" data-tooltip-class="pf2e">
         {{#each data.traits}}
-            {{#unless trait.mystified}}
-                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
-            {{/unless}}
+            <span class="tag" data-trait="{{this.name}}" data-tooltip="{{this.description}}">{{localize this.label}}</span>
         {{/each}}
     </div>
+
     <div class="card-content">
         {{{item.description}}}
     </div>
