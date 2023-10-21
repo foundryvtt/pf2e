@@ -52,7 +52,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             const actor = game.actors.get(element.dataset.documentId ?? "");
             const hideLevel = actor?.isOfType("character", "familiar", "vehicle", "hazard")
                 ? !actor?.testUserPermission(game.user, "LIMITED")
-                : !actor?.testUserPermission(game.user, "OBSERVER")
+                : !actor?.testUserPermission(game.user, "OBSERVER");
 
             if (hideLevel) element.querySelector("span.actor-level")?.remove();
         }
