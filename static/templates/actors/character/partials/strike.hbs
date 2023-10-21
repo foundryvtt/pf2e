@@ -9,7 +9,14 @@
                 <div class="action-name">
                     <h4>
                         {{action.label}}
-                        {{#if action.item.isTemporary}}<i class="fa-solid fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
+                        {{#if action.item.isTemporary}}
+                            <i
+                                class="fa-solid fa-info-circle"
+                                data-tooltip="PF2E.TemporaryItemToolTip"
+                                data-tooltip-class="pf2e"
+                                data-tooltip-direction="RIGHT"
+                            ></i>
+                        {{/if}}
                     </h4>
                 </div>
             {{/unless}}
