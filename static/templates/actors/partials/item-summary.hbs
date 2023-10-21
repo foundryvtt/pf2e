@@ -1,8 +1,8 @@
 {{#if identified}}
     {{#if item.system.traits}}
-        <div class="tags item-properties">
+        <div class="tags item-properties" data-tooltip-class="pf2e">
             {{#if rarityLabel}}
-                <span class="tag {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+                <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
             {{/if}}
             {{#each chatData.traits as |trait|}}
                 <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>

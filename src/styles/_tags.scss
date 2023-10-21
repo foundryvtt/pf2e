@@ -48,6 +48,32 @@
             text-transform: none;
         }
 
+        &.rarity {
+            &.common,
+            &[value="common"],
+            > option[value="common"] {
+                background-color: var(--color-rarity-common);
+            }
+
+            &.uncommon,
+            &[value="uncommon"],
+            > option[value="uncommon"] {
+                background-color: var(--color-rarity-uncommon);
+            }
+
+            &.rare,
+            &[value="rare"],
+            > option[value="rare"] {
+                background-color: var(--color-rarity-rare);
+            }
+
+            &.unique,
+            &[value="unique"],
+            > option[value="unique"] {
+                background-color: var(--color-rarity-unique);
+            }
+        }
+
         &.mystified {
             opacity: 0.7;
         }
@@ -105,32 +131,6 @@
 
         &:last-child {
             border-right-width: 3px;
-        }
-
-        &.rarity {
-            &.common,
-            &[value="common"],
-            > option[value="common"] {
-                background-color: var(--color-rarity-common);
-            }
-
-            &.uncommon,
-            &[value="uncommon"],
-            > option[value="uncommon"] {
-                background-color: var(--color-rarity-uncommon);
-            }
-
-            &.rare,
-            &[value="rare"],
-            > option[value="rare"] {
-                background-color: var(--color-rarity-rare);
-            }
-
-            &.unique,
-            &[value="unique"],
-            > option[value="unique"] {
-                background-color: var(--color-rarity-unique);
-            }
         }
 
         &.alignment {
