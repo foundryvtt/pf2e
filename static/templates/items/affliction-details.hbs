@@ -19,7 +19,7 @@
         <header>
             <h3>{{localize "PF2E.Item.Affliction.Stage" stage=stage.stage}}</h3>
             <div class="item-controls">
-                <i class="fas fa-fw fa-times" data-action="stage-delete"></i>
+                <i class="fa-solid fa-fw fa-times" data-action="stage-delete"></i>
             </div>
         </header>
 
@@ -27,7 +27,7 @@
             <h3>
                 {{localize "PF2E.FormulaPlaceholder"}}
                 <div class="item-controls">
-                    <i class="fas fa-fw fa-plus" data-action="damage-create"></i>
+                    <i class="fa-solid fa-fw fa-plus" data-action="damage-create"></i>
                 </div>
             </h3>
 
@@ -51,7 +51,7 @@
                             {{/select}}
                         </select>
                         <div class="item-controls">
-                            <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-fw fa-times"></i></a>
+                            <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-fw fa-times"></i></a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
             <h3>
                 {{localize "PF2E.ConditionsLabel"}}
                 <div class="item-controls">
-                    <i class="fas fa-fw fa-plus" data-action="condition-create"></i>
+                    <i class="fa-solid fa-fw fa-plus" data-action="condition-create"></i>
                 </div>
             </h3>
             <div class="form-group two-by-two">
@@ -81,9 +81,9 @@
                         {{#if @root.options.editable}}
                             <div class="item-controls">
                                 <a class="link {{#if condition.linked}}linked{{/if}}" data-action="condition-link" title="{{localize "PF2E.Item.Affliction.Linked.Title"}}">
-                                    <i class="fas fa-fw {{#if condition.linked}}fa-link{{else}}fa-link-slash{{/if}}"></i>
+                                    <i class="fa-solid fa-fw {{#if condition.linked}}fa-link{{else}}fa-link-slash{{/if}}"></i>
                                 </a>
-                                <a class="remove" data-action="condition-delete"><i class="fa fa-fw fa-times"></i></a>
+                                <a class="remove" data-action="condition-delete"><i class="fa-solid fa-fw fa-times"></i></a>
                             </div>
                         {{/if}}
                     </div>
@@ -100,7 +100,7 @@
                             <img class="icon" src="{{effect.img}}" />
                             <a class="name document-link" data-uuid="{{effect.uuid}}" data-action="view-effect">{{effect.name}}</a>
                             <span></span>
-                            {{#if @root.options.editable}}<a class="remove" data-action="effect-delete"><i class="fa fa-times"></i></a>{{/if}}
+                            {{#if @root.options.editable}}<a class="remove" data-action="effect-delete"><i class="fa-solid fa-times"></i></a>{{/if}}
                         </li>
                     {{/each}}
                 </ul>
@@ -115,5 +115,5 @@
 {{/each}}
 
 <button type="button" data-action="stage-add">
-    <i class="fas fa-plus"></i>{{localize "PF2E.Item.Affliction.AddStage"}}
+    <i class="fa-solid fa-plus"></i>{{localize "PF2E.Item.Affliction.AddStage"}}
 </button>
