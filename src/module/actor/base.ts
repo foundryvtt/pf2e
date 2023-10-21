@@ -710,11 +710,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.system.autoChanges = {};
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, offGuardable: false };
 
-        const { attributes } = this.system;
+        const { attributes, details } = this.system;
         attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
         attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
         attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
         attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
+        details.level.value = Math.floor(details.level.value) || 0;
 
         const traits: ActorTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);

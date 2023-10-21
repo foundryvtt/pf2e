@@ -63,6 +63,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             details: {};
         };
         const systemData: PartialSystemData = this.system;
+        systemData.details.level = { value: 0 };
         systemData.traits = {
             value: ["minion"],
             senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
@@ -109,7 +110,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         const { master } = this;
-        systemData.details.level = { value: master?.level ?? 0 };
+        systemData.details.level.value = master?.level ?? 0;
         this.rollOptions.all[`self:level:${this.level}`] = true;
         systemData.details.alliance = master?.alliance ?? "party";
 
