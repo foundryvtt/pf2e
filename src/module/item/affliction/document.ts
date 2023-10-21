@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ConditionPF2e, ItemPF2e } from "@item";
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { AbstractEffectPF2e, EffectBadgeCounter } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -32,14 +32,16 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
     }
 
-    override get badge(): EffectBadge {
-        const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
+    override get badge(): EffectBadgeCounter {
         return {
             type: "counter",
             value: this.stage,
-            min: 1,
+            min: this.onsetDuration ? 0 : 1,
             max: this.maxStage,
-            label,
+            label:
+                this.stage === 0
+                    ? game.i18n.localize("PF2E.Item.Affliction.OnsetLabel")
+                    : game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage }),
         };
     }
 
@@ -62,6 +64,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         await this.update({ system: { stage } });
     }
 
+    /** Decreases the affliction stage, deleting if reduced to 0 even if an onset exists */
     override async decrease(): Promise<void> {
         const stage = this.system.stage - 1;
         if (stage === 0) {
@@ -86,7 +89,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.system.stage = Math.clamped(this.system.stage, 1, this.maxStage);
+        this.system.stage = Math.clamped(this.system.stage, this.badge.min, this.maxStage);
 
         // Set certain defaults
         for (const stage of Object.values(this.system.stages)) {
@@ -251,19 +254,30 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
             this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
+        } else {
+            // Force minimum stage if there is no actor
+            data.system.stage = data.system.onset ? 0 : 1;
         }
 
         return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
+        changed: DeepPartial<AfflictionSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             if (duration.value === -1) duration.value = 1;
+        }
+
+        // Force minimum stage if there is no actor
+        if (!this.actor) {
+            const hasOnset =
+                changed.system && "-=onset" in changed.system ? false : !!(changed.system?.onset ?? this.system.onset);
+            changed.system ??= {};
+            changed.system.stage = hasOnset ? 0 : 1;
         }
 
         return super._preUpdate(changed, options, user);

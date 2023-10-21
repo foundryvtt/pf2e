@@ -85,4 +85,5 @@ export type {
     AfflictionSource,
     AfflictionStageData,
     AfflictionSystemData,
+    AfflictionSystemSource,
 };
