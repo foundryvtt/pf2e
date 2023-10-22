@@ -78,6 +78,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.getTrackedAttributes(prunedData, _path);
     }
 
+    static override getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription {
+        // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered { value, max }
+        // property and sp is nested within the hp property
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            attributes.bar.push(["attributes", "hp", "sp"]);
+        }
+        return super.getTrackedAttributeChoices(attributes);
+    }
+
     /** This should be in Foundry core, but ... */
     get scene(): this["parent"] {
         return this.parent;
