@@ -425,11 +425,21 @@ class CompendiumPack {
             fs.mkdirSync(outDir, { recursive: true });
         }
 
-        const outFile = path.resolve(outDir, `${this.packDir}.json`);
+        const filePath = path.resolve(outDir, this.packDir);
+        const outFile = filePath.concat(".json");
         if (fs.existsSync(outFile)) {
             fs.rmSync(outFile, { force: true });
         }
         fs.writeFileSync(outFile, JSON.stringify(this.finalizeAll()));
+
+        // Save folders if available
+        if (this.folders.length > 0) {
+            const folderFile = filePath.concat("_folders.json");
+            if (fs.existsSync(folderFile)) {
+                fs.rmSync(folderFile, { force: true });
+            }
+            fs.writeFileSync(folderFile, JSON.stringify(this.folders));
+        }
         console.log(`File "${this.packDir}.json" with ${this.data.length} entries created successfully.`);
 
         return this.data.length;
