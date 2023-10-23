@@ -28,7 +28,82 @@
             "remaster": false,
             "title": "Pathfinder Book of the Dead"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "-1 * @actor.level"
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "all-damage",
+                "value": "ternary(lt(@actor.level, 10), 1, 2)"
+            },
+            {
+                "definition": [
+                    "damage",
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllMagicalDamage",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "custom",
+                "value": 3
+            },
+            {
+                "definition": [
+                    "damage",
+                    "item:magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "vitality",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllNonMagicalDamage",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "type": "custom",
+                "value": 5
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
