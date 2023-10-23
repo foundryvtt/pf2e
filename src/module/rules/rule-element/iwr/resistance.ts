@@ -1,6 +1,7 @@
 import { Resistance } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import { ResolvableValueField } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
@@ -28,7 +29,13 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 
         const resistances = this.property;
         for (const resistanceType of [...this.type]) {
-            const current = resistances.find((r) => r.type === resistanceType);
+            const current = resistances.find(
+                (r) =>
+                    r.type === resistanceType &&
+                    R.equals(r.exceptions, this.exceptions) &&
+                    R.equals(r.doubleVs, this.doubleVs) &&
+                    R.equals(r.definition, this.definition ?? null)
+            );
             if (current) {
                 if (this.override) {
                     resistances.splice(resistances.indexOf(current), 1);

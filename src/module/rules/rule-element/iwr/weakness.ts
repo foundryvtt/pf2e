@@ -1,6 +1,7 @@
 import { Weakness } from "@actor/data/iwr.ts";
 import { WeaknessType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import { ResolvableValueField } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
@@ -28,7 +29,12 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
         const weaknesses = this.property;
 
         for (const weaknessType of [...this.type]) {
-            const current = weaknesses.find((w) => w.type === weaknessType);
+            const current = weaknesses.find(
+                (w) =>
+                    w.type === weaknessType &&
+                    R.equals(w.exceptions, this.exceptions) &&
+                    R.equals(w.definition, this.definition ?? null)
+            );
             if (current) {
                 if (this.override) {
                     weaknesses.splice(weaknesses.indexOf(current), 1);
