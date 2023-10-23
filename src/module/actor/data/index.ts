@@ -1,3 +1,4 @@
+import { ArmySource } from "@actor/army/data.ts";
 import { CharacterSource } from "@actor/character/data.ts";
 import { CreatureActorType } from "@actor/creature/data.ts";
 import { FamiliarSource } from "@actor/familiar/data.ts";

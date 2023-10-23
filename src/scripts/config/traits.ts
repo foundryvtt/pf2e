@@ -967,6 +967,7 @@ const traitDescriptions = {
     arcane: "PF2E.TraitDescriptionArcane",
     archetype: "PF2E.TraitDescriptionArchetype",
     ardande: "PF2E.TraitDescriptionArdande",
+    army: "PF2E.Warfare.Traits.armyDescription",
     artifact: "PF2E.TraitDescriptionArtifact",
     attached: "PF2E.TraitDescriptionAttached",
     "attached-to-crossbow-or-firearm": "PF2E.TraitDescriptionAttached",
