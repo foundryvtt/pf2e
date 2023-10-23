@@ -1,4 +1,3 @@
-import { ArmySource } from "@actor/army/data.ts";
 import { CharacterSource } from "@actor/character/data.ts";
 import { CreatureActorType } from "@actor/creature/data.ts";
 import { FamiliarSource } from "@actor/familiar/data.ts";
@@ -7,10 +6,11 @@ import { LootSource } from "@actor/loot/data.ts";
 import { NPCSource } from "@actor/npc/data.ts";
 import { PartySource } from "@actor/party/data.ts";
 import { VehicleSource } from "@actor/vehicle/data.ts";
+import { ArmySource } from "@actor/army/data.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 
 type CreatureSource = CharacterSource | NPCSource | FamiliarSource;
-type ActorType = CreatureActorType | "hazard" | "loot" | "party" | "vehicle";
+type ActorType = CreatureActorType | "hazard" | "loot" | "party" | "vehicle" | "army";
 
 type ActorSourcePF2e = CreatureSource | HazardSource | LootSource | PartySource | VehicleSource;
 
@@ -30,4 +30,5 @@ export type {
     PartySource,
     RollInitiativeOptionsPF2e,
     VehicleSource,
+    ArmySource,
 };
