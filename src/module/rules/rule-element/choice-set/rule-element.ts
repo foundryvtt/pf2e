@@ -221,7 +221,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      * @param rollOptions  A set of actor roll options to for use in predicate testing
-     * @param pendingItems Items passed to #queryCompendium for checking max takability of feats and for #choicesFromOwnedItems to refer to already selected items that are yet to be created
+     * @param pendingItems Items passed to #queryCompendium for checking max takability of feats
      * @returns The array of choices to present to the user
      */
     async inflateChoices(
@@ -232,7 +232,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
             : isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
             ? this.choices.ownedItems
-                ? this.#choicesFromOwnedItems(this.choices, rollOptions, pendingItems)
+                ? this.#choicesFromOwnedItems(this.choices, rollOptions)
                 : this.choices.attacks || this.choices.unarmedAttacks
                 ? this.#choicesFromAttacks(
                       new PredicatePF2e(this.resolveInjectedProperties(this.choices.predicate)),
@@ -306,11 +306,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         return [];
     }
 
-    #choicesFromOwnedItems(
-        options: ChoiceSetOwnedItems,
-        actorRollOptions: Set<string>,
-        pendingItems: PreCreate<ItemSourcePF2e>[]
-    ): PickableThing<string>[] {
+    #choicesFromOwnedItems(options: ChoiceSetOwnedItems, actorRollOptions: Set<string>): PickableThing<string>[] {
         const { includeHandwraps, types } = options;
         const predicate = new PredicatePF2e(this.resolveInjectedProperties(options.predicate));
 
@@ -336,24 +332,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" }))
             );
         }
-
-        choices.push(
-            ...pendingItems
-                .map((source) => {
-                    return new ItemProxyPF2e(deepClone(source));
-                })
-                .filter(
-                    (i) => i.isOfType(...types) && predicate.test([...actorRollOptions, ...i.getRollOptions("item")])
-                )
-                .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
-                .map(
-                    (i): PickableThing<string> => ({
-                        img: i.img,
-                        label: i.name,
-                        value: i.id,
-                    })
-                )
-        );
 
         return choices;
     }
