@@ -1,3 +1,17 @@
+## 5.7.4
+
+### Bugfixes
+
+-   (Cuingamehtar) Remove empty common rarity tag on feat chat cards
+-   (In3luki) Restore availability of stamina token bar attribute
+-   (stwlam) Fix dropping feats in campaign feat group
+-   (stwlam) Fix rendering error in Firefox of actor sheet inventories
+
+## Data Updates
+
+-   (stwlam) Automate Ghostly Resistance feat
+-   (Tikael) Fix rule element in Buckler Expertise
+
 ## 5.7.3
 
 ### System Improvements
