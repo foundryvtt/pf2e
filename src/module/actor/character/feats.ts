@@ -357,10 +357,10 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
     async insertFeat(feat: TItem, slotId: Maybe<string> = null): Promise<ItemPF2e<TActor>[]> {
         const slot = this.slots[slotId ?? ""];
-        const location = slot?.id ?? null;
-        const existing = this.actor.items
-            .filter((i): i is FeatLike<TActor> => isFeatLike(i))
-            .filter((i) => i.system.location === location);
+        const location = this.slotted || this.id === "bonus" ? slot?.id ?? null : this.id;
+        const existing = this.actor.items.filter(
+            (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location
+        );
         const isFeatValidInSlot = this.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
 
@@ -406,7 +406,7 @@ function isBoonOrCurse(feat: FeatPF2e) {
     return ["pfsboon", "deityboon", "curse"].includes(feat.category);
 }
 
-function isFeatLike(item: ItemPF2e): item is FeatLike {
+function isFeatLike<TActor extends ActorPF2e | null>(item: ItemPF2e<TActor>): item is FeatLike<TActor> {
     return "category" in item && "location" in item.system && "isFeat" in item && "isFeature" in item;
 }
 
