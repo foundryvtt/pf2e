@@ -12,7 +12,7 @@ import { StatisticRollParameters } from "@system/statistic/index.ts";
 type CreatureSource = CharacterSource | NPCSource | FamiliarSource;
 type ActorType = CreatureActorType | "hazard" | "loot" | "party" | "vehicle" | "army";
 
-type ActorSourcePF2e = CreatureSource | HazardSource | LootSource | PartySource | VehicleSource;
+type ActorSourcePF2e = ArmySource | CreatureSource | HazardSource | LootSource | PartySource | VehicleSource;
 
 interface RollInitiativeOptionsPF2e extends RollInitiativeOptions, StatisticRollParameters {
     secret?: boolean;
