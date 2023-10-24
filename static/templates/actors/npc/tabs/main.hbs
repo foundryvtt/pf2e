@@ -8,13 +8,13 @@
             <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
             <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
-        <div class="section-body">
+        <div class="section-body" data-tooltip-class="pf2e">
             {{#if identificationDCs.standard}}
-                <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Skills.Tooltip"}}">
+                <div class="tag-legacy identification-skills" data-tooltip="PF2E.Actor.NPC.Identification.Skills.Tooltip">
                     {{identificationDCs.standard}}
                 </div>
             {{/if}}
-            <div class="tag-legacy identification-skills" title="{{localize "PF2E.Actor.NPC.Identification.Lore.Tooltip"}}">
+            <div class="tag-legacy identification-skills" data-tooltip="PF2E.Actor.NPC.Identification.Lore.Tooltip">
                 {{identificationDCs.lore}}
             </div>
         </div>
