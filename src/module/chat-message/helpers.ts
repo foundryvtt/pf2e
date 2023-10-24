@@ -210,27 +210,24 @@ interface ApplyDamageFromMessageParams {
     rollIndex?: number;
 }
 
-function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): void {
-    new Dialog({
+async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): Promise<void> {
+    const content = await renderTemplate("systems/pf2e/templates/chat/damage/adjustment-dialog.hbs");
+    const AdjustmentDialog = class extends Dialog {
+        override activateListeners($html: JQuery): void {
+            super.activateListeners($html);
+            $html[0].querySelector("input")?.focus();
+        }
+    };
+    new AdjustmentDialog({
         title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
-        content: `<form>
-                <div class="form-group">
-                    <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
-                    <input type="number" name="modifier" value="" placeholder="0">
-                </div>
-                </form>
-                <script type="text/javascript">
-                $(function () {
-                    $(".form-group input").focus();
-                });
-                </script>`,
+        content,
         buttons: {
             ok: {
-                label: "Ok",
+                label: game.i18n.localize("PF2E.OK"),
                 callback: async ($dialog: JQuery) => {
                     // In case of healing, multipler will have negative sign. The user will expect that positive
                     // modifier would increase healing value, while negative would decrease.
-                    const adjustment = (Number($dialog.find("[name=modifier]").val()) || 0) * Math.sign(multiplier);
+                    const adjustment = (Number($dialog[0].querySelector("input")?.value) || 0) * Math.sign(multiplier);
                     applyDamageFromMessage({
                         message,
                         multiplier,
@@ -239,6 +236,9 @@ function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollInd
                         rollIndex,
                     });
                 },
+            },
+            cancel: {
+                label: "Cancel",
             },
         },
         default: "ok",
