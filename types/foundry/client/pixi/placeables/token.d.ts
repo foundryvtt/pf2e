@@ -244,12 +244,18 @@ declare global {
 
         override clear(): this;
 
-        protected _draw(): Promise<void>;
+        protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
+
+        protected override _draw(): Promise<void>;
+
+        /* -------------------------------------------- */
+        /*  Incremental Refresh                         */
+        /* -------------------------------------------- */
+
+        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
         /** Refresh the visibility. */
         protected _refreshVisibility(): void;
-
-        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;

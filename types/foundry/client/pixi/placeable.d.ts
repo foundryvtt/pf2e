@@ -160,7 +160,7 @@ declare global {
          * The inner _destroy method which may optionally be defined by each PlaceableObject subclass.
          * @param [options] Options passed to the initial destroy call
          */
-        protected _destroy(options?: object): void;
+        protected _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Draw the placeable object into its parent container */
         draw(): Promise<this>;
