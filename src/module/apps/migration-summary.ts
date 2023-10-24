@@ -66,8 +66,10 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("button[data-action=remigrate]").on("click", async (event) => {
+        const remigrateButton = html.querySelector<HTMLButtonElement>("button[data-action=remigrate]");
+        remigrateButton?.addEventListener("click", async () => {
             const { LATEST_SCHEMA_VERSION, RECOMMENDED_SAFE_VERSION } = MigrationRunner;
             const lowestVersions = {
                 actor:
@@ -84,12 +86,13 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
                 RECOMMENDED_SAFE_VERSION
             );
 
-            $html.find(".docs-successful").text("...");
+            const result = html.querySelector<HTMLElement>(".docs-successful");
+            if (result) result.textContent = "...";
 
             try {
                 this.isRemigrating = true;
                 this.options.troubleshoot = false;
-                $(event.currentTarget).prop("disabled", true);
+                remigrateButton.disabled = true;
                 await game.pf2e.system.remigrate({ from: lowestSchemaVersion });
                 this.options.troubleshoot = false;
                 this.render(false);
@@ -98,7 +101,9 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             }
         });
 
-        $html.find("button[data-action=close]").on("click", () => this.close());
+        html.querySelector("button[data-action=close]")?.addEventListener("click", () => {
+            this.close();
+        });
     }
 }
 
