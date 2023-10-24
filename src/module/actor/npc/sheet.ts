@@ -59,8 +59,8 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         this.#prepareSaves(sheetData.data);
     }
 
-    override async getData(): Promise<NPCSheetData<TActor>> {
-        const sheetData = (await super.getData()) as PrePrepSheetData<TActor>;
+    override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData<TActor>> {
+        const sheetData = (await super.getData(options)) as PrePrepSheetData<TActor>;
 
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
@@ -259,8 +259,14 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    override async getData(): Promise<NPCSheetData> {
-        const sheetData = (await super.getData()) as PrePrepSheetData;
+    override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
+        const sheetData = (await super.getData(options)) as PrePrepSheetData;
+
+        // Set the inventory tab as active on a loot-sheet rendering
+        if (this.isLootSheet) {
+            const tab = options?.tabs?.find((t) => t.navSelector === ".sheet-tabs");
+            if (tab) tab.initial = "inventory";
+        }
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
@@ -452,21 +458,12 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html.get(0)!;
-
-        // Set the inventory tab as active on a loot-sheet rendering.
-        if (this.isLootSheet) {
-            $html.find(".tab.inventory").addClass("active");
-        }
+        const html = $html[0];
 
         // Add events for recall knowledge. Does not exist for limited and loot sheets
         const mainPanel = htmlQuery(html, ".tab[data-tab=main]");
         if (mainPanel) {
             // Creature identification
-            for (const identificationDC of htmlQueryAll(mainPanel, ".recall-knowledge .identification-skills")) {
-                $(identificationDC).tooltipster({ position: "bottom", maxWidth: 350, theme: "crb-hover" });
-            }
-
             htmlQuery(mainPanel, ".recall-knowledge button.breakdown")?.addEventListener("click", () => {
                 new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
             });
@@ -476,13 +473,15 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         if (!this.isEditable) return;
 
         // Adjustments
-        $html.find(".adjustment").on("click", (event) => {
-            const adjustment = String(event.target.dataset.adjustment);
-            if (adjustment === "elite" || adjustment === "weak") {
-                const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
-                this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
-            }
-        });
+        for (const anchor of htmlQueryAll(html, "a[data-adjustment]")) {
+            anchor.addEventListener("click", () => {
+                const adjustment = anchor.dataset.adjustment;
+                if (adjustment === "elite" || adjustment === "weak") {
+                    const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
+                    this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
+                }
+            });
+        }
 
         // Handle spellcastingEntry attack and DC updates
         const selector = [".attack-input", ".dc-input", ".key-attribute select"]
@@ -492,33 +491,39 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
             element.addEventListener("change", (event) => this.#onChangeSpellcastingEntry(element, event));
         }
 
-        $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
-            const { actor } = this;
-            const itemId = event.currentTarget.closest<HTMLElement>(".item")?.dataset.itemId ?? "";
-            const item = actor.items.get(itemId, { strict: true });
-            if (!item.isOfType("weapon")) return;
+        for (const anchor of htmlQueryAll(html, "a[data-action=generate-attack]")) {
+            anchor.addEventListener("click", async () => {
+                const { actor } = this;
+                const itemId = htmlClosest(anchor, ".item")?.dataset.itemId ?? "";
+                const item = actor.items.get(itemId, { strict: true });
+                if (!item.isOfType("weapon")) return;
 
-            // Get confirmation from the user before replacing existing generated attacks
-            const existing = actor.itemTypes.melee.filter((m) => m.flags.pf2e.linkedWeapon === itemId).map((m) => m.id);
-            if (existing.length > 0) {
-                const proceed = await Dialog.confirm({
-                    title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
-                    content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
-                    defaultYes: false,
-                });
-                if (proceed) {
-                    await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
-                } else {
-                    return;
+                // Get confirmation from the user before replacing existing generated attacks
+                const existing = actor.itemTypes.melee
+                    .filter((m) => m.flags.pf2e.linkedWeapon === itemId)
+                    .map((m) => m.id);
+                if (existing.length > 0) {
+                    const proceed = await Dialog.confirm({
+                        title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
+                        content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
+                        defaultYes: false,
+                    });
+                    if (proceed) {
+                        await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
+                    } else {
+                        return;
+                    }
                 }
-            }
 
-            const attacks = item.toNPCAttacks().map((a) => a.toObject());
-            await actor.createEmbeddedDocuments("Item", attacks);
-            ui.notifications.info(
-                game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", { attack: attacks.at(0)?.name ?? "" })
-            );
-        });
+                const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                await actor.createEmbeddedDocuments("Item", attacks);
+                ui.notifications.info(
+                    game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
+                        attack: attacks.at(0)?.name ?? "",
+                    })
+                );
+            });
+        }
     }
 
     async #onChangeSpellcastingEntry(element: HTMLInputElement | HTMLSelectElement, event: Event): Promise<void> {

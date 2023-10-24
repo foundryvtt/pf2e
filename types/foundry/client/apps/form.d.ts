@@ -309,7 +309,7 @@ declare global {
         document: TDocument;
         data: {};
         limited: boolean;
-        options: FormApplicationOptions;
+        options: Partial<DocumentSheetOptions>;
         owner: boolean;
         title: string;
     }

@@ -134,6 +134,6 @@ declare global {
         cssClass: "editable" | "locked";
         effects: RawObject<ActiveEffect<TActor>>[];
         limited: boolean;
-        options: ActorSheetOptions;
+        options: Partial<ActorSheetOptions>;
     }
 }

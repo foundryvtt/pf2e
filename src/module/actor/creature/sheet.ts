@@ -26,7 +26,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** A DocumentSheet class presenting additional, per-actor settings */
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
-    override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
+    override async getData(options?: Partial<ActorSheetOptions>): Promise<CreatureSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
         const { actor } = this;
 
