@@ -4,12 +4,11 @@ import { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts
 import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
 import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
 import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
-import type { UserPF2e } from "@module/user/document.ts";
-import { DURATION_UNITS } from "./values.ts";
 import { calculateRemainingDuration } from "./helpers.ts";
+import { DURATION_UNITS } from "./values.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -23,21 +22,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
-        const requiresActorConstructed = !!(this.actor?._id && this.actor.isToken);
-        const requiresCanvasReady = !!this.system.context?.origin.actor.startsWith("Scene");
-        if ((requiresActorConstructed && !this.actor?.constructed) || (requiresCanvasReady && !canvas.ready)) {
-            return null;
+        if (!this.system.context?.origin || this.system.context.origin.actor === this.actor?.uuid) {
+            return this.actor;
         }
-
-        const actorOrToken: unknown = this.system.context?.origin.actor
-            ? fromUuidSync(this.system.context.origin.actor)
-            : this.actor;
-
-        return actorOrToken instanceof ActorPF2e
-            ? actorOrToken
-            : actorOrToken instanceof TokenDocumentPF2e
-            ? actorOrToken.actor
-            : this.actor;
+        const actor = fromUuidSync(this.system.context.origin.actor);
+        return actor instanceof ActorPF2e ? actor : null;
     }
 
     /** If false, the AbstractEffect should be hidden from the user unless they are a GM */
