@@ -79,13 +79,13 @@ class TokenAura implements TokenAuraData {
         return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.mechanicalBounds) === 0);
     }
 
-    /** Notify tokens' actors if they are inside an aura in this collection */
+    /** Notify tokens' actors if they are inside this aura. */
     async notifyActors(): Promise<void> {
         if (!this.scene.isInFocus) return;
 
         const auraActor = this.token.actor;
         const auraData = auraActor?.auras.get(this.slug);
-        if (!(auraActor && auraData)) return;
+        if (!(auraActor && auraData?.effects.length)) return;
 
         const auradTokens = this.scene.tokens.filter(
             (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t)
