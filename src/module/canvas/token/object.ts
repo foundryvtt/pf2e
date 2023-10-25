@@ -196,6 +196,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
+    /** Reposition aura textures after this token has moved. */
+    protected override _applyRenderFlags(flags: Record<string, boolean>): void {
+        super._applyRenderFlags(flags);
+        if (flags.refreshPosition) this.auras.refreshPositions();
+    }
+
     /** Draw auras and flanking highlight lines if certain conditions are met */
     protected override _refreshVisibility(): void {
         super._refreshVisibility();
