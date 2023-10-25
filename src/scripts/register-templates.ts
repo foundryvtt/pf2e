@@ -137,11 +137,11 @@ export function registerTemplates(): void {
         // Vehicle partials
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/details.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/actions.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/inventory.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/description.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/effects.hbs",
 
         // Compendium Browser Partials
         "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
