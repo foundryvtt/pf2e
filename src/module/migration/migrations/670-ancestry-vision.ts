@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
-import { AncestrySource, ItemSourcePF2e } from "@item/data/index.ts";
+import { AncestrySource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 

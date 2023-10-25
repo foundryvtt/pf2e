@@ -1,4 +1,4 @@
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { Rarity } from "./data.ts";
 
 /**

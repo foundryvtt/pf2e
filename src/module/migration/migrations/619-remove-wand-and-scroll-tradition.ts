@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base.ts";

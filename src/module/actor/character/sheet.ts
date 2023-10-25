@@ -18,8 +18,7 @@ import {
     PhysicalItemPF2e,
 } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
-import { ActionCost, Frequency } from "@item/data/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";

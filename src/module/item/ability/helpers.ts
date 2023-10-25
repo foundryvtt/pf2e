@@ -1,5 +1,5 @@
 import { EffectPF2e, ItemPF2e } from "@item";
-import { FrequencySource } from "@item/data/base.ts";
+import { FrequencySource } from "@item/base/data/system.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { RangeData } from "@item/types.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";

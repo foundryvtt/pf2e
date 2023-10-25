@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {

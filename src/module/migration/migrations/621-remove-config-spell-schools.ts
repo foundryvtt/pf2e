@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
 import { objectHasKey, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";

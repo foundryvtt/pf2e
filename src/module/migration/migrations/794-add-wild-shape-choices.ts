@@ -1,5 +1,5 @@
 import { FeatPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Add AE-likes forming a UUID choice set for Wild Shape effect  */

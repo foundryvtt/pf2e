@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HomebrewTag, HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/index.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";

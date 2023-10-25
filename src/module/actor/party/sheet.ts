@@ -7,7 +7,7 @@ import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/da
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";

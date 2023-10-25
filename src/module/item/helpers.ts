@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { setHasElement } from "@util";
-import { ItemType } from "./data/index.ts";
+import { ItemType } from "./base/data/index.ts";
 import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemInstances } from "./types.ts";

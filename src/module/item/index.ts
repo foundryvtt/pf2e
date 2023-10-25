@@ -1,5 +1,5 @@
 // Base
-export * from "./base.ts";
+export * from "./base/document.ts";
 
 // Effects
 export { AbstractEffectPF2e } from "./abstract-effect/document.ts";
@@ -35,4 +35,4 @@ export { MeleePF2e } from "./melee/document.ts";
 export { SpellPF2e } from "./spell/document.ts";
 export { SpellcastingEntryPF2e } from "./spellcasting-entry/document.ts";
 
-export * from "./sheet/index.ts";
+export * from "./base/sheet/index.ts";

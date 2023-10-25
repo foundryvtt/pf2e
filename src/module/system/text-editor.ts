@@ -4,7 +4,7 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { StrikeSelf } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base.ts";
+import { ItemSystemData } from "@item/base/data/system.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
     extractDamageDice,
@@ -27,9 +27,9 @@ import {
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
+import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
 import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
-import { DamageModifierDialog } from "./damage/dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";

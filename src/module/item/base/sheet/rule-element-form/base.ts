@@ -1,5 +1,5 @@
 import { ActorProxyPF2e } from "@actor";
-import { ItemPF2e, ItemProxyPF2e } from "@item/base.ts";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";

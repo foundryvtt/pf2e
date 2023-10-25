@@ -1,5 +1,5 @@
 import { activateActionSheetListeners } from "@item/ability/helpers.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
 import { htmlQuery } from "@util";
 import Tagify from "@yaireo/tagify";
 import { CampaignFeaturePF2e } from "./document.ts";

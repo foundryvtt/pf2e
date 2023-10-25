@@ -24,8 +24,6 @@ import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import type { PROFICIENCY_RANKS } from "@module/data.ts";
 
-export * from "./helpers.ts";
-
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
 type NonPhysicalItemType =
@@ -95,6 +93,16 @@ interface TraitChatData {
     excluded?: boolean;
 }
 
+export type {
+    ActionCost,
+    ActionType,
+    Frequency,
+    FrequencyInterval,
+    FrequencySource,
+    ItemFlagsPF2e,
+    ItemSystemData,
+} from "./system.ts";
+export * from "./helpers.ts";
 export type {
     AbilityItemSource,
     AncestrySource,

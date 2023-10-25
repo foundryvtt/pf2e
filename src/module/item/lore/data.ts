@@ -1,4 +1,4 @@
-import { BaseItemSourcePF2e, ItemSystemSource, OtherTagsOnly } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { ZeroToFour } from "@module/data.ts";
 
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;

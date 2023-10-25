@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";

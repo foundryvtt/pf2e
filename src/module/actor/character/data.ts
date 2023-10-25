@@ -36,7 +36,7 @@ import {
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";

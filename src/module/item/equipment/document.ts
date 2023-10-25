@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { objectHasKey } from "@util";

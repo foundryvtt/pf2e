@@ -1,7 +1,7 @@
 import { ActorSystemSource } from "@actor/data/base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSystemSource } from "@item/data/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSystemSource } from "@item/base/data/system.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 

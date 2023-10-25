@@ -1,7 +1,7 @@
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";

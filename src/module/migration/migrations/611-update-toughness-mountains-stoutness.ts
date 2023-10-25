@@ -1,7 +1,7 @@
 import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
-import { FeatSource } from "@item/data/index.ts";
+import { FeatSource } from "@item/base/data/index.ts";
 import { ErrorPF2e } from "@util";
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {

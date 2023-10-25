@@ -24,7 +24,7 @@ import { KitSheetPF2e } from "@item/kit/sheet.ts";
 import { MeleeSheetPF2e } from "@item/melee/sheet.ts";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { SpellSheetPF2e } from "@item/spell/index.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";

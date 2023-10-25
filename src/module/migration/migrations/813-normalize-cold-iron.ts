@@ -1,4 +1,4 @@
-import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 

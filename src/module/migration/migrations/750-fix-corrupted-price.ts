@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { MigrationBase } from "../base.ts";
 

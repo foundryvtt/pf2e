@@ -1,4 +1,4 @@
-import { ConditionSource } from "@item/data/index.ts";
+import { ConditionSource } from "@item/base/data/index.ts";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";

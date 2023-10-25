@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/base.ts";
-import { AbstractEffectPF2e, ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
-import { isItemSystemData } from "@item/data/helpers.ts";
+import type { ActorPF2e } from "@actor/base.ts";
+import type { ConsumablePF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e } from "@item";
+import { ItemSummaryData, isItemSystemData } from "@item/base/data/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll } from "@util";

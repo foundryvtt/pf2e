@@ -8,7 +8,7 @@ import {
     EffectContextData,
     EffectTraits,
 } from "@item/abstract-effect/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;

@@ -16,12 +16,11 @@ import {
 import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { AfflictionSource } from "@item/affliction/index.ts";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } from "@item/base/data/index.ts";
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
-import { hasInvestedProperty } from "@item/data/helpers.ts";
-import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";

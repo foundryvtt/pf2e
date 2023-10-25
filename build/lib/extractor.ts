@@ -1,7 +1,6 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
-import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, SpellSource, isPhysicalData } from "@item/base/data/index.ts";
 import { PublicationData } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";

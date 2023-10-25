@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { weaponTraits } from "@scripts/config/traits.ts";
 import { objectHasKey } from "@util";

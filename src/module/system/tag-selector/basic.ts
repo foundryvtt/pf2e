@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";

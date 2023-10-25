@@ -1,6 +1,6 @@
 import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { ConditionSource, EffectSource } from "@item/data/index.ts";
+import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ItemAlteration } from "./item-alteration/alteration.ts";

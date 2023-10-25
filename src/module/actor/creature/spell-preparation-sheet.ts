@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { onClickCreateSpell } from "@actor/sheet/helpers.ts";
 import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ErrorPF2e, htmlClosest, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";

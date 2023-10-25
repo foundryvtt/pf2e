@@ -4,7 +4,7 @@ import {
     ItemSystemData,
     ItemSystemSource,
     ItemTraitsNoRarity,
-} from "@item/data/base.ts";
+} from "@item/base/data/system.ts";
 import { WeaponMaterialData } from "@item/weapon/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 

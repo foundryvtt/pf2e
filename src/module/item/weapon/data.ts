@@ -1,5 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
-import { ItemFlagsPF2e } from "@item/data/base.ts";
+import { ItemFlagsPF2e } from "@item/base/data/system.ts";
 import {
     BasePhysicalItemSource,
     Investable,

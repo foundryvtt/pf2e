@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 

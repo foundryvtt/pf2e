@@ -1,7 +1,7 @@
 import { CharacterSystemSource, MartialProficiency } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, recursiveReplaceString, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
 

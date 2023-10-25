@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { NPCAttackDamage } from "@item/melee/data.ts";
 
 /** Convert damageRolls arrays to objects. */

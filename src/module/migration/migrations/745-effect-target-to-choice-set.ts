@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSchema } from "@module/rules/rule-element/choice-set/data.ts";
 import { PredicateStatement } from "@system/predication.ts";

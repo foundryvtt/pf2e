@@ -1,5 +1,5 @@
 import { ConsumablePF2e, type SpellPF2e } from "@item";
-import { ConsumableSource } from "@item/data/index.ts";
+import { ConsumableSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";

@@ -1,7 +1,7 @@
 import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
 import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
 import { Rarity } from "@module/data.ts";

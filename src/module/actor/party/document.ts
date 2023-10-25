@@ -1,6 +1,6 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";

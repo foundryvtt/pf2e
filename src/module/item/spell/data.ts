@@ -1,5 +1,5 @@
 import { SaveType } from "@actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
 import { OneToTen, ValueAndMax } from "@module/data.ts";
 import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import { EffectAreaSize, EffectAreaType, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";

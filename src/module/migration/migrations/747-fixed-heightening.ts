@@ -1,5 +1,5 @@
 import { SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";

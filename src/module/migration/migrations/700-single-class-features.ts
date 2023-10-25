@@ -1,5 +1,5 @@
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
-import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 

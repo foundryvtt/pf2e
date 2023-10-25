@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/index.ts";
-import { ItemSystemSource } from "@item/data/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSystemSource } from "@item/base/data/system.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemPF2e } from "@item/index.ts";
 
 export class MockItem {

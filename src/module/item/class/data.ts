@@ -1,6 +1,6 @@
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ABCSystemSource } from "@item/abc/data.ts";
-import { BaseItemSourcePF2e, RarityTraitAndOtherTags } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, RarityTraitAndOtherTags } from "@item/base/data/system.ts";
 import { ZeroToFour } from "@module/data.ts";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;

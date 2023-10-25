@@ -1,4 +1,4 @@
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
