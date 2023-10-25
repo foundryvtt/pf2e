@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor/base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import type { ItemPF2e } from "@item/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import type { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";

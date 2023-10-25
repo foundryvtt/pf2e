@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
-import { AncestrySource } from "@item/data/index.ts";
+import { AncestrySource } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { isObject } from "@util";
 

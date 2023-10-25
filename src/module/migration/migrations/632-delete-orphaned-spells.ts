@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { SpellcastingEntrySource, SpellSource } from "@item/data/index.ts";
+import { SpellcastingEntrySource, SpellSource } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Delete owned spells with no corresponding spellcastiong entry */

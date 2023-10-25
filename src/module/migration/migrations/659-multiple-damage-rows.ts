@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellDamage, SpellSystemSource } from "@item/spell/data.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { tupleHasValue } from "@util";

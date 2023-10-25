@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
-import { EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";
 

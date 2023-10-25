@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item/base.ts";
+import type { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { LoreSource, LoreSystemData } from "./data.ts";
 
 class LorePF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TParent> {}

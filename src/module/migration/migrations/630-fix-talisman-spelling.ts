@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 
 /** Fix spelling of the "talisman" `consumableType` */
 export class Migration630FixTalismanSpelling extends MigrationBase {

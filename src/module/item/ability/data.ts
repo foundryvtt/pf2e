@@ -6,7 +6,7 @@ import {
     ItemSystemData,
     ItemSystemSource,
     ItemTraitsNoRarity,
-} from "@item/data/base.ts";
+} from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import { ActionCategory, ActionTrait } from "./types.ts";
 

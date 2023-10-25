@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";

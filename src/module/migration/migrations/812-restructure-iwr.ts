@@ -3,7 +3,7 @@ import { ActorTraitsSource } from "@actor/data/base.ts";
 import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr.ts";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, pick, setHasElement, sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 

@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base.ts";
+import { ItemSystemData } from "@item/base/data/system.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";

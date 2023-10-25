@@ -1,6 +1,6 @@
 import { StrikeData } from "@actor/data/base.ts";
 import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { Progress } from "@system/progress.ts";

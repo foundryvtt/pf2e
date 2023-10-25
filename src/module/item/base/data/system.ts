@@ -5,7 +5,7 @@ import { NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import type * as fields from "../../../../types/foundry/common/data/fields.d.ts";
+import type * as fields from "types/foundry/common/data/fields.d.ts";
 import { ItemType } from "./index.ts";
 
 type BaseItemSourcePF2e<

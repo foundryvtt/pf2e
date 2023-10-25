@@ -1,7 +1,7 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
 import { isObject } from "remeda";
-import DataModel, { _DataModel } from "types/foundry/common/abstract/data.js";
+import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type {
     ArrayFieldOptions,
     CleanFieldOptions,
@@ -196,7 +196,7 @@ class DataUnionField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<DataModel<_DataModel | null, DataSchema>> | undefined,
+        model?: ConstructorOf<DataModel> | undefined,
         options?: object | undefined
     ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
         const field = this.fields.find((f) => !f.validate(value));

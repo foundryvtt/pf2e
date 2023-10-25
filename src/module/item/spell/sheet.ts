@@ -1,6 +1,6 @@
 import * as R from "remeda";
 import { SpellPF2e, SpellSystemSource } from "@item/spell/index.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
 import {
     ErrorPF2e,

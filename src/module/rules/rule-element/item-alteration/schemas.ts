@@ -1,6 +1,6 @@
 import { ItemPF2e } from "@item";
 import { ArmorTrait } from "@item/armor/types.ts";
-import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
+import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { BulkValue } from "@item/physical/types.ts";
 import { BULK_VALUES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";

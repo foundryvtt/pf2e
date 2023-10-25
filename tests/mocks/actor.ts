@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorSystemSource } from "@actor/data/base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { ScenePF2e } from "@scene";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";

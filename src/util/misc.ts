@@ -1,4 +1,4 @@
-import { ActionCost } from "@item/data/base.ts";
+import { ActionCost } from "@item/base/data/system.ts";
 import Sortable from "sortablejs";
 
 /**

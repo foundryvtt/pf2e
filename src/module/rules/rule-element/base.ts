@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll, CheckRollContext } from "@system/check/index.ts";

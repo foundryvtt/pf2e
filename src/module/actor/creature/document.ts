@@ -5,7 +5,7 @@ import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@a
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
-import { ArmorSource, ItemType } from "@item/data/index.ts";
+import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";

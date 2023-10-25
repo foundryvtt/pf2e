@@ -1,8 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { PersistentSourceData } from "@item/condition/data.ts";
-import { FrequencyInterval } from "@item/data/base.ts";
-import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
+import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { organizeBulkData } from "@item/physical/helpers.ts";
 import { isObject, objectHasKey } from "@util";

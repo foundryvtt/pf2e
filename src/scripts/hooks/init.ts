@@ -1,4 +1,4 @@
-import { MystifiedTraits } from "@item/data/values.ts";
+import { MystifiedTraits } from "@item/base/data/values.ts";
 import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,

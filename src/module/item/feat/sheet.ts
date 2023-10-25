@@ -5,7 +5,7 @@ import {
 } from "@item/ability/helpers.ts";
 import { SelfEffectReference } from "@item/ability/index.ts";
 import { FeatPF2e } from "@item/feat/document.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
 import { tagify } from "@util";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 

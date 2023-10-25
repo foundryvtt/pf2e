@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 
 export class Migration623NumifyPotencyRunes extends MigrationBase {
     static override version = 0.623;

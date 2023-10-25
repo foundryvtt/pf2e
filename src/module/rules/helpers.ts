@@ -8,7 +8,7 @@ import {
     TestableDeferredValueParams,
 } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";

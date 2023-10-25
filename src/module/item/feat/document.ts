@@ -1,9 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import { FeatGroup } from "@actor/character/feats.ts";
+import type { FeatGroup } from "@actor/character/feats.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
-import { ActionCost, Frequency } from "@item/data/base.ts";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel, setHasElement, sluggify } from "@util";

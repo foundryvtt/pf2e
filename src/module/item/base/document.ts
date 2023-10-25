@@ -11,24 +11,25 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { AfflictionSource } from "./affliction/data.ts";
-import { ContainerPF2e } from "./container/document.ts";
-import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
-import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
-import {
+import { AfflictionSource } from "../affliction/data.ts";
+import type { ContainerPF2e } from "../container/document.ts";
+import type { PhysicalItemPF2e } from "../physical/document.ts";
+import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
+import { ItemSheetPF2e } from "./sheet/base.ts";
+import { MAGIC_TRADITIONS } from "../spell/values.ts";
+import { ItemInstances } from "../types.ts";
+import type {
     ConditionSource,
     EffectSource,
     FeatSource,
+    ItemFlagsPF2e,
     ItemSourcePF2e,
     ItemSummaryData,
+    ItemSystemData,
     ItemType,
     TraitChatData,
 } from "./data/index.ts";
-import { PhysicalItemPF2e } from "./physical/document.ts";
-import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import { ItemSheetPF2e } from "./sheet/base.ts";
-import { MAGIC_TRADITIONS } from "./spell/values.ts";
-import { ItemInstances } from "./types.ts";
+import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {

@@ -1,5 +1,5 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PublicationData } from "@module/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";

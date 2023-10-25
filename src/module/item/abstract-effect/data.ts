@@ -1,6 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/data/base.ts";
+import { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 

@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/base/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject } from "@util";
