@@ -3,7 +3,7 @@ import { MigrationRunner } from "@module/migration/index.ts";
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {
     /** Is a remigration currently running? */
-    private isRemigrating = false;
+    #isRemigrating = false;
 
     constructor(options: Partial<MigrationSummaryOptions> = {}) {
         super(options);
@@ -21,16 +21,13 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         }
     }
 
-    override get template(): string {
-        return "systems/pf2e/templates/system/migration-summary.hbs";
-    }
-
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "migration-summary",
             width: 400,
             height: "auto",
+            template: "systems/pf2e/templates/system/migration-summary.hbs",
         };
     }
 
@@ -59,7 +56,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             actors,
             items,
             canRemigrate,
-            helpResources: canRemigrate && this.isRemigrating,
+            helpResources: canRemigrate && this.#isRemigrating,
             helpResourcesText,
         };
     }
@@ -90,7 +87,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             if (result) result.textContent = "...";
 
             try {
-                this.isRemigrating = true;
+                this.#isRemigrating = true;
                 this.options.troubleshoot = false;
                 remigrateButton.disabled = true;
                 await game.pf2e.system.remigrate({ from: lowestSchemaVersion });
