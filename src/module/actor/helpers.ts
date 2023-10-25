@@ -262,7 +262,7 @@ function getStrikeAttackDomains(
 
     if (typeof proficiencyRank === "number") {
         const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
-        domains.push(`${proficiencies[proficiencyRank]}-damage`);
+        domains.push(`${proficiencies[proficiencyRank]}-attack`);
     }
 
     const { actor } = weapon;
@@ -273,11 +273,22 @@ function getStrikeAttackDomains(
             domains,
         });
         const rollOptions = [...baseRollOptions, actor.getRollOptions(domains), weapon.getRollOptions("item")].flat();
+        const weaponTraits = weapon.traits;
 
-        const attributeModifier = [
+        // For finesse and brutal weapons used by PCs, compare alternative modifiers with the default ones
+        const alternativeAttributeModifier = actor.isOfType("character")
+            ? weaponTraits.has("finesse")
+                ? createAttributeModifier({ actor, attribute: "dex", domains })
+                : weaponTraits.has("brutal")
+                ? createAttributeModifier({ actor, attribute: "str", domains })
+                : null
+            : null;
+
+        const attributeModifier = R.compact([
             defaultAttributeModifier,
+            alternativeAttributeModifier,
             ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
-        ]
+        ])
             .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability" && m.enabled)
             .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
