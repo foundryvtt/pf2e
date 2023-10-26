@@ -136,6 +136,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
     }
 
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    override async preCreate(): Promise<void> {
+        if (this.phase === "applyAEs") this.#setRollOption();
+    }
+
     override onApplyActiveEffects(): void {
         if (this.phase === "applyAEs") this.#setRollOption();
     }
