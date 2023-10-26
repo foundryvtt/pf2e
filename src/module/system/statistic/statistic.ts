@@ -381,8 +381,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             return args;
         })();
 
-        const { actor, domains } = this;
-        const token = args.token ?? actor.getActiveTokens(false, true).shift();
+        const { domains } = this;
+        const token = args.token ?? this.actor.getActiveTokens(false, true).shift();
         const item = args.item ?? null;
 
         const { origin } = args;
@@ -394,7 +394,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
-            const isValidAttacker = actor.isOfType("creature", "hazard");
+            const isValidAttacker = this.actor.isOfType("creature", "hazard");
             const isTargetedCheck =
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
@@ -402,7 +402,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     (!item || item.isOfType("action", "feat", "weapon")));
 
             return isValidAttacker && isTargetedCheck
-                ? actor.getCheckContext({
+                ? this.actor.getCheckContext({
                       item: item?.isOfType("action", "melee", "spell", "weapon") ? item : null,
                       domains,
                       statistic: this,
@@ -414,6 +414,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 : null;
         })();
 
+        const selfActor = rollContext?.self.actor ?? this.actor;
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
@@ -432,15 +433,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             extraRollOptions.push(`check:statistic:base:${this.parent.base.slug}`);
         }
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
-        const notes = [...extractNotes(actor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
+        const notes = [...extractNotes(selfActor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
 
         // Get just-in-time roll options from rule elements
-        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+        for (const rule of selfActor.rules.filter((r) => !r.ignored)) {
             rule.beforeRoll?.(domains, options);
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, domains) : [];
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(selfActor.synthetics, domains) : [];
 
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
@@ -448,10 +449,10 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 ? 2 * item.rank
                 : item?.isOfType("physical")
                 ? item.level
-                : origin?.level ?? actor.level;
+                : origin?.level ?? selfActor.level;
 
             const amount =
-                this.type === "saving-throw" && actor.level > effectLevel
+                this.type === "saving-throw" && selfActor.level > effectLevel
                     ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
                     : !!targetActor &&
                       targetActor.level > effectLevel &&
@@ -493,7 +494,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Create parameters for the check roll function
         const context: CheckRollContext = {
-            actor,
+            actor: selfActor,
             token,
             item,
             type: this.type,
@@ -507,8 +508,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             damaging: args.damaging,
             rollMode,
             skipDialog,
-            rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
-            substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            rollTwice: args.rollTwice || extractRollTwice(selfActor.synthetics.rollTwice, domains, options),
+            substitutions: extractRollSubstitutions(selfActor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
             title: args.title?.trim() || args.label?.trim() || this.label,
@@ -523,7 +524,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const roll = await CheckPF2e.roll(check, context, null, args.callback);
 
         if (roll) {
-            for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            for (const rule of selfActor.rules.filter((r) => !r.ignored)) {
                 await rule.afterRoll?.({
                     roll,
                     check,
