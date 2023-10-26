@@ -6,6 +6,7 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/base/data/system.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { valueForAdjustment } from "@module/dc.ts";
 import {
     extractDamageDice,
     extractModifierAdjustments,
@@ -405,9 +406,13 @@ class TextEditorPF2e extends TextEditor {
             adjustments = new Array(types.length).fill(adjustments[0]);
         }
 
-        if (adjustments.some((adj) => adj !== "" && isNaN(parseInt(adj)))) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
-            return null;
+        for (const adj of adjustments) {
+            if (adj !== "" && valueForAdjustment(adj) === undefined) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.InlineCheck.Errors.InvalidAdjustment", { adjustment: adj })
+                );
+                return null;
+            }
         }
 
         const buttons = types.map((type, i) =>
@@ -516,7 +521,7 @@ class TextEditorPF2e extends TextEditor {
                 pf2RepostFlavor: name,
                 pf2ShowDc: params.showDC === "all" ? null : params.showDC,
                 pf2Label: localize("DCWithName", { name }),
-                pf2Adjustment: Number(params.adjustment) || null,
+                pf2Adjustment: valueForAdjustment(params.adjustment) ?? null,
                 pf2Roller: params.roller || null,
                 pf2Check: sluggify(params.type),
             },
@@ -659,13 +664,13 @@ function getCheckDC({
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc?.startsWith("resolve") && actor) {
+        if (dc?.startsWith("resolve") && (item || actor)) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
                 try {
-                    const rollData = item?.getRollData() ?? actor?.getRollData();
+                    const rollData = item?.getRollData() ?? actor!.getRollData();
                     return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
                 } catch {
                     return 0;

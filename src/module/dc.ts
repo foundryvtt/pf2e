@@ -1,5 +1,6 @@
 import { ProficiencyRank } from "@item/base/data/index.ts";
-import { Rarity } from "./data.ts";
+import { RARITIES, Rarity } from "./data.ts";
+import { tupleHasValue } from "@util";
 
 /**
  * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
@@ -159,6 +160,25 @@ function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
     return adjustmentScale.filter((_value, index) => index >= beginAtIndex).map((value) => adjustDC(dc, value));
 }
 
+/**
+ * Returns a DC adjustment for a given string.
+ * Valid inputs are numeric strings, DCAdjustment strings, or Rarity strings.
+ */
+function valueForAdjustment(adjustment?: string): number | undefined {
+    if (adjustment === undefined) return undefined;
+
+    const maybeNumber = parseInt(adjustment);
+    if (!isNaN(maybeNumber)) return maybeNumber;
+
+    const maybeDCAdjustment = dcAdjustments.get(adjustment as DCAdjustment);
+    if (maybeDCAdjustment !== undefined) return maybeDCAdjustment;
+
+    if (tupleHasValue(RARITIES, adjustment)) {
+        return dcAdjustments.get(rarityToDCAdjustment(adjustment as Rarity));
+    }
+    return undefined;
+}
+
 export {
     adjustDC,
     adjustDCByRarity,
@@ -168,5 +188,6 @@ export {
     combineDCAdjustments,
     createDifficultyScale,
     rarityToDCAdjustment,
+    valueForAdjustment,
 };
 export type { DCAdjustment, DCOptions, NegativeDCAdjustment, PositiveDCAdjustment };
