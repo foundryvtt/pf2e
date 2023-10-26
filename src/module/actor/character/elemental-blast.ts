@@ -399,11 +399,11 @@ class ElementalBlast {
             ],
         };
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
-            modifiers: extractModifiers(this.actor.synthetics, domains, {
+            modifiers: extractModifiers(context.self.actor.synthetics, domains, {
                 test: context.options,
                 resolvables: { blast: item },
             }),
-            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, {
+            dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
                 test: context.options,
                 resolvables: { blast: item, target: context.target?.actor ?? null },
             }),
