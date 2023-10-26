@@ -9,7 +9,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
         // PC Sheet Tooltips and Section Partials
-        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
         "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs",
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",

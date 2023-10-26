@@ -22,10 +22,7 @@
         </div>
         <div class="pc pc_deity item">
             <div class="input">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=deity type="deity" compendium="pf2e.deities"
-                }}
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
             </div>
             {{#if deity}}
                 <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
@@ -35,28 +32,16 @@
         </div>
         <div class="detail-sheet">
             <div class="pc pc_ancestry item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=ancestry type="ancestry" compendium="pf2e.ancestries"
-                }}
+                {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
             </div>
             <div class="pc pc_heritage item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=heritage type="heritage" compendium="pf2e.heritages"
-                }}
+                {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
             </div>
             <div class="pc pc_class item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=class type="class" compendium="pf2e.classes"
-                }}
+                {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
             <div class="pc pc_background item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=background type="background" compendium="pf2e.backgrounds"
-                }}
+                {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
             </div>
         </div>
     </section>
@@ -84,15 +69,15 @@
     <hr />
     <section class="character-traits">
         <div class="pc pc_land-speed">
-            <span class="details-label" >{{localize "PF2E.Speed"}}</span>
+            <span class="details-label">{{localize "PF2E.Speed"}}</span>
             <span>
-                <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
+            <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
             </span>
         </div>
         <div class="pc pc_size">
             <span class="details-label">{{localize "PF2E.Size"}}</span>
             <span>
-                <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
+            <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
             </span>
         </div>
 
@@ -195,3 +180,19 @@
         </ol>
     </section>
 </div>
+
+{{#*inline "detailItem"}}
+    <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
+    <h3 title="{{localize (concat "PF2E." (capitalize type) "Title")}}">
+        <span class="value">{{item.name}}</span>
+        {{#if @root.options.editable}}
+            {{#if item}}
+                <div class="detail-item-control" data-item-id="{{item.id}}">
+                    <i class="fa-solid fa-fw fa-ellipsis-v"></i>
+                </div>
+            {{else}}
+                <a class="open-compendium" data-compendium={{ compendium }}><i class="fa-solid fa-fw fa-plus-circle"></i></a>
+            {{/if}}
+        {{/if}}
+    </h3>
+{{/inline}}
