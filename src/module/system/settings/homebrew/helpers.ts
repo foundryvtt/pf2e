@@ -127,6 +127,13 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                     }
                     break;
                 }
+                case "languages": {
+                    if (source.type === "ancestry") {
+                        const { languages } = source.system;
+                        languages.value = languages.value.filter((l) => !deletions.includes(l));
+                    }
+                    break;
+                }
                 case "weaponCategories": {
                     if (source.type === "weapon") {
                         const systemData: { category: string } = source.system;
