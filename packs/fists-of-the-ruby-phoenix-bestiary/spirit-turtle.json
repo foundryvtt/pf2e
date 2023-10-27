@@ -24,10 +24,6 @@
                     "m57wcqrwxd2fkjeps49x": {
                         "damage": "4d12+14",
                         "damageType": "piercing"
-                    },
-                    "38lh5jblxw92adhmk4wr": {
-                        "damage": "2d6",
-                        "damageType": "energy"
                     }
                 },
                 "description": {
@@ -75,10 +71,6 @@
                     "o3e2top6cgjxsa90qwhr": {
                         "damage": "4d10+14",
                         "damageType": "bludgeoning"
-                    },
-                    "72da8fxkn3ux255xkxa3": {
-                        "damage": "2d6",
-                        "damageType": "energy"
                     }
                 },
                 "description": {
@@ -128,7 +120,40 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "environmental-balance",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.environmentalBalance}",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -215,7 +240,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em> spell (@Check[type:will|dc:44] save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
+                    "value": "<p>100 feet. A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em> spell (@Check[type:will|dc:44] save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -225,7 +250,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "pacifying-aura",
+                        "traits": [
+                            "emotion",
+                            "enchantment",
+                            "primal"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -245,10 +281,54 @@
             "type": "action"
         },
         {
+            "_id": "uxaXiBDJrvCyT1Y8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(4d12+7)[bludgeoning]], @Check[type:fortitude|dc:41|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VVTdzsfNNrtH27Sy",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Unbalancing Stomp",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -258,7 +338,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take @Damage[10d10[bludgeoning]] damage and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #Recharge Unbalancing Stomp]]{1d4 rounds}.</p>"
+                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take 10d10 bludgeoning and 4d8 energy damage and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #Recharge Unbalancing Stomp]]{1d4 rounds}.</p>\n<p>@Damage[10d10[bludgeoning],4d8[acid]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[cold]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[electricity]]</p>\n<p>@Damage[10d10[bludgeoning],4d8[fire]]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -292,7 +372,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -336,7 +416,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Knockdown",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -375,7 +455,7 @@
             "_id": "L55cGHsVWnyFTVtf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "All Lores",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -400,7 +480,7 @@
             "_id": "SY4XGMEBBgvUkQyi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -425,7 +505,7 @@
             "_id": "5weeEPB4lm5BJgPz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -450,7 +530,7 @@
             "_id": "qkDOVQx8fk2Ujrug",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -475,7 +555,7 @@
             "_id": "EwPNiCXl3aEBEWY7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -500,7 +580,7 @@
             "_id": "sCrvEkbKXXaGsaDC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
