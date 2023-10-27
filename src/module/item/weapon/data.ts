@@ -136,6 +136,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
     material: WeaponMaterialData;
 
+    /** Whether this is an unarmed attack that is a grasping appendage: requires a free hand for use */
+    graspingAppendage?: boolean;
+
     // Refers to custom damage, *not* property runes
     property1: {
         value: string;
@@ -169,6 +172,7 @@ interface WeaponSystemData
     };
     runes: WeaponRuneData;
     usage: WeaponUsageDetails;
+    graspingAppendage: boolean;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
 

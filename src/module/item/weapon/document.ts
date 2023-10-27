@@ -286,6 +286,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
+        systemData.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
+            ? true
+            : this.category === "unarmed"
+            ? !!systemData.graspingAppendage
+            : false;
+
         if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.attribute)) {
             systemData.attribute = null;
         }
