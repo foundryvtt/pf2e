@@ -215,8 +215,6 @@ interface StrikeData extends StatisticModifier {
     label: string;
     /** The type of action; currently just 'strike'. */
     type: "strike";
-    /** The image URL for this strike (shown on the UI). */
-    imageUrl: ImageFilePath;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this strike. */

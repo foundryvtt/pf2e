@@ -1,7 +1,7 @@
 <li class="item strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike="" data-action-index="{{index}}">
     <div class="item-name rollable">
-        <div class="item-image variant-strike framed" data-action="strike-attack" data-variant-index="0">
-            <img src="{{action.imageUrl}}" />
+        <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
+            <img src="{{action.item.img}}" />
             <i class="fa-solid fa-dice-d20"></i>
         </div>
         <div class="actions-title">
@@ -22,6 +22,8 @@
             {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                 <!-- ATTACK/DAMAGE -->
                 {{#> attackDamage action}}{{/attackDamage}}
+            {{else if (and (eq action.item.category "unarmed") (not action.ready))}}
+                <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
             {{/if}}
         </div>
     </div>
@@ -61,12 +63,12 @@
     {{/if}}
 
     <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
-        {{#each action.auxiliaryActions as |aux aid|}}
-            <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+        {{#each action.auxiliaryActions as |aux index|}}
+            <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
                 <span>{{aux.label}}</span>
                 <span class="action-glyph">{{aux.glyph}}</span>
                 {{#if aux.options}}
-                <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+                <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
                     {{#each aux.options as |option|}}
                         <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
                             {{option.label}} {{#if option.selected}}✔️{{/if}}
