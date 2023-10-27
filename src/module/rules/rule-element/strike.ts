@@ -24,6 +24,7 @@ import type {
 } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -193,6 +194,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.fist = true;
             this.replaceAll = false;
             this.replaceBasicUnarmed = false;
+            this.predicate = new PredicatePF2e(Array.isArray(this._source.predicate) ? this._source.predicate : []);
         } else {
             super._initialize(options);
         }
