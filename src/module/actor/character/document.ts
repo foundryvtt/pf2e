@@ -1173,8 +1173,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ].flat() as WeaponPF2e<this>[];
 
         // Sort alphabetically, force basic unarmed attack to end, and finally move all readied strikes to beginning
+        const { handsReallyFree } = this;
         return weapons
-            .map((w) => this.prepareStrike(w, { categories: offensiveCategories, ammos }))
+            .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
             .sort((a, b) =>
                 a.label
                     .toLocaleLowerCase(game.i18n.lang)
@@ -1188,16 +1189,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Prepare a strike action from a weapon */
     private prepareStrike(
         weapon: WeaponPF2e<this>,
-        options: {
-            categories: WeaponCategory[];
-            ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
-        }
+        { categories, handsReallyFree, ammos = [] }: PrepareStrikeOptions
     ): CharacterStrike {
         const { synthetics } = this;
         const modifiers: ModifierPF2e[] = [];
         const systemData = this.system;
-        const { categories } = options;
-        const ammos = options.ammos ?? [];
 
         // Apply strike adjustments affecting the weapon
         const strikeAdjustments = [
@@ -1385,7 +1381,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             meleeOrRanged,
         ];
         const strikeStat = new StatisticModifier(weaponSlug, modifiers, rollOptions);
-        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
+        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories, handsReallyFree }));
         const versatileLabel = (damageType: DamageType): string => {
             switch (damageType) {
                 case "bludgeoning":
@@ -1401,13 +1397,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         };
 
+        const requiresFreeHand = weaponTraits.has("free-hand") || weapon.system.graspingAppendage;
+
         const ready =
-            weapon.isEquipped ||
-            (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && this.handsReallyFree > 0);
+            (weapon.isEquipped && (!requiresFreeHand || handsReallyFree > 0)) ||
+            (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
-            imageUrl: weapon.img,
             quantity: weapon.quantity,
             ready,
             domains: attackDomains,
@@ -1930,6 +1927,12 @@ interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     flags: CharacterFlags;
     readonly _source: CharacterSource;
     system: CharacterSystemData;
+}
+
+interface PrepareStrikeOptions {
+    categories: WeaponCategory[];
+    handsReallyFree: ZeroToTwo;
+    ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
 }
 
 export { CharacterPF2e };

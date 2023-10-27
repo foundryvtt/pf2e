@@ -170,8 +170,25 @@
                 }
             }
 
-            &:not(.ready) .auxiliary-actions {
-                justify-content: right;
+            &:not(.ready) {
+                .item-name {
+                    .item-image {
+                        cursor: default;
+                        filter: grayscale(1);
+
+                        &:hover i {
+                            display: none;
+                        }
+                    }
+                }
+
+                .hands-occupied {
+                    // color: var(--color-text-dark-secondary);
+                    font: italic 500 var(--font-size-10) var(--sans-serif);
+                    letter-spacing: 0.05em;
+                    text-rendering: optimizeLegibility;
+                    text-transform: uppercase;
+                }
             }
         }
 

@@ -217,14 +217,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         );
     }
 
-    protected getStrikeFromDOM(button: HTMLElement): StrikeData | null {
+    protected getStrikeFromDOM(button: HTMLElement, readyOnly = false): StrikeData | null {
         const actionIndex = Number(htmlClosest(button, "[data-action-index]")?.dataset.actionIndex ?? "NaN");
         const rootAction = this.actor.system.actions?.at(actionIndex) ?? null;
         const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
 
-        return altUsage
+        const strike = altUsage
             ? rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
             : rootAction;
+
+        return strike?.ready || !readyOnly ? strike : null;
     }
 
     /* -------------------------------------------- */
@@ -384,7 +386,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                         ? button.dataset.altUsage
                         : null;
 
-                    const strike = this.getStrikeFromDOM(button);
+                    const strike = this.getStrikeFromDOM(button, true);
                     const variantIndex = Number(button.dataset.variantIndex);
                     await strike?.variants[variantIndex]?.roll({ event, altUsage });
                 });

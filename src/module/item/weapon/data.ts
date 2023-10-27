@@ -136,7 +136,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
     material: WeaponMaterialData;
 
-    /** Whether this is an unarmed attack that is a grasping appendage: requires a free hand for use */
+    /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
     graspingAppendage?: boolean;
 
     // Refers to custom damage, *not* property runes

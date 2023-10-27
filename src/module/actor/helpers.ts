@@ -18,7 +18,7 @@ import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
-import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
+import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
@@ -416,7 +416,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         type: "strike" as const,
         glyph: getActionGlyph({ type: "action", value: 1 }),
         description: item.description,
-        imageUrl: getActionIcon({ type: "action", value: 1 }),
         sourceId: item.id,
         attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
         additionalEffects,

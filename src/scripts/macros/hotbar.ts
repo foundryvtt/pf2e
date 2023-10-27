@@ -62,7 +62,7 @@ export async function createActionMacro({
             return {
                 name: `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`,
                 command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}",  type: "strike", itemId: "${action.item.id}", slug: "${action.slug}" })`,
-                img: action.imageUrl,
+                img: action.item.img,
             };
         }
         return null;
