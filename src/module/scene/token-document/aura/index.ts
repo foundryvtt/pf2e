@@ -53,7 +53,7 @@ class TokenAura implements TokenAuraData {
             bounds.x - (radiusPixels - bounds.width / 2),
             bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
-            radiusPixels * 2
+            radiusPixels * 2,
         );
     }
 
@@ -88,7 +88,7 @@ class TokenAura implements TokenAuraData {
         if (!(auraActor && auraData?.effects.length)) return;
 
         const auradTokens = this.scene.tokens.filter(
-            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t)
+            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t),
         );
         const affectedActors = new Set(auradTokens.flatMap((t) => t.actor ?? []));
 

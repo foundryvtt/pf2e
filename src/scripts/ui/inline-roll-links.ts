@@ -258,7 +258,7 @@ export const InlineRollLinks = {
                 }
 
                 const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
-                    pf2TemplateData ?? "{}"
+                    pf2TemplateData ?? "{}",
                 );
                 templateData.distance ||= Number(pf2Distance);
                 templateData.fillColor ||= game.user.color;

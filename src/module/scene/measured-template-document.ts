@@ -7,7 +7,7 @@ import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import { ScenePF2e } from "./document.ts";
 
 export class MeasuredTemplateDocumentPF2e<
-    TParent extends ScenePF2e | null = ScenePF2e | null
+    TParent extends ScenePF2e | null = ScenePF2e | null,
 > extends MeasuredTemplateDocument<TParent> {
     get item(): ItemPF2e<ActorPF2e> | null {
         const origin = this.flags.pf2e?.origin;
@@ -35,7 +35,7 @@ export class MeasuredTemplateDocumentPF2e<
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         toggleClearTemplatesButton(this.message);

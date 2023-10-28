@@ -76,11 +76,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
     static override fromDropData(
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<foundry.abstract.Document | undefined> {
         if ("uuid" in data && UUIDUtils.isItemUUID(data.uuid)) {
             const item = fromUuidSync(data.uuid);
@@ -114,7 +114,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             await this.actor.deleteEmbeddedDocuments(
                 "Item",
                 [this.id],
-                context as DocumentModificationContext<NonNullable<TParent>>
+                context as DocumentModificationContext<NonNullable<TParent>>,
             );
             return this;
         }
@@ -181,7 +181,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             rollMode = undefined,
             create = true,
             data = {},
-        }: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {}
+        }: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -263,7 +263,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     prepareRuleElements(
         this: ItemPF2e<ActorPF2e>,
-        options: Omit<RuleElementOptions, "parent"> = {}
+        options: Omit<RuleElementOptions, "parent"> = {},
     ): RuleElementPF2e[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
 
@@ -289,12 +289,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
-                `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`
+                `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`,
             );
             return;
         } else if (latestSource.type !== this.type) {
             ui.notifications.error(
-                `The compendium source for "${this.name}" is of a different type than what is present on this actor.`
+                `The compendium source for "${this.name}" is of a different type than what is present on this actor.`,
             );
             return;
         }
@@ -349,7 +349,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      */
     protected async processChatData<T extends ItemSummaryData>(
         htmlOptions: EnrichmentOptionsPF2e = {},
-        data: T
+        data: T,
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
@@ -368,7 +368,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     async getChatData(
         htmlOptions: EnrichmentOptionsPF2e = {},
-        _rollOptions: Record<string, unknown> = {}
+        _rollOptions: Record<string, unknown> = {},
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
@@ -399,14 +399,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string } = {},
         context: {
             parent?: ActorPF2e | null;
             pack?: Collection<ItemPF2e<null>> | null;
-        } & Partial<FormApplicationOptions> = {}
+        } & Partial<FormApplicationOptions> = {},
     ): Promise<Item<ActorPF2e | null> | null> {
         // Figure out the types to omit
         const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
@@ -440,11 +440,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
-        context: DocumentModificationContext<ActorPF2e | null> = {}
+        context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
         const sources = data.map((d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d));
@@ -475,7 +475,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 ui.notifications.error(
                     game.i18n.format("PF2E.Item.CannotAddType", {
                         type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
-                    })
+                    }),
                 );
                 return [];
             }
@@ -483,7 +483,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Prevent creation of effects to which the actor is immune
         const effectSources = sources.filter((s): s is PreCreate<AfflictionSource | ConditionSource | EffectSource> =>
-            ["affliction", "condition", "effect"].includes(s.type)
+            ["affliction", "condition", "effect"].includes(s.type),
         );
         for (const source of effectSources) {
             const effect = new CONFIG.PF2E.Item.documentClasses[source.type](deepClone(source), { parent: actor });
@@ -506,7 +506,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
         const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap(
-            (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type]
+            (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
         if (preCreateDeletions.length) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
@@ -523,7 +523,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     (i): ItemPF2e<ActorPF2e> =>
                         (i.parent
                             ? i
-                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as ItemPF2e<ActorPF2e>
+                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as ItemPF2e<ActorPF2e>,
                 );
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
@@ -577,7 +577,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     i.type === "feat" &&
                     typeof i.system?.level?.value === "number" &&
                     i.system.category === "classfeature" &&
-                    !i.flags?.pf2e?.grantedBy
+                    !i.flags?.pf2e?.grantedBy,
             );
             for (const feature of classFeatures) {
                 feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
@@ -591,11 +591,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async deleteDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
     static override async deleteDocuments(
         ids: string[] = [],
-        context: DocumentModificationContext<ActorPF2e | null> = {}
+        context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<foundry.abstract.Document[]> {
         ids = Array.from(new Set(ids));
         const actor = context.parent;
@@ -629,7 +629,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Sort traits
         this._source.system.traits.value?.sort();
@@ -644,7 +644,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
                 await this.actor.update(
                     { "system.attributes.hp.value": newHitPoints },
-                    { render: false, allowHPOverage: true }
+                    { render: false, allowHPOverage: true },
                 );
             }
         }
@@ -659,7 +659,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (changed.system?.description?.value === null) {
             changed.system.description.value = "";
@@ -698,7 +698,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
                 await this.actor.update(
                     { "system.attributes.hp.value": newHitPoints },
-                    { render: false, allowHPOverage: true }
+                    { render: false, allowHPOverage: true },
                 );
             }
         }
@@ -715,7 +715,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _onCreate(
         data: ItemSourcePF2e,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         if (!(this.actor && game.user.id === userId)) return;
@@ -736,7 +736,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(data, options, userId);
         if (game.ready && game.items.get(this.id) === this) {
@@ -820,7 +820,7 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 const ItemProxyPF2e = new Proxy(ItemPF2e, {
     construct(
         _target,
-        args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>]
+        args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>],
     ) {
         const ItemClass = CONFIG.PF2E.Item.documentClasses[args[0]?.type] ?? ItemPF2e;
         return new ItemClass(...args);

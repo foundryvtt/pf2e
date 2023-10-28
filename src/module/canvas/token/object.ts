@@ -84,7 +84,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 position[0],
                 position[1],
                 Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height)
+                Math.max(canvas.grid.size, bounds.height),
             );
         }
 
@@ -159,7 +159,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Return true if a flanking buddy is found
         const { flanking } = this.actor.attributes;
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"]))
+            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
         );
         if (flankingBuddies.length === 0) return false;
 
@@ -304,7 +304,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const properties = ["radius", "appearance"] as const;
                 const sceneData = R.pick(
                     this.document.auras.get(slug) ?? { radius: null, appearance: null },
-                    properties
+                    properties,
                 );
                 const canvasData = R.pick(aura, properties);
                 if (sceneData.radius === null) return true;
@@ -449,7 +449,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     override async animate(
         updateData: Record<string, unknown>,
-        options?: TokenAnimationOptionsPF2e<this>
+        options?: TokenAnimationOptionsPF2e<this>,
     ): Promise<void> {
         // Handle system "spin" animation option
         if (options?.spin) {
@@ -542,7 +542,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

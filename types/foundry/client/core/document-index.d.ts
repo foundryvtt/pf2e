@@ -72,7 +72,7 @@ declare global {
             node: WordTreeNode,
             entries: WordTreeEntry[],
             queue: WordTreeNode[],
-            options?: { limit?: number }
+            options?: { limit?: number },
         ): void;
     }
 

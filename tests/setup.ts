@@ -138,7 +138,7 @@ function mergeObject(
         inplace = true,
         enforceTypes = false,
     } = {},
-    _d = 0
+    _d = 0,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
     other = other || {};
@@ -193,7 +193,7 @@ function mergeObject(
                         inplace: true,
                         enforceTypes: enforceTypes,
                     },
-                    depth
+                    depth,
                 );
             }
 

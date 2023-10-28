@@ -54,7 +54,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
@@ -66,7 +66,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
@@ -81,7 +81,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (typeof changed.system?.category === "string") {
             changed.system.category ||= null;

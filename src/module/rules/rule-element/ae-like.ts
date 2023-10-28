@@ -74,7 +74,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     #rewriteSkillLongFormPath(path: string): string {
         return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
-            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match
+            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match,
         );
     }
 
@@ -85,7 +85,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
-                    (path) => getProperty(actor, path) !== undefined
+                    (path) => getProperty(actor, path) !== undefined,
                 ))
         );
     }
@@ -159,7 +159,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         mode: AELikeChangeMode,
         current: TCurrent,
         change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
-        merge?: boolean
+        merge?: boolean,
     ): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
     static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown, merge = false): unknown {
         const { DataModelValidationFailure } = foundry.data.validation;

@@ -126,7 +126,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
     protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         return ActionMacroHelpers.defaultCheckContext(opts, data);
     }

@@ -14,7 +14,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ...super.defineSchema(),
             affects: new fields.StringField({ required: true, choices: ["target", "origin"], initial: "target" }),
             selectors: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined })
+                new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
@@ -68,7 +68,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 (r) =>
                     typeof r.key === "string" &&
                     (r.key === "ChoiceSet" ||
-                        (r.key === "GrantItem" && !("inMemoryOnly" in r && r.inMemoryOnly === true)))
+                        (r.key === "GrantItem" && !("inMemoryOnly" in r && r.inMemoryOnly === true))),
             );
             if (hasForbiddenREs) {
                 this.failValidation("an ephemeral effect may not include a choice set or grant");

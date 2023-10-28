@@ -8,7 +8,7 @@ import { CheckContext, CheckContextData, CheckContextOptions } from "@system/act
 
 function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>
+    data: CheckContextData<ItemType>,
 ): CheckContext<ItemType> | undefined {
     // weapon
     const item = [
@@ -40,12 +40,12 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                     adjustments: extractModifierAdjustments(
                         opts.actor.synthetics.modifierAdjustments,
                         context.rollOptions,
-                        "ranged-trip"
+                        "ranged-trip",
                     ),
                     type: "circumstance",
                     label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                     modifier: -2,
-                })
+                }),
             );
         }
         context.modifiers = modifiers;
@@ -81,7 +81,7 @@ function trip(options: SkillActionOptions): void {
 class TripActionVariant extends SingleCheckActionVariant {
     protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         return tripCheckContext(opts, data);
     }

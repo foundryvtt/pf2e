@@ -21,7 +21,7 @@ declare global {
         TWallDocument extends WallDocument<TScene | null>,
         TScene extends Scene,
         TUser extends User<Actor<null>>,
-        TEffectsCanvasGroup extends EffectsCanvasGroup
+        TEffectsCanvasGroup extends EffectsCanvasGroup,
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -45,7 +45,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TActor["_source"]>,
-                    context?: DocumentConstructionContext<TActor["parent"]>
+                    context?: DocumentConstructionContext<TActor["parent"]>,
                 ): TActor;
             };
             collection: ConstructorOf<Actors<Actor<null>>>;
@@ -94,7 +94,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TChatMessage["_source"]>,
-                    context?: DocumentConstructionContext<null>
+                    context?: DocumentConstructionContext<null>,
                 ): TChatMessage;
             };
             sidebarIcon: string;
@@ -199,7 +199,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TActiveEffect["_source"]>,
-                    context?: DocumentConstructionContext<TActiveEffect["parent"]>
+                    context?: DocumentConstructionContext<TActiveEffect["parent"]>,
                 ): TActiveEffect;
             };
         };
@@ -213,7 +213,7 @@ declare global {
         Combatant: {
             documentClass: new (
                 data: PreCreate<TCombatant["_source"]>,
-                context?: DocumentConstructionContext<TCombatant["parent"]>
+                context?: DocumentConstructionContext<TCombatant["parent"]>,
             ) => TCombatant;
         };
 

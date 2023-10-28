@@ -33,7 +33,7 @@ export default class BaseCard<TParent extends documents.BaseCards | null> extend
     override testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean | undefined }
+        { exact }?: { exact?: boolean | undefined },
     ): boolean;
 }
 

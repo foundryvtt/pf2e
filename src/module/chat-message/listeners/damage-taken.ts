@@ -30,7 +30,7 @@ export const DamageTaken = {
                             "type" in a &&
                             typeof a.type === "string" &&
                             "adjustment" in a &&
-                            typeof a.adjustment === "number"
+                            typeof a.adjustment === "number",
                     )
                     ? parsed
                     : null;

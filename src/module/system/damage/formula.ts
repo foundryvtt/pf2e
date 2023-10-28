@@ -21,14 +21,14 @@ interface AssembledFormula {
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
     damage: DamageFormulaData,
-    degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
+    degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"],
 ): AssembledFormula;
 function createDamageFormula(damage: DamageFormulaData): AssembledFormula;
 function createDamageFormula(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
 function createDamageFormula(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
 function createDamageFormula(
     damage: DamageFormulaData,
-    degree: DegreeOfSuccessIndex = DEGREE_OF_SUCCESS.SUCCESS
+    degree: DegreeOfSuccessIndex = DEGREE_OF_SUCCESS.SUCCESS,
 ): AssembledFormula | null {
     damage = deepClone(damage);
 
@@ -118,7 +118,7 @@ function createDamageFormula(
                 ? bonusableDamage.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ??
                   damage.base.at(0)
                 : bonusableDamage.find(
-                      (b) => b.damageType === (modifier.damageType ?? b.damageType) && b.category === modifier.category
+                      (b) => b.damageType === (modifier.damageType ?? b.damageType) && b.category === modifier.category,
                   );
         if (!matchingDamage) continue;
         const damageType = modifier.damageType ?? matchingDamage.damageType ?? "untyped";
@@ -150,7 +150,7 @@ function createDamageFormula(
 /** Convert a damage type map to a final string formula. */
 function instancesFromTypeMap(
     typeMap: DamageTypeMap,
-    { degree, persistent = false }: { degree: DegreeOfSuccessIndex; persistent?: boolean }
+    { degree, persistent = false }: { degree: DegreeOfSuccessIndex; persistent?: boolean },
 ): AssembledFormula[] {
     return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): AssembledFormula | never[] => {
         // Skip persistent damage depending on option
@@ -207,7 +207,7 @@ function instancesFromTypeMap(
                 // Null labels are assumed to be base damage. Combine them and create a single breakdown component
                 const leadingTerms = partials.filter(
                     (p) =>
-                        p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null))
+                        p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null)),
                 );
                 if (leadingTerms.length) {
                     const append = c === "splash" ? ` ${game.i18n.localize("PF2E.Damage.RollFlavor.splash")}` : "";
@@ -244,7 +244,7 @@ function instancesFromTypeMap(
 
 function createPartialFormulas(
     partials: Map<DamageCategoryUnique | null, DamagePartial[]>,
-    { criticalInclusion, doubleDice = false }: PartialFormulaParams
+    { criticalInclusion, doubleDice = false }: PartialFormulaParams,
 ): string[] {
     const categories = [null, "persistent", "precision", "splash"] as const;
     return categories.flatMap((category) => {
@@ -293,7 +293,7 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
     terms = combinePartialTerms(terms);
     const constant = terms.find((t) => !!t.modifier)?.modifier ?? 0;
     const positiveDice = terms.filter(
-        (t): t is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!t.dice && t.dice.number > 0
+        (t): t is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!t.dice && t.dice.number > 0,
     );
 
     const diceTerms = positiveDice.map((term) => {
@@ -316,32 +316,35 @@ function createSimpleFormula(terms: DamagePartialTerm[], { doubleDice }: { doubl
  */
 function parseTermsFromSimpleFormula(
     formula: string | Roll,
-    options?: { rollData: Record<string, unknown> }
+    options?: { rollData: Record<string, unknown> },
 ): DamagePartialTerm[] {
     const roll = formula instanceof Roll ? formula : new Roll(formula, options?.rollData);
 
     // Parse from right to left so that when we hit an operator, we already have the term.
-    return roll.terms.reduceRight((result, term) => {
-        // Ignore + terms, we assume + by default
-        if (term.expression === " + ") return result;
+    return roll.terms.reduceRight(
+        (result, term) => {
+            // Ignore + terms, we assume + by default
+            if (term.expression === " + ") return result;
 
-        // - terms modify the last term we parsed
-        if (term.expression === " - ") {
-            const termToModify = result[0];
-            if (termToModify) {
-                if (termToModify.modifier) termToModify.modifier *= -1;
-                if (termToModify.dice) termToModify.dice.number *= -1;
+            // - terms modify the last term we parsed
+            if (term.expression === " - ") {
+                const termToModify = result[0];
+                if (termToModify) {
+                    if (termToModify.modifier) termToModify.modifier *= -1;
+                    if (termToModify.dice) termToModify.dice.number *= -1;
+                }
+                return result;
             }
+
+            result.unshift({
+                modifier: term instanceof NumericTerm ? term.number : 0,
+                dice: term instanceof Die ? { faces: term.faces, number: term.number } : null,
+            });
+
             return result;
-        }
-
-        result.unshift({
-            modifier: term instanceof NumericTerm ? term.number : 0,
-            dice: term instanceof Die ? { faces: term.faces, number: term.number } : null,
-        });
-
-        return result;
-    }, <DamagePartialTerm[]>[]);
+        },
+        <DamagePartialTerm[]>[],
+    );
 }
 
 interface PartialFormulaParams {

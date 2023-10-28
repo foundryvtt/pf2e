@@ -12,7 +12,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     private abilityModPattern = /@abilities\.([a-z]{3})\.mod\b/;
 
     private abbreviationMap = new Map(
-        Array.from(ATTRIBUTE_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
+        Array.from(ATTRIBUTE_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a]),
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {

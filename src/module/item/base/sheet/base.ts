@@ -150,14 +150,14 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                         Object.keys(RuleElements.all).reduce(
                             (result: Record<string, string>, key) =>
                                 mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
-                            {}
-                        )
+                            {},
+                        ),
                     ),
                 },
                 elements: await Promise.all(
                     this.#ruleElementForms.map(async (form) => ({
                         template: await form.render(),
-                    }))
+                    })),
                 ),
             },
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
@@ -254,7 +254,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     override async activateEditor(
         name: string,
         options: EditorCreateOptions = {},
-        initialContent?: string
+        initialContent?: string,
     ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
@@ -380,9 +380,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
             closeBtn?.removeAttribute("disabled");
 
-            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
-                "click",
-                () => {
+            html
+                .querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")
+                ?.addEventListener("click", () => {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
@@ -400,14 +400,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     } catch (error) {
                         if (error instanceof Error) {
                             ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
                             );
                             console.warn("Syntax error in rule element definition.", error.message, value);
                             throw error;
                         }
                     }
-                }
-            );
+                });
         }
 
         // Activate rule element sub forms
@@ -564,7 +563,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
         const $form = $<HTMLFormElement>(this.form);
         $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {

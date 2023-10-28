@@ -111,8 +111,8 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
         const sightInputs = Array.from(
             html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-                sightInputNames.map((n) => `[name="${n}"]`).join(", ")
-            )
+                sightInputNames.map((n) => `[name="${n}"]`).join(", "),
+            ),
         );
 
         const sightEnabledInput = html.querySelector<HTMLInputElement>('input[name="sight.enabled"]');

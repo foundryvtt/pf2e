@@ -33,7 +33,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
             }),
             deactivatedBy: new fields.ArrayField(
                 new fields.StringField({ required: true, nullable: false, blank: false }),
-                { required: false, initial: undefined }
+                { required: false, initial: undefined },
             ),
         };
     }
@@ -58,7 +58,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
                 const typesArr = data.deactivatedBy.map((type) =>
                     objectHasKey(CONFIG.PF2E.weaknessTypes, type)
                         ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
-                        : type
+                        : type,
                 );
 
                 const types = localizeList(typesArr);

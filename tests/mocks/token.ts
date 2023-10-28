@@ -8,7 +8,7 @@ export class MockToken {
 
     constructor(
         data: foundry.documents.TokenSource,
-        context: { parent?: ScenePF2e | null; actor?: ActorPF2e | null } = {}
+        context: { parent?: ScenePF2e | null; actor?: ActorPF2e | null } = {},
     ) {
         this._source = duplicate(data);
         this.parent = context.parent ?? null;
@@ -29,7 +29,7 @@ export class MockToken {
 
     update(
         changes: EmbeddedDocumentUpdateData,
-        context: SceneEmbeddedModificationContext<NonNullable<this["parent"]>> = {}
+        context: SceneEmbeddedModificationContext<NonNullable<this["parent"]>> = {},
     ): void {
         changes["_id"] = this.id;
         this.scene?.updateEmbeddedDocuments("Token", [changes], context);

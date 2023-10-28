@@ -165,7 +165,7 @@ class WeaponAuxiliaryAction {
         if (this.purpose === "Modular") {
             return createSheetOptions(
                 pick(CONFIG.PF2E.damageTypes, this.weapon.system.traits.toggles.modular.options),
-                [this.weapon.system.traits.toggles.modular.selection ?? []].flat()
+                [this.weapon.system.traits.toggles.modular.selection ?? []].flat(),
             );
         }
         return null;
@@ -221,7 +221,7 @@ class WeaponAuxiliaryAction {
 /** Make a PC Clumsy 1 when wielding an oversized weapon */
 function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
     const wieldedOversizedWeapon = actor.itemTypes.weapon.find(
-        (w) => w.isEquipped && w.isOversized && w.category !== "unarmed"
+        (w) => w.isEquipped && w.isOversized && w.category !== "unarmed",
     );
 
     const compendiumCondition = game.pf2e.ConditionManager.getCondition("clumsy");
@@ -265,7 +265,7 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
 function createShoddyPenalty(
     actor: ActorPF2e,
     item: WeaponPF2e | ArmorPF2e | null,
-    domains: string[]
+    domains: string[],
 ): ModifierPF2e | null {
     if (!actor.isOfType("character") || !item?.isShoddy) return null;
 

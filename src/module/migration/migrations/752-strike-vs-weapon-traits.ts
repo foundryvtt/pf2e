@@ -15,7 +15,7 @@ export class Migration752StrikeVsWeaponTraits extends MigrationBase {
         if (this.#toSkip.has(source.system.slug ?? "")) return;
 
         const rules = source.system.rules.filter(
-            (r: MaybeAdjustStrike): r is AdjustStrikeSource => r.key === "AdjustStrike" && r.property === "traits"
+            (r: MaybeAdjustStrike): r is AdjustStrikeSource => r.key === "AdjustStrike" && r.property === "traits",
         );
 
         for (const rule of rules) {

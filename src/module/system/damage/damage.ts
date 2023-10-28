@@ -16,7 +16,7 @@ export class DamagePF2e {
     static async roll(
         data: DamageTemplate,
         context: DamageRollContext,
-        callback?: Function
+        callback?: Function,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
 
@@ -47,7 +47,7 @@ export class DamagePF2e {
             }
             const toTags = (
                 slugs: string[],
-                { labels = {}, descriptions = {}, cssClass, dataAttr }: ToTagsParams
+                { labels = {}, descriptions = {}, cssClass, dataAttr }: ToTagsParams,
             ): string =>
                 slugs
                     .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
@@ -83,7 +83,7 @@ export class DamagePF2e {
                           descriptions: CONFIG.PF2E.traitsDescriptions,
                           cssClass: "tag_alt",
                           dataAttr: "trait",
-                      }
+                      },
                   )
                 : "";
 
@@ -162,7 +162,7 @@ export class DamagePF2e {
         const notes = [...syntheticNotes, ...contextNotes].filter(
             (n) =>
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
-                n.predicate.test(context.options)
+                n.predicate.test(context.options),
         );
         const notesList = RollNotePF2e.notesToHTML(notes);
         flavor += notesList.outerHTML;
@@ -178,7 +178,7 @@ export class DamagePF2e {
                 const strikes: StrikeData[] = self.actor.system.actions;
                 const strike = strikes.find(
                     (a): a is StrikeData & { item: ItemPF2e<ActorPF2e> } =>
-                        a.item?.id === item.id && a.item.slug === item.slug
+                        a.item?.id === item.id && a.item.slug === item.slug,
                 );
 
                 if (strike) {
@@ -230,7 +230,7 @@ export class DamagePF2e {
                         },
                     },
                 },
-                { create: false }
+                { create: false },
             );
 
         // If there is splash damage, include it as an additional roll for separate application

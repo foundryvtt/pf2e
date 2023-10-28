@@ -77,7 +77,7 @@ interface MigrationBase {
     updateToken?(
         tokenData: foundry.documents.TokenSource,
         actor: Readonly<ActorPF2e | null>,
-        scene: Readonly<ScenePF2e | null>
+        scene: Readonly<ScenePF2e | null>,
     ): Promise<void>;
 
     /**

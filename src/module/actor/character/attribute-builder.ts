@@ -63,10 +63,13 @@ class AttributeBuilder extends Application {
     }
 
     #createButtons(): Record<AttributeString, BoostFlawState> {
-        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce((accumulated, attribute) => {
-            accumulated[attribute] = { ability: attribute };
-            return accumulated;
-        }, {} as Record<AttributeString, BoostFlawState>);
+        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+            (accumulated, attribute) => {
+                accumulated[attribute] = { ability: attribute };
+                return accumulated;
+            },
+            {} as Record<AttributeString, BoostFlawState>,
+        );
     }
 
     #calculateAncestryBoosts(): { ancestryBoosts: AncestryBoosts | null; voluntaryFlaws: VoluntaryFlaws | null } {
@@ -255,7 +258,7 @@ class AttributeBuilder extends Application {
     }
 
     #getBoostFlawLabels(
-        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>
+        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>,
     ): string[] {
         return Object.values(boostData).flatMap((boosts) => {
             if (boosts.value.length === 6) {
@@ -365,7 +368,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
@@ -373,7 +376,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: attribute });
@@ -426,7 +429,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     actor.background?.update({
@@ -436,7 +439,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     actor.background?.update({

@@ -160,7 +160,7 @@ class ChatCards {
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${consumableString} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`,
                             );
                             if (currentQuant === 0) {
                                 const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
@@ -216,7 +216,7 @@ class ChatCards {
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;
                     const roll = message.rolls.find(
-                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast",
                     );
                     const checkContext = (
                         roll ? message.flags.pf2e.context ?? null : null

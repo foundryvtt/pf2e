@@ -33,7 +33,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
                 (w) =>
                     w.type === weaknessType &&
                     R.equals(w.exceptions, this.exceptions) &&
-                    R.equals(w.definition, this.definition ?? null)
+                    R.equals(w.definition, this.definition ?? null),
             );
             if (current) {
                 if (this.override) {
@@ -55,7 +55,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
                     value,
                     exceptions: this.exceptions,
                     source: this.item.name,
-                })
+                }),
         );
     }
 }

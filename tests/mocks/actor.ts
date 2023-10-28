@@ -20,7 +20,10 @@ export class MockActor {
 
     _itemGuid = 1;
 
-    constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<null> = {}) {
+    constructor(
+        data: ActorSourcePF2e,
+        public options: DocumentConstructionContext<null> = {},
+    ) {
         this._source = duplicate(data);
         this._source.items ??= [];
         this.prepareData();
@@ -53,7 +56,7 @@ export class MockActor {
             } else {
                 this.items.set(
                     source._id!,
-                    new MockItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e<ActorPF2e>
+                    new MockItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e<ActorPF2e>,
                 );
             }
         }
@@ -69,7 +72,7 @@ export class MockActor {
 
     static async updateDocuments(
         updates: Record<string, unknown>[] = [],
-        _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {}
+        _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {},
     ): Promise<ActorPF2e[]> {
         return updates.flatMap((update) => {
             const actor = game.actors.find((a) => a.id === update._id);
@@ -81,7 +84,7 @@ export class MockActor {
             for (const partial of itemUpdates) {
                 partial._id ??= "item1";
                 const source = actor._source.items.find(
-                    (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id
+                    (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id,
                 );
                 if (source) {
                     mergeObject(source, partial);
@@ -107,7 +110,7 @@ export class MockActor {
     async createEmbeddedDocuments(
         type: string,
         data: ItemSourcePF2e[],
-        _context: DocumentModificationContext<ActorPF2e>
+        _context: DocumentModificationContext<ActorPF2e>,
     ): Promise<void> {
         if (type === "Item") {
             for (const source of data) {

@@ -282,7 +282,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     readonly doubleVs: IWRException<ResistanceType>[];
 
     constructor(
-        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] }
+        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] },
     ) {
         super(data);
         this.value = data.value;

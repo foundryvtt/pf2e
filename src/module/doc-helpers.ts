@@ -9,7 +9,7 @@ import { MigrationRunnerBase } from "./migration/runner/base.ts";
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
 async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
     document: TDocument,
-    json: string
+    json: string,
 ): Promise<string | null> {
     const source: unknown = JSON.parse(json);
     if (!isObject<TDocument["_source"] & { data?: unknown }>(source)) return null;
@@ -31,7 +31,7 @@ async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
                 sourceName: game.i18n.localize("DOCUMENT.Actor"),
                 sourceSchemaVersion,
                 worldSchemaVersion,
-            })
+            }),
         );
         return null;
     }

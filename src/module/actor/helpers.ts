@@ -55,7 +55,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
         const scenes = new Set(
             Array.from(actors)
                 .flatMap((a) => a.getActiveTokens(false, true))
-                .flatMap((t) => t.scene)
+                .flatMap((t) => t.scene),
         );
         for (const scene of scenes) {
             scene.reset();
@@ -85,7 +85,7 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
     const lowestSchemaVersion = Math.min(
         source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-        ...(source.items ?? []).map((i) => i!.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
+        ...(source.items ?? []).map((i) => i!.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
     const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
     const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
@@ -160,7 +160,7 @@ function setHitPointsRollOptions(actor: ActorPF2e): void {
 /** Find the lowest multiple attack penalty for an attack with a given item */
 function calculateMAPs(
     item: ItemPF2e,
-    { domains, options }: { domains: string[]; options: Set<string> | string[] }
+    { domains, options }: { domains: string[]; options: Set<string> | string[] },
 ): MAPData {
     const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
     const baseMap =
@@ -237,7 +237,7 @@ function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
 function getStrikeAttackDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
     proficiencyRank: ZeroToFour | null,
-    baseRollOptions: string[] | Set<string>
+    baseRollOptions: string[] | Set<string>,
 ): string[] {
     const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
@@ -299,7 +299,7 @@ function getStrikeAttackDomains(
 
 function getStrikeDamageDomains(
     weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>,
-    proficiencyRank: ZeroToFour | null
+    proficiencyRank: ZeroToFour | null,
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
@@ -347,7 +347,7 @@ function getStrikeDamageDomains(
                 test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
             }).filter((m) => !m.ignored && m.type === "ability"),
         ].reduce((best, candidate) =>
-            candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best
+            candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best,
         );
 
         if (attributeModifier) {
@@ -408,7 +408,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             name: t,
             label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
             description: CONFIG.PF2E.traitsDescriptions[t],
-        })
+        }),
     );
 
     const strike: NPCStrike = mergeObject(statistic, {
@@ -494,7 +494,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const otherModifiers = [map ?? [], context.self.modifiers].flat();
             const title = game.i18n.format(
                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
-                { weapon: item.name }
+                { weapon: item.name },
             );
 
             const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
@@ -614,7 +614,7 @@ function calculateRangePenalty(
     actor: ActorPF2e,
     increment: number | null,
     selectors: string[],
-    rollOptions: Set<string>
+    rollOptions: Set<string>,
 ): ModifierPF2e | null {
     if (!increment || increment === 1) return null;
 

@@ -99,7 +99,7 @@ declare global {
          */
         toMessage(
             messageData?: DeepPartial<foundry.documents.ChatMessageSource>,
-            options?: ChatMessageModificationContext
+            options?: ChatMessageModificationContext,
         ): Promise<ChatMessage | undefined>;
     }
 }

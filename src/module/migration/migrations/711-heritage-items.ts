@@ -199,7 +199,7 @@ export class Migration711HeritageItems extends MigrationBase {
                 traits: {
                     value: traits.value.filter(
                         (t): t is CreatureTrait =>
-                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries)
+                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries),
                     ),
                     rarity: traits.rarity,
                     otherTags: [],

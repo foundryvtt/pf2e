@@ -77,7 +77,7 @@ declare global {
          */
         static truncateText(
             text: string,
-            { maxLength, splitWords, suffix }: { maxLength?: number; splitWords?: boolean; suffix?: string | null }
+            { maxLength, splitWords, suffix }: { maxLength?: number; splitWords?: boolean; suffix?: string | null },
         ): string;
 
         /* -------------------------------------------- */
@@ -115,7 +115,7 @@ declare global {
          */
         protected static _createContentLink(
             match: RegExpMatchArray,
-            options?: { async?: boolean; relativeTo?: ClientDocument }
+            options?: { async?: boolean; relativeTo?: ClientDocument },
         ): HTMLAnchorElement | Promise<HTMLAnchorElement>;
 
         /**
@@ -136,7 +136,7 @@ declare global {
         static _createInlineRoll(
             match: RegExpMatchArray,
             rollData: Record<string, unknown>,
-            options?: EvaluateRollParams
+            options?: EvaluateRollParams,
         ): HTMLAnchorElement | null | Promise<HTMLAnchorElement | null>;
 
         /* -------------------------------------------- */

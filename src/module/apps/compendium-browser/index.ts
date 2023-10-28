@@ -152,7 +152,7 @@ class CompendiumBrowser extends Application {
             const tabNames = R.uniq(
                 R.uniq(pack.index.map((entry) => entry.type))
                     .filter((t): t is BrowsableType => setHasElement(browsableTypes, t))
-                    .flatMap((t) => typeToTab.get(t) ?? [])
+                    .flatMap((t) => typeToTab.get(t) ?? []),
             );
 
             for (const tabName of tabNames) {
@@ -172,7 +172,7 @@ class CompendiumBrowser extends Application {
             settings[tab] = Object.fromEntries(
                 Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
                     return (dataA?.name ?? "") > (dataB?.name ?? "") ? 1 : -1;
-                })
+                }),
             );
         }
 
@@ -444,7 +444,7 @@ class CompendiumBrowser extends Application {
 
         // Create Roll Table button
         htmlQuery(html, "[data-action=create-roll-table]")?.addEventListener("click", () =>
-            currentTab.createRollTable()
+            currentTab.createRollTable(),
         );
 
         // Add to Roll Table button
@@ -567,7 +567,7 @@ class CompendiumBrowser extends Application {
                 if (!multiselects) continue;
                 if (objectHasKey(multiselects, filterName)) {
                     const multiselect = container.querySelector<HTMLInputElement>(
-                        `input[name=${filterName}][data-tagify-select]`
+                        `input[name=${filterName}][data-tagify-select]`,
                     );
                     if (!multiselect) continue;
                     const data = multiselects[filterName];
@@ -611,7 +611,7 @@ class CompendiumBrowser extends Application {
                             Array.isArray(selections) &&
                             selections.every(
                                 (s: unknown): s is { value: string; label: string } =>
-                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
+                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string",
                             );
 
                         if (isValid) {
@@ -622,7 +622,7 @@ class CompendiumBrowser extends Application {
 
                     for (const element of htmlQueryAll<HTMLInputElement>(
                         container,
-                        `input[name=${filterName}-filter-conjunction]`
+                        `input[name=${filterName}-filter-conjunction]`,
                     )) {
                         element.addEventListener("change", () => {
                             const value = element.value;
@@ -798,7 +798,7 @@ class CompendiumBrowser extends Application {
                 game.i18n.format("PF2E.CompendiumBrowser.AddedItemToCharacter", {
                     item: item.name,
                     character: game.user.character.name,
-                })
+                }),
             );
         } else {
             ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.AddedItem", { item: item.name }));
@@ -829,14 +829,14 @@ class CompendiumBrowser extends Application {
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
                         character: actors[0].name,
-                    })
+                    }),
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
                         item: item.name,
                         character: actors[0].name,
-                    })
+                    }),
                 );
             }
         } else {
@@ -844,13 +844,13 @@ class CompendiumBrowser extends Application {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
                         item: item.name,
-                    })
+                    }),
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
                         item: item.name,
-                    })
+                    }),
                 );
             }
         }
@@ -883,7 +883,7 @@ class CompendiumBrowser extends Application {
             JSON.stringify({
                 type: item.dataset.type,
                 uuid: item.dataset.entryUuid,
-            })
+            }),
         );
         // awful hack (dataTransfer.types will include "from-browser")
         event.dataTransfer.setData("from-browser", "true");
@@ -897,7 +897,7 @@ class CompendiumBrowser extends Application {
                     });
                 }, 500);
             },
-            { once: true }
+            { once: true },
         );
     }
 

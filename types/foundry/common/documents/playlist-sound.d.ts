@@ -14,7 +14,7 @@ export default class BasePlaylistSound<TParent extends documents.BasePlaylist | 
     testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

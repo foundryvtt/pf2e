@@ -100,14 +100,14 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     img: item.img,
                     flags: { pf2e: { itemMacro: true } },
                 },
-                { renderSheet: false }
+                { renderSheet: false },
             ));
         game.user.assignHotbarMacro(macro ?? null, slot);
     }
 
     static async #createRollOptionToggleMacro(
         data: Pick<RollOptionData, "label" | "domain" | "option"> & { item: ItemPF2e },
-        slot: number
+        slot: number,
     ): Promise<void> {
         const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
         const escapedName = new Handlebars.SafeString(data.label);

@@ -22,7 +22,7 @@ declare global {
             element: HTMLElement | JQuery,
             selector: string,
             menuItems: ContextMenuEntry[],
-            { eventName }?: { eventName?: string }
+            { eventName }?: { eventName?: string },
         );
 
         /** The target HTMLElement being selected */
@@ -57,7 +57,7 @@ declare global {
             html: JQuery,
             selector: string,
             menuItems: ContextMenuEntry[],
-            options?: { eventName?: string; hookName?: string }
+            options?: { eventName?: string; hookName?: string },
         ): ContextMenu | void;
 
         /** Attach a ContextMenu instance to an HTML selector */

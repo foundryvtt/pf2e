@@ -168,10 +168,10 @@ function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void 
                 callback: ($html) => {
                     const html = $html[0];
                     const partySize = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-size]")?.value || 1))
+                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-size]")?.value || 1)),
                     );
                     const partyLevel = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-level]")?.value || 1))
+                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-level]")?.value || 1)),
                     );
 
                     // persist for future uses
@@ -192,7 +192,7 @@ function xpFromEncounter(): void {
     const hazards = getHazards(actors);
     if (npcLevels.length === 0 && hazards.length === 0) {
         ui.notifications.error(
-            `You must select at least one opposition and/or hazard token and optionally all PC tokens`
+            `You must select at least one opposition and/or hazard token and optionally all PC tokens`,
         );
         return;
     }

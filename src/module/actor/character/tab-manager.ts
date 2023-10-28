@@ -1,7 +1,10 @@
 import type { CharacterPF2e } from "./document.ts";
 
 export class PCSheetTabManager {
-    constructor(public actor: CharacterPF2e, public link: HTMLAnchorElement) {
+    constructor(
+        public actor: CharacterPF2e,
+        public link: HTMLAnchorElement,
+    ) {
         renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs").then((template) => {
             $(this.link).tooltipster({
                 content: template,

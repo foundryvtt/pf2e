@@ -19,14 +19,14 @@ export default abstract class DatabaseBackend {
     get(
         documentClass: typeof Document,
         context: Partial<DatabaseBackendGetContext>,
-        user?: BaseUser
+        user?: BaseUser,
     ): Promise<Document[]>;
 
     /** Get primary Document instances */
     protected abstract _getDocuments(
         documentClass: typeof Document,
         request: DatabaseBackendGetContext,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<CompendiumIndexData[] | Document[]>;
 
     /* -------------------------------------------- */
@@ -43,14 +43,14 @@ export default abstract class DatabaseBackend {
     create(
         documentClass: typeof Document,
         context: DatabaseBackendCreateContext<Document>,
-        user?: BaseUser
+        user?: BaseUser,
     ): Promise<Document[]>;
 
     /** Create primary Document instances */
     protected abstract _createDocuments(
         documentClass: typeof Document,
         context: DatabaseBackendCreateContext<Document>,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -67,14 +67,14 @@ export default abstract class DatabaseBackend {
     update(
         documentClass: typeof Document,
         context: DatabaseBackendUpdateContext<Document>,
-        user?: User
+        user?: User,
     ): Promise<Document[]>;
 
     /** Update primary Document instances */
     protected abstract _updateDocuments(
         documentClass: typeof Document,
         context: DatabaseBackendUpdateContext<Document>,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -91,14 +91,14 @@ export default abstract class DatabaseBackend {
     delete(
         documentClass: ConstructorOf<Document>,
         context: DatabaseBackendDeleteContext,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<Document>;
 
     /** Delete primary Document instances */
     protected abstract _deleteDocuments(
         documentClass: typeof Document,
         context: DatabaseBackendDeleteContext,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -128,7 +128,7 @@ export default abstract class DatabaseBackend {
         action: string,
         type: string,
         documents: foundry.abstract.Document[],
-        options?: { level?: string; parent?: foundry.abstract.Document; pack: string }
+        options?: { level?: string; parent?: foundry.abstract.Document; pack: string },
     ): void;
 
     /** Construct a standardized error message given the context of an attempted operation */
@@ -136,7 +136,7 @@ export default abstract class DatabaseBackend {
         user: User,
         action: string,
         subject: string,
-        options?: { parent: foundry.abstract.Document; pack?: string }
+        options?: { parent: foundry.abstract.Document; pack?: string },
     ): string;
 }
 

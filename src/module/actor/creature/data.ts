@@ -26,7 +26,7 @@ import { Alignment, CreatureActorType, CreatureTrait } from "./types.ts";
 
 type BaseCreatureSource<
     TType extends CreatureActorType,
-    TSystemSource extends CreatureSystemSource
+    TSystemSource extends CreatureSystemSource,
 > = BaseActorSourcePF2e<TType, TSystemSource>;
 
 /** Skill and Lore statistics for rolling. */

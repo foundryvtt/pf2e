@@ -213,7 +213,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override getRollData(
-        rollOptions: { castLevel?: number | string } = {}
+        rollOptions: { castLevel?: number | string } = {},
     ): NonNullable<EnrichmentOptions["rollData"]> {
         const spellLevel = Number(rollOptions?.castLevel) || null;
         const castLevel = Math.max(this.baseRank, spellLevel || this.rank);
@@ -335,9 +335,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             adjustments: extractModifierAdjustments(
                                 actor.synthetics.modifierAdjustments,
                                 domains,
-                                `ability-${k}`
+                                `ability-${k}`,
                             ),
-                        })
+                        }),
                 );
 
             const extractOptions = {
@@ -414,7 +414,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const overlayTypes = overlays.map((overlay) => overlay.data.overlayType);
             if (overlayTypes.filter((type) => type === "override").length > 1) {
                 throw ErrorPF2e(
-                    `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
+                    `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`,
                 );
             }
 
@@ -627,7 +627,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async toMessage(
         event?: MouseEvent | JQuery.TriggeredEvent,
-        { create = true, data, rollMode }: SpellToMessageOptions = {}
+        { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // Only spells/consumables currently use DOM data.
@@ -681,7 +681,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
-        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
+        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {},
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const slotRank = Number(rollOptions.slotLevel) || this.rank;
@@ -700,7 +700,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     name: variant.name,
                     overlayIds: [...variant.appliedOverlays!.values()],
                     sort: variant.sort,
-                })
+                }),
             )
             .sort((a, b) => a.sort - b.sort);
 
@@ -716,7 +716,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const spellcasting = this.spellcasting;
         if (!spellcasting) {
             console.warn(
-                `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+                `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
             return { ...systemData };
         }
@@ -724,7 +724,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const statistic = spellcasting?.statistic;
         if (!statistic && !this.isRitual) {
             console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
             return { ...systemData };
         }
@@ -823,7 +823,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this: SpellPF2e<ActorPF2e>,
         event: MouseEvent | JQuery.ClickEvent,
         attackNumber = 1,
-        context: StatisticRollParameters = {}
+        context: StatisticRollParameters = {},
     ): Promise<void> {
         const statistic = this.spellcasting?.statistic;
         if (statistic) {
@@ -836,7 +836,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     async rollDamage(
         this: SpellPF2e<ActorPF2e>,
         event: MouseEvent | JQuery.ClickEvent,
-        mapIncreases?: ZeroToTwo
+        mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
         const element = htmlClosest(event.currentTarget, "*[data-cast-level]");
         const castLevel = Number(element?.dataset.castLevel) || this.rank;
@@ -872,7 +872,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         if (!this.spellcasting?.statistic?.attribute) {
             console.warn(
-                ErrorPF2e(`Spell ${this.name} (${this.uuid}) is missing a statistic with which to counteract.`).message
+                ErrorPF2e(`Spell ${this.name} (${this.uuid}) is missing a statistic with which to counteract.`).message,
             );
             return null;
         }
@@ -930,7 +930,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return this.original.overlays.updateOverride(
                 this as SpellPF2e<ActorPF2e>,
                 data,
-                options as DocumentUpdateContext<ActorPF2e>
+                options as DocumentUpdateContext<ActorPF2e>,
             ) as Promise<this>;
         }
         return super.update(data, options);
@@ -939,7 +939,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         this._source.system.location.value ||= null;
         if (this._source.system.category.value === "ritual") {
@@ -952,7 +952,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     protected override async _preUpdate(
         changed: DeepPartial<SpellSource>,
         options: DocumentUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const result = await super._preUpdate(changed, options, user);
         if (result === false) return result;

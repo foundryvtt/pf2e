@@ -25,7 +25,7 @@ export class Migration873RemoveBonusBulkLimit extends MigrationBase {
         source.system.rules = recursiveReplaceString(source.system.rules, (text) =>
             text
                 .replace(/^system\.attributes\.bonusEncumbranceBulk$/, "inventory.bulk.encumberedAfterAddend")
-                .replace(/^system\.attributes\.bonusLimitBulk$/, "inventory.bulk.maxAddend")
+                .replace(/^system\.attributes\.bonusLimitBulk$/, "inventory.bulk.maxAddend"),
         );
     }
 }

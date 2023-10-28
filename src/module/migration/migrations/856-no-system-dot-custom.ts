@@ -12,8 +12,8 @@ export class Migration856NoSystemDotCustom extends MigrationBase {
                 s.replace(/\bsystem\.custom\.(?:modifiers\.)?([-a-z]+)/, (_match, group1) => {
                     const property = sluggify(group1, { camel: "dromedary" });
                     return `flags.pf2e.${property}`;
-                })
-            )
+                }),
+            ),
         );
     }
 }

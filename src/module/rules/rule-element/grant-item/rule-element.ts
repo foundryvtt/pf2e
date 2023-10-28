@@ -141,7 +141,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
                     item: grantedItem.name,
-                })
+                }),
             );
             return;
         }
@@ -274,7 +274,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
-                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.flag === flag
+                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.flag === flag,
             );
             if (rule) {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
@@ -320,7 +320,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: ItemPF2e<ActorPF2e>,
         grantedSource: ItemSourcePF2e,
-        context: DocumentModificationContext<ActorPF2e | null>
+        context: DocumentModificationContext<ActorPF2e | null>,
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
         for (const rule of grantedItem.rules) {
@@ -363,7 +363,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 flags,
                 system: { references: { parent: { id: this.item.id } } },
             }),
-            { parent: this.actor }
+            { parent: this.actor },
         );
 
         condition.prepareSiblingData();

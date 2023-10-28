@@ -16,17 +16,17 @@ export class Migration799RMRecallKnowledgeDuplicates extends MigrationBase {
                     "B2BpIZFHoF9Kjzpx",
                     "LZgjpWd0pL3vK9Q1",
                     "KUfLlXDWTcAWhl8l",
-                ].join("|")
+                ].join("|"),
             )
             .concat(")"),
-        "g"
+        "g",
     );
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.description.value ??= ""; // In case of uncorrected `null` value due to upstream bug from V9
         source.system.description.value = source.system.description.value.replace(
             this.#oldIdsPattern,
-            "pf2e.actionspf2e.1OagaWtBpVXExToo"
+            "pf2e.actionspf2e.1OagaWtBpVXExToo",
         );
     }
 }

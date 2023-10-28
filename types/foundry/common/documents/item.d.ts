@@ -40,7 +40,7 @@ export default class BaseItem<TParent extends documents.BaseActor | null> extend
     override testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

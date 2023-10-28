@@ -138,8 +138,8 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
                     data.speed,
                     parseExplorationActivity(data.explorationActivity),
                     parseDetectionModeData(data.detectionMode),
-                    parseExplorationOptions(actor)
-                ).toFixed(2)
+                    parseExplorationOptions(actor),
+                ).toFixed(2),
             ),
             speed: data.speed,
             name: actor.name,
@@ -170,7 +170,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
             },
         ];
         const actorFormData = zip(actors, data.actors, (actor, actorData) =>
-            this.actorFormToSheetData(actor, actorData)
+            this.actorFormToSheetData(actor, actorData),
         );
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
@@ -277,7 +277,7 @@ function getHustleMinutes(actors: CharacterPF2e[]): number {
     return Math.min(
         ...actors.map((actor) => {
             return Math.max(1, actor.system.abilities.con.mod) * 10;
-        })
+        }),
     );
 }
 

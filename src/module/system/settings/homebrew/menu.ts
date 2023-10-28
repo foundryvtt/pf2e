@@ -55,16 +55,19 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 
     protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData> {
-        return HOMEBREW_TRAIT_KEYS.reduce((result, key) => {
-            result[key] = {
-                name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
-                hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
-                default: [],
-                type: Object,
-            };
+        return HOMEBREW_TRAIT_KEYS.reduce(
+            (result, key) => {
+                result[key] = {
+                    name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
+                    hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
+                    default: [],
+                    type: Object,
+                };
 
-            return result;
-        }, {} as Record<HomebrewTraitKey, PartialSettingsData>);
+                return result;
+            },
+            {} as Record<HomebrewTraitKey, PartialSettingsData>,
+        );
     }
 
     protected static override get settings(): Record<HomebrewKey, PartialSettingsData> {
@@ -141,7 +144,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
         this.form.querySelectorAll<HTMLInputElement>("tags ~ input").forEach((input) => {
             if (input.value === "") {
@@ -259,7 +262,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             this.#initialRefresh = false;
         } else {
             const sheets = Object.values(ui.windows).filter(
-                (app): app is DocumentSheet => app instanceof ActorSheet || app instanceof ItemSheetPF2e
+                (app): app is DocumentSheet => app instanceof ActorSheet || app instanceof ItemSheetPF2e,
             );
             for (const sheet of sheets) {
                 sheet.render(false);
@@ -368,7 +371,7 @@ class DamageTypeManager {
                 for (const trait of hbTraits) collection.delete(trait);
             } else {
                 const hbTraits = Object.keys(collection).filter((tag): tag is keyof typeof collection =>
-                    tag.startsWith("hb_")
+                    tag.startsWith("hb_"),
                 );
                 for (const trait of hbTraits) delete collection[trait];
             }

@@ -57,16 +57,16 @@ export class CriticalHitAndFumbleCards {
             if (this.rollTypes.includes(type)) {
                 const critButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
-                        "PF2E.CriticalHitCardButtonTitle"
-                    )}"></i></button>`
+                        "PF2E.CriticalHitCardButtonTitle",
+                    )}"></i></button>`,
                 );
                 const fumbleButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize(
-                        "PF2E.CriticalFumbleCardButtonTitle"
-                    )}"></i></button>`
+                        "PF2E.CriticalFumbleCardButtonTitle",
+                    )}"></i></button>`,
                 );
                 const btnContainer1 = $(
-                    `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`
+                    `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
                 );
                 btnContainer1.append(critButton);
                 btnContainer1.append(fumbleButton);

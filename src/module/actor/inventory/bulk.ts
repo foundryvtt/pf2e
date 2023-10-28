@@ -44,7 +44,7 @@ export class InventoryBulk {
         if (this.#value) return this.#value;
         this.#value = InventoryBulk.computeTotalBulk(
             this.actor.inventory.filter((i) => !i.isInContainer),
-            this.actor.size
+            this.actor.size,
         );
         return this.#value;
     }
@@ -85,7 +85,7 @@ export class InventoryBulk {
 
         // Figure out which items have stack groups and which don't
         const nonStackingItems = items.filter(
-            (i) => i.isOfType("backpack") || (i.system.bulk.per === 1 && i.system.baseItem)
+            (i) => i.isOfType("backpack") || (i.system.bulk.per === 1 && i.system.baseItem),
         );
         const nonStackingIds = new Set(nonStackingItems.map((i) => i.id));
         const stackingItems = items.filter((i) => !nonStackingIds.has(i.id));

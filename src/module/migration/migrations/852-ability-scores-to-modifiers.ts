@@ -41,7 +41,7 @@ export class Migration852AbilityScoresToModifiers extends MigrationBase {
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
                 /^system\.abilities\..+\.value$/.test(r.path) &&
-                typeof r.value === "number"
+                typeof r.value === "number",
         );
 
         for (const rule of apexRules) {
@@ -63,13 +63,13 @@ export class Migration852AbilityScoresToModifiers extends MigrationBase {
         // Handle other rule elements with calculated values that incorporate ability scores
         const otherRules = source.system.rules.filter(
             (r): r is RuleElementSource & { value: string } =>
-                "value" in r && typeof r.value === "string" && /\.abilities\.[a-z]{3}\.value\b/.test(r.value)
+                "value" in r && typeof r.value === "string" && /\.abilities\.[a-z]{3}\.value\b/.test(r.value),
         );
         for (const rule of otherRules) {
             rule.value = rule.value
                 .replace(
                     /(?:floor\()?\(?@actor.abilities.([a-z]{3})\.value ?- ?10\) ?\/ ?2\)?/,
-                    `@actor.abilities.$1.mod`
+                    `@actor.abilities.$1.mod`,
                 )
                 .replace(/\s+/g, " ")
                 .trim();

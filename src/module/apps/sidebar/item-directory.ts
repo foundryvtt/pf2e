@@ -44,7 +44,7 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
         browseButton.append(
             fontAwesomeIcon("search", { fixedWidth: true }),
             " ",
-            game.i18n.localize("PF2E.CompendiumBrowser.Title")
+            game.i18n.localize("PF2E.CompendiumBrowser.Title"),
         );
         browseButton.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.render(true, { focus: true });

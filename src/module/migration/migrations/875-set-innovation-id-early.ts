@@ -12,7 +12,7 @@ export class Migration875SetInnovationIdEarly extends MigrationBase {
 
         type MaybeAELike = { key?: unknown; path?: unknown };
         const aeLike = source.system.rules.find(
-            (r: MaybeAELike) => r.key === "ActiveEffectLike" && r.path === "flags.pf2e.innovationId"
+            (r: MaybeAELike) => r.key === "ActiveEffectLike" && r.path === "flags.pf2e.innovationId",
         );
         if (aeLike) aeLike.priority = 5;
     }

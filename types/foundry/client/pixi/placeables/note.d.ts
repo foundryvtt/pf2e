@@ -4,7 +4,7 @@
  * @todo fill in ... some day
  */
 declare class Note<
-    TDocument extends NoteDocument<Scene | null> = NoteDocument<Scene | null>
+    TDocument extends NoteDocument<Scene | null> = NoteDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     static override embeddedName: "Note";
 
@@ -52,7 +52,7 @@ declare class Note<
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _canHover(user: User): boolean;

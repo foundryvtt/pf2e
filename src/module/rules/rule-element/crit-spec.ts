@@ -43,7 +43,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                         initial: null,
                     }),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null },
             ),
             modifier: new fields.SchemaField(
                 {
@@ -67,7 +67,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                     }),
                     value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null },
             ),
         };
     }

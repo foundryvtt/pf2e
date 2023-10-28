@@ -17,12 +17,12 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
                     square.x,
                     squareAbove.y + squareWidth,
                     squareWidth,
-                    squareWidth
+                    squareWidth,
                 );
                 colSquares.push(squareBelow);
                 return colSquares;
             },
-            [square]
+            [square],
         );
     };
 
@@ -54,12 +54,12 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
             (squares: EffectAreaSquare[][]) => {
                 const lastSquare = squares.at(-1)!.at(-1)!;
                 const column = genColumn(
-                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth)
+                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth),
                 );
                 squares.push(column);
                 return squares;
             },
-            [genColumn(topLeftSquare)]
+            [genColumn(topLeftSquare)],
         )
         .flat()
         .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
@@ -69,7 +69,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
                     !CONFIG.Canvas.polygonBackends[collisionType].testCollision(c, square.center, {
                         type: collisionType,
                         mode: "any",
-                    })
+                    }),
             );
             return square;
         });

@@ -144,7 +144,7 @@ declare global {
          */
         protected static _requestTokenImages(
             actorId: string,
-            options?: { pack?: string }
+            options?: { pack?: string },
         ): Promise<(ImageFilePath | VideoFilePath)[]>;
 
         /* -------------------------------------------- */
@@ -154,7 +154,7 @@ declare global {
         protected override _preCreate(
             data: this["_source"],
             options: DocumentModificationContext<TParent>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         /**
@@ -165,13 +165,13 @@ declare global {
          */
         protected _applyDefaultTokenSettings(
             data: this["_source"],
-            options?: { fromCompendium?: boolean }
+            options?: { fromCompendium?: boolean },
         ): DeepPartial<this["_source"]>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentUpdateContext<TParent>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onCreateDescendantDocuments(
@@ -180,7 +180,7 @@ declare global {
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -189,7 +189,7 @@ declare global {
             documents: ActiveEffect<this>[] | Item<this>[],
             changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Additional workflows to perform when any descendant document within this Actor changes. */
@@ -202,7 +202,7 @@ declare global {
          */
         protected _updateDependentTokens(
             update?: Record<string, unknown>,
-            options?: DocumentModificationContext<TParent>
+            options?: DocumentModificationContext<TParent>,
         ): void;
     }
 

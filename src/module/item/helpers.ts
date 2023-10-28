@@ -12,7 +12,7 @@ function itemIsOfType<TParent extends ActorPF2e | null, TType extends ItemType>(
 ): item is ItemInstances<TParent>[TType] | ItemInstances<TParent>[TType]["_source"];
 function itemIsOfType<TParent extends ActorPF2e | null>(
     item: { type: string; effects: Collection<object> | object[]; flags: DocumentFlags },
-    type: "physical"
+    type: "physical",
 ): item is PhysicalItemPF2e<TParent> | PhysicalItemPF2e["_source"];
 function itemIsOfType<TParent extends ActorPF2e | null, TType extends "physical" | ItemType>(
     item: { type: string; effects: Collection<object> | object[]; flags: DocumentFlags },

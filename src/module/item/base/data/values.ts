@@ -10,7 +10,7 @@ class MystifiedTraits {
                 "shadow",
                 // Includes of magical schools, traditions, "clockwork," "cursed," "magical," etc.:
                 ...Object.keys(CONFIG.PF2E.consumableTraits).filter((t) => !["consumable", "nonlethal"].includes(t)),
-            ].sort()
+            ].sort(),
         );
     }
 

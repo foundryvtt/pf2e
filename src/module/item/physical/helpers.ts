@@ -75,7 +75,7 @@ function generateItemName(item: PhysicalItemPF2e): string {
     type Dictionaries = [
         Record<string, string | undefined>,
         Record<string, { name: string } | undefined>,
-        Record<string, { name: string } | null>
+        Record<string, { name: string } | null>,
     ];
 
     // Acquire base-type and rune dictionaries, with "fundamental 2" being either resilient or striking

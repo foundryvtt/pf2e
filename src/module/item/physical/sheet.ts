@@ -35,7 +35,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditor.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
-            { rollData, async: true }
+            { rollData, async: true },
         );
         const activations: PhysicalItemSheetData<TItem>["activations"] = [];
         for (const action of item.activations) {
@@ -109,25 +109,28 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
     protected prepareMaterials(valuationData: MaterialValuationData): MaterialSheetData {
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
-        const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
-            const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
-            if (validGrades.length) {
-                result[materialKey] = {
-                    label: game.i18n.localize(preciousMaterials[materialKey]),
-                    grades: Object.fromEntries(
-                        validGrades.map((grade) => [
-                            grade,
-                            {
-                                value: JSON.stringify({ type: materialKey, grade: grade }),
-                                label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
-                            },
-                        ])
-                    ),
-                };
-            }
+        const materials = Object.entries(valuationData).reduce(
+            (result, [materialKey, materialData]) => {
+                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
+                if (validGrades.length) {
+                    result[materialKey] = {
+                        label: game.i18n.localize(preciousMaterials[materialKey]),
+                        grades: Object.fromEntries(
+                            validGrades.map((grade) => [
+                                grade,
+                                {
+                                    value: JSON.stringify({ type: materialKey, grade: grade }),
+                                    label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                                },
+                            ]),
+                        ),
+                    };
+                }
 
-            return result;
-        }, {} as MaterialSheetData["materials"]);
+                return result;
+            },
+            {} as MaterialSheetData["materials"],
+        );
 
         const value = JSON.stringify(this.item.material);
         return { value, materials };

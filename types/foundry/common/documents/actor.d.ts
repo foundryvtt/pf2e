@@ -12,7 +12,7 @@ import type * as data from "../data/data.d.ts";
  * @param context Construction context options
  */
 export default class BaseActor<
-    TParent extends documents.BaseToken | null = documents.BaseToken | null
+    TParent extends documents.BaseToken | null = documents.BaseToken | null,
 > extends abstract.Document<TParent, ActorSchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
@@ -40,7 +40,7 @@ export default class BaseActor<
 
     protected override _initializeSource(
         data: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>
+        options?: DocumentConstructionContext<TParent>,
     ): this["_source"];
 
     static override canUserCreate(user: documents.BaseUser): boolean;
@@ -48,13 +48,13 @@ export default class BaseActor<
     protected override _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: documents.BaseUser
+        user: documents.BaseUser,
     ): Promise<boolean | void>;
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: documents.BaseUser
+        user: documents.BaseUser,
     ): Promise<boolean | void>;
 }
 
@@ -82,7 +82,7 @@ export interface ActorMetadata extends abstract.DocumentMetadata {
 type ActorSchema<
     TType extends string = string,
     TSystemSource extends object = object,
-    TItemSource extends documents.ItemSource = documents.ItemSource
+    TItemSource extends documents.ItemSource = documents.ItemSource,
 > = {
     /** The _id which uniquely identifies this Actor document */
     _id: fields.DocumentIdField;
@@ -121,5 +121,5 @@ export type ActorFlags = DocumentFlags & {
 export type ActorSource<
     TType extends string = string,
     TSystemSource extends object = object,
-    TItemSource extends foundry.documents.ItemSource = foundry.documents.ItemSource
+    TItemSource extends foundry.documents.ItemSource = foundry.documents.ItemSource,
 > = SourceFromSchema<ActorSchema<TType, TSystemSource, TItemSource>>;

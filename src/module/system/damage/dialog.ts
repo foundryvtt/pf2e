@@ -249,7 +249,7 @@ class DamageModifierDialog extends Application {
                         type,
                         damageType,
                         damageCategory: category,
-                    })
+                    }),
                 );
                 this.#applyStackingRules();
                 this.render();
@@ -287,7 +287,7 @@ class DamageModifierDialog extends Application {
                     damageType: type,
                     slug,
                     selector: "damage",
-                })
+                }),
             );
             this.render();
         });

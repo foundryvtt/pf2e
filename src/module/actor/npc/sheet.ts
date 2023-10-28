@@ -349,20 +349,23 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
                 adjustedHigher: speedData.total > speedData.value,
                 adjustedLower: speedData.total < speedData.value,
             },
-            ...MOVEMENT_TYPES.filter((t): t is Exclude<MovementType, "land"> => t !== "land").reduce((speeds, type) => {
-                const speed = speedData.otherSpeeds.find((s) => s.type === type);
-                return {
-                    ...speeds,
-                    [type]: speed
-                        ? {
-                              label: speed.label,
-                              value: speed.total,
-                              adjustedHigher: typeof speed.total === "number" && speed.total > speed.value,
-                              adjustedLower: typeof speed.total === "number" && speed.total < speed.value,
-                          }
-                        : null,
-                };
-            }, {} as Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>),
+            ...MOVEMENT_TYPES.filter((t): t is Exclude<MovementType, "land"> => t !== "land").reduce(
+                (speeds, type) => {
+                    const speed = speedData.otherSpeeds.find((s) => s.type === type);
+                    return {
+                        ...speeds,
+                        [type]: speed
+                            ? {
+                                  label: speed.label,
+                                  value: speed.total,
+                                  adjustedHigher: typeof speed.total === "number" && speed.total > speed.value,
+                                  adjustedLower: typeof speed.total === "number" && speed.total < speed.value,
+                              }
+                            : null,
+                    };
+                },
+                {} as Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>,
+            ),
         };
 
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
@@ -429,7 +432,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         const abilities = R.sortBy(
             this.actor.itemTypes.action,
             (a) => a.sort,
-            (a) => baseOrder.indexOf(a.actionCost?.type ?? "action")
+            (a) => baseOrder.indexOf(a.actionCost?.type ?? "action"),
         );
 
         for (const item of abilities) {
@@ -520,7 +523,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
                 ui.notifications.info(
                     game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
                         attack: attacks.at(0)?.name ?? "",
-                    })
+                    }),
                 );
             });
         }

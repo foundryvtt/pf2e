@@ -64,7 +64,7 @@ export class ActionMacroHelpers {
 
     static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
@@ -96,7 +96,7 @@ export class ActionMacroHelpers {
         selector: string,
         translationPrefix: string,
         outcome: DegreeOfSuccessString,
-        translationKey?: string
+        translationKey?: string,
     ): RollNotePF2e {
         const visible = game.settings.get("pf2e", "metagame_showResults");
         const outcomes = visible ? [outcome] : [];
@@ -118,7 +118,7 @@ export class ActionMacroHelpers {
     }
 
     static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: SimpleRollActionCheckOptions<ItemType>
+        options: SimpleRollActionCheckOptions<ItemType>,
     ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -226,7 +226,7 @@ export class ActionMacroHelpers {
                     const substitutions = extractRollSubstitutions(
                         actor.synthetics.rollSubstitutions,
                         domains,
-                        finalOptions
+                        finalOptions,
                     );
                     const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
 
@@ -250,7 +250,7 @@ export class ActionMacroHelpers {
                         options.event,
                         (roll, outcome, message) => {
                             options.callback?.({ actor, message, outcome, roll });
-                        }
+                        },
                     );
                 }
             } catch (cce) {

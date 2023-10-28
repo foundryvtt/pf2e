@@ -9,7 +9,7 @@ export class Migration818BasicUndeadNegativeHealing extends MigrationBase {
         return (
             source.system.slug === "basic-undead-benefits" &&
             !source.system.rules.some(
-                (r) => r.key === "ActiveEffectLike" && "path" in r && r.path === "system.attributes.hp.negativeHealing"
+                (r) => r.key === "ActiveEffectLike" && "path" in r && r.path === "system.attributes.hp.negativeHealing",
             )
         );
     }

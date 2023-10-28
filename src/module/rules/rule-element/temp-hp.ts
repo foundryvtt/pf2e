@@ -28,7 +28,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
                         onCreate: true,
                         onTurnStart: false,
                     },
-                }
+                },
             ),
         };
     }
@@ -43,7 +43,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             new Set([
                 ...this.actor.getRollOptions(),
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
-            ])
+            ]),
         );
         if (!this.test(rollOptions)) {
             return;
@@ -71,7 +71,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             new Set([
                 ...this.actor.getRollOptions(["all"]),
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
-            ])
+            ]),
         );
         if (!this.test(rollOptions)) {
             return;

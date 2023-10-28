@@ -488,7 +488,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         this._source.system.equipped = { carryType: "worn" };
         const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
@@ -502,7 +502,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp hit points to between zero and max
         if (typeof changed.system?.hp?.value === "number") {
@@ -564,7 +564,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const hasHpChangeRules =
             this.actor?.rules.some(
                 (r: MaybeItemAlteration) =>
-                    r.key === "ItemAlteration" && r.property === "hp-max" && r.itemType === this.type
+                    r.key === "ItemAlteration" && r.property === "hp-max" && r.itemType === this.type,
             ) ?? false;
         if (actor && hasHpChangeRules && changed.system?.equipped?.carryType) {
             // Simulate the update to determine whether max hit points will change
@@ -582,7 +582,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 // decreasing
                 const floorOrCeil = postUpdateHPMax > this.system.hp.max ? Math.floor : Math.ceil;
                 changed.system.hp.value = floorOrCeil(
-                    Math.clamped(this.system.hp.value * (postUpdateHPMax / this.system.hp.max), 0, postUpdateHPMax)
+                    Math.clamped(this.system.hp.value * (postUpdateHPMax / this.system.hp.max), 0, postUpdateHPMax),
                 );
             }
         }

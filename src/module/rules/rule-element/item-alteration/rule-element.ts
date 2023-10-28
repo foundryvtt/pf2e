@@ -61,7 +61,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         const actorRollOptions = this.actor.getRollOptions();
         const predicate = this.resolveInjectedProperties(this.predicate);
         const itemsToAlter = itemsOfType.filter((i): i is PhysicalItemPF2e<ActorPF2e> =>
-            predicate.test([...actorRollOptions, ...i.getRollOptions("item")])
+            predicate.test([...actorRollOptions, ...i.getRollOptions("item")]),
         );
         const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
             const source = item.toObject();
@@ -89,7 +89,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                 ? this.actor.conditions.contents
                 : this.actor.itemTypes[this.itemType!];
             items.push(
-                ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type)
+                ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );
 
             for (const item of items) {

@@ -102,7 +102,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         if (typeof badge?.value === "number") {
             const otherEffects = actor.items.filter(
                 (i): i is AbstractEffectPF2e<ActorPF2e> =>
-                    i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug
+                    i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug,
             );
             const values = otherEffects
                 .map((effect) => effect.badge?.value)
@@ -117,7 +117,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     protected override _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         data.system.fromSpell ??= ((): boolean => {
             const slug = this.slug ?? sluggify(this.name);
@@ -136,7 +136,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         this.handleChange({ create: this });

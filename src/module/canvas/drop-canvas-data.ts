@@ -9,5 +9,5 @@ export type DropCanvasItemDataPF2e = DropCanvasData<"Item", ItemPF2e> & {
 
 export type DropCanvasDataPF2e<
     TDocumentType extends string = string,
-    TObject extends object = object
+    TObject extends object = object,
 > = TDocumentType extends "Item" ? DropCanvasItemDataPF2e : DropCanvasData<TDocumentType, TObject>;

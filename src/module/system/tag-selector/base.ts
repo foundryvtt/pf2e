@@ -72,7 +72,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
     #getChoices(): Record<string, string> {
         const choices = this.configTypes.reduce(
             (types: Record<string, string>, key) => mergeObject(types, CONFIG.PF2E[key]),
-            {}
+            {},
         );
         return this.sortChoices(choices);
     }
@@ -84,7 +84,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
             .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
             .reduce(
                 (accumulated: Record<string, string>, [key, value]) => mergeObject(accumulated, { [key]: value }),
-                {}
+                {},
             );
     }
 }

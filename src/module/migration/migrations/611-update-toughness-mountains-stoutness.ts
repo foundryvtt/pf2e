@@ -21,7 +21,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
 
         const oldFeatsData = actorData.items.filter(
             (itemData): itemData is FeatSource =>
-                this.#featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat"
+                this.#featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat",
         );
         for (const oldFeatData of oldFeatsData) {
             if (oldFeatData.system.slug === "mountain-s-stoutness") {

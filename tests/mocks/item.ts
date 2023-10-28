@@ -8,7 +8,10 @@ export class MockItem {
 
     readonly parent: ActorPF2e | null;
 
-    constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ActorPF2e | null> = {}) {
+    constructor(
+        data: ItemSourcePF2e,
+        public options: DocumentConstructionContext<ActorPF2e | null> = {},
+    ) {
         this._source = duplicate(data);
         this.parent = options.parent ?? null;
     }
@@ -43,7 +46,7 @@ export class MockItem {
 
     static async updateDocuments(
         updates: Record<string, unknown>[] = [],
-        _context: DocumentModificationContext<ActorPF2e | null> = {}
+        _context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);

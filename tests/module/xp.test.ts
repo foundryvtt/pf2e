@@ -14,7 +14,7 @@ describe("should calculate xp", () => {
                 { level: 2, isComplex: true },
                 { level: 4, isComplex: false },
             ],
-            dcOptions
+            dcOptions,
         );
 
         expect(result).toEqual({
@@ -43,7 +43,7 @@ describe("should calculate xp", () => {
                 { level: 2, isComplex: true },
                 { level: 4, isComplex: false },
             ],
-            dcOptions
+            dcOptions,
         );
 
         expect(result).toEqual({

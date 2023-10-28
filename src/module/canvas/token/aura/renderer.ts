@@ -54,7 +54,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             bounds.x - (radiusPixels - bounds.width / 2),
             bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
-            radiusPixels * 2
+            radiusPixels * 2,
         );
     }
 

@@ -65,7 +65,7 @@ export class Migration857WeaponSpecializationRE extends MigrationBase {
                     selector: "strike-damage",
                     slug: "weapon-specialization",
                     value: 4,
-                } as RuleElementSource
+                } as RuleElementSource,
             );
         }
     }

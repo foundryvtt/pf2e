@@ -42,7 +42,7 @@ export const SetGamePF2e = {
     onInit: (): void => {
         type ActionCollection = Record<string, Function> & Map<string, Action>;
         const actions = new Map<string, Action>(
-            SystemActions.map((action) => [action.slug, action])
+            SystemActions.map((action) => [action.slug, action]),
         ) as ActionCollection;
         // keep the old action functions around until everything has been converted
         for (const [name, action] of Object.entries({

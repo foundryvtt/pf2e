@@ -11,10 +11,10 @@ class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             ...data,
             hasSidebar: true,
             selectedBoosts: Object.fromEntries(
-                Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
+                Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),
             selectedFlaws: Object.fromEntries(
-                Object.entries(itemData.system.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
+                Object.entries(itemData.system.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),
             sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
             languages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.languages),

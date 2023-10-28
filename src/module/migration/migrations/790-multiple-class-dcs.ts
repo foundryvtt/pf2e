@@ -54,11 +54,11 @@ export class Migration790MultipleClassDCs extends MigrationBase {
             const { description } = source.system;
             description.value = description.value.replace(
                 oldClassDCPattern,
-                `system.proficiencies.classDCs.${classSlug}`
+                `system.proficiencies.classDCs.${classSlug}`,
             );
 
             const notes = source.system.rules.filter(
-                (r: MaybeREWithText): r is REWithText => r.key === "Note" && typeof r.text === "string"
+                (r: MaybeREWithText): r is REWithText => r.key === "Note" && typeof r.text === "string",
             );
             for (const note of notes) {
                 note.text = note.text.replace(oldClassDCPattern, `system.proficiencies.classDCs.${classSlug}`);

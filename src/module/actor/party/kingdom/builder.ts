@@ -154,7 +154,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 };
                 return [category, result];
             }),
-            (items) => Promise.all(items).then((result) => R.fromPairs(result))
+            (items) => Promise.all(items).then((result) => R.fromPairs(result)),
         );
 
         const { build } = this.kingdom;
@@ -176,10 +176,13 @@ class KingdomBuilder extends FormApplication<Kingdom> {
 
     #prepareAbilityBuilder(): KingdomAbilityBuilderData {
         function createButtons(): Record<KingdomAbility, BoostFlawState> {
-            return Array.from(KINGDOM_ABILITIES).reduce((accumulated, ability) => {
-                accumulated[ability] = { ability };
-                return accumulated;
-            }, {} as Record<KingdomAbility, BoostFlawState>);
+            return Array.from(KINGDOM_ABILITIES).reduce(
+                (accumulated, ability) => {
+                    accumulated[ability] = { ability };
+                    return accumulated;
+                },
+                {} as Record<KingdomAbility, BoostFlawState>,
+            );
         }
 
         const choices = this.kingdom.build.boosts;

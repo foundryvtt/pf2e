@@ -396,7 +396,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: prunePropertyRunes(
                 [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
-                RUNE_DATA.weapon.property
+                RUNE_DATA.weapon.property,
             ),
             effects: [],
         });
@@ -435,7 +435,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override async getChatData(
         this: WeaponPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
@@ -486,7 +486,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override clone(
         data: Record<string, unknown> | undefined,
-        context: Omit<WeaponCloneContext, "save"> & { save: true }
+        context: Omit<WeaponCloneContext, "save"> & { save: true },
     ): Promise<this>;
     override clone(data?: Record<string, unknown>, context?: Omit<WeaponCloneContext, "save"> & { save?: false }): this;
     override clone(data?: Record<string, unknown>, context?: WeaponCloneContext): this | Promise<this>;
@@ -562,7 +562,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                       Math.abs(dice - Math.round((actorLevel + 2) / 4)) <
                       Math.abs(closest - Math.round((actorLevel + 2) / 4))
                           ? dice
-                          : closest
+                          : closest,
                   );
 
             // Approximate weapon specialization
@@ -589,7 +589,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     damage: `${d.diceNumber}${d.dieSize}`,
                     damageType: d.damageType ?? baseDamage.damageType,
                     category: d.category ?? null,
-                })
+                }),
             );
 
         const reachTraitToNPCReach = {
@@ -609,7 +609,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         ? reachTraitToNPCReach[this.size] ?? []
                         : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
                         ? (`thrown-${rangeIncrement}` as const)
-                        : t
+                        : t,
                 )
                 .filter(
                     // Omitted traits include ...
@@ -630,7 +630,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
                         !(t === "critical-fusion" && this.isThrown) &&
                         // Other traits always excluded
-                        !["artifact", "cursed"].includes(t)
+                        !["artifact", "cursed"].includes(t),
                 );
 
             if (rangeIncrement && !this.isThrown) {
@@ -687,7 +687,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     .flat()
                     .reduce(
                         (rolls: Record<string, NPCAttackDamage>, roll) => mergeObject(rolls, { [randomID()]: roll }),
-                        {}
+                        {},
                     ),
                 traits: {
                     value: toAttackTraits(this.system.traits.value),
@@ -727,7 +727,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const traits = changed.system?.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {

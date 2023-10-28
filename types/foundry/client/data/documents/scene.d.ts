@@ -34,12 +34,12 @@ declare global {
 
         override clone(
             data: DeepPartial<this["_source"]> | undefined,
-            options: { save: true; keepId?: boolean }
+            options: { save: true; keepId?: boolean },
         ): Promise<this>;
         override clone(data?: DeepPartial<this["_source"]>, options?: { save?: false; keepId?: boolean }): this;
         override clone(
             data?: DeepPartial<this["_source"]>,
-            options?: { save?: boolean; keepId?: boolean }
+            options?: { save?: boolean; keepId?: boolean },
         ): this | Promise<this>;
 
         /** Set this scene as the current view */
@@ -50,19 +50,19 @@ declare global {
         protected override _preCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preUpdate(
             data: Record<string, unknown>,
             options: SceneUpdateContext,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void;
@@ -82,7 +82,7 @@ declare global {
             collection: "tokens",
             data: foundry.documents.TokenSource[][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preUpdateDescendantDocuments(
@@ -90,7 +90,7 @@ declare global {
             collection: string,
             changes: object[],
             options: SceneEmbeddedModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -99,7 +99,7 @@ declare global {
             documents: ClientDocument[],
             changes: object[],
             options: SceneEmbeddedModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /* -------------------------------------------- */
@@ -148,42 +148,42 @@ declare global {
         updateEmbeddedDocuments(
             embeddedName: "Token",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneTokenModificationContext<this>
+            options?: SceneTokenModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientLight",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["lights"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientSound",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["sounds"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Drawing",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["drawings"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "MeasuredTemplate",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Note",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["notes"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tiles"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Wall",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["walls"]>[]>;
         updateEmbeddedDocuments(
             embeddedName:
@@ -204,7 +204,7 @@ declare global {
                 | EmbeddedDocumentUpdateData[]
                 | EmbeddedDocumentUpdateData[]
                 | EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<
             | CollectionValue<this["tokens"]>[]
             | CollectionValue<this["lights"]>[]

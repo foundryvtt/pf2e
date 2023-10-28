@@ -105,7 +105,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
             if (itemUUID) {
                 htmlQuery(li, "a.name")?.addEventListener("click", () =>
-                    fromUuid(itemUUID).then((i) => i?.sheet.render(true))
+                    fromUuid(itemUUID).then((i) => i?.sheet.render(true)),
                 );
             }
 

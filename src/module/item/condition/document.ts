@@ -82,8 +82,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                 this.actor?.conditions.bySlug(this.slug).map((condition) => {
                     const { appliedBy } = condition;
                     return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
-                }) ?? []
-            )
+                }) ?? [],
+            ),
         );
 
         const list = granters
@@ -135,7 +135,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
-                { rollMode: "roll" }
+                { rollMode: "roll" },
             );
         }
     }
@@ -267,7 +267,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
@@ -276,7 +276,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

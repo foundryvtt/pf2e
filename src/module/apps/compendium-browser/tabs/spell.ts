@@ -58,7 +58,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 if (spellData.type === "spell") {
                     if (!this.hasAllIndexFields(spellData, indexFields)) {
                         console.warn(
-                            `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                            `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
                         continue;
                     }
@@ -136,7 +136,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 ...result,
                 [sluggify(time)]: time,
             }),
-            {} as Record<string, string>
+            {} as Record<string, string>,
         );
 
         console.debug("PF2e System | Compendium Browser | Finished loading spells");

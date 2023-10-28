@@ -28,7 +28,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 this.value = `@actor.abilities.${source.ability}.mod`;
             } else {
                 this.failValidation(
-                    'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
+                    'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation',
                 );
             }
         }
@@ -60,7 +60,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, initial: undefined })
+                new fields.StringField({ required: true, blank: false, initial: undefined }),
             ),
             type: new fields.StringField({
                 required: true,
@@ -97,7 +97,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     }),
                     new PredicateField({ required: false, nullable: false, initial: undefined }),
                 ],
-                { required: false, nullable: false, initial: false }
+                { required: false, nullable: false, initial: false },
             ),
         };
     }

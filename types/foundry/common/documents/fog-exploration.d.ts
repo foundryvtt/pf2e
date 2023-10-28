@@ -18,7 +18,7 @@ export default class BaseFogExploration extends Document<null, FogExplorationSch
     protected override _preUpdate(
         changed: Record<string, unknown>,
         options: DocumentModificationContext<null>,
-        user: documents.BaseUser
+        user: documents.BaseUser,
     ): Promise<boolean | void>;
 }
 

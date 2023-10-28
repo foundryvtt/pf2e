@@ -33,13 +33,13 @@ export class Migration738UpdateLaughingShadow extends MigrationBase {
             // Retrieve the ChoiceSet selection if one has been made
             const withSelection = source.system.rules.find(
                 (r: RuleElementSource & { selection?: unknown }): r is RuleElementSource & { selection: string } =>
-                    r.key === "ChoiceSet" && typeof r.selection === "string"
+                    r.key === "ChoiceSet" && typeof r.selection === "string",
             );
 
             if (withSelection) {
                 const unselected = newRules.find(
                     (r: RuleElementSource & { selection?: unknown }): r is RuleElementSource & { selection?: string } =>
-                        r.key === "ChoiceSet"
+                        r.key === "ChoiceSet",
                 );
                 if (unselected) unselected.selection = withSelection.selection;
             }

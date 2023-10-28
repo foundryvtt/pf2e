@@ -8,7 +8,7 @@ function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, s
         characters
             .flatMap((m) => Object.values(m.skills))
             .filter((s): s is CharacterSkill => !!s?.lore)
-            .map((s) => [s.slug, s.label])
+            .map((s) => [s.slug, s.label]),
     );
 }
 

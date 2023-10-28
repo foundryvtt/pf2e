@@ -44,7 +44,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
-        test: CanvasVisibilityTest
+        test: CanvasVisibilityTest,
     ): boolean {
         return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
     }
@@ -97,7 +97,7 @@ class HearingDetectionMode extends DetectionMode {
         visionSource: VisionSource<TokenPF2e>,
         _mode: TokenDetectionMode,
         _target: PlaceableObject,
-        test: CanvasVisibilityTestPF2e
+        test: CanvasVisibilityTestPF2e,
     ): boolean {
         test.loh ??= new Map();
         const hearingSource = visionSource.object.hearing;
@@ -112,7 +112,7 @@ class HearingDetectionMode extends DetectionMode {
         visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
-        test: CanvasVisibilityTest
+        test: CanvasVisibilityTest,
     ): boolean {
         return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
     }

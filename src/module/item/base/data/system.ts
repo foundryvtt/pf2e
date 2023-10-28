@@ -10,7 +10,7 @@ import { ItemType } from "./index.ts";
 
 type BaseItemSourcePF2e<
     TType extends ItemType,
-    TSystemSource extends ItemSystemSource = ItemSystemSource
+    TSystemSource extends ItemSystemSource = ItemSystemSource,
 > = foundry.documents.ItemSource<TType, TSystemSource> & {
     flags: ItemSourceFlagsPF2e;
 };

@@ -198,7 +198,7 @@ declare global {
          */
         pasteObjects(
             position: { x: number; y: number },
-            { hidden }?: { hidden?: boolean }
+            { hidden }?: { hidden?: boolean },
         ): Promise<TObject["document"][]>;
 
         /**
@@ -239,7 +239,7 @@ declare global {
         updateAll(
             transformation: (document: TObject) => Record<string, unknown>,
             condition?: Function | null,
-            options?: DocumentModificationContext<TObject["document"]["parent"]>
+            options?: DocumentModificationContext<TObject["document"]["parent"]>,
         ): Promise<TObject["document"][]>;
 
         /* -------------------------------------------- */

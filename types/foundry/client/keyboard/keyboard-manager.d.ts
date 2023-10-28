@@ -83,7 +83,7 @@ declare global {
                 ctrlKey,
                 shiftKey,
                 repeat,
-            }?: { altKey?: boolean; ctrlKey?: boolean; shiftKey?: boolean; repeat?: boolean }
+            }?: { altKey?: boolean; ctrlKey?: boolean; shiftKey?: boolean; repeat?: boolean },
         ): KeyboardEvent;
 
         /**

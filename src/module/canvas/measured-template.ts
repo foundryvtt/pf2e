@@ -6,7 +6,7 @@ import { ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 
 class MeasuredTemplatePF2e<
-    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
+    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
 > extends MeasuredTemplate<TDocument> {
     /** Static data for the currently active preview template */
     static currentPreview: PreviewData | null = null;
@@ -151,7 +151,7 @@ interface PreviewData {
 }
 
 interface MeasuredTemplatePF2e<
-    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
+    TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
 > extends MeasuredTemplate<TDocument> {
     get layer(): TemplateLayerPF2e<this>;
 }

@@ -26,7 +26,7 @@ class DegreeOfSuccess {
     constructor(
         roll: Rolled<CheckRoll> | RollBrief,
         dc: CheckDC | number,
-        dosAdjustments: DegreeAdjustmentsRecord | null = null
+        dosAdjustments: DegreeAdjustmentsRecord | null = null,
     ) {
         if (roll instanceof Roll) {
             this.dieResult =
@@ -56,7 +56,7 @@ class DegreeOfSuccess {
 
     #getDegreeAdjustment(
         degree: DegreeOfSuccessIndex,
-        adjustments: DegreeAdjustmentsRecord | null
+        adjustments: DegreeAdjustmentsRecord | null,
     ): { label: string; amount: DegreeAdjustmentAmount } | null {
         if (!adjustments) return null;
 
@@ -78,7 +78,7 @@ class DegreeOfSuccess {
 
     #adjustDegreeOfSuccess(
         amount: DegreeAdjustmentAmount,
-        degreeOfSuccess: DegreeOfSuccessIndex
+        degreeOfSuccess: DegreeOfSuccessIndex,
     ): DegreeOfSuccessIndex {
         switch (amount) {
             case "criticalFailure":

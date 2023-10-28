@@ -18,7 +18,7 @@ function measureDistanceCuboid(
         reach?: number | null;
         token?: TokenPF2e | null;
         target?: TokenPF2e | null;
-    } = {}
+    } = {},
 ): number {
     if (!canvas.dimensions) return NaN;
 
@@ -136,7 +136,7 @@ function measureDistance(p0: Point, p1: Point): number {
  */
 function measureDistanceOnGrid(
     segment: { dx: number; dy: number; dz?: number | null },
-    { reach = null }: { reach?: number | null } = {}
+    { reach = null }: { reach?: number | null } = {},
 ): number {
     if (!canvas.dimensions) return NaN;
 

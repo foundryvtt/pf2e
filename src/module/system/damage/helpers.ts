@@ -50,7 +50,7 @@ const FACES = [4, 6, 8, 10, 12];
 function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]): void {
     type RequiredNonNullable<T, K extends keyof T> = T & { [P in K]-?: NonNullable<T[P]> };
     const overrideDice = dice.filter(
-        (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override
+        (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override,
     );
 
     if (!overrideDice.length) return;
@@ -91,7 +91,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
     function recursiveExtractTerms(
         expression: RollTerm,
-        { category = null }: { category?: DamageCategoryUnique | null } = {}
+        { category = null }: { category?: DamageCategoryUnique | null } = {},
     ): DamagePartialWithCategory[] {
         // If this expression introduces a category, override it when recursing
         category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)

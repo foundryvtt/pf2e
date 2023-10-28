@@ -43,14 +43,14 @@ const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 class TextEditorPF2e extends TextEditor {
     static override enrichHTML(
         content: string | null,
-        options: EnrichmentOptionsPF2e & { async: true }
+        options: EnrichmentOptionsPF2e & { async: true },
     ): Promise<string>;
     static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e & { async: false }): string;
     static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e): string | Promise<string>;
     static override enrichHTML(
         this: typeof TextEditor,
         content: string | null,
-        options: EnrichmentOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {},
     ): string | Promise<string> {
         if (content?.startsWith("<p>@Localize")) {
             // Remove tags
@@ -88,7 +88,7 @@ class TextEditorPF2e extends TextEditor {
     static override async _createInlineRoll(
         match: RegExpMatchArray,
         rollData: Record<string, unknown>,
-        options: EvaluateRollParams = {}
+        options: EvaluateRollParams = {},
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
         const formula = anchor?.dataset.formula;
@@ -199,7 +199,7 @@ class TextEditorPF2e extends TextEditor {
 
     static async enrichString(
         data: RegExpMatchArray,
-        options: EnrichmentOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {},
     ): Promise<HTMLElement | null> {
         if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
@@ -231,7 +231,7 @@ class TextEditorPF2e extends TextEditor {
     static convertXMLNode(
         html: HTMLElement,
         name: string,
-        { visible, visibility, whose, tooltip, classes }: ConvertXMLNodeOptions
+        { visible, visibility, whose, tooltip, classes }: ConvertXMLNodeOptions,
     ): HTMLElement | null {
         const node = html.querySelector(name);
         if (!node) return null;
@@ -280,17 +280,17 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else if (!objectHasKey(CONFIG.PF2E.areaTypes, params.type)) {
             ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type })
+                game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type }),
             );
             return null;
         } else if (isNaN(+params.distance)) {
             ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance })
+                game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance }),
             );
             return null;
         } else if (params.width && isNaN(+params.width)) {
             ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width })
+                game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width }),
             );
             return null;
         } else {
@@ -320,21 +320,24 @@ class TextEditorPF2e extends TextEditor {
 
     static #parseInlineParams(
         paramString: string,
-        options: { first?: string } = {}
+        options: { first?: string } = {},
     ): Record<string, string | undefined> | null {
         const parts = paramString.split("|");
-        const result = parts.reduce((result, part, idx) => {
-            if (idx === 0 && options.first && !part.includes(":")) {
-                result[options.first] = part.trim();
+        const result = parts.reduce(
+            (result, part, idx) => {
+                if (idx === 0 && options.first && !part.includes(":")) {
+                    result[options.first] = part.trim();
+                    return result;
+                }
+
+                const colonIdx = part.indexOf(":");
+                const portions = colonIdx >= 0 ? [part.slice(0, colonIdx), part.slice(colonIdx + 1)] : [part, ""];
+                result[portions[0]] = portions[1];
+
                 return result;
-            }
-
-            const colonIdx = part.indexOf(":");
-            const portions = colonIdx >= 0 ? [part.slice(0, colonIdx), part.slice(colonIdx + 1)] : [part, ""];
-            result[portions[0]] = portions[1];
-
-            return result;
-        }, {} as Record<string, string | undefined>);
+            },
+            {} as Record<string, string | undefined>,
+        );
 
         return result;
     }
@@ -416,7 +419,7 @@ class TextEditorPF2e extends TextEditor {
                 item,
                 inlineLabel,
                 params: { ...params, ...{ type, adjustment: adjustments[i] } },
-            })
+            }),
         );
         if (buttons.length === 1) {
             return buttons[0];
@@ -547,8 +550,8 @@ class TextEditorPF2e extends TextEditor {
                             role: params.showDC,
                             dc: displayedDC,
                             text,
-                        })
-                    )
+                        }),
+                    ),
                 );
             }
         }
@@ -723,7 +726,7 @@ async function augmentInlineDamageRoll(
         traits?: string[];
         domains?: string[];
         extraRollOptions?: string[];
-    }
+    },
 ): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
     const { name, actor, item, traits, extraRollOptions } = args;
 

@@ -11,7 +11,7 @@ export function isHomebrewFlagCategory(value: unknown): value is Record<string, 
     return (
         R.isObject(value) &&
         Object.entries(value).every(
-            ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
+            ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel)),
         )
     );
 }
@@ -21,7 +21,7 @@ export function isHomebrewCustomDamage(value: object): value is Record<string, C
         (value) =>
             isObject<CustomDamageData>(value) &&
             typeof value.label === "string" &&
-            ["physical", "energy"].includes(value.category ?? "")
+            ["physical", "energy"].includes(value.category ?? ""),
     );
 }
 
@@ -90,7 +90,7 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponTraits": {
                     const weaponsAndAttacks = source.items.filter((i): i is MeleeSource | WeaponSource =>
-                        ["melee", "weapon"].includes(i.type)
+                        ["melee", "weapon"].includes(i.type),
                     );
                     for (const itemSource of weaponsAndAttacks) {
                         const traits: string[] = itemSource.system.traits.value;

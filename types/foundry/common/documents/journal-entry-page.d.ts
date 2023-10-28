@@ -32,7 +32,7 @@ interface JournalEntryPageMetadata extends abstract.DocumentMetadata {
 type JournalEntryPageSchema<
     TType extends string = string,
     TSystemSource extends object = object,
-    TSystemData extends object = TSystemSource
+    TSystemData extends object = TSystemSource,
 > = {
     _id: fields.DocumentIdField;
     /** The text name of this page. */

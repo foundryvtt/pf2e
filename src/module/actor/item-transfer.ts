@@ -29,7 +29,7 @@ export class ItemTransfer implements ItemTransferData {
         public source: ItemTransferData["source"],
         public target: ItemTransferData["target"],
         public quantity: number,
-        public containerId?: string
+        public containerId?: string,
     ) {}
 
     async request(): Promise<void> {
@@ -41,7 +41,7 @@ export class ItemTransfer implements ItemTransferData {
 
             if (!loot) throw ErrorPF2e("Unexpected missing actor");
             ui.notifications.error(
-                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) })
+                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) }),
             );
             return;
         }
@@ -70,7 +70,7 @@ export class ItemTransfer implements ItemTransferData {
             targetActor,
             sourceItem,
             this.quantity,
-            this.containerId
+            this.containerId,
         );
         const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
 
@@ -130,7 +130,7 @@ export class ItemTransfer implements ItemTransferData {
         requester: UserPF2e,
         sourceActor: ActorPF2e,
         targetActor: ActorPF2e,
-        item: PhysicalItemPF2e | null
+        item: PhysicalItemPF2e | null,
     ): Promise<void> {
         const localize = localizer("PF2E.loot");
 

@@ -156,7 +156,7 @@ declare global {
          */
         private static _onToggleCharacterSheet(
             event: KeyboardEvent,
-            context: KeyboardEventContext
+            context: KeyboardEventContext,
         ): ActorSheet<Actor> | Promise<ActorSheet<Actor>>;
 
         /**

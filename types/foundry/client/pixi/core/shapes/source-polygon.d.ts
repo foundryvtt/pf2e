@@ -35,7 +35,7 @@ declare global {
         static create<T extends PointSourcePolygon>(
             this: ConstructorOf<T>,
             origin: Point,
-            config?: PointSourcePolygonConfig
+            config?: PointSourcePolygonConfig,
         ): T;
 
         override contains(x: number, y: number): boolean;
@@ -88,22 +88,22 @@ declare global {
         static testCollision(
             origin: Point,
             destination: Point,
-            config?: PointSourcePolygonConfig & { mode: "closest" }
+            config?: PointSourcePolygonConfig & { mode: "closest" },
         ): PolygonVertex | null;
         static testCollision(
             origin: Point,
             destination: Point,
-            config?: PointSourcePolygonConfig & { mode: "any" }
+            config?: PointSourcePolygonConfig & { mode: "any" },
         ): boolean;
         static testCollision(
             origin: Point,
             destination: Point,
-            config?: PointSourcePolygonConfig & { mode: "all" }
+            config?: PointSourcePolygonConfig & { mode: "all" },
         ): PolygonVertex[];
         static testCollision(
             origin: Point,
             destination: Point,
-            config?: PointSourcePolygonConfig & { mode?: "any" | "all" | "closest" }
+            config?: PointSourcePolygonConfig & { mode?: "any" | "all" | "closest" },
         ): boolean | PolygonVertex | PolygonVertex[] | null;
 
         /**

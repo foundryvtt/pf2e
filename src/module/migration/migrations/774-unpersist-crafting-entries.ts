@@ -41,7 +41,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         // Change requiredTraits property to craftableItems predicate
         const craftingEntryRules = rules.filter(
             (r: RuleElementSource & { requiredTraits?: unknown }): r is MaybeWithRequiredTraits =>
-                r.key === "CraftingEntry" && Array.isArray(r.requiredTraits)
+                r.key === "CraftingEntry" && Array.isArray(r.requiredTraits),
         );
 
         const newCraftingEntryRules = craftingEntryRules.map((craftingEntryRule) => {
@@ -64,7 +64,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
             (r: RuleElementSource & { path?: unknown }) =>
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
-                r.path.startsWith("system.crafting.entries.")
+                r.path.startsWith("system.crafting.entries."),
         );
         const newCraftingEntryAELikes = craftingEntryAELikes.map((craftingEntryAELike) => {
             craftingEntryAELike.phase = "beforeDerived";

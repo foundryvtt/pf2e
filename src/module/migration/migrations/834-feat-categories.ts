@@ -53,7 +53,7 @@ export class Migration834FeatCategories extends MigrationBase {
                 Array.isArray(rule.allowedDrops.predicate)
             ) {
                 rule.allowedDrops.predicate = recursiveReplaceString(rule.allowedDrops.predicate, (s) =>
-                    s.replace(/\bfeat(?:ure)?-type\b/, "category")
+                    s.replace(/\bfeat(?:ure)?-type\b/, "category"),
                 );
             }
 

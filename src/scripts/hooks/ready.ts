@@ -43,7 +43,7 @@ export const Ready = {
                     if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                         ui.notifications.error(
                             `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                            { permanent: true }
+                            { permanent: true },
                         );
                     }
                     await migrationRunner.runMigration();
@@ -74,7 +74,8 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "9.280"))
+                        (abandonedModules.has(m.id) ||
+                            !foundry.utils.isNewerVersion(m.compatibility.verified, "9.280")),
                 );
 
                 for (const badModule of subV10Modules) {

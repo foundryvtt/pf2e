@@ -293,7 +293,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
 function notifyDeprecatedPath(configPath: string, locPath: string): void {
     foundry.utils.logCompatibilityWarning(
         `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
-        { since: "5.2.0", until: "6.0.0" }
+        { since: "5.2.0", until: "6.0.0" },
     );
 }
 

@@ -11,7 +11,7 @@ declare global {
             input: PIXI.RenderTexture,
             output: PIXI.RenderTexture,
             clearMode?: PIXI.CLEAR_MODES,
-            _currentState?: PIXI.FilterState
+            _currentState?: PIXI.FilterState,
         ): void;
     }
 
@@ -46,7 +46,7 @@ declare global {
             input: PIXI.RenderTexture,
             output: PIXI.RenderTexture,
             clearMode?: PIXI.CLEAR_MODES,
-            _currentState?: PIXI.FilterState
+            _currentState?: PIXI.FilterState,
         ): void;
     }
 }

@@ -39,7 +39,7 @@ function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string,
             r in validTypes &&
             !runeSet.has(`greater${r.titleCase()}`) &&
             !runeSet.has(`major${r.replace(/^greater/, "").titleCase()}`) &&
-            !runeSet.has(`true${r.replace(/^greater|^major/, "").titleCase()}`)
+            !runeSet.has(`true${r.replace(/^greater|^major/, "").titleCase()}`),
     );
 }
 

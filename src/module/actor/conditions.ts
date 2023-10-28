@@ -66,12 +66,12 @@ class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<Cond
     /** Provide additional options for retrieving a condition */
     override get(
         key: Maybe<string>,
-        options: { strict: true; active?: boolean | null; temporary?: boolean | null }
+        options: { strict: true; active?: boolean | null; temporary?: boolean | null },
     ): ConditionPF2e<TActor>;
     override get(key: string, options?: ConditionsGetOptions): ConditionPF2e<TActor> | undefined;
     override get(
         key: string,
-        { strict = false, active = null, temporary = null }: ConditionsGetOptions = {}
+        { strict = false, active = null, temporary = null }: ConditionsGetOptions = {},
     ): ConditionPF2e<TActor> | undefined {
         const condition = super.get(key, { strict });
         if (active === true && !condition?.active) return undefined;

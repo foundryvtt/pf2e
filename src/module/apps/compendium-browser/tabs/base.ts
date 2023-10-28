@@ -129,7 +129,7 @@ export abstract class CompendiumBrowserTab {
     protected filterTraits(
         traits: string[],
         selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"]
+        condition: MultiselectData["conjunction"],
     ): boolean {
         const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
         const notTraits = selected.filter((t) => t.not).map((s) => s.value);
@@ -205,7 +205,7 @@ export abstract class CompendiumBrowserTab {
                 ...result,
                 [key]: game.i18n.localize(label),
             }),
-            {}
+            {},
         );
         // Return localized and sorted CheckBoxOptions
         return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
@@ -216,17 +216,17 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {}
+            {},
         );
     }
 
     protected generateMultiselectOptions<T extends string>(
         optionsRecord: Record<T, string>,
-        sort?: boolean
+        sort?: boolean,
     ): { value: T; label: string }[];
     protected generateMultiselectOptions(
         optionsRecord: Record<string, string>,
-        sort = true
+        sort = true,
     ): { value: string; label: string }[] {
         const options = Object.entries(optionsRecord).map(([value, label]) => ({
             value,
@@ -249,14 +249,14 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {}
+            {},
         );
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
     protected sortedConfig(obj: Record<string, string>): Record<string, string> {
         return Object.fromEntries(
-            [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang))
+            [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang)),
         );
     }
 
@@ -340,7 +340,7 @@ export abstract class CompendiumBrowserTab {
                 const table = game.tables.get(option.value, { strict: true });
                 await table.createEmbeddedDocuments(
                     "TableResult",
-                    this.#getRollTableResults({ initial: table.results.size, weight })
+                    this.#getRollTableResults({ initial: table.results.size, weight }),
                 );
                 table?.sheet.render(true);
             },

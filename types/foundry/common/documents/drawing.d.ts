@@ -32,7 +32,7 @@ export default class BaseDrawing<TParent extends documents.BaseScene | null> ext
     override testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

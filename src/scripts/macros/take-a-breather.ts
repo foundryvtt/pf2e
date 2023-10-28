@@ -6,7 +6,7 @@ import * as R from "remeda";
 function takeABreather(): void {
     let applyChanges = false;
     const actors: ActorPF2e[] = R.uniq(
-        R.compact([game.user.character, canvas.tokens.controlled.map((t) => t.actor)].flat())
+        R.compact([game.user.character, canvas.tokens.controlled.map((t) => t.actor)].flat()),
     );
     const pcs = actors.filter((a): a is CharacterPF2e => a.isOfType("character"));
     if (!game.settings.get("pf2e", "staminaVariant")) {

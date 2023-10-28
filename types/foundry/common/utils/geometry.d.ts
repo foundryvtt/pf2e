@@ -58,7 +58,7 @@ export function lineSegmentIntersection(
     b: Point,
     c: Point,
     d: Point,
-    epsilon?: number
+    epsilon?: number,
 ): LineIntersection | null;
 
 /**
@@ -76,7 +76,7 @@ export function lineCircleIntersection(
     b: Point,
     center: Point,
     radius: number,
-    epsilon?: number
+    epsilon?: number,
 ): LineCircleIntersection;
 
 /**

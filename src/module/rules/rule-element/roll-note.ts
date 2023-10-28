@@ -13,7 +13,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
             title: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             visibility: new fields.StringField({
@@ -24,14 +24,14 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
             }),
             outcome: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: DEGREE_OF_SUCCESS_STRINGS }),
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined },
             ),
             text: new DataUnionField(
                 [
                     new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
                     new ResolvableValueField(),
                 ],
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
         };
     }
@@ -44,7 +44,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
 
             const title = this.resolveInjectedProperties(this.title)?.trim() ?? null;
             const text = this.resolveInjectedProperties(
-                String(this.resolveValue(this.text, "", { evaluate: false }))
+                String(this.resolveValue(this.text, "", { evaluate: false })),
             ).trim();
 
             if (!text) return this.failValidation("text field resolved empty");

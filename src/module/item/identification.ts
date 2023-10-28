@@ -43,7 +43,7 @@ export interface GenericIdentifyDCs {
 function getIdentifyMagicDCs(
     item: PhysicalItemPF2e,
     baseDC: number,
-    notMatchingTraditionModifier: number
+    notMatchingTraditionModifier: number,
 ): IdentifyMagicDCs {
     const result = {
         occult: baseDC,
@@ -73,7 +73,7 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
+    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
     const baseDC = calculateDC(item.level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(item);

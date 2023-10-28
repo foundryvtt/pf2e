@@ -64,7 +64,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             saves: {
                 fortitude: getAdjustment(
                     this.actor.saves.fortitude.mod,
-                    this.actor._source.system.saves.fortitude.value
+                    this.actor._source.system.saves.fortitude.value,
                 ),
             },
         };

@@ -131,7 +131,7 @@ function calculateXP(
     partySize: number,
     npcLevels: number[],
     hazards: HazardBrief[],
-    dcOptions: DCOptions
+    dcOptions: DCOptions,
 ): XPCalculation {
     const creatureChallenge = npcLevels
         .map((level) => calculateCreatureXP(partyLevel, level, dcOptions))

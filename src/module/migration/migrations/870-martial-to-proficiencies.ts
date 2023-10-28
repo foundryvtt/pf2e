@@ -45,7 +45,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             recursiveReplaceString(r, (text) => {
                 const key = this.#defensePathPattern.test(text) ? "defenses" : "attacks";
                 return text.replace(/\bsystem\.martial\./g, `system.proficiencies.${key}.`);
-            })
+            }),
         );
     }
 }

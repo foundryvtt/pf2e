@@ -15,7 +15,7 @@ declare global {
      */
     abstract class FormApplication<
         TObject extends object = object,
-        TOptions extends FormApplicationOptions = FormApplicationOptions
+        TOptions extends FormApplicationOptions = FormApplicationOptions,
     > extends Application<TOptions> {
         constructor(object?: TObject, options?: Partial<TOptions>);
 
@@ -127,7 +127,7 @@ declare global {
         activateEditor(
             name: string,
             options?: EditorCreateOptions,
-            initialContent?: string
+            initialContent?: string,
         ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
         /**
@@ -227,7 +227,7 @@ declare global {
     /** A simple implementation of the FormApplication pattern which is specialized in editing Entity instances */
     class DocumentSheet<
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
-        TOptions extends DocumentSheetOptions = DocumentSheetOptions
+        TOptions extends DocumentSheetOptions = DocumentSheetOptions,
     > extends FormApplication<TDocument, TOptions> {
         constructor(object: TDocument, options?: Partial<TOptions>);
 
@@ -245,7 +245,7 @@ declare global {
         override close(options?: { force?: boolean | undefined }): Promise<void>;
 
         override getData(
-            options?: Partial<TOptions>
+            options?: Partial<TOptions>,
         ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
 
         protected override _activateCoreListeners(html: JQuery): void;
@@ -253,7 +253,7 @@ declare global {
         override activateEditor(
             name: string,
             options?: EditorCreateOptions,
-            initialContent?: string
+            initialContent?: string,
         ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
         override render(force?: boolean, options?: RenderOptions): this | Promise<this>;

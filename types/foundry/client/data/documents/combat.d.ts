@@ -135,13 +135,13 @@ declare global {
         protected override _onCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -152,7 +152,7 @@ declare global {
             documents: Combatant<this>[],
             data: Combatant<this>["_source"][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -161,7 +161,7 @@ declare global {
             documents: Combatant<this>[],
             changes: DeepPartial<Combatant<this>["_source"]>[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDeleteDescendantDocuments(
@@ -170,7 +170,7 @@ declare global {
             documents: Combatant<this>[],
             ids: string[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /* -------------------------------------------- */

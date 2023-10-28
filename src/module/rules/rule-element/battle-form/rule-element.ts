@@ -55,7 +55,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                                 initial: true,
                             }),
                         },
-                        { required: false, initial: undefined }
+                        { required: false, initial: undefined },
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
@@ -69,7 +69,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                             }),
                             range: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
                         }),
-                        { required: false, initial: undefined }
+                        { required: false, initial: undefined },
                     ),
                     size: new fields.StringField({ required: false, blank: false, initial: undefined }),
                     speeds: new fields.ObjectField({ required: false, initial: undefined }),
@@ -79,7 +79,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                     weaknesses: new fields.ArrayField(new fields.ObjectField()),
                     resistances: new fields.ArrayField(new fields.ObjectField()),
                 },
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
             ownUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canCast: new fields.BooleanField({ required: false, nullable: false, initial: false }),
@@ -93,7 +93,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         this.overrides = this.resolveValue(
             this.value,
-            this.overrides
+            this.overrides,
         ) as ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
 
         this.modifierLabel = this.getReducedLabel();
@@ -168,7 +168,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onCreate(
-                actorUpdates
+                actorUpdates,
             );
         }
     }
@@ -222,7 +222,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onDelete(
-                actorUpdates
+                actorUpdates,
             );
         }
     }
@@ -253,9 +253,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         attributes.handsFree = Math.max(
             Object.values(this.overrides.strikes ?? {}).reduce(
                 (count, s) => (s.category === "unarmed" ? count : count - 1),
-                2
+                2,
             ),
-            0
+            0,
         );
 
         for (const num of [0, 1, 2]) {
@@ -353,7 +353,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             }) as CharacterSkill;
             this.actor.system.skills[skillShort] = mergeObject(
                 this.actor.system.skills[skillShort],
-                this.actor.skills[key].getTraceData()
+                this.actor.skills[key].getTraceData(),
             );
         }
     }
@@ -420,7 +420,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.#suppressModifiers(action);
                 this.#suppressNotes(
-                    Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : []))
+                    Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : [])),
                 );
                 const baseModifier = Number(this.resolveValue(strike.modifier)) || 0;
                 action.unshift(new ModifierPF2e(this.modifierLabel, baseModifier, "untyped"));

@@ -11,25 +11,25 @@ declare global {
         protected override _getDocuments(
             documentClass: typeof Document,
             request: DatabaseBackendGetContext,
-            user: User
+            user: User,
         ): Promise<CompendiumIndexData[] | Document[]>;
 
         protected override _createDocuments(
             documentClass: typeof Document,
             context: DatabaseBackendCreateContext<Document>,
-            user: User
+            user: User,
         ): Promise<ClientDocument[]>;
 
         protected override _updateDocuments(
             documentClass: typeof Document,
             context: DatabaseBackendUpdateContext<Document>,
-            user: User
+            user: User,
         ): Promise<Document[]>;
 
         protected override _deleteDocuments(
             documentClass: typeof Document,
             context: DatabaseBackendDeleteContext,
-            user: User
+            user: User,
         ): Promise<Document[]>;
 
         /* -------------------------------------------- */

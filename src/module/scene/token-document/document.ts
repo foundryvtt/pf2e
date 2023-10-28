@@ -45,7 +45,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static override getTrackedAttributes(
         data: Record<string, unknown> = {},
-        _path: string[] = []
+        _path: string[] = [],
     ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
@@ -70,9 +70,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     ([k, v]) =>
                         patterns.positive.test(k) &&
                         !patterns.negative.test(k) &&
-                        !["boolean", "string"].includes(typeof v)
-                )
-            )
+                        !["boolean", "string"].includes(typeof v),
+                ),
+            ),
         );
 
         return super.getTrackedAttributes(prunedData, _path);
@@ -143,7 +143,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 position[0],
                 position[1],
                 Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height)
+                Math.max(canvas.grid.size, bounds.height),
             );
         }
 
@@ -408,7 +408,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
@@ -419,7 +419,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
@@ -437,7 +437,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
-        options: DocumentModificationContext<null> = {}
+        options: DocumentModificationContext<null> = {},
     ): void {
         super._onRelatedUpdate(update, options);
 

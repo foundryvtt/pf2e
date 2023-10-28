@@ -55,7 +55,7 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
 
 function creatureIdentificationDCs(
     creature: NPCPF2e,
-    { proficiencyWithoutLevel = false }: DCOptions = {}
+    { proficiencyWithoutLevel = false }: DCOptions = {},
 ): CreatureIdentificationData {
     const { level, rarity } = creature;
     const dc = calculateDC(level, { proficiencyWithoutLevel });

@@ -63,7 +63,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("equipment"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
@@ -85,7 +85,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     })();
                     if (skip) {
                         console.warn(
-                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
                         continue;
                     }
@@ -137,12 +137,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
         mergeObject(
             this.filterData.checkboxes.armorTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.armorGroups)
+            this.generateCheckboxOptions(CONFIG.PF2E.armorGroups),
         );
         this.filterData.checkboxes.weaponTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories);
         mergeObject(
             this.filterData.checkboxes.weaponTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups)
+            this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );
 
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions({

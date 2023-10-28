@@ -19,7 +19,7 @@ declare global {
                     "refreshBars",
                     "refreshNameplate",
                     "refreshBorder",
-                    "refreshShader"
+                    "refreshShader",
                 ];
                 alias: true;
             };
@@ -31,7 +31,7 @@ declare global {
                     "refreshBars",
                     "refreshPosition",
                     "refreshTarget",
-                    "refreshEffects"
+                    "refreshEffects",
                 ];
             };
             refreshPosition: { propagate: ["refreshMesh", "refreshVisibility"] };
@@ -352,7 +352,7 @@ declare global {
             i: number,
             bg: PIXI.Container,
             w: number,
-            tint: number
+            tint: number,
         ): Promise<void>;
 
         /**
@@ -397,20 +397,20 @@ declare global {
          */
         checkCollision(
             destination: Point,
-            { type, mode }: { type?: WallRestrictionType; mode: "closest" }
+            { type, mode }: { type?: WallRestrictionType; mode: "closest" },
         ): PolygonVertex;
         checkCollision(destination: Point, { type, mode }: { type?: WallRestrictionType; mode: "any" }): boolean;
         checkCollision(
             destination: Point,
-            { type, mode }: { type?: WallRestrictionType; mode: "all" }
+            { type, mode }: { type?: WallRestrictionType; mode: "all" },
         ): PolygonVertex[];
         checkCollision(
             destination: Point,
-            { type, mode }?: { type?: WallRestrictionType; mode?: undefined }
+            { type, mode }?: { type?: WallRestrictionType; mode?: undefined },
         ): PolygonVertex[];
         checkCollision(
             destination: Point,
-            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode }
+            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode },
         ): boolean | PolygonVertex | PolygonVertex[];
 
         /**
@@ -464,7 +464,7 @@ declare global {
                 user,
                 releaseOthers,
                 groupSelection,
-            }?: { user?: User | null; releaseOthers?: boolean; groupSelection?: boolean }
+            }?: { user?: User | null; releaseOthers?: boolean; groupSelection?: boolean },
         ): void;
 
         /**
@@ -485,7 +485,7 @@ declare global {
          */
         toggleEffect(
             effect: StatusEffect | ImageFilePath,
-            { active, overlay }?: { active?: boolean; overlay?: boolean }
+            { active, overlay }?: { active?: boolean; overlay?: boolean },
         ): Promise<boolean>;
 
         /** A helper function to toggle the overlay status icon on the Token */
@@ -520,20 +520,20 @@ declare global {
         protected override _onCreate(
             data: TDocument["_source"],
             options: DocumentModificationContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
             options: DocumentModificationContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Control updates to the appearance of the Token and its linked TokenMesh when a data update occurs. */
         protected _onUpdateAppearance(
             data: DeepPartial<TDocument["_source"]>,
             changed: Set<string>,
-            options: DocumentModificationContext<TDocument["parent"]>
+            options: DocumentModificationContext<TDocument["parent"]>,
         ): Promise<void>;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
@@ -553,7 +553,7 @@ declare global {
 
         protected override _onHoverIn(
             event: PIXI.FederatedPointerEvent,
-            { hoverOutOthers }?: { hoverOutOthers?: boolean }
+            { hoverOutOthers }?: { hoverOutOthers?: boolean },
         ): boolean | void;
 
         protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void;

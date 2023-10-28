@@ -2,7 +2,7 @@
 type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
 
 function isRelevantEvent(
-    event?: JQuery.TriggeredEvent | Event | null
+    event?: JQuery.TriggeredEvent | Event | null,
 ): event is MouseEvent | TouchEvent | KeyboardEvent | WheelEvent | JQuery.TriggeredEvent {
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }

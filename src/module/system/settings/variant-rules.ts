@@ -115,7 +115,7 @@ export class VariantRulesSettings extends FormApplication {
                 ...data,
                 [key]: { value: game.settings.get("pf2e", key), setting },
             }),
-            {}
+            {},
         );
     }
 
@@ -145,7 +145,7 @@ export class VariantRulesSettings extends FormApplication {
 
     protected override async _onSubmit(
         event: Event,
-        options: OnSubmitFormOptions = {}
+        options: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
         event.preventDefault();
         return super._onSubmit(event, options);

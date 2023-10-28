@@ -45,7 +45,7 @@ import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
-    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
+    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends ActorPF2e<TParent> {
     declare parties: Set<PartyPF2e>;
     /** A creature always has an AC */
@@ -272,7 +272,7 @@ abstract class CreaturePF2e<
         const customModifiers = (this.system.customModifiers ??= {});
         for (const selector of Object.keys(customModifiers)) {
             customModifiers[selector] = customModifiers[selector].map(
-                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
+                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier),
             );
         }
 
@@ -410,7 +410,7 @@ abstract class CreaturePF2e<
             carryType: ItemCarryType;
             handsHeld?: number;
             inSlot?: boolean;
-        }
+        },
     ): Promise<void> {
         const { usage } = item.system;
         if (carryType === "stowed") {
@@ -577,7 +577,7 @@ abstract class CreaturePF2e<
             const stat: CreatureSpeeds = mergeObject(
                 new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
                 landSpeed,
-                { overwrite: false }
+                { overwrite: false },
             );
             const typeLabel = game.i18n.localize("PF2E.SpeedTypesLand");
             const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: typeLabel });
@@ -615,7 +615,7 @@ abstract class CreaturePF2e<
             const fastest = candidateSpeeds.reduce(
                 (best: LabeledSpeed | BaseSpeedSynthetic | null, speed) =>
                     !best ? speed : speed?.value > best.value ? speed : best,
-                null
+                null,
             );
             if (!fastest) return null;
 
@@ -646,7 +646,7 @@ abstract class CreaturePF2e<
                             .concat(
                                 stat.modifiers
                                     .filter((m) => m.enabled)
-                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
                             )
                             .join(", ");
                     },
@@ -665,12 +665,12 @@ abstract class CreaturePF2e<
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
@@ -684,7 +684,7 @@ abstract class CreaturePF2e<
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp hit points
         const currentHP = this.hitPoints;
@@ -744,33 +744,33 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 
