@@ -677,6 +677,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             name: this._source.name,
             type: "melee",
             system: {
+                slug: this.slug ?? sluggify(this._source.name),
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
