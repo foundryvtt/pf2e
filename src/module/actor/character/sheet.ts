@@ -618,17 +618,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         for (const strikeElem of htmlQueryAll(actionsPanel, ".strikes-list li")) {
-            // Summary traits & tags
-            for (const tagElem of htmlQueryAll(strikeElem, ".item-summary .item-properties.tags .tag")) {
-                if (tagElem.dataset.description) {
-                    $(tagElem).tooltipster({
-                        content: game.i18n.localize(tagElem.dataset.description),
-                        maxWidth: 400,
-                        theme: "crb-hover",
-                    });
-                }
-            }
-
             // Versatile-damage toggles
             const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -666,15 +655,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         event.stopImmediatePropagation();
                     });
                 }
-            }
-
-            const meleeIcon = htmlQuery(strikeElem, ".melee-icon");
-            if (meleeIcon) {
-                $(meleeIcon).tooltipster({
-                    content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
-                    position: "left",
-                    theme: "crb-hover",
-                });
             }
 
             const ammoSelect = htmlQuery<HTMLSelectElement>(strikeElem, "select[data-action=link-ammo]");
@@ -770,15 +750,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             theme: "crb-hover",
             minWidth: 120,
         });
-
-        $html
-            .find("a[data-action=rest]")
-            .tooltipster({ theme: "crb-hover" })
-            .on("click", (event) => {
-                game.pf2e.actions.restForTheNight({ event, actors: [this.actor] });
-            });
-
-        $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
@@ -1127,12 +1098,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
         });
-
-        // Damage formula tooltips
-        for (const damageButton of htmlQueryAll<HTMLButtonElement>(blastList, "button[data-action=roll-damage]")) {
-            const formula = damageButton.dataset.formula ?? "";
-            $(damageButton).tooltipster({ position: "top", theme: "crb-hover", content: formula });
-        }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
@@ -1273,11 +1238,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         if (canRoll) {
             link.classList.remove("disabled");
-            link.removeAttribute("title");
+            link.dataset.tooltip = "COMBAT.InitiativeRoll";
         } else {
             link.classList.add("disabled");
             const reason = !game.combat ? "NoActiveEncounter" : alreadyRolled ? "AlreadyRolled" : null;
-            if (reason) link.title = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
+            if (reason) link.dataset.tooltip = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
         }
     }
 

@@ -1,4 +1,4 @@
-<div class="tab character" data-group="primary" data-tab="character">
+<div class="tab character" data-group="primary" data-tab="character" data-tooltip-class="pf2e">
     <section class="character-details">
         <div class="image-container">
             <img
@@ -10,7 +10,7 @@
             <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
         <div class="alignment">
-            <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
+            <span class="bio-alignment">
                 <select aria-label="{{localize "PF2E.Alignment"}}" name="system.details.alignment.value">
                     {{#select data.details.alignment.value}}
                         {{#each alignments as |label key|}}
@@ -50,11 +50,11 @@
     <section class="character-background">
         <label>
             <span class="details-label">{{localize "PF2E.GenderPronoun"}}</span>
-            <input type="text" class="details-input" title="{{localize "PF2E.GenderPronounTitle"}}" name="system.details.gender.value" value="{{data.details.gender.value}}" />
+            <input type="text" class="details-input" name="system.details.gender.value" value="{{data.details.gender.value}}" />
         </label>
         <label>
             <span class="details-label">{{localize "PF2E.Age"}}</span>
-            <input type="text" class="details-input" title="{{localize "PF2E.AgeTitle"}}" name="system.details.age.value" value="{{data.details.age.value}}" />
+            <input type="text" class="details-input" name="system.details.age.value" value="{{data.details.age.value}}" />
         </label>
         <label>
             <span class="details-label">{{localize "PF2E.Ethnicity"}}</span>
@@ -71,7 +71,7 @@
         <div class="pc pc_land-speed">
             <span class="details-label">{{localize "PF2E.Speed"}}</span>
             <span>
-            <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
+                <h3 data-tooltip="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
             </span>
         </div>
         <div class="pc pc_size">
@@ -88,7 +88,7 @@
                 <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
                 <ol class="tags">
                     {{#each data.attributes.speed.otherSpeeds as |speed|}}
-                        <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
+                        <li class="tag tag_alt" data-slug="{{speed.type}}" data-tooltip="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
                     {{/each}}
                     {{#if @root.options.editable}}
                         <li class="tag tag_secondary edit-btn">
@@ -154,24 +154,24 @@
             <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
         </button>
     </h3>
-    <section class="character-attributes">
+    <section class="character-attributes" data-tooltip-direction="UP">
         <ol class="attributes">
             {{#each data.abilities as |attribute abbrev|}}
                 <li class="attribute {{#if (eq ../actor.keyAttribute abbrev)}}key{{/if}}" data-attribute="{{abbrev}}">
                     <h2 class="abbreviation">
                         {{#if (eq ../data.details.keyability.value abbrev)}}
-                            <i class="key fa-solid fa-key" title="{{localize "PF2E.Actor.Character.Attribute.Key"}}"></i>
+                            <i class="key fa-solid fa-key" data-tooltip="PF2E.Actor.Character.Attribute.Key"></i>
                         {{/if}}
-                        <span title="{{localize attribute.label}}">{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
+                        <span>{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
                         {{#if (eq ../data.build.attributes.apex abbrev)}}
-                            <i class="apex fa-solid fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                            <i class="apex fa-solid fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
                         {{else if (and ../editable (includes ../apexAttributeOptions abbrev))}}
                             <a data-action="apex-attribute">
-                                <i class="apex unselected fa-regular fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                                <i class="apex unselected fa-regular fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
                             </a>
                         {{/if}}
                     </h2>
-                    <h3 class="modifier" title="{{localize "PF2E.ModifierTitle"}}">
+                    <h3 class="modifier" aria-label="PF2E.ModifierTitle">
                         {{numberFormat attribute.mod decimals=0 sign=true}}
                     </h3>
                     <div class="label details-label">{{localize attribute.label}}</div>
@@ -183,7 +183,7 @@
 
 {{#*inline "detailItem"}}
     <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
-    <h3 title="{{localize (concat "PF2E." (capitalize type) "Title")}}">
+    <h3>
         <span class="value">{{item.name}}</span>
         {{#if @root.options.editable}}
             {{#if item}}

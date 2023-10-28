@@ -11,9 +11,9 @@
                 <div class="actions-panel tab" data-tab="encounter" data-group="actions-tabs">
                     {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
 
-                    <h3 class="header">
+                    <h3 class="header" data-tooltip-class="pf2e">
                         {{localize "PF2E.Actor.Attacks"}}
-                        <button type="button" class="toggle-unready-strikes" title="{{localize "PF2E.ToggleUnreadyStrikes"}}">
+                        <button type="button" class="toggle-unready-strikes" data-tooltip="{{localize "PF2E.ToggleUnreadyStrikes"}}">
                             <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
                         </button>
                     </h3>
