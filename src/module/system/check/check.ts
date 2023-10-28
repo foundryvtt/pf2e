@@ -159,17 +159,33 @@ class CheckPF2e {
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
-        const dosAdjustments =
-            context.dosAdjustments
-                ?.filter((a) => a.predicate?.test(rollOptions) ?? true)
-                .reduce((record, data) => {
-                    for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
-                        if (data.adjustments[outcome]) {
-                            record[outcome] = deepClone(data.adjustments[outcome]);
+        const dosAdjustments = ((): DegreeAdjustmentsRecord => {
+            if (R.isNil(context.dc)) return {};
+
+            const naturalTotal = R.compact(
+                roll.dice.map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null),
+            ).shift();
+
+            // Include tentative results in case an adjustment is predicated on it
+            const temporaryRollOptions = new Set([
+                ...rollOptions,
+                `check:total:${roll.total}`,
+                `check:total:natural:${naturalTotal}`,
+            ]);
+
+            return (
+                context.dosAdjustments
+                    ?.filter((a) => a.predicate?.test(temporaryRollOptions) ?? true)
+                    .reduce((record, data) => {
+                        for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+                            if (data.adjustments[outcome]) {
+                                record[outcome] = deepClone(data.adjustments[outcome]);
+                            }
                         }
-                    }
-                    return record;
-                }, {} as DegreeAdjustmentsRecord) ?? {};
+                        return record;
+                    }, {} as DegreeAdjustmentsRecord) ?? {}
+            );
+        })();
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc, dosAdjustments) : null;
 
         if (degree) {

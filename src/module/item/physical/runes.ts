@@ -9,7 +9,9 @@ import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import * as R from "remeda";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
@@ -80,6 +82,17 @@ const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> 
 
 function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
+}
+
+function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
+    return R.uniq(
+        R.compact(
+            [
+                item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+                item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+            ].flat(2),
+        ),
+    );
 }
 
 const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree> = new Map([
@@ -300,6 +313,8 @@ interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends Pro
 
 interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends PropertyRuneData<TSlug> {
     attack?: {
+        /** Degree-of-success adjustments */
+        dosAdjustments?: DegreeOfSuccessAdjustment[];
         notes?: RuneNoteData[];
     };
     damage?: {
@@ -1799,11 +1814,13 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     keen: {
         attack: {
-            notes: [
+            dosAdjustments: [
                 {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.keen.Name",
-                    text: "PF2E.WeaponPropertyRune.keen.Note",
+                    adjustments: { success: { label: "PF2E.WeaponPropertyRune.keen.Name", amount: "criticalSuccess" } },
+                    predicate: new PredicatePF2e([
+                        "check:total:natural:19",
+                        { or: ["item:damage:type:slashing", "item:damage:type:piercing"] },
+                    ]),
                 },
             ],
         },
@@ -2051,6 +2068,7 @@ const RUNE_DATA = {
 
 export {
     RUNE_DATA,
+    getPropertyRuneDegreeAdjustments,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
     getPropertyRuneStrikeAdjustments,

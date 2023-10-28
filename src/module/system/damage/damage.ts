@@ -7,9 +7,9 @@ import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { createHTMLElement } from "@util";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
 import { DamageRollContext, DamageTemplate } from "./types.ts";
-import { createHTMLElement } from "@util";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
