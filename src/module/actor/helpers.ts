@@ -521,7 +521,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const roll = await CheckPF2e.roll(check, checkContext, params.event);
 
             if (roll) {
-                for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                for (const rule of context.self.actor.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({
                         roll,
                         check,
