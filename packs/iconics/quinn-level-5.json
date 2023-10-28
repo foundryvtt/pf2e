@@ -1342,7 +1342,21 @@
                     "remaster": false,
                     "title": "Pathfinder Advanced Player's Guide"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:mark:devise-a-stratagem"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": "shared-stratagem",
                 "traits": {
                     "rarity": "common",
@@ -3569,7 +3583,7 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "devise-a-stratagem",
+                        "option": "target:mark:devise-a-stratagem",
                         "toggleable": "totm"
                     },
                     {
@@ -3577,12 +3591,7 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "class:investigator",
-                            {
-                                "or": [
-                                    "devise-a-stratagem",
-                                    "target:mark:devise-a-stratagem"
-                                ]
-                            },
+                            "target:mark:devise-a-stratagem",
                             {
                                 "or": [
                                     "item:trait:agile",
