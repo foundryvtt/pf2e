@@ -33,11 +33,11 @@
         </button>
     {{/if}}
 
-    <div class="item-controls">
+    <div class="item-controls" data-tooltip-class="pf2e" data-tooltip-direction="UP">
         {{#if @root.options.editable}}
-            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+            <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
             {{#unless action.feat}}
-                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
             {{/unless}}
         {{/if}}
     </div>

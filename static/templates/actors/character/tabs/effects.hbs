@@ -12,7 +12,7 @@
     <h3 class="header">
         {{localize "PF2E.FeatDeityBoonCursesHeader"}}
         {{#if options.editable}}
-            <button type="button" class="item-control" data-action="browse-feats" data-type="feat"><i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}</button>
+            <button type="button" class="item-control" data-action="browse-feats" data-type="feat"><i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}</button>
         {{/if}}
     </h3>
     <ol class="effects-list directory-list item-list">
@@ -22,14 +22,14 @@
                     <div class="feat-slot-title"></div>
                     <div class="item-image framed">
                         <img src="{{feat.img}}"/>
-                        <i class="fas fa-comment-alt"></i>
+                        <i class="fa-solid fa-comment-alt"></i>
                     </div>
                     <h4>{{feat.name}}</h4>
                 </div>
                 {{#if @root.options.editable}}
                     <div class="item-controls">
-                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
-                        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                        <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                     </div>
                 {{/if}}
             </li>
