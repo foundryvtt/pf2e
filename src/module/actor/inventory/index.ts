@@ -73,7 +73,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
                     const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
-                        (p) => p.collection === "pf2e.equipment-srd"
+                        (p) => p.collection === "pf2e.equipment-srd",
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
 

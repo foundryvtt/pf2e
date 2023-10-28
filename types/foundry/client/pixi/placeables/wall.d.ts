@@ -109,13 +109,13 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
     protected override _onCreate(
         data: TDocument["_source"],
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;

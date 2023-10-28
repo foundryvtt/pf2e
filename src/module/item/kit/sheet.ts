@@ -17,7 +17,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
                 key,
                 { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
-            ])
+            ]),
         );
 
         return {

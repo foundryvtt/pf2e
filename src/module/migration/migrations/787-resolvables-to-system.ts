@@ -8,7 +8,7 @@ export class Migration787ResolvablesToSystem extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system = recursiveReplaceString(source.system, (value: string) =>
-            value.replace(/@(weapon|spell)\.data\.data./g, "@$1.system.").replace(/@(weapon|spell)\.data./g, "@$1.")
+            value.replace(/@(weapon|spell)\.data\.data./g, "@$1.system.").replace(/@(weapon|spell)\.data./g, "@$1."),
         );
     }
 }

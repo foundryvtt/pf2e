@@ -12,7 +12,11 @@ import type { Statistic } from "@system/statistic/index.ts";
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
 class CheckContextError extends Error {
-    constructor(message: string, public actor: ActorPF2e, public slug: string) {
+    constructor(
+        message: string,
+        public actor: ActorPF2e,
+        public slug: string,
+    ) {
         super(message);
     }
 }
@@ -66,7 +70,7 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     actionGlyph: ActionGlyph | undefined;
     title: string;
     checkContext: (
-        context: CheckContextOptions<ItemType>
+        context: CheckContextOptions<ItemType>,
     ) => Promise<CheckContext<ItemType>> | CheckContext<ItemType> | undefined;
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     item?: (actor: ActorPF2e) => ItemType | undefined;

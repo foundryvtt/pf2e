@@ -30,12 +30,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         ] as const;
         const lastDisplayedPropertySlot = Math.min(
             maxPropertySlots,
-            propertyRuneSlotsData.findLastIndex(([, slot]) => !!slot?.value) + 2
+            propertyRuneSlotsData.findLastIndex(([, slot]) => !!slot?.value) + 2,
         );
         const propertyRuneSlots = propertyRuneSlotsData
             .filter(
                 ([slotNumber, slot]) =>
-                    slotNumber <= lastDisplayedPropertySlot && !(sheetData.data.specific?.value && slot.value === null)
+                    slotNumber <= lastDisplayedPropertySlot && !(sheetData.data.specific?.value && slot.value === null),
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,
@@ -64,7 +64,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const damageDieFaces = Object.fromEntries(
             Object.entries(CONFIG.PF2E.damageDie)
                 .map(([num, label]): [number, string] => [Number(num.replace("d", "")), label])
-                .sort(([numA], [numB]) => numA - numB)
+                .sort(([numA], [numB]) => numA - numB),
         );
 
         const traitSet = weapon.traits;
@@ -75,7 +75,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 ...ranges,
                 [range]: game.i18n.format("PF2E.WeaponRangeN", { range: range }),
             }),
-            {}
+            {},
         );
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =

@@ -192,7 +192,7 @@ class Statistic extends BaseStatistic {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
             modifiers?: ModifierPF2e[];
-        }
+        },
     ): Statistic {
         function maybeMergeArrays<T>(arr1: Maybe<T[]>, arr2: Maybe<T[]>) {
             if (!arr1 && !arr2) return undefined;
@@ -302,7 +302,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const parentModifiers = parent.modifiers.map((modifier) => {
             const clone = modifier.clone();
             clone.adjustments.push(
-                ...extractModifierAdjustments(modifierAdjustments, data.check?.domains ?? [], clone.slug)
+                ...extractModifierAdjustments(modifierAdjustments, data.check?.domains ?? [], clone.slug),
             );
             return clone;
         });
@@ -318,8 +318,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     ...extractModifierAdjustments(
                         parent.actor.synthetics.modifierAdjustments,
                         parent.domains,
-                        this.parent.slug
-                    )
+                        this.parent.slug,
+                    ),
                 );
                 return modifier;
             });
@@ -388,8 +388,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const { origin } = args;
         const targetToken = origin
             ? null
-            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find((t) =>
-                  t.actor?.isOfType("creature")
+            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find(
+                  (t) => t.actor?.isOfType("creature"),
               ) ?? null;
 
         // This is required to determine the AC for attack dialogs
@@ -486,7 +486,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Process any given action traits, then add to roll options
         const traits = args.traits?.map((t) =>
-            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t
+            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t,
         );
         for (const trait of traits ?? []) {
             options.add(trait.name);
@@ -611,7 +611,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
         const parentModifiers = parent.modifiers.map((modifier) => {
             const clone = modifier.clone();
             clone.adjustments.push(
-                ...extractModifierAdjustments(modifierAdjustments, data.dc?.domains ?? [], clone.slug)
+                ...extractModifierAdjustments(modifierAdjustments, data.dc?.domains ?? [], clone.slug),
             );
             return clone;
         });
@@ -627,8 +627,8 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
                     ...extractModifierAdjustments(
                         parent.actor.synthetics.modifierAdjustments,
                         parent.domains,
-                        this.parent.slug
-                    )
+                        this.parent.slug,
+                    ),
                 );
                 return modifier;
             });
@@ -646,7 +646,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
             new StatisticModifier(
                 "",
                 this.modifiers.map((m) => m.clone()),
-                this.options
+                this.options,
             ).totalModifier
         );
     }

@@ -24,7 +24,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
 
     override async _updateObject(
         _event: Event,
-        formData: Record<string, unknown> & { selection?: boolean }
+        formData: Record<string, unknown> & { selection?: boolean },
     ): Promise<void> {
         const lootActor = this.object;
         const newItems: PhysicalItemPF2e[] = [];
@@ -51,7 +51,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
                 // Deletions will be performed last in case of the other operations failing
                 itemsToDelete.set(
                     currentSource,
-                    currentSource.inventory.map((item) => item.id)
+                    currentSource.inventory.map((item) => item.id),
                 );
             }
         }
@@ -98,7 +98,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
 
     override async getData(): Promise<PopupData> {
         const selectedTokens = canvas.tokens.controlled.filter(
-            (token) => token.actor && token.actor.id !== this.object.id
+            (token) => token.actor && token.actor.id !== this.object.id,
         );
         const tokenInfo = selectedTokens.map((token) => ({
             id: token.id,

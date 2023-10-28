@@ -77,7 +77,7 @@ async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTrait
         item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selection });
     } else {
         const rule = item?.rules.find(
-            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
+            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug,
         );
         await rule?.toggleTrait({ trait, selection });
     }

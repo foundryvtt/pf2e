@@ -92,7 +92,7 @@ declare global {
          */
         animateFlickering(
             dt: number,
-            options?: { speed?: number; intensity?: number; amplification?: boolean; reverse?: boolean }
+            options?: { speed?: number; intensity?: number; amplification?: boolean; reverse?: boolean },
         ): void;
 
         /**

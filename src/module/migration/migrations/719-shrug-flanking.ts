@@ -143,7 +143,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
     private needsDenyAdvantage(rules: AELikeSource[]): boolean {
         return !rules.some(
             (r: Partial<AELikeSource>) =>
-                r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable"
+                r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable",
         );
     }
 }

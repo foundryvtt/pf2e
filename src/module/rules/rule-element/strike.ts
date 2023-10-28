@@ -83,7 +83,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 initial: null,
             }),
             traits: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.npcAttackTraits })
+                new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.npcAttackTraits }),
             ),
             traitToggles: new fields.SchemaField(
                 {
@@ -102,11 +102,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                         initial: null,
                     }),
                 },
-                { required: true, nullable: false, initial: { modular: null, versatile: null } }
+                { required: true, nullable: false, initial: { modular: null, versatile: null } },
             ),
             otherTags: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.otherWeaponTags }),
-                { required: false, nullable: false, initial: [] }
+                { required: false, nullable: false, initial: [] },
             ),
             range: new fields.SchemaField(
                 {
@@ -125,7 +125,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                         initial: null,
                     }),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null },
             ),
             damage: new fields.SchemaField({
                 base: new fields.SchemaField({
@@ -247,7 +247,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         if (this.replaceAll) {
             const systemData = this.actor.system;
             systemData.actions = systemData.actions.filter(
-                (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group
+                (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group,
             );
         } else if (this.replaceBasicUnarmed) {
             const systemData = this.actor.system;

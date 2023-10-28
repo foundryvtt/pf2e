@@ -10,7 +10,7 @@ export class Migration877PublicationData extends MigrationBase {
 
     #setPublicationData(
         systemSource: { details?: { publication: PublicationData }; publication?: PublicationData },
-        oldData: { value?: unknown; author?: unknown }
+        oldData: { value?: unknown; author?: unknown },
     ): void {
         const title = typeof oldData.value === "string" ? oldData.value.trim() : "";
         const authors = typeof oldData.author === "string" ? oldData.author.trim() : "";

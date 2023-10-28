@@ -14,7 +14,7 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
                 typeof r.key === "string" &&
                 r.key.endsWith("FlatModifier") &&
                 isObject<OldRawPredicate>(r.predicate) &&
-                !!r.predicate.all?.includes("self:armor:trait:bulwark")
+                !!r.predicate.all?.includes("self:armor:trait:bulwark"),
         );
     }
 
@@ -27,7 +27,7 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
                     rule.key.endsWith("FlatModifier") &&
                     rule.selector === "reflex" &&
                     rule.type === "ability" &&
-                    /bulwark/i.test(String(rule.label ?? ""))
+                    /bulwark/i.test(String(rule.label ?? "")),
             );
             if (index !== -1) rules.splice(index);
         }

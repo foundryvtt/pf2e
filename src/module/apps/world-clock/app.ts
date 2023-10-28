@@ -221,7 +221,7 @@ export class WorldClock extends Application {
 
                 const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
                 const advanceButtons = Array.from(
-                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []
+                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? [],
                 );
 
                 for (const button of advanceButtons) {

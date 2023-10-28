@@ -7,7 +7,10 @@ import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
 import { PersistentDamagePF2e } from "./document.ts";
 
 class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> {
-    constructor(private actor: ActorPF2e, options: Partial<PersistentDamageDialogOptions> = {}) {
+    constructor(
+        private actor: ActorPF2e,
+        options: Partial<PersistentDamageDialogOptions> = {},
+    ) {
         super(options);
         actor.apps[this.appId] = this;
     }
@@ -112,7 +115,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
 
         html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
             const existing = this.actor.itemTypes.condition.filter(
-                (c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage"
+                (c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage",
             );
 
             for (const condition of existing) {

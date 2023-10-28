@@ -15,7 +15,7 @@ export class Migration858FakeWeaponSpecialization extends MigrationBase {
             (r) =>
                 r.key === "RollOption" &&
                 "option" in r &&
-                ["feature:greater-weapon-specialization", "feature:weapon-specialization"].includes(String(r.option))
+                ["feature:greater-weapon-specialization", "feature:weapon-specialization"].includes(String(r.option)),
         );
     }
 

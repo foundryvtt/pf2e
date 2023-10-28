@@ -22,14 +22,14 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFla
 
 /** Create a message with collapsed action description and button to apply an effect */
 async function createSelfEffectMessage(
-    item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>
+    item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
 ): Promise<ChatMessagePF2e | undefined> {
     if (!item.system.selfEffect) {
         throw ErrorPF2e(
             [
                 "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
                 "Support will be expanded at a later time.",
-            ].join(" ")
+            ].join(" "),
         );
     }
 
@@ -145,7 +145,7 @@ async function applyDamageFromMessage({
                 resolvables,
                 test: applicationRollOptions,
             }).filter(
-                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions)
+                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions),
             );
 
             for (const dice of damageDice) {
@@ -165,7 +165,7 @@ async function applyDamageFromMessage({
             }
 
             const modifiers = extractModifiers(contextClone.synthetics, [domain], { resolvables }).filter(
-                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions)
+                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions),
             );
 
             // unlikely to have any typed modifiers, but apply stacking rules just in case even though the context of
@@ -183,7 +183,7 @@ async function applyDamageFromMessage({
                 .filter(
                     (n) =>
                         (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                        n.predicate.test(applicationRollOptions)
+                        n.predicate.test(applicationRollOptions),
                 )
                 .map((note) => note.text);
         })();

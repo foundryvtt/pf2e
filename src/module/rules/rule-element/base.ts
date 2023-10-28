@@ -135,7 +135,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             if (error instanceof foundry.data.validation.DataModelValidationError) {
                 const message = error.message.replace(
                     /validation errors|Joint Validation Error/,
-                    `validation errors on item ${this.item.name} (${this.item.uuid})`
+                    `validation errors on item ${this.item.name} (${this.item.uuid})`,
                 );
                 console.warn(message);
                 return false;
@@ -166,7 +166,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         if (!this.suppressWarnings) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             this.actor.synthetics.preparationWarnings.add(
-                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`
+                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
             );
         }
         this.ignored = true;
@@ -194,11 +194,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveInjectedProperties<T extends string | number | object | null | undefined>(
         source: T,
-        options?: { warn?: boolean }
+        options?: { warn?: boolean },
     ): T;
     resolveInjectedProperties(
         source: string | number | object | null | undefined,
-        { warn = true } = {}
+        { warn = true } = {},
     ): string | number | object | null | undefined {
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
@@ -250,7 +250,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     resolveValue(
         value: unknown,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
+        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {},
     ): number | string | boolean | object | null {
         value ??= defaultValue ?? null;
         if (typeof value === "number" || typeof value === "boolean" || value === null) {
@@ -316,7 +316,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     #resolveBracketedValue(
         value: BracketedValue,
-        defaultValue: Exclude<RuleValue, BracketedValue>
+        defaultValue: Exclude<RuleValue, BracketedValue>,
     ): Exclude<RuleValue, BracketedValue> {
         const bracketNumber = ((): number => {
             if (!value.field) return this.actor.level;

@@ -295,7 +295,7 @@ class ChatMessagePF2e extends ChatMessage {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
 

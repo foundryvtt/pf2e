@@ -82,7 +82,7 @@ class CompendiumPack {
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
         const metadata = CompendiumPack.#packsMetadata.find(
-            (pack) => path.basename(pack.path) === path.basename(packDir)
+            (pack) => path.basename(pack.path) === path.basename(packDir),
         );
         if (metadata === undefined) {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
@@ -151,7 +151,7 @@ class CompendiumPack {
                     const repoImgPath = path.resolve(
                         process.cwd(),
                         "static",
-                        decodeURIComponent(imgPath).replace("systems/pf2e/", "")
+                        decodeURIComponent(imgPath).replace("systems/pf2e/", ""),
                     );
                     if (!isCoreIconPath && !fs.existsSync(repoImgPath)) {
                         throw PackError(`${documentName} (${this.packId}) has an unknown image path: ${imgPath}`);
@@ -303,11 +303,11 @@ class CompendiumPack {
 
     #sourceIdOf(
         documentId: string,
-        { packId = this.packId, docType }: { packId?: string; docType: "Actor" }
+        { packId = this.packId, docType }: { packId?: string; docType: "Actor" },
     ): CompendiumActorUUID;
     #sourceIdOf(
         documentId: string,
-        { packId = this.packId, docType }: { packId?: string; docType: "Item" }
+        { packId = this.packId, docType }: { packId?: string; docType: "Item" },
     ): CompendiumItemUUID;
     #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string;
     #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string {
@@ -317,7 +317,7 @@ class CompendiumPack {
     /** Convert UUIDs in REs to resemble links by name or back again */
     static convertUUIDs(
         source: ItemSourcePF2e,
-        { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> }
+        { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> },
     ): void {
         const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
@@ -340,7 +340,7 @@ class CompendiumPack {
         const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
             typeof choices === "object" &&
             Object.values(choices ?? {}).every(
-                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e.")
+                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e."),
             );
 
         const rules: REMaybeWithUUIDs[] = source.system.rules;
@@ -457,7 +457,7 @@ class CompendiumPack {
 
         if (failedChecks.length > 0) {
             throw PackError(
-                `Document source in (${this.packId}) has invalid or missing keys: ${failedChecks.join(", ")}`
+                `Document source in (${this.packId}) has invalid or missing keys: ${failedChecks.join(", ")}`,
             );
         }
 

@@ -51,7 +51,7 @@ type RuleElementSchema = {
 class ResolvableValueField<
     TRequired extends boolean,
     TNullable extends boolean,
-    THasInitial extends boolean = false
+    THasInitial extends boolean = false,
 > extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
     protected override _validateType(value: unknown): boolean {
         return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);

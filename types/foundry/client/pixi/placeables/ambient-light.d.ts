@@ -1,5 +1,5 @@
 declare class AmbientLight<
-    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>
+    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
@@ -62,13 +62,13 @@ declare class AmbientLight<
     protected override _onCreate(
         data: TDocument["_source"],
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
@@ -90,7 +90,7 @@ declare class AmbientLight<
     protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 }
 declare interface AmbientLight<
-    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>
+    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     get layer(): LightingLayer<this>;
 }

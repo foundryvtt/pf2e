@@ -51,7 +51,7 @@ export class TrickMagicItemPopup {
                 content: `<p>${this.#localize("Label")}</p>`,
                 buttons,
             },
-            { classes: ["dialog", "trick-magic-item"], width: "auto" }
+            { classes: ["dialog", "trick-magic-item"], width: "auto" },
         ).render(true);
     }
 

@@ -99,7 +99,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                 initial: undefined,
             } as const),
         },
-        { validateForItem: itemHasCounterBadge }
+        { validateForItem: itemHasCounterBadge },
     ),
     "badge-value": new ItemAlterationValidator(
         {
@@ -116,7 +116,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                 initial: undefined,
             } as const),
         },
-        { validateForItem: itemHasCounterBadge }
+        { validateForItem: itemHasCounterBadge },
     ),
     "bulk-held-or-stowed": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -234,7 +234,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     });
                 }
             },
-        }
+        },
     ),
     "persistent-damage": new ItemAlterationValidator(
         {
@@ -262,7 +262,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                         initial: 15,
                     }),
                 },
-                { nullable: false } as const
+                { nullable: false } as const,
             ),
         },
         {
@@ -273,7 +273,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     });
                 }
             },
-        }
+        },
     ),
     rarity: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -375,7 +375,7 @@ const ITEM_ALTERATION_VALIDATORS = {
 interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
     extends DataFieldOptions<TSourceProp, true, false, false> {
     validateForItem?: (
-        item: ItemPF2e | ItemSourcePF2e
+        item: ItemPF2e | ItemSourcePF2e,
     ) => asserts item is
         | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>
         | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>["_source"];

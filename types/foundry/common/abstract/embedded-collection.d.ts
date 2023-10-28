@@ -10,7 +10,7 @@ export default class EmbeddedCollection<TModel extends abstract.DataModel> exten
         sourceArray: TModel["_source"][],
         documentClass: {
             new (data: TModel["_source"], context?: DataModelConstructionOptions<TModel["parent"]>): TModel;
-        }
+        },
     );
 
     override set(key: string, value: TModel, { modifySource }?: { modifySource?: boolean }): this;

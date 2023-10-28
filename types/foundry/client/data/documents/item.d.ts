@@ -37,19 +37,19 @@ declare global {
         protected override _preCreate(
             data: this["_source"],
             options: DocumentModificationContext<TParent>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         protected static override _onCreateDocuments<TDocument extends foundry.abstract.Document>(
             this: ConstructorOf<TDocument>,
             items: TDocument[],
-            context: DocumentModificationContext<TDocument["parent"]>
+            context: DocumentModificationContext<TDocument["parent"]>,
         ): void;
 
         protected static override _onDeleteDocuments<TDocument extends foundry.abstract.Document>(
             this: ConstructorOf<TDocument>,
             items: TDocument[],
-            context: DocumentModificationContext<TDocument["parent"]>
+            context: DocumentModificationContext<TDocument["parent"]>,
         ): void;
     }
 

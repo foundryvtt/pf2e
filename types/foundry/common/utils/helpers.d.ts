@@ -60,7 +60,7 @@ export function mergeObject<T extends object, U extends object = T>(
     original: T,
     other: U,
     options?: MergeObjectOptions,
-    _d?: number
+    _d?: number,
 ): T & U;
 
 /**
@@ -127,7 +127,7 @@ export function isObjectEmpty(obj: object): boolean;
  */
 export function diffObject<T extends Record<string, unknown> = Record<string, unknown>>(
     original: object,
-    other: object
+    other: object,
 ): T;
 
 /**
@@ -280,7 +280,7 @@ export function logCompatibilityWarning(
         until?: number | string;
         details?: string;
         stack?: boolean;
-    }
+    },
 ): void;
 
 declare global {
@@ -315,7 +315,7 @@ declare global {
          */
         function loadTexture(
             src: string,
-            { fallback }?: { fallback?: ImageFilePath }
+            { fallback }?: { fallback?: ImageFilePath },
         ): Promise<PIXI.Texture | PIXI.Spritesheet | null>;
     }
 }

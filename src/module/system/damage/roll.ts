@@ -29,7 +29,7 @@ abstract class AbstractDamageRoll extends Roll {
     static override replaceFormulaData(
         formula: string,
         data: Record<string, unknown>,
-        options: { missing?: string; warn?: boolean } = {}
+        options: { missing?: string; warn?: boolean } = {},
     ): string {
         const replaced = super.replaceFormulaData(formula.trim(), data, options);
         return replaced.replace(/(?<![a-z])\((\d+)\)/gi, "$1");
@@ -327,7 +327,7 @@ class DamageInstance extends AbstractDamageRoll {
             flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
-            objectHasKey(CONFIG.PF2E.materialDamageEffects, i)
+            objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
         );
     }
 
@@ -448,7 +448,7 @@ class DamageInstance extends AbstractDamageRoll {
                 typeCategory ? `damage:category:${typeCategory}` : [],
                 this.persistent ? "damage:category:persistent" : [],
                 this.materials.map((m) => `damage:material:${m}`),
-            ].flat()
+            ].flat(),
         );
     }
 
@@ -504,9 +504,9 @@ class DamageInstance extends AbstractDamageRoll {
                             : t instanceof Grouping || t instanceof ArithmeticExpression || t instanceof IntermediateDie
                             ? [...dice, ...t.dice]
                             : [],
-                    this._dice
+                    this._dice,
                 )
-                .flat()
+                .flat(),
         );
     }
 
@@ -554,7 +554,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         return deepFindTerms(this.head, { flavor: component }).reduce(
             (total, t) => total + (Number(t.total!) || 0) * Number(t.options.crit || 1),
-            0
+            0,
         );
     }
 

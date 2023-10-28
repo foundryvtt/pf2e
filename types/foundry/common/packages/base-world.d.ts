@@ -13,7 +13,7 @@ export default class BaseWorld extends packages.BasePackage<WorldSchema> {
 
     static testAvailability(
         data?: Partial<packages.PackageManifestData>,
-        release?: packages.ReleaseData
+        release?: packages.ReleaseData,
     ): PackageAvailabilityCode;
 }
 

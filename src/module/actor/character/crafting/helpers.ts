@@ -43,7 +43,7 @@ function calculateCosts(
     item: PhysicalItemPF2e,
     quantity: number,
     actor: CharacterPF2e,
-    degreeOfSuccess: number
+    degreeOfSuccess: number,
 ): Costs | null {
     const itemPrice = CoinsPF2e.fromPrice(item.price, quantity);
     const materialCosts = itemPrice.scale(0.5);
@@ -73,7 +73,7 @@ export async function craftItem(
     item: PhysicalItemPF2e,
     itemQuantity: number,
     actor: ActorPF2e,
-    infused?: boolean
+    infused?: boolean,
 ): Promise<void> {
     const itemSource = item.toObject();
     itemSource.system.quantity = itemQuantity;
@@ -104,7 +104,7 @@ export async function craftItem(
 export async function craftSpellConsumable(
     item: ConsumablePF2e,
     itemQuantity: number,
-    actor: ActorPF2e
+    actor: ActorPF2e,
 ): Promise<void> {
     const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
@@ -113,10 +113,13 @@ export async function craftSpellConsumable(
     ) as OneToTen;
     const validSpells = actor.itemTypes.spell
         .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
-        .reduce((result, spell) => {
-            result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
-            return result;
-        }, {} as Record<number, SpellPF2e<ActorPF2e>[]>);
+        .reduce(
+            (result, spell) => {
+                result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
+                return result;
+            },
+            {} as Record<number, SpellPF2e<ActorPF2e>[]>,
+        );
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
@@ -153,7 +156,7 @@ export async function renderCraftingInline(
     roll: Rolled<CheckRoll>,
     quantity: number,
     actor: ActorPF2e,
-    free: boolean
+    free: boolean,
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 

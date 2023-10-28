@@ -51,7 +51,7 @@ export class Migration718CarryType extends MigrationBase {
         const containerId = itemData.system.containerId ?? { value: null };
         if (containerId instanceof Object && containerId.value) {
             const inStowingContainer = actor.items.some(
-                (i) => i.type === "backpack" && i.system.stowing && i._id === containerId.value
+                (i) => i.type === "backpack" && i.system.stowing && i._id === containerId.value,
             );
 
             if (!inStowingContainer) {

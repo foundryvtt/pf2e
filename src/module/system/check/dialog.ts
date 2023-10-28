@@ -25,7 +25,7 @@ export class CheckModifiersDialog extends Application {
     constructor(
         check: StatisticModifier,
         resolve: (value: boolean) => void,
-        context: CheckRollContext = { options: new Set() }
+        context: CheckRollContext = { options: new Set() },
     ) {
         // The title often has HTML in it: get the base text
         const title = ((): string => {

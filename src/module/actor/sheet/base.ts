@@ -213,7 +213,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 ...accumulated,
                 [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
             }),
-            {} as CoinageSummary
+            {} as CoinageSummary,
         );
     }
 
@@ -284,7 +284,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         const manualPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
             html,
-            "select[data-property],input[data-property]"
+            "select[data-property],input[data-property]",
         );
         for (const input of manualPropertyInputs) {
             input.addEventListener("focus", () => {
@@ -726,10 +726,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             willInsertAfter: event.willInsertAfter,
         };
         const sourceItem = this.actor.inventory.get(
-            htmlQuery(event.dragged, "div[data-item-id]")?.dataset.itemId ?? ""
+            htmlQuery(event.dragged, "div[data-item-id]")?.dataset.itemId ?? "",
         );
         const targetItem = this.actor.inventory.get(
-            htmlClosest(originalEvent.target, "div[data-item-id]")?.dataset.itemId ?? ""
+            htmlClosest(originalEvent.target, "div[data-item-id]")?.dataset.itemId ?? "",
         );
         if (sourceItem && targetItem) {
             if (sourceItem.isOfType("backpack") && targetItem.isOfType("backpack") && targetItem.isCollapsed) {
@@ -988,7 +988,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected override async _onDropItem(
         event: DragEvent,
-        data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
+        data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         event.preventDefault();
         const item = await ItemPF2e.fromDropData(data);
@@ -1006,7 +1006,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 item.actor?.token?.id ?? null,
                 this.actor.id,
                 this.actor.token?.id ?? null,
-                item.id
+                item.id,
             );
             return [item];
         }
@@ -1021,12 +1021,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]>;
     protected async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<Item<ActorPF2e | null>[]> {
         const { actor } = this;
         const itemSource = item.toObject();
@@ -1067,7 +1067,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                         });
                         await this._onDropItemCreate(createdItem);
                     },
-                    item
+                    item,
                 );
                 popup.render(true);
                 return [item];
@@ -1139,11 +1139,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     protected override async _onDropFolder(
         _event: DragEvent,
-        data: DropCanvasData<"Folder", Folder>
+        data: DropCanvasData<"Folder", Folder>,
     ): Promise<ItemPF2e<TActor>[]>;
     protected override async _onDropFolder(
         _event: DragEvent,
-        data: DropCanvasData<"Folder", Folder>
+        data: DropCanvasData<"Folder", Folder>,
     ): Promise<Item<TActor>[]> {
         if (!(this.actor.isOwner && data.documentName === "Item")) return [];
         const folder = (await Folder.fromDropData(data)) as Folder<ItemPF2e<null>> | undefined;
@@ -1165,7 +1165,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         sourceTokenId: string | null,
         targetActorId: string,
         targetTokenId: string | null,
-        itemId: string
+        itemId: string,
     ): Promise<void> {
         const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
         const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
@@ -1196,7 +1196,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 { quantity: { max: sourceItemQuantity, default: defaultQuantity }, lockStack: !stackable, isPurchase },
                 (quantity, newStack) => {
                     sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-                }
+                },
             );
 
             popup.render(true);
@@ -1307,7 +1307,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected tagSelector(selectorType: "basic", options: BasicConstructorOptions): void;
     protected tagSelector(
         selectorType: TagSelectorType,
-        options?: Partial<TagSelectorOptions> | BasicConstructorOptions
+        options?: Partial<TagSelectorOptions> | BasicConstructorOptions,
     ): void {
         if (selectorType === "basic" && options && "objectProperty" in options) {
             new TagSelectorBasic(this.object, options).render(true);
@@ -1345,7 +1345,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
         for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") input.value = "[]";

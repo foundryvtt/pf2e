@@ -58,7 +58,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
                 const insertLocation = htmlQueryAll(
                     element,
-                    ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
+                    ":scope > .item-name, :scope > .item-controls, :scope > .action-header",
                 ).at(-1)?.parentNode?.lastChild;
                 if (!insertLocation && !existing) return null;
 
@@ -91,7 +91,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             await gsap.fromTo(
                 summary,
                 { height: 0, opacity: 0, hidden: false },
-                { height: "auto", opacity: 1, duration }
+                { height: "auto", opacity: 1, duration },
             );
         } else {
             await gsap.to(summary, {

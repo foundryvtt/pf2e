@@ -48,13 +48,13 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
             this.browser.loadedPacks("bestiary"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const actorData of index.filter((d) => d.type === "npc")) {
                 if (!this.hasAllIndexFields(actorData, this.index)) {
                     console.warn(
-                        `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                        `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                     );
                     continue;
                 }

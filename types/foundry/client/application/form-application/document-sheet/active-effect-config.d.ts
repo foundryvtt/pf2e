@@ -12,7 +12,7 @@ declare global {
                 navSelector: ".tabs";
                 contentSelector: "form";
                 initial: "details";
-            }
+            },
         ];
     }
 

@@ -80,7 +80,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-        rollOptions: Record<string, unknown> = {}
+        rollOptions: Record<string, unknown> = {},
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
@@ -115,7 +115,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 ? liquidOrSubstance()
                 : ["scroll", "snare", "ammo"].includes(this.category)
                 ? CONFIG.PF2E.consumableTypes[this.category]
-                : "PF2E.identification.UnidentifiedType.Object"
+                : "PF2E.identification.UnidentifiedType.Object",
         );
 
         if (typeOnly) return itemType;
@@ -229,7 +229,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             return actor.spellcasting
                 .filter(
                     (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
-                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
+                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this }),
                 )
                 .reduce((previous, current) => {
                     const previousDC = previous.statistic.dc.value;

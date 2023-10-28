@@ -19,7 +19,7 @@ interface RuleElementFormOptions<TSource extends RuleElementSource, TObject exte
 /** Base Rule Element form handler. Form handlers intercept sheet events to support new UI */
 class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
-    TObject extends RuleElementPF2e | null = RuleElementPF2e | null
+    TObject extends RuleElementPF2e | null = RuleElementPF2e | null,
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
@@ -125,7 +125,7 @@ class RuleElementForm<
     async #getFormHelpers(rule: TSource): Promise<Record<string, unknown>> {
         const valueTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/resolvable-value.hbs");
         const bracketsTemplate = await getTemplate(
-            "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs"
+            "systems/pf2e/templates/items/rules/partials/resolvable-brackets.hbs",
         );
         const dropZoneTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/drop-zone.hbs");
 
@@ -288,7 +288,7 @@ class RuleElementForm<
             } catch (error) {
                 if (error instanceof Error) {
                     ui.notifications.error(
-                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
                     );
                     console.warn("Syntax error in rule element definition.", error.message, source);
                     throw error; // prevent update, to give the user a chance to correct, and prevent bad data
@@ -389,7 +389,7 @@ function cleanPredicate(source: { predicate?: unknown }) {
             } catch (error) {
                 if (error instanceof Error) {
                     ui.notifications.error(
-                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
                     );
                     throw error; // prevent update, to give the user a chance to correct, and prevent bad data
                 }

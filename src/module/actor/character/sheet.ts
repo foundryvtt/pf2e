@@ -137,7 +137,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
 
                     return data;
-                })
+                }),
             ),
             defenses: sortLabeledRecord(
                 R.mapValues(
@@ -150,8 +150,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         const rank = data.rank ?? 0;
                         data.value = createProficiencyModifier({ actor, rank, domains: [] }).value;
                         return data;
-                    }
-                )
+                    },
+                ),
             ),
         };
 
@@ -172,7 +172,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Update hero points label
         sheetData.data.resources.heroPoints.hover = game.i18n.format(
             actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
-            actor.heroPoints
+            actor.heroPoints,
         );
 
         // Indicate whether the PC has all attribute boosts allocated
@@ -187,11 +187,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const ancestryBoostsSelected =
                 (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 ||
                     Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
-                        (b) => b.value.length === 0 || !!b.selected
+                        (b) => b.value.length === 0 || !!b.selected,
                     )) &&
                 sheetData.ancestry?.system.voluntary?.boost !== null;
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
-                (b) => b.value.length === 0 || !!b.selected
+                (b) => b.value.length === 0 || !!b.selected,
             );
 
             return (
@@ -199,7 +199,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 backgroundBoostsSelected &&
                 keyAttributeSelected &&
                 ([1, 5, 10, 15, 20] as const).filter(
-                    (l) => build.attributes.allowedBoosts[l] > build.attributes.boosts[l].length
+                    (l) => build.attributes.allowedBoosts[l] > build.attributes.boosts[l].length,
                 ).length === 0
             );
         })();
@@ -215,7 +215,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
                     rankSlug: PROFICIENCY_RANKS[classDC.rank],
                     rankName: game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`),
-                })
+                }),
             )
             .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
         const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
@@ -235,7 +235,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                   e.isInvested &&
                   e.system.apex.attribute !== actor.system.build.attributes.apex
                       ? e.system.apex.attribute
-                      : []
+                      : [],
               );
 
         // Spell Details
@@ -244,7 +244,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
-            `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`
+            `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`,
         );
 
         // ensure saves are displayed in the following order:
@@ -301,8 +301,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             Object.entries(sheetData.data.skills).sort(([_keyA, skillA], [_keyB, skillB]) =>
                 game.i18n
                     .localize(skillA.label ?? "")
-                    .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang)
-            )
+                    .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang),
+            ),
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
         sheetData.tabVisibility = deepClone(actor.flags.pf2e.sheetTabs);
@@ -327,7 +327,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         try {
             const action = new ElementalBlast(this.actor);
             const blastData = (await Promise.all(action.configs.map((c) => this.#getBlastData(action, c)))).sort(
-                (a, b) => a.label.localeCompare(b.label, game.i18n.lang)
+                (a, b) => a.label.localeCompare(b.label, game.i18n.lang),
             );
             sheetData.elementalBlasts = blastData;
         } catch (error) {
@@ -577,7 +577,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         },
                     },
                 ],
-                { eventName: "click" }
+                { eventName: "click" },
             );
 
             for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
@@ -602,7 +602,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
                         this.actor.updateEmbeddedDocuments(
                             "Item",
-                            apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection }))
+                            apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection })),
                         );
                     }
                 });
@@ -621,7 +621,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // Versatile-damage toggles
             const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
-                "button[data-action=toggle-versatile]"
+                "button[data-action=toggle-versatile]",
             );
             for (const button of versatileToggleButtons) {
                 button.addEventListener("click", () => {
@@ -639,7 +639,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
-                "button[data-action=auxiliary-action]"
+                "button[data-action=auxiliary-action]",
             );
             for (const button of auxActionButtons) {
                 const modularSelect = htmlQuery(button, "select");
@@ -796,7 +796,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
             for (const button of htmlQueryAll(
                 element,
-                "[data-action=increase-quantity], [data-action=decrease-quantity]"
+                "[data-action=increase-quantity], [data-action=decrease-quantity]",
             )) {
                 button.addEventListener("click", async () => {
                     if (!quantity) return;
@@ -850,7 +850,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     }
                     await this.actor.update(
                         { "system.resources.crafting.infusedReagents.value": reagentValue },
-                        { render: false }
+                        { render: false },
                     );
 
                     return craftItem(formula.item, 1, this.actor, true);
@@ -942,7 +942,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!formula) return;
 
             const entries = (await this.actor.getCraftingEntries()).filter(
-                (e) => !!e.selector && e.checkEntryRequirements(formula, { warn: false })
+                (e) => !!e.selector && e.checkEntryRequirements(formula, { warn: false }),
             );
             for (const entry of entries) {
                 await entry.prepareFormula(formula);
@@ -1248,7 +1248,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
@@ -1312,7 +1312,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     async #sortFormulas(
         sourceFormula: CraftingFormula,
         targetUuid: string,
-        entrySelector: string | null
+        entrySelector: string | null,
     ): Promise<void> {
         if (!UUIDUtils.isItemUUID(targetUuid)) return;
         if (sourceFormula.uuid === targetUuid) return;
@@ -1329,7 +1329,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             formulas: (PreparedFormulaData | CraftingFormulaData)[],
             source: PreparedFormulaData | CraftingFormulaData,
             target: PreparedFormulaData | CraftingFormulaData,
-            siblings: (PreparedFormulaData | CraftingFormulaData)[]
+            siblings: (PreparedFormulaData | CraftingFormulaData)[],
         ): Promise<void> => {
             const results = SortingHelpers.performIntegerSort(source, {
                 target,
@@ -1378,7 +1378,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(
         event: DragEvent,
-        itemSource: ItemSourcePF2e
+        itemSource: ItemSourcePF2e,
     ): Promise<CollectionValue<TActor["items"]>[]>;
     protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         const item = this.actor.items.get(itemSource._id!);

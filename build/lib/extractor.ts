@@ -123,7 +123,7 @@ class PackExtractor {
 
                     console.log(`Finished extracting ${sourceCount} documents from pack ${dbDirectory}`);
                     return sourceCount;
-                })
+                }),
             )
         ).reduce((runningTotal, count) => runningTotal + count, 0);
     }
@@ -140,7 +140,7 @@ class PackExtractor {
             const getFolderPath = (folder: DBFolder, parts: string[] = []): string => {
                 if (parts.length > 3) {
                     throw PackError(
-                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`
+                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`,
                     );
                 }
                 parts.unshift(sluggify(folder.name));
@@ -229,7 +229,7 @@ class PackExtractor {
             if (oldSource._id !== newSource._id) {
                 throw PackError(
                     `The ID of doc "${newSource.name}" (${newSource._id}) does not match the current ID ` +
-                        `(${oldSource._id}). Documents that are already in the system must keep their current ID.`
+                        `(${oldSource._id}). Documents that are already in the system must keep their current ID.`,
                 );
             }
         }
@@ -314,7 +314,7 @@ class PackExtractor {
                 if (typeof slug === "string" && slug !== sluggify(docSource.name)) {
                     console.warn(
                         `Warning: Name change detected on ${docSource.name}. ` +
-                            "Please remember to create a slug migration before next release."
+                            "Please remember to create a slug migration before next release.",
                     );
                 }
 
@@ -347,7 +347,7 @@ class PackExtractor {
                 } catch (error) {
                     console.error(error);
                     throw PackError(
-                        `Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`
+                        `Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`,
                     );
                 }
             })();
@@ -421,7 +421,7 @@ class PackExtractor {
                 if ("img" in docSource && typeof docSource.img === "string") {
                     docSource.img = docSource.img.replace(
                         "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                        "systems/pf2e/"
+                        "systems/pf2e/",
                     ) as ImageFilePath;
                 }
 
@@ -543,7 +543,7 @@ class PackExtractor {
             }
         } else if (source.type === "feat") {
             const isFeat = !["ancestryfeature", "classfeature", "pfsboon", "deityboon", "curse"].includes(
-                source.system.category
+                source.system.category,
             );
             if (isFeat && source.img === "systems/pf2e/icons/default-icons/feat.svg") {
                 source.img = "systems/pf2e/icons/features/feats/feats.webp";
@@ -656,7 +656,7 @@ class PackExtractor {
             if (!itemTypeList.includes(key)) {
                 if (this.emitWarnings) {
                     console.log(
-                        `Warning in ${docSource.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`
+                        `Warning in ${docSource.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
                     );
                 }
                 for (const item of itemSet) {
@@ -727,7 +727,7 @@ class PackExtractor {
             [
                 new RegExp(
                     "(\\+|\\-)\\d+ (Status|Circumstance) (Bonus )?(to|on) ((All|Fortitude|Reflex|Will) )?Saves",
-                    "i"
+                    "i",
                 ),
                 "top",
             ],
@@ -772,7 +772,7 @@ class PackExtractor {
             const notAbilityMatch = notAbilities.find((naName) => ability.name.match(naName[0]));
             if (notAbilityMatch) {
                 console.log(
-                    `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`
+                    `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`,
                 );
             }
 
@@ -820,7 +820,7 @@ class PackExtractor {
     #sortItemsWithOverrides(
         docName: string,
         actions: ItemSourcePF2e[],
-        overrides: Map<RegExp, "top" | "bottom">
+        overrides: Map<RegExp, "top" | "bottom">,
     ): ItemSourcePF2e[] {
         const topActions: ItemSourcePF2e[] = [];
         const middleActions: ItemSourcePF2e[] = [];
@@ -836,7 +836,7 @@ class PackExtractor {
                 } else {
                     if (this.emitWarnings) {
                         console.log(
-                            `Warning in ${docName}: Override item '${regexp}' has undefined override section '${position}', should be top or bottom!`
+                            `Warning in ${docName}: Override item '${regexp}' has undefined override section '${position}', should be top or bottom!`,
                         );
                     }
                 }

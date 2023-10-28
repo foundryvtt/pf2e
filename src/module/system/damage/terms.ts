@@ -46,12 +46,12 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     static totalOf(
         operator: ArithmeticOperator,
         left: number | undefined,
-        right: number | undefined
+        right: number | undefined,
     ): number | undefined;
     static totalOf(
         operator: ArithmeticOperator,
         left: number | undefined,
-        right: number | undefined
+        right: number | undefined,
     ): number | undefined {
         if (left === undefined || right === undefined) return undefined;
 
@@ -75,7 +75,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 ? o
                 : o instanceof Grouping || o instanceof ArithmeticExpression || o instanceof IntermediateDie
                 ? o.dice
-                : []
+                : [],
         );
     }
 
@@ -171,7 +171,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 ? renderComponentDamage(o)
                 : isSystemDamageTerm(o)
                 ? o.render()
-                : o.expression
+                : o.expression,
         );
 
         fragment.append(left, ` ${this.operator} `, right);
@@ -180,7 +180,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     protected override async _evaluate(
-        options: { minimize?: boolean; maximize?: boolean } = {}
+        options: { minimize?: boolean; maximize?: boolean } = {},
     ): Promise<Evaluated<this>> {
         for (const operand of this.operands) {
             if (!operand._evaluated) {
@@ -303,7 +303,7 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     protected override async _evaluate(
-        options: { minimize?: boolean; maximize?: boolean } = {}
+        options: { minimize?: boolean; maximize?: boolean } = {},
     ): Promise<Evaluated<this>> {
         if (!this.term._evaluated) {
             await this.term.evaluate({ async: true, ...options });
@@ -358,7 +358,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         super(data);
 
         const setTerm = (
-            termData: number | NumericTermData | MathTermData | GroupingData
+            termData: number | NumericTermData | MathTermData | GroupingData,
         ): number | MathTerm | Grouping => {
             if (typeof termData === "number") return termData;
 
@@ -420,7 +420,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     get minimumValue(): number {
         return DamageInstance.getValue(
             this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
-            "minimum"
+            "minimum",
         );
     }
 
@@ -432,7 +432,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     get maximumValue(): number {
         return DamageInstance.getValue(
             this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
-            "maximum"
+            "maximum",
         );
     }
 

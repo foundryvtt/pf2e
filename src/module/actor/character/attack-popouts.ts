@@ -78,7 +78,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
             base.elementalBlasts = [];
             if (this.#strikeSlug && this.#strikeItemId) {
                 this.#strike = base.data.actions.find(
-                    (a) => a.item.id === this.#strikeItemId && a.slug === this.#strikeSlug
+                    (a) => a.item.id === this.#strikeItemId && a.slug === this.#strikeSlug,
                 );
             }
         }

@@ -4,7 +4,10 @@ import { SpellPF2e } from "./index.ts";
 import { ActorPF2e } from "@actor";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
-    constructor(public readonly spell: SpellPF2e, entries?: Record<string, SpellOverlay>) {
+    constructor(
+        public readonly spell: SpellPF2e,
+        entries?: Record<string, SpellOverlay>,
+    ) {
         super(Object.entries(entries ?? {}));
     }
 
@@ -25,7 +28,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
 
     async create(
         overlayType: SpellOverlayType,
-        options: { renderSheet: boolean } = { renderSheet: false }
+        options: { renderSheet: boolean } = { renderSheet: false },
     ): Promise<void> {
         const id = randomID();
 
@@ -51,7 +54,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     async updateOverride(
         variantSpell: SpellPF2e<ActorPF2e>,
         data: Partial<SpellSource>,
-        options?: DocumentModificationContext<ActorPF2e>
+        options?: DocumentModificationContext<ActorPF2e>,
     ): Promise<SpellPF2e<ActorPF2e>> {
         // Perform local data update of spell variant data
         variantSpell.updateSource(data, options);
@@ -73,7 +76,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
             {
                 [`system.overlays.-=${variantSpell.id}`]: null,
             },
-            { render: false }
+            { render: false },
         );
         // Save new diff object
         await this.spell.update({
@@ -99,7 +102,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     protected verifyOverlayId(overlayId: string): void {
         if (!this.has(overlayId)) {
             throw ErrorPF2e(
-                `Spell ${this.spell.name} (${this.spell.uuid}) does not have an overlay with id: ${overlayId}`
+                `Spell ${this.spell.name} (${this.spell.uuid}) does not have an overlay with id: ${overlayId}`,
             );
         }
     }

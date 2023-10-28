@@ -17,12 +17,12 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry> extends JournalSheet<
 }
 
 class JournalTextTinyMCESheetPF2e<
-    TDocument extends JournalEntryPage<JournalEntry | null>
+    TDocument extends JournalEntryPage<JournalEntry | null>,
 > extends JournalTextTinyMCESheet<TDocument> {
     override async activateEditor(
         name: string,
         options: Partial<TinyMCE.EditorOptions> = {},
-        initialContent = ""
+        initialContent = "",
     ): Promise<TinyMCE.Editor> {
         const editor = await super.activateEditor(name, options, initialContent);
 

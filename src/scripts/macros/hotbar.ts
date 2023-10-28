@@ -79,7 +79,7 @@ export async function createActionMacro({
                 img: data.img,
                 flags: { pf2e: { actionMacro: true } },
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
@@ -170,7 +170,7 @@ export async function createSkillMacro(
     skill: SkillAbbreviation,
     skillName: string,
     actorId: string,
-    slot: number
+    slot: number,
 ): Promise<void> {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
@@ -192,7 +192,7 @@ if (a) {
                 img: "icons/svg/d20-grey.svg",
                 flags: { pf2e: { skillMacro: true } },
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
@@ -242,7 +242,7 @@ if (item?.type === "condition") {
                 type: "script",
                 img: effect.img,
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }

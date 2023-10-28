@@ -10,7 +10,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
     protected override async _renderInner(
         data: FormApplicationData<TDocument>,
-        options: RenderOptions
+        options: RenderOptions,
     ): Promise<JQuery> {
         const $html = await super._renderInner(data, options);
         const html = $html[0];
@@ -21,7 +21,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             const rbvWorldDefault = game.i18n.localize(
                 game.settings.get("pf2e", "automation.rulesBasedVision")
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
-                    : "PF2E.SETTINGS.EnabledDisabled.Disabled"
+                    : "PF2E.SETTINGS.EnabledDisabled.Disabled",
             );
             const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvWorldDefault });
 

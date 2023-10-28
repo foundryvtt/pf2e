@@ -130,7 +130,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const settlementEntries = R.pipe(
             Object.entries(this.kingdom.settlements),
             R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
-            R.sortBy((entry) => entry[1].sort)
+            R.sortBy((entry) => entry[1].sort),
         );
 
         return {
@@ -184,7 +184,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 item,
                 traits: createSheetTags(
                     CONFIG.PF2E.kingmakerTraits,
-                    item.system.traits.value.filter((t) => t !== "downtime")
+                    item.system.traits.value.filter((t) => t !== "downtime"),
                 ),
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
@@ -197,7 +197,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             settlements: await Promise.all(
                 settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
-                })
+                }),
             ),
             eventText: await TextEditor.enrichHTML(kingdom.event.text, {
                 async: true,
@@ -448,7 +448,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     // Perform the resort and update
                     const siblings = R.sortBy(
                         settlementsWithIds.filter((s) => s !== settlement),
-                        (s) => s.sort
+                        (s) => s.sort,
                     );
                     siblings.splice(newIndex, 0, settlement);
                     const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
@@ -472,7 +472,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 {
                     ...(await this.getData()),
                     settlement: await this.#prepareSettlement(id, settlement),
-                }
+                },
             );
 
             // Create the new settlement and replace the current one. We'll also need to re-listen to it.
@@ -525,7 +525,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 gsap.fromTo(
                     element,
                     { height: 0, opacity: 0, hidden: false },
-                    { height: "auto", opacity: 1, duration }
+                    { height: "auto", opacity: 1, duration },
                 );
             } else if (!visible && !element.hidden) {
                 gsap.to(element, {
@@ -572,7 +572,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
@@ -594,7 +594,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(
         event: ElementDragEvent,
-        itemSource: ItemSourcePF2e
+        itemSource: ItemSourcePF2e,
     ): Promise<ItemPF2e<PartyPF2e>[]> {
         const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
@@ -615,7 +615,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _onDropActor(
         event: ElementDragEvent,
-        data: DropCanvasData<"Actor", PartyPF2e>
+        data: DropCanvasData<"Actor", PartyPF2e>,
     ): Promise<false | void> {
         await super._onDropActor(event, data);
 

@@ -160,7 +160,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
                     data.item.system.checkPenalty,
-                    data.alteration.value
+                    data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -174,7 +174,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
                     data.item.system.dexCap,
-                    data.alteration.value
+                    data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -300,7 +300,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
                     data.item.system.speedPenalty,
-                    data.alteration.value
+                    data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -314,7 +314,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
                     data.item.system.strength,
-                    data.alteration.value
+                    data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -328,7 +328,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
                     data.item.system.traits.value,
-                    data.alteration.value
+                    data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
@@ -362,7 +362,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     #getNewInterval(
         mode: "upgrade" | "downgrade" | "override" | string,
         current: FrequencyInterval,
-        newValue: string
+        newValue: string,
     ): FrequencyInterval | DataModelValidationFailure {
         const { DataModelValidationFailure } = foundry.data.validation;
         if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {

@@ -25,7 +25,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
                     },
                 },
             },
-            this.flags
+            this.flags,
         );
     }
 
@@ -41,7 +41,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<null>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
         if (game.user.id !== userId) return;

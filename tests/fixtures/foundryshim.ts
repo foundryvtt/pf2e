@@ -8,8 +8,7 @@
  *
  * @return A flag for whether or not the object was updated
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function setProperty(obj: Record<string, any>, key: string, value: any): boolean {
+function setProperty(obj: object, key: string, value: unknown): boolean {
     let target = obj;
     let changed = false;
 
@@ -18,15 +17,15 @@ function setProperty(obj: Record<string, any>, key: string, value: any): boolean
         const parts = key.split(".");
         key = parts.pop() ?? "";
         target = parts.reduce((o, i) => {
-            if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
-            return o[i];
+            if (!Object.prototype.hasOwnProperty.call(o, i)) (o as Record<string, unknown>)[i] = {};
+            return (o as Record<string, unknown>)[i] as unknown as Record<string, unknown>;
         }, obj);
     }
 
     // Update the target
-    if (target[key] !== value) {
+    if ((target as Record<string, unknown>)[key] !== value) {
         changed = true;
-        target[key] = value;
+        (target as Record<string, unknown>)[key] = value;
     }
 
     // Return changed status
@@ -58,8 +57,7 @@ function getType(token: unknown): string {
  * @param _d   Recursion depth, to prevent overflow
  * @return An expanded object
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function expandObject(obj: any, _d = 0) {
+function expandObject(obj: object, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error("Maximum depth exceeded");
     for (const [k, v0] of Object.entries(obj)) {
@@ -129,7 +127,7 @@ function mergeObject(
         inplace = true,
         enforceTypes = false,
     } = {},
-    _d = 0
+    _d = 0,
 ) {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
@@ -183,7 +181,7 @@ function mergeObject(
                         inplace: true,
                         enforceTypes,
                     },
-                    depth
+                    depth,
                 );
             }
 
@@ -248,13 +246,15 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
     }
 
     // Recursively call the _difference function
-    return Object.keys(other).reduce((obj, key) => {
-        if (inner && original[key] === undefined) return obj;
-        const [isDifferent, difference] = _difference(original[key], other[key]);
-        if (isDifferent) obj[key] = difference;
-        return obj;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }, {} as Record<string, any>);
+    return Object.keys(other).reduce(
+        (obj, key) => {
+            if (inner && original[key] === undefined) return obj;
+            const [isDifferent, difference] = _difference(original[key], other[key]);
+            if (isDifferent) obj[key] = difference;
+            return obj;
+        },
+        {} as Record<string, unknown>,
+    );
 }
 
 export function populateFoundryUtilFunctions(): void {

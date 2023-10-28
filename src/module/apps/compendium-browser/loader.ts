@@ -13,7 +13,7 @@ class PackLoader {
     async *loadPacks(
         documentType: "Actor" | "Item",
         packs: string[],
-        indexFields: string[]
+        indexFields: string[],
     ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
@@ -104,7 +104,7 @@ class PackLoader {
 
         // Make sure it can be easily displayed sorted
         this.sourcesSettings.sources = Object.fromEntries(
-            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang))
+            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang)),
         );
     }
 

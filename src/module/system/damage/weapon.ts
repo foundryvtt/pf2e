@@ -60,7 +60,7 @@ class WeaponDamagePF2e {
                         dieSize: instance.die,
                         damageType: instance.damageType,
                         category: instance.category,
-                    })
+                    }),
                 );
             }
             if (instance.modifier) {
@@ -70,7 +70,7 @@ class WeaponDamagePF2e {
                         modifier: instance.modifier,
                         damageType,
                         damageCategory: instance.category,
-                    })
+                    }),
                 );
             }
         }
@@ -107,7 +107,7 @@ class WeaponDamagePF2e {
         // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
         const materialTraits = weapon.isOfType("melee")
             ? weapon.system.traits.value.filter(
-                  (t): t is MaterialDamageEffect => t in CONFIG.PF2E.materialDamageEffects
+                  (t): t is MaterialDamageEffect => t in CONFIG.PF2E.materialDamageEffects,
               )
             : [];
 
@@ -173,9 +173,9 @@ class WeaponDamagePF2e {
                         adjustments: extractModifierAdjustments(
                             actor.synthetics.modifierAdjustments,
                             domains,
-                            "kickback"
+                            "kickback",
                         ),
-                    })
+                    }),
                 );
             }
 
@@ -208,7 +208,7 @@ class WeaponDamagePF2e {
                     new ModifierPF2e({
                         label: "PF2E.WeaponBonusDamageLabel",
                         modifier: bonusDamage,
-                    })
+                    }),
                 );
             }
 
@@ -225,7 +225,7 @@ class WeaponDamagePF2e {
                         diceNumber: normalDice,
                         dieSize: customDamage.die,
                         damageType,
-                    })
+                    }),
                 );
             }
             const critDice = customDamage.critDice ?? 0;
@@ -240,7 +240,7 @@ class WeaponDamagePF2e {
                         dieSize: customDamage.critDie,
                         damageType,
                         critical: true,
-                    })
+                    }),
                 );
             }
         }
@@ -256,7 +256,7 @@ class WeaponDamagePF2e {
             .reduce(
                 (highest: StrikingSynthetic | null, current) =>
                     highest && highest.bonus > current.bonus ? highest : current,
-                null
+                null,
             );
         // Add damage dice if the "weapon" is an NPC attack or actual weapon with inferior etched striking rune
         if (
@@ -270,7 +270,7 @@ class WeaponDamagePF2e {
                     slug: "striking",
                     label: strikingSynthetic.label,
                     diceNumber: strikingSynthetic.bonus,
-                })
+                }),
             );
 
             // Remove extra dice from weapon's etched striking rune
@@ -287,11 +287,11 @@ class WeaponDamagePF2e {
             const critSpecs = actor.synthetics.criticalSpecalizations;
             const standard = critSpecs.standard.reduceRight(
                 (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
-                null
+                null,
             );
             const alternate = critSpecs.alternate.reduceRight(
                 (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
-                null
+                null,
             );
 
             return standard ? alternate ?? standard : [];
@@ -306,7 +306,7 @@ class WeaponDamagePF2e {
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
-            (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []
+            (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? [],
         );
 
         // Backstabber trait
@@ -350,7 +350,7 @@ class WeaponDamagePF2e {
                     diceNumber,
                     dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? baseDamage.die) as DamageDieSize,
                     critical: true,
-                })
+                }),
             );
         }
 
@@ -368,7 +368,7 @@ class WeaponDamagePF2e {
                     critical: true,
                     enabled: true,
                     override: { dieSize },
-                })
+                }),
             );
         }
 
@@ -398,7 +398,7 @@ class WeaponDamagePF2e {
             const extractedAdjustments = extractModifierAdjustments(
                 actor.synthetics.modifierAdjustments,
                 domains,
-                modifier.slug
+                modifier.slug,
             );
             modifier.adjustments.push(...propRuneAdjustments, ...extractedAdjustments);
         }
@@ -502,7 +502,7 @@ class WeaponDamagePF2e {
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
         damage: DamageFormulaData,
-        degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
+        degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"],
     ): AssembledFormula;
     static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
     static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
@@ -519,7 +519,7 @@ class WeaponDamagePF2e {
             // only need to find the presence of a rule that does this
             const hasUpgrade = damage.dice.some((d) => d.enabled && d.override?.upgrade && outcomeMatches(d));
             const hasDowngrade = damage.dice.some(
-                (d) => d.enabled && d.override?.downgrade && (critical || !d.critical)
+                (d) => d.enabled && d.override?.downgrade && (critical || !d.critical),
             );
             if (base.dieSize && hasUpgrade && !hasDowngrade) {
                 base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
@@ -529,7 +529,7 @@ class WeaponDamagePF2e {
 
             // Override next, to ensure the dice stacking works properly
             const damageOverrides = damage.dice.filter(
-                (d): d is DamageDicePF2e & { override: DamageDiceOverride } => !!(d.enabled && d.override)
+                (d): d is DamageDicePF2e & { override: DamageDiceOverride } => !!(d.enabled && d.override),
             );
             for (const override of damageOverrides) {
                 if ((critical && override.critical !== false) || (!critical && !override.critical)) {

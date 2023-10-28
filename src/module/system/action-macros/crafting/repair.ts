@@ -14,7 +14,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
     // ensure specified item is a valid crafting target
     if (item && !(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" })
+            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" }),
         );
         return;
     }
@@ -102,7 +102,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
 async function onRepairChatCardEvent(
     event: MouseEvent,
     message: ChatMessagePF2e | undefined,
-    card: HTMLElement
+    card: HTMLElement,
 ): Promise<void> {
     const itemUuid = card.dataset.itemUuid;
     const item = await fromUuid(itemUuid ?? "");
@@ -182,7 +182,7 @@ async function renderRepairResult(
     item: PhysicalItemPF2e,
     result: "restore" | "roll-damage",
     buttonLabel: string,
-    value: string
+    value: string,
 ): Promise<string> {
     const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs";
     const label = game.i18n.format(buttonLabel, { value });

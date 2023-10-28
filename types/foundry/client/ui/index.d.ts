@@ -16,7 +16,7 @@ declare global {
         TItemDirectory extends ItemDirectory<Item<null>>,
         TChatLog extends ChatLog,
         TCompendiumDirectory extends CompendiumDirectory,
-        TCombatTracker extends CombatTracker<Combat | null>
+        TCombatTracker extends CombatTracker<Combat | null>,
     > {
         actors: TActorDirectory;
         chat: TChatLog;

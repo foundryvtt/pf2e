@@ -222,9 +222,9 @@ export class StatusEffects {
 
         const tokensAndActors = R.uniqBy(
             R.compact(
-                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null))
+                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null)),
             ),
-            ([, a]) => a
+            ([, a]) => a,
         );
         for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
@@ -303,7 +303,7 @@ export class StatusEffects {
             token.actor.conditions.active.map(async (c) => ({
                 ...R.pick(c, ["name", "img"]),
                 description: await TextEditor.enrichHTML(c.description, { async: true }),
-            }))
+            })),
         );
         if (conditions.length === 0) return null;
 

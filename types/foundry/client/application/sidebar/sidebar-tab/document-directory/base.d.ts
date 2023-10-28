@@ -34,7 +34,7 @@ declare global {
          */
         static setupFolders(
             folders: Folder[],
-            documents: WorldDocument[]
+            documents: WorldDocument[],
         ): { root: boolean; content: WorldDocument[]; children: Folder[] };
 
         /**
@@ -45,7 +45,7 @@ declare global {
             folder: Folder,
             folders: Folder[],
             documents: WorldDocument[],
-            { allowChildren }?: { allowChildren?: boolean }
+            { allowChildren }?: { allowChildren?: boolean },
         ): [Folder[], WorldDocument[]];
 
         /**

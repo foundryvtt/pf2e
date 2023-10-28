@@ -16,7 +16,7 @@ export class Migration794AddWildShapeChoices extends MigrationBase {
             "p0jZhb8PSswUsZaz", // Dragon Shape
             "Le30algCdKIsxmeK", // Ferocious Shape
             "54JzsYCx3uoj7Wlz", // Monstrosity Shape
-        ].map((id) => `Compendium.pf2e.feats-srd.${id}`)
+        ].map((id) => `Compendium.pf2e.feats-srd.${id}`),
     );
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {

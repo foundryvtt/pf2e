@@ -76,7 +76,7 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
         if (
             source.system.rules.some(
                 (r: MaybeAELikeSource): r is MaybeAELikeSource =>
-                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.alchemist"
+                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.alchemist",
             )
         ) {
             return;

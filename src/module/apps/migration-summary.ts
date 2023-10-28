@@ -13,7 +13,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             : game.i18n.localize("PF2E.Migrations.Summary.Title");
 
         const existing = Object.values(ui.windows).find(
-            (app): app is MigrationSummary => app instanceof MigrationSummary
+            (app): app is MigrationSummary => app instanceof MigrationSummary,
         );
         if (existing) {
             existing.options = mergeObject(existing.options, options);
@@ -46,7 +46,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
 
         const helpResourcesText = await TextEditor.enrichHTML(
             game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
-            { async: true }
+            { async: true },
         );
 
         return {
@@ -80,7 +80,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             };
             const lowestSchemaVersion = Math.max(
                 Math.min(lowestVersions.actor, lowestVersions.item),
-                RECOMMENDED_SAFE_VERSION
+                RECOMMENDED_SAFE_VERSION,
             );
 
             const result = html.querySelector<HTMLElement>(".docs-successful");

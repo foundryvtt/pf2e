@@ -7,11 +7,11 @@ import type * as fields from "../data/fields.d.ts";
  */
 export default abstract class DataModel<
     TParent extends DataModel | null = _DataModel | null,
-    TSchema extends fields.DataSchema = fields.DataSchema
+    TSchema extends fields.DataSchema = fields.DataSchema,
 > {
     constructor(
         data?: DeepPartial<SourceFromSchema<fields.DataSchema>>,
-        options?: DataModelConstructionOptions<TParent>
+        options?: DataModelConstructionOptions<TParent>,
     );
 
     /**
@@ -129,7 +129,7 @@ export default abstract class DataModel<
      */
     static formatValidationErrors(
         errors: Record<string, string>,
-        options?: { label?: string; namespace?: string }
+        options?: { label?: string; namespace?: string },
     ): string;
 
     /**
@@ -155,7 +155,7 @@ export default abstract class DataModel<
      */
     updateSource(
         changes?: Record<string, unknown> | undefined,
-        options?: DocumentSourceUpdateContext
+        options?: DocumentSourceUpdateContext,
     ): DeepPartial<this["_source"]>;
 
     /* ---------------------------------------- */

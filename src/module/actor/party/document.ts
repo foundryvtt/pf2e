@@ -67,7 +67,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override updateSource(
         data?: Record<string, unknown>,
-        options?: DocumentSourceUpdateContext
+        options?: DocumentSourceUpdateContext,
     ): DeepPartial<this["_source"]> {
         if (!this.campaign) return super.updateSource(data, options);
 
@@ -144,8 +144,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const partyLevel = Math.round(
             R.meanBy(
                 this.members.filter((m) => m.isOfType("character")),
-                (m) => m.level
-            )
+                (m) => m.level,
+            ),
         );
         this.system.details.level.value = partyLevel;
     }
@@ -241,7 +241,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const members = this.members;
         const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
@@ -263,7 +263,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override _onUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

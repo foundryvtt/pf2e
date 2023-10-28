@@ -16,7 +16,7 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 
@@ -24,7 +24,7 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
             this.parent.object?._onUpdate(
                 { width: this.parent.width },
                 { ...options, parent: this.parent.scene },
-                userId
+                userId,
             );
         }
     }
@@ -34,7 +34,7 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
         event: string,
         collection: string,
         args: [object[], ...unknown[]],
-        parent: ClientDocument | undefined
+        parent: ClientDocument | undefined,
     ): void {
         super._dispatchDescendantDocumentEvents(event, collection, args, parent);
 

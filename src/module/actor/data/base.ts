@@ -18,7 +18,7 @@ import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, 
 /** Base interface for all actor data */
 type BaseActorSourcePF2e<
     TType extends ActorType,
-    TSystemSource extends ActorSystemSource = ActorSystemSource
+    TSystemSource extends ActorSystemSource = ActorSystemSource,
 > = foundry.documents.ActorSource<TType, TSystemSource, ItemSourcePF2e> & {
     flags: DeepPartial<ActorFlagsPF2e>;
     prototypeToken: PrototypeTokenSourcePF2e;
@@ -165,7 +165,7 @@ interface AttributeBasedTraceData extends StatisticTraceData {
 
 /** A roll function which can be called to roll a given skill. */
 type RollFunction<T extends RollParameters = RollParameters> = (
-    params: T
+    params: T,
 ) => Promise<Rolled<CheckRoll> | null | string | void>;
 
 type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;

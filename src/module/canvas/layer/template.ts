@@ -1,7 +1,7 @@
 import { MeasuredTemplatePF2e } from "../index.ts";
 
 export class TemplateLayerPF2e<
-    TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e
+    TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e,
 > extends TemplateLayer<TTemplate> {
     /** Originally by Furyspark for the PF1e system */
     protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void {
@@ -33,7 +33,7 @@ export class TemplateLayerPF2e<
                 const direction = ray.angle;
                 const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
                 template.document.direction = Math.toDegrees(
-                    Math.floor((direction + Math.PI * 0.125) / snapAngle) * snapAngle
+                    Math.floor((direction + Math.PI * 0.125) / snapAngle) * snapAngle,
                 );
                 const distance = Math.max(ray.distance / ratio, canvas.dimensions.distance);
                 template.document.distance =

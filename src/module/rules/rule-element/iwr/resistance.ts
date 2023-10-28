@@ -34,7 +34,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
                     r.type === resistanceType &&
                     R.equals(r.exceptions, this.exceptions) &&
                     R.equals(r.doubleVs, this.doubleVs) &&
-                    R.equals(r.definition, this.definition ?? null)
+                    R.equals(r.definition, this.definition ?? null),
             );
             if (current) {
                 if (this.override) {
@@ -57,7 +57,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
                     exceptions: this.exceptions,
                     doubleVs: this.doubleVs,
                     source: this.item.name,
-                })
+                }),
         );
     }
 }

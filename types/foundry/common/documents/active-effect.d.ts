@@ -28,7 +28,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
     override testUserPermission(
         user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 
     /* -------------------------------------------- */
@@ -38,7 +38,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
     protected override _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<boolean | void>;
 }
 

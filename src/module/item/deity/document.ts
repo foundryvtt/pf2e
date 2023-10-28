@@ -101,7 +101,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     label: CONFIG.PF2E.baseWeaponTypes[baseType],
                     rank: Math.max(
                         Number(attacks[`weapon-base-${baseType}`]?.rank) || 0,
-                        favoredWeaponRank
+                        favoredWeaponRank,
                     ) as ZeroToFour,
                 };
             }

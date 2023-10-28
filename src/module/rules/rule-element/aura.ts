@@ -61,7 +61,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     initial: undefined,
                     choices: ["enter", "turn-start", "turn-end"],
                 }),
-                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" }
+                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" },
             ),
             save: new fields.SchemaField(
                 {
@@ -80,7 +80,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         label: "PF2E.Check.DC.Unspecific",
                     }),
                 },
-                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" }
+                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" },
             ),
             predicate: new PredicateField({ required: false, nullable: false }),
             removeOnExit: new StrictBooleanField({
@@ -131,7 +131,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             nullable: false,
                             initial: "#000000",
                             label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                        }
+                        },
                     ),
                     alpha: new fields.AlphaField({
                         required: true,
@@ -145,7 +145,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     nullable: true,
                     initial: () => ({ color: "#000000", alpha: 0.75 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Border",
-                } as const
+                } as const,
             ),
             highlight: new fields.SchemaField(
                 {
@@ -164,7 +164,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             nullable: false,
                             initial: "user-color",
                             label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                        }
+                        },
                     ),
                     alpha: new fields.AlphaField({
                         required: false,
@@ -178,7 +178,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     nullable: false,
                     initial: () => ({ color: "user-color", alpha: 0.25 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
-                }
+                },
             ),
             texture: new fields.SchemaField(
                 {
@@ -225,7 +225,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         hint: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Hint",
                     }),
                 } as const,
-                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" }
+                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" },
             ),
         };
 

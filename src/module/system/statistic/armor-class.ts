@@ -51,7 +51,7 @@ class ArmorStatistic extends Statistic {
                   adjustments: extractModifierAdjustments(
                       actor.synthetics.modifierAdjustments,
                       ["all", "ac"],
-                      armorSlug
+                      armorSlug,
                   ),
               })
             : null;
@@ -73,7 +73,7 @@ class ArmorStatistic extends Statistic {
                   adjustments: extractModifierAdjustments(
                       actor.synthetics.modifierAdjustments,
                       ["all", "dex-based", "ac"],
-                      slug
+                      slug,
                   ),
                   type: "circumstance",
                   modifier: shieldData.ac,

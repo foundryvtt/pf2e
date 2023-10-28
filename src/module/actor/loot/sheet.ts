@@ -64,7 +64,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
     protected override async _onDropItem(
         event: DragEvent,
-        itemData: DropCanvasItemDataPF2e
+        itemData: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet

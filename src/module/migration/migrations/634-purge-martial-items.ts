@@ -15,7 +15,7 @@ export class Migration634PurgeMartialItems extends MigrationBase {
                 if (itemData.type !== "weapon") return false;
                 const systemData: MaybeOldWeaponSource = itemData.system;
                 return martialIds.includes(systemData.weaponType?.value ?? "");
-            }
+            },
         );
 
         for (const weaponData of martialItemWeapons) {

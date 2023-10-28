@@ -56,7 +56,7 @@ declare global {
         override _preCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         /**
@@ -71,7 +71,7 @@ declare global {
             context?: {
                 parent?: TDocument["parent"];
                 pack?: Collection<TDocument> | null;
-            } & Partial<FormApplicationOptions>
+            } & Partial<FormApplicationOptions>,
         ): Promise<TDocument | null>;
 
         /**
@@ -83,7 +83,7 @@ declare global {
          */
         exportToCompendium(
             pack: CompendiumCollection<TDocument>,
-            { updateByName }?: { updateByName?: boolean }
+            { updateByName }?: { updateByName?: boolean },
         ): Promise<CompendiumCollection<TDocument>>;
 
         /**

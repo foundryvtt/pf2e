@@ -39,7 +39,7 @@ export const SetAsInitiative = {
                     ui.notifications.error(
                         game.i18n.format("PF2E.Encounter.NoTokenInScene", {
                             actor: message.actor?.name ?? message.user?.name ?? "",
-                        })
+                        }),
                     );
                     return;
                 }
@@ -51,7 +51,7 @@ export const SetAsInitiative = {
                 await combatant.encounter.setInitiative(combatant.id, value);
 
                 ui.notifications.info(
-                    game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value })
+                    game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value }),
                 );
             });
         }

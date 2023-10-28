@@ -122,7 +122,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                 a.frequency &&
                 (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
                     Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
-                a.frequency.value < a.frequency.max
+                a.frequency.value < a.frequency.max,
         );
         if (withFrequency.length) {
             statements.push(localize("Message.Frequencies"));
@@ -198,7 +198,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                 const listItem = document.createElement("li");
                 listItem.innerText = statement;
                 return listItem;
-            })
+            }),
         );
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 

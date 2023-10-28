@@ -34,7 +34,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
         if (this.#embeddedKey) {
             this.#embeddedDb = this.sublevel(
                 `${this.#dbkey}.${this.#embeddedKey}`,
-                dbOptions
+                dbOptions,
             ) as unknown as Sublevel<EmbeddedEntry>;
         }
     }
@@ -80,7 +80,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             const embeddedKey = this.#embeddedKey;
             if (embeddedKey && source[embeddedKey] && this.#embeddedDb) {
                 const embeddedDocs = await this.#embeddedDb.getMany(
-                    source[embeddedKey]?.map((embeddedId) => `${docId}.${embeddedId}`) ?? []
+                    source[embeddedKey]?.map((embeddedId) => `${docId}.${embeddedId}`) ?? [],
                 );
                 source[embeddedKey] = compact(embeddedDocs);
             }
@@ -99,7 +99,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
         const metadata = systemJSON.packs.find((p) => p.path.endsWith(packName));
         if (!metadata) {
             throw PackError(
-                `Error generating dbKeys: Compendium ${packName} has no metadata in the local system.json file.`
+                `Error generating dbKeys: Compendium ${packName} has no metadata in the local system.json file.`,
             );
         }
 

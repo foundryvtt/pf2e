@@ -107,7 +107,7 @@ export class EffectTracker {
         if (actor.primaryUpdater === game.user) {
             await actor.deleteEmbeddedDocuments(
                 "Item",
-                actor.itemTypes.effect.filter((e) => e.isExpired).map((e) => e.id)
+                actor.itemTypes.effect.filter((e) => e.isExpired).map((e) => e.id),
             );
         }
     }

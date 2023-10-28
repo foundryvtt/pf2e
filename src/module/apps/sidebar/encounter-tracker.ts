@@ -43,13 +43,16 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                     : numRecipients === 4
                     ? "Award.Tooltip.Four"
                     : "Award.Tooltip.Plural",
-                { xpPerFour: metrics.budget.spent, recipients: numRecipients }
+                { xpPerFour: metrics.budget.spent, recipients: numRecipients },
             );
             return { label, tooltip };
         })();
 
         const threatAward = parseHTML(
-            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", { threat, award })
+            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", {
+                threat,
+                award,
+            }),
         );
         const html = $html[0];
         htmlQuery(html, "nav.encounters")?.after(threatAward);
@@ -86,7 +89,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                         ? allyColor(combatant)
                         : alliance === "opposition"
                         ? CONFIG.Canvas.dispositionColors.HOSTILE
-                        : CONFIG.Canvas.dispositionColors.NEUTRAL
+                        : CONFIG.Canvas.dispositionColors.NEUTRAL,
                 );
                 row.style.background = dispositionColor.toRGBA(0.1);
                 row.style.borderColor = dispositionColor.toString();
@@ -140,14 +143,14 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                     toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
                     toggleNameVisibility.dataset.control = "toggleNameVisibility";
                     toggleNameVisibility.dataset.tooltip = game.i18n.localize(
-                        isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
+                        isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName",
                     );
                     const icon = fontAwesomeIcon("signature", { fixedWidth: true });
                     toggleNameVisibility.append(icon);
 
-                    row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(
-                        toggleNameVisibility
-                    );
+                    row
+                        .querySelector('.combatant-controls a[data-control="toggleHidden"]')
+                        ?.after(toggleNameVisibility);
 
                     if (!isActive) {
                         row.classList.add("hidden-name");
@@ -192,7 +195,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             if (!combatantRow) return;
 
             const usersTargetting = game.users.filter((u) =>
-                Array.from(u.targets).some((t) => t.document === tokenDoc)
+                Array.from(u.targets).some((t) => t.document === tokenDoc),
             );
 
             const userIndicators = usersTargetting.map((user): HTMLElement => {
@@ -207,7 +210,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 targetingSection.dataset.tooltip = game.i18n.format("COMBAT.TargetedBy", {
                     list: localizeList(
                         usersTargetting.map((u) => u.name),
-                        { conjunction: "and" }
+                        { conjunction: "and" },
                     ),
                 });
             }
@@ -227,7 +230,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     /** Allow CTRL-clicking to make the rolls blind */
     protected override async _onCombatControl(
-        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
+        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>,
     ): Promise<void> {
         const control = event.currentTarget.dataset.control;
         if ((control === "rollNPC" || control === "rollAll") && this.viewed) {
@@ -241,7 +244,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     /** Allow CTRL-clicking to make the roll blind */
     protected override async _onCombatantControl(
-        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
+        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>,
     ): Promise<void> {
         event.stopPropagation();
         if (!this.viewed) return;
@@ -301,7 +304,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const newOrder = this.getCombatantsFromDOM();
         const oldOrder = encounter.turns.filter(
-            (c): c is RolledCombatant<NonNullable<TEncounter>> => c.initiative !== null
+            (c): c is RolledCombatant<NonNullable<TEncounter>> => c.initiative !== null,
         );
         // Exit early if the order wasn't changed
         if (newOrder.every((c) => newOrder.indexOf(c) === oldOrder.indexOf(c))) return;
@@ -312,7 +315,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
     private setInitiativeFromDrop(
         newOrder: RolledCombatant<NonNullable<TEncounter>>[],
-        dropped: RolledCombatant<NonNullable<TEncounter>>
+        dropped: RolledCombatant<NonNullable<TEncounter>>,
     ): void {
         const aboveDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) - 1);
         const belowDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) + 1);
@@ -347,7 +350,11 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
     /** Save the new order, or reset the viewed order if no change was made */
     private async saveNewOrder(newOrder: RolledCombatant<NonNullable<TEncounter>>[]): Promise<void> {
         await this.viewed?.setMultipleInitiatives(
-            newOrder.map((c) => ({ id: c.id, value: c.initiative, overridePriority: c.overridePriority(c.initiative) }))
+            newOrder.map((c) => ({
+                id: c.id,
+                value: c.initiative,
+                overridePriority: c.overridePriority(c.initiative),
+            })),
         );
     }
 

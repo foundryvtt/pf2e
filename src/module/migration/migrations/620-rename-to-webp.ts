@@ -54,7 +54,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         if (this.#isABCK(itemData)) {
             const embedData = itemData.system.items;
             const embeds = Object.values(embedData).filter(
-                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed
+                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed,
             );
             for (const embed of embeds) {
                 embed.img = this.#renameToWebP(embed.img);

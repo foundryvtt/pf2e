@@ -17,7 +17,10 @@ class ChatInspectRoll extends Application {
         return options;
     }
 
-    constructor(private message: ChatMessagePF2e, options: Partial<ApplicationOptions> = {}) {
+    constructor(
+        private message: ChatMessagePF2e,
+        options: Partial<ApplicationOptions> = {},
+    ) {
         super(options);
     }
 

@@ -126,7 +126,7 @@ export class TextureData extends fields.SchemaField<TextureDataSchema> {
             initial?: "IMAGE" | "VIDEO" | null;
             wildcard?: boolean;
             label?: string;
-        }
+        },
     );
 }
 
@@ -185,13 +185,13 @@ export type PrototypeTokenSource = SourceFromSchema<PrototypeTokenSchema>;
  * @property [_stats]   An object of creation and access information.
  */
 export class TombstoneData<
-    TParent extends documents.BaseActorDelta<documents.BaseToken<documents.BaseScene | null> | null> | null
+    TParent extends documents.BaseActorDelta<documents.BaseToken<documents.BaseScene | null> | null> | null,
 > extends DataModel<TParent, TombstoneDataSchema> {
     static override defineSchema(): TombstoneDataSchema;
 }
 
 export interface TombstoneData<
-    TParent extends documents.BaseActorDelta<documents.BaseToken<documents.BaseScene | null> | null> | null
+    TParent extends documents.BaseActorDelta<documents.BaseToken<documents.BaseScene | null> | null> | null,
 > extends DataModel<TParent, TombstoneDataSchema>,
         SourceFromSchema<TombstoneDataSchema> {
     readonly _source: TombstoneSource;

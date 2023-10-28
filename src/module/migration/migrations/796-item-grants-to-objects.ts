@@ -24,7 +24,7 @@ export class Migration796ItemGrantsToObjects extends MigrationBase {
                     }
                     return grantsObject;
                 },
-                {}
+                {},
             );
         }
     }
@@ -32,7 +32,7 @@ export class Migration796ItemGrantsToObjects extends MigrationBase {
     #convertToEntry(
         actor: ActorSourcePF2e,
         granter: ItemSourcePF2e,
-        grantedData: ItemGrantSource | string
+        grantedData: ItemGrantSource | string,
     ): [string, ItemGrantSource] | [null, null] {
         const grantedId = grantedData instanceof Object ? grantedData.id : grantedData;
         if (actor.items.some((i) => i._id === grantedId)) {

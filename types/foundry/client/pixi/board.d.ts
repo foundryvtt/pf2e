@@ -8,7 +8,7 @@ declare global {
             MeasuredTemplateDocument<TScene>
         >,
         TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
-        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
+        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
     > {
         /** A perception manager interface for batching lighting, sight, and sound updates */
         perception: PerceptionManager;

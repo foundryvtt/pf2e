@@ -75,7 +75,7 @@ async function createConsumableFromSpell(
         type: SpellConsumableItemType;
         heightenedLevel?: number;
         mystified?: boolean;
-    }
+    },
 ): Promise<ConsumableSource> {
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
@@ -124,7 +124,7 @@ interface TrickMagicItemDifficultyData {
 
 function calculateTrickMagicItemCheckDC(
     item: ConsumablePF2e,
-    options: DCOptions = { proficiencyWithoutLevel: false }
+    options: DCOptions = { proficiencyWithoutLevel: false },
 ): TrickMagicItemDifficultyData {
     const level = Number(item.level);
     const saveDC = calculateDC(level, options);

@@ -21,7 +21,7 @@ const itemTypeOptions = Object.fromEntries(
         ["scroll", "PF2E.CastingItemCreateDialog.scroll"],
         ["wand", "PF2E.CastingItemCreateDialog.wand"],
         ["cantripDeck5", "PF2E.CastingItemCreateDialog.cantripDeck5"],
-    ])
+    ]),
 );
 
 export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
@@ -33,7 +33,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         object: ActorPF2e,
         options: Partial<FormApplicationOptions>,
         callback: CastingItemCreateCallback,
-        spell: SpellPF2e
+        spell: SpellPF2e,
     ) {
         super(object, options);
 
@@ -95,5 +95,5 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
 type CastingItemCreateCallback = (
     level: OneToTen,
     itemType: SpellConsumableItemType,
-    spell: SpellPF2e
+    spell: SpellPF2e,
 ) => Promise<void>;

@@ -41,7 +41,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("campaignFeature"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {

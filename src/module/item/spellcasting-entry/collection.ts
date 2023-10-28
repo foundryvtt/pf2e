@@ -32,7 +32,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
     }
 
     #assertEntryIsDocument(
-        entry: BaseSpellcastingEntry<TActor | null>
+        entry: BaseSpellcastingEntry<TActor | null>,
     ): asserts entry is SpellcastingEntryPF2e<TActor> {
         if (!(entry instanceof ItemPF2e)) {
             throw ErrorPF2e("`this#entry` is not a `SpellcastingEntryPF2e`");
@@ -66,7 +66,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             ui.notifications.warn(
                 game.i18n.format("PF2E.Item.Spell.Warning.WrongSpellType", {
                     spellType: focusTypeLabel,
-                })
+                }),
             );
             return null;
         }
@@ -80,7 +80,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     name: spell.name,
                     targetLevel: targetRankLabel,
                     baseLevel: baseLabel,
-                })
+                }),
             );
         }
 
@@ -114,7 +114,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     name: spell.name,
                     targetLevel: targetLevelLabel,
                     baseLevel: baseLabel,
-                })
+                }),
             );
 
             return this.entry;
@@ -122,7 +122,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
         if (CONFIG.debug.hooks) {
             console.debug(
-                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${this.id}`
+                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${this.id}`,
             );
         }
 
@@ -148,7 +148,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
         if (CONFIG.debug.hooks === true) {
             console.debug(
-                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell rank ${slotRank}`
+                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell rank ${slotRank}`,
             );
         }
 
@@ -335,7 +335,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     level: level as ZeroToTen,
                     isCantrip: false,
                     active: spells.map((spell) => ({ spell })),
-                })
+                }),
             );
 
         return { levels: ranks, spellPrepList: null };

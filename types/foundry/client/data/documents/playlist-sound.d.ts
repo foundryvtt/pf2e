@@ -13,7 +13,7 @@ declare global {
     class PlaylistSound<TParent extends Playlist | null> extends ClientBasePlaylistSound<TParent> {
         constructor(
             data: PreCreate<foundry.documents.PlaylistSoundSource>,
-            context?: DocumentConstructionContext<TParent>
+            context?: DocumentConstructionContext<TParent>,
         );
 
         /** The Sound which manages playback for this playlist sound */

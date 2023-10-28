@@ -34,7 +34,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" }
+            { since: "5.3.0", until: "6.0.0" },
         );
         return this.attribute;
     }
@@ -299,7 +299,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             slot ??= Number(
                 Object.entries(preparedData)
                     .filter(([_, slot]) => slot.id === spell.id && !slot.expended)
-                    .at(0)?.[0]
+                    .at(0)?.[0],
             );
 
             if (!Number.isInteger(slot)) {
@@ -332,7 +332,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             return true;
         } else {
             ui.notifications.warn(
-                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: rankLabel })
+                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: rankLabel }),
             );
             return false;
         }
@@ -344,7 +344,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
      */
     async addSpell(
         spell: SpellPF2e<TParent | null>,
-        options?: { slotLevel?: number }
+        options?: { slotLevel?: number },
     ): Promise<SpellPF2e<NonNullable<TParent>> | null> {
         return this.spells?.addSpell(spell, options) ?? null;
     }
@@ -407,7 +407,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp slot updates
         if (changed.system?.slots) {

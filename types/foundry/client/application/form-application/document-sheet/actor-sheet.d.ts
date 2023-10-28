@@ -72,7 +72,7 @@ declare global {
          */
         protected _onDropActiveEffect<TDocument extends ActiveEffect<TActor>>(
             event: DragEvent,
-            data?: DropCanvasData<"ActiveEffect", TDocument>
+            data?: DropCanvasData<"ActiveEffect", TDocument>,
         ): Promise<TDocument | void>;
 
         /**
@@ -106,7 +106,7 @@ declare global {
          * @param itemData The item data requested for creation
          */
         protected _onDropItemCreate(
-            itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[]
+            itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[],
         ): Promise<Item<TActor>[]>;
 
         /**
@@ -116,7 +116,7 @@ declare global {
          */
         protected _onSortItem(
             event: DragEvent,
-            itemData: CollectionValue<TActor["items"]>["_source"]
+            itemData: CollectionValue<TActor["items"]>["_source"],
         ): Promise<CollectionValue<TActor["items"]>[]>;
     }
 

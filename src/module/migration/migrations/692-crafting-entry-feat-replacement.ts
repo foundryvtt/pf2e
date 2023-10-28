@@ -52,7 +52,7 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
         if (actorSource.type === "character") {
             this.slugToPromise.forEach(async (promise, slug) => {
                 const current = actorSource.items.find(
-                    (itemSource) => itemSource.type === "feat" && itemSource.system.slug === slug
+                    (itemSource) => itemSource.type === "feat" && itemSource.system.slug === slug,
                 );
                 if (current)
                     this.replaceItem({

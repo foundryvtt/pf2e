@@ -42,7 +42,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         // Update proficiency label
         if (sheetData.data.attributes !== undefined) {
             sheetData.data.attributes.perception.icon = this.getProficiencyIcon(
-                sheetData.data.attributes.perception.rank
+                sheetData.data.attributes.perception.rank,
             );
             sheetData.data.attributes.perception.hover =
                 CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
@@ -187,7 +187,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         $html.find(".dots.dying, .dots.wounded").on("click contextmenu", (event) => {
             type ConditionName = "dying" | "wounded";
             const condition = Array.from(event.delegateTarget.classList).find((className): className is ConditionName =>
-                ["dying", "wounded"].includes(className)
+                ["dying", "wounded"].includes(className),
             );
             if (condition) {
                 const currentMax = this.actor.system.attributes[condition]?.max;
@@ -249,7 +249,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
                     const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
                     const content = await renderTemplate(
-                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs"
+                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs",
                     );
 
                     // Render confirmation modal dialog
@@ -335,7 +335,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
     protected override async _onSortItem(
         event: DragEvent,
-        itemSource: ItemSourcePF2e
+        itemSource: ItemSourcePF2e,
     ): Promise<CollectionValue<TActor["items"]>[]>;
     protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
         const dropItemEl = htmlClosest(event.target, ".item");
@@ -427,7 +427,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     protected override async _handleDroppedItem(
         event: DragEvent,
         item: ItemPF2e<ActorPF2e | null>,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {

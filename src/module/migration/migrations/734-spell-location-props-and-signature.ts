@@ -11,7 +11,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
 
     override async updateActor(actor: ActorSourcePF2e): Promise<void> {
         const entries = actor.items.filter(
-            (item): item is SpellcastingEntrySource => item.type === "spellcastingEntry"
+            (item): item is SpellcastingEntrySource => item.type === "spellcastingEntry",
         );
         const spells = actor.items.filter((item): item is SpellSource => item.type === "spell");
 

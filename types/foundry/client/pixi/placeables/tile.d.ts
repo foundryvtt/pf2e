@@ -6,7 +6,7 @@ declare global {
      * @category - Canvas
      */
     class Tile<
-        TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>
+        TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>,
     > extends PlaceableObject<TDocument> {
         /* -------------------------------------------- */
         /*  Attributes                                  */
@@ -87,7 +87,7 @@ declare global {
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
             options: DocumentModificationContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;

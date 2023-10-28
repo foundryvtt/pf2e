@@ -10,7 +10,10 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<Base
     /** All available spell lists on this actor */
     collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
 
-    constructor(public readonly actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
+    constructor(
+        public readonly actor: TActor,
+        entries: BaseSpellcastingEntry<TActor>[],
+    ) {
         super(entries.map((entry) => [entry.id, entry]));
 
         for (const entry of entries) {

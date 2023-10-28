@@ -28,7 +28,7 @@ export class Migration865VitalityVoid extends MigrationBase {
                 .replace(/\bTraitVersatilePositive\b/g, "TraitVersatileVitality")
                 .replace(/\bTraitVersatileNegative\b/g, "TraitVersatileVoid")
                 // ???
-                .replace(/\bnegative negative damage\b/, "void damage")
+                .replace(/\bnegative negative damage\b/, "void damage"),
         );
     }
 

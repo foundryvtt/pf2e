@@ -11,7 +11,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
 
     private homebrewTags = this.homebrewKeys.reduce(
         (settings, key) => mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
-        {} as Record<(typeof this.homebrewKeys)[number], HomebrewTag[]>
+        {} as Record<(typeof this.homebrewKeys)[number], HomebrewTag[]>,
     );
 
     private updateDocumentTags(documentTags: string[] = []): void {

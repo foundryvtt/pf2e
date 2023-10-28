@@ -159,7 +159,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             [
                 this.system.attributes.weaknesses.map((w) => w.type),
                 this.system.attributes.resistances.map((r) => r.type),
-            ].flat()
+            ].flat(),
         );
         const objectImmunities = this.system.attributes.immunities.find((i) => i.type === "object-immunities");
         for (const wrType of ["bleed", "mental", "poison", "spirit"] as const) {

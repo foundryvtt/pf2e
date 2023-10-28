@@ -94,7 +94,7 @@ async function treat(
     actor: CreaturePF2e,
     $html: JQuery,
     event: JQuery.TriggeredEvent | Event | null = null,
-    domIdAppend: string
+    domIdAppend: string,
 ): Promise<void> {
     const { name } = actor;
     const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
@@ -128,7 +128,7 @@ async function treat(
     });
 
     (actor.synthetics.degreeOfSuccessAdjustments["medicine"] ??= []).push(
-        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : [])
+        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : []),
     );
 
     skill.check.roll({

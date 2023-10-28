@@ -269,7 +269,7 @@ type ModifierOrderedParams = [
     enabled?: boolean,
     ignored?: boolean,
     source?: string,
-    notes?: string
+    notes?: string,
 ];
 
 /**
@@ -358,7 +358,7 @@ const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modi
 function applyStacking(
     best: Record<string, ModifierPF2e>,
     modifier: ModifierPF2e,
-    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean
+    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -552,7 +552,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
                 }
                 return resolved;
             },
-            { value: modifier.modifier, relabel: null }
+            { value: modifier.modifier, relabel: null },
         );
         modifier.modifier = resolvedAdjustment.value;
 
@@ -563,7 +563,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
         // If applicable, change the damage type of this modifier, using only the final adjustment found
         modifier.damageType = adjustments.reduce(
             (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
-            modifier.damageType
+            modifier.damageType,
         );
     }
 }
@@ -582,7 +582,7 @@ class CheckModifier extends StatisticModifier {
         slug: string,
         statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
         modifiers: ModifierPF2e[] = [],
-        rollOptions: string[] | Set<string> = new Set()
+        rollOptions: string[] | Set<string> = new Set(),
     ) {
         const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
         super(slug, baseModifiers.concat(modifiers), rollOptions);

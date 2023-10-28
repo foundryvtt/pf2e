@@ -69,9 +69,9 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
                 ...actor.itemTypes.feat.filter(
                     (f) =>
                         f.category === "classfeature" &&
-                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id))
+                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id)),
                 ),
-            ])
+            ]),
         );
     }
 
@@ -140,7 +140,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         const nonBarding = Array.from(ARMOR_CATEGORIES).filter(
             (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
-                !["light-barding", "heavy-barding"].includes(c)
+                !["light-barding", "heavy-barding"].includes(c),
         );
         for (const category of nonBarding) {
             defenses[category].rank = Math.max(defenses[category].rank, this.defenses[category]) as ZeroToFour;

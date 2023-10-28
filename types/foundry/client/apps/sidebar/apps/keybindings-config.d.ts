@@ -22,7 +22,7 @@ declare global {
         _detectConflictingActions(
             actionId: string,
             action: KeybindingActionConfig,
-            binding: KeybindingAction
+            binding: KeybindingAction,
         ): KeybindingAction[];
 
         /** Transforms a Binding into a human-readable string representation */
@@ -50,7 +50,7 @@ declare global {
             namespace: string,
             action: string,
             bindingIndex: number,
-            binding: KeybindingActionBinding
+            binding: KeybindingActionBinding,
         ): void;
 
         /** Toggle visibility of the Edit / Save UI */

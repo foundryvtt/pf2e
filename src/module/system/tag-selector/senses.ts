@@ -68,7 +68,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     /** Clear checkboxes with empty range inputs */
     protected override _onSubmit(
         event: Event,
-        options?: OnSubmitFormOptions | undefined
+        options?: OnSubmitFormOptions | undefined,
     ): Promise<Record<string, unknown>> {
         for (const input of htmlQueryAll<HTMLInputElement>(this.element[0], "input[type=number]")) {
             const checkbox = htmlQuery<HTMLInputElement>(htmlClosest(input, "tr"), "input[type=checkbox]");
@@ -84,7 +84,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         const update = Object.entries(formData)
             .filter(
                 (e): e is [string, [true, string, string | null] | true] =>
-                    e[1] === true || (Array.isArray(e[1]) && e[1][0])
+                    e[1] === true || (Array.isArray(e[1]) && e[1][0]),
             )
             .map(([type, values]) => {
                 if (values === true) {

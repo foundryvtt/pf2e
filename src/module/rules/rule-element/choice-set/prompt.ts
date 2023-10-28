@@ -87,7 +87,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
                     itemInfoAnchor.dataset.tooltip = game.i18n.localize(
                         disable
                             ? "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
-                            : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
+                            : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip",
                     );
                 };
 
@@ -153,7 +153,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
                 game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
                     badType: droppedItem.name,
                     goodType: game.i18n.localize(this.allowedDrops.label ?? ""),
-                })
+                }),
             );
             return;
         }

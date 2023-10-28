@@ -27,7 +27,7 @@ export const DropCanvasData = {
                         system: {
                             persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
                         },
-                    })
+                    }),
                 );
                 actor.createEmbeddedDocuments("Item", conditions);
                 return false; // Prevent modules from doing anything further

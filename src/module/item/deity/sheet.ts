@@ -34,7 +34,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             skills: CONFIG.PF2E.skills,
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
-                sheetData.data.font
+                sheetData.data.font,
             ),
             spells,
         };

@@ -15,7 +15,7 @@ export class Migration783RemoveClassSkillAELikes extends MigrationBase {
                         typeof r.path === "string" &&
                         /^system.skills\.[a-z]{3}\.rank$/.test(r.path) &&
                         r.value === 1
-                    )
+                    ),
             );
         }
     }

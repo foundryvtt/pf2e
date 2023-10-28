@@ -82,7 +82,7 @@ class ElementalBlast {
                 initial: "systems/pf2e/icons/default-icons/spell.svg" as ImageFilePath,
             }),
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined })
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
             ),
             dieFaces: new fields.NumberField({
                 required: true,
@@ -106,7 +106,7 @@ class ElementalBlast {
 
         return new fields.SchemaField({
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined })
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
             ),
             range: new fields.SchemaField(
                 {
@@ -123,7 +123,7 @@ class ElementalBlast {
                         nullable: false,
                     }),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null },
             ),
             traits: new fields.SchemaField({
                 melee: new fields.ArrayField(
@@ -132,7 +132,7 @@ class ElementalBlast {
                         nullable: false,
                         choices: () => CONFIG.PF2E.weaponTraits,
                         initial: undefined,
-                    })
+                    }),
                 ),
                 ranged: new fields.ArrayField(
                     new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
@@ -140,7 +140,7 @@ class ElementalBlast {
                         nullable: false,
                         choices: () => CONFIG.PF2E.weaponTraits,
                         initial: undefined,
-                    })
+                    }),
                 ),
             }),
         });
@@ -203,7 +203,7 @@ class ElementalBlast {
 
         return blasts.map((blast) => {
             const damageTypes: BlastConfigDamageType[] = R.uniq(
-                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat())
+                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
             )
                 .map((dt) => ({
                     value: dt,
@@ -256,11 +256,11 @@ class ElementalBlast {
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
     #getBlastConfig(element: ElementTrait, damageType: DamageType): ElementalBlastConfig {
         const config = this.configs.find(
-            (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType)
+            (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType),
         );
         if (!config) {
             throw ErrorPF2e(
-                `Elemental blast configuration of element ${element} and damage type ${damageType} not found.`
+                `Elemental blast configuration of element ${element} and damage type ${damageType} not found.`,
             );
         }
 
@@ -280,8 +280,8 @@ class ElementalBlast {
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
             return R.uniq(
                 R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits
-                )
+                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                ),
             ).sort();
         })();
 
@@ -438,7 +438,7 @@ class ElementalBlast {
 
         const damageData = createDamageFormula(
             formulaData,
-            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS,
         );
         const roll = new DamageRoll(damageData.formula);
 

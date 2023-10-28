@@ -47,7 +47,7 @@ export class Migration831ClericDoctrines extends MigrationBase {
         if (
             source.system.rules.some(
                 (r: MaybeAELikeSource): r is MaybeAELikeSource =>
-                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.cleric"
+                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.cleric",
             )
         ) {
             return;

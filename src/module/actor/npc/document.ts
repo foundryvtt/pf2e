@@ -146,8 +146,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
                         this.getHpAdjustment(baseLevel, "elite"),
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -160,8 +160,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
                         this.getHpAdjustment(baseLevel, "weak") * -1,
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         }
         system.details.level.base = baseLevel;
@@ -240,7 +240,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
             system.attributes.perception = mergeObject(
                 system.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 
@@ -393,7 +393,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     selector: "all",
                     visibility: "gm",
                     text: attack.description,
-                })
+                }),
             );
         }
         const formatItemName = (item: ItemPF2e<this | null>): string => {
@@ -416,7 +416,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         for (const attackEffect of attack.attackEffects) {
             const item = this.items.find(
-                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect)
+                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect),
             );
             if (item) {
                 // Get description from the actor item.

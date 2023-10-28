@@ -53,7 +53,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const damageTypes = Object.fromEntries(
             Object.entries(CONFIG.PF2E.damageTypes)
                 .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
-                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1])),
         );
 
         const variants = this.item.overlays.overrideVariants
@@ -272,7 +272,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const variant = this.item.loadVariant({ overlayIds: [id] });
                 if (!variant) {
                     throw ErrorPF2e(
-                        `Spell ${this.item.name} (${this.item.uuid}) does not have a variant with id: ${id}`
+                        `Spell ${this.item.name} (${this.item.uuid}) does not have a variant with id: ${id}`,
                     );
                 }
                 new Dialog({
@@ -341,7 +341,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     if (sourceVariant && targetVariant) {
                         // Workaround for SortingHelpers.performIntegerSort using object comparison to find the target
                         const siblings = this.item.overlays.overrideVariants.filter(
-                            (variant) => variant.id !== sourceId && variant.id !== targetId
+                            (variant) => variant.id !== sourceId && variant.id !== targetId,
                         );
                         siblings.push(targetVariant);
 
@@ -365,7 +365,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     private getAvailableHeightenLevels() {
         const heightenLayers = this.item.getHeightenLayers();
         return [2, 3, 4, 5, 6, 7, 8, 9, 10].filter(
-            (level) => level > this.item.baseRank && !heightenLayers.some((layer) => layer.level === level)
+            (level) => level > this.item.baseRank && !heightenLayers.some((layer) => layer.level === level),
         );
     }
 

@@ -12,7 +12,7 @@ export class Migration763RestoreAnimalStrikeOptions extends MigrationBase {
         }
 
         const strikeRE = source.system.rules.find(
-            (r: RESourceWithOptions): r is RESourceWithOptions => r.key === "Strike" && !Array.isArray(r.options)
+            (r: RESourceWithOptions): r is RESourceWithOptions => r.key === "Strike" && !Array.isArray(r.options),
         );
         if (strikeRE) strikeRE.options = ["animal-instinct"];
     }

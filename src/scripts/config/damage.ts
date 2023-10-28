@@ -54,10 +54,13 @@ const damageTypes: Record<DamageType, string> = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
-    result[key] = `PF2E.Damage.RollFlavor.${key}`;
-    return result;
-}, {} as Record<DamageType, string>);
+const damageRollFlavors = [...DAMAGE_TYPES].reduce(
+    (result, key) => {
+        result[key] = `PF2E.Damage.RollFlavor.${key}`;
+        return result;
+    },
+    {} as Record<DamageType, string>,
+);
 
 export {
     damageCategories,

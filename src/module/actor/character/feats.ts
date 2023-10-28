@@ -131,7 +131,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
     /** Inserts a feat into the character. If groupId is empty string, it's a bonus feat. */
     async insertFeat(
         feat: FeatPF2e,
-        slotData: { groupId: string; slotId: string | null } | null
+        slotData: { groupId: string; slotId: string | null } | null,
     ): Promise<ItemPF2e<TActor>[]> {
         // Certain feat types aren't "real" feats and need to be inserted normally
         const alreadyHasFeat = this.actor.items.has(feat.id);
@@ -153,7 +153,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                     game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
                         item: feat.name,
                         category: game.i18n.format(badGroup.label),
-                    })
+                    }),
                 );
                 return [];
             }
@@ -170,7 +170,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
     /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
     #findBestLocation(
         feat: FeatPF2e,
-        { requested }: { requested?: string }
+        { requested }: { requested?: string },
     ): { group: FeatGroup<TActor> | null; slotId: string | null } {
         if (feat.isFeature) return { group: this.get(feat.category) ?? null, slotId: null };
         if (requested === "bonus") return { group: null, slotId: null };
@@ -281,7 +281,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         this.label = options.label;
         this.supported = options.supported ?? [];
         this.featFilter = Array.from(
-            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat())
+            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat()),
         );
 
         if (options.slots) {
@@ -359,7 +359,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         const slot = this.slots[slotId ?? ""];
         const location = this.slotted || this.id === "bonus" ? slot?.id ?? null : this.id;
         const existing = this.actor.items.filter(
-            (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location
+            (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location,
         );
         const isFeatValidInSlot = this.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);

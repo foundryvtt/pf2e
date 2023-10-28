@@ -32,7 +32,7 @@ declare global {
             foundry.documents.TokenSource,
             DeepPartial<foundry.documents.TokenSource>,
             { diff: boolean; [key: string]: unknown },
-            string
+            string,
         ]
     >;
     type HookParamsRender<T extends Application, N extends string> = HookParameters<

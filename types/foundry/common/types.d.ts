@@ -61,7 +61,7 @@ declare global {
 
     /** A Client Setting */
     interface SettingConfig<
-        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined
+        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined,
     > {
         /** A unique machine-readable id for the setting */
         key: string;
@@ -93,7 +93,7 @@ declare global {
         default: number | string | boolean | object | Function;
         /** Executes when the value of this Setting changes */
         onChange?: (
-            choice: TChoices extends Record<string, unknown> ? keyof TChoices : undefined
+            choice: TChoices extends Record<string, unknown> ? keyof TChoices : undefined,
         ) => void | Promise<void>;
     }
 

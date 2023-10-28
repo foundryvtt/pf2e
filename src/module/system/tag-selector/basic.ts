@@ -72,14 +72,17 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
             }
         })();
 
-        const choices = Object.keys(this.choices).reduce((accumulated, type) => {
-            accumulated[type] = {
-                label: this.choices[type],
-                selected: chosen.includes(type),
-                disabled: disabled.includes(type),
-            };
-            return accumulated;
-        }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
+        const choices = Object.keys(this.choices).reduce(
+            (accumulated, type) => {
+                accumulated[type] = {
+                    label: this.choices[type],
+                    selected: chosen.includes(type),
+                    disabled: disabled.includes(type),
+                };
+                return accumulated;
+            },
+            {} as Record<string, { label: string; selected: boolean; disabled: boolean }>,
+        );
 
         return {
             ...(await super.getData(options)),

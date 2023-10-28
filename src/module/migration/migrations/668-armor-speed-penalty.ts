@@ -17,7 +17,7 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
                     r.key.endsWith("FlatModifier") &&
                     r.selector === "speed" &&
                     typeof r.value === "object" &&
-                    JSON.stringify(r.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] })
+                    JSON.stringify(r.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] }),
             );
             if (rule) rules.splice(rules.indexOf(rule), 1);
         } else if (itemSource.type === "feat") {

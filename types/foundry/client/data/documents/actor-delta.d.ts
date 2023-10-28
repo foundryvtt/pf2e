@@ -32,7 +32,7 @@ declare global {
             event: string,
             collection: string,
             args: [object[], ...unknown[]],
-            parent: ClientDocument | undefined
+            parent: ClientDocument | undefined,
         ): void;
     }
 }

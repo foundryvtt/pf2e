@@ -118,7 +118,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         if (master) {
             this.flags.pf2e.rollOptions.all = mergeObject(
                 this.flags.pf2e.rollOptions.all,
-                createEncounterRollOptions(master)
+                createEncounterRollOptions(master),
             );
         }
     }
@@ -167,26 +167,29 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         systemData.attributes.ac = statistic.getTraceData();
 
         // Saving Throws
-        this.saves = SAVE_TYPES.reduce((partialSaves, saveType) => {
-            const save = master?.saves[saveType];
-            const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
-            const totalMod = applyStackingRules(source);
-            const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
-            const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
-            const stat = new Statistic(this, {
-                slug: saveType,
-                label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-                domains: selectors,
-                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
-                check: { type: "saving-throw" },
-            });
+        this.saves = SAVE_TYPES.reduce(
+            (partialSaves, saveType) => {
+                const save = master?.saves[saveType];
+                const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
+                const totalMod = applyStackingRules(source);
+                const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
+                const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
+                const stat = new Statistic(this, {
+                    slug: saveType,
+                    label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+                    domains: selectors,
+                    modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                    check: { type: "saving-throw" },
+                });
 
-            return { ...partialSaves, [saveType]: stat };
-        }, {} as Record<SaveType, Statistic>);
+                return { ...partialSaves, [saveType]: stat };
+            },
+            {} as Record<SaveType, Statistic>,
+        );
 
         this.system.saves = SAVE_TYPES.reduce(
             (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
-            {} as CreatureSaves
+            {} as CreatureSaves,
         );
 
         // Senses
@@ -218,7 +221,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
             systemData.attributes.perception = mergeObject(
                 systemData.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 

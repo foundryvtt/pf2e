@@ -18,7 +18,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             "system.details.level.value",
             "system.attributes.adjustment",
             "system.details.members",
-            "system.campaign.type"
+            "system.campaign.type",
         );
         return options;
     }
@@ -27,7 +27,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         const activeParty = game.actors.party;
         const parties = R.sortBy(
             this.documents.filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e && a !== activeParty),
-            (p) => p.sort
+            (p) => p.sort,
         );
         return {
             ...(await super.getData()),
@@ -104,7 +104,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                         left: window.innerWidth - 630,
                         top: button?.offsetTop ?? 0,
                         types: ["creature"],
-                    }
+                    },
                 );
 
                 // If the actor was created, add as a member and force the party folder open
@@ -300,7 +300,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         browseButton.append(
             fontAwesomeIcon("search", { fixedWidth: true }),
             " ",
-            game.i18n.localize("PF2E.CompendiumBrowser.BestiaryBrowser")
+            game.i18n.localize("PF2E.CompendiumBrowser.BestiaryBrowser"),
         );
         browseButton.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.openTab("bestiary");

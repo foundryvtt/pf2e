@@ -39,7 +39,7 @@ class AttackTraitHelpers {
                         ignored: true,
                         predicate: new PredicatePF2e(
                             { lte: ["target:distance", penaltyRange] },
-                            { not: "self:ignore-volley-penalty" }
+                            { not: "self:ignore-volley-penalty" },
                         ),
                     });
                 }
@@ -103,7 +103,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
         for (const immunityType of constructImmunities) {
             if (!immunities.some((i) => i.type === immunityType)) {
                 immunities.push(
-                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") })
+                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") }),
                 );
             }
         }

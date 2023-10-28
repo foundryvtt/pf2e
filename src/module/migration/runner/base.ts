@@ -132,7 +132,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedTable(
         tableSource: foundry.documents.RollTableSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.RollTableSource> {
         const current = deepClone(tableSource);
 
@@ -149,7 +149,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedMacro(
         macroSource: foundry.documents.MacroSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.MacroSource> {
         const current = deepClone(macroSource);
 
@@ -166,7 +166,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedJournalEntry(
         source: foundry.documents.JournalEntrySource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.JournalEntrySource> {
         const clone = deepClone(source);
 
@@ -183,7 +183,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(
         token: TokenDocumentPF2e<ScenePF2e>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
@@ -195,7 +195,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedUser(
         userData: foundry.documents.UserSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.UserSource> {
         const current = deepClone(userData);
         for (const migration of migrations) {

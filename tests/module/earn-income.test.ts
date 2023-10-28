@@ -21,7 +21,7 @@ describe("earn income", () => {
                 proficiency: 1,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: { combined: {}, perDay: {} },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_FAILURE,
@@ -44,7 +44,7 @@ describe("earn income", () => {
                 proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { cp: 2 },
@@ -70,7 +70,7 @@ describe("earn income", () => {
                 proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: {
@@ -100,7 +100,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: { combined: { cp: 2 }, perDay: { cp: 2 } },
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
@@ -122,7 +122,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { sp: 2 },
@@ -147,7 +147,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { sp: 10 },
@@ -172,7 +172,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { gp: 300 },
@@ -197,7 +197,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { gp: 300 },

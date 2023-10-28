@@ -9,7 +9,7 @@ export class Migration770REDataToSystem extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         source.system = recursiveReplaceString(source.system, (value: string) =>
-            value.replace(/@(actor|item)\.data\.data./g, "@$1.system.").replace(/@(actor|item)\.data./g, "@$1.")
+            value.replace(/@(actor|item)\.data\.data./g, "@$1.system.").replace(/@(actor|item)\.data./g, "@$1."),
         );
     }
 
@@ -23,7 +23,7 @@ export class Migration770REDataToSystem extends MigrationBase {
                 .replace(/@(actor|item)\.data\.data./g, "@$1.system.")
                 .replace(/@(actor|item)\.data./g, "@$1.")
                 .replace(/\b(actor|item|rule)\|data\.data\./g, "$1|system.")
-                .replace(/\b(actor|item|rule)\|data\./g, "$1|system.")
+                .replace(/\b(actor|item|rule)\|data\./g, "$1|system."),
         );
     }
 }

@@ -11,7 +11,7 @@ const materialIWR = R.mapValues(
         "sovereign-steel",
         "warpglass",
     ]),
-    (_v, k) => `PF2E.Damage.IWR.Type.${k}`
+    (_v, k) => `PF2E.Damage.IWR.Type.${k}`,
 );
 
 const immunityTypes = {

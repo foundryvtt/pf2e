@@ -47,7 +47,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
                     }),
                     new PredicateField({ required: false, nullable: false, initial: undefined }),
                 ],
-                { required: false, nullable: false, initial: false }
+                { required: false, nullable: false, initial: false },
             ),
         };
     }

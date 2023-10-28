@@ -24,7 +24,7 @@ declare global {
                     "refreshTiles",
                     "refreshLighting",
                     "refreshLightSources",
-                    "refreshPrimary"
+                    "refreshPrimary",
                 ];
                 reset: [];
             };

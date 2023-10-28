@@ -24,7 +24,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
 
     /** Expand a tree of kit entry data into a list of physical items */
     override async createGrantedItems(
-        options: { entries?: KitEntryData[]; containerId?: string; size?: Size } = {}
+        options: { entries?: KitEntryData[]; containerId?: string; size?: Size } = {},
     ): Promise<PhysicalItemPF2e<null>[]> {
         const size = new ActorSizePF2e({ value: options.size ?? "med", smallIsMedium: true }).value;
         const entries = options.entries ?? this.entries;
@@ -61,14 +61,14 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
 
                 return prepared;
             },
-            []
+            [],
         );
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (!changed.system) {
             return await super._preUpdate(changed, options, user);

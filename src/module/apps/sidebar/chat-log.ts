@@ -90,7 +90,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         command: string,
         matches: RegExpMatchArray[],
         chatData: PreCreate<Omit<ChatMessagePF2e["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-        createOptions: ChatMessageModificationContext
+        createOptions: ChatMessageModificationContext,
     ): Promise<void> {
         const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
         const rollData = actor?.getRollData() ?? {};
@@ -116,7 +116,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 
     static #messageFromEvent(
-        event: Event
+        event: Event,
     ): { element: HTMLLIElement; message: ChatMessagePF2e } | { element: null; message: null } {
         const element = htmlClosest<HTMLLIElement>(event.target, "li[data-message-id]");
         const messageId = element?.dataset.messageId ?? "";
@@ -128,7 +128,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         message: ChatMessagePF2e,
         cssClass: DamageButtonClass,
         shiftKey: boolean,
-        index?: string
+        index?: string,
     ): void {
         const multiplier = (() => {
             switch (cssClass) {
@@ -167,7 +167,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             ui.notifications.info(
                 game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
                     actor: actor.name,
-                })
+                }),
             );
             return true;
         }
@@ -391,7 +391,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         ui.notifications.error(
                             game.i18n.format("PF2E.Encounter.NoTokenInScene", {
                                 actor: message.actor?.name ?? message.user?.name ?? "",
-                            })
+                            }),
                         );
                         return;
                     }
@@ -403,7 +403,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     await combatant.encounter.setInitiative(combatant.id, value);
 
                     ui.notifications.info(
-                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value })
+                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value }),
                     );
                 },
             },
@@ -442,7 +442,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
                     CheckPF2e.rerollFromMessage(message, { keep: "higher" });
                 },
-            }
+            },
         );
 
         return options;

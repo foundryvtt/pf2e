@@ -24,7 +24,7 @@ export function whirlingThrow(options: SkillActionOptions): void {
                 const sizeModifier = new ModifierPF2e(
                     "Size Modifier",
                     determineSizeBonus(actorSize, targetSize),
-                    "circumstance"
+                    "circumstance",
                 );
                 if (sizeModifier.modifier) {
                     modifiers.push(sizeModifier);

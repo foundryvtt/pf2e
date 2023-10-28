@@ -14,7 +14,7 @@ type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 type BasePhysicalItemSource<
     TType extends PhysicalItemType,
-    TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
+    TSystemSource extends PhysicalSystemSource = PhysicalSystemSource,
 > = BaseItemSourcePF2e<TType, TSystemSource>;
 
 interface PhysicalSystemSource extends ItemSystemSource {

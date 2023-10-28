@@ -95,7 +95,7 @@ export function registerSettings(): void {
         type: Boolean,
         onChange: () => {
             const itemSheets = Object.values(ui.windows).filter(
-                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e
+                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e,
             );
             for (const sheet of itemSheets) {
                 sheet.render();

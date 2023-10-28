@@ -44,7 +44,7 @@ type CheckRollCallback = (
     roll: Rolled<CheckRoll>,
     outcome: DegreeOfSuccessString | null | undefined,
     message: ChatMessagePF2e,
-    event: Event | null
+    event: Event | null,
 ) => Promise<void> | void;
 
 class CheckPF2e {
@@ -53,7 +53,7 @@ class CheckPF2e {
         check: CheckModifier,
         context: CheckRollContext = {},
         event: JQuery.TriggeredEvent | Event | null = null,
-        callback?: CheckRollCallback
+        callback?: CheckRollCallback,
     ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
@@ -108,7 +108,7 @@ class CheckPF2e {
                 R.compact([
                     substitution?.effectType,
                     rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
-                ])
+                ]),
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
@@ -299,7 +299,7 @@ class CheckPF2e {
                     trait.label = game.i18n.localize(trait.label);
                     return trait;
                 }) ?? [],
-                (t) => t.name
+                (t) => t.name,
             )
                 .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                 .map((t) => toTagElement(t)) ?? [];
@@ -365,7 +365,7 @@ class CheckPF2e {
     /** Reroll a rolled check given a chat message. */
     static async rerollFromMessage(
         message: ChatMessagePF2e,
-        { heroPoint = false, keep = "new" }: RerollOptions = {}
+        { heroPoint = false, keep = "new" }: RerollOptions = {},
     ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
@@ -412,7 +412,7 @@ class CheckPF2e {
             Roll.fromJSON(JSON.stringify(oldRoll.toJSON())),
             unevaluatedNewRoll,
             heroPoint,
-            keep
+            keep,
         );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
@@ -518,7 +518,7 @@ class CheckPF2e {
                     pf2e: systemFlags,
                 },
             },
-            { rollMode: context.rollMode }
+            { rollMode: context.rollMode },
         );
     }
 
@@ -597,8 +597,8 @@ class CheckPF2e {
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
                     game.i18n.localize(
-                        objectHasKey(checkDCs.Specific, dcSlug) ? checkDCs.Specific[dcSlug] : checkDCs.Unspecific
-                    )
+                        objectHasKey(checkDCs.Specific, dcSlug) ? checkDCs.Specific[dcSlug] : checkDCs.Unspecific,
+                    ),
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
@@ -615,7 +615,7 @@ class CheckPF2e {
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = game.i18n.localize(
-                    targetData ? checkDCs.Label.WithTarget : customLabel ?? checkDCs.Label.NoTarget
+                    targetData ? checkDCs.Label.WithTarget : customLabel ?? checkDCs.Label.NoTarget,
                 );
                 const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, target: targetData?.name ?? null });
 
@@ -699,7 +699,7 @@ class CheckPF2e {
                 adjustedNode.dataset.tooltip = adjustment.circumstances
                     .map(
                         (a: { label: string; value: number }) =>
-                            createHTMLElement("div", { children: [`${a.label}: ${signedInteger(a.value)}`] }).outerHTML
+                            createHTMLElement("div", { children: [`${a.label}: ${signedInteger(a.value)}`] }).outerHTML,
                     )
                     .join("\n");
             }

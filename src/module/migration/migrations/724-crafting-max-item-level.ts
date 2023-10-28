@@ -44,7 +44,7 @@ export class Migration724CraftingMaxItemLevel extends MigrationBase {
                 type RawPredicateAll = OldRawPredicate & { all: PredicateStatement[] };
                 const predicate: RawPredicateAll = (rule.predicate = mergeObject(
                     { all: [] },
-                    isObject(rule.predicate) ? rule.predicate : {}
+                    isObject(rule.predicate) ? rule.predicate : {},
                 ));
                 const slug = sluggify(selector);
                 predicate.all = Array.from(new Set([...predicate.all, `crafting:entry:${slug}`]));

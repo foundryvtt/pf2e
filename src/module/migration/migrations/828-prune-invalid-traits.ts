@@ -56,7 +56,7 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                             .replace(/^audible$/, "auditory")
                             .replace(/^concentration$/, "concentrate")
                             .replace(/^(interact|manipulation)$/i, "manipulate")
-                            .replace(/^vocal$/, "verbal")
+                            .replace(/^vocal$/, "verbal"),
                     )
                     .filter((t): t is ActionTrait => t in actionTraits);
                 return;
@@ -77,7 +77,7 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                             ? t.replace(/^shield-throw$/, "shield-throw-30")
                             : source.system.slug?.includes("klar")
                             ? t.replace(/^integrated$/, "integrated-1d6-s-versatile-p")
-                            : t
+                            : t,
                     )
                     .filter((t): t is ArmorTrait => t in armorTraits);
                 return;

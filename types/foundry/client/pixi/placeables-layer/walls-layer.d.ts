@@ -3,7 +3,7 @@ export {};
 declare global {
     /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
     class WallsLayer<
-        TObject extends Wall<WallDocument<Scene | null>> = Wall<WallDocument<Scene | null>>
+        TObject extends Wall<WallDocument<Scene | null>> = Wall<WallDocument<Scene | null>>,
     > extends PlaceablesLayer<TObject> {
         constructor();
 
@@ -81,7 +81,7 @@ declare global {
          */
         static getUniqueEndpoints(
             walls: Iterable<Wall<WallDocument<Scene>>>,
-            { bounds, type }?: { bounds?: PIXI.Rectangle; type?: WallType }
+            { bounds, type }?: { bounds?: PIXI.Rectangle; type?: WallType },
         ): PointArray[];
 
         /**
@@ -93,7 +93,7 @@ declare global {
 
         pasteObjects(
             position: { x: number; y: number },
-            { hidden }?: { hidden?: boolean }
+            { hidden }?: { hidden?: boolean },
         ): Promise<TObject["document"][]>;
 
         /**
@@ -169,7 +169,7 @@ declare global {
                 density?: number;
                 rotation?: number;
                 unrestricted?: boolean;
-            }
+            },
         ): { rays: Ray; los: PIXI.Polygon; fov: PIXI.Polygon };
 
         /**
@@ -186,7 +186,7 @@ declare global {
          */
         getRayCollisions(
             ray: Ray,
-            { type, mode, _performance }?: { type?: WallType; mode?: WallMode; _performance?: unknown }
+            { type, mode, _performance }?: { type?: WallType; mode?: WallMode; _performance?: unknown },
         ): Record<string, unknown> | Record<string, unknown> | boolean;
 
         /* -------------------------------------------- */
@@ -218,7 +218,7 @@ declare global {
                 limitAngle,
                 aMin,
                 aMax,
-            }?: { density?: number; endpoints?: PointArray[]; limitAngle?: boolean; aMin?: number; aMax?: boolean }
+            }?: { density?: number; endpoints?: PointArray[]; limitAngle?: boolean; aMin?: number; aMax?: boolean },
         ): Ray[];
 
         /**

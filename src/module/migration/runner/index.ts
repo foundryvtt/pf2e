@@ -50,7 +50,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     async #migrateDocuments<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
         collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
         migrations: MigrationBase[],
-        progress?: Progress
+        progress?: Progress,
     ): Promise<void> {
         const DocumentClass = collection.documentClass;
         const pack = "metadata" in collection ? collection.metadata.id : null;
@@ -98,7 +98,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     async #migrateActor(
         migrations: MigrationBase[],
         actor: ActorPF2e,
-        options: { pack?: string | null } = {}
+        options: { pack?: string | null } = {},
     ): Promise<ActorSourcePF2e | null> {
         const { pack } = options;
         const baseActor = actor.toObject();
@@ -185,7 +185,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     async #migrateSceneToken(
         token: TokenDocumentPF2e<ScenePF2e>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.TokenSource | null> {
         if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
@@ -224,7 +224,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     /** Migrates all documents in a compendium. Since getDocuments() already migrates, this merely loads and saves them */
     async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
-        compendium: CompendiumCollection<T>
+        compendium: CompendiumCollection<T>,
     ): Promise<void> {
         const pack = compendium.metadata.id;
 
@@ -246,7 +246,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                     game.scenes
                         .map((s) => s.tokens.contents)
                         .flat()
-                        .filter((t) => t.actor?.isToken).length
+                        .filter((t) => t.actor?.isToken).length,
             ),
         });
 

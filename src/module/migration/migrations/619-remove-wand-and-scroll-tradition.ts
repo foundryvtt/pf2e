@@ -47,7 +47,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
 
         // Calculate the highest tradition in the actor
         const allEntries = actorData.items.filter(
-            (itemData): itemData is SpellcastingEntrySource => itemData.type === "spellcastingEntry"
+            (itemData): itemData is SpellcastingEntrySource => itemData.type === "spellcastingEntry",
         );
         const highestTradition = allEntries.reduce<HighestTradition>(
             (prev, current) => {
@@ -61,7 +61,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
 
                 return prev;
             },
-            { name: "arcane", value: 0 }
+            { name: "arcane", value: 0 },
         );
 
         tradition.value = highestTradition.name;

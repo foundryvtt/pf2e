@@ -55,9 +55,9 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                     .trim()
                     .replace(
                         /^\{([^}]+)\}\[([a-z]+)\]$/i,
-                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]"
+                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]",
                     )
-                    .toLowerCase()
+                    .toLowerCase(),
             );
 
             const reassembled = instances.length === 1 ? `[[/r ${instances[0]}]]` : `[[/r {${instances.join(",")}}]]`;

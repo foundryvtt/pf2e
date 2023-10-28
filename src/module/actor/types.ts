@@ -99,7 +99,7 @@ interface AuraAppearanceData {
 interface StrikeSelf<
     TActor extends ActorPF2e = ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > {
     actor: TActor;
     token: TokenDocumentPF2e | null;
@@ -122,7 +122,7 @@ interface RollTarget {
 interface RollContext<
     TActor extends ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > {
     /** Roll options */
     options: Set<string>;
@@ -133,7 +133,7 @@ interface RollContext<
 
 interface RollContextParams<
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > {
     /** The statistic used for the roll */
     statistic: TStatistic;
@@ -153,14 +153,14 @@ interface RollContextParams<
 
 interface CheckContextParams<
     TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > extends RollContextParams<TStatistic, TItem> {
     defense: string;
 }
 
 interface DamageRollContextParams<
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > extends RollContextParams<TStatistic, TItem> {
     /** The context object of the preceding check roll */
     checkContext: Maybe<CheckRollContextFlag>;
@@ -174,7 +174,7 @@ interface DamageRollContextParams<
 interface CheckContext<
     TActor extends ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > extends RollContext<TActor, TStatistic, TItem> {
     dc: CheckDC | null;
 }

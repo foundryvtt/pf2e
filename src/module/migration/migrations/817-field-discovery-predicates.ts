@@ -14,7 +14,7 @@ export class Migration817FieldDiscoveryPredicates extends MigrationBase {
                 typeof r.path === "string" &&
                 /^system.crafting.entries.\w+.fieldDiscovery$/.test(r.path) &&
                 "value" in r &&
-                typeof r.value === "string"
+                typeof r.value === "string",
         );
 
         for (const rule of aeLikes) {

@@ -53,7 +53,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
             "immunities" in source.system.attributes
         ) {
             source.system.attributes.immunities = recursiveReplaceString(source.system.attributes.immunities, (s) =>
-                this.#replace(s)
+                this.#replace(s),
             );
         }
     }

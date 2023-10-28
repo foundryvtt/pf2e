@@ -107,7 +107,7 @@ class RuleElements {
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
                 console.error(
-                    `PF2e System | Missing key in rule element ${source.key} on item ${item.name} (${item.uuid})`
+                    `PF2e System | Missing key in rule element ${source.key} on item ${item.name} (${item.uuid})`,
                 );
                 continue;
             }
@@ -120,7 +120,7 @@ class RuleElements {
                         if (!options?.suppressWarnings) {
                             console.warn(
                                 `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
-                                `(${item.uuid})`
+                                `(${item.uuid})`,
                             );
                             console.warn(error);
                         }
@@ -139,7 +139,7 @@ class RuleElements {
 
 type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
     data: RuleElementSource,
-    options: RuleElementOptions
+    options: RuleElementOptions,
 ) => RuleElementPF2e);
 
 export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
