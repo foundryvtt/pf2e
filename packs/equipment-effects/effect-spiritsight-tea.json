@@ -1,0 +1,48 @@
+{
+    "_id": "parbYdReJWd08fGl",
+    "img": "icons/consumables/plants/dried-herb-bundle-brown.webp",
+    "name": "Effect: Spiritsight Tea",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 item bonus to Perception checks to Seek incorporeal creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "target:trait:incorporeal"
+                ],
+                "selector": "perception",
+                "slug": "sweetest-solstace-fear",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

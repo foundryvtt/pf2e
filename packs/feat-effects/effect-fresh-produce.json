@@ -1,0 +1,42 @@
+{
+    "_id": "2GWZgsvMJF9DN0DO",
+    "img": "icons/consumables/fruit/blueberry-cluster-blue.webp",
+    "name": "Effect: Fresh Produce",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to void damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "void",
+                "value": "2 * (1+floor((@item.level -1)/2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
