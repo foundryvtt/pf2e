@@ -189,8 +189,6 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                 case "property-runes":
                     return {
                         adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
-                            if (weapon.isOfType("melee")) return; // Currently not supported
-
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.',

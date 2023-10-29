@@ -302,7 +302,7 @@ class WeaponDamagePF2e {
         damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
 
         // Property Runes
-        const propertyRunes = weapon.isOfType("weapon") ? weapon.system.runes.property : [];
+        const propertyRunes = weapon.system.runes.property;
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(

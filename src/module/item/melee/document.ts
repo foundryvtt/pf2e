@@ -7,7 +7,8 @@ import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
-import { tupleHasValue } from "@util";
+import { sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -126,6 +127,9 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Set precious material (currently unused)
         this.system.material = { type: null, grade: null };
 
+        // Set empty property runes array for use by rule elements
+        this.system.runes = { property: [] };
+
         for (const attackDamage of Object.values(this.system.damageRolls)) {
             attackDamage.category ||= null;
             if (attackDamage.damageType === "bleed") {
@@ -175,6 +179,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { damageType } = this.baseDamage;
         const damageCategory = DamageCategorization.fromDamageType(damageType);
         const rangeIncrement = this.range?.increment;
+        const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);
 
         const otherOptions = Object.entries({
             equipped: true,
@@ -187,6 +192,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
             [`damage:type:${damageType}`]: true,
             [`damage:category:${damageCategory}`]: !!damageCategory,
+            ...propertyRunes,
         })
             .filter(([, isTrue]) => isTrue)
             .map(([key]) => `${prefix}:${key}`);
