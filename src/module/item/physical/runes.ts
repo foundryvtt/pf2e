@@ -938,12 +938,13 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "good",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                    predicate: ["target:trait:fiend"],
                 },
                 {
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1090,6 +1091,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1097,6 +1099,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
+                    predicate: ["target:mode:undead"],
                 },
             ],
         },
@@ -1203,15 +1206,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["cold", "conjuration", "magical"],
     },
     ghostTouch: {
-        damage: {
-            notes: [
-                {
-                    predicate: [{ or: ["target:trait:incorporeal", { not: "target" }] }],
-                    title: "PF2E.WeaponPropertyRune.ghostTouch.Name",
-                    text: "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                },
-            ],
-        },
         level: 4,
         name: "PF2E.WeaponPropertyRune.ghostTouch.Name",
         price: 75,
@@ -1309,12 +1303,13 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "good",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                    predicate: ["target:trait:fiend"],
                 },
                 {
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1389,6 +1384,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 2,
                     dieSize: "d6",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1396,6 +1392,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
+                    predicate: ["target:mode:undead"],
                 },
             ],
         },
