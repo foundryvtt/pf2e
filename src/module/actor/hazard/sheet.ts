@@ -180,14 +180,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             }
         });
 
-        const $hint = $html.find(".emits-sound i.hint");
-        $hint.tooltipster({
-            maxWidth: 275,
-            position: "right",
-            theme: "crb-hover",
-            content: game.i18n.localize("PF2E.Actor.Hazard.EmitsSound.Hint"),
-        });
-
         if (!this.options.editable) return;
 
         $html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
