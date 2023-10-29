@@ -27,29 +27,26 @@
         "rules": [
             {
                 "choices": {
-                  "ownedItems": true,
-                  "types": [
-                    "feat"
-                  ],
-                  "predicate": [
-                    "item:tag:thaumaturge-implement",
-                    "item:tag:thaumaturge-implement-adept"
-                  ]
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:tag:thaumaturge-implement",
+                        "item:tag:thaumaturge-implement-adept"
+                    ],
+                    "types": [
+                        "feat"
+                    ]
                 },
                 "flag": "implementParagon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
-              },
-              {
-                "itemType": "feat",
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.implementParagon}",
                 "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                  "item:id:{item|flags.pf2e.rulesSelections.implementParagon}"
-                ],
                 "property": "other-tags",
                 "value": "thaumaturge-implement-paragon"
-              }
+            }
         ],
         "traits": {
             "rarity": "common",
