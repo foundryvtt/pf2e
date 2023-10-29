@@ -543,7 +543,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (
             game.settings.get("pf2e", "dataTools") &&
             this.isEditable &&
-            this.item.sourceId?.startsWith("Compendium.")
+            this.item.sourceId?.startsWith("Compendium.") &&
+            !this.item.uuid.startsWith("Compendium.")
         ) {
             buttons.unshift({
                 label: "Refresh",
