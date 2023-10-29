@@ -420,7 +420,7 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "class:investigator",
-                            "devise-a-stratagem",
+                            "target:mark:devise-a-stratagem",
                             {
                                 "or": [
                                     "action:disarm",
@@ -441,7 +441,14 @@
                                             }
                                         ]
                                     },
-                                    "item:base:sap"
+                                    "item:base:sap",
+                                    {
+                                        "and": [
+                                            "feat:takedown-expert",
+                                            "item:group:club",
+                                            "item:hands-held:1"
+                                        ]
+                                    }
                                 ]
                             }
                         ],
@@ -3628,7 +3635,7 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "devise-a-stratagem",
+                        "option": "target:mark:devise-a-stratagem",
                         "toggleable": "totm"
                     },
                     {
@@ -3636,12 +3643,7 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "class:investigator",
-                            {
-                                "or": [
-                                    "devise-a-stratagem",
-                                    "target:mark:devise-a-stratagem"
-                                ]
-                            },
+                            "target:mark:devise-a-stratagem",
                             {
                                 "or": [
                                     "item:trait:agile",

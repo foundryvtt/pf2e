@@ -276,3 +276,4 @@ export { Migration875SetInnovationIdEarly } from "./875-set-innovation-id-early.
 export { Migration876FeatLevelTaken } from "./876-feat-level-taken.ts";
 export { Migration877PublicationData } from "./877-publication-data.ts";
 export { Migration878TakeABreather } from "./878-take-a-breather.ts";
+export { Migration879DeviseAStratagemAndFriends } from "./879-devise-a-stratagem-and-friends.ts";
