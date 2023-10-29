@@ -1681,9 +1681,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return;
         }
 
-        const value = typeof condition.value === "number" ? Math.max(condition.value - 1, 0) : null;
-        if (value !== null && !forceRemove) {
-            await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
+        const currentValue = condition._source.system.value.value;
+        const newValue = typeof currentValue === "number" ? Math.max(currentValue - 1, 0) : null;
+        if (newValue !== null && !forceRemove) {
+            await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, newValue);
         } else {
             await this.deleteEmbeddedDocuments("Item", [condition.id]);
         }
@@ -1718,17 +1719,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         if (existing) {
-            const conditionValue = (() => {
-                if (existing.value === null) return null;
+            const newValue = (() => {
+                const currentValue = existing._source.system.value.value;
+                if (currentValue === null) return null;
                 if (min && max && min > max) throw ErrorPF2e(`min (${min}) > max (${max})`);
                 return min && max
-                    ? Math.clamped(existing.value + 1, min, max)
+                    ? Math.clamped(currentValue + 1, min, max)
                     : max
-                    ? Math.min(existing.value + 1, max)
-                    : existing.value + 1;
+                    ? Math.min(currentValue + 1, max)
+                    : currentValue + 1;
             })();
-            if (conditionValue === null || conditionValue > (max ?? 0)) return null;
-            await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
+            if (newValue === null || newValue > (max ?? 0)) return null;
+            await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, newValue);
             return existing;
         } else if (typeof conditionSlug === "string") {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
