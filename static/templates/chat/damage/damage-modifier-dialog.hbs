@@ -10,10 +10,11 @@
             </div>
             <div class="exclude"></div>
         </div>
-        {{#each dice as |die idx|}}
-            {{#if die.show}}
-                {{> dice-row dice=die idx=idx}}
-            {{/if}}
+        {{#each overrides as |die|}}
+            {{> dice-row dice=die}}
+        {{/each}}
+        {{#each dice as |die|}}
+            {{> dice-row dice=die}}
         {{/each}}
     </div>
     <hr/>
@@ -50,11 +51,9 @@
         <span class="exclude"></span>
     </div>
     <div class="modifier-container modifiers">
-        {{#if hasVisibleModifiers}}
-            {{#each modifiers as |modifier idx|}}
-                {{#if modifier.show}}
-                    {{> modifier-row modifier=modifier idx=idx}}
-                {{/if}}
+        {{#if modifiers}}
+            {{#each modifiers as |modifier|}}
+                {{> modifier-row modifier=modifier}}
             {{/each}}
         {{else}}
             <div class="dialog-row">
@@ -127,7 +126,7 @@
         </div>
         <div class="exclude">
             <label class="toggle">
-                <input type="checkbox" data-modifier-index="{{idx}}" {{checked (not modifier.ignored)}} />
+                <input type="checkbox" data-modifier-index="{{modifier.idx}}" {{checked (not modifier.ignored)}} />
                 <span class="widget"></span>
             </label>
         </div>
@@ -144,7 +143,7 @@
         </div>
         <div class="exclude">
             <label class="toggle">
-                <input type="checkbox" data-dice-index="{{idx}}" data-slug="{{dice.slug}}" {{checked (not dice.ignored)}} />
+                <input type="checkbox" data-dice-index="{{dice.idx}}" data-slug="{{dice.slug}}" {{checked (not dice.ignored)}} />
                 <span class="widget"></span>
             </label>
         </div>
