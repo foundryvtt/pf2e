@@ -17,7 +17,6 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
-import { applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -411,8 +410,6 @@ class ElementalBlast {
         });
         const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
-        applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);
-
         const formulaData: DamageFormulaData = {
             dice: damageSynthetics.dice,
             modifiers,
