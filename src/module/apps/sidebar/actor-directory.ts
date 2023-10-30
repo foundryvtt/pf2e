@@ -6,9 +6,6 @@ import * as R from "remeda";
 class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     static override entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
 
-    /** A cached reference to the active party */
-    activeParty: PartyPF2e<null> | null = null;
-
     /** Any additional "folder like" elements (such as parties) that are maintained separately */
     #extraFolders: Record<string, boolean> = {};
 
@@ -29,8 +26,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         return options;
     }
 
-    override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
-        const activeParty = (this.activeParty = game.actors.party);
+    override async getData(): Promise<object> {
+        const activeParty = game.actors.party;
 
         if (!this.#renderedOnce) {
             if (activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
@@ -39,11 +36,6 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             this.#renderedOnce = true;
         }
 
-        return super.render(force, options);
-    }
-
-    override async getData(): Promise<object> {
-        const { activeParty } = this;
         const parties = R.sortBy(
             this.documents.filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e && a !== activeParty),
             (p) => p.sort,
