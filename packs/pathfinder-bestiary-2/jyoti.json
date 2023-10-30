@@ -1477,10 +1477,6 @@
                     "0": {
                         "damage": "2d8+6",
                         "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1545,7 +1541,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -1594,7 +1591,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -1861,7 +1859,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon a jyoti wields becomes a @UUID[Compendium.pf2e.equipment-srd.Item.Flaming] @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] weapon while the jyoti holds it.</p>"
+                    "value": "<p>Any weapon a jyoti wields becomes a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming] @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> weapon while the jyoti holds it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1873,25 +1871,26 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "target:mode:undead",
-                            "target:trait:incorporeal"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "flaming-ghost-touch-longspear-attack",
-                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "flaming-ghost-touch-longspear-attack",
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
                     }
                 ],
                 "slug": null,

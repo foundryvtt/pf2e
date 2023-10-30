@@ -1016,7 +1016,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A eseneth's Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal @Damage[2d6[void]] damage to living creatures and @Damage[2d6[vitality]] damage to undead.</p>"
+                    "value": "<p>A eseneth's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[2d6[void]] damage to living creatures and @Damage[2d6[vitality]] damage to undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1027,6 +1027,12 @@
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "void",
                         "diceNumber": 2,

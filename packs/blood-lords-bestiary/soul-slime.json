@@ -272,7 +272,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal @Damage[3d6[void]] damage to living creatures and @Damage[3d6[vitality]] damage to undead and other creatures with negative healing.</p>"
+                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[3d6[void]] damage to living creatures and @Damage[3d6[vitality]] damage to undead and other creatures with negative healing.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -283,6 +283,12 @@
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "void",
                         "diceNumber": 3,
@@ -299,7 +305,12 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:mode:undead"
+                            {
+                                "or": [
+                                    "target:mode:undead",
+                                    "target:negative-healing"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     }

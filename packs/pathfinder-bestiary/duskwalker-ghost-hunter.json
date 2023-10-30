@@ -671,15 +671,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "target:mode:undead",
-                            "target:trait:incorporeal"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
                     }
                 ],
                 "slug": null,

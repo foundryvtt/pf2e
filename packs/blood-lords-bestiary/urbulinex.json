@@ -1290,7 +1290,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ravener's Strikes affect incorporeal creatures with the effects of a ghost touch property rune, and the ravener's jaws deal an additional @Damage[6d6[force]] damage to undead.</p>"
+                    "value": "<p>The ravener's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune, and the ravener's jaws deal an additional @Damage[6d6[force]] damage to undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1302,19 +1302,10 @@
                 },
                 "rules": [
                     {
-                        "domain": "strike-damage",
-                        "key": "RollOption",
-                        "option": "item:rune:property:ghost-touch"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "target:trait:incorporeal"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
                     },
                     {
                         "damageType": "force",
