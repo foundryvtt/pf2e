@@ -6,8 +6,14 @@ import * as R from "remeda";
 class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     static override entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
 
+    /** A cached reference to the active party */
+    activeParty: PartyPF2e<null> | null = null;
+
     /** Any additional "folder like" elements (such as parties) that are maintained separately */
-    extraFolders: Record<string, boolean> = {};
+    #extraFolders: Record<string, boolean> = {};
+
+    /** Whether this application has been rendered at least once */
+    #renderedOnce = false;
 
     /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
     #draggingParty = false;
@@ -23,23 +29,37 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         return options;
     }
 
+    override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
+        const activeParty = (this.activeParty = game.actors.party);
+
+        if (!this.#renderedOnce) {
+            if (activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
+                this.#extraFolders[activeParty.id] = true;
+            }
+            this.#renderedOnce = true;
+        }
+
+        return super.render(force, options);
+    }
+
     override async getData(): Promise<object> {
-        const activeParty = game.actors.party;
+        const { activeParty } = this;
         const parties = R.sortBy(
             this.documents.filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e && a !== activeParty),
             (p) => p.sort,
         );
+
         return {
             ...(await super.getData()),
             activeParty,
             parties,
             placePartiesInSubfolder: parties.length > 1,
-            extraFolders: this.extraFolders,
+            extraFolders: this.#extraFolders,
         };
     }
 
     saveActivePartyFolderState(): void {
-        game.settings.set("pf2e", "activePartyFolderState", this.extraFolders[game.actors.party?.id ?? ""] ?? true);
+        game.settings.set("pf2e", "activePartyFolderState", this.#extraFolders[game.actors.party?.id ?? ""] ?? true);
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
@@ -70,8 +90,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 const entryId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId ?? "";
                 if (folderEl && entryId) {
                     event.stopPropagation();
-                    this.extraFolders[entryId] = folderEl.classList.contains("collapsed");
-                    folderEl.classList.toggle("collapsed", !this.extraFolders[entryId]);
+                    this.#extraFolders[entryId] = folderEl.classList.contains("collapsed");
+                    folderEl.classList.toggle("collapsed", !this.#extraFolders[entryId]);
                     if (this.popOut) this.setPosition();
 
                     this.saveActivePartyFolderState();
@@ -109,7 +129,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
 
                 // If the actor was created, add as a member and force the party folder open
                 if (actor?.isOfType("creature")) {
-                    this.extraFolders[party.id] = true;
+                    this.#extraFolders[party.id] = true;
                     await party.addMembers(actor);
                 }
             });
@@ -124,7 +144,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 const header = htmlClosest(createPartyLink, ".folder-like");
                 const entryId = header?.dataset.entryId;
                 if (entryId) {
-                    this.extraFolders[entryId] = true;
+                    this.#extraFolders[entryId] = true;
                     this.render();
                 }
             });
@@ -158,7 +178,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 if (folderLikeHeader) folderLikeHeader.removeAttribute("style");
             } else {
                 const entryId = folderLike.dataset.entryId ?? "";
-                folderLike.classList.toggle("collapsed", !this.extraFolders[entryId]);
+                folderLike.classList.toggle("collapsed", !this.#extraFolders[entryId]);
             }
         }
     }
