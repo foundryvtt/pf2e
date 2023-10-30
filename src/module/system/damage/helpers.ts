@@ -91,21 +91,22 @@ function applyDamageDiceOverrides(
 
         // Perform overrides, and handle fatal/deadly
         for (const adjustment of adjustments) {
+            if (!adjustment.override) continue;
+
+            base.damageType = adjustment.override.damageType ?? base.damageType;
+            for (const die of dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
+                die.damageType = adjustment.override.damageType ?? die.damageType;
+            }
+
             if (die) {
+                die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
                 if (adjustment.override.dieSize) {
                     const faces = Number(/\d{1,2}/.exec(adjustment.override.dieSize)?.shift());
                     if (Number.isInteger(faces)) die.dice.faces = faces;
                 }
-                if (adjustment.override.damageType) {
-                    base.damageType = adjustment.override.damageType;
-                }
-            } else if (adjustment.override) {
+            } else {
                 base.dieSize = adjustment.override.dieSize ?? base.dieSize;
-                base.damageType = adjustment.override.damageType ?? base.damageType;
                 base.diceNumber = adjustment.override.diceNumber ?? base.diceNumber;
-                for (const die of dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
-                    die.damageType = adjustment.override.damageType ?? die.damageType;
-                }
             }
         }
     }
