@@ -6,6 +6,7 @@ import {
     ItemTraitsNoRarity,
 } from "@item/base/data/system.ts";
 import { WeaponMaterialData } from "@item/weapon/data.ts";
+import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import { DamageType } from "@system/damage/types.ts";
 
 type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
@@ -38,6 +39,7 @@ interface MeleeSystemSource extends ItemSystemSource {
 
 interface MeleeSystemData extends MeleeSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     material: WeaponMaterialData;
+    runes: { property: WeaponPropertyRuneType[] };
 }
 
 interface NPCAttackDamageSource {

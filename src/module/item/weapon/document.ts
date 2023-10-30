@@ -210,9 +210,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             return baseTypes.reduce((types, t) => ({ ...types, [`base:${t}`]: true }), {} as Record<string, boolean>);
         })();
         const { persistent } = this.system.damage;
-        const propertyRunes = this.system.runes.property
-            .map((p) => `rune:property:${sluggify(p)}`)
-            .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
+        const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);
 
         // Ammunition
         const ammunitionRollOptions = ((ammunition: ConsumablePF2e | WeaponPF2e | null) => {
