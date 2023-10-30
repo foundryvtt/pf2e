@@ -557,17 +557,13 @@
                     "value": 16
                 },
                 "damageRolls": {
-                    "21wcxa25samjknoz4t0j": {
+                    "0": {
                         "damage": "2d8+7",
                         "damageType": "slashing"
                     },
-                    "fmuc3tt84ghiy5gzxfag": {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "evil"
-                    },
-                    "hvutt75fykk97koz5g6l": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -580,13 +576,13 @@
                 },
                 "rules": [
                     {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "selector": "{item|id}-damage"
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": null,
