@@ -30,8 +30,9 @@ class TokenAura implements TokenAuraData {
         this.level = params.level;
         this.radius = params.radius;
         this.traits = params.traits;
-        this.effects = params.effects;
         this.appearance = params.appearance;
+        // Do not emit effects from auras of GM-hidden tokens
+        this.effects = this.token.hidden ? [] : params.effects;
     }
 
     /** The aura radius from the center in pixels */
