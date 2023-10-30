@@ -759,13 +759,9 @@
                         "damage": "2d12+13",
                         "damageType": "slashing"
                     },
-                    "kab1i6jltio9smxv65zy": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
-                    },
-                    "dog2anaqy6str5wz3kq1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -834,7 +830,8 @@
                     "value": [
                         "agile",
                         "evil",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -869,13 +866,9 @@
                         "damage": "2d8+6",
                         "damageType": "piercing"
                     },
-                    "tzra6qljhgnqpfbwwmz1": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
-                    },
-                    "tubnpt97y5igz10yyvxq": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1211,7 +1204,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon a munagola holds gains the effects of a @UUID[Compendium.pf2e.equipment-srd.Item.Flaming] rune while they hold it.</p>"
+                    "value": "<p>Any weapon a munagola holds gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> rune while they hold it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1223,14 +1216,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": null,

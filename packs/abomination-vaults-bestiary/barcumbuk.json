@@ -1612,17 +1612,13 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "jq6gucy2ezjy28wuotil": {
+                    "0": {
                         "damage": "2d8+6",
                         "damageType": "bludgeoning"
                     },
-                    "u8y72xfoq0cm453hiw8q": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
-                    },
-                    "4t8x4f2zccvreho2vef1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1633,17 +1629,7 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "selector": "{item|id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1682,17 +1668,13 @@
                     "value": 19
                 },
                 "damageRolls": {
-                    "6s0rutrsib85hnnorwft": {
+                    "0": {
                         "damage": "1d6+6",
                         "damageType": "bludgeoning"
                     },
-                    "qj7c6kozsaiwufg2uvdr": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
-                    },
-                    "rraf034dphcxxz4yxe1j": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -1703,17 +1685,7 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "selector": "{item|id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -2039,7 +2011,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

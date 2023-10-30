@@ -1690,15 +1690,11 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "clj4a92gqbtmmxgcxizv": {
+                    "0": {
                         "damage": "2d6+8",
                         "damageType": "slashing"
                     },
-                    "i2el4hi0qgcut5oe7yud": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "pnihplv06wl6sc0f79qi7f": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
@@ -2042,7 +2038,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effects of a @UUID[Compendium.pf2e.equipment-srd.Item.Flaming] property rune while a balisse wields it.</p>"
+                    "value": "<p>Any weapon gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> property rune while a balisse wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2054,14 +2050,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "flaming-scimitar-attack",
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
                     }
                 ],
                 "slug": null,

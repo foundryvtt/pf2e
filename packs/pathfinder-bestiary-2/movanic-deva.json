@@ -1472,10 +1472,6 @@
                     },
                     "1": {
                         "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "2": {
-                        "damage": "1d6",
                         "damageType": "good"
                     }
                 },
@@ -1835,7 +1831,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a movanic deva wields a weapon, that weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Item.Flaming] rune.</p>"
+                    "value": "<p>When a movanic deva wields a weapon, that weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1845,7 +1841,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
