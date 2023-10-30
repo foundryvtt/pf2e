@@ -1637,10 +1637,6 @@
                     "0": {
                         "damage": "2d6+9",
                         "damageType": "slashing"
-                    },
-                    "zxgq6y6vioia2dggldk3": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -1712,10 +1708,6 @@
                     "0": {
                         "damage": "2d8+9",
                         "damageType": "piercing"
-                    },
-                    "06xq9u2aqo6rrkp16ge9": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -2035,20 +2027,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "predicate": [
-                            "target:trait:evil"
-                        ],
-                        "selector": [
-                            "composite-longbow-attack",
-                            "katana-attack"
-                        ],
-                        "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
                     }
                 ],
                 "slug": null,

@@ -1010,13 +1010,9 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "nxvabvwdi6jbcwk2cveg": {
+                    "0": {
                         "damage": "2d6+10",
                         "damageType": "piercing"
-                    },
-                    "hphpcflt6w6qf9om4o5j": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -1027,7 +1023,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1110,21 +1116,7 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:trait:evil"
-                        ],
-                        "selector": "holy-striking-spear-attack",
-                        "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

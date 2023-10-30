@@ -2391,10 +2391,6 @@
                     "0": {
                         "damage": "3d12+16",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -2890,7 +2886,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon becomes a @UUID[Compendium.pf2e.equipment-srd.Item.Weapon Potency (+3)]{+3} @UUID[Compendium.pf2e.equipment-srd.Item.Holy] @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Greater)]{Greater Striking} weapon while the ghaele wields it.</p>"
+                    "value": "<p>Any weapon becomes a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Weapon Potency (+3)]{+3} @UUID[Compendium.pf2e.equipment-srd.Item.Holy] @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Greater)]{Greater Striking}</em> weapon while the ghaele wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2900,7 +2896,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "nor": [
+                                    "item:category:unarmed",
+                                    "item:slug:light-ray"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

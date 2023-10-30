@@ -1998,10 +1998,6 @@
                     "0": {
                         "damage": "4d12+21",
                         "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "evil"
                     }
                 },
                 "description": {
@@ -2046,11 +2042,11 @@
                     "value": 40
                 },
                 "damageRolls": {
-                    "hz0libicqvtlaxhlaroa2": {
+                    "0": {
                         "damage": "6d6+15",
                         "damageType": "fire"
                     },
-                    "qsoz0i42osij9qd4pybv49": {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "evil"
                     }
@@ -2456,7 +2452,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effects of an @UUID[Compendium.pf2e.equipment-srd.Item.Unholy] property rune while Avsheros wields it.</p>"
+                    "value": "<p>Any weapon gains the effects of an <em>@UUID[Compendium.pf2e.equipment-srd.Item.Unholy]</em> property rune while Avsheros wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2466,7 +2462,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "nor": [
+                                    "item:category:unarmed",
+                                    "item:slug:radiant-ray"
+                                ]
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "unholy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

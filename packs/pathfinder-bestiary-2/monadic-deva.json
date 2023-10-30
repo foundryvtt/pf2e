@@ -1582,10 +1582,6 @@
                     "1": {
                         "damage": "1d6",
                         "damageType": "force"
-                    },
-                    "2": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -1878,7 +1874,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Item.Holy] property rune while a monadic deva wields it.</p>"
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while a monadic deva wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1888,7 +1884,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
