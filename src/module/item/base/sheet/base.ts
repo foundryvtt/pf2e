@@ -541,10 +541,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const buttons = super._getHeaderButtons();
 
         if (
-            game.settings.get("pf2e", "dataTools") &&
+            (BUILD_MODE === "development" || game.settings.get("pf2e", "dataTools")) &&
             this.isEditable &&
             this.item.sourceId?.startsWith("Compendium.") &&
-            !this.item.uuid.startsWith("Compendium.")
+            (this.actor || !this.item.uuid.startsWith("Compendium."))
         ) {
             buttons.unshift({
                 label: "Refresh",

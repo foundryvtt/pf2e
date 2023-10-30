@@ -299,10 +299,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             return;
         }
 
-        const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
-        const updates: Partial<foundry.documents.ItemSource> = { img: updatedImage, system: latestSource.system };
+        const updates: Partial<foundry.documents.ItemSource> & { system: ItemSourcePF2e["system"] } = {
+            img: latestSource.img,
+            system: deepClone(latestSource.system),
+        };
 
         if (options.name) updates.name = latestSource.name;
+
+        if (updates.system.level && currentSource.type === "feat") {
+            updates.system.level = {
+                value: updates.system.level.value,
+                taken: currentSource.system.level.taken,
+            };
+        }
 
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
