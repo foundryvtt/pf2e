@@ -5,6 +5,7 @@ import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { CheckRollContextFlag } from "@module/chat-message/index.ts";
+import type { ItemAlteration } from "@module/rules/rule-element/item-alteration/alteration.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
@@ -77,6 +78,7 @@ interface AuraEffectData {
     predicate: PredicatePF2e;
     removeOnExit: boolean;
     includesSelf: boolean;
+    alterations: ItemAlteration[];
 }
 
 interface AuraAppearanceData {
