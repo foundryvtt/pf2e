@@ -29,7 +29,7 @@ import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
-import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
+import { damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
@@ -802,7 +802,6 @@ async function augmentInlineDamageRoll(
             if (!rolled) return null;
         }
 
-        applyDamageDiceOverrides(base, dice);
         const { formula, breakdown } = createDamageFormula(formulaData);
 
         const roll = new DamageRoll(formula);

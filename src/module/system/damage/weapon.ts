@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
 import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
@@ -13,12 +13,11 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
-import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
-import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
-import { nextDamageDieSize } from "./helpers.ts";
+import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import {
     DamageCategoryUnique,
     DamageDieSize,
@@ -461,6 +460,7 @@ class WeaponDamagePF2e {
             // extra dice from abilities, critical specialization effects, property runes, weapon traits,
             // or the like.
             dice: damageDice,
+            maxIncreases: 1,
             modifiers: testedModifiers,
             ignoredResistances,
         };
@@ -481,9 +481,9 @@ class WeaponDamagePF2e {
 
         const computedFormulas = {
             criticalFailure: null,
-            failure: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.FAILURE),
-            success: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.SUCCESS),
-            criticalSuccess: this.#finalizeDamage(formulaData, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+            failure: createDamageFormula(formulaData, DEGREE_OF_SUCCESS.FAILURE),
+            success: createDamageFormula(formulaData, DEGREE_OF_SUCCESS.SUCCESS),
+            criticalSuccess: createDamageFormula(formulaData, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
         };
 
         return {
@@ -497,53 +497,6 @@ class WeaponDamagePF2e {
                 breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
             },
         };
-    }
-
-    /** Apply damage dice overrides and create a damage formula */
-    static #finalizeDamage(
-        damage: DamageFormulaData,
-        degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"],
-    ): AssembledFormula;
-    static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
-    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
-        damage = deepClone(damage);
-        for (const base of damage.base) {
-            const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-
-            // Test that a damage modifier is compatible with the prior check result
-            const outcomeMatches = (m: { critical: boolean | null }): boolean =>
-                m.critical === null || (critical && m.critical) || (!critical && !m.critical);
-
-            // First, increase or decrease the damage die. This can only be done once, so we
-            // only need to find the presence of a rule that does this
-            const hasUpgrade = damage.dice.some((d) => d.enabled && d.override?.upgrade && outcomeMatches(d));
-            const hasDowngrade = damage.dice.some(
-                (d) => d.enabled && d.override?.downgrade && (critical || !d.critical),
-            );
-            if (base.dieSize && hasUpgrade && !hasDowngrade) {
-                base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
-            } else if (base.dieSize && hasDowngrade && !hasUpgrade) {
-                base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
-            }
-
-            // Override next, to ensure the dice stacking works properly
-            const damageOverrides = damage.dice.filter(
-                (d): d is DamageDicePF2e & { override: DamageDiceOverride } => !!(d.enabled && d.override),
-            );
-            for (const override of damageOverrides) {
-                if ((critical && override.critical !== false) || (!critical && !override.critical)) {
-                    base.dieSize = override.override?.dieSize ?? base.dieSize;
-                    base.damageType = override.override?.damageType ?? base.damageType;
-                    base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
-                    for (const die of damage.dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
-                        die.damageType = override.override?.damageType ?? die.damageType;
-                    }
-                }
-            }
-        }
-
-        return createDamageFormula(damage, degree);
     }
 
     /**

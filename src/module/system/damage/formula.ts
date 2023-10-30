@@ -11,6 +11,7 @@ import {
     MaterialDamageEffect,
 } from "./types.ts";
 import { CRITICAL_INCLUSION } from "./values.ts";
+import { applyDamageDiceOverrides } from "./helpers.ts";
 
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {
@@ -45,6 +46,9 @@ function createDamageFormula(
     if (!damage.base.length) {
         return null;
     }
+
+    // Apply damage dice increases and overrides first. These affect base damage, so must be done before
+    applyDamageDiceOverrides(damage.base, damage.dice, { critical, maxIncreases: damage.maxIncreases });
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();

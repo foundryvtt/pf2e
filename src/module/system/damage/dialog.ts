@@ -1,4 +1,5 @@
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     addSign,
@@ -12,11 +13,11 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
+import * as R from "remeda";
 import { createDamageFormula } from "./formula.ts";
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
-import * as R from "remeda";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -29,7 +30,7 @@ class DamageModifierDialog extends Application {
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
     /** Is this critical damage? */
-    isCritical: boolean;
+    degree: DegreeOfSuccessIndex;
     /** A Promise resolve method */
     #resolve?: (value: boolean) => void;
     /** Was the roll button pressed? */
@@ -44,7 +45,7 @@ class DamageModifierDialog extends Application {
         this.formulaData = params.formulaData;
         this.context = params.context;
         this.baseDamageType = params.formulaData.base.at(0)?.damageType ?? "untyped";
-        this.isCritical = this.context.outcome === "criticalSuccess";
+        this.degree = DEGREE_OF_SUCCESS_STRINGS.indexOf(this.context.outcome ?? "success") as DegreeOfSuccessIndex;
 
         this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
     }
@@ -64,6 +65,10 @@ class DamageModifierDialog extends Application {
         return this.isCritical
             ? game.i18n.localize("PF2E.Damage.Dialog.CriticalDamageRoll")
             : game.i18n.localize("PF2E.Damage.Dialog.DamageRoll");
+    }
+
+    get isCritical(): boolean {
+        return this.degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
     }
 
     #getModifierIcon(object: { damageType: DamageType | null; category: DamageCategoryUnique | null }): string {
@@ -155,8 +160,8 @@ class DamageModifierDialog extends Application {
         const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");
 
         // Render final formula
-        const result = createDamageFormula(this.formulaData);
-        const roll = new DamageRoll(result.formula);
+        const result = createDamageFormula(this.formulaData, this.degree);
+        const roll = new DamageRoll(result?.formula ?? "0");
         const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
 
         return {

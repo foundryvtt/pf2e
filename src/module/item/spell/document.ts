@@ -24,7 +24,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
-import { DamageCategorization, applyDamageDiceOverrides } from "@system/damage/helpers.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
@@ -365,10 +365,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
-
-        // Apply any damage dice upgrades (such as harmful font)
-        // This is similar to weapon's finalizeDamage(), and both will need to be centralized
-        applyDamageDiceOverrides(base, damageDice);
 
         const { formula, breakdown } = createDamageFormula(formulaData);
         const roll = new DamageRoll(formula);

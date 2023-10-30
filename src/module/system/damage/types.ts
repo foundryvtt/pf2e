@@ -57,6 +57,8 @@ interface DamageFormulaData {
     base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
+    /** Maximum number of die increases. Weapons should be set to 1 */
+    maxIncreases?: number;
     ignoredResistances: { type: ResistanceType; max: number | null }[];
 }
 
