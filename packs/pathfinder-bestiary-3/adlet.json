@@ -134,10 +134,6 @@
                     "0": {
                         "damage": "2d6+9",
                         "damageType": "piercing"
-                    },
-                    "jcu9qxtykeof117xc007": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -183,7 +179,7 @@
                         "damage": "2d8+9",
                         "damageType": "slashing"
                     },
-                    "5ht1oyl6rtmo0r97xvmd": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "cold"
                     }
@@ -200,7 +196,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -233,10 +231,6 @@
                     "0": {
                         "damage": "2d6+9",
                         "damageType": "piercing"
-                    },
-                    "u6vizl8kai87eu9mgqau": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -471,14 +465,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
                     }
                 ],
                 "slug": null,

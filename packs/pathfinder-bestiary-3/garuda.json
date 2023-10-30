@@ -735,7 +735,7 @@
                         "damage": "2d10+7",
                         "damageType": "piercing"
                     },
-                    "a7asfzhj1yrwdtp62lmo": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
@@ -783,7 +783,7 @@
                         "damage": "2d8+7",
                         "damageType": "slashing"
                     },
-                    "0y139w00hqwf4yjpc9f1": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
@@ -837,11 +837,7 @@
                         "damage": "2d8+5",
                         "damageType": "piercing"
                     },
-                    "pkevwnr5b6hbnx7p5srv": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    },
-                    "nspjraathxi57ktdqaz3": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
@@ -974,7 +970,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any arrow the garuda fires gains the effects of a @UUID[Compendium.pf2e.equipment-srd.Item.Shock] rune.</p>"
+                    "value": "<p>Any arrow the garuda fires gains the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Shock]</em> rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -986,14 +982,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:group:bow"
                         ],
-                        "selector": "shock-composite-longbow-attack",
-                        "text": "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
                     }
                 ],
                 "slug": null,
