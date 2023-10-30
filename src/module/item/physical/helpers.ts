@@ -19,7 +19,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const materialPrice = materialData?.price ?? 0;
     const heldOrStowedBulk = new Bulk({ light: item.system.bulk.heldOrStowed });
     const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
-    const materialValue = materialPrice + (bulk * materialPrice) / 10;
+    const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0);
