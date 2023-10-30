@@ -24,10 +24,10 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             return { type: "formula", value: this.system.persistent.formula, label: null };
         }
 
-        return this.system.value.value
+        return typeof this.system.value.value === "number"
             ? {
                   type: "counter",
-                  min: 1,
+                  min: 0,
                   max: Infinity,
                   label: null,
                   value: this.system.value.value,
