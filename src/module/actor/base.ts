@@ -466,6 +466,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     roll: null,
                 };
 
+                for (const alteration of data.alterations) {
+                    alteration.applyTo(source);
+                }
+
                 toCreate.push(source);
             }
         }

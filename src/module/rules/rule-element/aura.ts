@@ -17,10 +17,12 @@ import type {
     ArrayField,
     BooleanField,
     ColorField,
+    EmbeddedDataField,
     SchemaField,
 } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { ItemAlteration } from "./item-alteration/alteration.ts";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
@@ -28,7 +30,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         super(source, options);
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
         for (const effect of this.effects) {
-            effect.includesSelf ??= effect.affects !== "enemies";
             effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         }
     }
@@ -92,9 +93,10 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             includesSelf: new StrictBooleanField({
                 required: false,
                 nullable: false,
-                initial: undefined,
+                initial: (d) => d.affects !== "enemies",
                 label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
             }),
+            alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
         });
 
         const xyPairSchema = ({ integer }: { integer: boolean }): XYPairSchema => ({
@@ -425,9 +427,14 @@ type AuraEffectSchema = {
         true,
         true
     >;
+    /** A predicating limiting whether the effect is transmitted to an actor */
     predicate: PredicateField<false, false, true>;
+    /** Whether to remove the effect from an actor immediately after its token exits the area */
     removeOnExit: StrictBooleanField<true, false, true>;
-    includesSelf: StrictBooleanField<false, false, false>;
+    /** Whether the effect is applied to the actor emitting the aura */
+    includesSelf: StrictBooleanField<false, false, true>;
+    /** An array of alterations to apply to the effect before transmitting it */
+    alterations: StrictArrayField<EmbeddedDataField<ItemAlteration>>;
 };
 
 type AuraAppearanceSchema = {
