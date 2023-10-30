@@ -142,7 +142,7 @@ function createDamageFormula(
     }
 
     const instances = [
-        instancesFromTypeMap(typeMap, { degree }),
+        instancesFromTypeMap(typeMap, { degree, healing: !!damage.kinds?.includes("healing") }),
         instancesFromTypeMap(typeMap, { degree, persistent: true }),
     ].flat();
 
@@ -154,7 +154,7 @@ function createDamageFormula(
 /** Convert a damage type map to a final string formula. */
 function instancesFromTypeMap(
     typeMap: DamageTypeMap,
-    { degree, persistent = false }: { degree: DegreeOfSuccessIndex; persistent?: boolean },
+    { degree, healing = false, persistent = false }: InstancesFromTypeMapParams,
 ): AssembledFormula[] {
     return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): AssembledFormula | never[] => {
         // Skip persistent damage depending on option
@@ -193,10 +193,12 @@ function instancesFromTypeMap(
         if (enclosed === "0" && persistent) return [];
 
         const flavor = ((): string => {
+            const kindFlavor = healing ? ["healing"] : [];
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
             const persistentFlavor = persistent ? ["persistent"] : [];
             const materialFlavor = typePartials.flatMap((p) => p.materials ?? []);
-            const allFlavor = [typeFlavor, persistentFlavor, materialFlavor].flat().join(",");
+
+            const allFlavor = [kindFlavor, typeFlavor, persistentFlavor, materialFlavor].flat().join(",");
             return allFlavor.length > 0 ? `[${allFlavor}]` : "";
         })();
 
@@ -226,7 +228,7 @@ function instancesFromTypeMap(
                 breakdownDamage.push(...flattenedDamage.filter((d) => d.critical === true));
             }
 
-            if (!breakdownDamage.length) return [];
+            if (breakdownDamage.length === 0) return [];
 
             // Gather label values and assign a damage type string to the first label in the list
             const damageTypeLabel =
@@ -244,6 +246,12 @@ function instancesFromTypeMap(
         const formula = enclosed && flavor ? `${enclosed}${flavor}` : enclosed;
         return formula ? { formula, breakdown } : [];
     });
+}
+
+interface InstancesFromTypeMapParams {
+    degree: DegreeOfSuccessIndex;
+    healing?: boolean;
+    persistent?: boolean;
 }
 
 function createPartialFormulas(

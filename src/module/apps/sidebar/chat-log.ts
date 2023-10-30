@@ -47,17 +47,17 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 if (button.classList.contains("shield-block")) {
                     return this.#onClickShieldBlock(button, messageEl);
                 }
-                const buttonClasses = [
-                    "heal-damage",
+                const actions = [
+                    "apply-healing",
                     "half-damage",
-                    "full-damage",
+                    "apply-damage",
                     "double-damage",
                     "triple-damage",
                 ] as const;
-                for (const cssClass of buttonClasses) {
-                    if (button.classList.contains(cssClass)) {
+                for (const action of actions) {
+                    if (button.dataset.action === action) {
                         const index = htmlClosest(button, ".damage-application")?.dataset.rollIndex;
-                        return this.#onClickDamageButton(message, cssClass, event.shiftKey, index);
+                        return this.#onClickDamageButton(message, action, event.shiftKey, index);
                     }
                 }
             }
@@ -126,17 +126,17 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
     #onClickDamageButton(
         message: ChatMessagePF2e,
-        cssClass: DamageButtonClass,
+        action: DamageButtonAction,
         shiftKey: boolean,
         index?: string,
     ): void {
         const multiplier = (() => {
-            switch (cssClass) {
-                case "heal-damage":
+            switch (action) {
+                case "apply-healing":
                     return -1;
                 case "half-damage":
                     return 0.5;
-                case "full-damage":
+                case "apply-damage":
                     return 1;
                 case "double-damage":
                     return 2;
@@ -449,6 +449,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 }
 
-type DamageButtonClass = "heal-damage" | "half-damage" | "full-damage" | "double-damage" | "triple-damage";
+type DamageButtonAction = "apply-healing" | "half-damage" | "apply-damage" | "double-damage" | "triple-damage";
 
 export { ChatLogPF2e };

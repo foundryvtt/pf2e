@@ -359,6 +359,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             modifiers,
             dice: damageDice,
             ignoredResistances: [],
+            kinds: this.system.spellType.value === "heal" ? ["healing"] : ["damage"],
         };
 
         if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
@@ -372,7 +373,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const template: SpellDamageTemplate = {
             name: this.name,
             damage: { roll, breakdown },
-            materials: roll.materials,
+            materials: Array.from(roll.materials),
             traits: this.castingTraits,
             modifiers,
         };
@@ -745,7 +746,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Spell attack labels
         const isHeal = systemData.spellType.value === "heal";
-        const damageLabel = isHeal ? localize("PF2E.SpellTypeHeal") : localize("PF2E.DamageLabel");
+        const damageLabel = isHeal ? "PF2E.Damage.Kind.Healing.Roll.Verb" : "PF2E.Damage.Kind.Damage.Roll.Verb";
 
         const [areaSize, areaType, areaUnit] = systemData.area
             ? [
