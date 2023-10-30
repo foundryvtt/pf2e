@@ -493,13 +493,9 @@
                     "value": 24
                 },
                 "damageRolls": {
-                    "eLSPGHVs7GYRAtvW": {
+                    "0": {
                         "damage": "2d8+11",
                         "damageType": "piercing"
-                    },
-                    "h7ybr02hncv42ux0kdza": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -543,11 +539,11 @@
                     "value": 23
                 },
                 "damageRolls": {
-                    "khFUQwu4Kq9EiOs2": {
+                    "0": {
                         "damage": "2d6+11",
                         "damageType": "bludgeoning"
                     },
-                    "35uqwu24ezhvu3ensx85": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "electricity"
                     }
@@ -598,13 +594,9 @@
                     "value": 24
                 },
                 "damageRolls": {
-                    "ubeVmgDJrD3wbN4n": {
+                    "0": {
                         "damage": "2d10+8",
                         "damageType": "piercing"
-                    },
-                    "0imh2wdkgzkg8gp8893q": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -652,13 +644,9 @@
                     "value": 24
                 },
                 "damageRolls": {
-                    "A5wZez4vLld3L083": {
+                    "0": {
                         "damage": "2d8+11",
                         "damageType": "piercing"
-                    },
-                    "pxb8r6ppq4q4wsl5kyh6": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -1080,7 +1068,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "shock"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
