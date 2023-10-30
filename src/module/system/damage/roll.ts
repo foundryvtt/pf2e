@@ -144,6 +144,11 @@ class DamageRoll extends AbstractDamageRoll {
         }
     }
 
+    get pool(): InstancePool | null {
+        const firstTerm = this.terms.at(0);
+        return firstTerm instanceof InstancePool ? firstTerm : null;
+    }
+
     override get formula(): string {
         const { instances } = this;
         // Backward compatibility for pre-instanced damage rolls
@@ -161,14 +166,19 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     get instances(): DamageInstance[] {
-        const pool = this.terms[0];
-        return pool instanceof PoolTerm
-            ? pool.rolls.filter((r): r is DamageInstance => r instanceof DamageInstance)
-            : [];
+        return this.pool?.rolls.filter((r): r is DamageInstance => r instanceof DamageInstance) ?? [];
     }
 
-    get materials(): MaterialDamageEffect[] {
-        return [...new Set(this.instances.flatMap((i) => i.materials))];
+    /**
+     * Damage roll rules more-or-less also applying to healing rolls and can be both or even include components of
+     * either.
+     */
+    get kinds(): Set<"damage" | "healing"> {
+        return new Set(this.instances.flatMap((i) => Array.from(i.kinds)));
+    }
+
+    get materials(): Set<MaterialDamageEffect> {
+        return new Set(this.instances.flatMap((i) => Array.from(i.materials)));
     }
 
     /** Return an Array of the individual DiceTerm instances contained within this Roll. */
@@ -249,6 +259,7 @@ class DamageRoll extends AbstractDamageRoll {
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
             increasedFrom: this.options.increasedFrom,
             splashOnly: !!this.options.splashOnly,
+            healingOnly: !this.kinds.has("damage"),
             allPersistent: this.instances.every((i) => i.persistent && !i.options.evaluatePersistent),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
@@ -313,11 +324,13 @@ interface DamageRoll extends AbstractDamageRoll {
 }
 
 class DamageInstance extends AbstractDamageRoll {
+    kinds: Set<"damage" | "healing">;
+
     type: DamageType;
 
     persistent: boolean;
 
-    materials: MaterialDamageEffect[];
+    materials: Set<MaterialDamageEffect>;
 
     constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
         super(formula.trim(), data, options);
@@ -326,9 +339,23 @@ class DamageInstance extends AbstractDamageRoll {
         this.type =
             flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
-        this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
-            objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
+        this.materials = new Set(
+            flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
+                objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
+            ),
         );
+
+        const canBeHealing =
+            !this.persistent && this.materials.size === 0 && ["vitality", "void", "untyped"].includes(this.type);
+        if (canBeHealing && flavorIdentifiers.includes("healing")) {
+            if (!flavorIdentifiers.includes("damage")) {
+                this.kinds = new Set(["healing"]);
+            } else {
+                this.kinds = new Set(["damage", "healing"]);
+            }
+        } else {
+            this.kinds = new Set(["damage"]);
+        }
     }
 
     static override parse(formula: string, data: Record<string, unknown>): RollTerm[] {
@@ -447,7 +474,7 @@ class DamageInstance extends AbstractDamageRoll {
                 `damage:type:${this.type}`,
                 typeCategory ? `damage:category:${typeCategory}` : [],
                 this.persistent ? "damage:category:persistent" : [],
-                this.materials.map((m) => `damage:material:${m}`),
+                Array.from(this.materials).map((m) => `damage:material:${m}`),
             ].flat(),
         );
     }

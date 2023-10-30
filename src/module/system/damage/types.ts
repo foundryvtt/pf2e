@@ -60,6 +60,7 @@ interface DamageFormulaData {
     /** Maximum number of die increases. Weapons should be set to 1 */
     maxIncreases?: number;
     ignoredResistances: { type: ResistanceType; max: number | null }[];
+    kinds?: ["damage" | "healing"];
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {

@@ -1208,7 +1208,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const effectiveActorHardness = ((): number => {
             // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
             // object's Hardness is greater than that of the adamantine weapon."
-            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.includes("adamantine");
+            const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
             const materialGrade =
                 item?.isOfType("weapon") && item.system.material.type === "adamantine"
                     ? item.system.material.grade ?? "standard"
