@@ -99,7 +99,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!validator.isValid(data)) return;
                 const effect = data.item;
                 const { badge } = effect.system;
-                if (badge?.type !== "counter" || !badge.value || !badge.max) return;
+                if (badge?.type !== "counter" || typeof badge.value !== "number" || typeof badge.max !== "number") {
+                    return;
+                }
 
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.max, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
@@ -107,8 +109,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 }
 
                 const hardMax = badge.labels?.length ?? newValue;
-                badge.max = Math.clamped(newValue, 1, hardMax);
-                badge.value = Math.clamped(badge.value, 1, badge.max);
+                const min = badge.min ?? 0;
+                badge.max = Math.clamped(newValue, min, hardMax);
+                badge.value = Math.clamped(badge.value, min, badge.max) || 0;
                 return;
             }
             case "badge-value": {
@@ -124,7 +127,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     throw newValue.asError();
                 }
                 const max = "max" in badge ? badge.max ?? Infinity : Infinity;
-                badge.value = Math.clamped(newValue, 1, max);
+                const min = "min" in badge ? badge.min ?? 0 : 0;
+                badge.value = Math.clamped(newValue, min, max) || 0;
                 return;
             }
             case "bulk-held-or-stowed": {
