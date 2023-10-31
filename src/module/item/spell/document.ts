@@ -362,7 +362,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             kinds: this.system.spellType.value === "heal" ? ["healing"] : ["damage"],
         };
 
-        if (BUILD_MODE === "development" && !damageOptions.skipDialog) {
+        if (!damageOptions.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }

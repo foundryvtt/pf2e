@@ -797,7 +797,7 @@ async function augmentInlineDamageRoll(
             })(),
         };
 
-        if (BUILD_MODE === "development" && !args.skipDialog) {
+        if (!args.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
