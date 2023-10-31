@@ -1026,13 +1026,9 @@
                     "value": 31
                 },
                 "damageRolls": {
-                    "qi5jqv4iduetqrd3udw0": {
+                    "0": {
                         "damage": "3d6+14",
                         "damageType": "piercing"
-                    },
-                    "iesdsv82gntmhp0uyuf8": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1081,13 +1077,9 @@
                     "value": 31
                 },
                 "damageRolls": {
-                    "v4do78omw1jhzb7jj1vr": {
+                    "0": {
                         "damage": "3d4+14",
                         "damageType": "piercing"
-                    },
-                    "6mmwbct1bvobf6pu1923": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1133,11 +1125,11 @@
                     "value": 29
                 },
                 "damageRolls": {
-                    "um8j3o89t48r787f89zq": {
+                    "0": {
                         "damage": "3d6+10",
                         "damageType": "piercing"
                     },
-                    "94ajhoud6bj5l7dhtbs3": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "cold"
                     }
@@ -1189,13 +1181,9 @@
                     "value": 31
                 },
                 "damageRolls": {
-                    "bpoufqne0y40xyrxs2pe": {
+                    "0": {
                         "damage": "3d6+14",
                         "damageType": "piercing"
-                    },
-                    "rr94clkruubc90bjuqll": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1774,7 +1762,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>At the time of its creation, a graveknight chooses one of the following energy types that was relevant to its life or death: acid, cold, electricity, or fire.</p>\n<p>Any weapon the graveknight wields gains the effects of the caustic, frost, shock, or flaming weapon rune, respectively, in addition to a +1 striking weapon rune.</p>\n<p>If the graveknight is 14th level or higher, its weapons instead gain the effects of the greater versions of both of these runes.</p>"
+                    "value": "<p>At the time of its creation, a graveknight chooses one of the following energy types that was relevant to its life or death: acid, cold, electricity, or fire.</p>\n<p>Any weapon the graveknight wields gains the effects of the <em>caustic</em>, <em>frost</em>, <em>shock</em>, or <em>flaming</em> weapon rune, respectively, in addition to a <em>+1 striking weapon</em> rune.</p>\n<p>If the graveknight is 14th level or higher, its weapons instead gain the effects of the greater versions of both of these runes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1784,7 +1772,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greater-frost"
+                    }
+                ],
                 "slug": "graveknight-ruinous-weapons",
                 "traits": {
                     "rarity": "common",

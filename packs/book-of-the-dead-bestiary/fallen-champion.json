@@ -1365,7 +1365,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>While the fallen champion wields the favored weapon of its former deity, that weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Fearsome] </em>property rune.</p>"
+                    "value": "<p>While the fallen champion wields the favored weapon of its former deity, that weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Fearsome]</em> property rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1377,12 +1377,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            "item:slug:machete"
                         ],
-                        "selector": "machete-damage",
-                        "text": "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "fearsome"
                     }
                 ],
                 "slug": null,
