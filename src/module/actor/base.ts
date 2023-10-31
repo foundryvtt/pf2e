@@ -45,7 +45,6 @@ import type { ArmorStatistic, Statistic, StatisticCheck, StatisticDifficultyClas
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { v5 as uuidV5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -120,9 +119,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;
-
-    /** This actor's signature as a V5 UUID: used to identify the actor in roll options */
-    declare signature: string;
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TParent> = {}) {
         super(data, context);
@@ -606,7 +602,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.armorClass = null;
         this.conditions = new ActorConditions();
         this.auras = new Map();
-        this.signature ??= uuidV5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
@@ -729,7 +724,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rollOptions: {
                 all: {
                     [`self:type:${this.type}`]: true,
-                    [`self:signature:${this.signature}`]: true,
+                    [`self:uuid:${this.uuid}`]: true,
                     ...createEncounterRollOptions(this),
                 },
             },
