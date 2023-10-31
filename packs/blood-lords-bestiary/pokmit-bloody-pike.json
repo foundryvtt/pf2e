@@ -533,10 +533,6 @@
                     },
                     "1": {
                         "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "2": {
-                        "damage": "1d6",
                         "damageType": "bleed"
                     }
                 },
@@ -588,10 +584,6 @@
                     "0": {
                         "damage": "3d8+19",
                         "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -634,13 +626,9 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "44VgPrZLpYtGliow": {
+                    "0": {
                         "damage": "2d6+19",
                         "damageType": "bludgeoning"
-                    },
-                    "e4b0kSO13iXw7uMd": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -689,13 +677,9 @@
                     "value": 32
                 },
                 "damageRolls": {
-                    "0V5kOeYAZNReCjgt": {
+                    "0": {
                         "damage": "3d8+17",
                         "damageType": "piercing"
-                    },
-                    "v1U9aGTgUXv1FWhw": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1135,7 +1119,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon or unarmed attack Pokmit uses gains the effects of the +1 greater striking and greater frost weapons runes. (These bonuses are included in his statistics above.)</p>"
+                    "value": "<p>Any weapon or unarmed attack Pokmit uses gains the effects of the <em>+1 greater striking</em> and <em>@UUID[Compendium.pf2e.equipment-srd.Item.Frost (Greater)]{Greater Frost}</em> weapons runes. (These bonuses are included in his statistics above.)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1145,7 +1129,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "greater-frost"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

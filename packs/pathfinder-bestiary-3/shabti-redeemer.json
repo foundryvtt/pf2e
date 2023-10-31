@@ -802,6 +802,15 @@
                             "two-handed"
                         ],
                         "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "disrupting"
                     }
                 ],
                 "slug": null,
@@ -987,28 +996,7 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "disrupting-staff-attack",
-                        "text": "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "damageType": "vitality",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:mode:undead"
-                        ],
-                        "selector": "disrupting-staff-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
