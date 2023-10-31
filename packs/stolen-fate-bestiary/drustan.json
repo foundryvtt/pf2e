@@ -1277,16 +1277,11 @@
                     "value": 29
                 },
                 "damageRolls": {
-                    "6In33c9IswFrSn4y": {
-                        "damage": "3d8 + 11",
+                    "0": {
+                        "damage": "3d8+11",
                         "damageType": "slashing"
                     },
-                    "9ddBE2lPkhdnu5ym": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "o4zk7lliRI4FCWww": {
-                        "category": "persistent",
+                    "1": {
                         "damage": "1d6",
                         "damageType": "bleed"
                     }
@@ -1299,7 +1294,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:id:{item|_id}"
+                        ]
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|_id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "flaming"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1436,7 +1447,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Drustan's divine ally is his bastard sword. He gains its critical specialization effect, and the weapon gains the flaming property rune.</p>"
+                    "value": "<p>Drustan's divine ally is his bastard sword. He gains its critical specialization effect, and the weapon gains the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> property rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1446,28 +1457,7 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "bastard-sword-damage",
-                        "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
-                        "title": "PF2E.WeaponPropertyRune.flaming.Name",
-                        "visibility": "owner"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "bastard-sword-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization",
-                        "visibility": "owner"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": []
