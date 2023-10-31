@@ -201,51 +201,51 @@ async function migrate() {
                         embedded.flags ??= {};
                     }
 
-                    const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (updatedActor.system as { _migrations?: unknown })._migrations;
+                    const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+                    delete (update.system as { _migrations?: object })._migrations;
                     pruneFlags(source);
-                    pruneFlags(updatedActor);
+                    pruneFlags(update);
                     for (const item of source.items) {
                         pruneFlags(item);
                     }
 
-                    for (const updatedItem of updatedActor.items) {
-                        delete (updatedItem.system as { _migrations?: unknown })._migrations;
+                    for (const updatedItem of update.items) {
+                        delete (updatedItem.system as { _migrations?: object })._migrations;
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
-                            delete (updatedItem.system as { spell?: unknown }).spell;
+                            delete (updatedItem.system as { spell?: object }).spell;
                         }
                         pruneFlags(updatedItem);
                     }
 
-                    return updatedActor;
+                    return mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
-                    const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-                    delete (source.system as { slug?: unknown }).slug;
-                    delete (updatedItem.system as { _migrations?: unknown })._migrations;
-                    delete (updatedItem.system as { slug?: unknown }).slug;
-                    if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
-                        delete (updatedItem.system as { spell?: unknown }).spell;
+                    const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+                    delete (source.system as { slug?: string }).slug;
+                    delete (update.system as { _migrations?: object })._migrations;
+                    delete (update.system as { slug?: string }).slug;
+                    if (update.type === "consumable" && !update.system.spell) {
+                        delete (update.system as { spell?: null }).spell;
                     }
                     pruneFlags(source);
-                    pruneFlags(updatedItem);
+                    pruneFlags(update);
 
-                    return updatedItem;
+                    return mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isJournalEntryData(source)) {
-                    const updated = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
+                    const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
                     pruneFlags(source);
-                    pruneFlags(updated);
-                    return updated;
+                    pruneFlags(update);
+                    return mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isMacroData(source)) {
-                    const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneFlags(source);
-                    pruneFlags(updated);
-                    return updated;
+                    pruneFlags(update);
+                    return mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isTableData(source)) {
-                    const updated = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
                     pruneFlags(source);
-                    pruneFlags(updated);
-                    return updated;
+                    pruneFlags(update);
+                    return mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else {
                     pruneFlags(source);
                     return source;

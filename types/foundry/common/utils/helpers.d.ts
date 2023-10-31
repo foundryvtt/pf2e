@@ -58,7 +58,7 @@ export function duplicate<T>(original: T): T;
  */
 export function mergeObject<T extends object, U extends object = T>(
     original: T,
-    other: U,
+    other?: U,
     options?: MergeObjectOptions,
     _d?: number,
 ): T & U;
@@ -288,6 +288,7 @@ declare global {
         insertKeys?: boolean;
         insertValues?: boolean;
         overwrite?: boolean;
+        recursive?: boolean;
         inplace?: boolean;
         enforceTypes?: boolean;
         performDeletions?: boolean;

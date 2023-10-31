@@ -50,15 +50,13 @@ export class MockItem {
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);
-            if (item) mergeObject(item._source, update);
+            if (item) mergeObject(item._source, update, { performDeletions: true });
             return item ?? [];
         });
     }
 
     update(changes: object): void {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
-        }
+        mergeObject(this._source, changes, { performDeletions: true });
     }
 
     toObject(): ItemSourcePF2e {
