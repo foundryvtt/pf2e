@@ -472,7 +472,7 @@ class WeaponDamagePF2e {
         }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
-        this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
+        this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...testedModifiers, ...damageDice], options });
 
         if (!context.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
