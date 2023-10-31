@@ -1354,7 +1354,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Negative damage dealt by a sceaduinar damages undead and creatures with negative healing as if it were positive damage. The sceaduinar's melee Strikes have the benefits of the @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune on attacks against incorporeal undead.</p>"
+                    "value": "<p>Negative damage dealt by a sceaduinar damages undead and creatures with negative healing as if it were positive damage. The sceaduinar's melee Strikes have the benefits of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune on attacks against incorporeal undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1364,7 +1364,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:mode:undead",
+                                    "target:negative-healing"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

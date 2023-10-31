@@ -205,7 +205,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>An ectoplasmic amalgam's Strikes affect incorporeal creatures with the effects of a ghost touch property rune. A creature damaged by an ectoplasmic amalgam's Strikes is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} unless they succeed at a @Check[type:fortitude|dc:36] save, as the thoughts and emotions of the amalgam's constituent souls invade their mind.</p>"
+                    "value": "<p>An ectoplasmic amalgam's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune. A creature damaged by an ectoplasmic amalgam's Strikes is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} unless they succeed at a @Check[type:fortitude|dc:36] save, as the thoughts and emotions of the amalgam's constituent souls invade their mind.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -215,7 +215,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

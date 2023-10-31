@@ -3884,7 +3884,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A morrigna's Strikes affect incorporeal creatures as though etched with a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune and deal @Damage[4d6[void]] damage to living creatures or @Damage[4d6[vitality]] damage to undead.</p>"
+                    "value": "<p>A morrigna's Strikes affect incorporeal creatures as though etched with a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[4d6[void]] damage to living creatures or @Damage[4d6[vitality]] damage to undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3895,6 +3895,12 @@
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "vitality",
                         "diceNumber": 4,

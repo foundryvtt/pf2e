@@ -708,7 +708,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The lifeleecher's tusks have the effects of the @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune on attacks against incorporeal undead.</p>"
+                    "value": "<p>The lifeleecher's tusks have the effects of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune on attacks against incorporeal undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -720,18 +720,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
+                        "definition": [
+                            "item:slug:tusk"
                         ],
-                        "predicate": [
-                            "target:trait:incorporeal"
-                        ],
-                        "selector": "tusk-attack",
-                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
                     }
                 ],
                 "slug": null,
