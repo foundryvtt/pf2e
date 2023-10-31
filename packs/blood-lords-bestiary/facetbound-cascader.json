@@ -3440,92 +3440,6 @@
             "type": "equipment"
         },
         {
-            "_id": "du20yYPi1Ap1Mztr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.No817gKxdliCVQ9K"
-                }
-            },
-            "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
-            "name": "Effect: Energy Ward (Cold)",
-            "sort": 3300000,
-            "system": {
-                "description": {
-                    "value": "<p>The cascader gains resistance 15 to the triggering damage, replacing any other resistance gained from this ability. The cascader's melee strikes also deal an additional 4d10 damage of this type.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "level": {
-                    "value": 16
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #185: A Taste of Ashes"
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.TraitAcid",
-                                "value": "acid"
-                            },
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitPoison",
-                                "value": "poison"
-                            }
-                        ],
-                        "flag": "energy",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Fetchling.DeepFetchling.Prompt",
-                        "rollOption": "energy-ward",
-                        "selection": "cold"
-                    },
-                    {
-                        "key": "Resistance",
-                        "type": "{item|flags.pf2e.rulesSelections.energy}",
-                        "value": 15
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.energy}",
-                        "diceNumber": "4",
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "start": {
-                    "initiative": null,
-                    "value": 102
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "CNFD4tonE37F5Jn1",
             "flags": {
                 "pf2e": {
@@ -3534,7 +3448,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -3604,7 +3518,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3643,7 +3557,7 @@
             "_id": "jUR7Ydda63BBMAlR",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Implanted Stone",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3684,7 +3598,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Magic",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3746,7 +3660,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3792,7 +3706,7 @@
             "_id": "LAA0XJePYKC5IgZv",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Energy Ward",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -3802,7 +3716,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The facetbound cascader would take acid, cold, electricity, fire, or poison damage</p>\n<hr />\n<p><strong>Effect</strong> The cascader gains resistance 15 to the triggering damage, replacing any other resistance gained from this ability. Most facetbound cascaders begin combat with resistance 15 to cold.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Energy Ward]</p>"
+                    "value": "<p><strong>Trigger</strong> The facetbound cascader would take acid, cold, electricity, fire, or poison damage</p>\n<hr />\n<p><strong>Effect</strong> The cascader gains resistance 15 to the triggering damage, replacing any other resistance gained from this ability. Most facetbound cascaders begin combat with resistance 15 to cold.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3812,7 +3726,56 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "energy-ward",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "selected": false,
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "selected": true,
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "selected": false,
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "selected": false,
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "selected": false,
+                                "value": "poison"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.energyWard}",
+                        "value": 15
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.energyWard}",
+                        "diceNumber": "4",
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.FacetboundCascader.EnergyCharge",
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -3828,7 +3791,7 @@
             "_id": "FvCV25pS2ksjpkOt",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Charge",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3867,7 +3830,7 @@
             "_id": "DEFEGOYbazU1avTn",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Energy Shift",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3907,7 +3870,7 @@
             "_id": "iFKNoFTDpMXMV1nP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "description": {
                     "value": ""
@@ -3932,7 +3895,7 @@
             "_id": "9uC0CHKVDNKpP6Vh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "description": {
                     "value": ""
@@ -3957,7 +3920,7 @@
             "_id": "carBeOcSmPmnZe02",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 4400000,
+            "sort": 4300000,
             "system": {
                 "description": {
                     "value": ""
@@ -3982,7 +3945,7 @@
             "_id": "j5Nf1jyEJt5AzODW",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 4500000,
+            "sort": 4400000,
             "system": {
                 "description": {
                     "value": ""
@@ -4007,7 +3970,7 @@
             "_id": "oNSmpKscUR8rrzEN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 4600000,
+            "sort": 4500000,
             "system": {
                 "description": {
                     "value": ""
@@ -4032,7 +3995,7 @@
             "_id": "qiocWsfzZkZPKp2h",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 4700000,
+            "sort": 4600000,
             "system": {
                 "description": {
                     "value": ""
