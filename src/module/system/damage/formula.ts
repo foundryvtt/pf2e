@@ -2,16 +2,17 @@ import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { groupBy, signedInteger, sortBy, sum } from "@util";
 import * as R from "remeda";
+import { applyDamageDiceOverrides } from "./helpers.ts";
 import {
     CriticalInclusion,
     DamageCategoryUnique,
     DamageFormulaData,
+    DamageKind,
     DamagePartialTerm,
     DamageType,
     MaterialDamageEffect,
 } from "./types.ts";
 import { CRITICAL_INCLUSION } from "./values.ts";
-import { applyDamageDiceOverrides } from "./helpers.ts";
 
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {
@@ -142,7 +143,7 @@ function createDamageFormula(
     }
 
     const instances = [
-        instancesFromTypeMap(typeMap, { degree, healing: !!damage.kinds?.includes("healing") }),
+        instancesFromTypeMap(typeMap, { degree, kinds: damage.kinds }),
         instancesFromTypeMap(typeMap, { degree, persistent: true }),
     ].flat();
 
@@ -154,7 +155,7 @@ function createDamageFormula(
 /** Convert a damage type map to a final string formula. */
 function instancesFromTypeMap(
     typeMap: DamageTypeMap,
-    { degree, healing = false, persistent = false }: InstancesFromTypeMapParams,
+    { degree, kinds = new Set(["damage"]), persistent = false }: InstancesFromTypeMapParams,
 ): AssembledFormula[] {
     return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): AssembledFormula | never[] => {
         // Skip persistent damage depending on option
@@ -193,7 +194,11 @@ function instancesFromTypeMap(
         if (enclosed === "0" && persistent) return [];
 
         const flavor = ((): string => {
-            const kindFlavor = healing ? ["healing"] : [];
+            const kindFlavor = kinds.has("damage")
+                ? kinds.has("healing")
+                    ? ["damage", "healing"]
+                    : ["damage"]
+                : ["healing"];
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
             const persistentFlavor = persistent ? ["persistent"] : [];
             const materialFlavor = typePartials.flatMap((p) => p.materials ?? []);
@@ -250,7 +255,7 @@ function instancesFromTypeMap(
 
 interface InstancesFromTypeMapParams {
     degree: DegreeOfSuccessIndex;
-    healing?: boolean;
+    kinds?: Set<DamageKind>;
     persistent?: boolean;
 }
 
