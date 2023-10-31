@@ -42,7 +42,11 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
-import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+    getResilientBonus,
+} from "@item/physical/runes.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
@@ -1578,7 +1582,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     traits: context.traits,
                     rollTwice,
                     substitutions,
-                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, attackDomains),
+                    dosAdjustments: [
+                        getPropertyRuneDegreeAdjustments(context.self.item),
+                        extractDegreeOfSuccessAdjustments(synthetics, attackDomains),
+                    ].flat(),
                     mapIncreases: mapIncreases as ZeroToTwo,
                 };
 
