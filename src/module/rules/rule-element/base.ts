@@ -50,7 +50,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
         this.label =
             typeof source.label === "string"
-                ? game.i18n.localize(this.resolveInjectedProperties(source.label))
+                ? game.i18n.format(this.resolveInjectedProperties(source.label), {
+                      actor: item.actor.name,
+                      item: item.name,
+                      origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
+                  })
                 : item.name;
 
         if (this.invalid) {
