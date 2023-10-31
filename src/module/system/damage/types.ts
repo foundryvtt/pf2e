@@ -19,6 +19,8 @@ type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
  */
 type CriticalInclusion = boolean | null;
 
+type DamageKind = "damage" | "healing";
+
 interface DamageCategoryRenderData {
     dice: {
         faces: number;
@@ -60,7 +62,7 @@ interface DamageFormulaData {
     /** Maximum number of die increases. Weapons should be set to 1 */
     maxIncreases?: number;
     ignoredResistances: { type: ResistanceType; max: number | null }[];
-    kinds?: ["damage" | "healing"];
+    kinds?: Set<DamageKind>;
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
@@ -121,6 +123,7 @@ export type {
     DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
+    DamageKind,
     DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,

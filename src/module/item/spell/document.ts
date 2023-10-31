@@ -26,7 +26,13 @@ import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
+import {
+    BaseDamageData,
+    DamageFormulaData,
+    DamageKind,
+    DamageRollContext,
+    SpellDamageTemplate,
+} from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
@@ -199,6 +205,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return null;
     }
 
+    /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
+    get damageKinds(): Set<DamageKind> {
+        return new Set(
+            this.system.spellType.value === "heal"
+                ? this.system.save.value
+                    ? ["damage", "healing"]
+                    : ["healing"]
+                : ["damage"],
+        );
+    }
+
     override get uuid(): ItemUUID {
         return this.isVariant ? this.original!.uuid : super.uuid;
     }
@@ -359,7 +376,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             modifiers,
             dice: damageDice,
             ignoredResistances: [],
-            kinds: this.system.spellType.value === "heal" ? ["healing"] : ["damage"],
+            kinds: this.damageKinds,
         };
 
         if (!damageOptions.skipDialog) {
@@ -745,8 +762,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         })();
 
         // Spell attack labels
-        const isHeal = systemData.spellType.value === "heal";
-        const damageLabel = isHeal ? "PF2E.Damage.Kind.Healing.Roll.Verb" : "PF2E.Damage.Kind.Damage.Roll.Verb";
+        const { damageKinds } = this;
+        const damageLabel = damageKinds.has("damage")
+            ? damageKinds.has("healing")
+                ? "PF2E.Damage.Kind.Both.Roll.Verb"
+                : "PF2E.Damage.Kind.Damage.Roll.Verb"
+            : "PF2E.Damage.Kind.Healing.Roll.Verb";
 
         const [areaSize, areaType, areaUnit] = systemData.area
             ? [
