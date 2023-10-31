@@ -1396,12 +1396,22 @@
                 },
                 "rules": [
                     {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "check:roll:total:natural:19"
+                        ],
+                        "selector": "attack-roll"
+                    },
+                    {
                         "key": "Note",
                         "outcome": [
                             "criticalSuccess"
                         ],
                         "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
+                        "text": "{item|description}",
                         "title": "{item|name}",
                         "visibility": "owner"
                     }

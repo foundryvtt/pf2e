@@ -24,7 +24,19 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "check:roll:total:natural:19",
+                    "item:proficiency:rank:4"
+                ],
+                "selector": "strike-attack-roll"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
