@@ -738,13 +738,9 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "FHWAVEmOwJook3lY": {
+                    "0": {
                         "damage": "2d10+16",
                         "damageType": "piercing"
-                    },
-                    "bNduhdR6kabnse9f": {
-                        "damage": "2d10",
-                        "damageType": "force"
                     }
                 },
                 "description": {
@@ -787,13 +783,9 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "KrPjiWB4cOSQ0fwm": {
+                    "0": {
                         "damage": "2d4+16",
                         "damageType": "bludgeoning"
-                    },
-                    "cdxm1FOKj0sCVJNB": {
-                        "damage": "2d10",
-                        "damageType": "force"
                     }
                 },
                 "description": {
@@ -1154,7 +1146,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "force",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
