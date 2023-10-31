@@ -2917,67 +2917,9 @@
                     "value": 32
                 },
                 "damageRolls": {
-                    "9l5zdg4nnvuxmlvschvk": {
+                    "0": {
                         "damage": "3d12+16",
                         "damageType": "slashing"
-                    },
-                    "0p54osxoec884nj570jl": {
-                        "damage": "1d6",
-                        "damageType": "good"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "good",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ED7Sb3O9SLxFnTRr",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "YBf7cE1gXS2MxYx2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Holy Greatsword",
-            "sort": 2900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "9l5zdg4nnvuxmlvschvk": {
-                        "damage": "3d12+16",
-                        "damageType": "slashing"
-                    },
-                    "0p54osxoec884nj570jl": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -3013,7 +2955,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3057,7 +2999,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3101,7 +3043,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3140,7 +3082,7 @@
             "_id": "gKujbrE9tdbREcZi",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3202,7 +3144,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (Deactivated by Evil)",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3251,7 +3193,7 @@
             "_id": "BsKlvqGTEEIQo1cx",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+4 Bonus on Perception to Detect Illusions",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3299,7 +3241,7 @@
             "_id": "EIhaPhUMiN88cQT6",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aura of Righteousness",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3362,7 +3304,7 @@
             "_id": "Q57wXsK3JdmLYoDR",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blade of Justice",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -3421,7 +3363,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -3465,7 +3407,7 @@
             "_id": "XSN5GyOi1NAbLqve",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Holy Armaments",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3475,7 +3417,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Item.Holy] property rune while a planetar wields it.</p>"
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while a planetar wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3485,7 +3427,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -3507,7 +3461,7 @@
             "_id": "BC4ipmpDwp3kT9He",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "description": {
                     "value": ""
@@ -3532,7 +3486,7 @@
             "_id": "9BLjUK7MunVti6KO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "description": {
                     "value": ""
@@ -3557,7 +3511,7 @@
             "_id": "y44BjptmN8n3p7i3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "description": {
                     "value": ""

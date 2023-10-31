@@ -3189,12 +3189,12 @@
                     "value": 44
                 },
                 "damageRolls": {
-                    "94zjmtce8nes7el4g61n": {
+                    "0": {
                         "damage": "4d12+22",
                         "damageType": "slashing"
                     },
-                    "jh4f1w6lh4hbjo1t1ye7": {
-                        "damage": "2d6",
+                    "1": {
+                        "damage": "1d6",
                         "damageType": "good"
                     }
                 },
@@ -3246,12 +3246,12 @@
                     "value": 40
                 },
                 "damageRolls": {
-                    "s5g8swyl9aqetrvl732g": {
+                    "0": {
                         "damage": "4d8+17",
                         "damageType": "piercing"
                     },
-                    "wobcdht4qbr1k8fguv11": {
-                        "damage": "2d6",
+                    "1": {
+                        "damage": "1d6",
                         "damageType": "good"
                     }
                 },
@@ -3729,7 +3729,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Item.Holy] property rune while a solar wields it.</p>"
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while a solar wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3739,7 +3739,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

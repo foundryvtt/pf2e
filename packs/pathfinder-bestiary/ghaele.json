@@ -2642,13 +2642,9 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "s0pkdf2c786ebi01nll5": {
+                    "0": {
                         "damage": "2d12+13",
                         "damageType": "slashing"
-                    },
-                    "baq62ild479dizj2cpd4": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -2692,11 +2688,11 @@
                     "value": 25
                 },
                 "damageRolls": {
-                    "scv0427a8kfy08j6piug": {
+                    "0": {
                         "damage": "1d12",
                         "damageType": "chaotic"
                     },
-                    "r0awu5080b9durabao0t": {
+                    "1": {
                         "damage": "1d12",
                         "damageType": "good"
                     }
@@ -3156,17 +3152,18 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "nor": [
+                                    "item:category:unarmed",
+                                    "item:slug:light-ray"
+                                ]
+                            }
                         ],
-                        "predicate": [
-                            "target:trait:evil"
-                        ],
-                        "selector": "holy-greatsword-attack",
-                        "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
                     }
                 ],
                 "slug": null,

@@ -1911,13 +1911,9 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "ttblgs7gszmftpwaljci": {
+                    "0": {
                         "damage": "2d8+22",
                         "damageType": "bludgeoning"
-                    },
-                    "rwmmrrzswc7bk6jan38j": {
-                        "damage": "1d6",
-                        "damageType": "good"
                     }
                 },
                 "description": {
@@ -2248,7 +2244,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon gains the effect of a @UUID[Compendium.pf2e.equipment-srd.Item.Holy] property rune while an astral deva wields it.</p>"
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while an astral deva wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2260,17 +2256,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "predicate": [
-                            "target:trait:evil"
-                        ],
-                        "selector": "holy-warhammer-attack",
-                        "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
                     }
                 ],
                 "slug": null,
