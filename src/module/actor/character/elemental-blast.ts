@@ -428,7 +428,7 @@ class ElementalBlast {
             ...eventToRollParams(params.event),
         };
 
-        if (BUILD_MODE === "development" && !params.getFormula && !damageContext.skipDialog) {
+        if (!params.getFormula && !damageContext.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context: damageContext }).resolve();
             if (!rolled) return null;
         }
