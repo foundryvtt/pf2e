@@ -487,7 +487,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         this.toggleInitiativeLink();
 
         // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
-        const rollInitiativeLink = htmlQuery(html, "aside a[data-action=roll-initiative]");
+        const rollInitiativeLink = htmlQuery(html, ".sidebar a[data-action=roll-initiative]");
         rollInitiativeLink?.addEventListener("mouseenter", () => {
             this.toggleInitiativeLink();
         });
@@ -1229,11 +1229,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Toggle availability of the roll-initiative link on the sidebar */
     toggleInitiativeLink(link?: HTMLElement | null): void {
-        link ??= htmlQuery(this.element.get(0), "aside a[data-action=roll-initiative]");
+        link ??= htmlQuery(this.element.get(0), ".sidebar a[data-action=roll-initiative]");
         if (!link) return;
 
-        const alreadyRolled =
-            game.combat && typeof game.combat.combatants.find((c) => c.actor === this.actor)?.initiative === "number";
+        const alreadyRolled = typeof this.actor.combatant?.initiative === "number";
         const canRoll = !!(this.isEditable && game.combat && !alreadyRolled);
 
         if (canRoll) {
@@ -1241,7 +1240,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             link.dataset.tooltip = "COMBAT.InitiativeRoll";
         } else {
             link.classList.add("disabled");
-            const reason = !game.combat ? "NoActiveEncounter" : alreadyRolled ? "AlreadyRolled" : null;
+            const reason = !this.isEditable
+                ? ""
+                : !game.combat
+                ? "NoActiveEncounter"
+                : alreadyRolled
+                ? "AlreadyRolled"
+                : null;
             if (reason) link.dataset.tooltip = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
         }
     }

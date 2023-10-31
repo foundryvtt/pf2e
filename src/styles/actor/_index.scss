@@ -32,6 +32,14 @@ $header-height: 89px; /* Adjust height of the header */
     @import "item-summary";
     @import "inventory";
 
+    a.disabled {
+        cursor: default;
+
+        &:hover {
+            text-shadow: none;
+        }
+    }
+
     i.fa-info-circle {
         cursor: help;
     }
@@ -138,7 +146,9 @@ $header-height: 89px; /* Adjust height of the header */
 
         background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
-        background-size: auto $header-height, cover;
+        background-size:
+            auto $header-height,
+            cover;
         background-attachment: local;
         height: 100%;
 
@@ -212,7 +222,9 @@ $header-height: 89px; /* Adjust height of the header */
                         background: var(--primary);
                         border: none;
                         border-radius: 0.25em;
-                        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+                        box-shadow:
+                            inset 0 0 0 1px rgb(0 0 0 / 30%),
+                            inset 0 0 0 2px rgb(255 255 255 / 20%);
                         display: flex;
                         flex-basis: 100%;
                         flex-wrap: nowrap;
