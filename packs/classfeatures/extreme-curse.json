@@ -24,7 +24,30 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "oracular-curse:stage:4",
+                    {
+                        "not": "self:condition:doomed"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Doomed"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "oracular-curse:stage:4",
+                    "item:slug:doomed"
+                ],
+                "property": "badge-value",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
