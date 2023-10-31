@@ -483,11 +483,11 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d6+6",
-                        "damageType": "vitality"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>The Strikes deals damage that's either @Damage[(2d6+6)[bludgeoning]]{bludgeoning} or @Damage[(2d6+6)[vitality]]{positive} - whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The Strike deals damage that's either bludgeoning or positive - whichever deals more damage to the target creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -530,11 +530,11 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d8+6",
-                        "damageType": "vitality"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>The Strikes deals damage that's either @Damage[(2d8+6)[bludgeoning]]{bludgeoning} or @Damage[(2d8+6)[vitality]]{positive} - whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The Strike deals damage that's either bludgeoning or positive - whichever deals more damage to the target creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -706,7 +706,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "blessed-strikes",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "vitality"
+                        },
+                        "predicate": [
+                            "blessed-strikes:vitality"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
