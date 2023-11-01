@@ -279,7 +279,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "damage:type:slashing"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "reactive-gnaw",
                 "traits": {
                     "rarity": "common",

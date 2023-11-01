@@ -179,11 +179,15 @@ async function applyDamageFromMessage({
         const hasDamage = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
         const notes = (() => {
             if (!hasDamage) return [];
+
+            const damageRollOptions = roll.instances.flatMap((i) => Array.from(i.formalDescription));
+            const notesRollOptions = new Set([...applicationRollOptions, ...damageRollOptions]);
+
             return extractNotes(contextClone.synthetics.rollNotes, [domain])
                 .filter(
                     (n) =>
                         (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                        n.predicate.test(applicationRollOptions),
+                        n.predicate.test(notesRollOptions),
                 )
                 .map((note) => note.text);
         })();
