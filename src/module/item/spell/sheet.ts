@@ -181,6 +181,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             this.item.update({ "system.heightening": { type: "fixed", levels: { [level]: {} } } });
         });
 
+        // Add event handlers for heighten type overlays
         for (const overlayEditor of htmlQueryAll(html, "[data-overlay-type=heighten]")) {
             const overlay = this.#getOverlayFromElement(overlayEditor);
             if (!overlay) continue;
@@ -201,7 +202,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             });
 
             // Adds a property to an existing overlay
-            for (const addProperty of htmlQueryAll(html, "[data-action=overlay-add-property]")) {
+            for (const addProperty of htmlQueryAll(overlayEditor, "[data-action=overlay-add-property]")) {
                 const property = addProperty.dataset.property;
                 if (!overlay.system || !property || property in overlay.system) continue;
                 addProperty.addEventListener("click", () => {
@@ -226,7 +227,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 });
             }
 
-            for (const removeProperty of htmlQueryAll(html, "[data-action=overlay-remove-property]")) {
+            for (const removeProperty of htmlQueryAll(overlayEditor, "[data-action=overlay-remove-property]")) {
                 const property = removeProperty.dataset.property;
                 if (!property) continue;
                 removeProperty.addEventListener("click", () => {
@@ -237,22 +238,17 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     this.item.update(updates);
                 });
             }
-        }
 
-        $html.find("[data-action=change-level]").on("change", (event) => {
-            const overlay = this.#getOverlayFromElement(event.target);
-            if (!overlay) return;
-
-            const currentLevel = overlay.level;
-            const element = event.target as HTMLSelectElement;
-            const newLevel = Number(element.value);
-
-            const existingData = this.item.getHeightenLayers().find((layer) => layer.level === currentLevel);
-            this.item.update({
-                [`${overlay.collectionPath}.-=${currentLevel}`]: null,
-                [`${overlay.collectionPath}.${newLevel}`]: existingData?.system ?? {},
+            const levelSelect = htmlQuery<HTMLSelectElement>(overlayEditor, "[data-action=change-heighten-level]");
+            levelSelect?.addEventListener("change", () => {
+                const newLevel = Number(levelSelect.value);
+                const existingData = this.item.getHeightenLayers().find((layer) => layer.level === overlay.level);
+                this.item.update({
+                    [`system.heightening.levels.-=${overlay.level}`]: null,
+                    [`system.heightening.levels.${newLevel}`]: existingData?.system ?? {},
+                });
             });
-        });
+        }
 
         $html.find("[data-action=variant-create]").on("click", () => {
             this.item.overlays.create("override");
@@ -394,7 +390,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             return null; // variants not supported yet
         })();
 
-        return { id, level, type, collectionPath, base, dataPath: base, system };
+        return { id, level, type, base, dataPath: base, system };
     }
 
     #formatSpellComponents(data: SpellSystemData): string[] {
@@ -414,8 +410,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         return layers.map((layer) => {
             const { level, system } = layer;
-            const collectionPath = `system.heightening.levels`;
-            const base = `${collectionPath}.${layer.level}`;
+            const base = `system.heightening.levels.${layer.level}`;
             const missing: SpellSheetHeightenOverlayData["missing"] = [];
             for (const [key, label] of Object.entries(spellOverridable)) {
                 if (key in layer.system) continue;
@@ -427,7 +422,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenLevels.sort((a, b) => a - b);
 
             const type = "heighten";
-            return { id: null, level, collectionPath, base, dataPath: base, type, system, missing, heightenLevels };
+            return { id: null, level, base, dataPath: base, type, system, missing, heightenLevels };
         });
     }
 }
@@ -461,8 +456,6 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
 
 interface SpellSheetOverlayData {
     id: string | null;
-    /** Base path to the property that includes its siblings, dot delimited */
-    collectionPath: string;
     /** Base path to the property, dot delimited */
     base: string;
     /** Base path to the spell override data, dot delimited. Currently this is the same as base */
