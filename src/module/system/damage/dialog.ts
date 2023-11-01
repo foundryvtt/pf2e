@@ -133,7 +133,9 @@ class DamageModifierDialog extends Application {
         // Render final formula
         const result = createDamageFormula(this.formulaData, this.degree);
         const roll = new DamageRoll(result?.formula ?? "0");
-        const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
+        const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render({ tooltips: false })))).join(
+            " + ",
+        );
 
         type DamageDicePF2eWithOverride = DamageDicePF2e & { override: NonNullable<DamageDicePF2e["override"]> };
 
@@ -182,7 +184,7 @@ class DamageModifierDialog extends Application {
                     damageType: d.override.damageType ?? d.damageType,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
                     diceLabel: R.compact([
-                        d.override.upgrade ? game.i18n.localize("PF2E.Damage.Dialog.Increase") : null,
+                        d.override.upgrade ? game.i18n.localize("PF2E.Damage.Dialog.DieSizeUpgrade") : null,
                         d.override.diceNumber || d.override.dieSize
                             ? game.i18n.format("PF2E.Damage.Dialog.Override", {
                                   value:

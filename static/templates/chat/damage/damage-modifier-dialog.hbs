@@ -1,4 +1,4 @@
-<form class="check-modifiers-content" autocomplete="off" spellcheck="off">
+<form class="check-modifiers-content" autocomplete="off" spellcheck="off" data-tooltip-class="pf2e" data-tooltip-direction="UP">
     <div class="dialog-row header">
         <span class="mod">{{localize "PF2E.Damage.Dialog.DiceHeader"}}</span>
     </div>
@@ -65,6 +65,7 @@
 
     <section class="add-entry-row add-modifier-panel">
         <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Damage.Dialog.Label"}}>
+        <input type="number" class="add-modifier-value" placeholder="+1">
         <select class="add-modifier-type">
             <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
             <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
@@ -80,12 +81,10 @@
             {{/each}}
         </select>
         <select class="add-modifier-damage-type">
-            <option value=""></option>
             {{#each damageTypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         </select>
-        <input type="number" class="add-modifier-value" placeholder="+1">
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </section>
     <hr />
@@ -119,7 +118,7 @@
     <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type"><span class="tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span></span>
-        <div class="value" title="{{modifier.typeLabel}}">
+        <div class="value" data-tooltip="{{modifier.typeLabel}}">
             <div class="modifier-type{{#if modifier.damageType}} damage color {{modifier.damageType}}{{/if}}">
                 {{numberFormat modifier.modifier decimals=0 sign=true}} {{{modifier.icon}}}
             </div>
@@ -136,7 +135,7 @@
 {{#*inline "dice-row"}}
     <div class="dialog-row{{#unless dice.enabled}} disabled{{/unless}}">
         <span class="mod">{{dice.label}}</span>
-        <div class="value" title="{{dice.typeLabel}}">
+        <div class="value" data-tooltip="{{dice.typeLabel}}">
             <span class="dice-type damage color{{#if dice.damageType}} {{dice.damageType}}{{/if}}">
                 {{dice.diceLabel}} {{{dice.icon}}}
             </span>
