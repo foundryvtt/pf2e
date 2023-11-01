@@ -1,4 +1,4 @@
-<div class="form-list" data-overlay-type="{{type}}" {{#if level}}data-level="{{level}}"{{/if}} {{#if id}}data-overlay-id="{{id}}"{{/if}}>
+<fieldset data-overlay-type="{{type}}" {{#if level}}data-level="{{level}}"{{/if}} {{#if id}}data-overlay-id="{{id}}"{{/if}}>
     {{#if (eq type "heighten")}}
         <h3 class="form-group">
             <label>{{localize "PF2E.SpellScalingOverlay.Label"}}</label>
@@ -137,7 +137,7 @@
             </h3>
 
             {{#each system.damage.value as |damage id|}}
-                <div class="formula-section">
+                <div class="formula-section form-group">
                     <div class="form-fields">
                         <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
@@ -181,4 +181,4 @@
             {{/each}}
         </div>
     {{/if}}
-</div>
+</fieldset>

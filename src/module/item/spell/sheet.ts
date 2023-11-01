@@ -7,6 +7,7 @@ import {
     fontAwesomeIcon,
     getActionGlyph,
     htmlClosest,
+    htmlQuery,
     htmlQueryAll,
     objectHasKey,
     tagify,
@@ -133,7 +134,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
+            const overlayData = this.#getOverlayFromElement(event.target);
             const baseKey = overlayData?.base ?? "system";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
@@ -141,7 +142,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action=damage-delete]").on("click", (event) => {
             event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
+            const overlayData = this.#getOverlayFromElement(event.target);
             const baseKey = overlayData?.base ?? "system";
             const id = $(event.target).closest("[data-action=damage-delete]").attr("data-id");
             if (id) {
@@ -156,7 +157,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         for (const button of htmlQueryAll(html, "[data-action=heightening-interval-create]")) {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
-                const baseKey = this.getOverlayFromEvent(event)?.base ?? "system";
+                const baseKey = this.#getOverlayFromElement(event.target)?.base ?? "system";
                 const data: SpellHeighteningInterval = {
                     type: "interval",
                     interval: 1,
@@ -180,68 +181,66 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             this.item.update({ "system.heightening": { type: "fixed", levels: { [level]: {} } } });
         });
 
-        $html.find("[data-action=overlay-delete]").on("click", async (event) => {
-            const overlay = this.getOverlayFromEvent(event);
-            if (!overlay) return;
+        for (const overlayEditor of htmlQueryAll(html, "[data-overlay-type=heighten]")) {
+            const overlay = this.#getOverlayFromElement(overlayEditor);
+            if (!overlay) continue;
 
-            // If this is the last heighten overlay, delete all of it
-            if (overlay.type === "heighten") {
-                const layers = this.item.getHeightenLayers();
-                if (layers.length === 1 && layers[0].level === overlay.level) {
-                    this.item.update({ "system.-=heightening": null });
-                    return;
-                }
-            }
-
-            const parts = overlay.base.split(".");
-            parts.push(`-=${parts.pop()}`);
-            this.item.update({ [parts.join(".")]: null });
-        });
-
-        // Adds a property to an existing overlay
-        $html.find("[data-action=overlay-add-property]").on("click", (event) => {
-            event.preventDefault();
-            const overlay = this.getOverlayFromEvent(event);
-            const property = $(event.target).closest("[data-action=overlay-add-property]").attr("data-property");
-
-            if (overlay && overlay.system && property && !(property in overlay.system)) {
-                // Retrieve the default value for this property, which is either the
-                // default scaling object, or the most recent value among all overlays and base spell.
-                const value = (() => {
-                    const scaling = this.item.getHeightenLayers().reverse();
-                    for (const entry of [...scaling, { system: this.item.system }]) {
-                        if (objectHasKey(entry.system, property)) {
-                            return entry.system[property];
-                        }
+            htmlQuery(html, "[data-action=overlay-delete]")?.addEventListener("click", () => {
+                // If this is the last heighten overlay, delete all of it
+                if (overlay.type === "heighten") {
+                    const layers = this.item.getHeightenLayers();
+                    if (layers.length === 1 && layers[0].level === overlay.level) {
+                        this.item.update({ "system.-=heightening": null });
+                        return;
                     }
-
-                    return undefined;
-                })();
-
-                if (typeof value !== "undefined") {
-                    this.item.update({ [`${overlay.base}.${property}`]: value });
-                } else {
-                    ui.notifications.warn(`PF2e System | Failed to initialize property ${property} for overlay`);
                 }
-            }
-        });
 
-        // Removes a property from an existing overlay
-        $html.find("[data-action=overlay-remove-property]").on("click", (event) => {
-            event.preventDefault();
-            const overlayData = this.getOverlayFromEvent(event);
-            const property = $(event.target).closest("[data-action=overlay-remove-property]").attr("data-property");
-            if (overlayData && property) {
-                const updates = { [`${overlayData.base}.-=${property}`]: null };
-                if (property === "damage") {
-                    updates[`${overlayData.base}.-=heightening`] = null;
-                }
-                this.item.update(updates);
+                const parts = overlay.base.split(".");
+                parts.push(`-=${parts.pop()}`);
+                this.item.update({ [parts.join(".")]: null });
+            });
+
+            // Adds a property to an existing overlay
+            for (const addProperty of htmlQueryAll(html, "[data-action=overlay-add-property]")) {
+                const property = addProperty.dataset.property;
+                if (!overlay.system || !property || property in overlay.system) continue;
+                addProperty.addEventListener("click", () => {
+                    // Retrieve the default value for this property, which is either the
+                    // default scaling object, or the most recent value among all overlays and base spell.
+                    const value = (() => {
+                        const scaling = this.item.getHeightenLayers().reverse();
+                        for (const entry of [...scaling, { system: this.item.system }]) {
+                            if (objectHasKey(entry.system, property)) {
+                                return entry.system[property];
+                            }
+                        }
+
+                        return undefined;
+                    })();
+
+                    if (typeof value !== "undefined") {
+                        this.item.update({ [`${overlay.base}.${property}`]: value });
+                    } else {
+                        ui.notifications.warn(`PF2e System | Failed to initialize property ${property} for overlay`);
+                    }
+                });
             }
-        });
+
+            for (const removeProperty of htmlQueryAll(html, "[data-action=overlay-remove-property]")) {
+                const property = removeProperty.dataset.property;
+                if (!property) continue;
+                removeProperty.addEventListener("click", () => {
+                    const updates = { [`${overlay.base}.-=${property}`]: null };
+                    if (property === "damage") {
+                        updates[`${overlay.base}.-=heightening`] = null;
+                    }
+                    this.item.update(updates);
+                });
+            }
+        }
 
         $html.find("[data-action=change-level]").on("change", (event) => {
-            const overlay = this.getOverlayFromEvent(event);
+            const overlay = this.#getOverlayFromElement(event.target);
             if (!overlay) return;
 
             const currentLevel = overlay.level;
@@ -369,8 +368,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         );
     }
 
-    private getOverlayFromEvent(event: JQuery.TriggeredEvent | MouseEvent): SpellSheetOverlayData | null {
-        const overlayEl = htmlClosest(event.target, "[data-overlay-type]");
+    #getOverlayFromElement(target: HTMLElement | EventTarget | null): SpellSheetOverlayData | null {
+        const overlayEl = htmlClosest(target, "[data-overlay-type]");
         if (!overlayEl) return null;
 
         const domData = overlayEl.dataset;
