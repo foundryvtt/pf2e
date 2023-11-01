@@ -218,6 +218,31 @@ tags.tags.paizo-style {
             text-decoration: line-through;
             text-decoration-color: var(--color-text-trait);
         }
+
+        &-button {
+            order: 4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            cursor: pointer;
+            background: var(--tag-remove-btn-bg);
+            color: var(--tag-remove-btn-color);
+
+            width: 14px;
+            height: 14px;
+            // Not needed for Firefox
+            -webkit-padding-before: 2px;
+            margin-left: 2px;
+
+            overflow: hidden;
+            transition: 0.2s ease-out;
+
+            &:hover {
+                color: white;
+                background: var(--tag-remove-btn-bg--hover);
+            }
+        }
     }
 
     tag {
