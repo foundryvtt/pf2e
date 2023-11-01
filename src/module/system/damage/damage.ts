@@ -87,6 +87,16 @@ export class DamagePF2e {
                   )
                 : "";
 
+            const runeTags =
+                context.options.has("item:rune:property:ghost-touch") && context.options.has("target:trait:incorporeal")
+                    ? toTags(["ghost-touch"], {
+                          labels: { "ghost-touch": "PF2E.WeaponPropertyRune.ghostTouch.Name" },
+                          descriptions: { "ghost-touch": "PF2E.WeaponPropertyRune.ghostTouch.Note" },
+                          cssClass: "ghost-touch",
+                          dataAttr: "slug",
+                      })
+                    : "";
+
             const properties = ((): string => {
                 const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;
                 const label = createActionRangeLabel(range);
@@ -111,7 +121,7 @@ export class DamagePF2e {
                 dataAttr: "material",
             });
 
-            const otherTags = [itemTraits, properties, materialEffects].join("");
+            const otherTags = [itemTraits, properties, materialEffects, runeTags].join("");
 
             const tagsElem = createHTMLElement("div", { classes: ["tags"], dataset: { tooltipClass: "pf2e" } });
             tagsElem.innerHTML = otherTags.length > 0 ? `${traits}<hr class="vr" />${otherTags}` : traits;
