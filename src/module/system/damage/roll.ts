@@ -488,10 +488,10 @@ class DamageInstance extends AbstractDamageRoll {
         return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
     }
 
-    override async render(): Promise<string> {
+    override async render({ tooltips = true }: InstanceRenderOptions = {}): Promise<string> {
         const span = document.createElement("span");
         span.classList.add(this.type, "damage", "instance", "color");
-        span.title = this.typeLabel;
+        if (tooltips) span.dataset.tooltip = this.typeLabel;
         span.append(this.#renderFormula());
 
         if (this.persistent && this.type !== "bleed") {
@@ -606,6 +606,11 @@ class DamageInstance extends AbstractDamageRoll {
 
 interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;
+}
+
+interface InstanceRenderOptions extends RollRenderOptions {
+    /** Whether to attach tooltips to the damage type icons */
+    tooltips?: boolean;
 }
 
 type CriticalDoublingRule = "double-damage" | "double-dice";
