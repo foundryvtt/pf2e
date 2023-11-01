@@ -1,4 +1,4 @@
-<ol class="form-list">
+<fieldset>
     <li class="form-group">
         <label class="short">{{localize "PF2E.SpellCategoryLabel"}}</label>
         <select name="system.category.value">
@@ -17,14 +17,14 @@
 
     {{#unless isRitual}}
         <li class="form-group">
-            <label>{{localize "PF2E.TraitCantrip"}}</label>
+            <label class="large">{{localize "PF2E.TraitCantrip"}}</label>
             <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip" />
         </li>
     {{/unless}}
-</ol>
+</fieldset>
 
-<ol class="form-list">
-    <h3>{{localize "PF2E.CastLabel"}}</h3>
+<fieldset>
+    <legend>{{localize "PF2E.CastLabel"}}</legend>
 
     <div class="form-group">
         <label class="short">{{localize "PF2E.SpellTimeLabel"}}</label>
@@ -62,7 +62,7 @@
         <label class="short">{{localize "PF2E.SpellCostLabel"}}</label>
         <input type="text" name="system.cost.value" value="{{data.cost.value}}" />
     </div>
-</ol>
+</fieldset>
 
 {{#if isRitual}}
     <ol class="form-list">
@@ -85,8 +85,8 @@
     </ol>
 {{/if}}
 
-<ol class="form-list">
-    <h3>{{localize "PF2E.Usage"}}</h3>
+<fieldset>
+    <legend>{{localize "PF2E.Usage"}}</legend>
 
     <div class="form-group">
         <label class="short">{{localize "PF2E.SpellRangeLabel"}}</label>
@@ -124,10 +124,15 @@
         <label class="short">{{localize "PF2E.SpellDurationLabel"}}</label>
         <input type="text" name="system.duration.value" value="{{data.duration.value}}" />
     </div>
-</ol>
 
-<ol class="form-list">
-    <h3>{{localize "PF2E.DamageLabel"}}</h3>
+    <div class="form-group">
+        <label class="large">{{localize "PF2E.Item.Spell.Counteract.Label"}}</label>
+        <input type="checkbox" name="system.hasCounteractCheck.value" {{checked data.hasCounteractCheck.value}} />
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>{{localize "PF2E.DamageLabel"}}</legend>
 
     <div class="form-group">
         <label class="short">{{localize "PF2E.SpellTypeLabel"}}</label>
@@ -213,7 +218,7 @@
             </div>
         {{/each}}
     </div>
-</ol>
+</fieldset>
 
 {{#unless data.heightening.type}}
     {{#if canHeighten}}
@@ -222,7 +227,7 @@
 {{/unless}}
 
 {{#if (eq data.heightening.type "interval")}}
-    <div class="form-list">
+    <fieldset>
         <div class="form-group">
             <h3>{{localize "PF2E.SpellScalingInterval.Header"}}</h3>
             <div class="item-controls">
@@ -247,7 +252,7 @@
                 <input type="text" name="system.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}" />
             </div>
         {{/each}}
-    </div>
+    </fieldset>
 {{/if}}
 
 {{! Spell heightening for fixed levels}}
@@ -262,18 +267,12 @@
     {{/if}}
 {{/unless}}
 
-<div class="form-group">
-    <label>{{localize "PF2E.Item.Spell.Counteract.Label"}}</label>
-    <input type="checkbox" name="system.hasCounteractCheck.value" {{checked data.hasCounteractCheck.value}} />
-</div>
 {{#if (not isVariant)}}
-    <div class="form-list variants" data-can-drop="true">
-        <div class="form-group">
-            <h3>{{localize "PF2E.Item.Spell.Variants.LabelPlural"}}</h3>
-            <div class="item-controls">
-                <i class="fa-solid fa-fw fa-plus" data-action="variant-create"></i>
-            </div>
-        </div>
+    <fieldset class="variants" data-can-drop="true">
+        <legend class="form-group">
+            {{localize "PF2E.Item.Spell.Variants.LabelPlural"}}
+            <a data-action="variant-create"><i class="fa-solid fa-fw fa-plus"></i></a>
+        </legend>
 
         {{#each variants as |variant|}}
             <div class="variant" data-variant-id="{{variant.id}}">
@@ -285,5 +284,5 @@
                 </div>
             </div>
         {{/each}}
-    </div>
+    </fieldset>
 {{/if}}
