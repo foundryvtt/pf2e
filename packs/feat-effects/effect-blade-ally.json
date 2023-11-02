@@ -134,7 +134,12 @@
             },
             {
                 "definition": [
-                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    {
+                        "or": [
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
