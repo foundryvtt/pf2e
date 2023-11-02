@@ -3,6 +3,7 @@
 ### System Improvements
 
 -   (In3luki, Supe) Add a damage-roll dialog, similar in purpose to the check roll dialog
+-   (In3luki) Add "not" button to Compendium Browser filter tags
 -   (stwlam) Add support for aura effect alterations
 -   (stwlam) Start adding support for designating damage rolls as actually being healing
 -   (stwlam) Add support for property-rune strike adjustments on melee items
