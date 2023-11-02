@@ -751,6 +751,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             minWidth: 120,
         });
 
+        htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
+            game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        });
+
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
 
