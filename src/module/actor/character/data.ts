@@ -365,6 +365,8 @@ interface CharacterStrike extends StrikeData {
     visible: boolean;
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
+    /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
+    handsAvailable: boolean;
     altUsages: CharacterStrike[];
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
