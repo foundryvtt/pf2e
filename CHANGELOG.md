@@ -1,3 +1,67 @@
+## 5.8.0
+
+### System Improvements
+
+-   (In3luki, Supe) Add a damage-roll dialog, similar in purpose to the check roll dialog
+-   (stwlam) Add support for aura effect alterations
+-   (stwlam) Start adding support for designating damage rolls as actually being healing
+-   (stwlam) Add support for property-rune strike adjustments on melee items
+-   (stwlam) Do not emit effects from auras of GM-hidden tokens
+-   (stwlam) Draw aura textures underneath tokens
+-   (stwlam) Invoke `afterRoll` callbacks from REs on context clones
+-   (stwlam) Make PC attacks that require free hands always visible (though still disabled) on sheet
+-   (stwlam) Include UUID in actor roll options as "self:uuid:[uuid]"
+
+### Bugfixes
+
+-   (stwlam) Fix some bonuses and modifiers slipping by battle-form damage exclusion
+-   (stwlam) Fix specific magic weapons receiving price changes due to precious materials
+-   (stwlam) Fix setting of attribute domain for strikes using weapons with finesse
+-   (stwlam) Localize publication form labels in actor/item sheets
+-   (stwlam) Fix issue preventing ephemeral effects from operating on elemental blasts
+-   (stwlam) Read in `options.difficultyClass` in `SingleCheckActionVariant#use`
+-   (stwlam) Restore editability of stamina & resolve from token HUD
+-   (Supe) Fix display of variant spell descriptions
+-   (Supe) Fix some spell sheet errors and update to fieldset
+
+### Data Updates
+
+-   (Cerapter) Allow Thaumaturge Implements to accept homebrew
+-   (Dire Weasel) Add aura to Aura of Forgetfulness
+-   (Dire Weasel) Add automation for Brimorak's Flaming Weapon, Corrupted Touch, Eunemvro's Blessed Strikes, Facetbound Nullifier's Field of Force, Secret-Keeper's Designate Apostate, Shoma Lyzerius' Natural-Born Burner, Spirit Turtle's Environmental Balance
+-   (Dire Weasel) Add utilize property runes on some NPC attacks
+-   (Dire Weasel) Add effect for Cloak of Light and auto-heighten damage link
+-   (Dire Weasel) Add effects for Blood Booster, Ghost Oil, Life-Boosting Oil, Wounding Oil
+-   (Dire Weasel) Add infused alchemical items to Amateur Chemist's inventory and add attacks
+-   (Dire Weasel) Add missing category to Numerian Construct action
+-   (Dire Weasel) Add note and damage link to Grendel's Hands of the Murderer
+-   (Dire Weasel) Add stupefied check to Vetalarana Emergent's Anticipatory Attack
+-   (Dire Weasel) Brush up some NPC Pack Attacks
+-   (Dire Weasel) Fix resistances and weaknesses of Bloom of Lamashtu
+-   (Dire Weasel) Fix size of The Beast
+-   (Dire Weasel) Fix War Formation to remove explicit damage type
+-   (Dire Weasel) Set Weapon Surge effect duration to 1 round
+-   (Dire Weasel) Update Desiccating Inhalation to include leveled damage in main description and add healing link
+-   (Dire Weasel) Update Facetbound Cascader's Energy Ward from effect to RollOptions with suboptions
+-   (Dire Weasel) Update some NPC strikes to use damage partials instead of rule elements
+-   (Dire Weasel) Fix Brochmaw's Hot Oil damage
+-   (In3luki) Fix issue causing hazards to not appear in compendium browser
+-   (InfamousSky) Add many equipment and spell icons
+-   (Jan Raventós) Makes Overdrive Ally an action rather than passive ability
+-   (rectulo) Add missing level requirement in archetype journal for Sorcerer archetype
+-   (rectulo) Fix double "action-glyph" elements in some item descriptions
+-   (rectulo) Fix the bonus on attack rolls in the sulfur bomb (greater) description
+-   (SpartanCPA) Add Exploit Regret reaction to Ifrit Shuyookh
+-   (stwlam) Add aura junction effects for fire and water elements
+-   (stwlam) Fix hardness alteration of shield in sparkling targe class feature
+-   (stwlam) Fix reference to "Vs. Undead" spell effect in text of Lay on Hands
+-   (stwlam) Automate Keen rune, Keen-like abilities on PC options and creature attack effects
+-   (stwlam) Automatically add/increase Doomed condition at extreme oracular curse stage
+-   (stwlam) Remove scouting effects only after initiative rolls
+-   (Supe) Add label for fire impulse junction upgrade
+-   (Tikael) Add effect for Fresh Produce
+-   (Tikael) Add spell effect for Positive Luminance
+
 ## 5.7.4
 
 ### Bugfixes
