@@ -114,6 +114,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
+        this.definition = this.resolveInjectedProperties(this.definition);
 
         const value = Math.floor(Number(this.resolveValue(this.value)));
         if (!this.#isValid(value)) return;
