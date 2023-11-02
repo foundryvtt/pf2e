@@ -1407,10 +1407,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         };
 
-        const requiresFreeHand = weaponTraits.has("free-hand") || weapon.system.graspingAppendage;
+        const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
         const ready =
-            (weapon.isEquipped && (!requiresFreeHand || handsReallyFree > 0)) ||
+            (weapon.isEquipped && handsAvailable) ||
             (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
@@ -1425,6 +1425,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...flavor,
             options: Array.from(baseOptions),
             traits: [],
+            handsAvailable,
             weaponTraits: Array.from(weaponTraits)
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
                 .sort((a, b) => a.label.localeCompare(b.label)),
