@@ -326,7 +326,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
     // It may merge with the initial value to handle cases where the values where cleaned recursively
     const deleteIfInitial = (key: string, field: DataField): boolean => {
         if (data[key] === undefined) return true;
-        const initialValue = typeof field.initial === "function" ? field.initial() : field.initial;
+        const initialValue = typeof field.initial === "function" ? field.initial(data) : field.initial;
         const valueRaw = data[key];
         const value = R.isObject(valueRaw) && R.isObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
         const isInitial = R.equals(initialValue, value);
