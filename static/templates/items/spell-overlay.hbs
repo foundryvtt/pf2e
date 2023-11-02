@@ -36,7 +36,7 @@
         {{/each}}
     </div>
 
-    {{#if system.time}}
+    {{#if (includes system "time")}}
         <div class="form-group">
             <label>
                 <a data-action="overlay-remove-property" data-property="time"><i class="fa-solid fa-times"></i></a>
@@ -48,7 +48,7 @@
         </div>
     {{/if}}
 
-    {{#if system.components}}
+    {{#if (includes system "components")}}
         <div class="form-group">
             <label>
                 <a data-action="overlay-remove-property" data-property="components"><i class="fa-solid fa-times"></i></a>
@@ -75,7 +75,7 @@
         </div>
     {{/if}}
 
-    {{#if system.target}}
+    {{#if (includes system "target")}}
         <div class="form-group">
             <label>
                 <a data-action="overlay-remove-property" data-property="target"><i class="fa-solid fa-times"></i></a>
@@ -87,7 +87,7 @@
         </div>
     {{/if}}
 
-    {{#if system.area}}
+    {{#if (includes system "area")}}
         <div class="form-group">
             <label>
                 <a data-action="overlay-remove-property" data-property="area"><i class="fa-solid fa-times"></i></a>
@@ -95,7 +95,6 @@
             </label>
             <div class="details-container-two-columns">
                 <select name="{{dataPath}}.area.value">
-                    <option value=""></option>
                     {{#select system.area.value}}
                         {{#each @root.areaSizes as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
@@ -103,7 +102,6 @@
                     {{/select}}
                 </select>
                 <select name="{{dataPath}}.area.type">
-                    <option value=""></option>
                     {{#select system.area.type}}
                         {{#each @root.areaTypes as |label type|}}
                             <option value="{{type}}">{{localize label}}</option>
@@ -114,7 +112,7 @@
         </div>
     {{/if}}
 
-    {{#if system.range}}
+    {{#if (includes system "range")}}
         <div class="form-group">
             <label>
                 <a data-action="overlay-remove-property" data-property="range"><i class="fa-solid fa-times"></i></a>
@@ -126,7 +124,7 @@
         </div>
     {{/if}}
 
-    {{#if system.damage}}
+    {{#if (includes system "damage")}}
         <div class="damage-formulas">
             <h3>
                 <a data-action="overlay-remove-property" data-property="damage"><i class="fa-solid fa-times"></i></a>

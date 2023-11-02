@@ -206,23 +206,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const property = addProperty.dataset.property;
                 if (!overlay.system || !property || property in overlay.system) continue;
                 addProperty.addEventListener("click", () => {
-                    // Retrieve the default value for this property, which is either the
-                    // default scaling object, or the most recent value among all overlays and base spell.
-                    const value = (() => {
-                        const scaling = this.item.getHeightenLayers().reverse();
-                        for (const entry of [...scaling, { system: this.item.system }]) {
-                            if (objectHasKey(entry.system, property)) {
-                                return entry.system[property];
-                            }
-                        }
-
-                        return undefined;
-                    })();
-
-                    if (typeof value !== "undefined") {
+                    try {
+                        const value = this.#getDefaultProperty(property);
                         this.item.update({ [`${overlay.base}.${property}`]: value });
-                    } else {
-                        ui.notifications.warn(`PF2e System | Failed to initialize property ${property} for overlay`);
+                    } catch (ex) {
+                        if (ex instanceof Error) {
+                            ui.notifications.error(ex.message);
+                        }
                     }
                 });
             }
@@ -391,6 +381,32 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         })();
 
         return { id, level, type, base, dataPath: base, system };
+    }
+
+    /**
+     * Retrieve the default value for this property.
+     * The default attempts to reuse the most recent heightened value, or what's on the spell, but certain properties
+     * have alternative defaults.
+     */
+    #getDefaultProperty(property: string): unknown {
+        const scaling = this.item.getHeightenLayers().reverse();
+        const baseValue = (() => {
+            for (const entry of [...scaling, { system: this.item.system }]) {
+                if (objectHasKey(entry.system, property)) {
+                    return entry.system[property];
+                }
+            }
+
+            return null;
+        })();
+
+        if (baseValue) {
+            return baseValue;
+        } else if (property === "area") {
+            return { value: 5, type: "burst" } satisfies SpellSystemSource["area"];
+        }
+
+        throw ErrorPF2e(`Failed to initialize property ${property} for overlay`);
     }
 
     #formatSpellComponents(data: SpellSystemData): string[] {
