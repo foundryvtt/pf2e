@@ -102,7 +102,13 @@ export function registerHandlebarsHelpers(): void {
     });
 
     Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
-        return Array.isArray(arr) && arr.includes(element);
+        return Array.isArray(arr)
+            ? arr.includes(element)
+            : arr instanceof Set
+            ? arr.has(element)
+            : arr && typeof arr === "object"
+            ? (typeof element === "number" || typeof element === "string") && element in arr
+            : false;
     });
 
     // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented
