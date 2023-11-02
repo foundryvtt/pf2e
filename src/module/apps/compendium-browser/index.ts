@@ -4,7 +4,19 @@ import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, setHasElement } from "@util";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    isBlank,
+    isObject,
+    localizer,
+    objectHasKey,
+    setHasElement,
+} from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
@@ -596,13 +608,14 @@ class CompendiumBrowser extends Application {
                     tagify.on("click", (event) => {
                         const target = event.detail.event.target as HTMLElement;
                         if (!target) return;
-
-                        const value = event.detail.data.value;
-                        const selected = data.selected.find((s) => s.value === value);
-                        if (selected) {
-                            const current = !!selected.not;
-                            selected.not = !current;
-                            this.render();
+                        const action = htmlClosest(target, "[data-action]")?.dataset?.action;
+                        if (action === "toggle-not") {
+                            const value = event.detail.data.value;
+                            const selected = data.selected.find((s) => s.value === value);
+                            if (selected) {
+                                selected.not = !selected.not;
+                                this.render();
+                            }
                         }
                     });
                     tagify.on("change", (event) => {
@@ -631,6 +644,17 @@ class CompendiumBrowser extends Application {
                                 this.render();
                             }
                         });
+                    }
+
+                    for (const tag of htmlQueryAll(container, "tag")) {
+                        const icon = fontAwesomeIcon("ban", { style: "solid" });
+                        icon.classList.add("fa-2xs");
+                        const notButton = createHTMLElement("a", {
+                            classes: ["conjunction-not-button"],
+                            children: [icon],
+                            dataset: { action: "toggle-not" },
+                        });
+                        tag.appendChild(notButton);
                     }
                 }
             }
