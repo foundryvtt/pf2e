@@ -32,7 +32,7 @@ function createTagifyTraits(
     traits: Iterable<string>,
     { sourceTraits, record }: TagifyTraitOptions,
 ): { id: string; value: string; readonly: boolean }[] {
-    const sourceSet = new Set(sourceTraits);
+    const sourceSet = new Set(sourceTraits ?? traits);
     const traitSlugs = [...traits];
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
     return traitSlugs
@@ -107,7 +107,7 @@ type SheetOptions = Record<string, SheetOption>;
 type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: never });
 
 interface TagifyTraitOptions {
-    sourceTraits: Iterable<string>;
+    sourceTraits?: Iterable<string>;
     record: Record<string, string>;
 }
 
