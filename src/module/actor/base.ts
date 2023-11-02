@@ -78,6 +78,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { v5 as UUIDv5 } from "uuid";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -86,6 +87,9 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     /** Has this actor completed construction? */
     constructed = true;
+
+    /** A UUIDv5 hash digest of the foundry UUID */
+    declare signature: string;
 
     /** Handles rolling initiative for the current actor */
     declare initiative: ActorInitiative | null;
@@ -605,6 +609,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
+        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
         this._itemTypes = null;
         this.rules = [];
         this.initiative = null;
@@ -733,7 +738,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rollOptions: {
                 all: {
                     [`self:type:${this.type}`]: true,
-                    [`self:uuid:${this.uuid}`]: true,
+                    [`self:signature:${this.signature}`]: true,
                     ...createEncounterRollOptions(this),
                 },
             },
