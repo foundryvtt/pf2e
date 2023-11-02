@@ -194,7 +194,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // This handles the "frequent updates" case that would desync the other one
         for (const rule of processedRules.filter((p) => !p.existing)) {
             const existing = this.#ruleElementForms[rule.options.index];
-            if (existing instanceof rule.FormClass) {
+            if (existing instanceof rule.FormClass && !processedRules.some((r) => r.existing === existing)) {
                 rule.existing = existing;
             }
         }
@@ -502,7 +502,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             Sortable.create(rules, {
                 ...SORTABLE_DEFAULTS,
                 handle: ".drag-handle",
-                onEnd: (event) => {
+                onEnd: async (event) => {
                     const currentIndex = event.oldDraggableIndex;
                     const newIndex = event.newDraggableIndex;
                     if (currentIndex === undefined || newIndex === undefined) {
@@ -510,12 +510,14 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                         return;
                     }
 
+                    // Update rules. If the update returns undefined, there was no change, and we need to re-render manually
                     const rules = this.item.toObject().system.rules;
                     const movingRule = rules.at(currentIndex);
                     if (movingRule && newIndex <= rules.length) {
                         rules.splice(currentIndex, 1);
                         rules.splice(newIndex, 0, movingRule);
-                        this.item.update({ "system.rules": rules });
+                        const result = await this.item.update({ "system.rules": rules });
+                        if (!result) this.render();
                     } else {
                         this.render();
                     }
