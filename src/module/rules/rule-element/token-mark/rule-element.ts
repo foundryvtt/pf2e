@@ -65,8 +65,8 @@ interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPr
 }
 
 interface MarkTokenSource extends RuleElementSource {
-    slug?: unknown;
-    uuid?: unknown;
+    slug?: JSONValue;
+    uuid?: JSONValue;
 }
 
 export { TokenMarkRuleElement };

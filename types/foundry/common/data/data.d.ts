@@ -32,7 +32,7 @@ export interface DarknessActivation {
 export class LightData extends DataModel<DataModel | null, LightDataSchema> {
     static override defineSchema(): LightDataSchema;
 
-    static override migrateData<TSource extends object>(source: TSource): TSource;
+    static override migrateData<TSource extends Record<string, JSONValue>>(source: TSource): TSource;
 }
 
 export interface LightData

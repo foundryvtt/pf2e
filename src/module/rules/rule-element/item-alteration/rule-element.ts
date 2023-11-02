@@ -65,7 +65,9 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         );
         const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
             const source = item.toObject();
-            const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"]), { parent: this });
+            const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"] as const), {
+                parent: this,
+            });
             alteration.applyTo(source);
             alteration.applyTo(item);
             const newHP = source.system.hp;
