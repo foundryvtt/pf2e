@@ -1139,7 +1139,6 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
                 neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
                 npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
-                pcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.PCsOnly",
                 both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
             },
             lootableNPCs: {

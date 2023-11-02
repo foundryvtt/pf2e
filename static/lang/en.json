@@ -121,6 +121,11 @@
                 "DamagedForN": "<actor>{actor}</actor> takes {hpDamage} damage.",
                 "DamagedForNShield": "<actor>{actor}</actor>'s shield absorbs {absorbedDamage} damage, with an additional {hpDamage} making it through.",
                 "HealedForN": "<actor>{actor}</actor> is healed for {hpDamage} damage.",
+                "InstantDeath": {
+                    "DeathEffect": "The death effect immediately kills them.",
+                    "FinePowder": "They are reduced to a fine powder; their gear remains.",
+                    "MassiveDamage": "The massive damage immediately kills them."
+                },
                 "ShieldAbsorbsAll": "<actor>{actor}</actor> is unscathed, their shield completely absorbing {absorbedDamage} damage.",
                 "ShieldDamagedForN": "Their shield is also damaged for {shieldDamage}.",
                 "ShieldDamagedForNBroken": "Their shield also takes {shieldDamage} damage, breaking it.",
@@ -2530,7 +2535,7 @@
                     "AttackOfOpportunity": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
                     "Aura": "<p>A monster's aura automatically affects everything within a specified emanation around that monster. The monster doesn't need to spend actions on the aura; rather, the aura's effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.</p>\n<p>If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.</p>\n<p>The GM might determine that a monster's aura doesn't affect its own allies. For example, a creature might be immune to a monster's frightful presence if they have been around each other for a long time.</p>",
                     "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.PM5jvValFkbFH3TV]{Mounts} or uses the @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal} action while riding the monster.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll 1d6[bludgeoning]]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>",
-                    "CatchRock": "<p><strong>Requirements</strong> The monster must have a free hand but can @UUID[Compendium.pf2e.actionspf2e.Item.wQYmDStjdjn0I26t]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<hr />\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>",
+                    "CatchRock": "<p><strong>Requirements</strong> The monster must have a free hand but can @UUID[Compendium.pf2e.actionspf2e.Item.wQYmDStjdjn0I26t]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<hr />\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>",
                     "ChangeShape": "<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>",
                     "ConstantSpells": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>",
                     "Constrict": "<p>The monster deals the listed amount of damage to any number of creatures @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>",
@@ -2870,8 +2875,8 @@
         "RestoreSpellTitle": "Restore Spell",
         "RevertDamage": {
             "ButtonTooltip": "Undo",
-            "DamageMessage": "Damage applied to {actor} was reverted",
-            "HealingMessage": "Healing applied to {actor} was reverted"
+            "DamageMessage": "Damage applied to {actor} was reverted.",
+            "HealingMessage": "Healing applied to {actor} was reverted."
         },
         "Roll": {
             "Add": "Add",
@@ -2897,12 +2902,11 @@
         "SETTINGS": {
             "Automation": {
                 "ActorsDeadAtZero": {
-                    "Both": "PCs and NPCs",
-                    "Hint": "Upon reaching zero hit points, NPCs are marked as dead.",
-                    "NPCsOnly": "Yes",
-                    "Name": "NPCs Dead at 0 HP",
-                    "Neither": "No",
-                    "PCsOnly": "PCs only"
+                    "Both": "Yes",
+                    "Hint": "Upon reaching zero hit points, actors are marked as dead. For PCs, this only applies to damage that would immediately kill them.",
+                    "NPCsOnly": "NPCS only",
+                    "Name": "Actors Dead at 0 HP",
+                    "Neither": "No"
                 },
                 "Encumbrance": {
                     "Hint": "Automatically apply the Encumbered condition to creatures carrying more than their respective limits.",
