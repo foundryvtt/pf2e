@@ -1,3 +1,19 @@
+## 5.8.1
+
+This release updates verified core compatibility to 11.314.
+
+### Bugfixes
+
+-   (alexbrault) Localize damage label in item summary
+-   (In3luki) Restore "Rest for the Night" button listener in character sheet
+-   (stwlam) Remove checking of hands available for free-hand weapons
+-   (stwlam) Fix issue preventing damage weakness associated with fire aura junction from being properly recognized
+
+### Data Updates
+
+-   (Dire Weasel) Add typed damage links to Manifestation Of Dahak's Focused Breath Weapon
+-   (Dire Weasel) Update The Eclipse damage to `@Damage` format
+
 ## 5.8.0
 
 ### System Improvements
@@ -9,7 +25,6 @@
 -   (stwlam) Add support for property-rune strike adjustments on melee items
 -   (stwlam) Do not emit effects from auras of GM-hidden tokens
 -   (stwlam) Draw aura textures underneath tokens
--   (stwlam) Invoke `afterRoll` callbacks from REs on context clones
 -   (stwlam) Make PC attacks that require free hands always visible (though still disabled) on sheet
 -   (stwlam) Include UUID in actor roll options as "self:uuid:[uuid]"
 
@@ -22,6 +37,7 @@
 -   (stwlam) Fix issue preventing ephemeral effects from operating on elemental blasts
 -   (stwlam) Read in `options.difficultyClass` in `SingleCheckActionVariant#use`
 -   (stwlam) Restore editability of stamina & resolve from token HUD
+-   (stwlam) Fix issue preventing some automatic effect removals after rolls.
 -   (Supe) Fix display of variant spell descriptions
 -   (Supe) Fix some spell sheet errors and update to fieldset
 
@@ -48,7 +64,7 @@
 -   (Dire Weasel) Fix Brochmaw's Hot Oil damage
 -   (In3luki) Fix issue causing hazards to not appear in compendium browser
 -   (InfamousSky) Add many equipment and spell icons
--   (Jan Raventós) Makes Overdrive Ally an action rather than passive ability
+-   (Intervención) Makes Overdrive Ally an action rather than passive ability
 -   (rectulo) Add missing level requirement in archetype journal for Sorcerer archetype
 -   (rectulo) Fix double "action-glyph" elements in some item descriptions
 -   (rectulo) Fix the bonus on attack rolls in the sulfur bomb (greater) description
