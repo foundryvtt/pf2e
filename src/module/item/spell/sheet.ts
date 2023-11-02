@@ -186,7 +186,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const overlay = this.#getOverlayFromElement(overlayEditor);
             if (!overlay) continue;
 
-            htmlQuery(html, "[data-action=overlay-delete]")?.addEventListener("click", () => {
+            htmlQuery(overlayEditor, "[data-action=overlay-delete]")?.addEventListener("click", () => {
                 // If this is the last heighten overlay, delete all of it
                 if (overlay.type === "heighten") {
                     const layers = this.item.getHeightenLayers();
@@ -201,7 +201,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 this.item.update({ [parts.join(".")]: null });
             });
 
-            // Adds a property to an existing overlay
+            // Handle adding properties to overlays
             for (const addProperty of htmlQueryAll(overlayEditor, "[data-action=overlay-add-property]")) {
                 const property = addProperty.dataset.property;
                 if (!overlay.system || !property || property in overlay.system) continue;
@@ -217,6 +217,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 });
             }
 
+            // Handle deleting properties from overlays
             for (const removeProperty of htmlQueryAll(overlayEditor, "[data-action=overlay-remove-property]")) {
                 const property = removeProperty.dataset.property;
                 if (!property) continue;
