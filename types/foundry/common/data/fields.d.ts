@@ -79,7 +79,7 @@ interface DataFieldValidationOptions {
  *                                        document name, field name, and candidate value.
  */
 export abstract class DataField<
-    TSourceProp = unknown,
+    TSourceProp extends JSONValue = JSONValue,
     TModelProp = TSourceProp,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
@@ -259,7 +259,7 @@ export abstract class DataField<
 /*  Data Schema Field                           */
 /* -------------------------------------------- */
 
-export type DataSchema = Record<string, DataField<unknown, unknown, boolean>>;
+export type DataSchema = Record<string, DataField<JSONValue, unknown, boolean>>;
 
 /** A special class of {@link DataField} which defines a data schema. */
 export class SchemaField<

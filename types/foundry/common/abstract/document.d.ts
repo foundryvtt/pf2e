@@ -140,7 +140,7 @@ export default abstract class Document<
      * The data model is defined by the template.json specification included by the game system.
      * @returns The migrated system data object
      */
-    migrateSystemData(): Record<string, unknown>;
+    migrateSystemData(): Record<string, JSONValue>;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -181,7 +181,7 @@ export default abstract class Document<
      * @param source           The candidate source data from which the model will be constructed
      * @returns                Migrated source data, if necessary
      */
-    static migrateData<TSource extends object>(source: TSource): TSource;
+    static migrateData(source: object): Record<string, JSONValue>;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
