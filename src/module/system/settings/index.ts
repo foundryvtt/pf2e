@@ -213,7 +213,12 @@ export function registerSettings(): void {
         name: CONFIG.PF2E.SETTINGS.automation.actorsDeadAtZero.name,
         scope: "world",
         config: false,
-        default: "npcsOnly",
+        choices: {
+            neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
+            npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
+            both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
+        },
+        default: "both",
         type: String,
     });
     AutomationSettings.registerSettings();

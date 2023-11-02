@@ -1266,14 +1266,32 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             );
         }
 
+        const instantDeath = ((): string | null => {
+            if (hpUpdate.totalApplied === 0 || hpUpdate.totalApplied < hitPoints.value) {
+                return null;
+            }
+            return rollOptions.has("item:trait:death") &&
+                !this.attributes.immunities.some((i) => i.type === "death-effects")
+                ? localize("InstantDeath.DeathEffect")
+                : hpUpdate.totalApplied >= hitPoints.max * 2
+                ? localize("InstantDeath.MassiveDamage")
+                : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
+                ? localize("InstantDeath.FinePowder")
+                : null;
+        })();
+
         if (hpDamage !== 0) {
             const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
-            const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
-            const toggleDefeated =
-                updated.isDead &&
-                ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated));
+            const setting = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+            const deadAtZero =
+                (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
+                (this.isOfType("character") && setting === "both" && !!instantDeath);
 
-            if (updated.isOfType("npc") && deadAtZero && toggleDefeated) {
+            if (
+                updated.isDead &&
+                deadAtZero &&
+                ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated))
+            ) {
                 token.combatant?.toggleDefeated();
             }
         }
@@ -1305,8 +1323,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : null;
 
         const statements = ((): string => {
-            const concatenated = [hpStatement, shieldStatement]
-                .filter((s): s is string => !!s)
+            const concatenated = R.compact([hpStatement, shieldStatement, instantDeath])
                 .map((s) =>
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
@@ -1595,10 +1612,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const appliedToHP = ((): number => {
             const remaining = delta - appliedToTemp - appliedToSP;
-            const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
-            updates["system.attributes.hp.value"] = Math.max(hp.value - applied, 0);
-
-            return applied;
+            updates["system.attributes.hp.value"] = Math.clamped(hp.value - remaining, 0, hp.max);
+            return remaining;
         })();
         const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
 
