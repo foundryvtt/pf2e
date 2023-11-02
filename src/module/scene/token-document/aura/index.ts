@@ -30,9 +30,8 @@ class TokenAura implements TokenAuraData {
         this.level = params.level;
         this.radius = params.radius;
         this.traits = params.traits;
+        this.effects = params.effects;
         this.appearance = params.appearance;
-        // Do not emit effects from auras of GM-hidden tokens
-        this.effects = this.token.hidden ? [] : params.effects;
     }
 
     /** The aura radius from the center in pixels */
@@ -69,14 +68,18 @@ class TokenAura implements TokenAuraData {
 
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: TokenDocumentPF2e): boolean {
-        // 1. If the token is the one emitting the aura, return true early
+        // If either token is hidden or not rendered, return false early
+        if (this.token.hidden || token.hidden || !this.token.object || !token.object) {
+            return false;
+        }
+
+        // If the token is the one emitting the aura, return true early
         if (token === this.token) return true;
 
-        // 2. If this aura is out of range, return false early
-        if (!this.token.object || !token.object) return false;
+        // If this aura is out of range, return false early
         if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
-        // 3. Check whether any aura square intersects the token's space
+        // Check whether any aura square intersects the token's space
         return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.mechanicalBounds) === 0);
     }
 
