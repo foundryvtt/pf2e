@@ -1,7 +1,9 @@
-import * as R from "remeda";
+import { ActorPF2e } from "@actor";
 import { SpellPF2e, SpellSystemSource } from "@item/spell/index.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
-import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
+import { OneToTen } from "@module/data.ts";
+import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -13,13 +15,13 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
-import { OneToTen } from "@module/data.ts";
-import { DamageCategoryUnique } from "@system/damage/types.ts";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
-import { ActorPF2e } from "@actor";
+import * as R from "remeda";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
+import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
+    traits: "PF2E.Traits",
     time: "PF2E.SpellTimeLabel",
     components: "PF2E.SpellComponentsLabel",
     target: "PF2E.SpellTargetLabel",
@@ -114,6 +116,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const html = $html[0]!;
 
         tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
+        for (const tags of htmlQueryAll<HTMLInputElement>(html, "input.spell-traits")) {
+            tagify(tags, { whitelist: CONFIG.PF2E.spellTraits });
+        }
 
         $html.find(".toggle-trait").on("change", (evt) => {
             const target = evt.target as HTMLInputElement;
@@ -426,7 +431,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const layers = spell.getHeightenLayers();
 
         return layers.map((layer) => {
-            const { level, system } = layer;
             const base = `system.heightening.levels.${layer.level}`;
             const missing: SpellSheetHeightenOverlayData["missing"] = [];
             for (const [key, label] of Object.entries(spellOverridable)) {
@@ -434,12 +438,19 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 missing.push({ key: key as keyof SpellSystemData, label });
             }
 
-            const heightenLevels = this.getAvailableHeightenLevels();
-            heightenLevels.push(level);
-            heightenLevels.sort((a, b) => a - b);
-
-            const type = "heighten";
-            return { id: null, level, base, dataPath: base, type, system, missing, heightenLevels };
+            return {
+                id: null,
+                type: "heighten",
+                level: layer.level,
+                base,
+                dataPath: base,
+                system: layer.system,
+                missing,
+                heightenLevels: [layer.level, ...this.getAvailableHeightenLevels()].sort(),
+                traits: layer.system.traits?.value
+                    ? createTagifyTraits(layer.system.traits.value, { record: CONFIG.PF2E.spellTraits })
+                    : null,
+            };
         });
     }
 }
@@ -486,4 +497,5 @@ interface SpellSheetHeightenOverlayData extends SpellSheetOverlayData {
     system: Partial<SpellSystemSource>;
     heightenLevels: number[];
     missing: { key: keyof SpellSystemData; label: string }[];
+    traits?: TraitTagifyEntry[] | null;
 }
