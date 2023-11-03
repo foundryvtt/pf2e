@@ -1,9 +1,9 @@
-<form class="check-modifiers-content" autocomplete="off" spellcheck="off">
+<form class="check-modifiers-content" autocomplete="off" spellcheck="off" data-tooltip-class="pf2e">
     {{#if substitutions}}
         <div class="dialog-row header">
-            <span class="mod">Substitution</span>
-            <span class="type">Roll</span>
-            <span class="exclude">Utilize?</span>
+            <span class="mod">{{localize "PF2E.Roll.Dialog.Check.Substitution"}}</span>
+            <span class="type">{{localize "PF2E.Roll.Roll"}}</span>
+            <span class="exclude">{{localize "PF2E.Roll.Dialog.Check.Utilize"}}</span>
         </div>
         <div class="substitutions">
             {{#each substitutions as |sub index|}}
@@ -75,26 +75,22 @@
     <hr/>
 
     <div class="roll-mode-panel">
-        <span class="label">{{localize "PF2E.RollModeLabel"}}</span>
-        <select name="rollmode">
-            {{#select rollMode}}
-                {{#each rollModes as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
+        <label class="roll-mode">
+            {{localize "PF2E.RollModeLabel"}}
+            <select name="rollmode">
+                {{#select rollMode}}
+                    {{#each rollModes as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </label>
+        <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">
+            {{localize "PF2E.Roll.Dialog.ShowDefault"}}
+            <input data-action="change-show-default" type="checkbox" {{checked showRollDialogs}} />
+        </label>
     </div>
     <hr/>
 
     <button type="button" class="roll">{{localize "PF2E.Roll.Roll"}} ({{numberFormat totalModifier decimals=0 sign=true}})</button>
-
-    <!-- Settings Menu -->
-    <div class="hover-content" id="{{appId}}-settings">
-        <ul class="modifier-list settings-list">
-            <label class="item">
-                <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
-                <input class="quick-rolls-submit" type="checkbox" {{checked showRollDialogs}} />
-            </label>
-        </ul>
-    </div>
 </form>
