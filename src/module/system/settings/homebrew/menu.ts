@@ -145,7 +145,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     protected override async _onSubmit(
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown>> {
+    ): Promise<Record<string, unknown> | false> {
         this.form.querySelectorAll<HTMLInputElement>("tags ~ input").forEach((input) => {
             if (input.value === "") {
                 input.value = "[]";

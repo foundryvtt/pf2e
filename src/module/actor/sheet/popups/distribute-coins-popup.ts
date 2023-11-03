@@ -118,7 +118,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
     protected override async _onSubmit(
         event: Event,
         options: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown>> {
+    ): Promise<Record<string, unknown> | false> {
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
             element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : [],
         );
