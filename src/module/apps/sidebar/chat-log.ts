@@ -44,9 +44,10 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 const button = htmlClosest(event.target, "button");
                 if (!button) return;
 
-                if (button.classList.contains("shield-block")) {
+                if (button.dataset.action === "shield-block") {
                     return this.#onClickShieldBlock(button, messageEl);
                 }
+
                 const actions = [
                     "apply-healing",
                     "half-damage",
@@ -259,7 +260,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
                                 const hardness = document.createElement("span");
                                 hardness.classList.add("tag");
-                                const hardnessLabel = game.i18n.localize("PF2E.ShieldHardnessLabel");
+                                const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
                                 hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
                                 const itemLi = document.createElement("li");
                                 itemLi.classList.add("item");
