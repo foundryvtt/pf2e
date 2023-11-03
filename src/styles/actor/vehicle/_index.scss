@@ -43,10 +43,6 @@ header.char-header {
 }
 
 .sheet-body .sheet-content > .tab.active {
-    &.inventory {
-        margin-bottom: 0.6rem;
-    }
-
     &:not(.inventory),
     .inventory .inventory-list {
         flex-grow: 1;
@@ -75,8 +71,12 @@ header.char-header {
                     object-fit: contain;
                     border-radius: 0;
                     border: none;
-                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39,
-                        inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+                    box-shadow:
+                        0 0 0 1px #918c88,
+                        0 0 0 2px #e1d8cf,
+                        0 0 0 3px #a98f39,
+                        inset 0 0 8px rgba(0, 0, 0, 0.5),
+                        0 0 8px black;
                 }
             }
 
@@ -120,6 +120,10 @@ header.char-header {
         .detailsInput {
             margin-bottom: 0.5rem;
         }
+    }
+
+    &.inventory {
+        display: flex;
     }
 
     &.effects {

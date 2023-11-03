@@ -187,13 +187,6 @@ $header-height: 89px; /* Adjust height of the header */
                 position: absolute;
                 top: 0;
                 width: 100%;
-
-                &.tab[data-tab] {
-                    display: none;
-                    &.active {
-                        display: initial;
-                    }
-                }
             }
 
             .sheet-content {
@@ -201,6 +194,11 @@ $header-height: 89px; /* Adjust height of the header */
 
                 > .tab {
                     padding: 0.6rem 0.6rem 0;
+                    display: none;
+
+                    &.active {
+                        display: initial;
+                    }
                 }
 
                 @import "spell-list";
