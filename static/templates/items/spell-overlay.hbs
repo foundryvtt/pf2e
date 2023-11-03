@@ -1,4 +1,4 @@
-<fieldset data-overlay-type="{{type}}" {{#if level}}data-level="{{level}}"{{/if}} {{#if id}}data-overlay-id="{{id}}"{{/if}}>
+<fieldset class="overlay" data-overlay-type="{{type}}" {{#if level}}data-level="{{level}}"{{/if}} {{#if id}}data-overlay-id="{{id}}"{{/if}}>
     {{#if (eq type "heighten")}}
         <h3 class="form-group">
             <label>{{localize "PF2E.SpellScalingOverlay.Label"}}</label>
@@ -36,9 +36,21 @@
         {{/each}}
     </div>
 
+    {{#if (includes system "traits")}}
+        <div class="traits">
+            <a data-action="overlay-remove-property" data-property="traits"><i class="fa-solid fa-times"></i></a>
+            <input
+                class="paizo-style tags spell-traits"
+                name="{{dataPath}}.traits.value"
+                value="{{json traits}}"
+                data-dtype="JSON"
+                {{#if (eq system.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
+        </div>
+    {{/if}}
+
     {{#if (includes system "time")}}
         <div class="form-group">
-            <label>
+            <label class="short">
                 <a data-action="overlay-remove-property" data-property="time"><i class="fa-solid fa-times"></i></a>
                 {{localize "PF2E.SpellTimeLabel"}}
             </label>
@@ -50,7 +62,7 @@
 
     {{#if (includes system "components")}}
         <div class="form-group">
-            <label>
+            <label class="short">
                 <a data-action="overlay-remove-property" data-property="components"><i class="fa-solid fa-times"></i></a>
                 {{localize "PF2E.SpellComponentsLabel"}}
             </label>
@@ -77,7 +89,7 @@
 
     {{#if (includes system "target")}}
         <div class="form-group">
-            <label>
+            <label class="short">
                 <a data-action="overlay-remove-property" data-property="target"><i class="fa-solid fa-times"></i></a>
                 {{localize "PF2E.SpellTargetLabel"}}
             </label>
@@ -89,7 +101,7 @@
 
     {{#if (includes system "area")}}
         <div class="form-group">
-            <label>
+            <label class="short">
                 <a data-action="overlay-remove-property" data-property="area"><i class="fa-solid fa-times"></i></a>
                 {{localize "PF2E.AreaLabel"}}
             </label>
@@ -114,7 +126,7 @@
 
     {{#if (includes system "range")}}
         <div class="form-group">
-            <label>
+            <label class="short">
                 <a data-action="overlay-remove-property" data-property="range"><i class="fa-solid fa-times"></i></a>
                 {{localize "PF2E.SpellRangeLabel"}}
             </label>

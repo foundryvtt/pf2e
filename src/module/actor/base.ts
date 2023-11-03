@@ -1273,6 +1273,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return rollOptions.has("item:trait:death") &&
                 !this.attributes.immunities.some((i) => i.type === "death-effects")
                 ? localize("InstantDeath.DeathEffect")
+                : this.isOfType("npc") && this.modeOfBeing === "undead"
+                ? localize("InstantDeath.Destroyed")
                 : hpUpdate.totalApplied >= hitPoints.max * 2
                 ? localize("InstantDeath.MassiveDamage")
                 : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")

@@ -250,9 +250,11 @@ async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, r
 
 /** Toggle off the Shield Block button on a damage chat message */
 function toggleOffShieldBlock(messageId: string): void {
-    const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
-    const $button = $message.find("button.shield-block");
-    $button.removeClass("shield-activated");
+    for (const app of ["#chat-log", "#chat-popout"]) {
+        const selector = `${app} > li.chat-message[data-message-id="${messageId}"] button[data-action=shield-block]`;
+        const button = htmlQuery(document.body, selector);
+        button?.classList.remove("shield-activated");
+    }
     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
 }
 

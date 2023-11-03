@@ -4,7 +4,6 @@ import {
     ErrorPF2e,
     addSign,
     fontAwesomeIcon,
-    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     pick,
@@ -63,8 +62,8 @@ class DamageModifierDialog extends Application {
 
     override get title(): string {
         return this.isCritical
-            ? game.i18n.localize("PF2E.Damage.Dialog.CriticalDamageRoll")
-            : game.i18n.localize("PF2E.Damage.Dialog.DamageRoll");
+            ? game.i18n.localize("PF2E.Roll.Dialog.Damage.TitleCritical")
+            : game.i18n.localize("PF2E.Roll.Dialog.Damage.Title");
     }
 
     get isCritical(): boolean {
@@ -106,7 +105,7 @@ class DamageModifierDialog extends Application {
             case "persistent":
                 return game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
             case "splash":
-                return game.i18n.format("PF2E.Damage.Dialog.Splash", { damageType: typeLabel });
+                return game.i18n.format("PF2E.Roll.Dialog.Damage.Splash", { damageType: typeLabel });
             default:
                 return typeLabel;
         }
@@ -166,7 +165,7 @@ class DamageModifierDialog extends Application {
                     d.diceNumber && d.dieSize
                         ? `${d.diceNumber}${d.dieSize}`
                         : d.diceNumber
-                        ? game.i18n.format("PF2E.Damage.Dialog.Dice", { dice: addSign(d.diceNumber) })
+                        ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: addSign(d.diceNumber) })
                         : "",
                 enabled: d.enabled,
                 ignored: d.ignored,
@@ -184,14 +183,16 @@ class DamageModifierDialog extends Application {
                     damageType: d.override.damageType ?? d.damageType,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
                     diceLabel: R.compact([
-                        d.override.upgrade ? game.i18n.localize("PF2E.Damage.Dialog.DieSizeUpgrade") : null,
+                        d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
                         d.override.diceNumber || d.override.dieSize
-                            ? game.i18n.format("PF2E.Damage.Dialog.Override", {
+                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
                                   value:
                                       d.override.diceNumber && d.override.dieSize
                                           ? `${d.override.diceNumber}${d.override.dieSize}`
                                           : d.override.diceNumber
-                                          ? game.i18n.format("PF2E.Damage.Dialog.Dice", { dice: d.override.diceNumber })
+                                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
+                                                dice: d.override.diceNumber,
+                                            })
                                           : d.override.dieSize ?? "",
                               })
                             : null,
@@ -312,7 +313,7 @@ class DamageModifierDialog extends Application {
                 return;
             }
             const faceLabel = game.i18n.localize(`PF2E.DamageDie${faces.toUpperCase()}`);
-            const label = game.i18n.format("PF2E.Damage.Dialog.ExtraDice", { dice: `+${count}${faceLabel}` });
+            const label = game.i18n.format("PF2E.Roll.Dialog.Damage.ExtraDice", { dice: `+${count}${faceLabel}` });
             const slug = sluggify(`${label}-${type}`);
             this.formulaData.dice.push(
                 new DamageDicePF2e({
@@ -337,28 +338,11 @@ class DamageModifierDialog extends Application {
             this.context.rollMode = rollMode;
         });
 
-        // Dialog settings menu
-        const settingsButton = htmlQuery(htmlClosest(html, ".app"), "a.header-button.settings");
-        if (settingsButton && !settingsButton?.dataset.tooltipContent) {
-            settingsButton.dataset.tooltipContent = `#${this.id}-settings`;
-            const $tooltip = $(settingsButton).tooltipster({
-                animation: "fade",
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["top"],
-                theme: "crb-hover",
-                minWidth: 165,
-            });
-
-            const toggle = htmlQuery<HTMLInputElement>(html, ".settings-list input.quick-rolls-submit");
-            toggle?.addEventListener("click", async () => {
-                await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
-                $tooltip.tooltipster("close");
-            });
-        }
+        // Toggle show dialog default
+        const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
+        toggle?.addEventListener("click", async () => {
+            await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
+        });
     }
 
     /** Apply stacking rules to the current set of modifiers, splitting by persistent/not-persistent */
@@ -378,17 +362,6 @@ class DamageModifierDialog extends Application {
     override async close(options?: { force?: boolean }): Promise<void> {
         this.#resolve?.(this.isRolled);
         super.close(options);
-    }
-
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-        const settingsButton: ApplicationHeaderButton = {
-            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
-            class: "settings",
-            icon: "fa-solid fa-cog",
-            onclick: () => null,
-        };
-        return [settingsButton, ...buttons];
     }
 
     /** Overriden to add some additional first-render behavior */

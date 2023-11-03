@@ -143,14 +143,6 @@ export class VariantRulesSettings extends FormApplication {
         });
     }
 
-    protected override async _onSubmit(
-        event: Event,
-        options: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown>> {
-        event.preventDefault();
-        return super._onSubmit(event, options);
-    }
-
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
         for (const key of Object.keys(SETTINGS)) {
             game.settings.set("pf2e", key, data[key]);
