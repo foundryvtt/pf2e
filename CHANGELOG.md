@@ -1,3 +1,25 @@
+## 5.8.2
+
+### System Improvements
+
+-   (stwlam) Automate damage-based instant death
+-   (stwlam) Display total bulk in vehicle sheet inventory
+-   (Supe) Support spell heighten trait overrides
+-   (Supe) Move always show dialog toggle from the header to the dialog body
+
+### Bugfixes
+
+-   (stwlam) Fix issue preventing NPC loot sheet inventory from appearing to players
+-   (stwlam) Fix handling of shield block buttons on damage messages
+-   (Supe) Fix deleting spell fixed heightening entries
+-   (Supe) Fix shield hardness label in armor sheet
+
+### Data Updates
+
+-   (Dire Weasel) Brush up Reginald Vancaskerkin and add effect for Overdrive Engine
+-   (Dire Weasel) Fix healing links in Life Shot
+-   (stwlam) Fix application of Blade Ally property rune effects on handwraps
+
 ## 5.8.1
 
 This release updates verified core compatibility to 11.314.
