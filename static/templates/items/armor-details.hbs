@@ -220,6 +220,11 @@
 {{/if}}
 
 <div class="form-group">
+    <label>{{localize "PF2E.HardnessLabel"}}</label>
+    <input type="number"{{#if (gt item.hardness item._source.system.hardness)}} class="adjusted-higher"{{else if (lt item.hardness item._source.system.hardness)}} class="adjusted-lower"{{/if}} data-property="system.hardness" data-value-base="{{item._source.system.hardness}}" value="{{item.hardness}}" />
+</div>
+
+<div class="form-group">
     <label for="{{item.uuid}}-hp">{{localize "PF2E.HitPointsHeader"}}</label>
     <div class="form-fields">
         <input id="{{item.uuid}}-hp" type="number" name="system.hp.value" value="{{data.hp.value}}" />
@@ -232,11 +237,6 @@
             {{/if}}
             data-property="system.hp.max" data-value-base="{{item._source.system.hp.max}}" value="{{data.hp.max}}" />
     </div>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
-    <input type="number"{{#if (gt item.hardness item._source.system.hardness)}} class="adjusted-higher"{{else if (lt item.hardness item._source.system.hardness)}} class="adjusted-lower"{{/if}} data-property="system.hardness" data-value-base="{{item._source.system.hardness}}" value="{{item.hardness}}" />
 </div>
 
 <div class="form-group stacked">
