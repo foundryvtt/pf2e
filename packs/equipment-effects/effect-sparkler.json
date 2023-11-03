@@ -1,0 +1,74 @@
+{
+    "_id": "uYWi2vxFQVBJgJR6",
+    "img": "icons/magic/fire/projectile-embers-orange.webp",
+    "name": "Effect: Sparkler",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sparkler]</p>\n<p>A sparkler provides bright light in a 10-foot radius (and dim light for the next 10 feet). While the sparkler burns, you can use it as an improvised weapon, dealing 1 fire damage on a hit. On a critical hit, you cause the target to become dazzled for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "type": "flame"
+                    },
+                    "bright": 20,
+                    "color": "#975335",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 0,
+                        "modifier": 1
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Equipment.Sparkler.StrikeLabel",
+                "otherTags": [
+                    "improvised"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.SpecificRule.Equipment.Sparkler.CriticalHitNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
