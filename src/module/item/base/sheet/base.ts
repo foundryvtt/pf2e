@@ -567,11 +567,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected override async _onSubmit(
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+    ): Promise<Record<string, unknown> | false> {
+        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") input.value = "[]";
-        });
+        }
 
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }

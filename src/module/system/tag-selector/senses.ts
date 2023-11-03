@@ -69,7 +69,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected override _onSubmit(
         event: Event,
         options?: OnSubmitFormOptions | undefined,
-    ): Promise<Record<string, unknown>> {
+    ): Promise<Record<string, unknown> | false> {
         for (const input of htmlQueryAll<HTMLInputElement>(this.element[0], "input[type=number]")) {
             const checkbox = htmlQuery<HTMLInputElement>(htmlClosest(input, "tr"), "input[type=checkbox]");
             if (checkbox && !Number(input.value)) {

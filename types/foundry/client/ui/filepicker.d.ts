@@ -48,28 +48,20 @@ declare class FilePicker extends Application<FilePickerOptions> {
      */
     protected _inferCurrentDirectory(target: string): [string, string];
 
-    /**
-     * Get the valid file extensions for a given named file picker type
-     */
+    /** Get the valid file extensions for a given named file picker type */
     protected _getExtensions(type: string): string[];
 
     /* -------------------------------------------- */
     /*  FilePicker Properties                       */
     /* -------------------------------------------- */
 
-    /**
-     * Return the source object for the currently active source
-     */
+    /** Return the source object for the currently active source */
     get source(): object;
 
-    /**
-     * Return the target directory for the currently active source
-     */
+    /** Return the target directory for the currently active source */
     get target(): string;
 
-    /**
-     * Return a flag for whether the current user is able to upload file content
-     */
+    /** Return a flag for whether the current user is able to upload file content */
     get canUpload(): boolean;
 
     /* -------------------------------------------- */
@@ -136,30 +128,22 @@ declare class FilePicker extends Application<FilePickerOptions> {
      */
     protected _onPick(event: Event): void;
 
-    /**
-     * Handle backwards navigation of the folder structure
-     */
+    /** Handle backwards navigation of the folder structure */
     protected _onBack(event: Event): void;
 
     protected _onChangeBucket(event: Event): void;
 
-    /**
-     * Handle a keyup event in the filter box to restrict the set of files shown in the FilePicker
-     */
+    /** Handle a keyup event in the filter box to restrict the set of files shown in the FilePicker */
     protected _onFilterResults(event: Event): void;
 
-    /**
-     * Handle file picker form submission
-     */
+    /** Handle file picker form submission */
     protected _onSubmit(ev: Event): Promise<void>;
 
-    /**
-     * Handle file upload
-     */
+    /** Handle file upload */
     protected _onUpload(ev: Event): Promise<void>;
 
     /* -------------------------------------------- */
-    /*  Factory Methods
+    /*  Factory Methods                             */
     /* -------------------------------------------- */
 
     /**
@@ -168,9 +152,9 @@ declare class FilePicker extends Application<FilePickerOptions> {
      * The data-target attribute should provide the name of the input field which should receive the selected file
      * The data-type attribute is a string in ["image", "audio"] which sets the file extensions which will be accepted
      *
-     * @param button    The button element
+     * @param button The button element
      */
-    static fromButton(button: HTMLElement, options: object): FilePicker;
+    static fromButton(button: HTMLButtonElement, options: object): FilePicker;
 }
 
 type FilePickerDisplayMode = (typeof FilePicker)["DISPLAY_MODES"][number];

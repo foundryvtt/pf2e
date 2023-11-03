@@ -84,7 +84,7 @@ declare global {
          * @param [preventRender] Prevent the application from re-rendering as a result of form submission
          * @returns A promise which resolves to the validated update data
          */
-        protected _onSubmit(event: Event, options?: OnSubmitFormOptions): Promise<Record<string, unknown>>;
+        protected _onSubmit(event: Event, options?: OnSubmitFormOptions): Promise<Record<string, unknown> | false>;
 
         /**
          * Get an object of update data used to update the form's target object
