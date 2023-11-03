@@ -262,12 +262,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
-        // Set the inventory tab as active on a loot-sheet rendering
-        if (this.isLootSheet) {
-            const tab = options?.tabs?.find((t) => t.navSelector === ".sheet-tabs");
-            if (tab) tab.initial = "inventory";
-        }
-
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
             sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
