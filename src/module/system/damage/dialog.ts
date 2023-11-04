@@ -208,7 +208,7 @@ class DamageModifierDialog extends Application {
             damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
-            showRollDialogs: game.user.settings.showRollDialogs,
+            showDamageDialogs: game.user.settings.showDamageDialogs,
             formula: formulaTemplate,
         };
     }
@@ -341,7 +341,7 @@ class DamageModifierDialog extends Application {
         // Toggle show dialog default
         const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
         toggle?.addEventListener("click", async () => {
-            await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
+            await game.user.setFlag("pf2e", "settings.showDamageDialogs", toggle.checked);
         });
     }
 
@@ -411,7 +411,7 @@ interface DamageDialogData {
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
-    showRollDialogs: boolean;
+    showDamageDialogs: boolean;
     formula: string;
 }
 

@@ -11,7 +11,7 @@ export async function perceptionForSelected(event: JQuery.ClickEvent): Promise<v
         return;
     }
 
-    const argsFromEvent = eventToRollParams(event);
+    const argsFromEvent = eventToRollParams(event, { type: "check" });
     for (const actor of actors) {
         await actor.perception.roll({ ...argsFromEvent, traits: ["secret"] });
     }

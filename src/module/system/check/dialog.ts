@@ -75,7 +75,7 @@ export class CheckModifiersDialog extends Application {
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
-            showRollDialogs: game.user.settings.showRollDialogs,
+            showCheckDialogs: game.user.settings.showCheckDialogs,
             substitutions: this.#resolveSubstitutions(),
             fortune,
             none,
@@ -185,7 +185,7 @@ export class CheckModifiersDialog extends Application {
         // Toggle show dialog default
         const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
         toggle?.addEventListener("click", async () => {
-            await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
+            await game.user.setFlag("pf2e", "settings.showCheckDialogs", toggle.checked);
         });
     }
 
@@ -209,7 +209,7 @@ interface CheckDialogData {
     totalModifier: number;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
-    showRollDialogs: boolean;
+    showCheckDialogs: boolean;
     substitutions: RollSubstitutionDialogData[];
     fortune: boolean;
     none: boolean;

@@ -374,7 +374,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
                     const { rollMode, skipDialog } = args;
-                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event));
+                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
                 }
             }
 

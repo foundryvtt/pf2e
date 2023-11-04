@@ -532,7 +532,7 @@ abstract class CreaturePF2e<
             label: "PF2E.Check.Specific.Recovery",
             check: { type: "flat-check" },
         }).roll({
-            ...eventToRollParams(event),
+            ...eventToRollParams(event, { type: "check" }),
             dc,
             extraRollNotes: notes,
         });

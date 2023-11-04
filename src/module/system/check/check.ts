@@ -57,8 +57,8 @@ class CheckPF2e {
     ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
-        if (event) mergeObject(context, eventToRollParams(event));
-        context.skipDialog ??= !game.user.settings.showRollDialogs;
+        if (event) mergeObject(context, eventToRollParams(event, { type: "check" }));
+        context.skipDialog ??= !game.user.settings.showCheckDialogs;
         context.createMessage ??= true;
 
         // System code must pass a set, but macros and modules may instead pass an array
