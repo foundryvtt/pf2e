@@ -133,7 +133,7 @@ async function treat(
 
     skill.check.roll({
         dc,
-        ...eventToRollParams("Check", event),
+        ...eventToRollParams({ type: "check" }, event),
         extraRollOptions: rollOptions,
         callback: async (_roll, outcome, message) => {
             const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";

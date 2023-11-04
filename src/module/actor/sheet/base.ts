@@ -340,14 +340,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
                 }
 
-                this.actor.saves?.[saveType]?.check.roll(eventToRollParams("Check", event));
+                this.actor.saves?.[saveType]?.check.roll(eventToRollParams({ type: "check" }, event));
             });
         }
 
         const rollInitElem = htmlQuery(html, "a[data-action=roll-initiative]");
         rollInitElem?.addEventListener("click", (event): void => {
             if (!rollInitElem.classList.contains("disabled") && this.actor.initiative) {
-                this.actor.initiative.roll(eventToRollParams("Check", event));
+                this.actor.initiative.roll(eventToRollParams({ type: "check" }, event));
             }
         });
 

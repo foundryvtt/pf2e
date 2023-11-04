@@ -996,7 +996,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const spellcastingCollectionEl of htmlQueryAll(html, ".spellcasting-entry[data-item-id]")) {
             const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
             htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {
-                entry?.statistic?.check.roll(eventToRollParams("Check", event));
+                entry?.statistic?.check.roll(eventToRollParams({ type: "check" }, event));
             });
         }
 

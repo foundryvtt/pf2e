@@ -9,8 +9,8 @@ function isRelevantEvent(
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }
 
-function eventToRollParams(rollType: string, event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
-    const key = `show${rollType}Dialogs`;
+function eventToRollParams(rollType: { type: string }, event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
+    const key = `show${rollType.type[0].toUpperCase()}${rollType.type.slice(1)}Dialogs`;
     const skipDefault = !game.user.settings[key as keyof UserSettingsPF2e];
     if (!isRelevantEvent(event)) return { skipDialog: skipDefault };
 
