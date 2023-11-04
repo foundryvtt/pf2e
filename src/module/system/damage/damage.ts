@@ -219,7 +219,7 @@ export class DamagePF2e {
             secret: context.secret ?? false,
             rollMode,
             traits: context.traits ?? [],
-            skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
+            skipDialog: context.skipDialog ?? !game.user.settings.showDamageDialogs,
             outcome,
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };

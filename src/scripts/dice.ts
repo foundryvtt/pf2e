@@ -59,7 +59,7 @@ class DicePF2e {
         rollType?: string;
     }): Promise<unknown> {
         // Inner roll function
-        const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
+        const userSettingQuickD20Roll = !game.user.settings.showCheckDialogs;
         const _roll = async (
             rollParts: (string | string[] | number)[],
             adv: number,
