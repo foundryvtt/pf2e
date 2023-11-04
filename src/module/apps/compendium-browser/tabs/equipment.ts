@@ -122,7 +122,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         group: itemData.system.group ?? "",
                         price: priceCoins,
                         priceInCopper: coinValue,
-                        traits: itemData.system.traits.value,
+                        traits: itemData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: itemData.system.traits.rarity,
                         source: sourceSlug,
                     });

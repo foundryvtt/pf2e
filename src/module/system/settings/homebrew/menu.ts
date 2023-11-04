@@ -11,6 +11,7 @@ import {
     PHYSICAL_DAMAGE_TYPES,
 } from "@system/damage/values.ts";
 import {
+    ErrorPF2e,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -34,7 +35,13 @@ import {
     HomebrewTraitSettingsKey,
     SECONDARY_TRAIT_RECORDS,
 } from "./data.ts";
-import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers.ts";
+import {
+    ReservedTermsRecord,
+    isHomebrewCustomDamage,
+    isHomebrewFlagCategory,
+    prepareCleanup,
+    prepareReservedTerms,
+} from "./helpers.ts";
 
 import "@yaireo/tagify/src/tagify.scss";
 
@@ -45,6 +52,12 @@ class HomebrewElements extends SettingsMenuPF2e {
     #initialRefresh = true;
 
     #damageManager = new DamageTypeManager();
+
+    static #reservedTerms: ReservedTermsRecord | null = null;
+
+    static get reservedTerms(): ReservedTermsRecord {
+        return (this.#reservedTerms ??= prepareReservedTerms());
+    }
 
     static override get SETTINGS(): string[] {
         return Object.keys(this.settings);
@@ -81,31 +94,44 @@ class HomebrewElements extends SettingsMenuPF2e {
         };
     }
 
-    override activateListeners($form: JQuery<HTMLFormElement>): void {
-        super.activateListeners($form);
-        const html = $form[0];
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        const html = $html[0];
 
-        $form.find("button[name=reset]").on("click", () => {
+        htmlQuery(html, "button[type=reset]")?.addEventListener("click", () => {
             this.render();
         });
 
         // Handle all changes for traits
         for (const key of HOMEBREW_TRAIT_KEYS) {
-            const $input = $form.find<HTMLInputElement>(`input[name="${key}"]`);
-            new Tagify($input[0], {
+            const reservedTerms = HomebrewElements.reservedTerms[key];
+            const input = htmlQuery<HTMLInputElement>(html, `input[name="${key}"]`);
+            if (!input) throw ErrorPF2e("Unexpected error preparing form");
+            const localize = localizer("PF2E.SETTINGS.Homebrew");
+
+            new Tagify(input, {
                 editTags: 1,
                 hooks: {
                     beforeRemoveTag: (tags): Promise<void> => {
-                        const localize = localizer("PF2E.SETTINGS.Homebrew.ConfirmDelete");
+                        if (tags.some((t) => reservedTerms.has(sluggify(t.data.value)))) {
+                            return Promise.resolve();
+                        }
+
                         const response: Promise<unknown> = (async () => {
-                            const content = localize("Message", { element: tags[0].data.value });
+                            const content = localize("ConfirmDelete.Message", { element: tags[0].data.value });
                             return await Dialog.confirm({
-                                title: localize("Title"),
+                                title: localize("ConfirmDelete.Title"),
                                 content: `<p>${content}</p>`,
                             });
                         })();
                         return (async () => ((await response) ? Promise.resolve() : Promise.reject()))();
                     },
+                },
+                validate: (data) => !reservedTerms.has(sluggify(data.value)),
+                transformTag: (data) => {
+                    if (reservedTerms.has(sluggify(data.value))) {
+                        ui.notifications.error(localize("ReservedTerm", { term: data.value }));
+                    }
                 },
             });
         }
@@ -136,7 +162,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             damageCategories,
             customDamageTypes: (this.cache.damageTypes ?? []).map((customType) => ({
                 ...customType,
-                slug: `hb_${sluggify(customType.label)}`,
+                slug: sluggify(customType.label),
             })),
         };
     }
@@ -146,11 +172,33 @@ class HomebrewElements extends SettingsMenuPF2e {
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown> | false> {
-        this.form.querySelectorAll<HTMLInputElement>("tags ~ input").forEach((input) => {
+        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") {
                 input.value = "[]";
             }
-        });
+            if (!("__tagify" in input) || !(input.__tagify instanceof Tagify)) {
+                continue;
+            }
+            const elements: { value: string }[] = JSON.parse(input.value);
+            for (const element of elements) {
+                input.setCustomValidity(
+                    game.i18n.format("PF2E.SETTINGs.Homebrew.ReservedTerm", { term: element.value }),
+                );
+                return false;
+            }
+        }
+
+        if (!this.form.reportValidity()) return false;
+
+        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "input[name^=damageTypes]")) {
+            if (
+                /^damageTypes\.\d+\.label$/.test(input.name) &&
+                HomebrewElements.reservedTerms.damageTypes.has(sluggify(input.value))
+            ) {
+                input.setCustomValidity(game.i18n.format("PF2E.SETTINGs.Homebrew.ReservedTerm", { term: input.value }));
+                return false;
+            }
+        }
 
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
@@ -172,7 +220,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     protected override async _updateObject(event: Event, data: Record<HomebrewTraitKey, HomebrewTag[]>): Promise<void> {
         for (const key of HOMEBREW_TRAIT_KEYS) {
             for (const tag of data[key]) {
-                tag.id ??= `hb_${sluggify(tag.value)}` as string as HomebrewTag<typeof key>["id"];
+                tag.id ??= sluggify(tag.value) as HomebrewTag<typeof key>["id"];
             }
         }
 
@@ -220,6 +268,8 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
     #refreshSettings(): void {
+        const reservedTerms = HomebrewElements.reservedTerms;
+
         // Perform any cleanup for being the initial refresh
         if (!this.#initialRefresh) {
             this.#damageManager.deleteAllHomebrew();
@@ -229,32 +279,16 @@ class HomebrewElements extends SettingsMenuPF2e {
         for (const listKey of HOMEBREW_TRAIT_KEYS) {
             const settingsKey: HomebrewTraitSettingsKey = `homebrew.${listKey}` as const;
             const elements = game.settings.get("pf2e", settingsKey);
-            this.#updateConfigRecords(elements, listKey);
+            const validElements = elements.filter((e) => !reservedTerms[listKey].has(e.id));
+            this.#updateConfigRecords(validElements, listKey);
         }
 
         // Add custom damage from settings
-        const customTypes = game.settings.get("pf2e", "homebrew.damageTypes");
+        const customTypes = game.settings
+            .get("pf2e", "homebrew.damageTypes")
+            .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
         for (const data of customTypes) {
             this.#damageManager.addCustomDamage(data);
-        }
-
-        // Add custom damage from modules. Do this every time to ensure data integrity (in case of conflicts)
-        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
-        for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
-            if (!isObject<Record<string, unknown>>(homebrew)) continue;
-
-            if ("damageTypes" in homebrew) {
-                const elements = homebrew.damageTypes;
-                if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
-                    console.warn(`PF2E System | Homebrew record damageTypes is malformed in module ${key}`);
-                    continue;
-                }
-
-                for (const [slug, value] of Object.entries(elements)) {
-                    this.#damageManager.addCustomDamage(value, { slug });
-                }
-            }
         }
 
         // Refresh any open sheets to show the new settings
@@ -272,38 +306,58 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
+        const reservedTerms = HomebrewElements.reservedTerms;
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
             if (!R.isObject(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
-                // some are handled elsewhere
-                if (["damageTypes"].includes(recordKey)) continue;
-
                 if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     const elements = homebrew[recordKey];
                     if (!isObject(elements) || !isHomebrewFlagCategory(elements)) {
-                        console.warn(`PF2E System | Homebrew record ${recordKey} is malformed in module ${key}`);
+                        console.warn(ErrorPF2e(`Homebrew record ${recordKey} is malformed in module ${key}`).message);
                         continue;
                     }
 
+                    const elementEntries = Object.entries(elements);
+
                     // A registered tag can be a string label or an object containing a label and description
-                    const tags = Object.entries(elements).map(([id, value]) => ({
-                        id: `hb_${id}`,
+                    const tags = elementEntries.map(([id, value]) => ({
+                        id,
                         value: typeof value === "string" ? value : value.label,
-                    })) as unknown as HomebrewTag[];
+                    })) as HomebrewTag[];
                     this.#updateConfigRecords(tags, recordKey);
 
                     // Register descriptions if present
-                    for (const [key, value] of Object.entries(elements)) {
+                    for (const [key, value] of elementEntries) {
                         if (typeof value === "object") {
-                            const hbKey = `hb_${key}` as unknown as keyof ConfigPF2e["PF2E"]["traitsDescriptions"];
+                            const hbKey = key as keyof typeof CONFIG.PF2E.traitsDescriptions;
                             CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
                         }
                     }
+                } else if (recordKey === "damageTypes") {
+                    const elements = homebrew.damageTypes;
+                    if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
+                        console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
+                        continue;
+                    }
+
+                    for (const [slug, data] of Object.entries(elements)) {
+                        if (!reservedTerms.damageTypes.has(slug)) {
+                            this.#damageManager.addCustomDamage(data, { slug });
+                        } else {
+                            console.warn(
+                                ErrorPF2e(
+                                    `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
+                                ).message,
+                            );
+                            continue;
+                        }
+                    }
                 } else {
-                    console.warn(`PF2E System | Invalid homebrew record "${recordKey}" in module ${key}`);
+                    console.warn(ErrorPF2e(`Invalid homebrew record "${recordKey}" in module ${key}`).message);
                     continue;
                 }
             }
@@ -348,23 +402,23 @@ class DamageTypeManager {
         resistanceTypes: resistanceTypes as Record<string, string>,
     };
 
-    addCustomDamage(data: CustomDamageData, options: { slug?: string } = {}) {
+    addCustomDamage(data: CustomDamageData, options: { slug?: string } = {}): void {
         const collections = this.collections;
-        const slug = `hb_${options.slug ?? sluggify(data.label)}` as DamageType;
+        const slug = (options.slug ?? sluggify(data.label)) as DamageType;
         collections.DAMAGE_TYPES.add(slug);
         collections[tupleHasValue(["physical", "energy"], data.category) ? data.category : "physical"].push(slug);
         collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category;
         collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
         collections.damageTypesLocalization[slug] = data.label;
 
-        const damageFlavor = data.label.toLocaleLowerCase();
+        const damageFlavor = data.label.toLocaleLowerCase(game.i18n.lang);
         collections.damageRollFlavorsLocalization[slug] = damageFlavor;
         collections.immunityTypes[slug] = damageFlavor;
         collections.weaknessTypes[slug] = damageFlavor;
         collections.resistanceTypes[slug] = damageFlavor;
     }
 
-    deleteAllHomebrew() {
+    deleteAllHomebrew(): void {
         for (const collection of Object.values(this.collections)) {
             if (collection instanceof Set) {
                 const hbTraits = [...collection].filter((tag) => tag.startsWith("hb_"));

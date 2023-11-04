@@ -103,7 +103,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         time: spellData.system.time,
                         category: spellData.system.category.value,
                         traditions: spellData.system.traditions.value,
-                        traits: spellData.system.traits.value,
+                        traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: spellData.system.traits.rarity,
                         source: sourceSlug,
                     });

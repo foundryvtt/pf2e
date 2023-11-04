@@ -1,4 +1,4 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
+<form autocomplete="off" spellcheck="false">
     <p class="notes">{{localize "PF2E.SETTINGS.Homebrew.Instructions"}}</p>
     <nav class="sheet-tabs tabs">
         <a class="item" data-tab="traits">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Traits"}}</a>
@@ -30,7 +30,9 @@
                 </tr>
                 {{#each customDamageTypes as |type idx|}}
                     <tr>
-                        <td><input name="damageTypes.{{idx}}.label" type="text" value="{{type.label}}"/></td>
+                        <td>
+                            <input name="damageTypes.{{idx}}.label" type="text" required minlength="3" value="{{type.label}}" />
+                        </td>
                         <td>{{type.slug}}</td>
                         <td>
                             <select name="damageTypes.{{idx}}.category">
@@ -43,24 +45,24 @@
                         </td>
                         <td>
                             <div class="icon-preview">
-                                <input name="damageTypes.{{idx}}.icon" type="text" value="{{type.icon}}"/>
-                                <i class="fas fa-fw {{type.icon}}"></i>
+                                <input name="damageTypes.{{idx}}.icon" type="text" value="{{type.icon}}" />
+                                <i class="fa-solid fa-fw {{type.icon}}"></i>
                             </div>
                         </td>
-                        <td class="delete-cell"><i class="fas fa-times" data-action="damage-delete" data-idx="{{idx}}"></i></td>
+                        <td class="delete-cell"><i class="fa-solid fa-times" data-action="damage-delete" data-idx="{{idx}}"></i></td>
                     </tr>
                 {{/each}}
             </table>
         {{/if}}
-        <button type="button" data-action="damage-add"><i class="far fa-plus"></i>Add Damage Type</button>
+        <button type="button" data-action="damage-add"><i class="fa-regular fa-plus"></i>Add Damage Type</button>
     </section>
 
     <div class="form-group buttons">
         <button type="submit">
-            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+            <i class="fa-regular fa-save"></i> {{localize "SETTINGS.Save"}}
         </button>
         <button type="reset" name="reset">
-            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+            <i class="fa-solid fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
         </button>
     </div>
 </form>

@@ -1159,10 +1159,6 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Homebrew.Languages.Name",
                 hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
             },
-            magicSchools: {
-                name: "PF2E.SETTINGS.Homebrew.MagicSchools.Name",
-                hint: "PF2E.SETTINGS.Homebrew.MagicSchools.Hint",
-            },
             spellTraits: {
                 name: "PF2E.SETTINGS.Homebrew.SpellTraits.Name",
                 hint: "PF2E.SETTINGS.Homebrew.SpellTraits.Hint",
