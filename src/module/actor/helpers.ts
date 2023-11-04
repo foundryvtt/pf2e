@@ -568,7 +568,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 outcome,
                 options: context.options,
                 domains,
-                ...eventToRollParams(params.event),
+                ...eventToRollParams("Damage", params.event),
             };
 
             // Include MAP increases in case any ability depends on it

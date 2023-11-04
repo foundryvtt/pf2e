@@ -171,7 +171,7 @@ class TextEditorPF2e extends TextEditor {
             const domains = anchor.dataset.pf2Domains?.split(",");
             const extraRollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const result = await augmentInlineDamageRoll(baseFormula, {
-                ...eventToRollParams(event),
+                ...eventToRollParams("Damage", event),
                 actor,
                 item,
                 domains,

@@ -235,7 +235,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const control = event.currentTarget.dataset.control;
         if ((control === "rollNPC" || control === "rollAll") && this.viewed) {
             event.stopPropagation();
-            const args = eventToRollParams(event);
+            const args = eventToRollParams("Check", event);
             await this.viewed[control]({ ...args, messageOptions: { rollMode: args.rollMode } });
         } else {
             await super._onCombatControl(event);
@@ -255,7 +255,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         switch (control) {
             case "rollInitiative": {
-                await this.viewed.rollInitiative([combatant.id], eventToRollParams(event));
+                await this.viewed.rollInitiative([combatant.id], eventToRollParams("Check", event));
                 break;
             }
             case "toggleTarget": {

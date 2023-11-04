@@ -316,7 +316,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             rollLink.addEventListener("click", (event) => {
                 const rollMode = rollLink.dataset.secret ? (game.user.isGM ? "gmroll" : "blindroll") : undefined;
                 const statistic = actor.getStatistic(rollLink.dataset.statistic ?? "");
-                statistic?.roll({ ...eventToRollParams(event), rollMode });
+                statistic?.roll({ ...eventToRollParams("Check", event), rollMode });
             });
         }
 

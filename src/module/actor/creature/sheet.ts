@@ -212,7 +212,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
             const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
             const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-            const rollParams = eventToRollParams(event);
+            const rollParams = eventToRollParams("Check", event);
             this.actor.skills[key]?.check.roll(rollParams);
         });
 
@@ -220,7 +220,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         for (const element of htmlQueryAll(html, "a[data-action=perception-check]")) {
             element.addEventListener("click", (event) => {
                 const extraRollOptions = element.dataset.secret ? ["secret"] : [];
-                this.actor.perception.roll({ ...eventToRollParams(event), extraRollOptions });
+                this.actor.perception.roll({ ...eventToRollParams("Check", event), extraRollOptions });
             });
         }
 

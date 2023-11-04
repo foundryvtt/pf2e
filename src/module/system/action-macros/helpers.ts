@@ -178,7 +178,7 @@ export class ActionMacroHelpers {
                 if (statistic instanceof Statistic) {
                     const dc = this.#resolveCheckDC({ unresolvedDC: options.difficultyClass });
                     await statistic.roll({
-                        ...eventToRollParams(options.event),
+                        ...eventToRollParams("Check", options.event),
                         token: selfToken,
                         label,
                         title,

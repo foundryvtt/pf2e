@@ -1649,7 +1649,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     outcome,
                     options,
                     domains,
-                    ...eventToRollParams(params.event),
+                    ...eventToRollParams("Damage", params.event),
                 };
 
                 // Include MAP increases in case any ability depends on it

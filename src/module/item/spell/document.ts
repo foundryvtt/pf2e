@@ -845,7 +845,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     ): Promise<void> {
         const statistic = this.spellcasting?.statistic;
         if (statistic) {
-            await statistic.check.roll({ ...eventToRollParams(event), ...context, item: this, attackNumber });
+            await statistic.check.roll({ ...eventToRollParams("Check", event), ...context, item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
@@ -867,7 +867,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const targetToken =
             Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
-        const spellDamage = await this.getDamage({ target: targetToken?.actor, ...eventToRollParams(event) });
+        const spellDamage = await this.getDamage({ target: targetToken?.actor, ...eventToRollParams("Damage", event) });
         if (!spellDamage) return null;
 
         const { template, context } = spellDamage;
@@ -925,7 +925,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { check } = statistic.extend({ domains: [domain], rollOptions: traits });
 
         return check.roll({
-            ...eventToRollParams(event),
+            ...eventToRollParams("Check", event),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
             extraRollNotes: notes,
             traits,

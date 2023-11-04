@@ -75,11 +75,11 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const html = $html[0];
 
         htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
-            this.actor.perception.roll(eventToRollParams(event));
+            this.actor.perception.roll(eventToRollParams("Check", event));
         });
 
         htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
-            this.actor.attackStatistic.roll(eventToRollParams(event));
+            this.actor.attackStatistic.roll(eventToRollParams("Check", event));
         });
     }
 }

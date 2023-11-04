@@ -117,7 +117,7 @@ export const InlineRollLinks = {
                     ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
                     ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
                 ];
-                const eventRollParams = eventToRollParams(event);
+                const eventRollParams = eventToRollParams("Check", event);
 
                 switch (pf2Check) {
                     case "flat": {

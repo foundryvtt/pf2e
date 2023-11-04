@@ -348,7 +348,7 @@ class ElementalBlast {
             damaging: true,
             dc: { slug: "ac" },
             extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
-            ...eventToRollParams(params.event),
+            ...eventToRollParams("Check", params.event),
         });
     }
 
@@ -425,7 +425,7 @@ class ElementalBlast {
             outcome,
             options: context.options,
             domains,
-            ...eventToRollParams(params.event),
+            ...eventToRollParams("Damage", params.event),
         };
 
         if (!params.getFormula && !damageContext.skipDialog) {
