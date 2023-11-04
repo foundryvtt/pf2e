@@ -1,5 +1,3 @@
-import { UserSettingsPF2e } from "@module/user/document.ts";
-
 /** Returns statistic dialog roll parameters based on held keys */
 type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
 
@@ -9,9 +7,12 @@ function isRelevantEvent(
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
 }
 
-function eventToRollParams(rollType: { type: string }, event?: JQuery.TriggeredEvent | Event | null): ParamsFromEvent {
-    const key = `show${rollType.type[0].toUpperCase()}${rollType.type.slice(1)}Dialogs`;
-    const skipDefault = !game.user.settings[key as keyof UserSettingsPF2e];
+function eventToRollParams(
+    event: JQuery.TriggeredEvent | Event | null | undefined,
+    rollType: { type: string },
+): ParamsFromEvent {
+    const key = rollType.type === "check" ? "showCheckDialogs" : "showDamageDialogs";
+    const skipDefault = !game.user.settings[key];
     if (!isRelevantEvent(event)) return { skipDialog: skipDefault };
 
     const params: ParamsFromEvent = { skipDialog: event.shiftKey ? !skipDefault : skipDefault };
