@@ -8,7 +8,7 @@ function isRelevantEvent(
 }
 
 function eventToRollParams(
-    event: JQuery.TriggeredEvent | Event | null | undefined,
+    event: Maybe<JQuery.TriggeredEvent | Event>,
     rollType: { type: "check" | "damage" },
 ): ParamsFromEvent {
     const key = rollType.type === "check" ? "showCheckDialogs" : "showDamageDialogs";
