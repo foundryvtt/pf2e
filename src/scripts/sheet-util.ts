@@ -9,7 +9,7 @@ function isRelevantEvent(
 
 function eventToRollParams(
     event: JQuery.TriggeredEvent | Event | null | undefined,
-    rollType: { type: string },
+    rollType: { type: "check" | "damage" },
 ): ParamsFromEvent {
     const key = rollType.type === "check" ? "showCheckDialogs" : "showDamageDialogs";
     const skipDefault = !game.user.settings[key];
