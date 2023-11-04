@@ -1282,19 +1282,39 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : null;
         })();
 
+        const nonlethal = ((): string | null => {
+            if (hpUpdate.totalApplied === 0 || hpUpdate.totalApplied < hitPoints.value) {
+                return null;
+            }
+            if (
+                !instantDeath &&
+                rollOptions.has("item:trait:nonlethal") &&
+                !this.attributes.immunities.some((i) => i.type === "unconscious") &&
+                !this.hasCondition("unconscious")
+            ) {
+                return localize("Nonlethal");
+            } else {
+                return null;
+            }
+        })();
+
         if (hpDamage !== 0) {
             const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
             const setting = game.settings.get("pf2e", "automation.actorsDeadAtZero");
             const deadAtZero =
                 (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
-                (this.isOfType("character") && setting === "both" && !!instantDeath);
+                (this.isOfType("character") && setting === "both" && (!!instantDeath || !!nonlethal));
 
             if (
                 updated.isDead &&
                 deadAtZero &&
                 ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated))
             ) {
-                token.combatant?.toggleDefeated();
+                if (nonlethal) {
+                    await this.toggleCondition("unconscious");
+                } else {
+                    token.combatant?.toggleDefeated();
+                }
             }
         }
 
