@@ -334,7 +334,7 @@ class ChatCards {
                 if (!save) return;
 
                 save.check.roll({
-                    ...eventToRollParams({ type: "check" }, event),
+                    ...eventToRollParams(event, { type: "check" }),
                     dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
                     item,
                     origin: actor,

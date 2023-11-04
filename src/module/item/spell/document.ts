@@ -846,7 +846,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const statistic = this.spellcasting?.statistic;
         if (statistic) {
             await statistic.check.roll({
-                ...eventToRollParams({ type: "check" }, event),
+                ...eventToRollParams(event, { type: "check" }),
                 ...context,
                 item: this,
                 attackNumber,
@@ -874,7 +874,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
         const spellDamage = await this.getDamage({
             target: targetToken?.actor,
-            ...eventToRollParams({ type: "damage" }, event),
+            ...eventToRollParams(event, { type: "damage" }),
         });
         if (!spellDamage) return null;
 
@@ -933,7 +933,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { check } = statistic.extend({ domains: [domain], rollOptions: traits });
 
         return check.roll({
-            ...eventToRollParams({ type: "check" }, event),
+            ...eventToRollParams(event, { type: "check" }),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
             extraRollNotes: notes,
             traits,

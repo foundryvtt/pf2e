@@ -178,11 +178,11 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
 
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
         const { attribute, save, skill } = link?.parentElement?.dataset ?? {};
-        const rollParams = eventToRollParams({ type: "check" }, event);
+        const rollParams = eventToRollParams(event, { type: "check" });
 
         if (attribute) {
             if (attribute === "perception") {
-                await this.actor.perception.roll(eventToRollParams({ type: "check" }, event));
+                await this.actor.perception.roll(eventToRollParams(event, { type: "check" }));
             } else if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                 this.#rollAbility(event, attribute);
             }

@@ -310,7 +310,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             rollableStat.addEventListener("click", (event) => {
                 const statistic = this.actor.getStatistic(statSlug);
-                statistic?.roll(eventToRollParams({ type: "check" }, event));
+                statistic?.roll(eventToRollParams(event, { type: "check" }));
             });
         }
 
