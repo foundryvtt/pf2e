@@ -94,6 +94,9 @@ function applyDamageDiceOverrides(
             if (!adjustment.override) continue;
 
             base.damageType = adjustment.override.damageType ?? base.damageType;
+            for (const die of dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
+                die.damageType = adjustment.override.damageType ?? die.damageType;
+            }
 
             if (die) {
                 die.dice.number = adjustment.override.diceNumber ?? die.dice.number;

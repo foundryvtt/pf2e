@@ -356,8 +356,7 @@ class WeaponDamagePF2e {
             );
         }
 
-        // Fatal trait. Lack of a damage type assigns it to the first base instance
-        // If later we have assign a damage type to the additional damage, split override into a separate object
+        // Fatal trait
         for (const trait of weaponTraits.filter((t) => t.startsWith("fatal-d"))) {
             const dieSize = trait.substring(trait.indexOf("-") + 1) as DamageDieSize;
             damageDice.push(
@@ -365,6 +364,7 @@ class WeaponDamagePF2e {
                     selector: `${weapon.id}-damage`,
                     slug: trait,
                     label: traitLabels[trait],
+                    damageType: baseDamage.damageType,
                     diceNumber: 1,
                     dieSize,
                     critical: true,
