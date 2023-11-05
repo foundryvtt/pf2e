@@ -354,11 +354,17 @@ class CompendiumPack {
                 }
             } else if (tupleHasValue(["EphemeralEffect", "GrantItem"], rule.key) && typeof rule.uuid === "string") {
                 rule.uuid = this.convertUUID(rule.uuid, convertOptions);
-            } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
-                for (const [key, choice] of Object.entries(rule.choices)) {
-                    rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
+            } else if (rule.key === "ChoiceSet") {
+                if (hasUUIDChoices(rule.choices)) {
+                    for (const [key, choice] of Object.entries(rule.choices)) {
+                        rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
+                    }
                 }
-                if ("selection" in rule && typeof rule.selection === "string") {
+                if (
+                    "selection" in rule &&
+                    typeof rule.selection === "string" &&
+                    rule.selection.startsWith("Compendium.pf2e.")
+                ) {
                     rule.selection = this.convertUUID(rule.selection, convertOptions);
                 }
             }
