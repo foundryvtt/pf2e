@@ -33,17 +33,34 @@
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "agile",
-                            "finesse",
-                            "ranged",
-                            "feat:takedown-expert"
-                        ]
-                    },
-                    {
-                        "not": "devise-a-stratagem"
-                    }
+                    [
+                        "class:investigator",
+                        {
+                            "not": "check:substitution:devise-a-stratagem"
+                        },
+                        {
+                            "or": [
+                                "item:trait:agile",
+                                "item:trait:finesse",
+                                {
+                                    "and": [
+                                        "item:ranged",
+                                        {
+                                            "not": "item:thrown-melee"
+                                        }
+                                    ]
+                                },
+                                "item:base:sap",
+                                {
+                                    "and": [
+                                        "feat:takedown-expert",
+                                        "item:group:club",
+                                        "item:hands-held:1"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 ],
                 "selector": "strike-damage",
                 "value": {
