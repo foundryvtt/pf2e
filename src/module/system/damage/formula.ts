@@ -32,7 +32,11 @@ function createDamageFormula(
     damage: DamageFormulaData,
     degree: DegreeOfSuccessIndex = DEGREE_OF_SUCCESS.SUCCESS,
 ): AssembledFormula | null {
-    damage = deepClone(damage);
+    damage = {
+        ...deepClone(R.omit(damage, ["dice", "modifiers"])),
+        modifiers: damage.modifiers.map((m) => m.clone()),
+        dice: damage.dice.map((d) => d.clone()),
+    };
 
     // Handle critical failure not dealing damage, and splash still applying on a failure
     // These are still couched on weapon/melee assumptions. They'll need to be adjusted later
