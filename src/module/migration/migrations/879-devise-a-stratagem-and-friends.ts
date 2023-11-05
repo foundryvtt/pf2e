@@ -56,6 +56,39 @@ export class Migration879DeviseAStratagemAndFriends extends MigrationBase {
                 type: "ability",
             };
             source.system.rules = [rule];
+        } else if (source.type === "feat" && source.system.slug === "ongoing-strategy") {
+            const rule = {
+                damageCategory: "precision",
+                key: "FlatModifier",
+                predicate: [
+                    [
+                        "class:investigator",
+                        { not: "check:substitution:devise-a-stratagem" },
+                        {
+                            or: [
+                                "item:trait:agile",
+                                "item:trait:finesse",
+                                {
+                                    and: ["item:ranged", { not: "item:thrown-melee" }],
+                                },
+                                "item:base:sap",
+                                { and: ["feat:takedown-expert", "item:group:club", "item:hands-held:1"] },
+                            ],
+                        },
+                    ],
+                ],
+                selector: "strike-damage",
+                value: {
+                    brackets: [
+                        { end: 4, value: 1 },
+                        { end: 8, start: 5, value: 2 },
+                        { end: 12, start: 9, value: 3 },
+                        { end: 16, start: 13, value: 4 },
+                        { start: 17, value: 5 },
+                    ],
+                },
+            };
+            source.system.rules = [rule];
         } else if (source.type === "feat" && source.system.slug === "shared-stratagem") {
             const rule = {
                 key: "Note",
