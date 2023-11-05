@@ -36,7 +36,10 @@ class WeaponDamagePF2e {
         actionTraits = [],
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
+        const { baseDamage } = attack;
+        const secondaryInstances = Object.values(attack.system.damageRolls)
+            .map(this.npcDamageToWeaponDamage)
+            .filter((d) => !R.equals(d, baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];

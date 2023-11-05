@@ -74,7 +74,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** The first of this attack's damage instances */
     get baseDamage(): ConvertedNPCDamage {
-        const instance = Object.values(this.system.damageRolls).shift();
+        const partials = Object.values(this.system.damageRolls);
+        const instance = partials.find((p) => !p.category) ?? partials.at(0);
         if (!instance) {
             return {
                 dice: 0,
