@@ -334,8 +334,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Whether this actor is immune to an effect of a certain type */
     isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
+        if (!game.settings.get("pf2e", "automation.iwr")) return false;
+
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
         const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
+
         return this.attributes.immunities.some((i) => i.test(statements));
     }
 
