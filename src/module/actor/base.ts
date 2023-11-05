@@ -1719,14 +1719,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionSlug | ConditionPF2e<this>,
-        {
-            min,
-            max = Number.MAX_SAFE_INTEGER,
-            value,
-        }: { min?: number | null; max?: number | null; value?: number | null } = {},
+        { max = Number.MAX_SAFE_INTEGER, value }: { max?: number; value?: number | null } = {},
     ): Promise<ConditionPF2e<this> | null> {
-        if (value) min = max = value;
-
         // Persistent damage goes through a dialog instead
         if (conditionSlug === "persistent-damage") {
             await new PersistentDialog(this).render(true);
@@ -1738,7 +1732,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const existing = (() => {
             if (typeof conditionSlug !== "string") return conditionSlug;
 
-            const conditions = this.conditions.stored;
+            const conditions = this.itemTypes.condition;
             return value
                 ? conditions.find((c) => c.slug === conditionSlug && !c.isLocked)
                 : conditions.find((c) => c.slug === conditionSlug && c.active);
@@ -1748,27 +1742,24 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const newValue = (() => {
                 const currentValue = existing._source.system.value.value;
                 if (currentValue === null) return null;
-                if (min && max && min > max) throw ErrorPF2e(`min (${min}) > max (${max})`);
-                return min && max
-                    ? Math.clamped(currentValue + 1, min, max)
-                    : max
-                    ? Math.min(currentValue + 1, max)
-                    : currentValue + 1;
+                const addend = value ?? 1;
+                return Math.clamped(currentValue + addend, 1, max);
             })();
-            if (newValue === null || newValue > (max ?? 0)) return null;
+            if (!newValue) return null;
             await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, newValue);
             return existing;
         } else if (typeof conditionSlug === "string") {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
-                typeof conditionSource?.system.value.value === "number" && min && max
-                    ? Math.clamped(conditionSource.system.value.value, min, max)
+                typeof conditionSource.system.value.value === "number" && max
+                    ? Math.clamped(conditionSource.system.value.value, value ?? 1, max)
                     : null;
             conditionSource.system.value.value = conditionValue;
             const items = (await this.createEmbeddedDocuments("Item", [conditionSource])) as ConditionPF2e<this>[];
 
             return items.shift() ?? null;
         }
+
         return null;
     }
 
