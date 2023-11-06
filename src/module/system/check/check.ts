@@ -322,10 +322,13 @@ class CheckPF2e {
 
         const { item } = context;
         const itemTraits =
-            item?.isOfType("weapon", "melee") && context.type !== "saving-throw"
+            item?.isOfType("weapon", "melee", "spell") && context.type !== "saving-throw"
                 ? Array.from(item.traits)
                       .map((t): TraitViewData => {
-                          const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                          const dictionary = item.isOfType("spell")
+                              ? CONFIG.PF2E.spellTraits
+                              : CONFIG.PF2E.npcAttackTraits;
+                          const obj = traitSlugToObject(t, dictionary);
                           obj.label = game.i18n.localize(obj.label);
                           return obj;
                       })

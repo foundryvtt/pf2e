@@ -931,7 +931,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
             // 3. Get the item directly from the context clone
             const itemClone = selfActor.items.get(params.item?.id ?? "");
-            if (itemClone?.isOfType("melee", "spell", "weapon")) return itemClone;
+            if (itemClone?.isOfType("melee", "weapon")) return itemClone;
 
             // 4 Give up :(
             return params.item ?? null;
