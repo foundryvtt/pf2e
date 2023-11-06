@@ -62,10 +62,10 @@
                             <button type="button" data-action="spell-counteract" data-visibility="owner">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
                     {{/if}}
-                    {{#if data.area.type}}
+                    {{#if data.area}}
                         <div class="spell-button">
                             <button type="button" data-action="spell-template" data-visibility="owner">
-                                {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" shape=data.areaType size=data.areaSize unit=data.areaUnit}}
+                                {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=data.area.label}}
                             </button>
                             <button class="small hidden" type="button" data-action="spell-template-clear" data-visibility="owner" data-tooltip="{{localize "PF2E.Item.Spell.MeasuredTemplate.Clear"}}">
                                 <i class="fa-solid fa-fw fa-trash"></i>

@@ -47,7 +47,14 @@ import {
     traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
-import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
+import {
+    SpellArea,
+    SpellHeightenLayer,
+    SpellOverlayType,
+    SpellSource,
+    SpellSystemData,
+    SpellSystemSource,
+} from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 import { MAGIC_SCHOOLS } from "./values.ts";
@@ -198,6 +205,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get hasVariants(): boolean {
         return this.overlays.size > 0;
+    }
+
+    get area(): (SpellArea & { label: string }) | null {
+        if (!this.system.area) return null;
+
+        const size = Number(this.system.area.value);
+        const unit = game.i18n.localize("PF2E.Foot");
+        const shape = game.i18n.localize(CONFIG.PF2E.areaTypes[this.system.area.type]);
+        const label = game.i18n.format("PF2E.Item.Spell.Area", { size, unit, shape });
+        return { ...this.system.area, label };
     }
 
     /** Dummy getter for interface alignment with weapons and actions */
@@ -769,18 +786,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 : "PF2E.Damage.Kind.Damage.Roll.Verb"
             : "PF2E.Damage.Kind.Healing.Roll.Verb";
 
-        const [areaSize, areaType, areaUnit] = systemData.area
-            ? [
-                  Number(systemData.area.value),
-                  game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.type]),
-                  game.i18n.localize("PF2E.Foot"),
-              ]
-            : [null, null, null];
-        const area =
-            areaSize && areaType && areaUnit
-                ? game.i18n.format("PF2E.SpellArea", { areaSize, areaUnit, areaType }).trim()
-                : null;
-
         const { baseRank } = this;
         const heightened = castLevel - baseRank;
         const rankLabel = (() => {
@@ -791,16 +796,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         })();
 
         // Combine properties
-        const properties: string[] = [
+        const area = this.area;
+        const properties = R.compact([
             heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinal(baseRank) }) : null,
             heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
             this.isRitual ? null : `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
             systemData.range.value ? `${localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize("PF2E.SpellTargetLabel")}: ${systemData.target.value}` : null,
-            area,
+            area ? game.i18n.format("PF2E.SpellArea", { area: area.label }) : null,
             systemData.time.value ? `${localize("PF2E.SpellTimeLabel")}: ${systemData.time.value}` : null,
             systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
-        ].filter((p): p is string => p !== null);
+        ]);
 
         const spellTraits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
@@ -829,10 +835,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellTraits,
             traits: spellTraits,
             actionTraits: this.castingTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
-            areaSize,
-            areaType,
-            areaUnit,
             item,
+            area,
             variants,
         };
     }
