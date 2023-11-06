@@ -162,15 +162,14 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 ui.notifications.warn(message);
                 return;
             }
-        } else {
+        } else if (this.category !== "ammo") {
+            // Announce consumption of non-ammunition
             const exhausted = max > 1 && value === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: value - 1,
             });
-
-            // If using this consumable creates a roll, we need to show it
             const flags = {
                 pf2e: {
                     origin: {
@@ -180,28 +179,27 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                     },
                 },
             };
+            const speaker = ChatMessage.getSpeaker({ actor });
 
-            if (this.category !== "ammo") {
-                const speaker = ChatMessage.getSpeaker({ actor });
-
-                if (this.formula) {
-                    const damageType = this.traits.has("vitality")
-                        ? "vitality"
-                        : this.traits.has("void")
-                        ? "void"
-                        : "untyped";
-                    new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
-                } else {
-                    ChatMessage.create({ speaker, content, flags });
-                }
+            if (this.formula) {
+                const damageType = this.traits.has("vitality")
+                    ? "vitality"
+                    : this.traits.has("void")
+                    ? "void"
+                    : "untyped";
+                new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
+            } else {
+                ChatMessage.create({ speaker, content, flags });
             }
         }
 
-        const quantity = this.quantity;
-
         // Optionally destroy the item
         if (this.autoDestroy && value <= 1) {
-            if (quantity <= 1) {
+            const { quantity } = this;
+
+            // Keep ammunition if it has rule elements
+            const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
+            if (quantity <= 1 && !isPreservedAmmo) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
