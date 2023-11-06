@@ -26,15 +26,7 @@ interface SpellSystemSource extends ItemSystemSource {
     range: {
         value: string;
     };
-    area: {
-        value: EffectAreaSize;
-        type: EffectAreaType;
-        /**
-         * Legacy text information about spell effect areas:
-         * if present, includes information not representable in a structured way
-         */
-        details?: string;
-    } | null;
+    area: SpellArea | null;
     time: {
         value: string;
     };
@@ -76,32 +68,42 @@ interface SpellSystemSource extends ItemSystemSource {
 
 interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
 
-export type SpellTraits = ItemTraits<SpellTrait>;
+type SpellTraits = ItemTraits<SpellTrait>;
 
-export interface SpellDamageType {
+interface SpellArea {
+    value: EffectAreaSize;
+    type: EffectAreaType;
+    /**
+     * Legacy text information about spell effect areas:
+     * if present, includes information not representable in a structured way
+     */
+    details?: string;
+}
+
+interface SpellDamageType {
     value: DamageType;
     subtype?: DamageCategoryUnique;
     categories: MaterialDamageEffect[];
 }
 
-export interface SpellDamage {
+interface SpellDamage {
     value: string;
     applyMod?: boolean;
     type: SpellDamageType;
 }
 
-export interface SpellHeighteningInterval {
+interface SpellHeighteningInterval {
     type: "interval";
     interval: number;
     damage: Record<string, string>;
 }
 
-export interface SpellHeighteningFixed {
+interface SpellHeighteningFixed {
     type: "fixed";
     levels: Record<OneToTen, Partial<SpellSystemSource>>;
 }
 
-export interface SpellHeightenLayer {
+interface SpellHeightenLayer {
     level: number;
     system: Partial<SpellSystemSource>;
 }
@@ -123,4 +125,15 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export type { SpellOverlay, SpellOverlayOverride, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource };
+export type {
+    SpellArea,
+    SpellDamage,
+    SpellHeightenLayer,
+    SpellHeighteningInterval,
+    SpellOverlay,
+    SpellOverlayOverride,
+    SpellOverlayType,
+    SpellSource,
+    SpellSystemData,
+    SpellSystemSource,
+};
