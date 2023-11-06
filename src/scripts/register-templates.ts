@@ -54,7 +54,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/total-bulk.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
-        "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",
+        "systems/pf2e/templates/actors/spell-collection.hbs",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs",
 
         // SVG icons
