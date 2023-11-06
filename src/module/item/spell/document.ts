@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
@@ -17,8 +17,8 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { UserPF2e } from "@module/user/index.ts";
-import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import { MeasuredTemplateDocumentPF2e, type TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -251,9 +251,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return rollData;
     }
 
-    async getDamage(damageOptions: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
+    async getDamage(params: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
         // Return early if the spell doesn't deal damage
-        if (!Object.keys(this.system.damage.value).length || !this.actor) {
+        if (!Object.keys(this.system.damage.value).length || !this.actor || !this.spellcasting?.statistic) {
             return null;
         }
 
@@ -299,42 +299,43 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return null;
         }
 
-        const { actor, attribute } = this;
-        const checkStatistic = this.spellcasting?.statistic;
+        const { attribute, isAttack } = this;
+        const checkStatistic = this.spellcasting.statistic;
+        const spellTraits = this.traits;
         const domains = R.compact([
             "damage",
             "spell-damage",
             `${this.id}-damage`,
-            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : null,
-            checkStatistic?.base ? `${checkStatistic?.base.slug}-damage` : null,
+            isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+            checkStatistic.base ? `${checkStatistic.base.slug}-damage` : null,
         ]).flat();
 
-        const options = new Set([
-            ...(actor?.getRollOptions(domains) ?? []),
-            ...(damageOptions.target?.getSelfRollOptions("target") ?? []),
-            ...this.getRollOptions("item"),
-            ...this.traits,
-        ]);
+        const contextData = await this.actor.getDamageRollContext({
+            target: isAttack ? params.target : null,
+            item: this as SpellPF2e<ActorPF2e>,
+            statistic: checkStatistic.check,
+            domains,
+            options: new Set(["action:cast-a-spell", ...spellTraits]),
+            checkContext: null,
+            outcome: null,
+            viewOnly: !isAttack || !params.target,
+        });
 
         const context: DamageRollContext = {
             type: "damage-roll",
-            sourceType: this.isAttack ? "attack" : "save",
-            outcome: this.isAttack ? "success" : null, // we'll need to support other outcomes later
+            sourceType: isAttack ? "attack" : "save",
+            outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
             domains,
-            options,
-            self: {
-                actor: this.actor,
-                item: this as SpellPF2e<ActorPF2e>,
-                statistic: null,
-                token: this.actor.token,
-                modifiers: [],
-            },
-            rollMode: damageOptions.rollMode,
+            options: contextData.options,
+            self: contextData.self,
+            target: contextData.target ?? null,
+            rollMode: params.rollMode,
         };
 
         // Add modifiers and damage die adjustments
         const modifiers: ModifierPF2e[] = [];
         const damageDice: DamageDicePF2e[] = [];
+        const { actor } = contextData.self;
         if (actor.system.abilities) {
             const attributes = actor.system.abilities;
             const attributeModifiers = Object.entries(this.system.damage.value)
@@ -358,13 +359,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 );
 
             const extractOptions = {
-                resolvables: { spell: this, target: damageOptions.target ?? null },
-                test: options,
+                resolvables: { spell: this, target: contextData.target?.actor ?? null },
+                test: contextData.options,
             };
             const extracted = processDamageCategoryStacking(base, {
                 modifiers: [attributeModifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
                 dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
-                test: options,
+                test: contextData.options,
             });
 
             modifiers.push(...extracted.modifiers);
@@ -379,7 +380,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             kinds: this.damageKinds,
         };
 
-        if (!damageOptions.skipDialog) {
+        if (!params.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
@@ -845,10 +846,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     ): Promise<void> {
         const statistic = this.spellcasting?.statistic;
         if (statistic) {
+            context.extraRollOptions = R.uniq(R.compact(["action:cast-a-spell", context.extraRollOptions].flat()));
             await statistic.check.roll({
                 ...eventToRollParams(event, { type: "check" }),
                 ...context,
+                action: "cast-a-spell",
                 item: this,
+                traits: this.castingTraits,
                 attackNumber,
             });
         } else {
@@ -871,9 +875,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const targetToken =
-            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
+            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle"))?.document ??
+            null;
         const spellDamage = await this.getDamage({
-            target: targetToken?.actor,
+            target: targetToken,
             ...eventToRollParams(event, { type: "damage" }),
         });
         if (!spellDamage) return null;
@@ -1043,7 +1048,7 @@ interface SpellToMessageOptions {
 interface SpellDamageOptions {
     rollMode?: RollMode | "roll";
     skipDialog?: boolean;
-    target?: ActorPF2e | null;
+    target?: Maybe<TokenDocumentPF2e>;
 }
 
 export { SpellPF2e, type SpellToMessageOptions };
