@@ -158,6 +158,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                         case "spellDamage":
                             spell?.rollDamage(event);
                             break;
+                        case "spellTemplate":
+                            spell?.placeTemplate();
+                            break;
                         case "consume":
                             if (item.isOfType("consumable")) {
                                 (item as ConsumablePF2e<ActorPF2e>).consume();
