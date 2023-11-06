@@ -7,9 +7,9 @@ import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { createHTMLElement } from "@util";
+import { createHTMLElement, objectHasKey } from "@util";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
-import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { DamageRollContext, DamageTemplate, MaterialDamageEffect } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -114,7 +114,19 @@ export class DamagePF2e {
                 }
             })();
 
-            const materialEffects = toTags(data.materials, {
+            const materials = ((): MaterialDamageEffect[] => {
+                const materialDamageEffects = new Set(data.materials);
+                const pattern = /^damage:material:(.+)/;
+                for (const option of context.options) {
+                    const match = option.match(pattern);
+                    if (match && objectHasKey(CONFIG.PF2E.materialDamageEffects, match[1])) {
+                        materialDamageEffects.add(match[1]);
+                    }
+                }
+                return Array.from(materialDamageEffects);
+            })();
+
+            const materialEffects = toTags(materials, {
                 labels: CONFIG.PF2E.preciousMaterials,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
                 cssClass: "tag_material",
