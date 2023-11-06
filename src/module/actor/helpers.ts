@@ -382,7 +382,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     modifiers.push(...extractModifiers(synthetics, domains));
     modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item }));
-    const notes = extractNotes(synthetics.rollNotes, domains);
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
@@ -467,9 +466,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     strike.variants = [null, ...(["map1", "map2"] as const).map(createMapModifier)].map((map, mapIncreases) => ({
         label: labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
-            const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
-            const rollNotes = notes.concat(attackEffects);
-
             params.options ??= [];
             // Always add all weapon traits as options
             const context = await actor.getCheckContext({
@@ -497,6 +493,17 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 { weapon: item.name },
             );
 
+            const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
+            const notes = [attackEffects, extractNotes(context.self.actor.synthetics.rollNotes, domains)].flat();
+            const rollTwice =
+                params.rollTwice || extractRollTwice(context.self.actor.synthetics.rollTwice, domains, context.options);
+            const substitutions = extractRollSubstitutions(
+                context.self.actor.synthetics.rollSubstitutions,
+                domains,
+                context.options,
+            );
+            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.self.actor.synthetics, domains);
+
             const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
             const checkContext: CheckRollContext = {
                 type: "attack-roll",
@@ -507,16 +514,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 token: context.self.token,
                 item: context.self.item,
                 target: context.target,
-                damaging: item.dealsDamage,
+                damaging: context.self.item.dealsDamage,
                 domains,
                 options: context.options,
                 traits: [attackTrait],
-                notes: rollNotes,
+                notes,
                 dc: params.dc ?? context.dc,
                 mapIncreases: mapIncreases as ZeroToTwo,
-                rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
-                substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
-                dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                rollTwice,
+                substitutions,
+                dosAdjustments,
             };
             const roll = await CheckPF2e.roll(check, checkContext, params.event);
 

@@ -1269,7 +1269,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ]);
 
         // Extract weapon roll notes
-        const attackRollNotes = extractNotes(synthetics.rollNotes, attackDomains);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled(this)) {
@@ -1553,13 +1552,20 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const dc = params.dc ?? context.dc;
 
+                const notes = extractNotes(context.self.actor.synthetics.rollNotes, attackDomains);
                 const rollTwice =
-                    params.rollTwice || extractRollTwice(synthetics.rollTwice, attackDomains, context.options);
+                    params.rollTwice ||
+                    extractRollTwice(context.self.actor.synthetics.rollTwice, attackDomains, context.options);
                 const substitutions = extractRollSubstitutions(
-                    synthetics.rollSubstitutions,
+                    context.self.actor.synthetics.rollSubstitutions,
                     attackDomains,
                     context.options,
                 );
+                const dosAdjustments = [
+                    getPropertyRuneDegreeAdjustments(context.self.item),
+                    extractDegreeOfSuccessAdjustments(context.self.actor.synthetics, attackDomains),
+                ].flat();
+
                 const title = game.i18n.format(
                     weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                     { weapon: weapon.name },
@@ -1578,15 +1584,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     damaging: context.self.item.dealsDamage,
                     domains: attackDomains,
                     options: context.options,
-                    notes: attackRollNotes,
+                    notes,
                     dc,
                     traits: context.traits,
                     rollTwice,
                     substitutions,
-                    dosAdjustments: [
-                        getPropertyRuneDegreeAdjustments(context.self.item),
-                        extractDegreeOfSuccessAdjustments(synthetics, attackDomains),
-                    ].flat(),
+                    dosAdjustments,
                     mapIncreases: mapIncreases as ZeroToTwo,
                 };
 
