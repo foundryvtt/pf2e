@@ -1,0 +1,61 @@
+{
+    "_id": "MvvAy8oi9ITEqsG0",
+    "img": "icons/consumables/food/candy-taffy-blue-white.webp",
+    "name": "Effect: Silver Crescent (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Silver Crescent (Greater)]</p>\n<p>You shed cool, white light like a torch, and you gain a +3 item bonus to saving throws against olfactory effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#343434",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "olfactory"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
