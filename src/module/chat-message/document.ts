@@ -10,10 +10,10 @@ import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
-import { ChatInspectRoll } from "./chat-inspect-roll.ts";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
+import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -178,7 +178,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
-        new ChatInspectRoll(this).render(true);
+        new RollInspector(this).render(true);
     }
 
     /** Get the token of the speaker if possible */
