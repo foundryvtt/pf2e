@@ -4,10 +4,10 @@ import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToFour, OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
+import { OneToFour, ZeroToFour, goesToEleven } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import {
@@ -287,7 +287,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             }
         }
 
-        const rankLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[rank as OneToTen]);
+        const rankLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
         const slotKey = goesToEleven(rank) ? (`slot${rank}` as const) : "slot0";
         if (this.system.slots === null || !this.spells) {
             return false;

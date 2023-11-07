@@ -36,5 +36,11 @@ declare interface Array<T> {
 }
 
 declare interface ArrayConstructor {
-    fromRange<T>(n: number): T[];
+    /**
+     * Create and initialize an array of length n with integers from 0 to n-1
+     * @param n       The desired array length
+     * @param [min=0] A desired minimum number from which the created array starts
+     * @returns An array of integers from min to min+n
+     */
+    fromRange<T extends number>(n: number, min?: number): T[];
 }

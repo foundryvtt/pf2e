@@ -1,6 +1,6 @@
 import { Coins, PartialPrice } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { getActionGlyph, ordinal, sluggify } from "../util/index.ts";
+import { getActionGlyph, ordinalString, sluggify } from "../util/index.ts";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
@@ -46,7 +46,7 @@ export function registerHandlebarsHelpers(): void {
 
     Handlebars.registerHelper("ordinal", (value: unknown): string | null => {
         const numericValue = Number(value);
-        return isNaN(numericValue) ? null : ordinal(numericValue);
+        return isNaN(numericValue) ? null : ordinalString(numericValue);
     });
 
     Handlebars.registerHelper("sluggify", (text: unknown): string => {

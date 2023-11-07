@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
-import { ErrorPF2e, groupBy, ordinal } from "@util";
+import { ErrorPF2e, groupBy, ordinalString } from "@util";
 import { SlotKey } from "./data.ts";
 import { RitualSpellcasting } from "./rituals.ts";
-import { ActiveSpell, BaseSpellcastingEntry, SpellcastingSlotRank, SpellPrepEntry } from "./types.ts";
+import { ActiveSpell, BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotRank } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
     SpellPF2e<TActor>
@@ -73,8 +73,12 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
         // Warn if the level being dragged to is lower than spell's level
         if (spell.baseRank > heightenedRank && this.id === spell.system.location?.value) {
-            const targetRankLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(heightenedRank) });
-            const baseLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(spell.baseRank) });
+            const targetRankLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", {
+                rank: ordinalString(heightenedRank),
+            });
+            const baseLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", {
+                rank: ordinalString(spell.baseRank),
+            });
             ui.notifications.warn(
                 game.i18n.format("PF2E.Item.Spell.Warning.InvalidLevel", {
                     name: spell.name,
@@ -107,12 +111,12 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         this.#assertEntryIsDocument(this.entry);
 
         if (spell.baseRank > slotRank && !(slotRank === 0 && spell.isCantrip)) {
-            const targetLevelLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(slotRank) });
-            const baseLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(spell.baseRank) });
+            const targetRankLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(slotRank) });
+            const baseLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(spell.baseRank) });
             ui.notifications.warn(
                 game.i18n.format("PF2E.Item.Spell.Warning.InvalidLevel", {
                     name: spell.name,
-                    targetLevel: targetLevelLabel,
+                    targetLevel: targetRankLabel,
                     baseLevel: baseLabel,
                 }),
             );
@@ -214,7 +218,10 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                 }
 
                 results.push({
-                    label: rank === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[rank as OneToTen],
+                    label:
+                        rank === 0
+                            ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
+                            : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                     level: rank as ZeroToTen,
                     uses: {
                         value: rank > 0 && isFlexible ? data.value || 0 : undefined,
@@ -271,7 +278,10 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     if (!this.entry.system.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
 
                     results.push({
-                        label: rank === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[rank as OneToTen],
+                        label:
+                            rank === 0
+                                ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
+                                : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                         level: rank as ZeroToTen,
                         isCantrip: rank === 0,
                         uses,
@@ -330,9 +340,9 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         const ranks = Array.from(groupedByRank.entries())
             .sort(([a], [b]) => a - b)
             .map(
-                ([level, spells]): SpellcastingSlotRank => ({
-                    label: CONFIG.PF2E.spellLevels[level as OneToTen],
-                    level: level as ZeroToTen,
+                ([rank, spells]): SpellcastingSlotRank => ({
+                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                    level: rank as ZeroToTen,
                     isCantrip: false,
                     active: spells.map((spell) => ({ spell })),
                 }),

@@ -1,4 +1,4 @@
-import { getActionIcon, sluggify } from "@util";
+import { getActionIcon, ordinalString, sluggify } from "@util";
 import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -115,15 +115,12 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.spellCategories);
-        this.filterData.checkboxes.category.options.cantrip = {
-            label: "PF2E.SpellCantripLabel",
-            selected: false,
-        };
+        this.filterData.checkboxes.category.options.cantrip = { label: "PF2E.TraitCantrip", selected: false };
         this.filterData.checkboxes.traditions.options = this.generateCheckboxOptions(CONFIG.PF2E.magicTraditions);
-        // Special case for spell levels
-        for (let i = 1; i <= 10; i++) {
-            this.filterData.checkboxes.level.options[`${i}`] = {
-                label: game.i18n.localize(`PF2E.SpellLevel${i}`),
+        // Special case for spell ranks
+        for (let rank = 1; rank <= 10; rank++) {
+            this.filterData.checkboxes.level.options[rank] = {
+                label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                 selected: false,
             };
         }

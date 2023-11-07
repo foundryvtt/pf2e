@@ -42,7 +42,7 @@ import {
     getActionIcon,
     htmlClosest,
     localizer,
-    ordinal,
+    ordinalString,
     setHasElement,
     traitSlugToObject,
 } from "@util";
@@ -799,7 +799,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Combine properties
         const area = this.area;
         const properties = R.compact([
-            heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinal(baseRank) }) : null,
+            heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinalString(baseRank) }) : null,
             heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
             this.isRitual ? null : `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
             systemData.range.value ? `${localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
