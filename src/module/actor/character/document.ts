@@ -15,6 +15,7 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
     ModifierPF2e,
+    PROFICIENCY_RANK_OPTION,
     StatisticModifier,
     adjustModifiers,
     createAttributeModifier,
@@ -1243,6 +1244,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const baseOptions = new Set([
             "action:strike",
             `item:proficiency:rank:${proficiencyRank}`,
+            // @todo migrate away:
+            PROFICIENCY_RANK_OPTION[proficiencyRank],
             ...weaponTraits, // always add weapon traits as options
             meleeOrRanged,
         ]);
