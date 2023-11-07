@@ -1,0 +1,118 @@
+{
+    "_id": "lRfiYmsoQMJZ81NQ",
+    "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+    "name": "Spell Effect: Element Embodied (Metal)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Element Embodied]</em></p>\n<p>Drawing upon the deepest wells of magic in an elemental plane, you transform into a spectacular elemental. You can choose between an air elemental, earth elemental, fire elemental, or water elemental. Your battle form is Gargantuan, and you must have enough space to expand into or the spell is lost. While in this form, you gain the elemental trait and the trait for the element you choose. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 25 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>30 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +34, and you use the listed damage. These attacks are Dexterity based if you choose an air or fire elemental, or Strength based if you choose an earth or water elemental. (This distinction doesn't change the statistics, but matters for the enfeebled and clumsy conditions, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics modifier of +36 for air or fire elemental or Athletics modifier of +36 for earth or water elemental, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Metal Elemental</strong> 40 feet, fly 40 feet; resistance 10 to electricity;\n<ul>\n<li><strong>Arcing Electricity</strong> (aura, electricity, metal) 30 feet. A creature that enters the aura or starts its turn in the aura takes @Damage[2d12[electricity]] damage with a basic Reflex save against your spell DC; a creature made of metal, with the metal trait, or wearing metal armor takes a –1 circumstance penalty on this save. A creature can take damage from the aura only once per round;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> blade (reach 25 feet, versatile slashing), <strong>Damage</strong> 3d12+15 piercing;</li>\n<li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> metal shard (range increment 40 feet, versatile slashing), <strong>Damage</strong> 4d8+6 piercing.</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "25 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "electricity",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "grg",
+                    "skills": {
+                        "acr": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "blade": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d12",
+                                "modifier": 15
+                            },
+                            "img": "icons/skills/melee/strike-sword-gray.webp",
+                            "modifier": 34,
+                            "traits": [
+                                "reach-25",
+                                "unarmed",
+                                "versatile-s"
+                            ]
+                        },
+                        "metal-shard": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 4,
+                                "die": "d8",
+                                "modifier": 6
+                            },
+                            "img": "icons/skills/melee/blade-tips-triple-steel.webp",
+                            "modifier": 34,
+                            "range": {
+                                "increment": 40
+                            },
+                            "traits": [
+                                "unarmed",
+                                "versatile-s"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "elemental",
+                        "metal"
+                    ]
+                }
+            },
+            {
+                "key": "Aura",
+                "radius": 30,
+                "slug": "arcing-electricity",
+                "traits": [
+                    "electricity",
+                    "metal"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
