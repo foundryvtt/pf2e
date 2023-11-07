@@ -560,7 +560,7 @@ export class ArrayField<
     protected _validateElements(value: unknown[], options?: Record<string, unknown>): DataModelValidationFailure | void;
 
     override initialize(
-        value: TSourceProp,
+        value: JSONValue,
         model: ConstructorOf<abstract.DataModel>,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
