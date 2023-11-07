@@ -5,6 +5,7 @@ import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
 import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
 import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
 import type { UserPF2e } from "@module/user/document.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
 import { calculateRemainingDuration } from "./helpers.ts";
@@ -22,10 +23,20 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
-        if (!this.system.context?.origin || this.system.context.origin.actor === this.actor?.uuid) {
-            return this.actor;
+        const originUUID = this.system.context?.origin.actor;
+        if (!originUUID || originUUID === this.actor?.uuid) return this.actor;
+        // Acquire a synthetic actor with some caution: `TokenDocument#delta` is a getter that lazily constructs the
+        // actor, and it may be in the middle of construction presently.
+        if (originUUID.startsWith("Scene.")) {
+            const tokenUUID = originUUID.replace(/\.Actor\..+$/, "");
+            const tokenDoc = fromUuidSync(tokenUUID);
+            if (!(tokenDoc instanceof TokenDocumentPF2e)) return null;
+            const descriptor = Object.getOwnPropertyDescriptor(tokenDoc, "delta");
+            return descriptor?.value instanceof ActorDelta ? descriptor.value.syntheticActor ?? null : null;
         }
-        const actor = fromUuidSync(this.system.context.origin.actor);
+
+        const actor = fromUuidSync(originUUID);
+
         return actor instanceof ActorPF2e ? actor : null;
     }
 
