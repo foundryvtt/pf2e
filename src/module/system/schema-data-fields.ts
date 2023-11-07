@@ -110,7 +110,20 @@ class StrictArrayField<
 
     /** Parent method assumes array-wrapping: pass through unchanged */
     protected override _cleanType(value: unknown): unknown {
-        return value ? super._cleanType(value) : value;
+        return Array.isArray(value) ? super._cleanType(value) : value;
+    }
+
+    override initialize(
+        value: JSONValue,
+        model: ConstructorOf<DataModel>,
+        options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: JSONValue,
+        model: ConstructorOf<DataModel>,
+        options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+    ): Maybe<TModelProp> {
+        return Array.isArray(value) ? super.initialize(value, model, options) : null;
     }
 }
 
@@ -308,7 +321,7 @@ class PredicateField<
         options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>,
     ): PredicatePF2e | null | undefined {
         const statements = super.initialize(value, model, options);
-        return statements ? new PredicatePF2e(...statements) : statements;
+        return Array.isArray(statements) ? new PredicatePF2e(...statements) : statements;
     }
 }
 
