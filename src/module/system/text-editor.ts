@@ -31,7 +31,7 @@ import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
 import { damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
+import { DamageFormulaData, DamageRollContext, MaterialDamageEffect, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -804,13 +804,26 @@ async function augmentInlineDamageRoll(
 
         const { formula, breakdown } = createDamageFormula(formulaData);
 
+        const materials = ((): MaterialDamageEffect[] => {
+            if (!traits?.length) return [];
+            const materialDamageEffects = new Set<MaterialDamageEffect>([]);
+            const pattern = /^damage:material:(.+)/;
+            for (const trait of traits) {
+                const match = trait.match(pattern);
+                if (match && objectHasKey(CONFIG.PF2E.materialDamageEffects, match[1])) {
+                    materialDamageEffects.add(match[1]);
+                }
+            }
+            return Array.from(materialDamageEffects);
+        })();
+
         const roll = new DamageRoll(formula);
         const template: SimpleDamageTemplate = {
             name: name ?? item?.name ?? actor?.name ?? "",
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
             traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
-            materials: [],
+            materials: materials,
         };
 
         return { template, context };
