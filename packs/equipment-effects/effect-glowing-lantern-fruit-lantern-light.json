@@ -1,0 +1,89 @@
+{
+    "_id": "JCMACUq7FkEksV0Q",
+    "img": "systems/pf2e/icons/features/classes/lantern.webp",
+    "name": "Effect: Glowing Lantern Fruit (Lantern Light)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Glowing Lantern Fruit]</p>\n<p>The <em>glowing lantern fruit</em> sheds bright light in a 60-foot radius (and dim light for the next 60 feet). You can Interact with the <em>glowing lantern fruit</em> to open or close some of its reflective leaves, making the light directional like a bull's-eye lantern or a hooded lantern.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "glowing-lantern-fruit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.AreaTypeEmanation",
+                        "value": "radius"
+                    },
+                    {
+                        "label": "PF2E.AreaTypeCone",
+                        "value": "cone"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "glowing-lantern-fruit:radius"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 60,
+                    "color": "#975335",
+                    "dim": 120,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "glowing-lantern-fruit:cone"
+                ],
+                "value": {
+                    "angle": 90,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 60,
+                    "color": "#975335",
+                    "dim": 120,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
