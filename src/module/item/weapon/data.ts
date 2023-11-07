@@ -4,6 +4,7 @@ import {
     BasePhysicalItemSource,
     Investable,
     ItemMaterialData,
+    ItemMaterialSource,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
@@ -134,7 +135,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     propertyRune3: WeaponPropertyRuneSlot;
     propertyRune4: WeaponPropertyRuneSlot;
 
-    material: WeaponMaterialData;
+    material: WeaponMaterialSource;
 
     /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
     graspingAppendage?: boolean;
@@ -153,7 +154,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-interface WeaponMaterialData extends ItemMaterialData {
+interface WeaponMaterialSource extends ItemMaterialSource {
     type: WeaponMaterialType | null;
 }
 
@@ -162,6 +163,7 @@ interface WeaponSystemData
         Omit<Investable<PhysicalSystemData>, "material"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
+    material: WeaponMaterialData;
     maxRange: number | null;
     reload: {
         value: WeaponReloadTime | null;
@@ -181,6 +183,10 @@ type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];
     toggles: WeaponTraitToggles;
+}
+
+interface WeaponMaterialData extends ItemMaterialData {
+    type: WeaponMaterialType | null;
 }
 
 interface WeaponRuneData {

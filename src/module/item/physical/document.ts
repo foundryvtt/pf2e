@@ -198,6 +198,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         systemData.containerId ||= null;
         systemData.material.type ||= null;
         systemData.material.grade ||= null;
+        systemData.material.effects ??= [];
         systemData.stackGroup ||= null;
         systemData.equippedBulk.value ||= null;
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;

@@ -126,7 +126,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         super.prepareBaseData();
 
         // Set precious material (currently unused)
-        this.system.material = { type: null, grade: null };
+        this.system.material = { type: null, grade: null, effects: [] };
 
         // Set empty property runes array for use by rule elements
         this.system.runes = { property: [] };
