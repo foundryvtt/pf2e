@@ -801,19 +801,6 @@ export const PF2ECONFIG = {
         utility: "PF2E.SpellTypeUtility",
     },
 
-    spellLevels: {
-        1: "PF2E.SpellLevel1",
-        2: "PF2E.SpellLevel2",
-        3: "PF2E.SpellLevel3",
-        4: "PF2E.SpellLevel4",
-        5: "PF2E.SpellLevel5",
-        6: "PF2E.SpellLevel6",
-        7: "PF2E.SpellLevel7",
-        8: "PF2E.SpellLevel8",
-        9: "PF2E.SpellLevel9",
-        10: "PF2E.SpellLevel10",
-    }, // TODO: Compute levels!
-
     featCategories,
 
     actionTypes: {

@@ -44,15 +44,15 @@
                     </li>
                 {{/if}}
             {{/unless}}
-            {{#each entry.spellPrepList as |spells level|}}
+            {{#each entry.spellPrepList as |spells rank|}}
                 {{#if spells}}
                     <li class="spell-level-header">
                         <div class="item-name flexrow">
                             <h3>
-                                {{#if (gt level 0)}}
-                                    {{localize "PF2E.SpellLevel" level=(ordinal level)}}
+                                {{#if (gt rank 0)}}
+                                    {{localize "PF2E.Item.Spell.Rank.Ordinal" rank=(ordinal rank)}}
                                 {{else}}
-                                    {{localize "PF2E.SpellCantripLabel"}}
+                                    {{localize "PF2E.Actor.Creature.Spellcasting.Cantrips"}}
                                 {{/if}}
                             </h3>
                         </div>
@@ -66,7 +66,7 @@
                                     data-action="create-spell"
                                     data-tooltip="PF2E.CreateSpellTitle"
                                     data-type="spell"
-                                    data-level="{{level}}"
+                                    data-level="{{rank}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-plus fa-fw"></i></a>
                                 <a
@@ -74,7 +74,7 @@
                                     data-action="browse-spells"
                                     data-tooltip="PF2E.OpenSpellBrowserTitle"
                                     data-type="spell"
-                                    data-level="{{level}}"
+                                    data-level="{{rank}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-search fa-fw"></i></a>
                             </div>

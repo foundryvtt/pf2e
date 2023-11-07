@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { SpellSource } from "@item/spell/index.ts";
 import { ZeroToTen } from "@module/data.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, ordinalString } from "@util";
 import * as R from "remeda";
 
 function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): void {
@@ -14,7 +14,7 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): vo
     const [rankLabel, spellLabel] =
         rank > 0
             ? [
-                  game.i18n.localize(`PF2E.SpellLevel${rank}`),
+                  game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                   game.i18n.localize(data.location === "rituals" ? "PF2E.SpellCategoryRitual" : "PF2E.SpellLabel"),
               ]
             : [null, game.i18n.localize("PF2E.TraitCantrip")];

@@ -3,11 +3,11 @@
         <img src="{{entry.img}}" alt="{{entry.name}}" loading="lazy" />
     </div>
     {{#if entry.time.img}}
-        <div class="image" style="margin-left: 5px;">
+        <div class="image">
             <img src="{{entry.time.img}}" data-tooltip="{{entry.data.time.value}}" loading="lazy" />
         </div>
     {{else}}
-        <div class="image" style="margin-left: 5px;"></div>
+        <div class="image"></div>
     {{/if}}
     <div class="name">
         <a class="item-link">{{entry.name}}</a>
@@ -20,6 +20,6 @@
         {{/unless}}
     </div>
     <div class="level">
-        <span data-tooltip="PF2E.Item.Spell.Rank">{{entry.level}}</span>
+        <span data-tooltip="PF2E.Item.Spell.Rank.Label">{{entry.level}}</span>
     </div>
 </li>

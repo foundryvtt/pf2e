@@ -305,8 +305,8 @@ function ErrorPF2e(message: string): Error {
     return Error(`PF2e System | ${message}`);
 }
 
-/** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-function ordinal(value: number): string {
+/** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc. */
+function ordinalString(value: number): string {
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
     const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
@@ -479,7 +479,7 @@ export {
     localizer,
     mapValues,
     objectHasKey,
-    ordinal,
+    ordinalString,
     padArray,
     parseHTML,
     pick,
