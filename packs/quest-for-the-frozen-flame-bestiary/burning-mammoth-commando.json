@@ -404,7 +404,7 @@
                 },
                 "damageRolls": {
                     "kEvyhOwUwKlw2cJx": {
-                        "damage": "2d6+8",
+                        "damage": "1d6+8",
                         "damageType": "slashing"
                     }
                 },
@@ -423,7 +423,6 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach",
                         "sweep"
                     ]
                 },
@@ -456,7 +455,7 @@
                 },
                 "damageRolls": {
                     "deyB7oyBerS7FTjb": {
-                        "damage": "2d6+8",
+                        "damage": "1d6+8",
                         "damageType": "slashing"
                     }
                 },
@@ -586,7 +585,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Burning Mammoth commandos ably carve flesh and wood with their axes. An axe the commando uses gains the reach trait and deals an additional [[/r {1d6}]]{1d6 damage} (included in the <i>hatchet</i> Strikes above).</p>"
+                    "value": "<p>Burning Mammoth commandos ably carve flesh and wood with their axes. An axe the commando uses gains the reach trait and deals an additional 1d6 damage (included in the <em>hatchet</em> Strikes above).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -596,7 +595,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:group:axe"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:group:axe",
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
