@@ -2,6 +2,7 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
+import * as R from "remeda";
 import { compact, isObject } from "remeda";
 import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
 import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
@@ -86,13 +87,21 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             }
             packSources.push(source as PackEntry);
         }
+
         const folders: DBFolder[] = [];
         for await (const [_key, folder] of this.#foldersDb.iterator()) {
             folders.push(folder);
         }
         await this.close();
 
-        return { packSources, folders };
+        return {
+            packSources,
+            folders: R.sortBy(
+                folders,
+                (f) => f.sort,
+                (f) => f.name,
+            ),
+        };
     }
 
     #getDBKeys(packName: string): { dbKey: DBKey; embeddedKey: EmbeddedKey | null } {
@@ -171,4 +180,5 @@ interface LevelDatabaseOptions<T> {
     dbOptions?: DatabaseOptions<string, T>;
 }
 
-export { type DBFolder, LevelDatabase };
+export { LevelDatabase, type DBFolder };
+
