@@ -73,20 +73,28 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:shove",
-                    "elemental-gift:earth"
+                    "elemental-gift:earth",
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
                 ],
-                "selector": "fortitude",
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:trip",
-                    "elemental-gift:earth"
+                    "elemental-gift:earth",
+                    "inflicts:prone"
                 ],
-                "selector": "reflex",
+                "selector": "saving-throw",
                 "type": "status",
                 "value": 2
             },
