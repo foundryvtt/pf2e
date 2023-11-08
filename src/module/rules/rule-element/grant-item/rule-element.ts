@@ -93,6 +93,10 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (data.track && !data.flag) {
             throw Error("must have explicit flag set if granted item is tracked");
         }
+
+        if (data.reevaluateOnUpdate && data.predicate.length === 0) {
+            throw Error("reevaluateOnUpdate: must have non-empty predicate");
+        }
     }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
@@ -100,11 +104,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const { itemSource, pendingItems, context } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
-
-        if (this.reevaluateOnUpdate && this.predicate.length === 0) {
-            ruleSource.ignored = true;
-            return this.failValidation("`reevaluateOnUpdate` may only be used with a predicate.");
-        }
 
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
@@ -159,6 +158,15 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
+        // Apply alterations
+        try {
+            for (const alteration of this.alterations) {
+                alteration.applyTo(grantedSource);
+            }
+        } catch (error) {
+            if (error instanceof Error) this.failValidation(error.message);
+        }
+
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor });
 
@@ -174,14 +182,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         this.#applyChoicePreselections(tempGranted);
-
-        try {
-            for (const alteration of this.alterations) {
-                alteration.applyTo(grantedSource);
-            }
-        } catch (error) {
-            if (error instanceof Error) this.failValidation(error.message);
-        }
 
         if (this.ignored) return;
 
