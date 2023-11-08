@@ -21,5 +21,13 @@ export class Migration880SplitShowDialogsSettings extends MigrationBase {
         });
 
         await UserPF2e.updateDocuments(userUpdates);
+
+        // Send "Last Stop" message, notifying GMs of remaster changes.
+        if (!game.settings.get("pf2e", "seenLastStopMessage")) {
+            const content = await renderTemplate("systems/pf2e/templates/system/last-stop-message.hbs");
+            const whisper = game.users.contents.flatMap((u) => (u.isGM ? u.id : []));
+            ChatMessage.create({ content, whisper });
+            game.settings.set("pf2e", "seenLastStopMessage", true);
+        }
     }
 }
