@@ -1,3 +1,56 @@
+## 5.8.3
+
+### Notice
+
+The 5.8 series of system releases is the final one before changes from Pathfinder Player Core and Pathfinder GM Core are added. The majority of changes are simple renaming of some items, traits, and other elements, with some small tweaks to mechanics. Some of the coming non-renaming changes are more substantial:
+
+PC options: current Witch patron themes, Wizard arcane schools, and the Tiefling & Aasimar heritages are being moved to a "PF2e Legacy Data" module, which will be available soon.
+
+Alignment: alignment is being removed from all sheets, but the data will still exist on actors, hidden until a module enables the display of them as traits.
+
+Variant rules: the Dual Class and Ancestry Paragon variant rules are moving to the PF2e Workbench module. Other variants that were not reprinted, like Stamina, will be staying in the system as they are difficult to reproduce in module form.
+
+Premium modules: many adventure modules, such as those developed by Foundry Gaming and Sigil Services, keep up with system releases. This means updating the pf2e system version will be required to run such modules in the future.
+
+We will update our system wiki with a full list of changes prior to the 5.9 system release.
+
+### System Improvements
+
+-   (jfn4th) Add separate setting to skip damage modifiers dialog
+-   (stwlam) Enable ephemeral effects for spell damage rolls
+-   (Supe) Add buttons to place measured template in spell summaries on actor sheets
+
+### Bugfixes
+
+-   (jfn4th) Fix NPC shield labels
+-   (stwlam) Fix condition increasing in effects panel
+-   (stwlam) Fix issue causing some roll substitutions to not delete parent effect after rolling
+-   (stwlam) Include max stamina when determining whether massive damage is taken
+-   (stwlam) Show (core Foundry) secret text in item descriptions to GMs
+-   (Supe) Fix fatal override when base damage type is overwritten
+-   (Supe) Fix styling for spellcasting drag handle
+
+### Data Updates
+
+-   (Abaddon) Fix description of Grindlegrub Steak and Jax
+-   (Dire Weasel) Add automation for Burning Mammoth Commando's Cruel Cutter
+-   (Dire Weasel) Add automation for House Drake's Silver Strike
+-   (Dire Weasel) Add automation for Stasian Smash
+-   (Dire Weasel) Add custom resistance for Perfect Droplet
+-   (Dire Weasel) Add damage automation to Garrote Bolt and Garrote Shot
+-   (Dire Weasel) Add effects for Glowing Lantern Fruit, Element Embodied (metal and wood), Silver Crescent, Thorn Triad
+-   (Dire Weasel) Add leshy trait to Towering Growth
+-   (Dire Weasel) Add Metal and Wood to effect for Elemental Absorption
+-   (Dire Weasel) Add silver material effect to Sterling Dynamo strikes and magical trait with Golem Dynamo strikes
+-   (Dire Weasel) Add spells to Spirit Turtle
+-   (Dire Weasel) Add TokenLight to Glorious Plate, Radiant Lance, and Songbird's Brush
+-   (Dire Weasel) Add Wood and Metal effects for Elemental Gift
+-   (Dire Weasel) Fix physical resistance exception for The First Faithful
+-   (Dire Weasel) Fix single action damage for Wronged Monk's Wrath
+-   (Intervención) Fix Purple Worm Sting damage
+-   (rectulo) Fix typo in description of Retch Rust feat
+-   (stwlam) Fix predicate in Ongoing Strategy feat
+
 ## 5.8.2
 
 ### System Improvements
