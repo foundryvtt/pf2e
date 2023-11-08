@@ -320,6 +320,14 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "seenLastStopMessage", {
+        name: "Seen Last Stop Before Remaster Message",
+        scope: "world",
+        config: false,
+        type: Boolean,
+        default: false,
+    });
+
     registerTrackingSettings();
 
     if (BUILD_MODE === "production") {
