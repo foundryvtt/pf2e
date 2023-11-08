@@ -43,8 +43,8 @@
             </div>
         </div>
         <div class="rule-element-forms">
-            {{#each rules.elements}}
-                {{{template}}}
+            {{#each rules.elements as |form|}}
+                {{{form.template}}}
             {{/each}}
         </div>
         <div class="create-rule-element">

@@ -109,6 +109,14 @@ class RuleElementForm<
         })();
         const mergedRule = mergeObject(this.getInitialValue(), this.rule);
 
+        const validationFailures = ((): string[] => {
+            const fieldFailures = this.object?.validationFailures.fields?.asError().getAllFailures() ?? {};
+            const jointFailures = this.object?.validationFailures.joint?.asError().getAllFailures() ?? {};
+            return Object.entries({ ...fieldFailures, ...jointFailures }).map(
+                ([key, failure]) => `${key}: ${failure.message}`,
+            );
+        })();
+
         return {
             ...R.pick(this, ["index", "rule", "object"]),
             item: this.item,
@@ -119,6 +127,7 @@ class RuleElementForm<
             rule: mergedRule,
             fields: this.schema?.fields,
             form: await this.#getFormHelpers(mergedRule),
+            validationFailures,
         };
     }
 
@@ -409,6 +418,7 @@ interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject ex
     fields: RuleElementSchema | undefined;
     /** A collection of additional handlebars functions */
     form: Record<string, unknown>;
+    validationFailures: string[];
 }
 
 interface RuleElementFormTabData {

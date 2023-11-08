@@ -14,4 +14,14 @@
     <div class="container">
         {{{template}}}
     </div>
+
+    {{#if validationFailures}}
+        <div class="validation-failures">
+            <ul>
+                {{#each validationFailures as |message|}}
+                    <li><span>{{message}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
 </section>

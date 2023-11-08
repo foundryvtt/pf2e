@@ -49,6 +49,12 @@ export default abstract class DataModel<
     /** Is the current state of this DataModel invalid? */
     get invalid(): boolean;
 
+    /** An array of validation failure instances which may have occurred when this instance was last validated. */
+    get validationFailures(): {
+        fields: foundry.data.validation.DataModelValidationFailure | null;
+        joint: foundry.data.validation.DataModelValidationFailure | null;
+    };
+
     /* ---------------------------------------- */
     /*  Data Cleaning Methods                   */
     /* ---------------------------------------- */
