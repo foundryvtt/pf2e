@@ -33,8 +33,8 @@ function createDamageFormula(
     degree: DegreeOfSuccessIndex = DEGREE_OF_SUCCESS.SUCCESS,
 ): AssembledFormula | null {
     damage = {
-        ...deepClone(R.omit(damage, ["dice", "modifiers"])),
-        modifiers: damage.modifiers.map((m) => m.clone()),
+        // TODO: clone the modifiers as well, once ModifierPF2e.clone() can preserve adjustments
+        ...deepClone(R.omit(damage, ["dice"])),
         dice: damage.dice.map((d) => d.clone()),
     };
 
