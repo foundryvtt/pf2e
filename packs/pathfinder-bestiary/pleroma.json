@@ -2001,24 +2001,51 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "7qk41wo9i2kwwrofj7a5": {
+                    "0": {
                         "damage": "5d8+18",
                         "damageType": "vitality"
                     },
-                    "35xwwt35j3r6wiq126qp": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "lawful"
                     }
                 },
                 "description": {
-                    "value": "<p>A pleroma's touch deals its choice of @Damage[(5d8+18)[vitality],1d6[lawful]]{positive} or @Damage[(5d8+18)[void],1d6[lawful]]{negative} damage, but neither energy can be used to heal a creature.</p>"
+                    "value": "<p>A pleroma's touch deals its choice of vitality or void damage, but neither energy can be used to heal a creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "energy-touch-damage",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "void"
+                        },
+                        "predicate": [
+                            "energy-touch-damage:void"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
