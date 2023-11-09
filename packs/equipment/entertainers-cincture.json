@@ -73,16 +73,14 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     {
-                        "not": [
-                            "item:uninvested"
-                        ]
+                        "not": "item:uninvested"
                     }
                 ],
                 "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "FlatModifier",
-                "selector": "flags.pf2e.rulesSelections.skill",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
                 "type": "item",
                 "value": 2
             }
