@@ -58,7 +58,6 @@
                         </div>
 
                         <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
-                        <div class="spell-components">{{localize "PF2E.SpellComponentsLabel"}}</div>
                         {{#if @root.options.editable}}
                             <div class="item-controls">
                                 <a
@@ -92,23 +91,9 @@
 
                             <div class="spell-range">{{spell.system.range.value}}</div>
 
-                            <div class="spell-components tags">
-                                {{#if spell.system.components.focus}}
-                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
-                                {{/if}}
-                                {{#if spell.system.components.material}}
-                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortM"}}</span>
-                                {{/if}}
-                                {{#if spell.system.components.somatic}}
-                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortS"}}</span>
-                                {{/if}}
-                                {{#if spell.system.components.verbal}}
-                                    <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortV"}}</span>
-                                {{/if}}
-                            </div>
                             {{#unless spell.isCantrip}}
                                 {{#if @root.entry.isFlexible}}
-                                    <div class="spell-cast">
+                                    <div class="cast-spell">
                                         <input
                                             type="checkbox"
                                             data-action="toggle-flexible-collection"
