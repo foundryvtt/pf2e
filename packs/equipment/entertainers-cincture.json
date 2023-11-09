@@ -39,48 +39,34 @@
         "quantity": 1,
         "rules": [
             {
-                "choices": [
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.EntertainersCinture.Label",
+                "option": "entertainers-cincture-skill",
+                "suboptions": [
                     {
                         "label": "PF2E.SkillDec",
-                        "predicate": [
-                            "skill:dec:rank:0"
-                        ],
-                        "value": "dec"
+                        "value": "deception"
                     },
                     {
                         "label": "PF2E.SkillDip",
-                        "predicate": [
-                            "skill:dip:rank:0"
-                        ],
-                        "value": "dip"
+                        "value": "diplomacy"
                     },
                     {
                         "label": "PF2E.SkillItm",
-                        "predicate": [
-                            "skill:itm:rank:0"
-                        ],
-                        "value": "itm"
+                        "value": "intimidation"
                     },
                     {
                         "label": "PF2E.SkillPrf",
-                        "predicate": [
-                            "skill:prf:rank:0"
-                        ],
-                        "value": "prf"
+                        "value": "performance"
                     }
                 ],
-                "flag": "skill",
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "not": "item:uninvested"
-                    }
-                ],
-                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "selector": "{item|flags.pf2e.rulesSelections.entertainersCinctureSkill}",
                 "type": "item",
                 "value": 2
             }
