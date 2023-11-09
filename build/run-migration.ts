@@ -209,6 +209,7 @@ async function migrate() {
                         pruneFlags(item);
                     }
 
+                    update.items = update.items.map((i) => mergeObject({}, i, { performDeletions: true }));
                     for (const updatedItem of update.items) {
                         delete (updatedItem.system as { _migrations?: object })._migrations;
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
