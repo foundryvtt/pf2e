@@ -782,7 +782,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 }
             } else {
                 // The above method of updating embedded items in an actor update does not work with synthetic actors
-                const promises: Promise<ItemPF2e<ActorPF2e>>[] = [];
+                const promises: Promise<ItemPF2e<ActorPF2e> | undefined>[] = [];
                 for (const item of this.actor.itemTypes.melee) {
                     const attackEffects = item.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {

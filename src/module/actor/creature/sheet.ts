@@ -400,7 +400,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 }
 
                 const dropId = htmlClosest(event.target, ".item-container")?.dataset.containerId;
-                return dropId ? [await item.update({ "system.location.value": dropId })] : [];
+                const updated = dropId ? await item.update({ "system.location.value": dropId }) : null;
+                return updated ? [updated] : [];
             }
         } else if (item.isOfType("spellcastingEntry") && dropContainerType === "spellcastingEntry") {
             // target and source are spellcastingEntries and need to be sorted

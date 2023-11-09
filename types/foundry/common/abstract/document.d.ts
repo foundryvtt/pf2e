@@ -338,7 +338,7 @@ export default abstract class Document<
      * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
      * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
      */
-    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this | undefined>;
 
     /**
                  * Delete the current Document.

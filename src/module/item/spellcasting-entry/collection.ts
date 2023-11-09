@@ -107,7 +107,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<TEntry> {
+    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<TEntry | undefined> {
         this.#assertEntryIsDocument(this.entry);
 
         if (spell.baseRank > slotRank && !(slotRank === 0 && spell.isCantrip)) {
@@ -147,7 +147,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(slotRank: number, spellSlot: number): Promise<TEntry> {
+    unprepareSpell(slotRank: number, spellSlot: number): Promise<TEntry | undefined> {
         this.#assertEntryIsDocument(this.entry);
 
         if (CONFIG.debug.hooks === true) {
@@ -168,7 +168,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<TEntry> {
+    setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<TEntry | undefined> {
         this.#assertEntryIsDocument(this.entry);
 
         const key = `system.slots.slot${slotRank}.prepared.${spellSlot}.expended`;
