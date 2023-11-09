@@ -3,11 +3,16 @@
     "img": "systems/pf2e/icons/conditions/frightened.webp",
     "name": "Frightened",
     "system": {
+        "active": false,
         "description": {
             "value": "<p>You're gripped by fear and struggle to control your nerves. The frightened condition always includes a value. You take a status penalty equal to this value to all your checks and DCs. Unless specified otherwise, at the end of each of your turns, the value of your frightened condition decreases by 1.</p>"
         },
         "duration": {
-            "value": 0
+            "expiry": null,
+            "perpetual": false,
+            "text": "",
+            "unit": "unlimited",
+            "value": -1
         },
         "group": null,
         "overrides": [],
@@ -22,6 +27,7 @@
             "overriddenBy": [],
             "overrides": []
         },
+        "removable": false,
         "rules": [
             {
                 "key": "FlatModifier",
@@ -31,7 +37,9 @@
                 "value": "-@item.badge.value"
             }
         ],
+        "traits": {},
         "value": {
+            "immutable": false,
             "isValued": true,
             "value": 1
         }

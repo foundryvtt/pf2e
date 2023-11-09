@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Trigger</strong> You attempt a saving throw against a spell or magical effect, before rolling</p>\n<hr />\n<p>You defend yourself against magic by relying on techniques derived from orc cultural superstitions. You gain a +1 circumstance bonus to your saving throw against the triggering spell or magical effect.</p>"
+            "value": "<p><strong>Trigger</strong> You attempt a saving throw against a spell or magical effect, and have not yet rolled.</p>\n<hr />\n<p>You defend yourself against magic by relying on techniques derived from orc cultural superstitions. You gain a +1 circumstance bonus to your saving throw against the triggering spell or magical effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,15 +20,20 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
                 "option": "orc-superstition",
+                "predicate": [
+                    {
+                        "not": "feat:pervasive-superstition"
+                    }
+                ],
                 "toggleable": true
             },
             {

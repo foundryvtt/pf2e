@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your fists have been forged by battle, your naturally tough skin and dense bone further hardened by conflict.</p>\n<p>Your fist unarmed attacks no longer have the nonlethal trait and gain the shove weapon trait.</p>"
+            "value": "<p>Your fists have been forged by battle, your naturally tough skin and dense bone further hardened by conflict. Your fist unarmed attacks no longer have the nonlethal trait and gain the shove weapon trait.</p>"
         },
         "level": {
             "value": 1
@@ -20,11 +20,35 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "fist": true,
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike"
+            },
+            {
+                "definition": [
+                    "item:slug:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "shove"
+            },
+            {
+                "definition": [
+                    "item:slug:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "nonlethal"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

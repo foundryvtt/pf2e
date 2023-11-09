@@ -208,6 +208,7 @@ const weaponGroups: Record<WeaponGroup, string> = {
     ...meleeWeaponGroups,
     bomb: "PF2E.WeaponGroupBomb",
     bow: "PF2E.WeaponGroupBow",
+    crossbow: "PF2E.WeaponGroupCrossbow",
     firearm: "PF2E.WeaponGroupFirearm",
     sling: "PF2E.WeaponGroupSling",
 };
@@ -470,8 +471,10 @@ export const PF2ECONFIG = {
     usages: {
         "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
         "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
+        "affixed-to-a-metal-weapon": "PF2E.TraitAffixedToAMetalWeapon",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
+        "affixed-to-a-shield-or-weapon": "PF2E.TraitAffixedToAShieldOrWeapon",
         "affixed-to-a-thrown-weapon": "PF2E.TraitAffixedToThrownWeapon",
         "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixedToATwoHandedFirearmOrCrossbow",
         "affixed-to-an-innovation": "PF2E.TraitAffixedToInnovation",
@@ -524,6 +527,7 @@ export const PF2ECONFIG = {
         "each-rune-applied-to-a-separate-item-that-has-pockets":
             "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
+        "etched-onto-a-shield": "PF2E.TraitEtchedOntoAShield",
         "etched-onto-armor": "PF2E.TraitEtchedOntoArmor",
         "etched-onto-heavy-armor": "PF2E.TraitEtchedOntoHeavyArmor",
         "etched-onto-light-armor": "PF2E.TraitEtchedOntoLightArmor",

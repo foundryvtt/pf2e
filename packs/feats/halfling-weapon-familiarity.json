@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You favor traditional halfling weapons, so you've learned how to use them more effectively. You have the trained proficiency with the @UUID[Compendium.pf2e.equipment-srd.Item.Sling], @UUID[Compendium.pf2e.equipment-srd.Item.Halfling Sling Staff], and @UUID[Compendium.pf2e.equipment-srd.Item.Shortsword].</p>\n<p>You gain access to all uncommon halfling weapons. For the purpose of determining your proficiency, martial halfling weapons are simple weapons and advanced halfling weapons are martial weapons.</p>"
+            "value": "<p>You favor traditional halfling weapons, so you've learned how to use them more effectively. You gain access to all uncommon weapons with the halfling trait. You have familiarity with weapons with the halfling trait plus the sling and shortsword—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,34 +20,29 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-sling.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-halfling-sling-staff.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-frying-pan.rank",
-                "value": 1
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:halfling",
+                                    "item:category:martial"
+                                ]
+                            },
+                            "item:base:shortsword"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialHalflingWeapons",
+                "sameAs": "simple",
+                "slug": "martial-halfling-weapons"
             },
             {
                 "definition": [
@@ -60,17 +55,22 @@
                 "slug": "advanced-halfling-weapons"
             },
             {
-                "definition": [
-                    "item:trait:halfling",
-                    "item:category:martial",
+                "key": "CriticalSpecialization",
+                "predicate": [
                     {
-                        "not": "item:category:advanced"
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:halfling",
+                            "item:base:sling",
+                            "item:base:shortsword"
+                        ]
                     }
-                ],
-                "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.MartialHalflingWeapons",
-                "sameAs": "simple",
-                "slug": "martial-halfling-weapons"
+                ]
             }
         ],
         "traits": {

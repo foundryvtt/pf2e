@@ -4,13 +4,13 @@
     "name": "Effect: Shared Clarity",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shared Clarity].</p>\n<p>Allies within 15 feet of you who failed the same saving throw against the same mental effect can also spend their reactions to reroll the failed saving throw with a +2 circumstance bonus.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shared Clarity].</p>\n<p>You gain a +2 circumstance bonus to the triggering saving throw.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
             "value": 18
@@ -24,9 +24,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "premonition-of-clarity",
                     "mental"
                 ],
+                "removeAfterRoll": true,
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

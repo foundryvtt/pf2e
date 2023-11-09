@@ -17,7 +17,7 @@ const MELEE_WEAPON_GROUPS = new Set([
 ] as const);
 
 /** Groups that will be forced as ranged weapons */
-const MANDATORY_RANGED_GROUPS = new Set(["bomb", "bow", "firearm", "sling"] as const);
+const MANDATORY_RANGED_GROUPS = new Set(["bomb", "bow", "crossbow", "firearm", "sling"] as const);
 
 const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUPS] as const);
 

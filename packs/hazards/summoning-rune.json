@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the cloud of magical sensors.</p>\n<hr />\n<p><strong>Effect</strong> This trap summons a specific level 1 creature, determined when the trap is created. The creature rolls initiative and remains for [[/br 2d6 #rounds]]{2d6 rounds}, after which the spell ends and the creature disappears. The creature also disappears if someone disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the cloud of magical sensors</p>\n<hr />\n<p><strong>Effect</strong> This trap summons a specific 1st-level creature, determined when the trap is created. The creature rolls initiative and remains for [[/br 2d6 #rounds]]{2d6 rounds}, after which the spell ends and the creature disappears. The creature also disappears if someone disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -32,7 +32,6 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "conjuration",
                         "summon"
                     ]
                 },
@@ -52,6 +51,7 @@
             "ac": {
                 "value": 10
             },
+            "emitsSound": "encounter",
             "hardness": 0,
             "hasHealth": false,
             "hp": {
@@ -69,16 +69,16 @@
         "creatureType": "",
         "details": {
             "description": "<p>A cloud of invisible magical sensors in a 10-foot radius surrounds an invisible wall or floor rune the size of the creature to be summoned.</p>",
-            "disable": "<p>@Check[type:acrobatics|dc:15|name:Approach Rune] to approach without triggering the trap followed by @Check[type:thievery|dc:17|name:Erase Rune|traits:action:disable-a-device] (trained) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 15) to counteract the rune</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:15|name:Approach Rune] to approach without triggering the trap followed by @Check[type:thievery|dc:17|name:Erase Rune|traits:action:disable-a-device] (trained) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st rank; counteract DC 15) to counteract the rune</p>",
             "isComplex": true,
             "level": {
                 "value": 1
             },
             "publication": {
                 "authors": "",
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder Core Rulebook"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
             },
             "reset": "<p>The trap resets each day at dawn.</p>",
             "routine": ""
@@ -104,7 +104,8 @@
                 "value": "med"
             },
             "value": [
-                "magical"
+                "magical",
+                "trap"
             ]
         }
     },

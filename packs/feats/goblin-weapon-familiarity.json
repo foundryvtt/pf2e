@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Others might look upon them with disdain, but you know that the weapons of your people are as effective as they are sharp. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Dogslicer] and @UUID[Compendium.pf2e.equipment-srd.Item.Horsechopper].</p>\n<p>In addition, you gain access to all uncommon goblin weapons. For the purpose of determining your proficiency, martial goblin weapons are simple weapons and advanced goblin weapons are martial weapons.</p>"
+            "value": "<p>Others might look upon them with disdain, but you know that the weapons of your people are as effective as they are sharp. You gain access to all uncommon weapons with the goblin trait. You have familiarity with weapons with the goblin trait—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,22 +20,20 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-dogslicer.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-horsechopper.rank",
-                "value": 1
+                "definition": [
+                    "item:trait:goblin",
+                    "item:category:martial"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
+                "sameAs": "simple",
+                "slug": "martial-goblin-weapons"
             },
             {
                 "definition": [
@@ -48,17 +46,16 @@
                 "slug": "advanced-goblin-weapons"
             },
             {
-                "definition": [
-                    "item:trait:goblin",
-                    "item:category:martial",
+                "key": "CriticalSpecialization",
+                "predicate": [
                     {
-                        "not": "item:category:advanced"
-                    }
-                ],
-                "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
-                "sameAs": "simple",
-                "slug": "martial-goblin-weapons"
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:trait:goblin"
+                ]
             }
         ],
         "traits": {

@@ -34,7 +34,7 @@
                     "sourceId": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
                 }
             },
-            "img": "icons/tools/navigation/map-chart-tan.webp",
+            "img": "systems/pf2e/icons/features/ancestry/skilled-heritage.webp",
             "name": "Skilled Heritage",
             "sort": 0,
             "system": {
@@ -553,67 +553,6 @@
             "type": "feat"
         },
         {
-            "_id": "GdIv78zgPwAVkQO4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.pD1oDbUDkNtHadGY"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "P2jIZ8st4L6zeq65",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Hand of the Apprentice",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can magically hurl your weapon at your foe. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Hand of the Apprentice]</em> universalist spell. Universalist spells are a type of focus spell, much like school spells. You start with a focus pool of 1 Focus Point.</p>\n<p>See Arcane Schools for more information about focus spells.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "universalist wizard"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.resources.focus.max",
-                        "value": 1
-                    }
-                ],
-                "slug": "hand-of-the-apprentice",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "wizard"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "P2jIZ8st4L6zeq65",
             "flags": {
                 "core": {
@@ -624,12 +563,7 @@
                         "id": "hYHLfL48fpnZSzuC",
                         "onDelete": "cascade"
                     },
-                    "itemGrants": {
-                        "handOfTheApprentice": {
-                            "id": "GdIv78zgPwAVkQO4",
-                            "onDelete": "detach"
-                        }
-                    }
+                    "itemGrants": {}
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
@@ -658,52 +592,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:{actor|system.details.class.trait}",
-                                {
-                                    "or": [
-                                        "feature:dragon-instinct",
-                                        {
-                                            "not": "item:draconic-arrogance"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nor": [
-                                        "item:animal-companion",
-                                        "item:animal-companion-druid",
-                                        "item:bardic-lore",
-                                        "item:fire-lung",
-                                        "item:lingering-composition",
-                                        "item:leshy-familiar",
-                                        "item:martial-performance",
-                                        "item:shore-step",
-                                        "item:steadying-stone",
-                                        "item:storm-born",
-                                        "item:versatile-performance",
-                                        "item:wild-shape"
-                                    ]
-                                }
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "naturalAmbition",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Hand of the Apprentice"
-                    },
-                    {
-                        "flag": "handOfTheApprentice",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
-                    }
-                ],
+                "rules": [],
                 "slug": "natural-ambition",
                 "traits": {
                     "rarity": "common",
@@ -1428,7 +1317,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]{Magic Missile}</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3838,7 +3727,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -4760,7 +4649,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: True Strike]</p>"
+                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
                 },
                 "duration": {
                     "value": "until the end of your turn"
@@ -5774,7 +5663,7 @@
                         "img": "icons/sundries/books/book-eye-purple.webp",
                         "level": 1,
                         "name": "Arcane Spellcasting (Wizard)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Arcane Spellcasting (Wizard)"
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Wizard Spellcasting"
                     },
                     "93v1o": {
                         "img": "icons/magic/symbols/question-stone-yellow.webp",
@@ -5810,7 +5699,7 @@
                         "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
                         "level": 5,
                         "name": "Lightning Reflexes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Lightning Reflexes"
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "p9c01": {
                         "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
@@ -6048,12 +5937,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.7nbKDBGvwSx9T27G"
                 },
                 "pf2e": {
-                    "itemGrants": {
-                        "universalist": {
-                            "id": "QYsKQU2zTYmfi56b",
-                            "onDelete": "detach"
-                        }
-                    }
+                    "itemGrants": {}
                 }
             },
             "img": "icons/magic/symbols/question-stone-yellow.webp",
@@ -6082,37 +5966,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.resources.focus.max",
-                        "predicate": [
-                            {
-                                "not": "feature:universalist"
-                            }
-                        ],
-                        "priority": 9,
-                        "value": 1
-                    },
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:tag:wizard-arcane-school"
-                            ]
-                        },
-                        "flag": "arcaneSchool",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Wizard.ArcaneSchool.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Universalist"
-                    },
-                    {
-                        "flag": "universalist",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.arcaneSchool}"
-                    }
-                ],
+                "rules": [],
                 "slug": "arcane-school",
                 "traits": {
                     "rarity": "common",
@@ -6175,7 +6029,7 @@
                         "flag": "arcaneThesis",
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Wizard.ArcaneThesis.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Metamagical Experimentation"
+                        "selection": "Compendium.pf2e.classfeatures.Item.Experimental Spellshaping"
                     },
                     {
                         "flag": "metamagicalExperimentation",
@@ -6355,144 +6209,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "vt5fJeVCyDpgI3P7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.BWomK7EVY0WXxWgh"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "QYsKQU2zTYmfi56b",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Reach Spell",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can extend the range of your spells. If the next action you use is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "reach-spell",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bard",
-                        "cleric",
-                        "concentrate",
-                        "druid",
-                        "metamagic",
-                        "oracle",
-                        "sorcerer",
-                        "witch",
-                        "wizard"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "QYsKQU2zTYmfi56b",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.qczCKdg47eAmCOUD"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "Gi9S80KENDN0XOxQ",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "reachSpell": {
-                            "id": "vt5fJeVCyDpgI3P7",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/universalist.webp",
-            "name": "Universalist",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Though a universalist lacks the focus of a specialist wizard, they have greater flexibility.</p>\n<p>Instead of specializing narrowly in an arcane school, you can become a universalist wizard-by studying all the schools equally, you devote yourself to understanding the full breadth of the arcane arts. For each level of wizard spell slots you have, you can use Drain Bonded item once per day to recall a spell of that level (instead of using it only once per day in total). You gain an extra wizard class feat, and you add one 1st-level spell of your choice to your spellbook.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:wizard"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "universalist",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Reach Spell"
-                    },
-                    {
-                        "flag": "reachSpell",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.universalist}"
-                    }
-                ],
-                "slug": "universalist",
-                "traits": {
-                    "otherTags": [
-                        "wizard-arcane-school"
-                    ],
-                    "rarity": "common",
-                    "value": [
-                        "wizard"
-                    ]
                 }
             },
             "type": "feat"
@@ -6733,7 +6449,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>You cast a spell you have prepared or in your repertoire. Casting a Spell is a special activity that takes a variable number of actions depending on the spell, as listed in each spell's stat block. As soon as the spellcasting actions are complete, the spell effect occurs.</p>\n<p>Some spells are cast as a reaction or free action. In those cases, you Cast the Spell as a reaction or free action (as appropriate) instead of as an activity. Such cases will be noted in the spell's stat block-for example, \"[reaction] verbal.\"</p>\n<p><strong>Long Casting</strong> Times Some spells take minutes or hours to cast. The Cast a Spell activity for these spells includes a mix of the listed spell components, but it's not necessary to break down which one you're providing at a given time. You can't use other actions or reactions while casting such a spell, though at the GM's discretion, you might be able to speak a few sentences. As with other activities that take a long time, these spells have the exploration trait, and you can't cast them in an encounter. If combat breaks out while you're casting one, your spell is disrupted.</p>\n<p><strong>Spell Components</strong> Each spell lists the spell components required to cast it after the action icons or text, such as \"[three-actions] material, somatic, verbal.\" The spell components, described in detail below, add traits and requirements to the Cast a Spell activity. If you can't provide the components, you fail to Cast the Spell.</p>\n<ul>\n<li>Material (manipulate)</li>\n<li>Somatic (manipulate)</li>\n<li>Verbal (concentrate)</li>\n<li>Focus (manipulate)</li>\n</ul>\n<p><strong>Disrupted and Lost Spells</strong> Some abilities and spells can disrupt a spell, causing it to have no effect and be lost. When you lose a spell, you've already expended the spell slot, spent the spell's costs and actions, and used the Cast a Spell activity. If a spell is disrupted during a @UUID[Compendium.pf2e.actionspf2e.Item.Sustain a Spell] action, the spell immediately ends.</p>"
+                    "value": "<p>You cast a spell you have prepared or in your repertoire. Casting a Spell is a special activity that takes a variable number of actions depending on the spell, as listed in each spell's stat block. As soon as the spellcasting actions are complete, the spell effect occurs.</p>\n<p>Some spells are cast as a reaction or free action. In those cases, you Cast the Spell as a reaction or free action (as appropriate) instead of as an activity. Such cases will be noted in the spell's stat block-for example, \"[reaction] verbal.\"</p>\n<p><strong>Long Casting</strong> Times Some spells take minutes or hours to cast. The Cast a Spell activity for these spells includes a mix of the listed spell components, but it's not necessary to break down which one you're providing at a given time. You can't use other actions or reactions while casting such a spell, though at the GM's discretion, you might be able to speak a few sentences. As with other activities that take a long time, these spells have the exploration trait, and you can't cast them in an encounter. If combat breaks out while you're casting one, your spell is disrupted.</p>\n<p><strong>Spell Components</strong> Each spell lists the spell components required to cast it after the action icons or text, such as \"[three-actions] material, somatic, verbal.\" The spell components, described in detail below, add traits and requirements to the Cast a Spell activity. If you can't provide the components, you fail to Cast the Spell.</p>\n<ul>\n<li>Material (manipulate)</li>\n<li>Somatic (manipulate)</li>\n<li>Verbal (concentrate)</li>\n<li>Focus (manipulate)</li>\n</ul>\n<p><strong>Disrupted and Lost Spells</strong> Some abilities and spells can disrupt a spell, causing it to have no effect and be lost. When you lose a spell, you've already expended the spell slot, spent the spell's costs and actions, and used the Cast a Spell activity. If a spell is disrupted during a @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell} action, the spell immediately ends.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -6759,6 +6475,140 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "NcwZb5hqQav2MLTO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.qczCKdg47eAmCOUD"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "reachSpell": {
+                            "id": "24jV4lYDXurJY6pn",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/universalist.webp",
+            "name": "Universalist",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Though a universalist lacks the focus of a specialist wizard, they have greater flexibility.</p>\n<p>Instead of specializing narrowly in an arcane school, you can become a universalist wizard-by studying all the schools equally, you devote yourself to understanding the full breadth of the arcane arts. For each level of wizard spell slots you have, you can use Drain Bonded item once per day to recall a spell of that level (instead of using it only once per day in total). You gain an extra wizard class feat, and you add one 1st-level spell of your choice to your spellbook.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "classfeature",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:wizard"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "universalist",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Reach Spell"
+                    },
+                    {
+                        "flag": "reachSpell",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.universalist}"
+                    }
+                ],
+                "slug": "universalist",
+                "traits": {
+                    "otherTags": [
+                        "wizard-arcane-school"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "wizard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "24jV4lYDXurJY6pn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BWomK7EVY0WXxWgh"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "NcwZb5hqQav2MLTO",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Reach Spell",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reach-spell",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard",
+                        "cleric",
+                        "concentrate",
+                        "druid",
+                        "metamagic",
+                        "oracle",
+                        "sorcerer",
+                        "witch",
+                        "wizard"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Ezren (Level 5)",

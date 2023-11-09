@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A Small or Medium creature moves into a square that is within reach of the flytrap's hidden jaws.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap's jaws snap shut, making a jaws Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A Small or Medium creature moves into a square that is within reach of the flytrap's hidden jaws</p>\n<hr />\n<p><strong>Effect</strong> The flytrap's jaws snap shut, making a jaws Strike against the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -94,7 +94,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>The target is trapped by the flytrap's jaws, gaining the grabbed condition until it Escapes (DC 21). Additionally, it is exposed to the titanic flytrap toxin from the hundreds of tiny hairs that line the inside of its leaves. If the flytrap's jaws Strike was a critical success, the target takes a -2 circumstance penalty to its saving throws against this poison. At the end of each of target's turns that it remains grabbed, the target takes 3d6 acid damage.</p>"
+                    "value": "<p>The target is trapped by the flytrap's jaws, gaining the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition until it Escapes (DC 21). Additionally, it is exposed to the titanic flytrap toxin from the hundreds of tiny hairs that line the inside of its leaves. If the flytrap's jaws Strike was a critical success, the target takes a –2 circumstance penalty to its saving throws against this poison. At the end of each of the target's turns that it remains grabbed, the target takes @Damage[3d6[acid]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -133,7 +133,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>SavingThrow</strong> @Check[type:fortitude|dc:21]; <strong>MaximumDuration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 2d6 poison damage and stunned 1 (1 round)</p>\n<p><strong>Stage 2</strong> 3d6 poison damage and stunned 2 (1 round)</p>\n<p><strong>Stage 3</strong> 4d6 poison damage and paralyzed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -168,6 +168,7 @@
             "ac": {
                 "value": 21
             },
+            "emitsSound": "encounter",
             "hardness": 0,
             "hasHealth": true,
             "hp": {
@@ -199,7 +200,7 @@
         },
         "creatureType": "",
         "details": {
-            "description": "<p>On the surface, a titanic flytrap appears to be a patch of the more common flytrap plant, but beneath murky waters it hides a far larger set of jaws, reaching 10 feet across and reinforced with woody branches and lined with paralytic hairs.</p>",
+            "description": "<p>On the surface, a titanic flytrap appears to be a patch of the more common flytrap plant, but beneath murky waters it hides a far larger set of jaws, reaching 10 feet across, reinforced with woody branches and lined with paralytic hairs.</p>",
             "disable": "<p>@Check[type:survival|dc:22|name:Mislead the Flytrap's Senses] (trained) to mislead the flytrap's sense of weight and pressure</p>",
             "isComplex": false,
             "level": {
@@ -207,9 +208,9 @@
             },
             "publication": {
                 "authors": "",
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder Gamemastery Guide"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
             },
             "reset": "<p>1 hour (or longer, after a large meal)</p>",
             "routine": ""
