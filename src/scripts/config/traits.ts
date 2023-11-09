@@ -920,6 +920,28 @@ const armorTraits = {
 
 const rangeDescriptions = R.mapToObj(RANGE_TRAITS, (trait) => [trait, "PF2E.TraitDescriptionRange"]);
 
+const kingmakerTraits = {
+    ...actionTraits,
+    army: "PF2E.Kingmaker.Trait.army",
+    cavalry: "PF2E.Kingmaker.Trait.cavalry",
+    civic: "PF2E.Kingmaker.Trait.civic",
+    commerce: "PF2E.Kingmaker.Trait.commerce",
+    infantry: "PF2E.Kingmaker.Trait.infantry",
+    kingdom: "PF2E.Kingmaker.Trait.kingdom",
+    leadership: "PF2E.Kingmaker.Trait.leadership",
+    region: "PF2E.Kingmaker.Trait.region",
+    siege: "PF2E.Kingmaker.Trait.siege",
+    skirmisher: "PF2E.Kingmaker.Trait.skirmisher",
+    upkeep: "PF2E.Kingmaker.Trait.upkeep",
+};
+
+const kingmakerDescriptions = {
+    cavalry: "PF2E.Kingmaker.TraitDescription.cavalry",
+    infantry: "PF2E.Kingmaker.TraitDescription.infantry",
+    siege: "PF2E.Kingmaker.TraitDescription.siege",
+    skirmisher: "PF2E.Kingmaker.TraitDescription.skirmisher",
+};
+
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
@@ -942,6 +964,7 @@ const preciousMaterialDescriptions = {
 };
 
 const traitDescriptions = {
+    ...kingmakerDescriptions,
     aasimar: "PF2E.TraitDescriptionAasimar",
     aberration: "PF2E.TraitDescriptionAberration",
     abjuration: "PF2E.TraitDescriptionAbjuration",
@@ -1364,23 +1387,6 @@ const traitDescriptions = {
     wizard: "PF2E.TraitDescriptionWizard",
     wood: "PF2E.TraitDescriptionWood",
     ...preciousMaterialDescriptions,
-};
-
-const kingmakerTraits = {
-    ...actionTraits,
-    army: "PF2E.Kingmaker.Trait.army",
-    cavalry: "PF2E.Kingmaker.Trait.cavalry",
-    civic: "PF2E.Kingmaker.Trait.civic",
-    commerce: "PF2E.Kingmaker.Trait.commerce",
-    infantry: "PF2E.Kingmaker.Trait.infantry",
-    kingdom: "PF2E.Kingmaker.Trait.kingdom",
-    leadership: "PF2E.Kingmaker.Trait.leadership",
-    maneuver: "PF2E.Kingmaker.Trait.maneuver",
-    morale: "PF2E.Kingmaker.Trait.morale",
-    region: "PF2E.Kingmaker.Trait.region",
-    siege: "PF2E.Kingmaker.Trait.siege",
-    skirmisher: "PF2E.Kingmaker.Trait.skirmisher",
-    upkeep: "PF2E.Kingmaker.Trait.upkeep",
 };
 
 export {
