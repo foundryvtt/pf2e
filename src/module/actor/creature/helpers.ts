@@ -92,7 +92,6 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
             "drained",
             "fatigued",
             "healing",
-            "necromancy",
             "nonlethal-attacks",
             "paralyzed",
             "poison",

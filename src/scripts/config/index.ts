@@ -55,7 +55,6 @@ import {
     featTraits,
     hazardTraits,
     kingmakerTraits,
-    magicSchools,
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
@@ -601,7 +600,6 @@ export const PF2ECONFIG = {
     },
 
     magicTraditions,
-    magicSchools,
     classTraits,
     ancestryTraits,
     ancestryItemTraits,
@@ -790,19 +788,6 @@ export const PF2ECONFIG = {
         S: "PF2E.SpellComponentS",
         M: "PF2E.SpellComponentM",
         F: "PF2E.SpellComponentF",
-    },
-
-    spellCategories: {
-        spell: "PF2E.SpellCategorySpell",
-        focus: "PF2E.SpellCategoryFocus",
-        ritual: "PF2E.SpellCategoryRitual",
-    },
-
-    spellTypes: {
-        attack: "PF2E.SpellTypeAttack",
-        save: "PF2E.SpellTypeSave",
-        heal: "PF2E.SpellTypeHeal",
-        utility: "PF2E.SpellTypeUtility",
     },
 
     featCategories,

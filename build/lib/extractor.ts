@@ -555,11 +555,6 @@ class PackExtractor {
             if (!source.system.onlyLevel1) {
                 delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
             }
-        } else if (source.type === "spell") {
-            const components: Record<string, boolean> = source.system.components;
-            for (const [key, value] of Object.entries(components)) {
-                if (value === false) delete components[key];
-            }
         } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
             delete (source.system as { ability?: unknown }).ability;
         }

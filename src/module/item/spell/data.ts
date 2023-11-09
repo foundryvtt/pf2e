@@ -2,24 +2,14 @@ import { SaveType } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
 import { OneToTen, ValueAndMax } from "@module/data.ts";
 import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
-import { EffectAreaSize, EffectAreaType, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
+import { EffectAreaSize, EffectAreaType, MagicTradition, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
 interface SpellSystemSource extends ItemSystemSource {
     traits: SpellTraits;
     level: { value: OneToTen };
-    spellType: {
-        value: keyof ConfigPF2e["PF2E"]["spellTypes"];
-    };
-    category: {
-        value: keyof ConfigPF2e["PF2E"]["spellCategories"];
-    };
-    traditions: { value: MagicTradition[] };
-    components: Record<SpellComponent, boolean>;
-    materials: {
-        value: string;
-    };
+    requirements: string;
     target: {
         value: string;
     };
@@ -32,27 +22,17 @@ interface SpellSystemSource extends ItemSystemSource {
     };
     duration: {
         value: string;
+        sustained: boolean;
     };
-    damage: {
-        value: Record<string, SpellDamage>;
-    };
+    damage: Record<string, SpellDamageSource>;
     heightening?: SpellHeighteningFixed | SpellHeighteningInterval;
     overlays?: Record<string, SpellOverlay>;
-    save: {
-        basic: string;
-        value: SaveType | "";
-        dc?: number;
-        str?: string;
-    };
-    sustained: {
-        value: false;
-    };
+    defense: SpellDefenseSource | null;
     cost: {
         value: string;
     };
-    hasCounteractCheck: {
-        value: boolean;
-    };
+    counteraction: boolean;
+    ritual: RitualData | null;
     location: {
         value: string | null;
         signature?: boolean;
@@ -66,9 +46,9 @@ interface SpellSystemSource extends ItemSystemSource {
     };
 }
 
-interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
-
-type SpellTraits = ItemTraits<SpellTrait>;
+interface SpellTraits extends ItemTraits<SpellTrait> {
+    traditions: MagicTradition[];
+}
 
 interface SpellArea {
     value: EffectAreaSize;
@@ -80,16 +60,17 @@ interface SpellArea {
     details?: string;
 }
 
-interface SpellDamageType {
-    value: DamageType;
-    subtype?: DamageCategoryUnique;
-    categories: MaterialDamageEffect[];
+interface SpellDamageSource {
+    formula: string;
+    kinds?: ("damage" | "healing")[];
+    applyMod?: boolean;
+    type: DamageType;
+    category: DamageCategoryUnique | null;
+    materials: MaterialDamageEffect[];
 }
 
-interface SpellDamage {
-    value: string;
-    applyMod?: boolean;
-    type: SpellDamageType;
+interface SpellDefenseSource {
+    save: { statistic: SaveType; basic: boolean } | null;
 }
 
 interface SpellHeighteningInterval {
@@ -122,17 +103,40 @@ interface SpellOverlayDamage {
     choices: DamageType[];
 }
 
+interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSystemData, "level" | "traits"> {
+    damage: Record<string, SpellDamage>;
+    defense: SpellDefenseData | null;
+}
+
+interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {
+    kinds: Set<"damage" | "healing">;
+}
+
+interface SpellDefenseData extends SpellDefenseSource {
+    passive: { statistic: SpellPassiveDefense } | null;
+}
+
+type SpellPassiveDefense = "ac" | `${SaveType}-dc`;
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
+
+interface RitualData {
+    /** Details of the primary check for the ritual */
+    primary: { check: string };
+    /** Details of the secondary check(s) for the ritual and maximum number of casters */
+    secondary: { checks: string; casters: number };
+}
 
 export type {
     SpellArea,
     SpellDamage,
+    SpellDamageSource,
     SpellHeightenLayer,
     SpellHeighteningInterval,
     SpellOverlay,
     SpellOverlayOverride,
     SpellOverlayType,
+    SpellPassiveDefense,
     SpellSource,
     SpellSystemData,
     SpellSystemSource,

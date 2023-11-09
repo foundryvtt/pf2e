@@ -279,3 +279,4 @@ export { Migration878TakeABreather } from "./878-take-a-breather.ts";
 export { Migration879DeviseAStratagemAndFriends } from "./879-devise-a-stratagem-and-friends.ts";
 export { Migration880SplitShowDialogsSettings } from "./880-split-show-dialogs-setting.ts";
 export { Migration881NoHBPrefix } from "./881-no-hb-prefix.ts";
+export { Migration882SpellDataReorganization } from "./882-spell-data-reorganization.ts";

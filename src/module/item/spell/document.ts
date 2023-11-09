@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
@@ -43,8 +44,8 @@ import {
     htmlClosest,
     localizer,
     ordinalString,
-    setHasElement,
     traitSlugToObject,
+    tupleHasValue,
 } from "@util";
 import * as R from "remeda";
 import {
@@ -55,9 +56,9 @@ import {
     SpellSystemData,
     SpellSystemSource,
 } from "./data.ts";
+import { createSpellRankLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
-import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
-import { MAGIC_SCHOOLS } from "./values.ts";
+import { EffectAreaSize, MagicTradition, SpellTrait } from "./types.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -123,24 +124,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** Action traits added when Casting this Spell */
     get castingTraits(): ActionTrait[] {
-        const { components } = this;
-        return (
-            [
-                getActionIcon(this.system.time.value, null) === null ? "exploration" : [],
-                components.verbal ? "concentrate" : [],
-                (["focus", "material", "somatic"] as const).some((c) => components[c]) ? "manipulate" : [],
-            ] as const
-        ).flat();
-    }
-
-    get school(): MagicSchool | null {
-        return this.system.traits.value.find((t): t is MagicSchool => setHasElement(MAGIC_SCHOOLS, t)) ?? null;
+        return R.compact([getActionIcon(this.system.time.value, null) === null ? "exploration" : null]);
     }
 
     get traditions(): Set<MagicTradition> {
         return this.spellcasting?.tradition
             ? new Set([this.spellcasting.tradition])
-            : new Set(this.system.traditions.value);
+            : new Set(this.system.traits.traditions);
     }
 
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
@@ -152,7 +142,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isAttack(): boolean {
-        return this.traits.has("attack") || this.system.spellType.value === "attack";
+        return this.traits.has("attack");
     }
 
     get isCantrip(): boolean {
@@ -160,11 +150,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isFocusSpell(): boolean {
-        return this.system.category.value === "focus";
+        return this.traits.has("focus");
     }
 
     get isRitual(): boolean {
-        return this.system.category.value === "ritual";
+        return !!this.system.ritual;
     }
 
     get attribute(): AttributeString {
@@ -178,19 +168,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             until: "6.0.0",
         });
         return this.attribute;
-    }
-
-    get components(): Record<SpellComponent, boolean> & { value: string } {
-        const components = this.system.components;
-        const results: string[] = [];
-        if (components.focus) results.push(game.i18n.localize("PF2E.SpellComponentShortF"));
-        if (components.material) results.push(game.i18n.localize("PF2E.SpellComponentShortM"));
-        if (components.somatic) results.push(game.i18n.localize("PF2E.SpellComponentShortS"));
-        if (components.verbal) results.push(game.i18n.localize("PF2E.SpellComponentShortV"));
-        return {
-            ...components,
-            value: results.join(""),
-        };
     }
 
     /** Whether this spell has unlimited uses */
@@ -224,13 +201,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
     get damageKinds(): Set<DamageKind> {
-        return new Set(
-            this.system.spellType.value === "heal"
-                ? this.system.save.value
-                    ? ["damage", "healing"]
-                    : ["healing"]
-                : ["damage"],
-        );
+        return new Set(Object.values(this.system.damage).flatMap((d) => Array.from(d.kinds)));
     }
 
     override get uuid(): ItemUUID {
@@ -270,7 +241,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     async getDamage(params: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
         // Return early if the spell doesn't deal damage
-        if (!Object.keys(this.system.damage.value).length || !this.actor || !this.spellcasting?.statistic) {
+        if (!Object.keys(this.system.damage).length || !this.actor || !this.spellcasting?.statistic) {
             return null;
         }
 
@@ -279,13 +250,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Loop over the user defined damage fields
         const base: BaseDamageData[] = [];
-        for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            if (!DamageRoll.validate(damage.value)) {
-                console.error(`Failed to parse damage formula "${damage.value}"`);
+        for (const [id, damage] of Object.entries(this.system.damage ?? {})) {
+            if (!DamageRoll.validate(damage.formula)) {
+                console.error(`Failed to parse damage formula "${damage.formula}"`);
                 return null;
             }
 
-            const terms = parseTermsFromSimpleFormula(damage.value, { rollData });
+            const terms = parseTermsFromSimpleFormula(damage.formula, { rollData });
 
             // Check for and apply interval spell scaling
             const heightening = this.system.heightening;
@@ -306,9 +277,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 terms.push({ dice: null, modifier: this.actor.isElite ? value : -value });
             }
 
-            const damageType = damage.type.value;
-            const category = damage.type.subtype || null;
-            const materials = damage.type.categories;
+            const damageType = damage.type;
+            const category = damage.category || null;
+            const materials = damage.materials;
             base.push({ terms: combinePartialTerms(terms), damageType, category, materials });
         }
 
@@ -355,7 +326,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { actor } = contextData.self;
         if (actor.system.abilities) {
             const attributes = actor.system.abilities;
-            const attributeModifiers = Object.entries(this.system.damage.value)
+            const attributeModifiers = Object.entries(this.system.damage)
                 .filter(([, d]) => d.applyMod)
                 .map(
                     ([k, d]) =>
@@ -365,8 +336,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             // Not a restricted attribute modifier in the same way it is for checks or weapon damage
                             type: "untyped",
                             modifier: attributes[attribute].mod,
-                            damageType: d.type.value,
-                            damageCategory: d.type.subtype || null,
+                            damageType: d.type,
+                            damageCategory: d.category || null,
                             adjustments: extractModifierAdjustments(
                                 actor.synthetics.modifierAdjustments,
                                 domains,
@@ -564,7 +535,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Show all traditions as traits if there is no actor
         if (!this.isEmbedded) {
-            this.system.traits.value.push(...this.system.traditions.value);
+            this.system.traits.value.push(...this.system.traits.traditions);
         }
 
         // In case bad level data somehow made it in
@@ -577,20 +548,39 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.area = null;
         }
 
-        if (this.isRitual) this.system.location.value = "rituals";
+        if (this.isRitual) {
+            this.system.damage = {};
+            this.system.defense = null;
+            this.system.traits.value = this.system.traits.value.filter(
+                (t) => !["attack", "cantrip", "focus"].includes(t),
+            );
+            this.system.traits.traditions = [];
+            this.system.location.value = "rituals";
+        }
+
+        if (this.system.traits.value.includes("attack")) {
+            this.system.defense = mergeObject(this.system.defense ?? {}, {
+                passive: { statistic: "ac" as const },
+                save: this.system.defense?.save ?? null,
+            });
+        }
 
         // Ensure formulas are never empty string and default to 0
-        for (const formula of Object.values(this.system.damage.value)) {
-            formula.value = formula.value?.trim() || "0";
+        for (const damage of Object.values(this.system.damage)) {
+            damage.formula = damage.formula?.trim() || "0";
+
+            damage.kinds = new Set(damage.kinds);
+            if (damage.kinds.size === 0) damage.kinds.add("damage");
         }
+
         if (this.system.heightening?.type === "fixed") {
             for (const heighten of Object.values(this.system.heightening.levels)) {
-                for (const formula of Object.values(heighten.damage?.value ?? {})) {
-                    formula.value = formula.value?.trim() || "0";
+                for (const formula of Object.values(heighten.damage ?? {})) {
+                    formula.formula = formula.formula?.trim() || "0";
                 }
             }
         } else if (this.system.heightening?.type === "interval") {
-            for (const key of Object.keys(this.system.heightening.damage)) {
+            for (const key of Object.keys(this.system.heightening.damage ?? {})) {
                 this.system.heightening.damage[key] = this.system.heightening.damage[key]?.trim() || "0";
             }
         }
@@ -621,25 +611,24 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             options.add(`${prefix}:frequency:limited`);
         }
 
-        const damageValues = Object.values(this.system.damage.value);
-        for (const damage of damageValues) {
+        for (const damage of Object.values(this.system.damage)) {
             if (damage.type) {
-                options.add(`${prefix}:damage:${damage.type.value}`);
-                options.add(`${prefix}:damage:type:${damage.type.value}`);
+                options.add(`${prefix}:damage:${damage.type}`);
+                options.add(`${prefix}:damage:type:${damage.type}`);
             }
-            const category = DamageCategorization.fromDamageType(damage.type.value);
+            const category = DamageCategorization.fromDamageType(damage.type);
             if (category) {
                 options.add(`${prefix}:damage:category:${category}`);
             }
-            if (damage.type.subtype === "persistent") {
-                options.add(`${prefix}:damage:persistent:${damage.type.value}`);
+            if (damage.category === "persistent") {
+                options.add(`${prefix}:damage:persistent:${damage.type}`);
             }
         }
 
         const isAreaEffect = !!this.system.area?.value;
         if (isAreaEffect) options.add("area-effect");
 
-        if (damageValues.length > 0 && this.system.spellType.value !== "heal") {
+        if (Object.values(this.system.damage).some((d) => d.kinds.has("damage"))) {
             options.add("damaging-effect");
             if (isAreaEffect) options.add("area-damage");
         }
@@ -689,7 +678,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             };
 
             // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
-            if (this.system.spellType.value === "save" || this.system.save.value !== "") {
+            if (this.system.defense) {
                 const dc = entry.statistic.withRollOptions({ item: this }).dc;
                 flags.context = {
                     type: "spell-cast",
@@ -739,7 +728,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel });
         rollData.item ??= this;
 
-        const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
@@ -763,13 +751,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const statisticChatData = statistic?.getChatData({ item: this });
         const spellDC = statisticChatData?.dc.value;
-        const isSave = systemData.spellType.value === "save" || !!systemData.save.value;
         const damage = await this.getDamage();
         const hasDamage = !!damage; // needs new check // formula && formula !== "0";
 
         // Spell save label
-        const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : null;
-        const saveKey = systemData.save.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
+        const saveType =
+            systemData.defense?.save && tupleHasValue(SAVE_TYPES, systemData.defense.save.statistic)
+                ? game.i18n.localize(CONFIG.PF2E.saves[systemData.defense.save.statistic])
+                : null;
+        const isSave = !!saveType;
+        const saveKey = systemData.defense?.save?.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
         const saveLabel = ((): string | null => {
             if (!(spellDC && saveType)) return null;
             const localized = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
@@ -789,24 +780,22 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { baseRank } = this;
         const heightened = castLevel - baseRank;
-        const rankLabel = (() => {
-            const type = this.isCantrip
-                ? localize("PF2E.TraitCantrip")
-                : localize(CONFIG.PF2E.spellCategories[this.system.category.value]);
-            return game.i18n.format("PF2E.ItemLevel", { type, level: castLevel });
-        })();
+        const rankLabel = createSpellRankLabel(this, castLevel);
 
         // Combine properties
         const area = this.area;
         const properties = R.compact([
             heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinalString(baseRank) }) : null,
             heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
-            this.isRitual ? null : `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
-            systemData.range.value ? `${localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
-            systemData.target.value ? `${localize("PF2E.SpellTargetLabel")}: ${systemData.target.value}` : null,
+            systemData.range.value ? `${game.i18n.localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
+            systemData.target.value
+                ? `${game.i18n.localize("PF2E.SpellTargetLabel")}: ${systemData.target.value}`
+                : null,
             area ? game.i18n.format("PF2E.SpellArea", { area: area.label }) : null,
-            systemData.time.value ? `${localize("PF2E.SpellTimeLabel")}: ${systemData.time.value}` : null,
-            systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
+            systemData.time.value ? `${game.i18n.localize("PF2E.Item.Spell.Cast")}: ${systemData.time.value}` : null,
+            systemData.duration.value
+                ? `${game.i18n.localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}`
+                : null,
         ]);
 
         const spellTraits = this.traitChatData(CONFIG.PF2E.spellTraits);
@@ -824,7 +813,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
             save: {
                 ...(statisticChatData?.dc ?? {}),
-                type: systemData.save.value,
+                type: saveType,
                 label: saveLabel,
             },
             hasDamage,
@@ -980,8 +969,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         user: UserPF2e,
     ): Promise<boolean | void> {
         this._source.system.location.value ||= null;
-        if (this._source.system.category.value === "ritual") {
+
+        if (this._source.system.ritual) {
+            this._source.system.damage = {};
+            this._source.system.defense = null;
             this._source.system.location.value = null;
+            this._source.system.traits.value = this._source.system.traits.value.filter(
+                (t) => !["attack", "cantrip", "focus"].includes(t),
+            );
+            this._source.system.traits.traditions = [];
         }
 
         return super._preCreate(data, options, user);
@@ -1001,6 +997,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (changed.system?.level) {
             const { level } = changed.system;
             level.value = Math.clamped(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
+        }
+
+        // Wipe defense data if `defense.save.statistic` is set to empty string
+        const save: { statistic?: string; basic?: boolean } = changed.system?.defense?.save ?? {};
+        if (changed.system && save.statistic === "") {
+            delete changed.system?.defense;
+            changed.system.defense = null;
         }
 
         const uses = changed.system?.location?.uses;

@@ -1,8 +1,8 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { SpellSystemSource } from "@item/spell/index.ts";
 import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
 import { objectHasKey, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
-import { MagicSchool, SpellSystemSource } from "@item/spell/index.ts";
 
 /** Remove duplicate magic schools localization map */
 export class Migration621RemoveConfigSpellSchools extends MigrationBase {
@@ -29,9 +29,9 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
         }
     }
 
-    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
-        if (itemData.type === "spell") {
-            const system: SpellSystemSourceWithSchool = itemData.system;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type === "spell") {
+            const system: SpellSystemSourceWithSchool = source.system;
             const school: { value: string } = system.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
         }
@@ -39,5 +39,5 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
 }
 
 interface SpellSystemSourceWithSchool extends SpellSystemSource {
-    school?: { value: MagicSchool };
+    school?: { value: string };
 }

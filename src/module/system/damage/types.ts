@@ -10,6 +10,7 @@ type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
+type DamageKind = "damage" | "healing";
 type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
 
 /**
@@ -18,8 +19,6 @@ type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
  * `false`: don't double on crit
  */
 type CriticalInclusion = boolean | null;
-
-type DamageKind = "damage" | "healing";
 
 interface DamageCategoryRenderData {
     dice: {

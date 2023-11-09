@@ -63,7 +63,8 @@ export class Migration663FixSpellDamage extends MigrationBase {
     }
 }
 
-interface SpellScalingOld extends SpellSystemSource {
+interface SpellScalingOld extends Omit<SpellSystemSource, "damage"> {
+    damage: Record<string, unknown>;
     scaling?: {
         interval: number;
         damage: Record<string, string>;
