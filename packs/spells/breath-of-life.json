@@ -19,24 +19,31 @@
         "damage": {
             "value": {
                 "0": {
-                    "applyMod": "0",
+                    "applyMod": false,
                     "type": {
                         "categories": [],
                         "subtype": "",
                         "value": ""
                     },
-                    "value": "4d8"
+                    "value": "5d8"
                 }
             }
         },
         "description": {
-            "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from dying and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use <em>breath of life</em> if the triggering effect was <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> or a death effect.</p>"
+            "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from dying and restore 5d8 Hit Points to the target. You can't use breath of life if the triggering effect was a death effect or an effect that leaves no remains, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em></p>\n<hr />\n<p><strong>Heightened (+2)</strong> The healing increases by 1d8.</p>"
         },
         "duration": {
             "value": ""
         },
         "hasCounteractCheck": {
-            "value": null
+            "value": false
+        },
+        "heightening": {
+            "damage": {
+                "0": "1d8"
+            },
+            "interval": 1,
+            "type": "interval"
         },
         "level": {
             "value": 5
@@ -51,9 +58,9 @@
             "value": ""
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "60 feet"
@@ -90,8 +97,7 @@
             "rarity": "common",
             "value": [
                 "healing",
-                "vitality",
-                "necromancy"
+                "vitality"
             ]
         }
     },

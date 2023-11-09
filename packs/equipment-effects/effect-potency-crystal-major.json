@@ -1,0 +1,60 @@
+{
+    "_id": "VMVrJA4SkyOfklmj",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/potency-crystal.webp",
+    "name": "Effect: Potency Crystal (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal (Major)]</p>\n<p>The weapon becomes a <em>+3 major striking weapon</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectPotencyCrystal",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
+                "value": 3
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

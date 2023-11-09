@@ -24,11 +24,22 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:orc-ferocity"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

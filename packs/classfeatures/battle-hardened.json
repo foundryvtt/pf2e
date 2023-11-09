@@ -1,0 +1,60 @@
+{
+    "_id": "gdSmSTaGDxf4g2d8",
+    "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
+    "name": "Battle Hardened",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your experience in battle helps protect you against magic and toxins alike. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Fortitude",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "fortitude",
+                "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.fortitude.rank",
+                "value": 3
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

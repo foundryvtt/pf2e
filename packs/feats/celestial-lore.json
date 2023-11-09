@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You were raised with an aasimar or celestial relative, or you've devoted yourself to researching the secrets of the celestial realms.</p>\n<p>You gain the trained proficiency rank in Diplomacy and Religion. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also become trained in a Lore skill related to the celestial realm from which you trace your lineage (usually Elysium Lore, Heaven Lore, or Nirvana Lore).</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill. You also need to manually enter the granted Lore skill.</em></p>"
+            "value": "<p>You know the secrets of the Multiverse. You gain the trained proficiency rank in either Diplomacy or Intimidation, and Religion. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for a Lore subcategory of a plane to which you trace your lineage.</p>"
         },
         "level": {
             "value": 1
@@ -28,14 +28,137 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.dip.rank",
+                "path": "system.skills.rel.rank",
                 "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "predicate": [
+                            "skill:acr:rank:0"
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:0"
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "predicate": [
+                            "skill:ath:rank:0"
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:0"
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": [
+                            "skill:dec:rank:0"
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            "skill:dip:rank:0"
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": [
+                            "skill:itm:rank:0"
+                        ],
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "predicate": [
+                            "skill:med:rank:0"
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "predicate": [
+                            "skill:nat:rank:0"
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "predicate": [
+                            "skill:occ:rank:0"
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "predicate": [
+                            "skill:prf:rank:0"
+                        ],
+                        "value": "prf"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "predicate": [
+                            "skill:rel:rank:0"
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "predicate": [
+                            "skill:soc:rank:0"
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "predicate": [
+                            "skill:ste:rank:0"
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "predicate": [
+                            "skill:sur:rank:0"
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "predicate": [
+                            "skill:thi:rank:0"
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.rel.rank",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
                 "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
             }
         ],
         "traits": {

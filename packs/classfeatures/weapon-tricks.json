@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You have become thoroughly familiar with the tools of your trade. You gain expert proficiency in simple weapons as well as the @UUID[Compendium.pf2e.equipment-srd.Item.Rapier], @UUID[Compendium.pf2e.equipment-srd.Item.Sap], @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow], @UUID[Compendium.pf2e.equipment-srd.Item.Shortsword], and unarmed attacks. When you critically succeed at an attack roll against an off-guard creature while using an agile or finesse simple weapon or unarmed attack, or when using any of the listed weapons, you apply the critical specialization effect for that weapon or unarmed attack.</p>"
+            "value": "<p>You gain expert proficiency in simple weapons, martial weapons, and unarmed attacks. When you critically succeed at an attack roll against an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature while using an agile or finesse weapon or an agile or finesse unarmed attack, you apply the critical specialization effect for that weapon or unarmed attack.</p>"
         },
         "level": {
             "value": 5
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -34,25 +34,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-sap.rank",
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-shortbow.rank",
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
+                "path": "system.proficiencies.attacks.martial.rank",
                 "value": 2
             },
             {
@@ -67,26 +49,8 @@
                     "target:condition:off-guard",
                     {
                         "or": [
-                            {
-                                "and": [
-                                    {
-                                        "or": [
-                                            "item:trait:agile",
-                                            "item:trait:finesse"
-                                        ]
-                                    },
-                                    {
-                                        "or": [
-                                            "item:category:simple",
-                                            "item:category:unarmed"
-                                        ]
-                                    }
-                                ]
-                            },
-                            "item:base:rapier",
-                            "item:base:sap",
-                            "item:base:shortbow",
-                            "item:base:shortsword"
+                            "item:trait:agile",
+                            "item:trait:finesse"
                         ]
                     }
                 ]

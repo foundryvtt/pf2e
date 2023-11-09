@@ -1,0 +1,60 @@
+{
+    "_id": "Acox3S5hpJAqq1jc",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/potency-crystal.webp",
+    "name": "Effect: Potency Crystal (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal (Greater)]</p>\n<p>The weapon becomes a <em>+2 greater striking weapon.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectPotencyCrystal",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
+                "value": 2
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

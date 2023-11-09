@@ -3,11 +3,16 @@
     "img": "systems/pf2e/icons/conditions/enfeebled.webp",
     "name": "Enfeebled",
     "system": {
+        "active": false,
         "description": {
             "value": "<p>You're physically weakened. Enfeebled always includes a value. When you are enfeebled, you take a status penalty equal to the condition value to Strength-based rolls and DCs, including Strength-based melee attack rolls, Strength-based damage rolls, and Athletics checks.</p>"
         },
         "duration": {
-            "value": 0
+            "expiry": null,
+            "perpetual": false,
+            "text": "",
+            "unit": "unlimited",
+            "value": -1
         },
         "group": "abilities",
         "overrides": [],
@@ -22,6 +27,7 @@
             "overriddenBy": [],
             "overrides": []
         },
+        "removable": false,
         "rules": [
             {
                 "key": "FlatModifier",
@@ -34,7 +40,9 @@
                 "value": "-@item.badge.value"
             }
         ],
+        "traits": {},
         "value": {
+            "immutable": false,
             "isValued": true,
             "value": 1
         }

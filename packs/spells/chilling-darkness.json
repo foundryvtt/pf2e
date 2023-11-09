@@ -20,8 +20,10 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "cold"
                     },
                     "value": "5d6"
@@ -29,7 +31,7 @@
             }
         },
         "description": {
-            "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
+            "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack. The ray deals 5d6 cold damage. If the target has the holy trait, you deal an extra 5d6 spirit damage.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the spirit damage against holy creatures increases by 2d6.</p>"
         },
         "duration": {
             "value": ""
@@ -50,6 +52,39 @@
         "materials": {
             "value": ""
         },
+        "overlays": {
+            "qXeevJsP6ve5B3fk": {
+                "_id": "qXeevJsP6ve5B3fk",
+                "overlayType": "override",
+                "sort": 1
+            },
+            "tsL9OtpmoVJcZbcV": {
+                "_id": "tsL9OtpmoVJcZbcV",
+                "name": "Chilling Darkness (Vs. Holy Trait)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "value": {
+                            "2S1a6g60omQDPEP6": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "spirit"
+                                },
+                                "value": "5d6"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "2S1a6g60omQDPEP6": "2d6"
+                        }
+                    }
+                }
+            }
+        },
         "prepared": {
             "value": ""
         },
@@ -57,9 +92,9 @@
             "value": ""
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "120 feet"
@@ -98,8 +133,7 @@
                 "attack",
                 "cold",
                 "darkness",
-                "evil",
-                "evocation"
+                "unholy"
             ]
         }
     },

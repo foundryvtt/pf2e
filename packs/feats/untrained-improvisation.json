@@ -11,7 +11,7 @@
         },
         "category": "general",
         "description": {
-            "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to half your level instead of +0. If you're 7th level or higher, the bonus increases to your full level instead. This doesn't allow you to use the skill's trained actions.</p>"
+            "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to your level –2. This improves to your level –1 at 5th level and your full level at 7th level. This doesn't allow you to use the skill's trained actions.</p>"
         },
         "level": {
             "value": 3
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -32,14 +32,20 @@
                 "value": {
                     "brackets": [
                         {
+                            "end": 4,
+                            "value": "@actor.level -2"
+                        },
+                        {
                             "end": 6,
-                            "value": "floor(@actor.level / 2)"
+                            "start": 5,
+                            "value": "@actor.level -1"
                         },
                         {
                             "start": 7,
                             "value": "@actor.level"
                         }
-                    ]
+                    ],
+                    "field": "actor|level"
                 }
             }
         ],

@@ -11,7 +11,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>When you roll initiative, you can yell a mighty battle cry and <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"F\">Demoralize</span> an observed foe as a free action.</p>\n<p>If you're legendary in Intimidation, you can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.</p>"
+            "value": "<p>When you roll initiative, you can yell a mighty battle cry and @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an observed foe as a free action. If you're legendary in Intimidation, you can use a reaction to Demoralize your foe when you critically succeed at an attack roll.</p>"
         },
         "level": {
             "value": 7
@@ -24,15 +24,16 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "key": "Note",
+                "outcome": [],
                 "selector": "initiative",
-                "text": "You can yell a mighty battle cry and <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"F\">Demoralize</span> an observed foe as a free action.",
+                "text": "{item|system.description.value}",
                 "title": "{item|name}"
             },
             {
@@ -44,7 +45,7 @@
                     "skill:itm:rank:4"
                 ],
                 "selector": "attack",
-                "text": "You can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.",
+                "text": "{item|system.description.value}",
                 "title": "{item|name}"
             }
         ],

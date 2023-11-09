@@ -1,0 +1,43 @@
+{
+    "_id": "P99n3BdPkaemfhWf",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/dragon-turtle-scale.webp",
+    "name": "Effect: Dragon Turtle Scale (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon Turtle Scale (Greater)]</p>\n<p>You gain a swim Speed equal to your land Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
