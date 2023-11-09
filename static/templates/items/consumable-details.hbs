@@ -9,19 +9,44 @@
     </select>
 </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ConsumableConsumeLabel"}}</label>
-    <input type="text" name="system.consume.value" value="{{data.consume.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
-</div>
+{{#unless item.isAmmunition}}
+    <div class="form-group">
+        <label>{{localize "PF2E.ConsumableConsumeLabel"}}</label>
+        <input type="text" name="system.consume.value" value="{{data.consume.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+    </div>
+{{/unless}}
 
 <div class="form-group">
     <label>{{localize "PF2E.ConsumableAutoDestroyLabel"}}</label>
     <input type="checkbox" name="system.autoDestroy.value" {{checked data.autoDestroy.value}} />
 </div>
 
+{{#unless item.isAmmunition}}
+    <div class="form-group stacked">
+        <label>
+            <span>{{localize "PF2E.Item.MaterialEffects.Label"}}</span>
+            <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.MaterialEffects.Hint"></i>
+            {{#if editable}}
+                <a
+                    class="tag-selector"
+                    data-tag-selector="basic"
+                    data-title="PF2E.Item.Action.MaterialEffects.Label"
+                    data-config-types="materialDamageEffects"
+                    data-property="system.material.effects"
+                ><i class="fa-solid fa-fw fa-edit"></i></a>
+            {{/if}}
+        </label>
+        <ul class="traits-list tags">
+            {{#each materialEffects as |material|}}
+                <li class="tag tag_material" data-slug="{{material.value}}">{{material.label}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/unless}}
+
 <div class="form-group stacked">
     <label>
-        {{localize "PF2E.Item.Physical.OtherTags.Label"}}
+        <span>{{localize "PF2E.Item.Physical.OtherTags.Label"}}</span>
         <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Physical.OtherTags.Hint"></i>
         {{#if editable}}
             <a

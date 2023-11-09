@@ -198,11 +198,7 @@ function instancesFromTypeMap(
         if (enclosed === "0" && persistent) return [];
 
         const flavor = ((): string => {
-            const kindFlavor = kinds.has("damage")
-                ? kinds.has("healing")
-                    ? ["damage", "healing"]
-                    : ["damage"]
-                : ["healing"];
+            const kindFlavor = kinds.has("damage") ? (kinds.has("healing") ? ["damage", "healing"] : []) : ["healing"];
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
             const persistentFlavor = persistent ? ["persistent"] : [];
             const materialFlavor = typePartials.flatMap((p) => p.materials ?? []);

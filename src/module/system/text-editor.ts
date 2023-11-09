@@ -738,13 +738,15 @@ async function augmentInlineDamageRoll(
         // Extract terms from formula
         const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
 
-        const domains = R.compact([
-            "damage",
-            "inline-damage",
-            item ? `${item.id}-inline-damage` : null,
-            item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
-            args.domains,
-        ]).flat();
+        const domains = R.compact(
+            [
+                "damage",
+                "inline-damage",
+                item ? `${item.id}-inline-damage` : null,
+                item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
+                args.domains,
+            ].flat(),
+        );
 
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
@@ -753,11 +755,15 @@ async function augmentInlineDamageRoll(
             ...(extraRollOptions ?? []),
         ]);
 
-        // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
         const firstBase = base.at(0);
-        if (firstBase && actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
+        if (!firstBase) return null;
+        // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
+        if (actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
             const value = options.has("item:frequency:limited") ? 4 : 2;
             firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
+        }
+        if (item?.isOfType("physical")) {
+            firstBase.materials = R.uniq(R.compact([item.material.effects, firstBase.materials].flat()).sort());
         }
 
         const { modifiers, dice } = (() => {
@@ -805,12 +811,13 @@ async function augmentInlineDamageRoll(
         const { formula, breakdown } = createDamageFormula(formulaData);
 
         const roll = new DamageRoll(formula);
+
         const template: SimpleDamageTemplate = {
             name: name ?? item?.name ?? actor?.name ?? "",
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
             traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
-            materials: [],
+            materials: item?.isOfType("physical") ? item.system.material.effects : [],
         };
 
         return { template, context };
