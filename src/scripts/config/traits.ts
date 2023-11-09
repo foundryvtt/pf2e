@@ -1325,6 +1325,7 @@ const traitDescriptions = {
     spellgun: "PF2E.TraitDescriptionSpellgun",
     spellheart: "PF2E.TraitDescriptionSpellheart",
     spellshot: "PF2E.TraitNoDescription",
+    spirit: "PF2E.TraitDescriptionSpirit",
     splash: "PF2E.TraitDescriptionSplash",
     "splash-10": "PF2E.TraitDescriptionSplash10",
     sprite: "PF2E.TraitDescriptionSprite",
