@@ -195,9 +195,7 @@ declare global {
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
         get(module: "pf2e", setting: "gradualBoostsVariant"): boolean;
-        get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
-        get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
         get(module: "pf2e", setting: "proficiencyVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): boolean;

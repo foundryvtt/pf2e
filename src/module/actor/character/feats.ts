@@ -73,16 +73,6 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             .map((_, idx) => idx + 1)
             .filter((idx) => idx % 2 === 0);
 
-        // Add dual class if active
-        if (game.settings.get("pf2e", "dualClassVariant")) {
-            this.createGroup({
-                id: "dualclass",
-                label: "PF2E.FeatDualClassHeader",
-                supported: ["class"],
-                slots: [1, ...evenLevels],
-            });
-        }
-
         // Add free archetype (if active)
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             this.createGroup({

@@ -17,15 +17,6 @@ const SETTINGS: Record<string, SettingRegistration> = {
             resetActors(game.actors.filter((a) => a.type === "character"));
         },
     },
-    ancestryParagonVariant: {
-        name: "PF2E.SETTINGS.Variant.AncestryParagon.Name",
-        hint: "PF2E.SETTINGS.Variant.AncestryParagon.Hint",
-        default: false,
-        type: Boolean,
-        onChange: () => {
-            resetActors(game.actors.filter((a) => a.type === "character"));
-        },
-    },
     freeArchetypeVariant: {
         name: "PF2E.SETTINGS.Variant.FreeArchetype.Name",
         hint: "PF2E.SETTINGS.Variant.FreeArchetype.Hint",
@@ -34,12 +25,6 @@ const SETTINGS: Record<string, SettingRegistration> = {
         onChange: () => {
             resetActors(game.actors.filter((a) => a.type === "character"));
         },
-    },
-    dualClassVariant: {
-        name: "PF2E.SETTINGS.Variant.DualClass.Name",
-        hint: "PF2E.SETTINGS.Variant.DualClass.Hint",
-        default: false,
-        type: Boolean,
     },
     automaticBonusVariant: {
         name: "PF2E.SETTINGS.Variant.AutomaticBonus.Name",
