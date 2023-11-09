@@ -677,11 +677,7 @@ const featTraits = {
 };
 
 const consumableTraits = {
-    ...damageTraits,
-    ...elementTraits,
-    ...magicSchools,
-    ...magicTraditions,
-    ...sanctificationTraits,
+    ...spellTraits,
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
