@@ -757,13 +757,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Spell save label
         const saveType =
             systemData.defense?.save && tupleHasValue(SAVE_TYPES, systemData.defense.save.statistic)
-                ? game.i18n.localize(CONFIG.PF2E.saves[systemData.defense.save.statistic])
+                ? systemData.defense.save.statistic
                 : null;
         const isSave = !!saveType;
         const saveKey = systemData.defense?.save?.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
         const saveLabel = ((): string | null => {
             if (!(spellDC && saveType)) return null;
-            const localized = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
+            const localized = game.i18n.format(saveKey, {
+                dc: spellDC,
+                type: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+            });
             const tempElement = createHTMLElement("div", { innerHTML: localized });
             const visibility = game.settings.get("pf2e", "metagame_showDC") ? "all" : "owner";
             TextEditorPF2e.convertXMLNode(tempElement, "dc", { visibility, whose: null });
