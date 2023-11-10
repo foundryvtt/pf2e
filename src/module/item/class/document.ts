@@ -38,20 +38,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
     }
 
     get grantedFeatSlots(): Record<"ancestry" | "class" | "skill" | "general", (number | FeatSlotCreationData)[]> {
-        const actorLevel = this.actor?.level ?? 0;
         const system = this.system;
 
-        const ancestryLevels: (number | FeatSlotCreationData)[] = deepClone(system.ancestryFeatLevels.value);
-        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
-            ancestryLevels.unshift({ id: "ancestry-bonus", level: 1, label: "1" });
-            for (let level = 3; level <= actorLevel; level += 4) {
-                const index = (level + 1) / 2;
-                ancestryLevels.splice(index, 0, level);
-            }
-        }
-
         return {
-            ancestry: ancestryLevels,
+            ancestry: deepClone(system.ancestryFeatLevels.value),
             class: [...system.classFeatLevels.value],
             skill: [...system.skillFeatLevels.value],
             general: [...system.generalFeatLevels.value],
