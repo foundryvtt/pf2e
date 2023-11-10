@@ -2,11 +2,11 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { SpellDamageSource, SpellSystemSource } from "@item/spell/data.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/types.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/types.ts";
-import { isObject, tupleHasValue } from "@util";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPES } from "@system/damage/values.ts";
+import { isObject, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -14,7 +14,17 @@ import { MigrationBase } from "../base.ts";
 export class Migration882SpellDataReorganization extends MigrationBase {
     static override version = 0.882;
 
-    #SCHOOL_TRAITS = new Set(["conjuration", "divination", "enchantment", "evocation", "necromancy", "transmutation"]);
+    #SCHOOL_TRAITS = new Set([
+        "abjuration",
+        "conjuration",
+        "divination",
+        "enchantment",
+        "evocation",
+        "necromancy",
+        "transmutation",
+    ]);
+
+    #DAMAGE_TYPES = new Set([...DAMAGE_TYPES, "good", "evil", "lawful", "chaotic"] as const);
 
     #ensureTraitsPresence(system: MaybeOldSpellSystemSource): { value: SpellTrait[] } {
         return mergeObject({ value: [] }, system.traits ?? { value: [] });
@@ -121,29 +131,34 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("save" in system) system["-=save"] = null;
 
         // Flatten `damage` object
-        const oldSpellDamage: Record<string, unknown> = system.damage ?? {};
-        const damage = deepClone(
-            isObject(system.damage) && "value" in system.damage ? system.damage.value : system.damage ?? {},
-        ) as Record<string, SpellDamagePartialWithOldData> & Record<`-=${string}`, null | undefined>;
-        system.damage = topLevel || !!system.damage ? (damage as Record<string, SpellDamageSource>) : undefined;
-
-        for (const [key, oldValue] of Object.entries(oldSpellDamage)) {
-            if (key === "value" || !isObject(oldValue)) damage[`-=${key}`] = null;
-        }
-
-        for (const damagePartial of Object.values(damage)) {
-            if (!isObject(damagePartial)) continue;
-
-            if ("value" in damagePartial && typeof damagePartial.value === "string") {
-                damagePartial.formula = damagePartial.value;
-                delete damagePartial.value;
+        const oldSpellDamage = deepClone(system.damage);
+        if (isObject(oldSpellDamage) && R.isObject(oldSpellDamage?.value)) {
+            system.damage = {};
+            for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {
+                if (!R.isObject(partial)) continue;
+                const typeData = R.isObject(partial.type) ? partial.type : {};
+                const damageType = setHasElement(this.#DAMAGE_TYPES, typeData.value)
+                    ? typeData.value
+                    : topLevel
+                    ? "untyped"
+                    : undefined;
+                const damageCategory = setHasElement(DAMAGE_CATEGORIES_UNIQUE, typeData.subtype)
+                    ? typeData.subtype
+                    : topLevel
+                    ? null
+                    : undefined;
+                system.damage[key] = {
+                    applyMod: typeof partial.applyMod === "boolean" ? partial.applyMod : undefined,
+                    formula: typeof partial.value === "string" ? partial.value : topLevel ? "" : undefined,
+                    type: damageType,
+                    category: damageCategory,
+                    materials: Array.isArray(typeData.categories) ? typeData.categories : topLevel ? [] : undefined,
+                };
             }
 
-            if (isObject(damagePartial.type)) {
-                const oldTypeData = damagePartial.type;
-                damagePartial.type = oldTypeData.value;
-                damagePartial.category = oldTypeData.subtype || null;
-                damagePartial.materials = oldTypeData.categories;
+            const damageWithDeletions: Record<string, unknown> = system.damage;
+            for (const [key, oldValue] of Object.entries(oldSpellDamage)) {
+                if (key === "value" || !isObject(oldValue)) damageWithDeletions[`-=${key}`] = null;
             }
         }
 
@@ -153,13 +168,17 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                 const traits = (system.traits = this.#ensureTraitsPresence(system));
                 traits.value.push("attack");
             } else if (system.spellType.value === "heal") {
-                for (const damagePartial of Object.values(system.damage ?? {})) {
-                    if (damagePartial) damagePartial.kinds = ["healing"];
+                for (const [key, damagePartial] of Object.entries(system.damage ?? {})) {
+                    if (key !== "value" && isObject(damagePartial)) {
+                        damagePartial.kinds = ["healing"];
+                    }
                 }
             }
 
-            for (const damagePartial of Object.values(system.damage ?? {})) {
-                if (damagePartial) damagePartial.kinds ??= ["damage"];
+            for (const [key, damagePartial] of Object.entries(system.damage ?? {})) {
+                if (key !== "value" && isObject(damagePartial)) {
+                    damagePartial.kinds ??= ["damage"];
+                }
             }
         }
         if ("spellType" in system) system["-=spellType"] = null;
@@ -257,7 +276,7 @@ type MaybeOldSpellSystemSource = Omit<DeepPartial<SpellSystemSource>, "tradition
     hasCounteractCheck?: { value?: unknown };
     "-=hasCounteractCheck"?: null;
 
-    damage?: Record<string, SpellDamagePartialWithOldData> | { value?: Record<string, SpellDamagePartialWithOldData> };
+    damage?: { value?: Record<string, unknown> };
 
     // Random legacy cruft
     "-=ability"?: null;
@@ -268,17 +287,6 @@ type MaybeOldSpellSystemSource = Omit<DeepPartial<SpellSystemSource>, "tradition
     "-=spellCategorie"?: null;
     "-=usage"?: null;
 };
-
-type SpellDamagePartialWithOldData = Omit<SpellDamageSource, "type"> & {
-    type: DamageType | OldSpellDamageType;
-    value?: string;
-};
-
-interface OldSpellDamageType {
-    value: DamageType;
-    subtype?: DamageCategoryUnique;
-    categories: MaterialDamageEffect[];
-}
 
 interface OldSaveData {
     basic: string;
