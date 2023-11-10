@@ -5,6 +5,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { DCOptions, calculateDC } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
+import * as R from "remeda";
 
 const CANTRIP_DECK_ID = "tLa4bewBhyqzi6Ow";
 
@@ -84,8 +85,16 @@ async function createConsumableFromSpell(
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
-    const consumableSource = consumable.toObject();
-    consumableSource.system.traits.value.push(...spell.traditions);
+    const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
+
+    const { traits } = consumableSource.system;
+    traits.value = R.uniq([...traits.value, ...spell.traits]);
+    traits.rarity = spell.rarity;
+    if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
+        traits.value.splice(traits.value.indexOf("magical"));
+    }
+    traits.value.sort();
+
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
 
