@@ -1,13 +1,15 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject } from "@util";
 import * as R from "remeda";
 import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
+import { HomebrewElements } from "./menu.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
-export function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
+function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
     return (
         R.isObject(value) &&
         Object.entries(value).every(
@@ -16,7 +18,7 @@ export function isHomebrewFlagCategory(value: unknown): value is Record<string, 
     );
 }
 
-export function isHomebrewCustomDamage(value: object): value is Record<string, CustomDamageData> {
+function isHomebrewCustomDamage(value: object): value is Record<string, CustomDamageData> {
     return Object.values(value).every(
         (value) =>
             isObject<CustomDamageData>(value) &&
@@ -34,7 +36,29 @@ interface LabelAndDescription {
     description: string;
 }
 
-export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): MigrationBase {
+function prepareReservedTerms(): ReservedTermsRecord {
+    const otherReservedTerms = ["null", "undefined"];
+    return {
+        baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...otherReservedTerms]),
+        creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...otherReservedTerms]),
+        damageTypes: new Set([
+            ...Object.keys(CONFIG.PF2E.damageTypes),
+            ...Object.keys(CONFIG.PF2E.damageCategories),
+            ...otherReservedTerms,
+        ]),
+        equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...otherReservedTerms]),
+        featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...otherReservedTerms]),
+        languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...otherReservedTerms]),
+        spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...otherReservedTerms]),
+        weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...otherReservedTerms]),
+        weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...otherReservedTerms]),
+        weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...otherReservedTerms]),
+    };
+}
+
+type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes", Set<string>>;
+
+function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
         static override version = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
 
@@ -46,21 +70,24 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
             switch (listKey) {
                 case "creatureTraits": {
                     const traits = source.system.traits;
-                    traits.value = traits.value.filter((t) => !deletions.includes(t));
+                    traits.value = traits.value.filter(
+                        (t) => HomebrewElements.reservedTerms.creatureTraits.has(t) || !deletions.includes(t),
+                    );
                     break;
                 }
                 case "languages": {
                     const languages = source.system.traits.languages;
-                    languages.value = languages.value.filter((l) => !deletions.includes(l));
+                    languages.value = languages.value.filter(
+                        (l) => HomebrewElements.reservedTerms.languages.has(l) || !deletions.includes(l),
+                    );
                     break;
                 }
                 case "weaponCategories": {
                     if (source.type === "character") {
                         const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
-                        for (const key of deletions) {
-                            if (attacks[key]) {
-                                delete attacks[key];
-                                attacks[`-=${key}`] = null;
+                        for (const category of deletions) {
+                            if (attacks[category] && !HomebrewElements.reservedTerms.weaponCategories.has(category)) {
+                                attacks[`-=${category}`] = null;
                             }
                         }
                     }
@@ -68,36 +95,27 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponGroups": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map((deletion) => `weapon-group-${deletion}`);
                         const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
-                        for (const key of proficiencyKeys) {
-                            delete attacks[key];
-                            attacks[`-=${key}`] = null;
+                        for (const group of deletions) {
+                            const key = `weapon-group-${group}`;
+                            if (attacks[key] && !HomebrewElements.reservedTerms.weaponGroups.has(group)) {
+                                attacks[`-=${key}`] = null;
+                            }
                         }
                     }
                     break;
                 }
                 case "baseWeapons": {
                     if (source.type === "character") {
-                        const proficiencyKeys = deletions.map((deletion) => `weapon-base-${deletion}`);
                         const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
-                        for (const key of proficiencyKeys) {
-                            delete attacks[key];
-                            attacks[`-=${key}`] = null;
+                        for (const base of deletions) {
+                            const key = `weapon-base-${base}`;
+                            if (attacks[key] && !HomebrewElements.reservedTerms.baseWeapons.has(base)) {
+                                attacks[`-=${key}`] = null;
+                            }
                         }
                     }
                     break;
-                }
-                case "weaponTraits": {
-                    const weaponsAndAttacks = source.items.filter((i): i is MeleeSource | WeaponSource =>
-                        ["melee", "weapon"].includes(i.type),
-                    );
-                    for (const itemSource of weaponsAndAttacks) {
-                        const traits: string[] = itemSource.system.traits.value;
-                        for (const deleted of deletions) {
-                            traits.findSplice((t) => t === deleted);
-                        }
-                    }
                 }
             }
         }
@@ -108,29 +126,36 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 case "creatureTraits": {
                     if (source.system.traits?.value) {
                         const traits: { value: string[] } = source.system.traits;
-                        traits.value = traits.value.filter((t) => !deletions.includes(t));
+                        traits.value = traits.value.filter(
+                            (t) => HomebrewElements.reservedTerms.creatureTraits.has(t) || !deletions.includes(t),
+                        );
                     }
                     break;
                 }
                 case "featTraits": {
-                    if (source.type === "feat") {
+                    if (itemIsOfType(source, "action", "feat")) {
                         const traits = source.system.traits;
-                        traits.value = traits.value.filter((t) => !deletions.includes(t));
+                        traits.value = traits.value.filter(
+                            (t) => HomebrewElements.reservedTerms.featTraits.has(t) || !deletions.includes(t),
+                        );
                     }
                     break;
                 }
-                case "magicSchools":
                 case "spellTraits": {
                     if (source.type === "spell") {
                         const traits = source.system.traits;
-                        traits.value = traits.value.filter((t) => !deletions.includes(t));
+                        traits.value = traits.value.filter(
+                            (t) => HomebrewElements.reservedTerms.spellTraits.has(t) || !deletions.includes(t),
+                        );
                     }
                     break;
                 }
                 case "languages": {
                     if (source.type === "ancestry") {
                         const { languages } = source.system;
-                        languages.value = languages.value.filter((l) => !deletions.includes(l));
+                        languages.value = languages.value.filter(
+                            (l) => HomebrewElements.reservedTerms.languages.has(l) || !deletions.includes(l),
+                        );
                     }
                     break;
                 }
@@ -157,9 +182,26 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                     }
                     break;
                 }
+                case "weaponTraits": {
+                    const traits: { value: string[] } = itemIsOfType(source, "melee", "weapon")
+                        ? source.system.traits
+                        : { value: [] };
+                    traits.value = traits.value.filter(
+                        (t) => HomebrewElements.reservedTerms.weaponTraits.has(t) || !deletions.includes(t),
+                    );
+                    break;
+                }
             }
         }
     };
 
     return new Migration();
 }
+
+export {
+    isHomebrewCustomDamage,
+    isHomebrewFlagCategory,
+    prepareCleanup,
+    prepareReservedTerms,
+    type ReservedTermsRecord,
+};

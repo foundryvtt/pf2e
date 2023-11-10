@@ -32,9 +32,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.actionType.value",
             "system.actions.value",
             "system.category",
-            // Migrated to `system.category` but still retrieved in case of unmigrated items
-            // Remove in system version 5?
-            "system.featType.value",
             "system.level.value",
             "system.prerequisites.value",
             "system.traits",
@@ -113,7 +110,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
-                        traits: featData.system.traits.value,
+                        traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: featData.system.traits.rarity,
                         source: sourceSlug,
                     });

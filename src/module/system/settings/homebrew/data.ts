@@ -5,7 +5,6 @@ const HOMEBREW_TRAIT_KEYS = [
     "creatureTraits",
     "featTraits",
     "languages",
-    "magicSchools",
     "spellTraits",
     "weaponCategories",
     "weaponGroups",
