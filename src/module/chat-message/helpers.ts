@@ -15,6 +15,7 @@ import {
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
@@ -76,11 +77,12 @@ async function applyDamageFromMessage({
     addend = 0,
     promptModifier = false,
     rollIndex = 0,
+    tokens,
 }: ApplyDamageFromMessageParams): Promise<void> {
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
     const html = htmlQuery(ui.chat.element[0], `li.chat-message[data-message-id="${message.id}"]`);
-    const tokens =
+    tokens ??=
         html?.dataset.actorIsTarget && message.token
             ? [message.token]
             : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
@@ -202,12 +204,13 @@ async function applyDamageFromMessage({
     toggleOffShieldBlock(message.id);
 }
 
-interface ApplyDamageFromMessageParams {
+export interface ApplyDamageFromMessageParams {
     message: ChatMessagePF2e;
     multiplier?: number;
     addend?: number;
     promptModifier?: boolean;
     rollIndex?: number;
+    tokens?: TokenDocumentPF2e<ScenePF2e>[];
 }
 
 async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): Promise<void> {
