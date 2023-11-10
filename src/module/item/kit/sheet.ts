@@ -67,15 +67,16 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    async removeItem(event: MouseEvent): Promise<KitPF2e> {
+    async removeItem(event: MouseEvent): Promise<KitPF2e | null> {
         const target = htmlClosest(event.currentTarget ?? null, "li");
         const index = target?.dataset.index;
         if (!index) return this.item;
 
         const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
         const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
+        const update = await this.item.update({ [`system.items.${path}`]: null });
 
-        return this.item.update({ [`system.items.${path}`]: null });
+        return update ?? null;
     }
 
     override activateListeners($html: JQuery): void {

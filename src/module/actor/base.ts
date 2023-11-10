@@ -1294,7 +1294,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 (this.isOfType("character") && setting === "both" && !!instantDeath);
 
             if (
-                updated.isDead &&
+                updated?.isDead &&
                 deadAtZero &&
                 ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated))
             ) {
@@ -1898,7 +1898,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     get sheet(): ActorSheetPF2e<ActorPF2e>;
 
-    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this | undefined>;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];

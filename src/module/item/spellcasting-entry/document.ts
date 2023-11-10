@@ -350,17 +350,17 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<this | null> {
+    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<Maybe<this>> {
         return this.spells?.prepareSpell(spell, slotRank, spellSlot) ?? null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    async unprepareSpell(spellLevel: number, slotRank: number): Promise<this | null> {
+    async unprepareSpell(spellLevel: number, slotRank: number): Promise<Maybe<this>> {
         return this.spells?.unprepareSpell(spellLevel, slotRank) ?? null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    async setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<this | null> {
+    async setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<Maybe<this>> {
         return this.spells?.setSlotExpendedState(slotRank, spellSlot, isExpended) ?? null;
     }
 
