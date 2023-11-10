@@ -3,41 +3,35 @@
     "img": "systems/pf2e/icons/spells/agitate.webp",
     "name": "Suffocate",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "S01QYJk4ki5zDbr9": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "4d8"
-                }
+            "S01QYJk4ki5zDbr9": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You forcefully and cruelly draw the living breath from a creature's lungs, dealing 4d8 bludgeoning damage. The creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage. For the duration, the creature must hold its breath or suffocate.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, and all the air is pulled from the creature's lungs. The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and starts suffocating for the duration.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to 5 creatures.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "levels": {
@@ -52,9 +46,6 @@
         "level": {
             "value": 6
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -63,31 +54,21 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 living creature that needs to breathe"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
-                "evocation",
+                "concentrate",
                 "incapacitation",
+                "manipulate",
                 "nonlethal"
             ]
         }

@@ -3,41 +3,35 @@
     "img": "icons/magic/unholy/hand-claw-fog-green.webp",
     "name": "Execute",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "void"
-                    },
-                    "value": "70"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "70",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "void"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You point at a creature and invoke the demise of all things. The target takes 70 void damage with a basic Fortitude save. If the target is undead or otherwise has void healing, the spell loses the death and void traits and gains the vitality trait, and the target takes 70 vitality damage with a basic Fortitude save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,9 +42,6 @@
         },
         "level": {
             "value": 7
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "WTeek6DuuUC5uXiv": {
@@ -66,12 +57,9 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "vitality"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "vitality"
                         }
                     },
                     "traits": {
@@ -82,12 +70,6 @@
                 }
             }
         },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -96,39 +78,24 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "primal"
+            ],
             "value": [
+                "concentrate",
                 "death",
+                "manipulate",
                 "void"
             ]
         }

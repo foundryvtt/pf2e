@@ -146,23 +146,23 @@
                 </div>
             </h3>
 
-            {{#each system.damage.value as |damage id|}}
+            {{#each system.damage as |damage id|}}
                 <div class="formula-section form-group">
                     <div class="form-fields">
-                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                        <input type="text" name="{{../dataPath}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
                             <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                            <input type="checkbox" name="{{../dataPath}}.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} />
+                            <input type="checkbox" name="{{../dataPath}}.damage.{{id}}.applyMod" {{checked damage.applyMod}} />
                         </label>
-                        <select name="{{../dataPath}}.damage.value.{{id}}.type.subtype">
-                            {{#select damage.type.subtype}}
+                        <select name="{{../dataPath}}.damage.{{id}}.category">
+                            {{#select damage.type.category}}
                                 <option></option>
                                 {{#each @root.damageSubtypes as |name type|}}
                                     <option value="{{type}}">{{localize name}}</option>
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <select name="{{../dataPath}}.damage.value.{{id}}.type.value">
+                        <select name="{{../dataPath}}.damage.{{id}}.type">
                             {{#select damage.type.value}}
                                 <option value=""></option>
                                 {{#each @root.damageTypes as |name type|}}
@@ -175,14 +175,14 @@
                                 data-tag-selector="basic"
                                 data-title="PF2E.DamageCategoriesLabel"
                                 data-config-types="damageCategories"
-                                data-property="{{../dataPath}}.damage.value.{{id}}.type.categories"
+                                data-property="{{../dataPath}}.damage.{{id}}.materials"
                             ><i class="fa-solid fa-edit"></i></a>
                             <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
                     {{#if damage.type.categories}}
                         <div class="traits-list">
-                            {{#each damage.type.categories}}
+                            {{#each damage.type.materials}}
                                 <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
                             {{/each}}
                         </div>

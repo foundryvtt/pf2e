@@ -3,44 +3,38 @@
     "img": "icons/magic/death/undead-ghost-scream-teal.webp",
     "name": "Dirge of Remembrance",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "cone",
             "value": 30
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "pX92NmS2GoYpHJrp": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "sonic"
-                    },
-                    "value": "4d10"
-                }
+            "pX92NmS2GoYpHJrp": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d10",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "sonic"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "will"
             }
         },
         "description": {
             "value": "<p>You sing a funereal dirge to force restless spirits to fully manifest in the Material Plane. Each incorporeal creature in the area takes 4d10 sonic damage (this damage bypasses its resistances) depending on the result of its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes semi-corporeal until the spell ends. All attacks against it get the benefit of a <em>ghost touch</em> rune.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -52,9 +46,6 @@
         "level": {
             "value": 4
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -63,34 +54,24 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine",
-                "occult"
-            ]
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [
+                "divine",
+                "occult"
+            ],
             "value": [
-                "sonic",
-                "necromancy"
+                "concentrate",
+                "manipulate",
+                "sonic"
             ]
         }
     },

@@ -3,40 +3,35 @@
     "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
     "name": "Blood Vendetta",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "bleed"
-                    },
-                    "value": "2d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bleed"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "will"
             }
         },
         "description": {
             "value": "<p><strong>Requirements</strong> You can bleed.</p>\n<p><strong>Trigger</strong> A creature deals piercing, slashing, or persistent bleed damage to you.</p>\n<hr />\n<p>You curse the target, punishing it for having the audacity to spill your blood. The target takes @Damage[2d6[bleed]] and must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half the persistent bleed damage.</p>\n<p><strong>Failure</strong> The target takes the full persistent bleed damage. Until the bleeding stops, the target has weakness 1 to piercing and slashing damage. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Blood Vendetta (Failure)]</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double the persistent bleed damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent bleed damage increases by @Damage[2d6[bleed]].</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "varies"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,15 +43,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": "You can bleed"
-        },
-        "prepared": {
-            "value": false
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -65,39 +51,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "You can bleed",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "The triggering creature"
         },
         "time": {
             "value": "reaction"
         },
-        "traditions": {
-            "value": [
+        "traits": {
+            "rarity": "common",
+            "traditions": [
                 "arcane",
                 "divine",
                 "occult"
-            ]
-        },
-        "traits": {
-            "rarity": "common",
+            ],
             "value": [
+                "concentrate",
                 "curse"
             ]
         }

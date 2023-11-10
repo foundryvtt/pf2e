@@ -4,70 +4,57 @@
     "name": "Blinding Foam",
     "system": {
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "NE5nfcJxF8gmPf1n": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "acid"
-                    },
-                    "value": "5d6"
-                },
-                "rt4oeXP3SqcClH6r": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "acid"
-                    },
-                    "value": "1d6"
-                }
+            "NE5nfcJxF8gmPf1n": {
+                "applyMod": false,
+                "category": null,
+                "formula": "5d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "acid"
+            },
+            "rt4oeXP3SqcClH6r": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "acid"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You spray a colorful, caustic foam into the target's eyes, which clings to their face. Make a spell attack roll. If you hit, you deal @Damage[5d10[acid]] damage and @Damage[1d6[persistent,acid]] damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for the duration. The foam can be removed with 3 Interact actions, which ends the persistent acid damage. These Interact actions don't need to be consecutive. When the target's persistent acid damage ends, the spell automatically ends.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The initial damage increases to @Damage[9d10[acid]], and the persistent acid damage increases to @Damage[2d6[persistent,acid]].</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "levels": {
                 "8": {
                     "damage": {
-                        "value": {
-                            "NE5nfcJxF8gmPf1n": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "acid"
-                                },
-                                "value": "9d6"
-                            },
-                            "rt4oeXP3SqcClH6r": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "persistent",
-                                    "value": "acid"
-                                },
-                                "value": "2d6"
-                            }
+                        "NE5nfcJxF8gmPf1n": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "9d6",
+                            "materials": [],
+                            "type": "acid"
+                        },
+                        "rt4oeXP3SqcClH6r": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "2d6",
+                            "materials": [],
+                            "type": "acid"
                         }
                     }
                 }
@@ -77,9 +64,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -88,36 +72,27 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
                 "arcane",
                 "occult",
                 "primal"
-            ]
-        },
-        "traits": {
-            "rarity": "uncommon",
+            ],
             "value": [
                 "acid",
+                "attack",
+                "concentrate",
                 "incapacitation",
-                "evocation"
+                "manipulate"
             ]
         }
     },

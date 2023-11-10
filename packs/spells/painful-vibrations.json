@@ -3,41 +3,34 @@
     "img": "systems/pf2e/icons/spells/painful-vibrations.webp",
     "name": "Painful Vibrations",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "sonic"
-                    },
-                    "value": "8d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "8d6",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "sonic"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You send powerful sound waves through an opponent's body, vibrating its bones and internal organs painfully. The creature takes 8d6 sonic damage and must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is deafened for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +42,6 @@
         "level": {
             "value": 4
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -60,35 +50,24 @@
         "range": {
             "value": "100 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 living creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "divine",
-                "occult"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "occult"
+            ],
             "value": [
-                "sonic",
-                "evocation"
+                "concentrate",
+                "manipulate",
+                "sonic"
             ]
         }
     },

@@ -3,49 +3,45 @@
     "img": "systems/pf2e/icons/spells/tempest-touch.webp",
     "name": "Tempest Touch",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "1d4"
-                },
-                "fl86wl21hskrqrcy": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "cold"
-                    },
-                    "value": "1d4"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
+            },
+            "fl86wl21hskrqrcy": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>Your touch calls forth a churning mass of icy water that clings to your target, dealing 1d4 bludgeoning damage and 1d4 cold damage. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and a -5-foot circumstance penalty to its Speeds until the end of your next turn.</p>\n<p><strong>Failure</strong> The target takes full damage and a -10-foot circumstance penalty to its Speeds until the end of your next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning and cold damage each increase by 1d4.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -58,15 +54,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -75,41 +62,24 @@
         "range": {
             "value": "touch"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "1"
         },
-        "traditions": {
-            "custom": "",
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "cold",
                 "cursebound",
+                "focus",
+                "manipulate",
                 "oracle",
-                "water",
-                "evocation"
+                "water"
             ]
         }
     },

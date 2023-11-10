@@ -3,40 +3,30 @@
     "img": "icons/creatures/mammals/rabbit-movement-glowing-green.webp",
     "name": "Heal Animal",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": ""
-                    },
-                    "value": "1d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "healing"
+                ],
+                "materials": [],
+                "type": ""
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(somatic, verbal)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,23 +38,15 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "b1ms5uwp9vwblhkq": {
                 "_id": "b1ms5uwp9vwblhkq",
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
-                    "components": {
-                        "verbal": true
-                    },
                     "damage": {
-                        "value": {
-                            "0": {
-                                "value": "1d8+8"
-                            }
+                        "0": {
+                            "formula": "1d8+8"
                         }
                     },
                     "heightening": {
@@ -77,6 +59,11 @@
                     },
                     "time": {
                         "value": "2"
+                    },
+                    "traits": {
+                        "value": [
+                            "concentrate"
+                        ]
                     }
                 }
             },
@@ -89,13 +76,9 @@
                         "value": ""
                     },
                     "damage": {
-                        "value": {
-                            "0": {
-                                "applyMod": false,
-                                "type": {
-                                    "subtype": ""
-                                }
-                            }
+                        "0": {
+                            "applyMod": false,
+                            "category": null
                         }
                     },
                     "range": {
@@ -107,12 +90,6 @@
                 }
             }
         },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -121,37 +98,22 @@
         "range": {
             "value": "varies"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "heal"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 willing living animal creature"
         },
         "time": {
             "value": "1 or 2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "druid",
+                "focus",
                 "healing",
+                "manipulate",
                 "vitality"
             ]
         }

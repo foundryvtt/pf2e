@@ -3,41 +3,30 @@
     "img": "icons/magic/unholy/beam-impact-purple.webp",
     "name": "Shadow Blast",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "untyped"
-                    },
-                    "value": "6d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "6d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "untyped"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You shape the shadow substance of the Netherworld into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, sonic or spirit damage, and choose a @Template[type:cone|distance:30], a @Template[type:burst|distance:15] within 120 feet, or a @Template[type:line|distance:50]. The blast deals 6d8 damage of the type you chose to each creature in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +38,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "UTMlHk0o5FXLlwwM": {
                 "_id": "UTMlHk0o5FXLlwwM",
@@ -59,8 +45,11 @@
                 "overlayType": "override",
                 "sort": 2,
                 "system": {
-                    "save": {
-                        "value": "will"
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "will"
+                        }
                     }
                 }
             },
@@ -70,17 +59,14 @@
                 "overlayType": "override",
                 "sort": 1,
                 "system": {
-                    "save": {
-                        "value": "reflex"
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "reflex"
+                        }
                     }
                 }
             }
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
         },
         "publication": {
             "license": "ORC",
@@ -90,38 +76,23 @@
         "range": {
             "value": "varies"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine",
-                "occult"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "occult"
+            ],
             "value": [
+                "concentrate",
+                "manipulate",
                 "shadow"
             ]
         }

@@ -3,51 +3,45 @@
     "img": "systems/pf2e/icons/spells/puff-of-poison.webp",
     "name": "Puff of Poison",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": true,
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "poison"
-                    },
-                    "value": ""
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "poison"
-                    },
-                    "value": "2"
-                }
+            "0": {
+                "applyMod": true,
+                "category": null,
+                "formula": "",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "poison"
+            },
+            "1": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "2",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "poison"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You exhale a shimmering cloud of toxic breath at an enemy's face. The target takes poison damage equal to your spellcasting modifier and 2 persistent poison damage, depending on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half initial and persistent damage.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage.</p>\n<p><strong>Critical Failure</strong> The target takes double initial and persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial poison damage increases by 1d8 and the persistent poison damage increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -60,9 +54,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -71,37 +62,26 @@
         "range": {
             "value": "5 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "cantrip",
+                "concentrate",
                 "inhaled",
-                "poison",
-                "evocation"
+                "manipulate",
+                "poison"
             ]
         }
     },

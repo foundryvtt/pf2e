@@ -3,52 +3,46 @@
     "img": "systems/pf2e/icons/spells/feral-shades.webp",
     "name": "Feral Shades",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "cone",
             "value": 30
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "slashing"
-                    },
-                    "value": "2d4"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "void"
-                    },
-                    "value": "2d4"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "slashing"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "void"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>A wave of gray mist formed of negative energy spills out from your outstretched hand, briefly taking the shape of a pack of predatory animals that set viciously on your foes. You deal 2d4 slashing damage and 2d4 negative damage to creatures in the area. The shades set upon the vulnerable with greater ferocity: prone creatures or those taking persistent bleed damage take a -2 status penalty to the save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The slashing damage and the negative damage each increase by 1d4.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -61,9 +55,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -72,33 +63,22 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "primal"
+            ],
             "value": [
-                "necromancy"
+                "concentrate",
+                "manipulate"
             ]
         }
     },

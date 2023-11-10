@@ -353,39 +353,25 @@
             "name": "Lay on Hands",
             "sort": -100000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands (Vs. Undead)]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
                     "value": "PZwexFB6fnpgIWHq"
-                },
-                "materials": {
-                    "value": ""
                 },
                 "overlays": {
                     "a33QUFoKgoOprovO": {
@@ -395,16 +381,21 @@
                         "sort": 2,
                         "system": {
                             "damage": {
-                                "value": {
-                                    "37YW4ZGhxx7Y2mdI": {
-                                        "applyMod": false,
-                                        "type": {
-                                            "categories": [],
-                                            "subtype": "",
-                                            "value": "vitality"
-                                        },
-                                        "value": "1d6"
-                                    }
+                                "37YW4ZGhxx7Y2mdI": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
                                 }
                             },
                             "heightening": {
@@ -413,13 +404,6 @@
                                 },
                                 "interval": 1,
                                 "type": "interval"
-                            },
-                            "save": {
-                                "basic": "basic",
-                                "value": "fortitude"
-                            },
-                            "spellType": {
-                                "value": "save"
                             }
                         }
                     },
@@ -430,16 +414,12 @@
                         "sort": 1,
                         "system": {
                             "damage": {
-                                "value": {
-                                    "b39tbePoPlJSzLku": {
-                                        "applyMod": false,
-                                        "type": {
-                                            "categories": [],
-                                            "subtype": "",
-                                            "value": "vitality"
-                                        },
-                                        "value": "6"
-                                    }
+                                "b39tbePoPlJSzLku": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "materials": [],
+                                    "type": "vitality"
                                 }
                             },
                             "heightening": {
@@ -452,12 +432,6 @@
                         }
                     }
                 },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -466,39 +440,23 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "lay-on-hands",
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 willing living creature or 1 undead creature"
                 },
                 "time": {
                     "value": "1"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
                         "champion",
+                        "focus",
                         "healing",
-                        "necromancy",
+                        "manipulate",
                         "vitality"
                     ]
                 }

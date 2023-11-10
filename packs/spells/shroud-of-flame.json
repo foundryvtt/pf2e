@@ -3,44 +3,38 @@
     "img": "icons/magic/fire/projectile-feathers-embers-gold.webp",
     "name": "Shroud of Flame",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "emanation",
             "value": 10
         },
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "fire"
-                    },
-                    "value": "3d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You encircle yourself in an aura of protective flames. Each creature that hits you with an unarmed attack, Grapples you, or otherwise touches you takes @Damage[3[fire]] damage. When you Cast the Spell and the first time you sustain it each round, each creature in the area takes @Damage[3d6[fire]] damage (basic Reflex save).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage caused by touching you increases by 1, and the fire damage when you Cast the Spell or sustain it increases by 1d6.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -52,12 +46,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -66,32 +54,23 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
+                "concentrate",
                 "fire",
-                "sorcerer",
-                "evocation"
+                "focus",
+                "manipulate",
+                "sorcerer"
             ]
         }
     },

@@ -7,46 +7,44 @@
             "type": "line",
             "value": 60
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "slashing"
-                    },
-                    "value": "5d10"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "bleed"
-                    },
-                    "value": "4d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "5d10",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "slashing"
+            },
+            "1": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "4d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bleed"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You compress molten scraps pulled from the Plane of Metal into a spinning disc with gruesome blades protruding from its edges. It wheels forward, slicing through anyone in its path. Each creature in the area takes 5d10 slashing damage and 4d6 persistent bleed damage, with a Reflex save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage. If the creature has a head, it must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.attributes.spellDC.value)|traits:death,incapacitation] save or be decapitated; this kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head. This second save has the death and incapacitation traits.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The slashing damage increases by 1d10, and the persistent bleed damage increases by 1d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -59,9 +57,6 @@
         "level": {
             "value": 7
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -70,31 +65,22 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane"
+            ],
             "value": [
+                "concentrate",
+                "manipulate",
                 "metal"
             ]
         }

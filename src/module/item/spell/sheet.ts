@@ -144,7 +144,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 category: null,
                 materials: [],
             };
-            this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
+            this.item.update({ [`${baseKey}.damage.${randomID()}`]: emptyDamage });
         });
 
         const removeDamageAnchor = htmlQuery(html, "a[data-action=delete-damage-partial]");
@@ -153,7 +153,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const baseKey = overlayData?.base ?? "system";
             const key = htmlClosest(removeDamageAnchor, "[data-action=damage-delete]")?.dataset.id;
             if (key) {
-                const values = { [`${baseKey}.damage.value.-=${key}`]: null };
+                const values = { [`${baseKey}.damage.-=${key}`]: null };
                 if (!overlayData) {
                     values[`${baseKey}.heightening.damage.-=${key}`] = null;
                 }

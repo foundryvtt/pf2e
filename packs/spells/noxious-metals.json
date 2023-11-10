@@ -7,37 +7,34 @@
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "DzJpYMdE0NBqqQXM": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "4d6"
-                }
+            "DzJpYMdE0NBqqQXM": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>This spell forces toxic metal to coalesce on the skin or surface of all living creatures in the area, dealing @Damage[4d6[poison]] damage with a basic Fortitude save. Any creature that has the plant trait, has the wood trait, or has an anathema toward metal, takes the following effects depending on the result of that Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature suffers no additional effects.</p>\n<p><strong>Success</strong> The creature takes @Damage[1[persistent,poison]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} as long as it takes this persistent damage.</p>\n<p><strong>Failure</strong> As success, except @Damage[1d4[persistent,poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> As success, except @Damage[1d8[persistent,poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial poison damage increases by [[/r 2d6]].</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +46,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -60,31 +54,22 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane"
+            ],
             "value": [
+                "concentrate",
+                "manipulate",
                 "metal",
                 "poison"
             ]
