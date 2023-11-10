@@ -30,44 +30,15 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAbjuration",
-                        "value": "abjuration"
-                    },
-                    {
-                        "label": "PF2E.TraitConjuration",
-                        "value": "conjuration"
-                    },
-                    {
-                        "label": "PF2E.TraitEnchantment",
-                        "value": "enchantment"
-                    },
-                    {
-                        "label": "PF2E.TraitEvocation",
-                        "value": "evocation"
-                    },
-                    {
-                        "label": "PF2E.TraitIllusion",
-                        "value": "illusion"
-                    },
-                    {
-                        "label": "PF2E.TraitNecromancy",
-                        "value": "necromancy"
-                    },
-                    {
-                        "label": "PF2E.TraitTransmutation",
-                        "value": "transmutation"
-                    }
-                ],
-                "flag": "school",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.WardingRune.Prompt"
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "warding-rune",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "{item|flags.pf2e.rulesSelections.school}"
+                    "warding-rune"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
