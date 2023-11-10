@@ -14,6 +14,7 @@ import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 import { RollInspector } from "./roll-inspector.ts";
+import { ApplyDamageFromMessageParams, applyDamageFromMessage } from "./helpers.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -303,6 +304,10 @@ class ChatMessagePF2e extends ChatMessage {
         if (this.isRoll && game.settings.get("pf2e", "drawCritFumble")) {
             CriticalHitAndFumbleCards.handleDraw(this);
         }
+    }
+
+    static applyDamageFromMessage(args: ApplyDamageFromMessageParams): void {
+        applyDamageFromMessage(args);
     }
 }
 
