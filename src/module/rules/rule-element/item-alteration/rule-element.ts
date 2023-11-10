@@ -59,9 +59,10 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
         const itemsOfType: ItemPF2e<ActorPF2e>[] = this.itemType ? this.actor.itemTypes[this.itemType] : [];
         const actorRollOptions = this.actor.getRollOptions();
+        const parentRollOptions = this.parent.getRollOptions("parent");
         const predicate = this.resolveInjectedProperties(this.predicate);
         const itemsToAlter = itemsOfType.filter((i): i is PhysicalItemPF2e<ActorPF2e> =>
-            predicate.test([...actorRollOptions, ...i.getRollOptions("item")]),
+            predicate.test([actorRollOptions, parentRollOptions, i.getRollOptions("item")].flat()),
         );
         const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
             const source = item.toObject();
@@ -84,6 +85,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
         const predicate = this.resolveInjectedProperties(this.predicate);
         const actorRollOptions = predicate.length > 0 ? this.actor.getRollOptions() : [];
+        const parentRollOptions = this.parent.getRollOptions("parent");
         try {
             const items: ItemPF2e<ActorPF2e>[] = this.itemId
                 ? R.compact([this.actor.items.get(this.resolveInjectedProperties(this.itemId))])
@@ -96,7 +98,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
             for (const item of items) {
                 const itemRollOptions = predicate.length > 0 ? item.getRollOptions("item") : [];
-                const rollOptions = [...actorRollOptions, ...itemRollOptions];
+                const rollOptions = [actorRollOptions, parentRollOptions, itemRollOptions].flat();
                 if (predicate.test(rollOptions)) {
                     const data = R.pick(this, ["mode", "property", "value"]);
                     const alteration = new ItemAlteration(data, { parent: this });
