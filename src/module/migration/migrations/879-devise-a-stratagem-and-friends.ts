@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.js";
+import { RawPredicate } from "@system/predication.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update rule element on Devise a Stratagem action and related feats. */
 export class Migration879DeviseAStratagemAndFriends extends MigrationBase {
@@ -28,7 +29,7 @@ export class Migration879DeviseAStratagemAndFriends extends MigrationBase {
                                 "item:base:sap",
                             ],
                         },
-                    ],
+                    ] satisfies RawPredicate,
                     selector: "strike-attack-roll",
                     type: "ability",
                 },
@@ -51,7 +52,7 @@ export class Migration879DeviseAStratagemAndFriends extends MigrationBase {
                             { and: ["feat:takedown-expert", "item:group:club", "item:hands-held:1"] },
                         ],
                     },
-                ],
+                ] satisfies RawPredicate,
                 selector: "athletics",
                 type: "ability",
             };
@@ -61,22 +62,20 @@ export class Migration879DeviseAStratagemAndFriends extends MigrationBase {
                 damageCategory: "precision",
                 key: "FlatModifier",
                 predicate: [
-                    [
-                        "class:investigator",
-                        { not: "check:substitution:devise-a-stratagem" },
-                        {
-                            or: [
-                                "item:trait:agile",
-                                "item:trait:finesse",
-                                {
-                                    and: ["item:ranged", { not: "item:thrown-melee" }],
-                                },
-                                "item:base:sap",
-                                { and: ["feat:takedown-expert", "item:group:club", "item:hands-held:1"] },
-                            ],
-                        },
-                    ],
-                ],
+                    "class:investigator",
+                    { not: "check:substitution:devise-a-stratagem" },
+                    {
+                        or: [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                and: ["item:ranged", { not: "item:thrown-melee" }],
+                            },
+                            "item:base:sap",
+                            { and: ["feat:takedown-expert", "item:group:club", "item:hands-held:1"] },
+                        ],
+                    },
+                ] satisfies RawPredicate,
                 selector: "strike-damage",
                 value: {
                     brackets: [
