@@ -30,7 +30,15 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         return mergeObject({ value: [] }, system.traits ?? { value: [] });
     }
 
-    #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> {
+    #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> | never[] {
+        if ("type" in rule) {
+            if (typeof rule.type === "string" && this.#SCHOOL_TRAITS.has(rule.type)) {
+                return [];
+            } else if (Array.isArray(rule.type)) {
+                rule.type = rule.type.filter((t) => !this.#SCHOOL_TRAITS.has(t));
+            }
+        }
+
         // Remove school traits from aura REs
         if (!isObject(rule)) return rule;
         if ("traits" in rule && Array.isArray(rule.traits)) {
@@ -46,8 +54,18 @@ export class Migration882SpellDataReorganization extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } = source.system.traits ?? { value: [] };
         if (Array.isArray(traits.value)) {
-            traits.value = traits.value.filter((t) => !this.#SCHOOL_TRAITS.has(t));
+            traits.value = R.uniq(R.compact(traits.value).filter((t) => !this.#SCHOOL_TRAITS.has(t))).sort();
         }
+
+        source.system.attributes.immunities = source.system.attributes.immunities?.filter(
+            (i) => !this.#SCHOOL_TRAITS.has(i.type),
+        );
+        source.system.attributes.weaknesses = source.system.attributes.weaknesses?.filter(
+            (i) => !this.#SCHOOL_TRAITS.has(i.type),
+        );
+        source.system.attributes.resistances = source.system.attributes.resistances?.filter(
+            (i) => !this.#SCHOOL_TRAITS.has(i.type),
+        );
     }
 
     override async updateItem(
@@ -57,8 +75,19 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         { topLevel = true } = {},
     ): Promise<void> {
         if (topLevel && source.system?.rules) {
-            source.system.rules = source.system.rules.map((r) => (r ? this.#migrateRule(r) : r));
+            source.system.rules = source.system.rules.flatMap((r) => (r ? this.#migrateRule(r) : r));
         }
+
+        // Remove school traits from any item
+        const traits: { value?: (string | undefined)[] } = source.system?.traits ?? { value: [] };
+        if (Array.isArray(traits.value)) {
+            traits.value = R.uniq(
+                R.compact(traits.value)
+                    .filter((t) => !this.#SCHOOL_TRAITS.has(t))
+                    .sort(),
+            );
+        }
+
         if (source.type !== "spell") return;
         const system: MaybeOldSpellSystemSource = source.system ?? {};
 
@@ -203,15 +232,6 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("primarycheck" in system) system["-=primarycheck"] = null;
         if ("secondarycheck" in system) system["-=secondarycheck"] = null;
         if ("secondarycasters" in system) system["-=secondarycasters"] = null;
-
-        // Final traits cleanup
-        if (system.traits?.value && Array.isArray(system.traits.value)) {
-            system.traits.value = R.uniq(
-                R.compact(system.traits.value)
-                    .filter((t: string) => !this.#SCHOOL_TRAITS.has(t))
-                    .sort(),
-            );
-        }
 
         // Remove random legacy cruft
         const oldKeys = ["ability", "areatype", "damageType", "prepared", "rarity", "spellCategorie", "usage"] as const;
