@@ -11,19 +11,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name"];
-    override storeFields = [
-        "type",
-        "name",
-        "img",
-        "uuid",
-        "level",
-        "time",
-        "category",
-        "traditions",
-        "traits",
-        "rarity",
-        "source",
-    ];
+    override storeFields = ["type", "name", "img", "uuid", "level", "time", "traditions", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -41,11 +29,11 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         const indexFields = [
             "img",
             "system.level.value",
-            "system.category.value",
-            "system.traditions.value",
+            "system.traits.traditions",
             "system.time",
             "system.traits",
             "system.publication",
+            "system.ritual",
             "system.source",
         ];
 
@@ -61,10 +49,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                             `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
                         continue;
-                    }
-                    // Set category of cantrips to "cantrip" until migration can be done
-                    if (spellData.system.traits.value.includes("cantrip")) {
-                        spellData.system.category.value = "cantrip";
                     }
 
                     // recording casting times
@@ -101,8 +85,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         uuid: `Compendium.${pack.collection}.${spellData._id}`,
                         level: spellData.system.level.value,
                         time: spellData.system.time,
-                        category: spellData.system.category.value,
-                        traditions: spellData.system.traditions.value,
+                        traditions: spellData.system.traits.traditions,
                         traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: spellData.system.traits.rarity,
                         source: sourceSlug,
@@ -114,8 +97,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.indexData = spells;
 
         // Filters
-        this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.spellCategories);
-        this.filterData.checkboxes.category.options.cantrip = { label: "PF2E.TraitCantrip", selected: false };
         this.filterData.checkboxes.traditions.options = this.generateCheckboxOptions(CONFIG.PF2E.magicTraditions);
         // Special case for spell ranks
         for (let rank = 1; rank <= 10; rank++) {
@@ -150,10 +131,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         // Casting time
         if (selects.timefilter.selected) {
             if (!(selects.timefilter.selected === entry.time.value)) return false;
-        }
-        // Category
-        if (checkboxes.category.selected.length) {
-            if (!checkboxes.category.selected.includes(entry.category)) return false;
         }
         // Traditions
         if (checkboxes.traditions.selected.length) {

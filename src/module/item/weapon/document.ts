@@ -368,12 +368,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const baseTraits = this.system.traits.value;
         const { runes } = this.system;
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTraits: ("evocation" | "magical")[] = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t))
-            ? ["evocation"]
-            : hasRunes
-            ? ["evocation", "magical"]
-            : [];
-        this.system.traits.value = R.uniq([baseTraits, magicTraits].flat()).sort();
+        const magicTrait = hasRunes && !baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
+        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
     }

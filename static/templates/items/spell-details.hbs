@@ -1,105 +1,50 @@
-<fieldset>
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.SpellCategoryLabel"}}</label>
-        <select name="system.category.value">
-            {{#select data.category.value}}
-                {{#each spellCategories as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </li>
-
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.SpellTraditionsLabel"}}</label>
-        <input class="tags paizo-style" name="system.traditions.value" value="{{json data.traditions.value}}" data-dtype="JSON" />
-    </li>
-
-    {{#unless isRitual}}
-        <li class="form-group">
-            <label class="large">{{localize "PF2E.TraitCantrip"}}</label>
-            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip" />
-        </li>
+<fieldset class="basics">
+    {{#unless item.isRitual}}
+        <div class="form-group">
+            <label>{{localize "PF2E.SpellTraditionsLabel"}}</label>
+            <input class="tags paizo-style" name="system.traits.traditions" value="{{json data.traits.traditions}}" data-dtype="JSON" />
+        </div>
     {{/unless}}
-</fieldset>
-
-<fieldset>
-    <legend>{{localize "PF2E.CastLabel"}}</legend>
 
     <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellTimeLabel"}}</label>
+        <label>{{localize "PF2E.Item.Spell.Cast"}}</label>
         <input type="text" name="system.time.value" value="{{data.time.value}}" />
     </div>
 
     <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellComponentsLabel"}}</label>
-        <div class="form-fields spell-components">
-            <label>
-                <input type="checkbox" name="system.components.focus" {{checked data.components.focus}} />
-                <span>{{localize "PF2E.SpellComponentShortF"}}</span>
-            </label>
-            <label>
-                <input type="checkbox" name="system.components.material" {{checked data.components.material}} />
-                <span>{{localize "PF2E.SpellComponentShortM"}}</span>
-            </label>
-            <label>
-                <input type="checkbox" name="system.components.somatic" {{checked data.components.somatic}} />
-                <span>{{localize "PF2E.SpellComponentShortS"}}</span>
-            </label>
-            <label>
-                <input type="checkbox" name="system.components.verbal" {{checked data.components.verbal}} />
-                <span>{{localize "PF2E.SpellComponentShortV"}}</span>
-            </label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellRequirementsLabel"}}</label>
-        <input type="text" name="system.materials.value" value="{{data.materials.value}}" />
-    </div>
-
-    <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellCostLabel"}}</label>
+        <label>{{localize "PF2E.Item.Spell.Cost"}}</label>
         <input type="text" name="system.cost.value" value="{{data.cost.value}}" />
     </div>
-</fieldset>
-
-{{#if isRitual}}
-    <ol class="form-list">
-        <h3>{{localize "PF2E.SpellRitualLabel"}}</h3>
-
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
-            <input type="text" name="system.primarycheck.value" value="{{data.primarycheck.value}}" />
-        </div>
-
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
-            <input type="text" name="system.secondarycheck.value" value="{{data.secondarycheck.value}}" />
-        </div>
-
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.SpellSecondaryCasters"}}</label>
-            <input type="text" name="system.secondarycasters.value" value="{{data.secondarycasters.value}}" />
-        </div>
-    </ol>
-{{/if}}
-
-<fieldset>
-    <legend>{{localize "PF2E.Usage"}}</legend>
 
     <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellRangeLabel"}}</label>
+        <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
+        <input type="text" name="system.requirements" value="{{data.requirements}}" />
+    </div>
+
+    {{#if item.isRitual}}
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.PrimaryCheck"}}</label>
+            <input type="text" name="system.ritual.primary.check" value="{{data.ritual.primary.check}}" />
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryChecks"}}</label>
+            <input type="text" name="system.ritual.secondary.checks" value="{{data.ritual.secondary.checks}}" />
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryCasters"}}</label>
+            <input type="number" name="system.ritual.secondary.casters" required min="0" max="100" value="{{data.ritual.secondary.casters}}" />
+        </div>
+    {{/if}}
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellRangeLabel"}}</label>
         <input type="text" name="system.range.value" value="{{data.range.value}}" />
     </div>
 
     <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellTargetLabel"}}</label>
-        <input type="text" name="system.target.value" value="{{data.target.value}}" />
-    </div>
-
-    <div class="form-group">
-        <label class="short">{{localize "PF2E.AreaLabel"}}</label>
+        <label>{{localize "PF2E.AreaLabel"}}</label>
         <div class="details-container-two-columns">
             <select name="system.area.value" data-dtype="Number">
                 <option value="0"></option>
@@ -121,122 +66,142 @@
     </div>
 
     <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellDurationLabel"}}</label>
+        <label>{{localize "PF2E.SpellTargetLabel"}}</label>
+        <input type="text" name="system.target.value" value="{{data.target.value}}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellDurationLabel"}}</label>
         <input type="text" name="system.duration.value" value="{{data.duration.value}}" />
     </div>
-
-    <div class="form-group">
-        <label class="large">{{localize "PF2E.Item.Spell.Counteract.Label"}}</label>
-        <input type="checkbox" name="system.hasCounteractCheck.value" {{checked data.hasCounteractCheck.value}} />
-    </div>
 </fieldset>
 
-<fieldset>
-    <legend>{{localize "PF2E.DamageLabel"}}</legend>
+{{#unless item.isRitual}}
+    <fieldset class="defense">
+        <legend>{{localize "PF2E.Item.Spell.Defense.Label"}}</legend>
 
-    <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellTypeLabel"}}</label>
-        <select name="system.spellType.value">
-            {{#select data.spellType.value}}
-                {{#each spellTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label class="short">{{localize "PF2E.SpellSaveLabel"}}</label>
-        <div class="details-container-two-columns">
-            <select name="system.save.basic">
-                {{#select data.save.basic}}
-                    <option value=""></option>
-                    <option value="basic">{{localize "PF2E.SpellBasicSaveOption"}}</option>
-                {{/select}}
-            </select>
-            <select name="system.save.value">
-                {{#select data.save.value}}
-                    <option value=""></option>
-                    {{#each saves as |ability a|}}
-                        <option value="{{a}}">{{localize ability}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-    </div>
-
-    <div class="damage-formulas">
-        <h3>
-            {{localize "PF2E.FormulaPlaceholder"}}
-            <div class="item-controls">
-                <i class="fa-solid fa-fw fa-plus" data-action="damage-create"></i>
+        {{#if passiveDefense}}
+            <div class="form-group passive">
+                <label>{{localize "PF2E.ActionTypePassive"}}</label>
+                <div class="value">{{localize passiveDefense}}</div>
             </div>
-        </h3>
+        {{/if}}
 
-        {{#each data.damage.value as |damage id|}}
-            <div class="form-group">
-                <div class="form-fields">
-                    <input type="text" name="system.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
-                    <label>
-                        <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                        <input type="checkbox" name="system.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} />
-                    </label>
-                    <select name="system.damage.value.{{id}}.type.subtype">
-                        {{#select damage.type.subtype}}
-                            <option></option>
-                            {{#each @root.damageSubtypes as |name type|}}
-                                <option value="{{type}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                    <select name="system.damage.value.{{id}}.type.value">
-                        {{#select damage.type.value}}
-                            <option value=""></option>
-                            {{#each @root.damageTypes as |name type|}}
-                                <option value="{{type}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                    <div class="item-controls">
-                        <a
-                            class="tag-selector"
-                            data-tag-selector="basic"
-                            data-title="PF2E.DamageCategoriesLabel"
-                            data-config-types="materialDamageEffects"
-                            data-property="system.damage.value.{{id}}.type.categories"
-                        ><i class="fa-solid fa-fw fa-edit"></i></a>
-                        <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                    </div>
+        <div class="form-group">
+            <label>{{localize "PF2E.SavingThrow"}}</label>
+            <div class="form-fields">
+                <select name="system.defense.save.statistic">
+                    <option value=""></option>
+                    {{#select data.defense.save.statistic}}
+                        <option value="fortitude">{{localize "PF2E.SavesFortitude"}}</option>
+                        <option value="reflex">{{localize "PF2E.SavesReflex"}}</option>
+                        <option value="will">{{localize "PF2E.SavesWill"}}</option>
+                    {{/select}}
+                </select>
+                <div class="save-basic">
+                    <label for="{{fieldIdPrefix}}save-basic"{{#unless data.defense.save.statistic}} class="disabled"{{/unless}}>Basic?</label>
+                    <input
+                        type="checkbox"
+                        name="system.defense.save.basic"
+                        id="{{fieldIdPrefix}}save-basic"
+                        {{checked data.defense.save.basic}}
+                        {{disabled (not data.defense.save.statistic)}}
+                    />
                 </div>
-                {{#if damage.type.categories}}
-                    <div class="traits-list">
-                        {{#each damage.type.categories}}
-                            <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
-                        {{/each}}
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize "PF2E.DamageLabel"}}</legend>
+
+        <div class="damage-formulas">
+            <h3>
+                {{localize "PF2E.FormulaPlaceholder"}}
+                {{#if editable}}
+                    <div class="item-controls">
+                        <a data-action="add-damage-partial"><i class="fa-solid fa-fw fa-plus" ></i></a>
                     </div>
                 {{/if}}
-            </div>
-        {{/each}}
-    </div>
-</fieldset>
+            </h3>
 
-{{#unless data.heightening.type}}
-    {{#if canHeighten}}
-        <button type="button" data-action="heightening-interval-create"><i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
-    {{/if}}
+            {{#each data.damage as |partial id|}}
+                <div class="form-group">
+                    <div class="form-fields">
+                        <input type="text" name="system.damage.{{id}}.formula" value="{{partial.formula}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                        <label>
+                            <span>{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                            <input type="checkbox" name="system.damage.{{id}}.applyMod" {{checked partial.applyMod}} />
+                        </label>
+                        <select name="system.damage.{{id}}.category">
+                            {{#select partial.category}}
+                                <option></option>
+                                {{#each @root.damageSubtypes as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                        <select name="system.damage.{{id}}.type">
+                            {{#select partial.type}}
+                                {{#each @root.damageTypes as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                        <div class="item-controls">
+                            <a
+                                class="tag-selector"
+                                data-tag-selector="basic"
+                                data-title="PF2E.DamageCategoriesLabel"
+                                data-config-types="materialDamageEffects"
+                                data-property="system.damage.{{id}}.materials"
+                            ><i class="fa-solid fa-fw fa-edit"></i></a>
+                            <a data-action="delete-damage-partial" data-id="{{id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{#if partial.materials}}
+                        <div class="traits-list">
+                            {{#each partial.materials}}
+                                <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </fieldset>
 {{/unless}}
 
-{{#if (eq data.heightening.type "interval")}}
-    <fieldset>
+<fieldset class="heightening">
+    <legend>Heightening</legend>
+
+    {{#if canHeighten}}
+        <div class="form-group add">
+            {{#if (not data.heightening)}}
+                <button type="button" data-action="add-interval-heightening">
+                    <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}
+                </button>
+            {{/if}}
+            {{#if (or (eq data.heightening.type "fixed") (not data.heightening))}}
+                <button type="button"{{#if data.heightening}} class="only-option"{{/if}} data-action="add-fixed-heightening" data-overlay-type="heightening">
+                    <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
+                </button>
+            {{/if}}
+        </div>
+    {{/if}}
+
+    {{#if (eq data.heightening.type "interval")}}
         <div class="form-group">
             <h3>{{localize "PF2E.SpellScalingInterval.Header"}}</h3>
-            <div class="item-controls">
-                <i class="fa-solid fa-fw fa-trash" data-action="heightening-delete" data-idx="{{idx}}"></i>
-            </div>
+            {{#if editable}}
+                <div class="item-controls">
+                    <a data-action="delete-heightening"><i class="fa-solid fa-fw fa-trash" data-idx="{{idx}}"></i></a>
+                </div>
+            {{/if}}
         </div>
 
         <div class="form-group">
-            <label class="short">{{localize "PF2E.SpellScalingInterval.Label"}}</label>
+            <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
             <select name="system.heightening.interval" data-dtype="Number">
                 {{#select data.heightening.interval}}
                     {{#each @root.heightenIntervals as |key|}}
@@ -246,28 +211,23 @@
             </select>
         </div>
 
-        {{#each data.damage.value as |damage idx|}}
+        {{#each data.damage as |partial idx|}}
             <div class="form-group">
-                <label class="short">{{localize (lookup @root.damageTypes damage.type.value)}}</label>
+                <label>{{localize (lookup @root.damageTypes partial.type)}}</label>
                 <input type="text" name="system.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}" />
             </div>
         {{/each}}
-    </fieldset>
-{{/if}}
-
-{{! Spell heightening for fixed levels}}
-{{#unless (eq data.heightening.type "interval")}}
-    {{#each heightenOverlays}}
-        {{> systems/pf2e/templates/items/spell-overlay.hbs this=this}}
-    {{/each}}
-    {{#if canHeighten}}
-        <button type="button" data-action="heightening-fixed-create" data-overlay-type="heightening">
-            <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
-        </button>
     {{/if}}
-{{/unless}}
 
-{{#if (not isVariant)}}
+    {{!-- Spell heightening for fixed levels --}}
+    {{#unless (eq data.heightening.type "interval")}}
+        {{#each heightenOverlays}}
+            {{> systems/pf2e/templates/items/spell-overlay.hbs this=this}}
+        {{/each}}
+    {{/unless}}
+</fieldset>
+
+{{#if (nor item.isRitual isVariant)}}
     <fieldset class="variants" data-can-drop="true">
         <legend class="form-group">
             {{localize "PF2E.Item.Spell.Variants.LabelPlural"}}
@@ -278,11 +238,23 @@
             <div class="variant" data-variant-id="{{variant.id}}">
                 <label>{{variant.name}}</label>
                 <span class="action-glyph">{{variant.actions}}</span>
-                <div class="item-controls">
-                    <a data-action="variant-edit" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                    <a data-action="variant-delete" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                </div>
+                {{#if @root.editable}}
+                    <div class="item-controls">
+                        <a data-action="edit-variant" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a data-action="delete-variant" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                    </div>
+                {{/if}}
             </div>
         {{/each}}
     </fieldset>
+
+    <div class="form-group">
+        <label class="large" for="{{fieldIdPrefix}}counteraction">{{localize "PF2E.Item.Spell.Counteract.Label"}}</label>
+        <input type="checkbox" name="system.counteraction" id="{{fieldIdPrefix}}counteraction" {{checked data.counteraction}} />
+    </div>
 {{/if}}
+
+<div class="form-group">
+    <label class="large" for="{{fieldIdPrefix}}toggle-ritual-data">{{localize "PF2E.Item.Spell.Ritual.Label"}}</label>
+    <input type="checkbox" id="{{fieldIdPrefix}}toggle-ritual-data" data-action="toggle-ritual-data" {{checked item.isRitual}} />
+</div>

@@ -126,13 +126,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         this.prepareRunes();
 
         // Add traits from fundamental runes
+        const abpEnabled = ABP.isEnabled(this.actor);
         const baseTraits = this.system.traits.value;
-        const fromRunes: ("invested" | "abjuration")[] =
-            this.system.runes.potency || this.system.runes.resilient ? ["invested", "abjuration"] : [];
+        const investedTrait =
+            this.system.runes.potency ||
+            this.system.runes.resilient ||
+            (abpEnabled && this.system.runes.property.length > 0)
+                ? "invested"
+                : null;
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
-        const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-
-        this.system.traits.value = R.uniq([baseTraits, fromRunes, magicTraits].flat()).sort();
+        const magicTrait = investedTrait && !hasTraditionTraits ? "magical" : null;
+        this.system.traits.value = R.uniq(R.compact([...baseTraits, investedTrait, magicTrait]).sort());
     }
 
     override prepareDerivedData(): void {

@@ -15,7 +15,7 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): vo
         rank > 0
             ? [
                   game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
-                  game.i18n.localize(data.location === "rituals" ? "PF2E.SpellCategoryRitual" : "PF2E.SpellLabel"),
+                  game.i18n.localize(data.location === "rituals" ? "PF2E.Item.Spell.Ritual.Label" : "TYPES.Item.spell"),
               ]
             : [null, game.i18n.localize("PF2E.TraitCantrip")];
     const source = {

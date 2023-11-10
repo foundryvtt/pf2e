@@ -5,7 +5,7 @@ import { RANGE_TRAITS } from "@item/base/data/values.ts";
 import { ClassTrait } from "@item/class/types.ts";
 import { OtherConsumableTag } from "@item/consumable/types.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
-import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
+import { MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
 import { sluggify } from "@util";
 import * as R from "remeda";
@@ -160,7 +160,6 @@ const creatureTraits = {
     eidolon: "PF2E.TraitEidolon",
     elemental: "PF2E.TraitElemental",
     ethereal: "PF2E.TraitEthereal",
-    evocation: "PF2E.TraitEvocation",
     fiend: "PF2E.TraitFiend",
     formian: "PF2E.TraitFormian",
     fungus: "PF2E.TraitFungus",
@@ -200,7 +199,6 @@ const creatureTraits = {
     munavri: "PF2E.TraitMunavri",
     mutant: "PF2E.TraitMutant",
     nagaji: "PF2E.TraitNagaji",
-    necromancy: "PF2E.TraitNecromancy",
     nephilim: "PF2E.TraitNephilim",
     nindoru: "PF2E.TraitNindoru",
     nymph: "PF2E.TraitNymph",
@@ -314,23 +312,11 @@ const damageTraits = {
     void: "PF2E.TraitVoid",
 };
 
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
-};
-
 const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
     ...elementTraits,
-    ...magicSchools,
     ...magicTraditions,
     ...sanctificationTraits,
     amp: "PF2E.TraitAmp",
@@ -354,10 +340,12 @@ const spellTraits = {
     emotion: "PF2E.TraitEmotion",
     extradimensional: "PF2E.TraitExtradimensional",
     fear: "PF2E.TraitFear",
+    focus: "PF2E.TraitFocus",
     fortune: "PF2E.TraitFortune",
     fungus: "PF2E.TraitFungus",
     healing: "PF2E.TraitHealing",
     hex: "PF2E.TraitHex",
+    illusion: "PF2E.TraitIllusion",
     incapacitation: "PF2E.TraitIncapacitation",
     incarnate: "PF2E.TraitIncarnate",
     incorporeal: "PF2E.TraitIncorporeal",
@@ -398,7 +386,6 @@ const weaponTraits = {
     ...ancestryTraits,
     ...elementTraits,
     ...energyDamageTypes,
-    ...magicSchools,
     ...magicTraditions,
     ...sanctificationTraits,
     adjusted: "PF2E.TraitAdjusted",
@@ -611,7 +598,6 @@ const featTraits = {
     ...ancestryTraits,
     ...classTraits,
     ...damageTraits,
-    ...magicSchools,
     ...magicTraditions,
     ...spellTraits,
     additive1: "PF2E.TraitAdditive1",
@@ -763,7 +749,6 @@ const actionTraits = {
 
 const hazardTraits = {
     ...damageTraits,
-    ...magicSchools,
     ...magicTraditions,
     aberration: "PF2E.TraitAberration",
     alchemical: "PF2E.TraitAlchemical",
@@ -794,7 +779,6 @@ const hazardTraits = {
 };
 
 const vehicleTraits = {
-    ...magicSchools,
     artifact: "PF2E.TraitArtifact",
     clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
@@ -806,7 +790,6 @@ const equipmentTraits = {
     ...ancestryTraits,
     ...elementTraits,
     ...energyDamageTypes,
-    ...magicSchools,
     ...magicTraditions,
     ...sanctificationTraits,
     additive0: "PF2E.TraitAdditive0",
@@ -901,7 +884,6 @@ const armorTraits = {
     ...alignmentTraits,
     ...sanctificationTraits,
     ...elementTraits,
-    ...magicSchools,
     ...magicTraditions,
     ...shieldTraits,
     adjusted: "PF2E.TraitAdjusted",
@@ -1057,7 +1039,6 @@ const traitDescriptions = {
     concealable: "PF2E.TraitDescriptionConcealable",
     concentrate: "PF2E.TraitDescriptionConcentrate",
     concussive: "PF2E.TraitDescriptionConcussive",
-    conjuration: "PF2E.TraitDescriptionConjuration",
     conrasu: "PF2E.TraitDescriptionConrasu",
     consecration: "PF2E.TraitDescriptionConsecration",
     consumable: "PF2E.TraitDescriptionConsumable",
@@ -1108,13 +1089,11 @@ const traitDescriptions = {
     elf: "PF2E.TraitDescriptionElf",
     elixir: "PF2E.TraitDescriptionElixir",
     emotion: "PF2E.TraitDescriptionEmotion",
-    enchantment: "PF2E.TraitDescriptionEnchantment",
     "entrench-melee": "PF2E.TraitDescriptionEntrench",
     "entrench-ranged": "PF2E.TraitDescriptionEntrench",
     environment: "PF2E.TraitDescriptionEnvironment",
     esoterica: "PF2E.TraitDescriptionEsoterica",
     evil: "PF2E.TraitDescriptionEvil",
-    evocation: "PF2E.TraitDescriptionEvocation",
     evolution: "PF2E.TraitDescriptionEvolution",
     expandable: "PF2E.TraitDescriptionExpandable",
     exploration: "PF2E.TraitDescriptionExploration",
@@ -1135,6 +1114,7 @@ const traitDescriptions = {
     fleshwarp: "PF2E.TraitDescriptionFleshwarp",
     flexible: "PF2E.TraitDescriptionFlexible",
     flourish: "PF2E.TraitDescriptionFlourish",
+    focus: "PF2E.TraitDescriptionFocus",
     focused: "PF2E.TraitDescriptionFocused",
     foldaway: "PF2E.TraitDescriptionFoldaway",
     force: "PF2E.TraitDescriptionForce",
@@ -1231,7 +1211,6 @@ const traitDescriptions = {
     multiclass: "PF2E.TraitDescriptionMulticlass",
     mutagen: "PF2E.TraitDescriptionMutagen",
     nagaji: "PF2E.TraitDescriptionNagaji",
-    necromancy: "PF2E.TraitDescriptionNecromancy",
     nephilim: "PF2E.TraitDescriptionNephilim",
     nindoru: "PF2E.TraitDescriptionNindoru",
     noisy: "PF2E.TraitDescriptionNoisy",
@@ -1363,7 +1342,6 @@ const traitDescriptions = {
     tiefling: "PF2E.TraitDescriptionTiefling",
     time: "PF2E.TraitDescriptionTime",
     training: "PF2E.TraitDescriptionTraining",
-    transmutation: "PF2E.TraitDescriptionTransmutation",
     trap: "PF2E.TraitDescriptionTrap",
     trip: "PF2E.TraitDescriptionTrip",
     "true-name": "PF2E.TraitDescriptionTrueName",
@@ -1430,7 +1408,6 @@ export {
     featTraits,
     hazardTraits,
     kingmakerTraits,
-    magicSchools,
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,

@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration860RMGroup } from "@module/migration/migrations/860-rm-group.ts";
 import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862-specific-magic-armor.ts";
 import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
 import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
@@ -26,6 +25,7 @@ import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-fea
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
 import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
+import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -35,7 +35,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration860RMGroup(),
     new Migration862SpecificMagicArmor(),
     new Migration863FixMisspelledOrganaizationsProperty(),
     new Migration864RemoveWeaponMAP(),
@@ -51,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration877PublicationData(),
     new Migration878TakeABreather(),
     new Migration879DeviseAStratagemAndFriends(),
+    new Migration882SpellDataReorganization(),
 ];
 
 global.deepClone = <T>(original: T): T => {
