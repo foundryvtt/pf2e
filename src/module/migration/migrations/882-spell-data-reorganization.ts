@@ -1,20 +1,43 @@
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellDamageSource, SpellSystemSource } from "@item/spell/data.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/types.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/types.ts";
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 /** Simplify data structure of spells, add damage `kinds` */
 export class Migration882SpellDataReorganization extends MigrationBase {
     static override version = 0.882;
 
+    #SCHOOL_TRAITS = new Set(["conjuration", "divination", "enchantment", "evocation", "necromancy", "transmutation"]);
+
     #ensureTraitsPresence(system: MaybeOldSpellSystemSource): { value: SpellTrait[] } {
         return mergeObject({ value: [] }, system.traits ?? { value: [] });
+    }
+
+    #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> {
+        // Remove school traits from aura REs
+        if (!isObject(rule)) return rule;
+        if ("traits" in rule && Array.isArray(rule.traits)) {
+            rule.traits = rule.traits.filter((t) => !this.#SCHOOL_TRAITS.has(t));
+        }
+        if (Array.isArray(rule.predicate)) {
+            rule.predicate = rule.predicate.filter((s) => !this.#SCHOOL_TRAITS.has(s));
+        }
+
+        return rule;
+    }
+
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        const traits: { value: string[] } = source.system.traits ?? { value: [] };
+        if (Array.isArray(traits.value)) {
+            traits.value = traits.value.filter((t) => !this.#SCHOOL_TRAITS.has(t));
+        }
     }
 
     override async updateItem(
@@ -23,6 +46,9 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         /** Whether this is the top level of the spell item rather than internal partial data */
         { topLevel = true } = {},
     ): Promise<void> {
+        if (topLevel && source.system?.rules) {
+            source.system.rules = source.system.rules.map((r) => (r ? this.#migrateRule(r) : r));
+        }
         if (source.type !== "spell") return;
         const system: MaybeOldSpellSystemSource = source.system ?? {};
 
@@ -159,19 +185,11 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("secondarycheck" in system) system["-=secondarycheck"] = null;
         if ("secondarycasters" in system) system["-=secondarycasters"] = null;
 
-        // Remove school traits from aura REs
-        for (const rule of source.system?.rules ?? []) {
-            if (isObject(rule) && "traits" in rule && Array.isArray(rule.traits)) {
-                rule.traits = rule.traits.filter((t) => !schools.includes(t));
-            }
-        }
-
         // Final traits cleanup
-        const schools = ["conjuration", "divination", "enchantment", "evocation", "necromancy", "transmutation"];
         if (system.traits?.value && Array.isArray(system.traits.value)) {
             system.traits.value = R.uniq(
                 R.compact(system.traits.value)
-                    .filter((t: string) => !schools.includes(t))
+                    .filter((t: string) => !this.#SCHOOL_TRAITS.has(t))
                     .sort(),
             );
         }
