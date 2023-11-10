@@ -65,7 +65,7 @@ class ResolvableValueField<
     /** Coerce a string value that looks like a number into a number. */
     #coerceNumber(value: string): number | string {
         const trimmed = value.trim();
-        return /^\d+(?:\.\d+)?$/.test(trimmed) ? Number(trimmed) : trimmed || 0;
+        return /^-?\d+(?:\.\d+)?$/.test(trimmed) ? Number(trimmed) : trimmed || 0;
     }
 
     protected override _cleanType(value: RuleValue): RuleValue {
