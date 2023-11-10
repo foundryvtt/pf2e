@@ -3,51 +3,41 @@
     "img": "systems/pf2e/icons/spells/incendiary-fog.webp",
     "name": "Incendiary Fog",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "material": true,
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "goajz5243wuz07dx": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "fire"
-                    },
-                    "value": "10d6"
-                }
+            "goajz5243wuz07dx": {
+                "applyMod": false,
+                "category": null,
+                "formula": "10d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You summon a cloud of flammable black dust. The cloud functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em>. If any open flame or fire effect is within the spell's area when it's cast, or later enters or occurs within the area, the cloud ignites. Creatures in the cloud take @Damage[10d6[fire]] damage (basic Reflex save), and the spell ends.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "level": {
             "value": 5
-        },
-        "materials": {
-            "value": ""
         },
         "publication": {
             "license": "OGL",
@@ -57,35 +47,24 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "3"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "rare",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
+                "concentrate",
                 "fire",
-                "conjuration"
+                "manipulate"
             ]
         }
     },

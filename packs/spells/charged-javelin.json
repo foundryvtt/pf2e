@@ -3,50 +3,40 @@
     "img": "systems/pf2e/icons/spells/charged-javelin.webp",
     "name": "Charged Javelin",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "electricity"
-                    },
-                    "value": "1d6"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "electricity"
-                    },
-                    "value": "1"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "electricity"
+            },
+            "1": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "1",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "electricity"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You fire a javelin of electricity that leaves a charged field around its target. Make a spell attack roll. The javelin deals 1d6 electricity damage and 1 persistent electricity damage.</p>\n<p>As long as the target is taking persistent damage from this spell, creatures gain a +1 status bonus to attack rolls with metal weapons or electricity effects against the target, and the target takes a -1 status penalty to saves against electricity effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The javelin deals double damage, both initial and persistent.</p>\n<p><strong>Success</strong> The javelin deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d6, and the Persistent Damage increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -59,15 +49,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -76,40 +57,24 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 or more creatures"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": []
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [],
             "value": [
                 "attack",
                 "cleric",
+                "concentrate",
                 "electricity",
-                "evocation"
+                "focus",
+                "manipulate"
             ]
         }
     },

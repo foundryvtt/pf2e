@@ -3,42 +3,37 @@
     "img": "icons/magic/acid/dissolve-bone-white.webp",
     "name": "Sudden Blight",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": true,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "void"
-                    },
-                    "value": "2d10"
-                }
+            "0": {
+                "category": null,
+                "formula": "2d10",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "void"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes @Damage[2d10[void]] damage (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": true
         },
         "heightening": {
             "damage": {
@@ -50,15 +45,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": false
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -67,40 +53,24 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "primal"
+            ],
             "value": [
-                "void",
-                "necromancy"
+                "concentrate",
+                "manipulate",
+                "void"
             ]
         }
     },

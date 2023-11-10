@@ -3,41 +3,30 @@
     "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
     "name": "Chilling Darkness",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": true,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "cold"
-                    },
-                    "value": "5d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "5d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack. The ray deals 5d6 cold damage. If the target has the holy trait, you deal an extra 5d6 spirit damage.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the spirit damage against holy creatures increases by 2d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": true
         },
         "heightening": {
             "damage": {
@@ -48,9 +37,6 @@
         },
         "level": {
             "value": 3
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "qXeevJsP6ve5B3fk": {
@@ -65,16 +51,12 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "2S1a6g60omQDPEP6": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "spirit"
-                                },
-                                "value": "5d6"
-                            }
+                        "2S1a6g60omQDPEP6": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d6",
+                            "materials": [],
+                            "type": "spirit"
                         }
                     },
                     "heightening": {
@@ -85,12 +67,6 @@
                 }
             }
         },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -99,40 +75,25 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine"
+            ],
             "value": [
                 "attack",
                 "cold",
+                "concentrate",
                 "darkness",
+                "manipulate",
                 "unholy"
             ]
         }

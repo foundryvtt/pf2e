@@ -3,41 +3,29 @@
     "img": "icons/creatures/claws/claw-hooked-curved.webp",
     "name": "Gouging Claw",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": true,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "untyped"
-                    },
-                    "value": "2d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "untyped"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You temporarily morph your limb into a clawed appendage. Make a melee spell attack roll against your target's AC. If you hit, you deal your choice of 2d6 slashing damage or 2d6 piercing damage, plus @Damage[(@item.level +1)[bleed]] damage. On a critical success, you deal double damage and double bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6 and the persistent bleed damage increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +37,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "URQWpedXx9fB1fR7": {
                 "_id": "URQWpedXx9fB1fR7",
@@ -60,12 +45,9 @@
                 "sort": 1,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "piercing"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "piercing"
                         }
                     }
                 }
@@ -77,12 +59,9 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "slashing"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "slashing"
                         }
                     }
                 }
@@ -96,35 +75,25 @@
         "range": {
             "value": "touch"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "attack",
                 "cantrip",
+                "concentrate",
+                "manipulate",
                 "morph"
             ]
         }

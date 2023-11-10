@@ -3,38 +3,29 @@
     "img": "systems/pf2e/icons/spells/electrified-crystal-ward.webp",
     "name": "Electrified Crystal Ward",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "3d12"
-                }
+            "0": {
+                "category": null,
+                "formula": "3d12",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "electricity"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You create an @UUID[Compendium.pf2e.hazards.Actor.Electric Latch Rune] hazard on the target, creating a special crystalline lock on the object. You can also substitute your spell DC for any of the hazard's listed DCs. You can have only one such hazard active at a time, and if you cast this spell while a previous <em>electric latch rune</em> is active, the older hazard discharges harmlessly.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The hazard's damage increases by 1d12.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -46,15 +37,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -63,38 +45,22 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 hinge or latch"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": []
-        },
         "traits": {
             "rarity": "rare",
+            "traditions": [],
             "value": [
+                "attack",
                 "electricity",
-                "evocation"
+                "focus",
+                "manipulate"
             ]
         }
     },

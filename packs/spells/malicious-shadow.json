@@ -3,41 +3,30 @@
     "img": "systems/pf2e/icons/spells/malicious-shadow.webp",
     "name": "Malicious Shadow",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": true,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "untyped"
-                    },
-                    "value": "1d10"
-                }
+            "0": {
+                "applyMod": true,
+                "category": null,
+                "formula": "1d10",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "untyped"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>Your patron warps the target's shadow into a deadly form, such as strangling hands, a dangerous weapon, harrying runes, or the like. The shadow moves along with the target, always remaining within reach. When you Cast the Spell, and each time you Sustain it, the shadow Strikes the target. The shadow's Strikes are melee spell attacks that deal damage equal to 1d10 plus your spellcasting attribute modifier. You choose the type of damage (bludgeoning, piercing, or slashing) when you Cast the Spell. The shadow uses and contributes to your multiple attack penalty. The shadow doesn't take up space, grant flanking, or have any other attributes a creature would. The shadow can't make any attacks other than its Strike.</p>\n<p>The shadow vanishes if the target ceases to cast a shadow (usually if it moves into complete darkness or light). If another effect is controlling the target's shadow when you cast <em>malicious shadow</em>, you can attempt to counteract that effect to temporarily take control of the shadow for <em>malicious shadow</em>'s duration.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The Strike damage increases by [[/r 1d10]].</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": true
         },
         "heightening": {
             "damage": {
@@ -49,9 +38,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "c69HMe7LM38KOi2y": {
                 "_id": "c69HMe7LM38KOi2y",
@@ -60,13 +46,9 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "subtype": "",
-                                    "value": "piercing"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "piercing"
                         }
                     },
                     "traits": {
@@ -85,13 +67,9 @@
                 "sort": 3,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "subtype": "",
-                                    "value": "slashing"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "slashing"
                         }
                     },
                     "traits": {
@@ -110,13 +88,9 @@
                 "sort": 1,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "type": "bludgeoning"
                         }
                     },
                     "traits": {
@@ -129,12 +103,6 @@
                 }
             }
         },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -143,37 +111,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
+                "attack",
+                "concentrate",
+                "focus",
                 "hex",
+                "manipulate",
                 "shadow",
                 "witch"
             ]

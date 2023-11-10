@@ -3,44 +3,38 @@
     "img": "systems/pf2e/icons/spells/astral-rain.webp",
     "name": "Astral Rain",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "cube",
             "value": 5
         },
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "utw4ddumvvnvuqom": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "untyped"
-                    },
-                    "value": "2d4"
-                }
+            "utw4ddumvvnvuqom": {
+                "applyMod": true,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "untyped"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You fling a mass of furious thoughts into the air, where they expand into numerous blades or other shapes that rain down. Any creature that's in the area or enters the area before the start of your next turn takes your choice of bludgeoning or piercing damage equal to 2d4 plus your spellcasting ability modifier, with a basic Reflex saving throw.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d4]]{1d4}.</p>\n<hr />\n<p><strong>Amp</strong> The area changes to a @Template[type:burst|distance:5], and you can Sustain the Spell up to 1 minute. The first time each round that you Sustain the Spell, you can move the burst up to 20 feet.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -52,9 +46,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "DoqHugNozok6ecgz": {
                 "_id": "DoqHugNozok6ecgz",
@@ -63,12 +54,9 @@
                 "sort": 1,
                 "system": {
                     "damage": {
-                        "value": {
-                            "utw4ddumvvnvuqom": {
-                                "type": {
-                                    "value": "bludgeoning"
-                                }
-                            }
+                        "utw4ddumvvnvuqom": {
+                            "category": null,
+                            "type": "bludgeoning"
                         }
                     }
                 }
@@ -80,12 +68,9 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "utw4ddumvvnvuqom": {
-                                "type": {
-                                    "value": "piercing"
-                                }
-                            }
+                        "utw4ddumvvnvuqom": {
+                            "category": null,
+                            "type": "piercing"
                         }
                     }
                 }
@@ -99,36 +84,26 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "occult"
-            ]
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [
+                "occult"
+            ],
             "value": [
                 "cantrip",
+                "concentrate",
+                "focus",
                 "force",
-                "psychic",
-                "evocation"
+                "manipulate",
+                "psychic"
             ]
         }
     },

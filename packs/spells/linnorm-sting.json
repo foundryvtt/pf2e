@@ -3,51 +3,37 @@
     "img": "systems/pf2e/icons/spells/linnorm-sting.webp",
     "name": "Linnorm Sting",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "piercing"
-                    },
-                    "value": "2d12"
-                }
+            "0": {
+                "category": null,
+                "formula": "2d12",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "piercing"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You replicate the fiery venom of the tor linnorm and inflict an enemy with the dread dragon's debilitating bite. You deal @Damage[2d12[piercing]] damage to the targeted creature and afflict it with tor linnorm venom. If the target takes piercing damage, they must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[8d6[fire]] damage.</p>\n<p><strong>Failure</strong> The target is afflicted with Tor Linnorm Venom at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with tor linnorm venom at stage 2.</p>\n<hr />\n<p><strong>Tor Linnorm Venom</strong> (fire, injury, poison) <strong>Level 17</strong></p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[8d6[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[fire]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "level": {
             "value": 9
-        },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
         },
         "publication": {
             "license": "OGL",
@@ -57,43 +43,26 @@
         "range": {
             "value": "touch"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "uncommon",
             "selected": [],
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
+                "concentrate",
                 "fire",
-                "poison",
-                "necromancy"
+                "manipulate",
+                "poison"
             ]
         }
     },

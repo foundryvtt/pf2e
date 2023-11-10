@@ -3,41 +3,34 @@
     "img": "icons/magic/death/undead-skeleton-energy-green.webp",
     "name": "Impending Doom",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "mental"
-                    },
-                    "value": "6d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "6d6",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "mental"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "will"
             }
         },
         "description": {
             "value": "<p>You sift through myriad potential futures, seize upon one potential moment in which the target meets a particularly gruesome and fatal end, and then show it a vision of its impending demise. The intense mental vision grows more and more terrifying to the target as the doom grows closer, and it takes 3 rounds to reach its conclusion. The target must attempt a Will saving throw to determine the effects. At the end of the spell's duration, if the target was affected, the target witnesses its death and takes 6d6 mental damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is unaffected for 1 round. On the second round, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]. Finally, on the third round, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. At the end of the third round, it takes half damage.</p>\n<p><strong>Failure</strong> The creature is immediately off-guard. On the second round, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. Finally, on the third round, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. At the end of the third round, the creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature is immediately off-guard and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}. On the second round, it becomes stunned 1. Finally, on the third round, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. At the end of the third round, the creature takes double damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "3 round"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +42,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -60,40 +50,29 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 living creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
+        "traits": {
+            "rarity": "common",
+            "traditions": [
                 "arcane",
                 "divine",
                 "occult"
-            ]
-        },
-        "traits": {
-            "rarity": "common",
+            ],
             "value": [
+                "concentrate",
                 "emotion",
                 "fear",
                 "incapacitation",
+                "manipulate",
                 "mental",
-                "prediction",
-                "divination"
+                "prediction"
             ]
         }
     },

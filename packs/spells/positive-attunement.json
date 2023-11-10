@@ -3,41 +3,30 @@
     "img": "systems/pf2e/icons/spells/positive-attunement.webp",
     "name": "Positive Attunement",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": ""
-                    },
-                    "value": "1d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "healing"
+                ],
+                "materials": [],
+                "type": ""
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You attune a creature to the Positive Energy Plane, connecting its life force without fully transporting it. The creature's appearance becomes more brightly colored. If the creature is living, it heals 1d8 Hit Points immediately and at the end of each of your turns. Effects that increase healing only increase the initial healing.</p>\n<p>If the creature is undead or has negative healing, it instead takes 1d8 positive damage, depending on the result of its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is damaged once and the spell ends.</p>\n<p><strong>Failure</strong> The creature is damaged immediately and at the end of each of your turns (so twice in the round you Cast the Spell).</p>\n<p><strong>Critical Failure</strong> As failure, and the damage is doubled.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The damage and healing each increase by 1d8.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,9 +37,6 @@
         },
         "level": {
             "value": 3
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "QDQIFtc8RxaD9iS7": {
@@ -66,19 +52,19 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "vitality"
-                                }
-                            }
+                        "0": {
+                            "category": null,
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "vitality"
                         }
                     },
-                    "save": {
-                        "value": "will"
-                    },
-                    "spellType": {
-                        "value": "save"
+                    "defense": {
+                        "save": {
+                            "basic": false,
+                            "statistic": "will"
+                        }
                     }
                 }
             }
@@ -91,36 +77,25 @@
         "range": {
             "value": "touch"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "heal"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 living or undead creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "divine",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "primal"
+            ],
             "value": [
+                "concentrate",
                 "healing",
-                "vitality",
-                "necromancy"
+                "manipulate",
+                "vitality"
             ]
         }
     },

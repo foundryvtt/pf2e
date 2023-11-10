@@ -3,55 +3,46 @@
     "img": "systems/pf2e/icons/spells/teleport.webp",
     "name": "Unfolding Wind Crash",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "SkA0hnMkeRZeHBNT": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "18d6"
-                }
+            "SkA0hnMkeRZeHBNT": {
+                "applyMod": false,
+                "category": null,
+                "formula": "18d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You jump up to 120 feet in any direction and then deal 18d6 bludgeoning damage to creatures within a 20‐foot emanation after you land, with a basic Reflex save. Creatures who critically fail are also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The damage increases to 20d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "levels": {
                 "10": {
                     "damage": {
-                        "value": {
-                            "SkA0hnMkeRZeHBNT": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                },
-                                "value": "20d6"
-                            }
+                        "SkA0hnMkeRZeHBNT": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "20d6",
+                            "materials": [],
+                            "type": "bludgeoning"
                         }
                     }
                 }
@@ -61,9 +52,6 @@
         "level": {
             "value": 9
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -72,32 +60,22 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "air",
-                "move",
-                "evocation"
+                "concentrate",
+                "focus",
+                "move"
             ]
         }
     },
