@@ -1,5 +1,4 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
-import { TraitViewData } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
@@ -33,7 +32,6 @@ class WeaponDamagePF2e {
     static async fromNPCAttack({
         attack,
         actor,
-        actionTraits = [],
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
         const { baseDamage } = attack;
@@ -82,7 +80,6 @@ class WeaponDamagePF2e {
             actor,
             damageDice,
             modifiers,
-            actionTraits,
             context,
         });
     }
@@ -92,7 +89,6 @@ class WeaponDamagePF2e {
         actor,
         damageDice = [],
         modifiers = [],
-        actionTraits = [],
         weaponPotency = null,
         context,
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
@@ -491,7 +487,6 @@ class WeaponDamagePF2e {
 
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
-            traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
             damage: {
@@ -548,7 +543,6 @@ interface ConvertedNPCDamage extends WeaponDamage {
 interface WeaponDamageCalculateParams {
     weapon: WeaponPF2e | MeleePF2e;
     actor: CharacterPF2e | NPCPF2e | HazardPF2e;
-    actionTraits: TraitViewData[];
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
@@ -558,7 +552,6 @@ interface WeaponDamageCalculateParams {
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e;
     actor: NPCPF2e | HazardPF2e;
-    actionTraits: TraitViewData[];
     context: DamageRollContext;
 }
 

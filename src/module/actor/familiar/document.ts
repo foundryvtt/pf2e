@@ -82,8 +82,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
 
-        systemData.details.alignment = { value: "N" };
-
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
         systemData.attributes.speed = {

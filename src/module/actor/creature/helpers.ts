@@ -1,11 +1,12 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { Immunity } from "@actor/data/iwr.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
-import { AbilityItemPF2e, ConditionPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ConditionPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
-import { CreaturePF2e } from "./document.ts";
+import type { CreaturePF2e } from "./document.ts";
 
 /** A static class of helper functions for applying automation for certain weapon traits on attack rolls */
 class AttackTraitHelpers {

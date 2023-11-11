@@ -32,7 +32,6 @@ const MATERIAL_DAMAGE_EFFECTS = new Set([
 const DAMAGE_CATEGORIES = new Set([
     ...DAMAGE_CATEGORIES_UNIQUE,
     ...MATERIAL_DAMAGE_EFFECTS,
-    "alignment",
     "energy",
     "physical",
 ] as const);
@@ -67,10 +66,10 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null>
     void: "energy",
     force: "energy",
 
-    chaotic: "alignment",
-    evil: "alignment",
-    good: "alignment",
-    lawful: "alignment",
+    chaotic: null,
+    evil: null,
+    good: null,
+    lawful: null,
 
     mental: null,
     poison: null,

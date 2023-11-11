@@ -38,7 +38,7 @@ export class DamagePF2e {
             subtitle,
         });
 
-        if (data.traits) {
+        if (context.traits) {
             interface ToTagsParams {
                 labels?: Record<string, string | undefined>;
                 descriptions?: Record<string, string | undefined>;
@@ -66,7 +66,7 @@ export class DamagePF2e {
                     })
                     .join("");
 
-            const traits = toTags(data.traits, {
+            const traits = toTags(context.traits, {
                 labels: CONFIG.PF2E.actionTraits,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
                 cssClass: null,

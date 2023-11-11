@@ -4,6 +4,7 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { StrikeSelf } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSystemData } from "@item/base/data/system.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -801,6 +802,7 @@ async function augmentInlineDamageRoll(
                     modifiers,
                 };
             })(),
+            traits: traits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [],
         };
 
         if (!args.skipDialog) {
@@ -816,7 +818,6 @@ async function augmentInlineDamageRoll(
             name: name ?? item?.name ?? actor?.name ?? "",
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
-            traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
             materials: item?.isOfType("physical") ? item.system.material.effects : [],
         };
 

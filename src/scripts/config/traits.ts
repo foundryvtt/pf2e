@@ -1,4 +1,3 @@
-import { AlignmentTrait } from "@actor/creature/types.ts";
 import { OtherArmorTag } from "@item/armor/types.ts";
 import { BackgroundTrait } from "@item/background/types.ts";
 import { RANGE_TRAITS } from "@item/base/data/values.ts";
@@ -289,15 +288,7 @@ const classTraits: Record<ClassTrait, string> = {
     wizard: "PF2E.TraitWizard",
 };
 
-const alignmentTraits: Record<AlignmentTrait, string> = {
-    chaotic: "PF2E.TraitChaotic",
-    evil: "PF2E.TraitEvil",
-    good: "PF2E.TraitGood",
-    lawful: "PF2E.TraitLawful",
-};
-
 const damageTraits = {
-    ...alignmentTraits,
     ...elementTraits,
     ...energyDamageTypes,
     ...sanctificationTraits,
@@ -313,7 +304,6 @@ const damageTraits = {
 };
 
 const spellTraits = {
-    ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
     ...elementTraits,
@@ -382,12 +372,10 @@ const spellTraits = {
 };
 
 const weaponTraits = {
-    ...alignmentTraits,
     ...ancestryTraits,
     ...elementTraits,
     ...energyDamageTypes,
     ...magicTraditions,
-    ...sanctificationTraits,
     adjusted: "PF2E.TraitAdjusted",
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
@@ -563,6 +551,7 @@ const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
     ...rangeTraits,
+    ...sanctificationTraits,
     curse: "PF2E.TraitCurse",
     "deadly-2d8": "PF2E.TraitDeadly2D8",
     "deadly-3d8": "PF2E.TraitDeadly3D8",
@@ -786,7 +775,6 @@ const vehicleTraits = {
 };
 
 const equipmentTraits = {
-    ...alignmentTraits,
     ...ancestryTraits,
     ...elementTraits,
     ...energyDamageTypes,
@@ -881,7 +869,6 @@ const shieldTraits = {
 };
 
 const armorTraits = {
-    ...alignmentTraits,
     ...sanctificationTraits,
     ...elementTraits,
     ...magicTraditions,
@@ -1393,7 +1380,6 @@ const traitDescriptions = {
 
 export {
     actionTraits,
-    alignmentTraits,
     ancestryItemTraits,
     ancestryTraits,
     armorTraits,

@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base.js";
+import { MigrationBase } from "../base.ts";
 
 /** Remove "hb_" prefixes from homebrew element slugs. */
 export class Migration881NoHBPrefix extends MigrationBase {

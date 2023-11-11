@@ -1411,6 +1411,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
+        const actionTraits: ActionTrait[] = [
+            "attack" as const,
+            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
+            // the manipulate trait."
+            weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+        ].flat();
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustTraits?.(weapon, actionTraits);
+        }
+
         const ready =
             (weapon.isEquipped && handsAvailable) ||
             (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
@@ -1426,7 +1436,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             type: "strike" as const,
             ...flavor,
             options: Array.from(baseOptions),
-            traits: [],
+            traits: actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             handsAvailable,
             weaponTraits: Array.from(weaponTraits)
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
@@ -1460,17 +1470,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
             action.ammunition = { compatible, incompatible, selected };
         }
-
-        const actionTraits: ActionTrait[] = [
-            "attack" as const,
-            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
-            // the manipulate trait."
-            weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
-        ].flat();
-        for (const adjustment of synthetics.strikeAdjustments) {
-            adjustment.adjustTraits?.(weapon, actionTraits);
-        }
-        action.traits = actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
@@ -1537,7 +1536,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     defense: "armor",
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
+                    traits: actionTraits,
                 });
+                action.traits = context.traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
                 // Check whether target is out of maximum range; abort early if so
                 if (context.self.item.isRanged && typeof context.target?.distance === "number") {
@@ -1634,6 +1635,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
+                    traits: actionTraits,
                     checkContext: params.checkContext,
                 });
 
@@ -1669,7 +1671,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: context.self.item,
                     actor: context.self.actor,
-                    actionTraits: context.traits,
                     weaponPotency,
                     context: damageContext,
                 });

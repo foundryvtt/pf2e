@@ -1,6 +1,5 @@
 import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { Alignment } from "@actor/creature/types.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
 import {
@@ -41,7 +40,6 @@ import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
-    alignmentTraits,
     ancestryItemTraits,
     ancestryTraits,
     armorTraits,
@@ -262,18 +260,6 @@ const creatureTypes = R.pick(creatureTraits, [
     "void",
     "undead",
 ]);
-
-const alignments: Record<Alignment, string> = {
-    LG: "PF2E.AlignmentLG",
-    NG: "PF2E.AlignmentNG",
-    CG: "PF2E.AlignmentCG",
-    LN: "PF2E.AlignmentLN",
-    N: "PF2E.AlignmentN",
-    CN: "PF2E.AlignmentCN",
-    LE: "PF2E.AlignmentLE",
-    NE: "PF2E.AlignmentNE",
-    CE: "PF2E.AlignmentCE",
-};
 
 const deityDomains = R.mapToObj(Object.keys(EN_JSON.PF2E.Item.Deity.Domain), (key) => {
     const label = `PF2E.Item.Deity.Domain.${key}.Label`;
@@ -751,9 +737,6 @@ export const PF2ECONFIG = {
         1320: "PF2E.AreaSizeQuarterMile",
         5280: "PF2E.AreaSize1Mile",
     },
-
-    alignments,
-    alignmentTraits,
 
     attitude: {
         hostile: "PF2E.Attitudes.Hostile",

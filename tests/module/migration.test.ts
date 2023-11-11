@@ -106,10 +106,10 @@ describe("test migration runner", () => {
         }
     }
 
-    class ChangeAlignmentMigration extends MigrationBase {
+    class ChangeXPMigration extends MigrationBase {
         static version = 12;
         async updateActor(source: CharacterSource) {
-            source.system.details.alignment.value = "CG";
+            source.system.details.xp.value = 3;
         }
     }
 
@@ -174,9 +174,9 @@ describe("test migration runner", () => {
     test("expect update actor deep property", async () => {
         game.actors.set(characterData._id, new MockActor(characterData));
 
-        const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
+        const migrationRunner = new MigrationRunner([new ChangeXPMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0].system.details.alignment.value).toEqual("CG");
+        expect(game.actors.contents[0].system.details.xp.value).toEqual(3);
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {

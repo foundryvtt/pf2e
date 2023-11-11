@@ -10,8 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration862SpecificMagicArmor } from "@module/migration/migrations/862-specific-magic-armor.ts";
-import { Migration863FixMisspelledOrganaizationsProperty } from "@module/migration/migrations/863-fix-misspelled-organaizations-property.ts";
 import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
 import { Migration865VitalityVoid } from "@module/migration/migrations/865-vitality-void.ts";
 import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
@@ -26,6 +24,7 @@ import { Migration877PublicationData } from "@module/migration/migrations/877-pu
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
 import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
 import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
+import { Migration883BanishAlignment } from "@module/migration/migrations/883-banish-alignment.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -35,8 +34,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration862SpecificMagicArmor(),
-    new Migration863FixMisspelledOrganaizationsProperty(),
     new Migration864RemoveWeaponMAP(),
     new Migration865VitalityVoid(),
     new Migration867DamageRollDomainFix(),
@@ -51,6 +48,7 @@ const migrations: MigrationBase[] = [
     new Migration878TakeABreather(),
     new Migration879DeviseAStratagemAndFriends(),
     new Migration882SpellDataReorganization(),
+    new Migration883BanishAlignment(),
 ];
 
 global.deepClone = <T>(original: T): T => {

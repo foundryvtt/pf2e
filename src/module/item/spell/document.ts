@@ -318,6 +318,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             self: contextData.self,
             target: contextData.target ?? null,
             rollMode: params.rollMode,
+            traits: this.castingTraits,
         };
 
         // Add modifiers and damage die adjustments
@@ -380,7 +381,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             name: this.name,
             damage: { roll, breakdown },
             materials: Array.from(roll.materials),
-            traits: this.castingTraits,
             modifiers,
         };
 

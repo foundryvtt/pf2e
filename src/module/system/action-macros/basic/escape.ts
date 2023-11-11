@@ -27,9 +27,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
                 strike.weaponTraits.map((trait) => trait.name).includes("unarmed"),
             );
         } else if (actor instanceof NPCPF2e) {
-            return actor.system.actions.filter((strike) =>
-                strike.traits.map((trait) => trait.name).includes("unarmed"),
-            );
+            return actor.system.actions.filter((strike) => strike.item.category === "unarmed");
         }
         return [] as StrikeData[];
     })();

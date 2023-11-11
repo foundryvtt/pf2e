@@ -1,14 +1,12 @@
-import { NPCPF2e } from "@actor";
+import type { NPCPF2e } from "@actor";
 import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data.ts";
-import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
-import { CreatureSheetData } from "@actor/creature/types.ts";
-import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
+import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { AttributeString, MovementType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
@@ -54,18 +52,12 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
      */
     override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
         this.#prepareAbilities(sheetData.data.abilities);
-        this.#prepareAlignment(sheetData.data);
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
     }
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData<TActor>;
-
-        // Filter out alignment traits for sheet presentation purposes
-        const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
-        const actorTraits = sheetData.data.traits;
-        actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
         const rollData = this.actor.getRollData();
         sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
@@ -99,13 +91,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
             data.localizedCode = localizedCode;
             data.localizedName = localizedName;
         }
-    }
-
-    #prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
-        const alignmentCode = sheetSystemData.details.alignment.value;
-        const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
-
-        sheetSystemData.details.alignment.localizedName = localizedName;
     }
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
@@ -266,11 +251,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         if (this.actor.limited || this.isLootSheet) {
             sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
         }
-
-        // Filter out alignment traits for sheet presentation purposes
-        const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
-        const actorTraits = sheetData.data.traits;
-        actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
         // Identification DCs
         sheetData.identificationDCs = ((): NPCIdentificationSheetData => {

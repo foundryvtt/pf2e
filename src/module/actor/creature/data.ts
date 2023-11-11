@@ -22,7 +22,7 @@ import type {
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import type { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
-import { Alignment, CreatureActorType, CreatureTrait } from "./types.ts";
+import { CreatureActorType, CreatureTrait } from "./types.ts";
 
 type BaseCreatureSource<
     TType extends CreatureActorType,
@@ -50,8 +50,6 @@ interface CreatureSystemSource extends ActorSystemSource {
 type CreatureDetailsSource = ActorDetailsSource;
 
 type CreatureDetails = {
-    /** The alignment this creature has */
-    alignment: { value: Alignment };
     /** The alliance this NPC belongs to: relevant to mechanics like flanking */
     alliance: ActorAlliance;
     /** The creature level for this actor */

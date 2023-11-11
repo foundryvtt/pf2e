@@ -3,6 +3,7 @@ import { CreatureTrait } from "@actor/creature/index.ts";
 import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
@@ -328,7 +329,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
-    strikeAdjustments?: Pick<StrikeAdjustment, "adjustWeapon">[];
+    strikeAdjustments?: Pick<StrikeAdjustment, "adjustTraits" | "adjustWeapon">[];
 }
 
 /** Title and text are mandatory for these notes */
@@ -791,30 +792,6 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
 const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRuneData<T> } = {
-    anarchic: {
-        damage: {
-            dice: [
-                {
-                    damageType: "chaotic",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.anarchic.Name",
-                    text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
-                },
-            ],
-        },
-        level: 11,
-        name: "PF2E.WeaponPropertyRune.anarchic.Name",
-        price: 1400,
-        rarity: "common",
-        slug: "anarchic",
-        traits: ["chaotic", "magical"],
-    },
     ancestralEchoing: {
         level: 15,
         name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name",
@@ -873,30 +850,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "authorized",
         traits: ["magical"],
     },
-    axiomatic: {
-        damage: {
-            dice: [
-                {
-                    damageType: "lawful",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.axiomatic.Name",
-                    text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
-                },
-            ],
-        },
-        level: 11,
-        name: "PF2E.WeaponPropertyRune.axiomatic.Name",
-        price: 1400,
-        rarity: "common",
-        slug: "axiomatic",
-        traits: ["lawful", "magical"],
-    },
     bane: {
         level: 4,
         name: "PF2E.WeaponPropertyRune.bane.Name",
@@ -935,7 +888,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
-                    damageType: "good",
+                    damageType: "spirit",
                     diceNumber: 1,
                     dieSize: "d4",
                     predicate: ["target:trait:fiend"],
@@ -1300,7 +1253,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
-                    damageType: "good",
                     diceNumber: 1,
                     dieSize: "d4",
                     predicate: ["target:trait:fiend"],
@@ -1720,21 +1672,35 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     holy: {
-        damage: {
-            dice: [
-                {
-                    damageType: "good",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-        },
         level: 11,
         name: "PF2E.WeaponPropertyRune.holy.Name",
         price: 1400,
         rarity: "common",
         slug: "holy",
-        traits: ["good", "magical"],
+        traits: ["holy", "magical"],
+        damage: {
+            dice: [
+                {
+                    damageType: "spirit",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ not: "target:trait:unholy" }],
+                },
+                {
+                    damageType: "spirit",
+                    diceNumber: 2,
+                    dieSize: "d4",
+                    predicate: ["target:trait:unholy"],
+                },
+            ],
+        },
+        strikeAdjustments: [
+            {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                    if (!traits.includes("holy")) traits.push("holy");
+                },
+            },
+        ],
     },
     hopeful: {
         attack: {
@@ -2021,21 +1987,35 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical", "water"],
     },
     unholy: {
-        damage: {
-            dice: [
-                {
-                    damageType: "evil",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-        },
         level: 11,
         name: "PF2E.WeaponPropertyRune.unholy.Name",
         price: 1400,
         rarity: "common",
         slug: "unholy",
-        traits: ["evil", "magical"],
+        traits: ["unholy", "magical"],
+        damage: {
+            dice: [
+                {
+                    damageType: "spirit",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ not: "target:trait:holy" }],
+                },
+                {
+                    damageType: "spirit",
+                    diceNumber: 2,
+                    dieSize: "d4",
+                    predicate: ["target:trait:holy"],
+                },
+            ],
+        },
+        strikeAdjustments: [
+            {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                    if (!traits.includes("unholy")) traits.push("unholy");
+                },
+            },
+        ],
     },
     vorpal: {
         level: 17,

@@ -311,10 +311,12 @@ class CheckPF2e {
 
         const traits =
             R.uniqBy(
-                context.traits?.map((trait) => {
-                    trait.label = game.i18n.localize(trait.label);
-                    return trait;
-                }) ?? [],
+                context.traits
+                    ?.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits))
+                    .map((trait) => {
+                        trait.label = game.i18n.localize(trait.label);
+                        return trait;
+                    }) ?? [],
                 (t) => t.name,
             )
                 .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))

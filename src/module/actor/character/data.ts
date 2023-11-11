@@ -15,13 +15,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import {
-    Alignment,
-    CreatureInitiativeSource,
-    CreatureSpeeds,
-    CreatureTraitsSource,
-    SenseData,
-} from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, SenseData } from "@actor/creature/index.ts";
 import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     ActorAttributesSource,
@@ -117,7 +111,6 @@ interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "s
 }
 
 interface CharacterDetailsSource extends CreatureDetailsSource {
-    alignment: { value: Alignment };
     level: { value: number };
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
@@ -443,9 +436,9 @@ interface CharacterDeities {
     domains: { [K in DeityDomain]?: string };
 }
 
-type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+interface DeityDetails extends Pick<DeitySystemData, "skill"> {
     weapons: BaseWeaponType[];
-};
+}
 
 interface CharacterAttributes extends Omit<CharacterAttributesSource, AttributesSourceOmission>, CreatureAttributes {
     /** The perception statistic */

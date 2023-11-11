@@ -4,8 +4,8 @@ import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
-import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
+import { isCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -22,6 +22,7 @@ import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
+import * as R from "remeda";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -33,14 +34,7 @@ import {
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureSensePF2e } from "./sense.ts";
-import {
-    Alignment,
-    AlignmentTrait,
-    CreatureTrait,
-    CreatureType,
-    CreatureUpdateContext,
-    GetReachParameters,
-} from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
@@ -60,11 +54,6 @@ abstract class CreaturePF2e<
     /** Types of creatures (as provided by bestiaries 1-3) of which this creature is a member */
     get creatureTypes(): CreatureType[] {
         return this.system.traits.value.filter((t): t is CreatureType => t in CONFIG.PF2E.creatureTypes).sort();
-    }
-
-    /** The creature's position on the alignment axes */
-    get alignment(): Alignment {
-        return this.system.details.alignment.value;
     }
 
     get rarity(): Rarity {
@@ -323,23 +312,9 @@ abstract class CreaturePF2e<
         attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
         attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
 
-        // Add alignment traits from the creature's alignment
-        const alignmentTraits = ((): AlignmentTrait[] => {
-            const { alignment } = this;
-            return [
-                ["LG", "NG", "CG"].includes(alignment) ? ("good" as const) : [],
-                ["LE", "NE", "CE"].includes(alignment) ? ("evil" as const) : [],
-                ["LG", "LN", "LE"].includes(alignment) ? ("lawful" as const) : [],
-                ["CG", "CN", "CE"].includes(alignment) ? ("chaotic" as const) : [],
-            ].flat();
-        })();
         const { rollOptions } = this;
-        for (const trait of alignmentTraits) {
-            this.system.traits.value.push(trait);
-            rollOptions.all[`self:trait:${trait}`] = true;
-        }
 
-        // Other creature-specific self: roll options
+        // Add creature-specific self: roll options
         if (this.isSpellcaster) {
             rollOptions.all["self:caster"] = true;
         }
@@ -706,6 +681,15 @@ abstract class CreaturePF2e<
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
             if (this.isToken) options.diff = false; // Force an update and sheet re-render
+        }
+
+        // Preserve alignment traits if not exposed
+        const traitChanges = changed.system?.traits;
+        if (R.isObject(traitChanges) && Array.isArray(traitChanges.value)) {
+            const sourceAlignmentTraits = this._source.system.traits?.value.filter(
+                (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
+            );
+            traitChanges.value = R.uniq(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
         }
 
         return super._preUpdate(changed, options, user);
