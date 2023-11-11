@@ -1629,6 +1629,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     outcome,
                     options,
                     domains,
+                    traits: context.traits,
                     ...eventToRollParams(params.event, { type: "damage" }),
                 };
 
