@@ -91,6 +91,22 @@
                     </div>
                 </li>
             {{/each}}
+            {{#with document.spellcasting.base as |spellcasting|}}
+                <li class="skill" data-slug="spellcasting">
+                    <span class="skill-score lore-score" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
+                    <h4 class="skill-name lore-name-input">{{localize spellcasting.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <select
+                            class="skill-proficiency pf-rank adjust-stat-select"
+                            data-property="system.proficiencies.spellcasting.rank"
+                            data-rank="{{spellcasting.rank}}"
+                            data-dtype="Number"
+                        >
+                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank}}
+                        </select>
+                    </div>
+                </li>
+            {{/with}}
         </ol>
 
         <!-- Defenses -->

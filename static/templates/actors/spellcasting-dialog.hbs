@@ -30,6 +30,19 @@
         <hr/>
 
         {{#unless object.isRitual}}
+            {{#if (eq actor.type "character")}}
+                <div class="form-group">
+                    <label>{{localize "PF2E.ProficiencyLabel"}}</label>
+                    <select name="system.proficiency.slug">
+                        {{#select system.proficiency.slug}}
+                            <option value="">{{localize "PF2E.Actor.Creature.Spellcasting.Label"}}</option>
+                            {{#each statistics as |statistic|}}
+                                <option value="{{statistic.slug}}">{{statistic.label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            {{/if}}
             <div class="form-group">
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
                 <select name="system.tradition.value">
@@ -43,23 +56,6 @@
                     {{/select}}
                 </select>
             </div>
-            {{#if (eq actor.type "character")}}
-                <div class="form-group">
-                    <label>{{localize "PF2E.ProficiencyLabel"}}</label>
-                    <select name="system.proficiency.slug">
-                        {{#select system.proficiency.slug}}
-                            {{#if system.tradition.value}}
-                                <option value="">
-                                    {{localize "PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting" tradition=(localize (lookup @root.magicTraditions system.tradition.value))}}
-                                </option>
-                            {{/if}}
-                            {{#each statistics as |statistic|}}
-                                <option value="{{statistic.slug}}">{{statistic.label}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
-            {{/if}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
                 <select name="system.ability.value" {{disabled (not isAttributeConfigurable)}}>

@@ -33,7 +33,6 @@ import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
-import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -76,6 +75,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
         defenses?: Record<string, MartialProficiencySource | undefined>;
+        spellcasting?: { rank?: ZeroToFour };
     };
     resources: CharacterResourcesSource;
     crafting?: { formulas: CraftingFormulaData[] };
@@ -229,8 +229,8 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifie
         defenses: Record<ArmorCategory, MartialProficiency> & Record<string, MartialProficiency | undefined>;
         /** Zero or more class DCs, used for saves related to class abilities. */
         classDCs: Record<string, ClassDCData>;
-        /** Spellcasting attack modifiers and DCs for each magical tradition */
-        traditions: MagicTraditionProficiencies;
+        /** Spellcasting attack modifier and dc for all spellcasting */
+        spellcasting: CharacterProficiency;
         /** Aliased path components for use by rule element during property injection */
         aliases?: Record<string, string | undefined>;
     };
@@ -337,7 +337,6 @@ interface MartialProficiency extends CharacterProficiency {
     custom?: boolean;
 }
 
-type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
 type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiency>;
 
 type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
@@ -515,7 +514,6 @@ export type {
     CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
-    MagicTraditionProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
 };
