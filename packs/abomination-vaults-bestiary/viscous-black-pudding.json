@@ -118,40 +118,39 @@
                 },
                 "rules": [
                     {
-                      "domain": "all",
-                      "key": "RollOption",
-                      "option": "adjust-shape",
-                      "suboptions": [
-                        {
-                          "label": "PF2E.ActorSizeLarge",
-                          "value": "large",
-                          "selected": true
-                        },
-                        {
-                          "label": "PF2E.ActorSizeMedium",
-                          "value": "medium",
-                          "selected": false
-                        }
-                      ],
-                      "toggleable": true,
-                      "value": false
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "adjust-shape",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ActorSizeLarge",
+                                "selected": true,
+                                "value": "large"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeMedium",
+                                "selected": false,
+                                "value": "medium"
+                            }
+                        ],
+                        "toggleable": true
                     },
                     {
-                      "key": "CreatureSize",
-                      "predicate": [
-                        "adjust-shape"
-                      ],
-                      "value": "{item|flags.pf2e.rulesSelections.adjustShape}"
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "adjust-shape"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.adjustShape}"
                     },
                     {
-                      "key": "FlatModifier",
-                      "selector": "all-speeds",
-                      "value": "-10",
-                      "predicate": [
-                        "adjust-shape:medium"
-                      ]
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "adjust-shape:medium"
+                        ],
+                        "selector": "all-speeds",
+                        "value": -10
                     }
-                  ],
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
