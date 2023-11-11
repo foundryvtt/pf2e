@@ -6,7 +6,7 @@ import { DeityDomain, Sanctification } from "./types.ts";
 
 type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 
-interface DeitySystemSource extends ItemSystemSource {
+type DeitySystemSource = ItemSystemSource & {
     category: "deity" | "pantheon" | "philosophy";
     sanctification: DeitySanctification | null;
     domains: {
@@ -14,13 +14,13 @@ interface DeitySystemSource extends ItemSystemSource {
         alternate: DeityDomain[];
     };
     font: DivineFonts;
-    attributes: AttributeString[];
+    attribute: AttributeString[];
     skill: SkillAbbreviation | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
     level?: never;
     traits: OtherTagsOnly;
-}
+};
 
 type DeitySanctification = { modal: "can" | "must"; what: Sanctification[] };
 

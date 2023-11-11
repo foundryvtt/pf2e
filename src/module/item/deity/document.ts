@@ -23,7 +23,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         if (this.category === "philosophy") {
-            this.system.attributes = [];
+            this.system.attribute = [];
             this.system.domains = { primary: [], alternate: [] };
             this.system.font = [];
             this.system.sanctification = null;
