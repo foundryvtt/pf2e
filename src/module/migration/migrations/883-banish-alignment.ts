@@ -8,6 +8,7 @@ import { Sanctification } from "@item/deity/types.ts";
 import { isObject, setHasElement } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 
 /**
  * Remove actor alignment data, generating invalid alignment traits to be surfaced by a module.
@@ -15,6 +16,28 @@ import { MigrationBase } from "../base.ts";
  */
 export class Migration883BanishAlignment extends MigrationBase {
     static override version = 0.883;
+
+    #ALIGNMENT_TRAITS = new Set(["good", "evil", "lawful", "chaotic"]);
+
+    #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> | never[] {
+        if ("type" in rule) {
+            if (typeof rule.type === "string" && this.#ALIGNMENT_TRAITS.has(rule.type)) {
+                return [];
+            } else if (Array.isArray(rule.type)) {
+                rule.type = rule.type.filter((t) => !this.#ALIGNMENT_TRAITS.has(t));
+            }
+        }
+
+        // Remove school traits from aura REs
+        if ("traits" in rule && Array.isArray(rule.traits)) {
+            rule.traits = rule.traits.filter((t) => !this.#ALIGNMENT_TRAITS.has(t));
+        }
+        if (Array.isArray(rule.predicate)) {
+            rule.predicate = rule.predicate.filter((s) => !this.#ALIGNMENT_TRAITS.has(s));
+        }
+
+        return rule;
+    }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const details: MaybeWithAlignment = source.system.details;
@@ -82,6 +105,10 @@ export class Migration883BanishAlignment extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        for (const rule of source.system.rules) {
+            this.#migrateRule(rule);
+        }
+
         if (source.type === "deity") {
             const system: MaybeOldDeitySystemSource = source.system;
             if ("alignment" in system) {

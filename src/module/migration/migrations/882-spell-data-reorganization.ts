@@ -41,7 +41,6 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         }
 
         // Remove school traits from aura REs
-        if (!isObject(rule)) return rule;
         if ("traits" in rule && Array.isArray(rule.traits)) {
             rule.traits = rule.traits.filter((t) => !this.#SCHOOL_TRAITS.has(t));
         }

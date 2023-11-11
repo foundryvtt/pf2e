@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration864RemoveWeaponMAP } from "@module/migration/migrations/864-rm-weapon-map.ts";
 import { Migration865VitalityVoid } from "@module/migration/migrations/865-vitality-void.ts";
 import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
 import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
@@ -26,6 +25,7 @@ import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrat
 import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
 import { Migration883BanishAlignment } from "@module/migration/migrations/883-banish-alignment.ts";
 import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
+import { Migration885ConvertAlignmentDamage } from "@module/migration/migrations/885-convert-alignment-damage.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -35,7 +35,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration864RemoveWeaponMAP(),
     new Migration865VitalityVoid(),
     new Migration867DamageRollDomainFix(),
     new Migration868StrikeRERange(),
@@ -51,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration882SpellDataReorganization(),
     new Migration883BanishAlignment(),
     new Migration884UnifiedSpellcasting(),
+    new Migration885ConvertAlignmentDamage(),
 ];
 
 global.deepClone = <T>(original: T): T => {

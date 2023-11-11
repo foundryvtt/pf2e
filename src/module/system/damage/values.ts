@@ -11,7 +11,6 @@ const ENERGY_DAMAGE_TYPES = [
     "force",
     ...LIFE_ENERGY_DAMAGE_TYPES,
 ] as const;
-const ALIGNMENT_DAMAGE_TYPES = ["chaotic", "lawful", "good", "evil"] as const;
 
 /** A set of mutually exclusive damage categories */
 const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] as const);
@@ -43,7 +42,6 @@ const DAMAGE_DIE_FACES = new Set(DAMAGE_DIE_FACES_TUPLE);
 const DAMAGE_TYPES = new Set([
     ...PHYSICAL_DAMAGE_TYPES,
     ...ENERGY_DAMAGE_TYPES,
-    ...ALIGNMENT_DAMAGE_TYPES,
     "mental",
     "poison",
     "spirit",
@@ -66,11 +64,6 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null>
     void: "energy",
     force: "energy",
 
-    chaotic: null,
-    evil: null,
-    good: null,
-    lawful: null,
-
     mental: null,
     poison: null,
     spirit: null,
@@ -81,14 +74,10 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     bleed: "droplet",
     acid: "vial",
     bludgeoning: "hammer",
-    chaotic: "face-zany",
     cold: "snowflake",
     electricity: "bolt",
-    evil: "face-angry-horns",
     fire: "fire",
     force: "sparkles",
-    good: "face-smile-halo",
-    lawful: "scale-balanced",
     mental: "brain",
     piercing: "bow-arrow",
     poison: "spider",
@@ -104,14 +93,10 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
 const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     acid: "icons/magic/acid/dissolve-arm-flesh.webp",
     bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
-    chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
     cold: "icons/magic/water/ice-snowman.webp",
     electricity: "systems/pf2e/icons/spells/chain-lightning.webp",
-    evil: "icons/magic/unholy/strike-body-explode-disintegrate.webp",
     fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
     force: "systems/pf2e/icons/spells/magic-missile.webp",
-    good: "systems/pf2e/icons/damage/persistent/good.webp",
-    lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
     mental: "systems/pf2e/icons/spells/modify-memory.webp",
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
     poison: "systems/pf2e/icons/spells/acidic-burst.webp",
@@ -130,7 +115,6 @@ const CRITICAL_INCLUSION = {
 };
 
 export {
-    ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     CRITICAL_INCLUSION,
     DAMAGE_CATEGORIES,

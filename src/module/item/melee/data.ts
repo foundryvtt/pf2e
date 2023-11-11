@@ -53,4 +53,4 @@ type NPCAttackDamage = Required<NPCAttackDamageSource>;
 export type NPCAttackTrait = keyof typeof CONFIG.PF2E.npcAttackTraits;
 export type NPCAttackTraits = ItemTraitsNoRarity<NPCAttackTrait>;
 
-export type { MeleeFlags, MeleeSource, MeleeSystemData, MeleeSystemSource, NPCAttackDamage };
+export type { MeleeFlags, MeleeSource, MeleeSystemData, MeleeSystemSource, NPCAttackDamage, NPCAttackDamageSource };
