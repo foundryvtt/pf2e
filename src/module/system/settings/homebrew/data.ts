@@ -14,12 +14,11 @@ const HOMEBREW_TRAIT_KEYS = [
 ] as const;
 
 /** Homebrew elements from some of the above records are propagated to related records */
-const SECONDARY_TRAIT_RECORDS = {
-    creatureTraits: ["ancestryItemTraits"],
+const TRAIT_PROPAGATIONS = {
+    creatureTraits: ["ancestryTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
-    magicSchools: ["spellTraits"],
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
@@ -49,7 +48,7 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
     customDamageTypes: CustomDamageData[];
 }
 
-export { HOMEBREW_TRAIT_KEYS, SECONDARY_TRAIT_RECORDS };
+export { HOMEBREW_TRAIT_KEYS, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
     HomebrewElementsSheetData,

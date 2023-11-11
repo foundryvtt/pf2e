@@ -40,7 +40,6 @@ import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
-    ancestryItemTraits,
     ancestryTraits,
     armorTraits,
     backgroundTraits,
@@ -588,7 +587,6 @@ export const PF2ECONFIG = {
     magicTraditions,
     classTraits,
     ancestryTraits,
-    ancestryItemTraits,
     deityDomains,
 
     weaponTraits,

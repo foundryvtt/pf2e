@@ -33,7 +33,7 @@ import {
     HomebrewTag,
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
-    SECONDARY_TRAIT_RECORDS,
+    TRAIT_PROPAGATIONS,
 } from "./data.ts";
 import {
     ReservedTermsRecord,
@@ -257,8 +257,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             listKey === "baseWeapons" ? CONFIG.PF2E.baseWeaponTypes : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
-            if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
-                for (const recordKey of SECONDARY_TRAIT_RECORDS[listKey]) {
+            if (objectHasKey(TRAIT_PROPAGATIONS, listKey)) {
+                for (const recordKey of TRAIT_PROPAGATIONS[listKey]) {
                     const secondaryRecord: Record<string, string> = CONFIG.PF2E[recordKey];
                     delete secondaryRecord[id];
                 }
@@ -380,8 +380,8 @@ class HomebrewElements extends SettingsMenuPF2e {
         const coreElements: Record<string, string> = this.#getConfigRecord(listKey);
         for (const element of elements) {
             coreElements[element.id] = element.value;
-            if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
-                for (const recordKey of SECONDARY_TRAIT_RECORDS[listKey]) {
+            if (objectHasKey(TRAIT_PROPAGATIONS, listKey)) {
+                for (const recordKey of TRAIT_PROPAGATIONS[listKey]) {
                     const record: Record<string, string> = CONFIG.PF2E[recordKey];
                     record[element.id] = element.value;
                 }
