@@ -480,6 +480,7 @@ export const PF2ECONFIG = {
         "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
         "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
         "affixed-to-melee-weapon": "PF2E.TraitAffixedToMeleeWeapon",
+        "affixed-to-metal-weapon": "PF2E.TraitAffixedToMetalWeapon",
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
