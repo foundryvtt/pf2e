@@ -27,7 +27,7 @@ import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckRollContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject, traitSlugToObject } from "@util";
+import { ErrorPF2e, isObject } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -485,11 +485,12 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Process any given action traits, then add to roll options
-        const traits = args.traits?.map((t) =>
-            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t,
-        );
-        for (const trait of traits ?? []) {
-            options.add(trait.name);
+        const traits =
+            args.traits
+                ?.map((t) => (typeof t === "string" ? t : t.name))
+                .filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+        for (const trait of traits) {
+            options.add(trait);
         }
 
         // Create parameters for the check roll function
@@ -591,6 +592,7 @@ interface StatisticRollParameters {
     callback?: CheckRollCallback;
 }
 
+import { ActionTrait } from "@item/ability/types.ts";
 import { signedInteger } from "@util";
 
 class StatisticDifficultyClass<TParent extends Statistic = Statistic> {

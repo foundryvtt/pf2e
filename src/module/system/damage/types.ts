@@ -92,7 +92,6 @@ interface WeaponBaseDamageData extends BaseDamageData {
 
 interface BaseDamageTemplate {
     name: string;
-    traits: string[];
     materials: MaterialDamageEffect[];
     modifiers?: (ModifierPF2e | DamageDicePF2e)[];
 }

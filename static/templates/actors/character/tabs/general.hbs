@@ -9,17 +9,6 @@
             />
             <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
-        <div class="alignment">
-            <span class="bio-alignment">
-                <select aria-label="{{localize "PF2E.Alignment"}}" name="system.details.alignment.value">
-                    {{#select data.details.alignment.value}}
-                        {{#each alignments as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </span>
-        </div>
         <div class="pc pc_deity item">
             <div class="input">
                 {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
@@ -37,11 +26,11 @@
             <div class="pc pc_heritage item">
                 {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
             </div>
-            <div class="pc pc_class item">
-                {{> detailItem item=class type="class" compendium="pf2e.classes" }}
-            </div>
             <div class="pc pc_background item">
                 {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
+            </div>
+            <div class="pc pc_class item">
+                {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
         </div>
     </section>

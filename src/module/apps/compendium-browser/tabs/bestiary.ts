@@ -86,7 +86,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.sizes.options = this.generateCheckboxOptions(CONFIG.PF2E.actorSizes);
-        this.filterData.checkboxes.alignments.options = this.generateCheckboxOptions(CONFIG.PF2E.alignments, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.creatureTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);

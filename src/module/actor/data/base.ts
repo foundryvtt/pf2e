@@ -223,9 +223,9 @@ interface StrikeData extends StatisticModifier {
     criticalSuccess: string;
     /** A description of what happens on a success. */
     success: string;
-    /** Any traits this strike has. */
+    /** Action traits associated with this strike */
     traits: TraitViewData[];
-    /** Any options always applied to this strike. */
+    /** Any options always applied to this strike */
     options: string[];
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;

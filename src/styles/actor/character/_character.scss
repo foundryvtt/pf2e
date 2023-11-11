@@ -19,10 +19,9 @@
             color: var(--text-dark);
             display: flex;
             font: 700 var(--font-size-14) var(--body-serif);
-            grid-area: mod;
             line-height: 1;
             margin: 0;
-            padding: 8px 4px 6px;
+            padding: 0.5rem 0.25rem 0.5rem;
             width: calc(100% - 6px);
 
             a {
@@ -49,14 +48,13 @@
     .character-details {
         display: grid;
         grid:
-            "img alignment deity" 46px
-            "img details details" auto
-            / 120px 130px 1fr;
-        margin-top: 4px;
+            "img deity" 3rem
+            "img details" auto
+            / 120px 1fr;
+        margin-top: 0.25rem;
 
         .image-container {
             grid-area: img;
-            margin-left: 0.25rem;
             z-index: 3;
 
             .actor-image {
@@ -67,60 +65,9 @@
                 object-position: top;
                 width: 100%;
             }
-        }
 
-        .alignment {
-            grid-area: alignment;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: url("/assets/sheet/banner-bg.webp") repeat-x center;
-            z-index: 1;
-
-            .bio-alignment {
-                position: absolute;
-                left: 0;
-            }
-
-            select {
-                background: none;
-                border: none;
-                box-shadow: none;
-                color: var(--text-dark);
-                cursor: pointer;
-                display: block;
-                font-family: var(--body-serif);
-                font-size: var(--font-size-14);
-                font-weight: 700;
-                outline: none;
-                overflow-x: visible;
-                padding-left: 8px;
-                width: auto;
-
-                line-height: 1;
-                text-transform: capitalize;
-                margin-top: 2px;
-
-                option {
-                    color: var(--text-light);
-                    font: initial;
-                }
-            }
-
-            input[type="text"] {
-                font: 700 var(--font-size-14) var(--body-serif);
-                text-align: center;
-                max-width: 138px;
-            }
-            &::after {
-                position: absolute;
-                content: "";
-                height: 46px;
-                width: 15px;
-                top: 0;
-                right: -11px;
-                background: url("/assets/sheet/banner-bg2.webp") no-repeat right;
+            .hover-icon {
+                bottom: 1.6rem;
             }
         }
 
@@ -128,9 +75,9 @@
             align-items: center;
             display: flex;
             grid-area: deity;
-            margin-left: auto;
-            min-width: 10em;
-            padding-bottom: 0.7em;
+            margin-right: auto;
+            min-width: 16em;
+            padding-left: 0.75rem;
 
             .input {
                 display: flex;
@@ -142,20 +89,16 @@
                 }
 
                 h3 {
-                    min-width: 9em;
-
-                    span {
-                        max-width: 10em;
-                    }
+                    min-width: 11em;
                 }
             }
 
             img.symbol {
                 @include brown-border;
                 border-radius: 50%;
-                height: 32px;
+                height: 2rem;
                 margin: 0.5rem 0 0 0.5rem;
-                width: 32px;
+                width: 2rem;
             }
         }
 
@@ -164,9 +107,9 @@
             display: grid;
             grid-template-columns: 44% 55%;
             grid-template-rows: repeat(2, 42px);
-            grid-row-gap: 8px;
-            padding-left: 12px;
-            margin-top: 8px;
+            grid-row-gap: 0.5rem;
+            padding-left: 0.75rem;
+            margin-top: 0.5rem;
 
             .pc {
                 &_heritage,

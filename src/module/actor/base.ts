@@ -43,8 +43,9 @@ import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import type { ArmorStatistic, Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
+import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -78,7 +79,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { v5 as UUIDv5 } from "uuid";
+import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -939,22 +940,21 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const itemOptions = selfItem?.getRollOptions("item") ?? [];
 
-        const traitSlugs: ActionTrait[] = [
-            isAttackAction ? ("attack" as const) : [],
-            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
-            // the manipulate trait."
-            isStrike && selfItem?.isOfType("weapon") && selfItem.baseType === "alchemical-bomb"
-                ? ("manipulate" as const)
-                : [],
-        ].flat();
-
-        if (selfItem?.isOfType("weapon", "melee")) {
-            for (const adjustment of this.synthetics.strikeAdjustments) {
-                adjustment.adjustTraits?.(selfItem, traitSlugs);
+        const actionTraits = ((): ActionTrait[] => {
+            const traits = R.compact([params.traits].flat());
+            if (selfItem?.isOfType("weapon", "melee")) {
+                const strikeAdjustments = [
+                    selfActor.synthetics.strikeAdjustments,
+                    getPropertyRuneStrikeAdjustments(selfItem.system.runes.property),
+                ].flat();
+                for (const adjustment of strikeAdjustments) {
+                    adjustment.adjustTraits?.(selfItem, traits);
+                }
             }
-        }
 
-        const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+            return R.uniq(traits).sort();
+        })();
+
         // Calculate distance and range increment, set as a roll option
         const distance = selfToken && targetToken ? selfToken.distanceTo(targetToken) : null;
         const [originDistance, targetDistance] =
@@ -1035,7 +1035,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: rollOptions,
             self,
             target,
-            traits,
+            traits: actionTraits,
         };
     }
 

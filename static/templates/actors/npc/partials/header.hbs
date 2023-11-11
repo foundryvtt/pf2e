@@ -6,7 +6,7 @@
             <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
         {{/with}}
     </div>
-    <div class="rarity-alignment-size">
+    <div class="rarity-size">
         <div class="tags paizo-style">
             {{!-- TRAITS --}}
             <select class="tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
@@ -16,13 +16,7 @@
                     {{/each}}
                 {{/select}}
             </select>
-            <select class="tag alignment" data-property="system.details.alignment.value">
-                {{#select data.details.alignment.value}}
-                    {{#each alignments as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+
             <select class="tag size" data-property="system.traits.size.value">
                 {{#select data.traits.size.value}}
                     {{#each actorSizes as |label key|}}

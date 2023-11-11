@@ -3,6 +3,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -162,16 +163,10 @@ export class ActionMacroHelpers {
                     title: options.title,
                 });
 
-                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
-                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-                const traitObjects = options.traits.map((trait) => ({
-                    description: traitDescriptions[trait],
-                    name: trait,
-                    label: actionTraits[trait] ?? trait,
-                }));
-
+                const actionTraits = (options.traits ?? []).filter(
+                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
-
                 const label = (await options.content?.(header)) ?? header;
                 const title = `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`;
 
@@ -187,7 +182,7 @@ export class ActionMacroHelpers {
                         extraRollOptions: combinedOptions,
                         modifiers,
                         target: targetData.actor,
-                        traits: traitObjects,
+                        traits: actionTraits,
                         createMessage: options.createMessage,
                         callback: (roll, outcome, message) => {
                             options.callback?.({ actor, message, outcome, roll });
@@ -244,7 +239,7 @@ export class ActionMacroHelpers {
                             notes: [...notes, ...(statistic.notes ?? [])],
                             dosAdjustments,
                             substitutions,
-                            traits: traitObjects,
+                            traits: actionTraits,
                             title,
                         },
                         options.event,

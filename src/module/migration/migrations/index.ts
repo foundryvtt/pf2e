@@ -280,3 +280,4 @@ export { Migration879DeviseAStratagemAndFriends } from "./879-devise-a-stratagem
 export { Migration880SplitShowDialogsSettings } from "./880-split-show-dialogs-setting.ts";
 export { Migration881NoHBPrefix } from "./881-no-hb-prefix.ts";
 export { Migration882SpellDataReorganization } from "./882-spell-data-reorganization.ts";
+export { Migration883BanishAlignment } from "./883-banish-alignment.ts";

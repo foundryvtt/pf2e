@@ -1,8 +1,8 @@
 <fieldset class="basics">
     {{!-- Category --}}
     <div class="form-group">
-        <label>{{localize "PF2E.Item.Deity.Category.Label"}}</label>
-        <select name="system.category">
+        <label for="{{fieldIdPrefix}}category">{{localize "PF2E.Item.Deity.Category.Label"}}</label>
+        <select name="system.category" id="{{fieldIdPrefix}}category">
             {{#select data.category}}
                 <option value="deity">{{localize "TYPES.Item.deity"}}</option>
                 <option value="pantheon">{{localize "PF2E.Item.Deity.Category.Pantheon"}}</option>
@@ -12,44 +12,39 @@
         <p class="hint">{{localize "PF2E.Item.Deity.Category.Hint"}}</p>
     </div>
 
-    {{!-- Deity Alignment --}}
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Deity.Alignment"}}</label>
-        <select name="system.alignment.own">
-            {{#select data.alignment.own}}
-                <option value=""></option>
-                {{#each alignments as |label slug|}}<option value="{{slug}}">{{localize label}}</option>{{/each}}
-            {{/select}}
-        </select>
-    </div>
+    {{!-- Divine Sanctification --}}
+    {{#unless (eq item.category "philosophy")}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}sanctification">{{localize "PF2E.Item.Deity.Sanctification.Label"}}</label>
+            <select name="system.sanctification" id="{{fieldIdPrefix}}sanctification" data-dtype="JSON">
+                {{#select (json data.sanctification)}}
+                    {{#each sanctifications as |sanctification|}}
+                        <option value="{{json sanctification.value}}">{{localize sanctification.label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
 
-    {{!-- Follower Alignments --}}
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Deity.FollowerAlignments"}}</label>
-        <input name="system.alignment.follower" value="{{json data.alignment.follower}}" class="pf2e-tagify" data-dtype="JSON" />
-    </div>
+        {{!-- Divine Attribute --}}
+        <div class="form-group form-group-trait">
+            <label>{{localize "PF2E.Item.Deity.DivineAttributes.Label"}}</label>
+            <input type="text" name="system.attributes" value="{{json data.attributes}}" class="pf2e-tagify" data-dtype="JSON" />
+            <p class="hint">{{localize "PF2E.Item.Deity.DivineAttributes.Hint"}}</p>
+        </div>
 
-    {{!-- Divine Attribute --}}
-    <div class="form-group form-group-trait">
-        <label>{{localize "PF2E.Item.Deity.DivineAbility.Label"}}</label>
-        <input type="text" name="system.ability" value="{{json data.ability}}" class="pf2e-tagify" data-dtype="JSON" />
-        <p class="hint">{{localize "PF2E.Item.Deity.DivineAbility.Hint"}}</p>
-    </div>
+        {{!-- Divine Skill --}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}skill">{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
+            <select name="system.skill" id="{{fieldIdPrefix}}skill">
+                {{#select data.skill}}
+                    <option value=""></option>
+                    {{#each skills as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
 
-    {{!-- Divine Skill --}}
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
-        <select name="system.skill">
-            {{#select data.skill}}
-                <option value=""></option>
-                {{#each skills as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    {{#unless atheistic}}
         {{!-- Favored Weapon --}}
         <div class="form-group">
             <label>{{localize "PF2E.Item.Deity.FavoredWeapons.Label"}}</label>
@@ -61,7 +56,7 @@
     {{> "systems/pf2e/templates/items/partials/other-tags.hbs"}}
 </fieldset>
 
-{{#unless atheistic}}
+{{#unless (eq item.category "philosophy")}}
     <fieldset>
         <legend>Spellcasting</legend>
 

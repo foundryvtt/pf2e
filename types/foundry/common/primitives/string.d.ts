@@ -1,5 +1,5 @@
 declare interface String {
-    /** Capitalize a string, transforming it's first character to a capital letter. */
+    /** Capitalize a string, transforming its first character to a capital letter. */
     capitalize(): string;
 
     /** Convert a string to Title Case where the first letter of each word is capitalized. */

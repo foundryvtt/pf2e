@@ -5,6 +5,7 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/types.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
+import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPES } from "@system/damage/values.ts";
 import { isObject, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -24,7 +25,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         "transmutation",
     ]);
 
-    #DAMAGE_TYPES = new Set([...DAMAGE_TYPES, "good", "evil", "lawful", "chaotic"] as const);
+    #DAMAGE_TYPES = new Set([...DAMAGE_TYPES, "good", "evil", "lawful", "chaotic"]);
 
     #ensureTraitsPresence(system: MaybeOldSpellSystemSource): { value: SpellTrait[] } {
         return mergeObject({ value: [] }, system.traits ?? { value: [] });
@@ -166,7 +167,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
             for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {
                 if (!R.isObject(partial)) continue;
                 const typeData = R.isObject(partial.type) ? partial.type : {};
-                const damageType = setHasElement(this.#DAMAGE_TYPES, typeData.value)
+                const damageType = this.#DAMAGE_TYPES.has(String(typeData.value))
                     ? typeData.value
                     : topLevel
                     ? "untyped"
@@ -179,7 +180,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                 system.damage[key] = {
                     applyMod: typeof partial.applyMod === "boolean" ? partial.applyMod : undefined,
                     formula: typeof partial.value === "string" ? partial.value : topLevel ? "" : undefined,
-                    type: damageType,
+                    type: damageType as DamageType | undefined,
                     category: damageCategory,
                     materials: Array.isArray(typeData.categories) ? typeData.categories : topLevel ? [] : undefined,
                 };

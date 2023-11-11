@@ -425,6 +425,7 @@ class ElementalBlast {
             outcome,
             options: context.options,
             domains,
+            traits: item.system.traits.value,
             ...eventToRollParams(params.event, { type: "damage" }),
         };
 
@@ -443,7 +444,6 @@ class ElementalBlast {
 
         const damageTemplate: SimpleDamageTemplate = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
-            traits: item.system.traits.value,
             materials: [],
             modifiers,
             damage: { roll, breakdown: damageData.breakdown },

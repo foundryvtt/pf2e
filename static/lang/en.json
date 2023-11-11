@@ -460,16 +460,6 @@
         "AdditionalLanguagePlusInt": "(plus Intelligence)",
         "AdditionalSkills": "Additional Skills",
         "Age": "Age",
-        "Alignment": "Alignment",
-        "AlignmentCE": "Chaotic Evil",
-        "AlignmentCG": "Chaotic Good",
-        "AlignmentCN": "Chaotic Neutral",
-        "AlignmentLE": "Lawful Evil",
-        "AlignmentLG": "Lawful Good",
-        "AlignmentLN": "Lawful Neutral",
-        "AlignmentN": "Neutral",
-        "AlignmentNE": "Neutral Evil",
-        "AlignmentNG": "Neutral Good",
         "AllSavesLabel": "All Saves",
         "AncestryFeatLevels": "Ancestry Feat Levels",
         "AncestryFeatures": "Ancestry Features",
@@ -1052,6 +1042,7 @@
                     "grabbed": "grabbed",
                     "healing": "healing",
                     "hidden": "hidden",
+                    "holy": "holy",
                     "illusion": "illusion",
                     "immobilized": "immobilized",
                     "inhaled": "inhaled",
@@ -1099,6 +1090,7 @@
                     "trip": "trip",
                     "unarmed-attacks": "unarmed attacks",
                     "unconscious": "unconscious",
+                    "unholy": "holy",
                     "vampire-weaknesses": "vampire weaknesses",
                     "visual": "visual",
                     "vorpal": "vorpal",
@@ -1637,9 +1629,9 @@
                     "Hint": "To add a spell, drag and drop one onto this sheet.",
                     "Label": "Cleric Spells"
                 },
-                "DivineAbility": {
+                "DivineAttributes": {
                     "Hint": "If choosing the Raised by Belief background, its attribute boost options come from a deity.",
-                    "Label": "Divine Attribute"
+                    "Label": "Divine Attributes"
                 },
                 "DivineFont": {
                     "Harm": "Harm",
@@ -1956,7 +1948,19 @@
                     "Hint": "Almost all deities have a single favored weapon, but a few have both a favored weapon and unarmed attack.",
                     "Label": "Favored Weapon(s)"
                 },
-                "FollowerAlignments": "Follower Alignments",
+                "Sanctification": {
+                    "Can": {
+                        "Holy": "can choose holy",
+                        "HolyUnholy": "can choose holy or unholy",
+                        "Unholy": "can choose unholy"
+                    },
+                    "Label": "Divine Sanctification",
+                    "Must": {
+                        "Holy": "must choose holy",
+                        "Unholy": "must choose unholy"
+                    },
+                    "None": "none"
+                },
                 "Spellcasting": "Spellcasting"
             },
             "Effect": {
@@ -3671,7 +3675,6 @@
         "TraitDeflectingSlashing": "Deflecting Slashing",
         "TraitDemon": "Demon",
         "TraitDero": "Dero",
-        "TraitDescriptionAasimar": "A creature with this trait is a member of the aasimar ancestry.",
         "TraitDescriptionAcid": "Effects with this trait deal acid damage. Creatures with this trait have a magical connection to acid.",
         "TraitDescriptionAdditive": "Feats with the additive trait allow you to spend actions to add special substances to bombs or elixirs. You can add only one additive to a single alchemical item, and attempting to add another spoils the item. You can typically use actions with the additive trait only when you're creating an infused alchemical item, and some can be used only with the Quick Alchemy action. The additive trait is always followed by a level, such as additive 2. An additive adds its level to the level of the alchemical item you're modifying; the result is the new level of the mixture. The mixture's item level must be no higher than your advanced alchemy level",
         "TraitDescriptionAdjusted": "The equipment comes with an adjustment described in its entry. This adjustment is built into the equipment permanently, meaning the equipment can't have another adjustment added, nor can it be swapped out for a different adjustment. If the adjustment alters the item's base statistics, such as adding the noisy trait, that's reflected in the equipment's table entry.",
@@ -3719,7 +3722,6 @@
         "TraitDescriptionCenser": "Censers are decorative containers, often metal or ceramic, in which incense is burned. An item with the censer trait must be filled with incense to Activate it, which ignites the incense and causes the censer to exude a cloud of smoke.",
         "TraitDescriptionChampion": "This indicates abilities from the champion class.",
         "TraitDescriptionChangeling": "A creature with this trait is a member of the changeling ancestry.",
-        "TraitDescriptionChaotic": "Chaotic effects often manipulate energy from chaos-aligned Outer Planes and are anathema to lawful divine servants or divine servants of lawful deities. A creature with this trait is chaotic in alignment.",
         "TraitDescriptionClass": "Archetypes with the class trait fundamentally diverge from your class's specialties but still fit within the theme of your class. You can select a class archetype only if your class meets the criteria listed in the archetype's prerequisites. Class archetypes always alter or replace some of a class's static class features in addition to any new feats they offer. It might be possible to take a class archetype at 1st level if it alters or replaces some of the class's initial class features. The 1st-level ability is presented much like a class feature and includes the class archetype's prerequisites and rules on how it changes your class. If you select this ability, you must take that archetype's dedication feat at 2nd level, and you proceed normally afterward. You can never have more than one class archetype.",
         "TraitDescriptionCleric": "This indicates abilities from the cleric class.",
         "TraitDescriptionClimbing": "The hand wielding the weapon is available to Climb.",
@@ -3775,7 +3777,6 @@
         "TraitDescriptionEntrench": "You can position yourself in the armor or reposition its articulated pieces to better protect against some attacks. If you're trained in this armor, while wearing it you can spend a single action to gain a +1 circumstance bonus to AC against a certain type of attack until the start of your next turn. The entrench trait lists the type of attack this bonus applies against, typically entrench melee or entrench ranged.",
         "TraitDescriptionEnvironment": "A hazard with this trait is something dangerous that's part of the natural world, such as quicksand or harmful mold.",
         "TraitDescriptionEsoterica": "The esoterica trait is present in many thaumaturge feats and class features that incorporate the various talismans, supernatural trinkets, and other objects you carry with you. Abilities that have the esoterica trait require you to be in possession of your esoterica to use them. Normally, you're assumed to always have your esoterica with you, but in some rare circumstances, you might either not have them on hand or have your gear stripped from you.",
-        "TraitDescriptionEvil": "Evil effects often manipulate energy from evil-aligned Outer Planes and are antithetical to good divine servants or divine servants of good deities. A creature with this trait is evil in alignment.",
         "TraitDescriptionEvolution": "Feats with this trait affect your eidolon instead of you, typically by granting it additional physical capabilities.",
         "TraitDescriptionExpandable": "An item with the expandable trait increases to a specific size when activated. Unless otherwise noted, this space must be adjacent to you and on the ground, and the item needs to have enough open space to expand into or else the activation has no effect. When the effect ends, the expanded item disintegrates if it's a consumable or shrinks back to its normal size if it's not a consumable.",
         "TraitDescriptionExploration": "An activity with this trait takes more than a turn to use, and can usually be used only during exploration mode.",
@@ -3813,7 +3814,6 @@
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait can come from multiple tribes of creatures, including goblins, hobgoblins, and bugbears. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
-        "TraitDescriptionGood": "Good effects often manipulate energy from good-aligned Outer Planes and are antithetical to evil divine servants or divine servants of evil deities. A creature with this trait is good in alignment.",
         "TraitDescriptionGrapple": "You can use this weapon to Grapple with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Grapple using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
         "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
         "TraitDescriptionGrippli": "Gripplis are a family of frog-like humanoids",
@@ -3858,7 +3858,6 @@
         "TraitDescriptionKobold": "A creature with this trait is a member of the kobold ancestry.",
         "TraitDescriptionLaminar": "The armor is made up of layered sections, so when it breaks, it isn't as much of a problem. The status penalty to AC if this armor is broken is –1 for broken medium armor, –2 for broken heavy armor, or no penalty for broken light armor.",
         "TraitDescriptionLaunching": "A mechanism within this shield can shoot projectiles, causing the shield to also function as a ranged weapon. The trait lists the type of weapon, such as \"launching dart.\" Striking with the launcher requires the same number of hands as normal, except that the hand holding the shield counts toward this total, so a one-handed ranged weapon would require only one hand. Reloading takes the normal number of Interact actions, to a minimum of 1 action, and you can't use the hand holding your shield to reload.",
-        "TraitDescriptionLawful": "Lawful effects often manipulate energy from law-aligned Outer Planes and are antithetical to chaotic divine servants or divine servants of chaotic deities. A creature with this trait is lawful in alignment.",
         "TraitDescriptionLeshy": "A creature with this trait is a member of the leshy ancestry.",
         "TraitDescriptionLight": "Light effects overcome non-magical darkness in the area, and can counteract magical darkness. You must usually target darkness magic with your light magic directly to counteract the darkness, but some light spells automatically attempt to counteract darkness.",
         "TraitDescriptionLinguistic": "An effect with this trait depends on language comprehension. A linguistic effect that targets a creature works only if the target understands the language you are using.",
@@ -3986,7 +3985,6 @@
         "TraitDescriptionTethered": "This weapon is attached to a length of rope or chain that allows you to retrieve it after it has left your hand. If you have a free hand while wielding this weapon, you can use an Interact action to pull the weapon back into your grasp after you have thrown it as a ranged attack or after it has been disarmed (unless it is being held by another creature).",
         "TraitDescriptionThaumaturge": "This indicates abilities from the thaumaturge class.",
         "TraitDescriptionThrown": "You can throw this weapon as a ranged attack. A thrown weapon adds your Strength modifier to damage just like a melee weapon does. When this trait appears on a melee weapon, it also includes the range increment.",
-        "TraitDescriptionTiefling": "A creature with this trait is a member of the tiefling ancestry.",
         "TraitDescriptionTraining": "A training weapon is designed to be used when training an animal to participate in combat by identifying the target for the animal to attack. Striking a creature with a training weapon gives your animal companion or your bonded animal a +1 circumstance bonus to its next attack roll against that target.",
         "TraitDescriptionTrap": "A hazard or item with this trait is constructed to hinder interlopers.",
         "TraitDescriptionTrip": "You can use this weapon to Trip with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Trip using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
@@ -4499,15 +4497,11 @@
         "TraitVersatile": "Versatile",
         "TraitVersatileAcid": "Versatile Acid",
         "TraitVersatileB": "Versatile B",
-        "TraitVersatileChaotic": "Versatile Chaotic",
         "TraitVersatileCold": "Versatile Cold",
         "TraitVersatileElectricity": "Versatile Electricity",
-        "TraitVersatileEvil": "Versatile Evil",
         "TraitVersatileFire": "Versatile Fire",
         "TraitVersatileForce": "Versatile Force",
-        "TraitVersatileGood": "Versatile Good",
         "TraitVersatileHeritage": "Versatile Heritage",
-        "TraitVersatileLawful": "Versatile Lawful",
         "TraitVersatileP": "Versatile P",
         "TraitVersatilePoison": "Versatile Poison",
         "TraitVersatileS": "Versatile S",
@@ -4969,12 +4963,6 @@
         "WeaponPropertyCriticalDamageLabel": "Critical Damage",
         "WeaponPropertyCriticalEffectLabel": "Critical Effect",
         "WeaponPropertyRune": {
-            "anarchic": {
-                "Name": "Anarchic",
-                "Note": {
-                    "criticalSuccess": "When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6 #Anarchic Rune]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
-                }
-            },
             "ancestralEchoing": {
                 "Name": "Ancestral Echoing"
             },
@@ -4992,12 +4980,6 @@
             },
             "authorized": {
                 "Name": "Authorized"
-            },
-            "axiomatic": {
-                "Name": "Axiomatic",
-                "Note": {
-                    "criticalSuccess": "When you critically succeed at an attack roll with this weapon against a chaotic creature, instead of rolling, count each weapon damage die as average damage rounded up (3 for d4, 4 for d6, 5 for d8, 6 for d10, 7 for d12)."
-                }
             },
             "bane": {
                 "Name": "Bane"

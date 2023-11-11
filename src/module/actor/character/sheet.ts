@@ -6,19 +6,19 @@ import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import {
+import type {
     AncestryPF2e,
     BackgroundPF2e,
     ClassPF2e,
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
-    ItemPF2e,
     LorePF2e,
     PhysicalItemPF2e,
 } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { ItemPF2e } from "@item";
 import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";

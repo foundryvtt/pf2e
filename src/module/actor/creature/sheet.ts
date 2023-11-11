@@ -1,27 +1,28 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
+import { AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
-import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ZeroToFour, goesToEleven } from "@module/data.ts";
-import { createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
-import { SkillAbbreviation, SkillData } from "./data.ts";
+import { AbilityData, CreatureSystemData, SaveData, SkillAbbreviation, SkillData } from "./data.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
-import { CreatureSheetData } from "./types.ts";
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
+abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     /** A DocumentSheet class presenting additional, per-actor settings */
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
@@ -75,7 +76,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             actorSizes: CONFIG.PF2E.actorSizes,
-            alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,
             frequencies: CONFIG.PF2E.frequencies,
             attitude: CONFIG.PF2E.attitude,
@@ -317,9 +317,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.update({ "system.resources.focus.max": $(event.target).val() });
         });
 
-        $html.find(".toggle-signature-spell").on("click", (event) => {
-            this.#onToggleSignatureSpell(event);
-        });
+        for (const anchor of htmlQueryAll(html, ".toggle-signature-spell")) {
+            anchor.addEventListener("click", () => {
+                const itemId = htmlClosest(anchor, ".item")?.dataset.itemId;
+                const spell = this.actor.items.get(itemId, { strict: true });
+                if (!spell?.isOfType("spell")) return;
+                spell.update({ "system.location.signature": !spell.system.location.signature });
+            });
+        }
 
         // Action Browser
         for (const button of htmlQueryAll(html, ".action-browse")) {
@@ -466,16 +471,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         new this.actorConfigClass(this.actor).render(true);
     }
 
-    #onToggleSignatureSpell(event: JQuery.ClickEvent): void {
-        const { itemId } = event.target.closest(".item").dataset;
-        const spell = this.actor.items.get(itemId);
-        if (!(spell instanceof SpellPF2e)) {
-            return;
-        }
-
-        spell.update({ "system.location.signature": !spell.system.location.signature });
-    }
-
     #onClickBrowseActions(button: HTMLElement) {
         const types = (button.dataset.actionType || "").split(",") as ActionType[];
         const traits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
@@ -506,3 +501,30 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         return super._updateObject(event, formData);
     }
 }
+
+type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
+
+interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+    data: CreatureSystemData & {
+        abilities: Record<AttributeString, AbilityData & { label?: string }>;
+        attributes: {
+            perception: CreatureSystemData["attributes"]["perception"] & WithRank;
+        };
+        saves: Record<SaveType, SaveData & WithRank>;
+        skills: Record<string, SkillData & WithRank>;
+    };
+    languages: SheetOptions;
+    abilities: typeof CONFIG.PF2E.abilities;
+    actorSizes: typeof CONFIG.PF2E.actorSizes;
+    rarity: typeof CONFIG.PF2E.rarityTraits;
+    frequencies: typeof CONFIG.PF2E.frequencies;
+    attitude: typeof CONFIG.PF2E.attitude;
+    pfsFactions: typeof CONFIG.PF2E.pfsFactions;
+    dying: {
+        maxed: boolean;
+        remainingDying: number;
+        remainingWounded: number;
+    };
+}
+
+export { CreatureSheetPF2e, type CreatureSheetData };

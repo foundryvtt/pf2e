@@ -22,12 +22,10 @@ const MANDATORY_RANGED_GROUPS = new Set(["bomb", "bow", "crossbow", "firearm", "
 const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUPS] as const);
 
 const WEAPON_PROPERTY_RUNE_TYPES = new Set([
-    "anarchic",
     "ancestralEchoing",
     "anchoring",
     "ashen",
     "authorized",
-    "axiomatic",
     "bane",
     "bloodbane",
     "bloodthirsty",

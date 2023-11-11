@@ -14,8 +14,11 @@ const materialIWR = R.mapValues(
     (_v, k) => `PF2E.Damage.IWR.Type.${k}`,
 );
 
+const sanctifiedIWR = { holy: "PF2E.Damage.IWR.Type.holy", unholy: "PF2E.Damage.IWR.Type.unholy" };
+
 const immunityTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -107,6 +110,7 @@ const immunityTypes = {
 
 const weaknessTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -163,6 +167,7 @@ const weaknessTypes = {
 
 const resistanceTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",

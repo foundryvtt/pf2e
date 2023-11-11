@@ -1,20 +1,14 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { Alignment } from "@actor/creature/types.ts";
-import { ALIGNMENTS } from "@actor/creature/values.ts";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import { MartialProficiency } from "@actor/character/data.ts";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { objectHasKey, sluggify } from "@util";
 import { DeitySource, DeitySystemData } from "./data.ts";
-import { ZeroToFour } from "@module/data.ts";
-import { MartialProficiency } from "@actor/character/data.ts";
 
 class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get category(): "deity" | "pantheon" | "philosophy" {
         return this.system.category;
-    }
-
-    get alignment(): Alignment | null {
-        return this.system.alignment.own;
     }
 
     get favoredWeapons(): BaseWeaponType[] {
@@ -24,12 +18,18 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        if (!this.system.sanctification?.modal) {
+            this.system.sanctification = null;
+        }
+
         if (this.category === "philosophy") {
-            const systemData = this.system;
-            systemData.domains = { primary: [], alternate: [] };
-            systemData.font = [];
-            systemData.spells = {};
-            systemData.weapons = [];
+            this.system.attributes = [];
+            this.system.domains = { primary: [], alternate: [] };
+            this.system.font = [];
+            this.system.sanctification = null;
+            this.system.skill = null;
+            this.system.spells = {};
+            this.system.weapons = [];
         }
     }
 
@@ -45,7 +45,6 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { deities } = this.actor.system.details;
         const systemData = this.system;
         deities.primary = {
-            alignment: deepClone(systemData.alignment),
             skill: deepClone(systemData.skill),
             weapons: deepClone(systemData.weapons),
         };
@@ -73,19 +72,8 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
 
-        if (this.alignment) {
-            actorRollOptions.all[`${prefix}:alignment:${this.alignment.toLowerCase()}`] = true;
-        }
-
-        const followerAlignments = (
-            this.system.alignment.follower.length > 0 ? this.system.alignment.follower : Array.from(ALIGNMENTS)
-        ).map((a) => a.toLowerCase());
-        for (const alignment of followerAlignments) {
-            actorRollOptions.all[`${prefix}:alignment:follower:${alignment}`] = true;
-        }
-
         // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
-        actorRollOptions.all[`self:deity:${slug}`] = true;
+        actorRollOptions.all[`self:deity:slug:${slug}`] = true;
     }
 
     /** If applicable, set a trained proficiency with this deity's favored weapon */
@@ -110,7 +98,10 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        return [...baseOptions, `${prefix}:category:${this.category}`].sort();
+        const { sanctification } = this.system;
+        const modal = sanctification?.modal;
+        const sanctifications = sanctification?.what.map((s) => `${prefix}:sanctification:${modal}:${s}`) ?? [];
+        return [...baseOptions, `${prefix}:category:${this.category}`, ...sanctifications].sort();
     }
 }
 

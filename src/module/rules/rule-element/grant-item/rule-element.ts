@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";

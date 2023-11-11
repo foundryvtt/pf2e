@@ -1,5 +1,7 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
+import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { CheckRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -18,10 +20,10 @@ import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
-import { ErrorPF2e, getActionGlyph, signedInteger, sluggify } from "@util";
+import { ErrorPF2e, getActionGlyph, signedInteger, sluggify, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
-import { DamageRollFunction, TraitViewData } from "./data/base.ts";
+import { DamageRollFunction } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import {
     CheckModifier,
@@ -402,13 +404,18 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
-    const traitObjects = item.system.traits.value.map(
-        (t): TraitViewData => ({
-            name: t,
-            label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
-            description: CONFIG.PF2E.traitsDescriptions[t],
-        }),
-    );
+
+    const actionTraits: ActionTrait[] = R.compact([
+        "attack",
+        item.baseType === "alchemical-bomb" ? "manipulate" : null,
+    ]);
+    const strikeAdjustments = [
+        actor.synthetics.strikeAdjustments,
+        getPropertyRuneStrikeAdjustments(item.system.runes.property),
+    ].flat();
+    for (const adjustment of strikeAdjustments) {
+        adjustment.adjustTraits?.(item, actionTraits);
+    }
 
     const strike: NPCStrike = mergeObject(statistic, {
         label: item.name,
@@ -420,8 +427,11 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         additionalEffects,
         item,
         weapon: item,
-        traits: traitObjects,
         options: Array.from(baseOptions),
+        traits: [
+            actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+            item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
+        ].flat(),
         variants: [],
         ready: true,
         success: "",
@@ -432,12 +442,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         .filter((m) => m.enabled)
         .map((m) => `${m.label} ${signedInteger(m.value)}`)
         .join(", ");
-
-    const attackTrait = {
-        name: "attack",
-        label: CONFIG.PF2E.featTraits.attack,
-        description: CONFIG.PF2E.traitsDescriptions.attack,
-    };
 
     // Multiple attack penalty
     const maps = calculateMAPs(item, { domains, options: initialRollOptions });
@@ -476,6 +480,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 defense: "armor",
                 domains,
                 options: new Set([...baseOptions, ...params.options]),
+                traits: actionTraits,
             });
 
             // Check whether target is out of maximum range; abort early if so
@@ -517,7 +522,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 damaging: context.self.item.dealsDamage,
                 domains,
                 options: context.options,
-                traits: [attackTrait],
+                traits: context.traits,
                 notes,
                 dc: params.dc ?? context.dc,
                 mapIncreases: mapIncreases as ZeroToTwo,
@@ -575,6 +580,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 outcome,
                 options: context.options,
                 domains,
+                traits: context.traits,
                 ...eventToRollParams(params.event, { type: "damage" }),
             };
 
@@ -589,7 +595,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
                 actor: context.self.actor,
-                actionTraits: [attackTrait],
                 context: damageContext,
             });
             if (!damage) return null;

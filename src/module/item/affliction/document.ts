@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ConditionPF2e, ItemPF2e } from "@item";
+import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
 import { AbstractEffectPF2e, EffectBadgeCounter } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
@@ -12,7 +13,6 @@ import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import { AfflictionFlags, AfflictionSource, AfflictionStageData, AfflictionSystemData } from "./data.ts";
-import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
 
 /** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
 const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
@@ -126,7 +126,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 name: `${this.name} - ${stageLabel}`,
                 damage: { roll, breakdown },
                 materials: [],
-                traits: this.system.traits.value,
                 modifiers: [],
             };
 
@@ -138,6 +137,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 domains: [],
                 options: new Set(),
                 self: null,
+                traits: this.system.traits.value,
             };
 
             return { template, context };

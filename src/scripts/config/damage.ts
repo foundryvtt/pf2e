@@ -1,7 +1,7 @@
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
-import { DAMAGE_TYPES } from "@system/damage/values.ts";
+import { ALIGNMENT_DAMAGE_TYPES, DAMAGE_TYPES } from "@system/damage/values.ts";
 import * as R from "remeda";
-import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
+import { energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",
@@ -45,7 +45,10 @@ const physicalDamageTypes = {
 };
 
 const damageTypes: Record<DamageType, string> = {
-    ...alignmentTraits,
+    ...R.mapToObj(ALIGNMENT_DAMAGE_TYPES, (slug) => {
+        const capitalized = slug.charAt(0).toUpperCase() + slug.slice(1);
+        return [slug, `PF2E.Trait${capitalized}`];
+    }),
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
