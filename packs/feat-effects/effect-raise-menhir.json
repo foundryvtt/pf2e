@@ -1,0 +1,65 @@
+{
+    "_id": "AggnVD5loQHLb7zj",
+    "img": "icons/environment/wilderness/carved-standing-stone.webp",
+    "name": "Effect: Raise Menhir",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Raise Menhir]</p>\n<p>Choose arcane, divine, or occult; all creatures within 15 feet of the monument gain a +2 status bonus to their saving throws against effects with that trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    }
+                ],
+                "flag": "raiseMenhirTradition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.raiseMenhirTradition}"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
