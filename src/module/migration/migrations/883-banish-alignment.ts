@@ -112,7 +112,7 @@ export class Migration883BanishAlignment extends MigrationBase {
             }
 
             if ("ability" in system) {
-                system.attributes = Array.isArray(system.ability)
+                system.attribute = Array.isArray(system.ability)
                     ? R.uniq(
                           system.ability
                               .filter((a): a is AttributeString => setHasElement(ATTRIBUTE_ABBREVIATIONS, a))

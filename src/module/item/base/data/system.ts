@@ -75,7 +75,7 @@ interface ItemGrantSource {
 
 type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
 
-interface ItemSystemSource {
+type ItemSystemSource = {
     level?: { value: number };
     description: {
         gm: string;
@@ -95,7 +95,7 @@ interface ItemSystemSource {
     _migration: MigrationRecord;
     /** Legacy location of `MigrationRecord` */
     schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
-}
+};
 
 type ItemSystemData = ItemSystemSource;
 
