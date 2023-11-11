@@ -4,9 +4,14 @@ import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
-import { ErrorPF2e } from "@util";
+import { ZeroToFour } from "@module/data.ts";
+import { Statistic } from "@system/statistic/statistic.ts";
+import { DelegatedCollection, ErrorPF2e } from "@util";
 
-export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {
+export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
+    /** The base casting proficiency, which spellcasting build off of */
+    base: Statistic;
+
     /** All available spell lists on this actor */
     collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
 
@@ -19,6 +24,22 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<Base
         for (const entry of entries) {
             if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
         }
+
+        // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
+        // and spell DC statistics. At 12th level, these proficiencies increase to expert.
+        if (actor.isOfType("character") && entries.some((e) => e.isInnate)) {
+            const spellcasting = actor.system.proficiencies.spellcasting;
+            spellcasting.rank = Math.max(spellcasting.rank, actor.level >= 12 ? 2 : 1) as ZeroToFour;
+        }
+
+        // Base spellcasting proficiency (later extended to add attribute modifiers)
+        this.base = new Statistic(actor, {
+            slug: "base-spellcasting",
+            label: "PF2E.Actor.Creature.Spellcasting.Label",
+            rank: actor.isOfType("character") ? actor.system.proficiencies.spellcasting.rank : 0,
+            domains: ["all", "spell-attack-dc"],
+            check: { type: "attack-roll" },
+        });
     }
 
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */

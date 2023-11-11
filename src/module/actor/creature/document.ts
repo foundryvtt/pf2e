@@ -21,7 +21,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, localizer, setHasElement } from "@util";
 import * as R from "remeda";
 import {
     CreatureSkills,
@@ -203,22 +203,24 @@ abstract class CreaturePF2e<
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        if (slug === "perception") return this.perception;
-        if (tupleHasValue(["spell", "spell-attack"], slug)) {
-            return (
-                this.spellcasting.contents
-                    .flatMap((sc) => sc.statistic ?? [])
-                    .sort((a, b) => b.mod - a.mod)
-                    .shift() ?? null
-            );
-        }
-        if (slug === "spell-dc") {
-            return (
-                this.spellcasting.contents
-                    .flatMap((sc) => sc.statistic ?? [])
-                    .sort((a, b) => b.dc.value - a.dc.value)
-                    .shift() ?? null
-            );
+        switch (slug) {
+            case "perception":
+                return this.perception;
+            case "spell":
+            case "spell-attack":
+                return (
+                    this.spellcasting.contents
+                        .flatMap((sc) => sc.statistic ?? [])
+                        .sort((a, b) => b.mod - a.mod)
+                        .shift() ?? null
+                );
+            case "spell-dc":
+                return (
+                    this.spellcasting.contents
+                        .flatMap((sc) => sc.statistic ?? [])
+                        .sort((a, b) => b.dc.value - a.dc.value)
+                        .shift() ?? null
+                );
         }
 
         return (

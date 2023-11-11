@@ -93,7 +93,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.system.proficiency.slug ||= this.system.tradition.value;
+
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
 
@@ -124,20 +124,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
-        const actor = this.actor;
-
-        // Upgrade the actor proficiency using the internal ones
-        // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
-        // the elevating itself
-        const tradition = this.tradition;
-        if (actor.isOfType("character") && !this.isInnate && tradition) {
-            const proficiency = actor.system.proficiencies.traditions[tradition];
-            const rank = this.system.proficiency.value;
-            proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
-        }
-    }
-
     /** Prepares the statistic for this spellcasting entry */
     prepareStatistic(): void {
         const actor = this.actor;
@@ -159,20 +145,18 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // Characters prepare spellcasting by extending a statistic.
         // NPCs prepare spellcasting with explicit values.
         if (actor.isOfType("character")) {
-            // Innate casting entries match the highest proficiency
-            if (this.isInnate) {
-                const allRanks = Object.values(actor.traditions).map((t) => t.rank ?? 0);
-                this.system.proficiency.value = Math.max(1, this.rank, ...allRanks) as ZeroToFour;
-            }
-
             // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
-            const baseStat = actor.getStatistic(this.system.proficiency.slug);
+            const baseStat = actor.getStatistic(this.system.proficiency.slug || "base-spellcasting");
             if (!baseStat) return;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
             this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
             this.statistic = baseStat.extend({
                 slug,
+                label:
+                    baseStat.slug === "base-spellcasting" && tradition
+                        ? CONFIG.PF2E.magicTraditions[tradition]
+                        : baseStat.label,
                 attribute: this.attribute,
                 rank: this.rank,
                 rollOptions: this.getRollOptions("spellcasting"),
