@@ -170,7 +170,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
+        options?: OnSubmitFormOptions,
     ): Promise<Record<string, unknown> | false> {
         for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") {
@@ -180,11 +180,18 @@ class HomebrewElements extends SettingsMenuPF2e {
                 continue;
             }
             const elements: { value: string }[] = JSON.parse(input.value);
+            const { reservedTerms } = HomebrewElements;
+            const elementType = input.name;
             for (const element of elements) {
-                input.setCustomValidity(
-                    game.i18n.format("PF2E.SETTINGs.Homebrew.ReservedTerm", { term: element.value }),
-                );
-                return false;
+                if (
+                    objectHasKey(reservedTerms, elementType) &&
+                    elements.some((e) => reservedTerms[elementType].has(e.value))
+                ) {
+                    input.setCustomValidity(
+                        game.i18n.format("PF2E.SETTINGS.Homebrew.ReservedTerm", { term: element.value }),
+                    );
+                    return false;
+                }
             }
         }
 
@@ -195,12 +202,12 @@ class HomebrewElements extends SettingsMenuPF2e {
                 /^damageTypes\.\d+\.label$/.test(input.name) &&
                 HomebrewElements.reservedTerms.damageTypes.has(sluggify(input.value))
             ) {
-                input.setCustomValidity(game.i18n.format("PF2E.SETTINGs.Homebrew.ReservedTerm", { term: input.value }));
+                input.setCustomValidity(game.i18n.format("PF2E.SETTINGS.Homebrew.ReservedTerm", { term: input.value }));
                 return false;
             }
         }
 
-        return super._onSubmit(event, { updateData, preventClose, preventRender });
+        return super._onSubmit(event, options);
     }
 
     protected override _getSubmitData(updateData?: Record<string, unknown> | undefined): Record<string, unknown> {
