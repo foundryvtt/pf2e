@@ -68,6 +68,11 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         actorRollOptions.all["deity"] = true;
         actorRollOptions.all[`${prefix}:${slug}`] = true;
 
+        const sanctifications = this.getSanctificationRollOptions().map((o) => `${prefix}:${o}`);
+        for (const option of sanctifications) {
+            actorRollOptions.all[option] = true;
+        }
+
         for (const baseType of this.favoredWeapons) {
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
@@ -98,10 +103,16 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+        const sanctifications = this.getSanctificationRollOptions().map((o) => `${prefix}:${o}`);
+        return [...baseOptions, `${prefix}:category:${this.category}`, ...sanctifications].sort();
+    }
+
+    private getSanctificationRollOptions(): string[] {
         const { sanctification } = this.system;
         const modal = sanctification?.modal;
-        const sanctifications = sanctification?.what.map((s) => `${prefix}:sanctification:${modal}:${s}`) ?? [];
-        return [...baseOptions, `${prefix}:category:${this.category}`, ...sanctifications].sort();
+        return sanctification?.modal && sanctification.what.length > 0
+            ? sanctification.what.map((s) => `sanctification:${modal}:${s}`)
+            : ["sanctification:none"];
     }
 }
 

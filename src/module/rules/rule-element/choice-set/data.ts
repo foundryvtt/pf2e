@@ -5,10 +5,11 @@ import type {
     DataUnionField,
     PredicateField,
     StrictArrayField,
+    StrictBooleanField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import type { BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementSchema, RuleElementSource } from "../index.ts";
 
 type ChoiceSetSchema = RuleElementSchema & {
@@ -22,12 +23,12 @@ type ChoiceSetSchema = RuleElementSchema & {
         | StrictStringField<string, string, true, false, false>,
         true,
         false,
-        true
+        false
     >;
     /** The prompt to present in the ChoiceSet application window */
-    prompt: StringField<string, string, true, false, true>;
+    prompt: StringField<string, string, false, false, true>;
     /** Whether the parent item's name should be adjusted to reflect the choice made */
-    adjustName: BooleanField<boolean, boolean, true, false, true>;
+    adjustName: StrictBooleanField<true, false, true>;
     /**
      * The name of the flag that will contain the user's selection. If not set, it defaults to the camel-casing of the
      * parent item's slug, falling back to name.
@@ -45,7 +46,7 @@ type ChoiceSetSchema = RuleElementSchema & {
         false
     >;
     /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
-    allowNoSelection: BooleanField<boolean, boolean, false, false, false>;
+    allowNoSelection: StrictBooleanField<false, false, false>;
 };
 
 type AllowedDropsSchema = {
