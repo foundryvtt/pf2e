@@ -25,6 +25,7 @@ import { Migration878TakeABreather } from "@module/migration/migrations/878-take
 import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
 import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
 import { Migration883BanishAlignment } from "@module/migration/migrations/883-banish-alignment.ts";
+import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration879DeviseAStratagemAndFriends(),
     new Migration882SpellDataReorganization(),
     new Migration883BanishAlignment(),
+    new Migration884UnifiedSpellcasting(),
 ];
 
 global.deepClone = <T>(original: T): T => {

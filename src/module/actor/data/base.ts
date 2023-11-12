@@ -33,7 +33,7 @@ type ActorFlagsPF2e = foundry.documents.ActorFlags & {
     };
 };
 
-interface ActorSystemSource {
+type ActorSystemSource = {
     details?: ActorDetailsSource;
     attributes: ActorAttributesSource;
     traits?: ActorTraitsSource<string>;
@@ -42,7 +42,7 @@ interface ActorSystemSource {
     _migration: MigrationRecord;
     /** Legacy location of `MigrationRecord` */
     schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
-}
+};
 
 interface ActorAttributesSource {
     hp?: ActorHitPointsSource;

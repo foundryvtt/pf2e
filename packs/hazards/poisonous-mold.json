@@ -55,7 +55,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the mold, hits it, or damages it.</p>\n<hr />\n<p><strong>Effect</strong> The mold explodes in a burst of spores and mold clusters, dealing @Damage[(2d6+6)[poison]] damage to creatures within 10 feet of it, with a @Check[type:fortitude|dc:18|basic:true] save.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature touches the mold, hits it, or damages it</p>\n<hr />\n<p><strong>Effect</strong> The mold explodes in a burst of spores and mold clusters, dealing @Damage[(2d6+6)[poison]] damage to creatures within 10 feet of it, with a @Check[type:fortitude|dc:18|basic:true] save.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -81,6 +81,53 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "h7tMZClq2efB1OYA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Floating Spores",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>5 feet. A creature that enters or starts its turn in the aura takes @Damage[2d6[poison]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "floating-spores",
+                        "traits": [
+                            "poison"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Poisonous Mold",
@@ -90,7 +137,7 @@
                 "value": 18
             },
             "emitsSound": "encounter",
-            "hardness": 15,
+            "hardness": null,
             "hp": {
                 "details": "",
                 "max": 30,
@@ -110,10 +157,16 @@
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 11
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
-            "description": "<p>This grotesque fungus releases poisonous spores when a creature comes near.</p>",
+            "description": "<p>This grotesque fungus releases poisonous spores when a creature comes near.</p>",
             "disable": "<p>@Check[type:survival|dc:18] (trained) to safely remove the mold</p>",
             "isComplex": false,
             "level": {
@@ -125,7 +178,7 @@
                 "remaster": true,
                 "title": "Pathfinder GM Core"
             },
-            "reset": "<p>Unless entirely eradicated (typically with acid or fire),&nbsp;the mold regrows over the course of 2 weeks.</p>",
+            "reset": "<p>Unless entirely eradicated (typically with acid or fire), the mold regrows over the course of 2 weeks.</p>",
             "routine": ""
         },
         "saves": {

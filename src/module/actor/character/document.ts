@@ -48,8 +48,6 @@ import {
     getPropertyRuneStrikeAdjustments,
     getResilientBonus,
 } from "@item/physical/runes.ts";
-import { MagicTradition } from "@item/spell/types.ts";
-import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
@@ -73,7 +71,7 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
@@ -86,7 +84,6 @@ import {
     CharacterStrike,
     CharacterSystemData,
     ClassDCData,
-    MagicTraditionProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
 } from "./data.ts";
@@ -123,9 +120,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     declare feats: CharacterFeats<this>;
     declare pfsBoons: FeatPF2e<this>[];
     declare deityBoonsCurses: FeatPF2e<this>[];
-
-    /** All base casting tradition proficiences, which spellcasting build off of */
-    declare traditions: Record<MagicTradition, Statistic>;
 
     /** The primary class DC */
     declare classDC: Statistic | null;
@@ -190,21 +184,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        if (tupleHasValue(["class", "class-dc", "classDC"], slug)) return this.classDC;
-        if (setHasElement(MAGIC_TRADITIONS, slug)) return this.traditions[slug];
-        if (slug === "class-spell") {
-            const highestClass = Object.values(this.classDCs)
-                .sort((a, b) => b.mod - a.mod)
-                .shift();
-            const highestSpell = this.spellcasting.contents
-                .flatMap((s) => s.statistic ?? [])
-                .sort((a, b) => b.mod - a.mod)
-                .shift();
-            return (
-                R.compact([highestClass, highestSpell])
+        switch (slug) {
+            case "class":
+            case "class-dc":
+            case "classDC":
+                return this.classDC;
+            case "class-spell": {
+                const highestClass = Object.values(this.classDCs)
                     .sort((a, b) => b.mod - a.mod)
-                    .shift() ?? null
-            );
+                    .shift();
+                const highestSpell = this.spellcasting.contents
+                    .flatMap((s) => s.statistic ?? [])
+                    .sort((a, b) => b.mod - a.mod)
+                    .shift();
+                return (
+                    R.compact([highestClass, highestSpell])
+                        .sort((a, b) => b.mod - a.mod)
+                        .shift() ?? null
+                );
+            }
+            case "base-spellcasting":
+                return this.spellcasting.base;
         }
 
         return this.classDCs[slug] ?? super.getStatistic(slug);
@@ -435,14 +435,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         systemData.proficiencies = {
             ...systemData.proficiencies,
             classDCs: {},
-            traditions: Array.from(MAGIC_TRADITIONS).reduce(
-                (accumulated: DeepPartial<MagicTraditionProficiencies>, t) => ({
-                    ...accumulated,
-                    [t]: { rank: 0 },
-                }),
-                {},
-            ),
         };
+        systemData.proficiencies.spellcasting ??= { rank: 0 };
 
         // Resources
         const { resources } = this.system;
@@ -635,28 +629,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Senses
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
-
-        // Magic Traditions Proficiencies (for spell attacks and counteract checks)
-        this.traditions = Array.from(MAGIC_TRADITIONS).reduce(
-            (traditions, tradition) => {
-                traditions[tradition] = new Statistic(this, {
-                    slug: tradition,
-                    label: CONFIG.PF2E.magicTraditions[tradition],
-                    rank: systemData.proficiencies.traditions[tradition].rank,
-                    domains: ["all", "spell-attack-dc"],
-                    check: {
-                        type: "check",
-                        domains: [`${tradition}-spell-attack`],
-                    },
-                    dc: {
-                        domains: [`${tradition}-spell-dc`],
-                    },
-                });
-
-                return traditions;
-            },
-            {} as Record<MagicTradition, Statistic>,
-        );
 
         // Class DC
         this.classDC = null;
@@ -1657,6 +1629,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     outcome,
                     options,
                     domains,
+                    traits: context.traits,
                     ...eventToRollParams(params.event, { type: "damage" }),
                 };
 

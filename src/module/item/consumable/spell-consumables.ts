@@ -91,7 +91,7 @@ async function createConsumableFromSpell(
     traits.value = R.uniq([...traits.value, ...spell.traits]);
     traits.rarity = spell.rarity;
     if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
-        traits.value.splice(traits.value.indexOf("magical"));
+        traits.value.splice(traits.value.indexOf("magical"), 1);
     }
     traits.value.sort();
 
