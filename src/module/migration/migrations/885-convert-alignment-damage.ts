@@ -44,6 +44,10 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
         mergeObject(source.system.attributes, iwr);
         traits.value = R.uniq(traits.value.sort());
+        if (traits.value.includes("holy") && traits.value.includes("unholy")) {
+            // Something weird about this one!
+            traits.value = traits.value.filter((t) => !["holy", "unholy"].includes(t));
+        }
     }
 
     override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
@@ -120,6 +124,26 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
             traits.value = R.uniq(traits.value.sort());
         }
+
+        const { description } = source.system;
+        if (actorSource?.type === "npc" && source.type === "action" && source.system.actionType.value !== "passive") {
+            const hasGoodInlineRoll = /\[good\b/.test(description.value) || /\bgood\]/.test(description.value);
+            const hasEvilInlineRoll = /\[evil\b/.test(description.value) || /\bevil\]/.test(description.value);
+
+            if (hasGoodInlineRoll && actorSource.system.traits.value.includes("holy")) {
+                source.system.traits.value.push("holy");
+            } else if (hasEvilInlineRoll && actorSource.system.traits.value.includes("unholy")) {
+                source.system.traits.value.push("unholy");
+            }
+            source.system.traits.value = R.uniq(source.system.traits.value.sort());
+        }
+
+        description.value = description.value
+            .replace(/\[(?:good|evil|lawful|chaotic)\b/g, "[spirit")
+            .replace(/\b(?:good|evil|lawful|chaotic)\]/g, "spirit]")
+            .replace(/\b(\dd\d) (?:good|evil|lawful|chaotic)\b/g, "$1 spirit")
+            .replace(/\b(?:Good|Evil|Lawful|Chaotic) Damage\b/g, "Spirit Damage")
+            .replace(/(?<!(nd|or) )\b(?:good|evil|lawful|chaotic) damage\b/g, "spirit damage");
     }
 }
 
