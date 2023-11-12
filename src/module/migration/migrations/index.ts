@@ -282,3 +282,4 @@ export { Migration881NoHBPrefix } from "./881-no-hb-prefix.ts";
 export { Migration882SpellDataReorganization } from "./882-spell-data-reorganization.ts";
 export { Migration883BanishAlignment } from "./883-banish-alignment.ts";
 export { Migration884UnifiedSpellcasting } from "./884-unified-spellcasting.ts";
+export { Migration885ConvertAlignmentDamage } from "./885-convert-alignment-damage.ts";

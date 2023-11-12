@@ -1,5 +1,5 @@
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
-import { ALIGNMENT_DAMAGE_TYPES, DAMAGE_TYPES } from "@system/damage/values.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import * as R from "remeda";
 import { energyDamageTypes, preciousMaterials } from "./traits.ts";
 
@@ -45,10 +45,6 @@ const physicalDamageTypes = {
 };
 
 const damageTypes: Record<DamageType, string> = {
-    ...R.mapToObj(ALIGNMENT_DAMAGE_TYPES, (slug) => {
-        const capitalized = slug.charAt(0).toUpperCase() + slug.slice(1);
-        return [slug, `PF2E.Trait${capitalized}`];
-    }),
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
