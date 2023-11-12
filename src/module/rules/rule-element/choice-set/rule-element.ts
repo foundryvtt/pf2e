@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -8,6 +9,7 @@ import {
     DataUnionField,
     PredicateField,
     StrictArrayField,
+    StrictBooleanField,
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
@@ -25,7 +27,6 @@ import {
     UninflatedChoiceSet,
 } from "./data.ts";
 import { ChoiceSetPrompt } from "./prompt.ts";
-import { ActorPF2e } from "@actor";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -101,15 +102,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         initial: undefined,
                     }),
                 ],
-                { required: true, nullable: false, initial: () => [] },
+                { required: true, nullable: false, initial: undefined },
             ),
             prompt: new fields.StringField({
-                required: true,
+                required: false,
                 blank: false,
                 nullable: false,
                 initial: "PF2E.UI.RuleElements.ChoiceSet.Prompt",
             }),
-            adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
+            adjustName: new StrictBooleanField({ required: true, nullable: false, initial: true }),
             allowedDrops: new fields.SchemaField(
                 {
                     label: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
@@ -119,7 +120,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             ),
             flag: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
             rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
-            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            allowNoSelection: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
@@ -408,6 +409,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.level",
                         "system.maxTakable",
                         "system.potencyRune",
+                        "system.sanctification",
                         "system.slug",
                         "system.traits",
                     ],

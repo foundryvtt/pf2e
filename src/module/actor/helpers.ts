@@ -563,6 +563,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 domains,
                 checkContext: params.checkContext,
                 outcome,
+                traits: actionTraits,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 

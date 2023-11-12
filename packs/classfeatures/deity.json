@@ -47,6 +47,74 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.deity}"
             },
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:holy",
+                                    "deity:primary:sanctification:must:holy"
+                                ]
+                            }
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:unholy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "unholy"
+                    },
+                    {
+                        "label": "PF2E.NoneOption",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "deity:primary:sanctification:must:holy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "none"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity:primary:sanctification:none"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "sanctification",
+                "slug": "sanctification"
+            },
+            {
+                "add": [
+                    "holy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:holy"
+                ]
+            },
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:unholy"
+                ]
+            },
+            {
                 "fist": true,
                 "key": "Strike",
                 "predicate": [
