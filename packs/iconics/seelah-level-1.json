@@ -2359,7 +2359,7 @@
             "type": "ancestry"
         },
         {
-            "_id": "yD3DzCn3nVg6KZVN",
+            "_id": "UMEAPQOW2BgZn9PZ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
@@ -2367,11 +2367,11 @@
                 "pf2e": {
                     "itemGrants": {
                         "iomedae": {
-                            "id": "v2xFnZW7JHRZT3Ww",
+                            "id": "YyzRFQsZg87AiXwT",
                             "onDelete": "detach"
                         },
                         "paladin": {
-                            "id": "pFYon9eERZlzaxCb",
+                            "id": "Xk81N8i581IUjVrq",
                             "onDelete": "detach"
                         }
                     }
@@ -2413,6 +2413,9 @@
                                         "item:category:deity",
                                         "item:category:pantheon"
                                     ]
+                                },
+                                {
+                                    "not": "item:sanctification:none"
                                 }
                             ],
                             "itemType": "deity"
@@ -2423,64 +2426,52 @@
                         "selection": "Compendium.pf2e.deities.Item.Iomedae"
                     },
                     {
+                        "allowDuplicate": false,
                         "flag": "iomedae",
                         "key": "GrantItem",
                         "uuid": "{item|flags.pf2e.rulesSelections.deity}"
                     },
                     {
                         "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:champion",
-                                "item:type:feature"
+                        "choices": {
+                            "filter": [
+                                "item:type:feature",
+                                "item:tag:champion-cause",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "item:tag:holy",
+                                                {
+                                                    "or": [
+                                                        "deity:primary:sanctification:can:holy",
+                                                        "deity:primary:sanctification:must:holy"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:unholy",
+                                                {
+                                                    "or": [
+                                                        "deity:primary:sanctification:can:unholy",
+                                                        "deity:primary:sanctification:must:unholy"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
-                        "choices": [
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:lg"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Paladin"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ng"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Redeemer"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:cg"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Liberator"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:le"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Tyrant"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ne"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Desecrator"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ce"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Antipaladin"
-                            }
-                        ],
                         "flag": "cause",
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt",
                         "selection": "Compendium.pf2e.classfeatures.Item.Paladin"
                     },
                     {
+                        "allowDuplicate": false,
                         "flag": "paladin",
                         "key": "GrantItem",
                         "uuid": "{item|flags.pf2e.rulesSelections.cause}"
@@ -2497,18 +2488,10 @@
             "type": "feat"
         },
         {
-            "_id": "MJw7OL90dOm5pTTk",
+            "_id": "XyvfqOizyuWxyNtV",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.fykh5pE99O3I2sOI"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "theTenetsOfGood": {
-                            "id": "X4tEh1gKcaEYEU6N",
-                            "onDelete": "detach"
-                        }
-                    }
                 }
             },
             "img": "icons/sundries/documents/document-sealed-white-red.webp",
@@ -2578,7 +2561,7 @@
             "type": "feat"
         },
         {
-            "_id": "9xfnYYtuuSGg5vXi",
+            "_id": "2rjYbfiIDoWmZ431",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.sXVX4ARUuo8Egrz5"
@@ -2622,7 +2605,7 @@
             "type": "feat"
         },
         {
-            "_id": "YONkamMqRYf12fxR",
+            "_id": "ZlAesblX3rOfKuQv",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
@@ -2696,7 +2679,7 @@
             "type": "feat"
         },
         {
-            "_id": "1STGywY8U1kuenOy",
+            "_id": "Ds11wZDs76TKNEDJ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
@@ -2748,7 +2731,7 @@
             "type": "feat"
         },
         {
-            "_id": "zqRTS3fiMHxzih35",
+            "_id": "3kdicIcwbyTvs8wc",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
@@ -2756,7 +2739,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "shieldBlock": {
-                            "id": "Yugn8o4nMaoCdLjw",
+                            "id": "zDizrO16QEQ0Z888",
                             "onDelete": "detach"
                         }
                     }
@@ -2784,9 +2767,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2808,14 +2791,14 @@
             "type": "feat"
         },
         {
-            "_id": "v2xFnZW7JHRZT3Ww",
+            "_id": "YyzRFQsZg87AiXwT",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "yD3DzCn3nVg6KZVN",
+                        "id": "UMEAPQOW2BgZn9PZ",
                         "onDelete": "cascade"
                     }
                 }
@@ -2830,7 +2813,7 @@
                 ],
                 "category": "deity",
                 "description": {
-                    "value": "<p>Iomedae, the youngest among the prominent deities of the Inner Sea region, had already proven herself worthy of divinity before her ascension. Born in Cheliax, she followed the path of the sword and fought evil, eventually becoming a paladin of Aroden's herald Arazni. She became a legend among the Shining Crusade, leading the Knights of Ozem in a series of victories over the Whispering Tyrant. Iomedae became the third known mortal to pass the Test of the Starstone when she ascended to divinity in 3832 AR. As Arazni had been slain during the Shining Crusade, Aroden elevated the newly ascended goddess to be his new herald. When Aroden himself died, Iomedae inherited most of his worshippers and became a major deity of honor and justice.</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, and valor</p>"
+                    "value": "<p>Prior to her ascension and inheritance of many of the god of humanity's worshippers, Iomedae was a holy warrior in wars against the undead. The Inheritor upholds the values of virtue, fighting against the wicked and unjust.</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, and valor</p>"
                 },
                 "domains": {
                     "alternate": [
@@ -2847,9 +2830,9 @@
                     "heal"
                 ],
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "sanctification": {
@@ -2873,14 +2856,14 @@
             "type": "deity"
         },
         {
-            "_id": "ldHH45PL1nGlGA29",
+            "_id": "IK2slD1r6YWGuhPY",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "pFYon9eERZlzaxCb",
+                        "id": "Xk81N8i581IUjVrq",
                         "onDelete": "cascade"
                     }
                 }
@@ -2925,19 +2908,19 @@
             "type": "action"
         },
         {
-            "_id": "pFYon9eERZlzaxCb",
+            "_id": "Xk81N8i581IUjVrq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "yD3DzCn3nVg6KZVN",
+                        "id": "UMEAPQOW2BgZn9PZ",
                         "onDelete": "cascade"
                     },
                     "itemGrants": {
                         "retributiveStrike": {
-                            "id": "ldHH45PL1nGlGA29",
+                            "id": "IK2slD1r6YWGuhPY",
                             "onDelete": "detach"
                         }
                     }
@@ -2971,14 +2954,15 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "class:champion:alignment:lg"
-                    },
-                    {
                         "flag": "retributiveStrike",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits"
                     },
                     {
                         "domain": "all",
@@ -3004,6 +2988,10 @@
                 ],
                 "slug": "paladin",
                 "traits": {
+                    "otherTags": [
+                        "champion-cause",
+                        "holy"
+                    ],
                     "rarity": "common",
                     "value": [
                         "champion"
@@ -3013,76 +3001,19 @@
             "type": "feat"
         },
         {
-            "_id": "X4tEh1gKcaEYEU6N",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.nxZYP3KGfTSkaW6J"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "MJw7OL90dOm5pTTk",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-tooled-blue-yellow.webp",
-            "name": "The Tenets of Good",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>All champions of good alignment follow these tenets.</p>\n<ul>\n<li>You must never perform acts anathema to your deity or willingly commit an evil act, such as murder, torture, or the casting of an evil spell.</li>\n<li>You must never knowingly harm an innocent, or allow immediate harm to one through inaction when you know you could reasonably prevent it. This tenet doesn't force you to take action against possible harm to innocents at an indefinite time in the future, or to sacrifice your life to protect them. </li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "add": [
-                            "holy"
-                        ],
-                        "key": "ActorTraits"
-                    }
-                ],
-                "slug": "the-tenets-of-good",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Yugn8o4nMaoCdLjw",
+            "_id": "zDizrO16QEQ0Z888",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "zqRTS3fiMHxzih35",
+                        "id": "3kdicIcwbyTvs8wc",
                         "onDelete": "cascade"
                     }
                 }
             },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Shield Block",
             "sort": 0,
             "system": {
@@ -3094,7 +3025,7 @@
                 },
                 "category": "general",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take damage from a physical attack</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3104,9 +3035,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "shield-block",

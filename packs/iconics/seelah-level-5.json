@@ -2344,7 +2344,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2352,16 +2352,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "publication": {
                     "license": "OGL",
@@ -2370,7 +2370,7 @@
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -2666,994 +2666,6 @@
             "type": "class"
         },
         {
-            "_id": "FW0IAVYMNwaXTsTk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "iomedae": {
-                            "id": "XfwHzNbleZW7lWir",
-                            "onDelete": "detach"
-                        },
-                        "paladin": {
-                            "id": "lsHL0OFhEq40J1uV",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/deity.webp",
-            "name": "Deity and Cause",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Champions are divine servants of a deity. Choose a deity to follow; your alignment must be one allowed for followers of your deity. Actions fundamentally opposed to your deity's ideals or alignment are anathema to your faith. A few examples of acts that would be considered anathema appear in each deity's entry. You and your GM determine whether other acts are anathema. You have one of the following causes. Your cause must match your alignment exactly. Your cause determines your champion's reaction, grants you a devotion spell, and defines part of your champion's code.</p>\n<ul>\n<li>LG @UUID[Compendium.pf2e.classfeatures.Item.Paladin]</li>\n<li>NG @UUID[Compendium.pf2e.classfeatures.Item.Redeemer]</li>\n<li>CG @UUID[Compendium.pf2e.classfeatures.Item.Liberator]</li>\n<li>LE @UUID[Compendium.pf2e.classfeatures.Item.Tyrant]</li>\n<li>NE @UUID[Compendium.pf2e.classfeatures.Item.Desecrator]</li>\n<li>CE @UUID[Compendium.pf2e.classfeatures.Item.Antipaladin]</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                {
-                                    "or": [
-                                        "item:category:deity",
-                                        "item:category:pantheon"
-                                    ]
-                                }
-                            ],
-                            "itemType": "deity"
-                        },
-                        "flag": "deity",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
-                        "selection": "Compendium.pf2e.deities.Item.Iomedae"
-                    },
-                    {
-                        "flag": "iomedae",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
-                    },
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:champion",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:lg"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Paladin"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ng"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Redeemer"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:cg"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Liberator"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:le"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Tyrant"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ne"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Desecrator"
-                            },
-                            {
-                                "predicate": [
-                                    "deity:primary:alignment:follower:ce"
-                                ],
-                                "value": "Compendium.pf2e.classfeatures.Item.Antipaladin"
-                            }
-                        ],
-                        "flag": "cause",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Paladin"
-                    },
-                    {
-                        "flag": "paladin",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.cause}"
-                    }
-                ],
-                "slug": "deity-and-cause",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "G4cKGgbKXR22estq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.fykh5pE99O3I2sOI"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "theTenetsOfGood": {
-                            "id": "VFRxxfjkRpQzaq57",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/documents/document-sealed-white-red.webp",
-            "name": "Champion's Code",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You follow a code of conduct, beginning with tenets shared by all champions of an alignment (such as good), and continuing with tenets of your cause. Deities often add additional strictures (for instance, @UUID[Compendium.pf2e.deities.Item.Torag] champions can't show mercy to enemies of their people, making it almost impossible for them to follow the redeemer cause). Only rules for good champions appear in this book. Tenets are listed in order of importance, starting with the most important. If a situation places two tenets in conflict, you aren't in a no-win situation; instead, follow the more important tenet. For instance, as a paladin, if an evil king asked you if you're hiding refugees so he could execute them, you could lie to him, since the tenet against lying is less important than preventing harm to innocents. Trying to subvert your code by creating a situation that forces a higher tenet to override a lower tenet (for example, promising not to respect authorities and then, to keep your word, disrespecting authorities) is a violation of the champion code.</p>\n<p>If you stray from your alignment or violate your code of conduct, you lose your focus pool and divine ally until you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual, but you keep any other champion abilities that don't require those class features. If your alignment shifts but is still one allowed by your deity, your GM might let you retrain your cause while still following the same deity.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "theTenetsOfGood",
-                        "key": "GrantItem",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "class:champion:alignment:lg",
-                                    "class:champion:alignment:ng",
-                                    "class:champion:alignment:cg"
-                                ]
-                            }
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Good"
-                    },
-                    {
-                        "flag": "theTenetsOfEvil",
-                        "key": "GrantItem",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "class:champion:alignment:le",
-                                    "class:champion:alignment:ne",
-                                    "class:champion:alignment:ce"
-                                ]
-                            }
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Evil"
-                    }
-                ],
-                "slug": "champions-code",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "MxCwSSi98rjdnHPx",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.sXVX4ARUuo8Egrz5"
-                }
-            },
-            "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-            "name": "Champion's Reaction",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your cause gives you a special reaction. See specific causes for more information.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "champions-reaction",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "I6xjJn54AdQXXkB3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
-                }
-            },
-            "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
-            "name": "Deific Weapon",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You zealously bear your deity's favored weapon. If it's uncommon, you gain access to it. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12).</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "fist": true,
-                        "key": "Strike",
-                        "predicate": [
-                            "deity:primary:favored-weapon:fist"
-                        ],
-                        "priority": 99
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "upgrade": true
-                        },
-                        "predicate": [
-                            "item:deity-favored",
-                            {
-                                "or": [
-                                    "item:category:simple",
-                                    {
-                                        "and": [
-                                            "item:category:unarmed",
-                                            "item:damage:die:faces:4"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": "deific-weapon",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "gefVJIUVZK7z0zN0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
-                }
-            },
-            "img": "icons/magic/light/explosion-star-glow-orange.webp",
-            "name": "Devotion Spells",
-            "sort": 400,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your deity's power grants you special divine spells called devotion spells, which are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Certain feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points. You gain a devotion spell depending on your cause, and you are trained in divine spell attack rolls and spell DCs. Your spellcasting ability is Charisma.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.resources.focus.max",
-                        "priority": 10,
-                        "value": 1
-                    }
-                ],
-                "slug": "devotion-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "h8Ww9zTmYYOhh82s",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "shieldBlock": {
-                            "id": "GyxJBUDj8OT105EU",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/shield-block.webp",
-            "name": "Shield Block",
-            "sort": 500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "shieldBlock",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
-                    }
-                ],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion",
-                        "druid",
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "OkD4NHauSEQGXYYI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.ERwuazupczhUSZ73"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "shieldAlly": {
-                            "id": "blnuBAyhh74gJw4S",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
-            "name": "Divine Ally",
-            "sort": 1800,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your devotion attracts a spirit of your deity's alignment. Once you choose an ally, your choice can't be changed.</p>\n<p>The following are divine allies:</p>\n<p><strong>Blade Ally</strong> A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} when you make your daily preparations. In your hands, the item gains the effect of a property rune. For a champion following the tenets of good, choose <em>disrupting</em>, <em>ghost touch</em>,<em>returning</em>, or <em>shifting</em>. You also gain the weapon's critical specialization effect.</p>\n<p>If you are a champion following the tenets of evil, you can choose the following property runes: <em>fearsome</em>, <em>returning</em>, or <em>shifting</em>.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blade Ally]</p>\n<p><strong>Shield Ally</strong> A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>\n<p><strong>Steed Ally</strong> You gain a young animal companion as a mount. Ordinarily, your animal companion is one that has the mount special ability, such as a horse. You can select a different animal companion (GM's discretion), but this ability doesn't grant it the mount special ability.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
-                            "predicate": [
-                                "item:type:feature",
-                                "item:trait:champion"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
-                            }
-                        ],
-                        "flag": "divineAlly",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.DivineAlly.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Shield Ally"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "shieldAlly",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
-                    }
-                ],
-                "slug": "divine-ally",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "57rfKRoTtmGYY16I",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.9XLUh9iMepZesdmc"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-            "name": "Weapon Expertise",
-            "sort": 3500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p><strong>Champion, Investigator, Oracle, Magus</strong> You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert.</p>\n<p><strong>Sorcerer</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Summoner</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert. (<em>Note: this is called Simple Weapon Expertise in Secrets of Magic</em>)</p>\n<p><strong>Witch</strong> Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert.</p>"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "QuxAETEj4mhlWbxD",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "class:champion",
-                                    "class:investigator",
-                                    "class:magus"
-                                ]
-                            }
-                        ],
-                        "value": 2
-                    }
-                ],
-                "slug": "weapon-expertise",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "XfwHzNbleZW7lWir",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "FW0IAVYMNwaXTsTk",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/deity/Iomedae.webp",
-            "name": "Iomedae",
-            "sort": 0,
-            "system": {
-                "attribute": [
-                    "con",
-                    "str"
-                ],
-                "category": "deity",
-                "description": {
-                    "value": "<p>Iomedae, the youngest among the prominent deities of the Inner Sea region, had already proven herself worthy of divinity before her ascension. Born in Cheliax, she followed the path of the sword and fought evil, eventually becoming a paladin of Aroden's herald Arazni. She became a legend among the Shining Crusade, leading the Knights of Ozem in a series of victories over the Whispering Tyrant. Iomedae became the third known mortal to pass the Test of the Starstone when she ascended to divinity in 3832 AR. As Arazni had been slain during the Shining Crusade, Aroden elevated the newly ascended goddess to be his new herald. When Aroden himself died, Iomedae inherited most of his worshippers and became a major deity of honor and justice.</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, and valor</p>"
-                },
-                "domains": {
-                    "alternate": [
-                        "duty"
-                    ],
-                    "primary": [
-                        "confidence",
-                        "might",
-                        "truth",
-                        "zeal"
-                    ]
-                },
-                "font": [
-                    "heal"
-                ],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "sanctification": {
-                    "modal": "must",
-                    "what": [
-                        "holy"
-                    ]
-                },
-                "skill": "itm",
-                "slug": "iomedae",
-                "spells": {
-                    "1": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh",
-                    "2": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV",
-                    "4": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
-                },
-                "traits": {},
-                "weapons": [
-                    "longsword"
-                ]
-            },
-            "type": "deity"
-        },
-        {
-            "_id": "9Lg6Ae664augBZZN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "lsHL0OFhEq40J1uV",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "retributive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lsHL0OFhEq40J1uV",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "FW0IAVYMNwaXTsTk",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "retributiveStrike": {
-                            "id": "9Lg6Ae664augBZZN",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/skills/melee/sword-winged-holy-orange.webp",
-            "name": "Paladin",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You're honorable, forthright, and committed to pushing back the forces of cruelty. You gain the Retributive Strike champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these tenets:</p>\n<ul>\n<li>You must act with honor, never taking advantage of others, lying, or cheating.</li>\n<li>You must respect the lawful authority of legitimate leadership wherever you go, and follow its laws.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] <span class=\"action-glyph\">R</span></p>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>You surround evil targets in a punishing halo. If you hit with your Retributive Strike, the target takes [[/r @actor.abilities.cha.mod[persistent,good]]]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>When you use Retributive Strike, each ally within 15 feet of you with the target in their melee reach can spend a reaction to Strike the target with a -5 penalty.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "class:champion:alignment:lg"
-                    },
-                    {
-                        "flag": "retributiveStrike",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
-                        "option": "divine-smite",
-                        "predicate": [
-                            "feature:divine-smite"
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageCategory": "persistent",
-                        "damageType": "good",
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
-                        "predicate": [
-                            "divine-smite"
-                        ],
-                        "selector": "strike-damage",
-                        "value": "@actor.system.abilities.cha.mod"
-                    }
-                ],
-                "slug": "paladin",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "VFRxxfjkRpQzaq57",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.nxZYP3KGfTSkaW6J"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "G4cKGgbKXR22estq",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-tooled-blue-yellow.webp",
-            "name": "The Tenets of Good",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>All champions of good alignment follow these tenets.</p>\n<ul>\n<li>You must never perform acts anathema to your deity or willingly commit an evil act, such as murder, torture, or the casting of an evil spell.</li>\n<li>You must never knowingly harm an innocent, or allow immediate harm to one through inaction when you know you could reasonably prevent it. This tenet doesn't force you to take action against possible harm to innocents at an indefinite time in the future, or to sacrifice your life to protect them. </li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "add": [
-                            "holy"
-                        ],
-                        "key": "ActorTraits"
-                    }
-                ],
-                "slug": "the-tenets-of-good",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "GyxJBUDj8OT105EU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "h8Ww9zTmYYOhh82s",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Shield Block",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take damage from a physical attack</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "blnuBAyhh74gJw4S",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.QQP0mu0cyWIwNUh9"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "OkD4NHauSEQGXYYI",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/shield-ally.webp",
-            "name": "Shield Ally",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "itemType": "armor",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:category:shield",
-                            "item:equipped"
-                        ],
-                        "property": "hardness",
-                        "value": 2
-                    },
-                    {
-                        "itemType": "armor",
-                        "key": "ItemAlteration",
-                        "mode": "multiply",
-                        "predicate": [
-                            "item:category:shield",
-                            "item:equipped"
-                        ],
-                        "property": "hp-max",
-                        "value": 1.5
-                    }
-                ],
-                "slug": "shield-ally",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "0Ed5ba3qYFtWSkgZ",
             "flags": {
                 "core": {
@@ -3732,6 +2744,925 @@
                 "vision": "normal"
             },
             "type": "ancestry"
+        },
+        {
+            "_id": "TnWPtlbdaBjcBzhc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "iomedae": {
+                            "id": "A6gouDkKQf3Etd4u",
+                            "onDelete": "detach"
+                        },
+                        "paladin": {
+                            "id": "L8XVft3AKw3SYIAB",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/deity.webp",
+            "name": "Deity and Cause",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Champions are divine servants of a deity. Choose a deity to follow; your alignment must be one allowed for followers of your deity. Actions fundamentally opposed to your deity's ideals or alignment are anathema to your faith. A few examples of acts that would be considered anathema appear in each deity's entry. You and your GM determine whether other acts are anathema. You have one of the following causes. Your cause must match your alignment exactly. Your cause determines your champion's reaction, grants you a devotion spell, and defines part of your champion's code.</p>\n<ul>\n<li>LG @UUID[Compendium.pf2e.classfeatures.Item.Paladin]</li>\n<li>NG @UUID[Compendium.pf2e.classfeatures.Item.Redeemer]</li>\n<li>CG @UUID[Compendium.pf2e.classfeatures.Item.Liberator]</li>\n<li>LE @UUID[Compendium.pf2e.classfeatures.Item.Tyrant]</li>\n<li>NE @UUID[Compendium.pf2e.classfeatures.Item.Desecrator]</li>\n<li>CE @UUID[Compendium.pf2e.classfeatures.Item.Antipaladin]</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                {
+                                    "or": [
+                                        "item:category:deity",
+                                        "item:category:pantheon"
+                                    ]
+                                },
+                                {
+                                    "not": "item:sanctification:none"
+                                }
+                            ],
+                            "itemType": "deity"
+                        },
+                        "flag": "deity",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
+                        "selection": "Compendium.pf2e.deities.Item.Iomedae"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "iomedae",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:type:feature",
+                                "item:tag:champion-cause",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "item:tag:holy",
+                                                {
+                                                    "or": [
+                                                        "deity:primary:sanctification:can:holy",
+                                                        "deity:primary:sanctification:must:holy"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:unholy",
+                                                {
+                                                    "or": [
+                                                        "deity:primary:sanctification:can:unholy",
+                                                        "deity:primary:sanctification:must:unholy"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "cause",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Paladin"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "paladin",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.cause}"
+                    }
+                ],
+                "slug": "deity-and-cause",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "mH6j0wEmfc2szLP8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.fykh5pE99O3I2sOI"
+                }
+            },
+            "img": "icons/sundries/documents/document-sealed-white-red.webp",
+            "name": "Champion's Code",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You follow a code of conduct, beginning with tenets shared by all champions of an alignment (such as good), and continuing with tenets of your cause. Deities often add additional strictures (for instance, @UUID[Compendium.pf2e.deities.Item.Torag] champions can't show mercy to enemies of their people, making it almost impossible for them to follow the redeemer cause). Only rules for good champions appear in this book. Tenets are listed in order of importance, starting with the most important. If a situation places two tenets in conflict, you aren't in a no-win situation; instead, follow the more important tenet. For instance, as a paladin, if an evil king asked you if you're hiding refugees so he could execute them, you could lie to him, since the tenet against lying is less important than preventing harm to innocents. Trying to subvert your code by creating a situation that forces a higher tenet to override a lower tenet (for example, promising not to respect authorities and then, to keep your word, disrespecting authorities) is a violation of the champion code.</p>\n<p>If you stray from your alignment or violate your code of conduct, you lose your focus pool and divine ally until you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual, but you keep any other champion abilities that don't require those class features. If your alignment shifts but is still one allowed by your deity, your GM might let you retrain your cause while still following the same deity.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "flag": "theTenetsOfGood",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion:alignment:lg",
+                                    "class:champion:alignment:ng",
+                                    "class:champion:alignment:cg"
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Good"
+                    },
+                    {
+                        "flag": "theTenetsOfEvil",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion:alignment:le",
+                                    "class:champion:alignment:ne",
+                                    "class:champion:alignment:ce"
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Evil"
+                    }
+                ],
+                "slug": "champions-code",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "q3BYJbWwcvzENY0K",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.sXVX4ARUuo8Egrz5"
+                }
+            },
+            "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+            "name": "Champion's Reaction",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your cause gives you a special reaction. See specific causes for more information.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "champions-reaction",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lQFLx9zuR3ZYH52b",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
+                }
+            },
+            "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
+            "name": "Deific Weapon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You zealously bear your deity's favored weapon. If it's uncommon, you gain access to it. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "fist": true,
+                        "key": "Strike",
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ],
+                        "priority": 99
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "upgrade": true
+                        },
+                        "predicate": [
+                            "item:deity-favored",
+                            {
+                                "or": [
+                                    "item:category:simple",
+                                    {
+                                        "and": [
+                                            "item:category:unarmed",
+                                            "item:damage:die:faces:4"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "deific-weapon",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "WZqaGZSOrKzufphw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
+                }
+            },
+            "img": "icons/magic/light/explosion-star-glow-orange.webp",
+            "name": "Devotion Spells",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your deity's power grants you special divine spells called devotion spells, which are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or do service toward their causes.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Certain feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points. You gain a devotion spell depending on your cause, and you are trained in divine spell attack rolls and spell DCs. Your spellcasting ability is Charisma.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
+                "slug": "devotion-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "eIONmTQqYsAXLolp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "hKoXAhgVkPDyWLU6",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+                    }
+                ],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion",
+                        "druid",
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2gkEkNKQRGLVoGcl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.ERwuazupczhUSZ73"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldAlly": {
+                            "id": "iXPar4ocsjUwbEDv",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
+            "name": "Divine Ally",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your devotion attracts a spirit of your deity's alignment. Once you choose an ally, your choice can't be changed.</p>\n<p>The following are divine allies:</p>\n<p><strong>Blade Ally</strong> A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} when you make your daily preparations. In your hands, the item gains the effect of a property rune. For a champion following the tenets of good, choose <em>disrupting</em>, <em>ghost touch</em>,<em>returning</em>, or <em>shifting</em>. You also gain the weapon's critical specialization effect.</p>\n<p>If you are a champion following the tenets of evil, you can choose the following property runes: <em>fearsome</em>, <em>returning</em>, or <em>shifting</em>.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blade Ally]</p>\n<p><strong>Shield Ally</strong> A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>\n<p><strong>Steed Ally</strong> You gain a young animal companion as a mount. Ordinarily, your animal companion is one that has the mount special ability, such as a horse. You can select a different animal companion (GM's discretion), but this ability doesn't grant it the mount special ability.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                            "predicate": [
+                                "item:type:feature",
+                                "item:trait:champion"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
+                            }
+                        ],
+                        "flag": "divineAlly",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DivineAlly.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "shieldAlly",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+                    }
+                ],
+                "slug": "divine-ally",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8byb6U4jeXcjr3kU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.9XLUh9iMepZesdmc"
+                }
+            },
+            "img": "icons/skills/melee/hand-grip-sword-red.webp",
+            "name": "Weapon Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Champion, Investigator, Oracle, Magus</strong> You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert.</p>\n<p><strong>Druid</strong> You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Sorcerer</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Summoner</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert. (<em>Note: this is called Simple Weapon Expertise in Secrets of Magic</em>)</p>\n<p><strong>Witch, Wizard</strong> Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "QuxAETEj4mhlWbxD",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.simple.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.unarmed.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.martial.rank",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion",
+                                    "class:investigator",
+                                    "class:magus"
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": "weapon-expertise",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "A6gouDkKQf3Etd4u",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "TnWPtlbdaBjcBzhc",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/deity/Iomedae.webp",
+            "name": "Iomedae",
+            "sort": 0,
+            "system": {
+                "attribute": [
+                    "con",
+                    "str"
+                ],
+                "category": "deity",
+                "description": {
+                    "value": "<p>Prior to her ascension and inheritance of many of the god of humanity's worshippers, Iomedae was a holy warrior in wars against the undead. The Inheritor upholds the values of virtue, fighting against the wicked and unjust.</p>\n<p><strong>Edicts</strong> be temperate, fight for justice and honor, hold valor in your heart</p>\n<p><strong>Anathema</strong> abandon a companion in need, dishonor yourself, refuse a challenge from an equal</p>\n<p><strong>Areas of Concern</strong> honor, justice, rulership, and valor</p>"
+                },
+                "domains": {
+                    "alternate": [
+                        "duty"
+                    ],
+                    "primary": [
+                        "confidence",
+                        "might",
+                        "truth",
+                        "zeal"
+                    ]
+                },
+                "font": [
+                    "heal"
+                ],
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "sanctification": {
+                    "modal": "must",
+                    "what": [
+                        "holy"
+                    ]
+                },
+                "skill": "itm",
+                "slug": "iomedae",
+                "spells": {
+                    "1": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh",
+                    "2": "Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV",
+                    "4": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
+                },
+                "traits": {},
+                "weapons": [
+                    "longsword"
+                ]
+            },
+            "type": "deity"
+        },
+        {
+            "_id": "yk4BihWOP6UbmbFj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "L8XVft3AKw3SYIAB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "retributive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L8XVft3AKw3SYIAB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "TnWPtlbdaBjcBzhc",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "retributiveStrike": {
+                            "id": "yk4BihWOP6UbmbFj",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/skills/melee/sword-winged-holy-orange.webp",
+            "name": "Paladin",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're honorable, forthright, and committed to pushing back the forces of cruelty. You gain the Retributive Strike champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these tenets:</p>\n<ul>\n<li>You must act with honor, never taking advantage of others, lying, or cheating.</li>\n<li>You must respect the lawful authority of legitimate leadership wherever you go, and follow its laws.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] <span class=\"action-glyph\">R</span></p>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>You surround evil targets in a punishing halo. If you hit with your Retributive Strike, the target takes [[/r @actor.abilities.cha.mod[persistent,good]]]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>When you use Retributive Strike, each ally within 15 feet of you with the target in their melee reach can spend a reaction to Strike the target with a -5 penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "flag": "retributiveStrike",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                        "option": "divine-smite",
+                        "predicate": [
+                            "feature:divine-smite"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "good",
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                        "predicate": [
+                            "divine-smite"
+                        ],
+                        "selector": "strike-damage",
+                        "value": "@actor.system.abilities.cha.mod"
+                    }
+                ],
+                "slug": "paladin",
+                "traits": {
+                    "otherTags": [
+                        "champion-cause",
+                        "holy"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "hKoXAhgVkPDyWLU6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "eIONmTQqYsAXLolp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "iXPar4ocsjUwbEDv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.QQP0mu0cyWIwNUh9"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "2gkEkNKQRGLVoGcl",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/shield-ally.webp",
+            "name": "Shield Ally",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "itemType": "armor",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:category:shield",
+                            "item:equipped"
+                        ],
+                        "property": "hardness",
+                        "value": 2
+                    },
+                    {
+                        "itemType": "armor",
+                        "key": "ItemAlteration",
+                        "mode": "multiply",
+                        "predicate": [
+                            "item:category:shield",
+                            "item:equipped"
+                        ],
+                        "property": "hp-max",
+                        "value": 1.5
+                    }
+                ],
+                "slug": "shield-ally",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Seelah (Level 5)",
