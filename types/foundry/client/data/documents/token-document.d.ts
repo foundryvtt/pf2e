@@ -186,7 +186,7 @@ declare global {
         static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;
 
         /** Inspect the Actor data model and identify the set of attributes which could be used for a Token Bar */
-        static getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription;
+        static getTrackedAttributeChoices(attributes?: TrackedAttributesDescription): TrackedAttributesDescription;
     }
 
     interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {

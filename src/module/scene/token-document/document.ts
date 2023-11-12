@@ -78,7 +78,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.getTrackedAttributes(prunedData, _path);
     }
 
-    static override getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription {
+    static override getTrackedAttributeChoices(
+        attributes?: TrackedAttributesDescription,
+    ): TrackedAttributesDescription {
+        attributes ??= this.getTrackedAttributes();
         // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered { value, max }
         // property and sp is nested within the hp property
         if (game.settings.get("pf2e", "staminaVariant")) {
