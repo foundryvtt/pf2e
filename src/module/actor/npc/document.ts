@@ -39,10 +39,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return this.system.details.publicNotes;
     }
 
-    override get hardness(): number {
-        return Math.abs(this.system.attributes.hardness?.value ?? 0);
-    }
-
     /** Does this NPC have the Elite adjustment? */
     get isElite(): boolean {
         return this.attributes.adjustment === "elite";

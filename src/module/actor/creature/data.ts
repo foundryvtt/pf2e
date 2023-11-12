@@ -132,7 +132,7 @@ type CreatureSaves = Record<SaveType, SaveData>;
 interface CreatureAttributes extends ActorAttributes {
     hp: ActorHitPoints;
     ac: { value: number };
-    hardness?: { value: number };
+    hardness: { value: number };
     perception: CreaturePerception;
 
     /** The creature's natural reach */

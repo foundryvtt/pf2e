@@ -51,6 +51,10 @@ abstract class CreaturePF2e<
 
     declare perception: Statistic;
 
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "affliction"];
+    }
+
     /** Types of creatures (as provided by bestiaries 1-3) of which this creature is a member */
     get creatureTypes(): CreatureType[] {
         return this.system.traits.value.filter((t): t is CreatureType => t in CONFIG.PF2E.creatureTypes).sort();
@@ -60,8 +64,8 @@ abstract class CreaturePF2e<
         return this.system.traits.rarity;
     }
 
-    override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "affliction"];
+    override get hardness(): number {
+        return Math.floor(Math.abs(this.system.attributes.hardness.value)) || 0;
     }
 
     /**
