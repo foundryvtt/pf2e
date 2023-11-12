@@ -955,7 +955,8 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -2640,659 +2641,6 @@
             "type": "class"
         },
         {
-            "_id": "H26BSpTR2dFUhWGh",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "sarenrae": {
-                            "id": "n7hXNFPqYW75vQdH",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/deity.webp",
-            "name": "Deity (Sarenrae)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Information on deities can be found in the deities compendium, along with their alignments, areas of concern, and the benefits you get for being a cleric of that deity. Your alignment must be one allowed by your deity, as listed in their entry. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list, once you can prepare spells of their level as a cleric. Some of these spells aren't normally on the divine list, but they're divine spells if you prepare them this way.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "choices": {
-                            "filter": [
-                                {
-                                    "or": [
-                                        "item:category:deity",
-                                        "item:category:pantheon"
-                                    ]
-                                }
-                            ],
-                            "itemType": "deity"
-                        },
-                        "flag": "deity",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
-                        "selection": "Compendium.pf2e.deities.Item.Sarenrae"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "sarenrae",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
-                    },
-                    {
-                        "fist": true,
-                        "key": "Strike",
-                        "predicate": [
-                            "deity:primary:favored-weapon:fist"
-                        ],
-                        "priority": 99
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "flags.pf2e.favoredWeaponRank",
-                        "predicate": [
-                            "class:cleric"
-                        ],
-                        "value": 1
-                    }
-                ],
-                "slug": "deity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "vktL5mIjRuTWGKL8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "warpriest": {
-                            "id": "mtcPlWysMuCGpdzN",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Doctrine",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Even among followers of the same deity, there are numerous doctrines and beliefs, which sometimes vary wildly between clerics. At 1st level, you select a doctrine and gain the benefits of its first doctrine. Each doctrine grants you initial benefits at 1st level. At 3rd, 7th, 11th, 15th, and 19th levels, you gain the benefits granted by your doctrine's second, third, fourth, fifth, and final doctrines respectively.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warpriest]</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.Cleric.Doctrine.AllowedDrops",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:cleric",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Cloistered Cleric"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Warpriest"
-                            }
-                        ],
-                        "flag": "doctrine",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Warpriest"
-                    },
-                    {
-                        "flag": "warpriest",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
-                    }
-                ],
-                "slug": "doctrine",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "XlOFmG4UKffjetry",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.UV1HlClbWCNcaKBZ"
-                }
-            },
-            "img": "icons/magic/symbols/cross-circle-blue.webp",
-            "name": "Anathema (Cleric)",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "anathema-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "BiGMSt5lDR54AUoW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/divine-font.webp",
-            "name": "Divine Font",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called positive energy or its counterforce, negative energy. When you prepare your spells each day, you can prepare additional <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "divine-font",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "tmtIHL78hNJEjKdT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/divine-spellcasting.webp",
-            "name": "Divine Spellcasting (Cleric)",
-            "sort": 400,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "divine-spellcasting-cleric",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "KRFhKvjL7W3MRUsJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "firstDoctrineWarpriest": {
-                            "id": "HWD5Cu2BYvdKWXVa",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "First Doctrine",
-            "sort": 500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the first benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "Dt0BzmA0BaTskLMu",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "firstDoctrineWarpriest",
-                        "key": "GrantItem",
-                        "uuid": "{actor|flags.pf2e.cleric.firstDoctrine}"
-                    }
-                ],
-                "slug": "first-doctrine",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "n7hXNFPqYW75vQdH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "H26BSpTR2dFUhWGh",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/deity/Sarenrae.webp",
-            "name": "Sarenrae",
-            "sort": 0,
-            "system": {
-                "attribute": [
-                    "con",
-                    "wis"
-                ],
-                "category": "deity",
-                "description": {
-                    "value": "<p>Sarenrae is one of the most popular deities on Golarion by virtue of her association with the life-giving sun and her perpetual offer to help anyone be their best, even when they have made mistakes. Most people thank her for her kind work to channel the sun's power for everyone's safety and livelihood, and thank her clergy for granting her healing power to all who need it. Mortals look to the Dawnflower as an example of boundless love, exquisite kindness, and true patience. They pray to her to heal the sick, lift up the downtrodden, and illuminate darkness of circumstance as well as darkness of spirit. Her followers aspire to emulate her through generosity, nurturing, truthfulness, and selfless courage. They oppose evil everywhere with words first, and when necessary, with scimitar and flame.</p>\n<p><strong>Edicts</strong> destroy the Spawn of Rovagug, protect allies, provide aid to the sick and wounded, seek and allow redemption</p>\n<p><strong>Anathema</strong> create undead, lie, deny a repentant creature an opportunity for redemption, fail to strike down evil</p>\n<p><strong>Areas of Concern</strong> healing, honesty, redemption, and the sun</p>"
-                },
-                "domains": {
-                    "alternate": [
-                        "repose"
-                    ],
-                    "primary": [
-                        "fire",
-                        "healing",
-                        "sun",
-                        "truth"
-                    ]
-                },
-                "font": [
-                    "heal"
-                ],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "sanctification": {
-                    "modal": "can",
-                    "what": [
-                        "holy"
-                    ]
-                },
-                "skill": "med",
-                "slug": "sarenrae",
-                "spells": {
-                    "1": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t",
-                    "3": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
-                    "4": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
-                },
-                "traits": {},
-                "weapons": [
-                    "scimitar"
-                ]
-            },
-            "type": "deity"
-        },
-        {
-            "_id": "mtcPlWysMuCGpdzN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.0Aocw3igLwna9cjp"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "vktL5mIjRuTWGKL8",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
-            "name": "Warpriest",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You have trained in the more militant doctrine of your church, focusing on both spells and battle.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)]{First Doctrine (1st)}</strong> You're trained in light and medium armor, and you have expert proficiency in Fortitude saves. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction to reduce damage with a shield. If your deity's weapon is simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat. At 13th level, if you gain the divine defense class feature, you also gain expert proficiency in light and medium armor.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Second Doctrine (Warpriest)]{Second Doctrine (3rd)}</strong> You're trained in martial weapons.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Third Doctrine (Warpriest)]{Third Doctrine (7th)}</strong> You gain expert proficiency with your deity's favored weapon, simple weapons, and unarmed attacks. When you critically succeed at an attack roll using your deity's favored weapon, you apply the weapon's critical specialization effect; use your divine spell DC if necessary.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Warpriest)]{Fourth Doctrine (11th)}</strong> Your proficiency ranks for divine spell attack rolls and spell DCs increase to expert.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Warpriest)]{Fifth Doctrine (15th)}</strong> Your proficiency rank for Fortitude saves increases to master. When you roll a success at a Fortitude save, you get a critical success instead.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Final Doctrine (Warpriest)]{Final Doctrine (19th)}</strong> Your proficiency ranks for divine spell attack rolls and spell DCs increase to master.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.cleric",
-                        "value": {
-                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.kmimy4VOaoEOgOiQ",
-                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.N1ugDqZlslxbp3Uy",
-                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.xxkszluN9icAiTO4",
-                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.px3gVYp7zlEQIpcl",
-                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.D34mPo29r1J3DPaX",
-                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Zp81uTBItG1xlH4O"
-                        }
-                    }
-                ],
-                "slug": "warpriest",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Wk0Xo4ghoLJ7SkHG",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "HWD5Cu2BYvdKWXVa",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Shield Block",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take damage from a physical attack</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "HWD5Cu2BYvdKWXVa",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.xxkszluN9icAiTO4"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "KRFhKvjL7W3MRUsJ",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "shieldBlock": {
-                            "id": "Wk0Xo4ghoLJ7SkHG",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
-            "name": "First Doctrine (Warpriest)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You're trained in light and medium armor, and you have expert proficiency in Fortitude saves.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction to reduce damage with a shield.</p>\n<p>If your deity's weapon is a simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat.</p>\n<p>At 13th level, if you gain the divine defense class feature, you also gain expert proficiency in light and medium armor.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    },
-                    {
-                        "flag": "shieldBlock",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    13
-                                ]
-                            },
-                            "feature:divine-defense"
-                        ],
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    13
-                                ]
-                            },
-                            "feature:divine-defense"
-                        ],
-                        "value": 2
-                    }
-                ],
-                "slug": "first-doctrine-warpriest",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cleric"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "eZTO7XTgCo0Uo69I",
             "flags": {
                 "core": {
@@ -3371,6 +2719,721 @@
                 "vision": "normal"
             },
             "type": "ancestry"
+        },
+        {
+            "_id": "qXMG1WCp6Q5TrkCV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.DutW12WMFPHBoLTH"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "sarenrae": {
+                            "id": "LEFC34g21qdVQequ",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/deity.webp",
+            "name": "Deity (Sarenrae)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list once you can prepare spells of their rank as a cleric. Any of these spells that aren't normally on the divine list are still divine spells if you prepare them this way.</p>\n<h2>Sanctification</h2>\n<p>Depending on your deity, their sanctification can make you holy or unholy. This gives you the holy or unholy trait, which commits you to one side of a struggle over the souls of the planes and may be referenced in other abilities. If you \"can be\" holy or unholy according to your deity, you make that choice, and if you \"must be\" holy or unholy you gain the trait automatically. If you gain the opposing trait in some way, you lose the previous trait until you complete an atone ritual.</p>\n<h2>Anathema</h2>\n<p>Acts fundamentally opposed to your deity's ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the unholy trait is almost always anathema to deities who don't allow unholy sanctification, and casting holy spells is likewise anathema to those who don't allow holy sanctification. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to Pharasma, the goddess of death. Many actions that are anathema don't appear in any deity's formal list. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all cleric spellcasting. These abilities can be regained only if you repent by conducting an atone ritual.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "filter": [
+                                {
+                                    "or": [
+                                        "item:category:deity",
+                                        "item:category:pantheon"
+                                    ]
+                                }
+                            ],
+                            "itemType": "deity"
+                        },
+                        "flag": "deity",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Deity",
+                        "selection": "Compendium.pf2e.deities.Item.Sarenrae"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "sarenrae",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitHoly",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:holy",
+                                            "deity:primary:sanctification:must:holy"
+                                        ]
+                                    }
+                                ],
+                                "value": "holy"
+                            },
+                            {
+                                "label": "PF2E.TraitUnholy",
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "deity:primary:sanctification:can:unholy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "unholy"
+                            },
+                            {
+                                "label": "PF2E.NoneOption",
+                                "predicate": [
+                                    {
+                                        "nor": [
+                                            "deity:primary:sanctification:must:holy",
+                                            "deity:primary:sanctification:must:unholy"
+                                        ]
+                                    }
+                                ],
+                                "value": "none"
+                            }
+                        ],
+                        "flag": "sanctification",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            {
+                                "not": "deity:primary:sanctification:none"
+                            }
+                        ],
+                        "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                        "rollOption": "sanctification",
+                        "selection": "holy",
+                        "slug": "sanctification"
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sanctification:holy"
+                        ]
+                    },
+                    {
+                        "add": [
+                            "unholy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sanctification:unholy"
+                        ]
+                    },
+                    {
+                        "fist": true,
+                        "key": "Strike",
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ],
+                        "priority": 99
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.favoredWeaponRank",
+                        "predicate": [
+                            "class:cleric"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": "deity",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "16Hm95IMFQhwXAYR",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.tyrBwBTzo5t9Zho7"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "warpriest": {
+                            "id": "JNHaVwdMtua4axOs",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Even among followers of the same deity, approaches vary. At 1st level, you select cloistered cleric or warpriest and gain the benefits of its first doctrine. At 3rd level and every four levels thereafter, you gain another benefit from your doctrine.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warpriest]</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:cleric-doctrine"
+                            ]
+                        },
+                        "flag": "doctrine",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Warpriest"
+                    },
+                    {
+                        "flag": "warpriest",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
+                    }
+                ],
+                "slug": "doctrine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "RWtgRPUxHCh0HeCQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.UV1HlClbWCNcaKBZ"
+                }
+            },
+            "img": "icons/magic/symbols/cross-circle-blue.webp",
+            "name": "Anathema (Cleric)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "anathema-cleric",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8nEaPH4866WCoS8L",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/divine-spellcasting.webp",
+            "name": "Cleric Spellcasting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You are a spellcaster, and you can cast spells of the divine tradition using the Cast a Spell activity. As a cleric, your chants generally invoke your deity and their powerful servants by name or title, while your gestures are followed by sacred symbols or other representations of your deity.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list or from other divine spells to which you gain access and learn via Learn a Spell. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in Cleric Spells per Day table above.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are or for your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Wisdom, your spell attack modifier and spell DC use your Wisdom modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of cleric spell slot you have. For example, as a 1st-level cleric, your cantrips are 1st-rank spells, and as a 5th-level cleric, your cantrips are 3rd-rank spells.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cleric-spellcasting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "vmwgY2z9tMl8iRtT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/divine-font.webp",
+            "name": "Divine Font",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality or its counterforce, the void. When you prepare your spells each day, you can prepare additional @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells, depending on your deity. The divine font spell your deity provides is listed in the Divine Font entry for your deity; if both are listed, you can choose between heal or harm. Once you choose, you can't change your choice short of divine intervention.</p>\n<p><strong>Healing Font:</strong> You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only heal spells in these slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6.</p>\n<p><strong>Harmful Font:</strong> You gain 4 additional spell slots each day at your highest rank of cleric spell slots. You can prepare only harm spells in these slots. At 5th level, the number of additional slots increases to 5, and at 15th level, the total number of additional slots increases to 6.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "divine-font",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FgMBm1fCUYKxouTb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.Qejo7FUWQtPTpgWH"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "firstDoctrineWarpriest": {
+                            "id": "xZyszEos82GxC9yC",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "First Doctrine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the first benefit of your doctrine:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)]{Cloistered Cleric}</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)]{Warpriest}</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Dt0BzmA0BaTskLMu",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "firstDoctrineWarpriest",
+                        "key": "GrantItem",
+                        "uuid": "{actor|flags.pf2e.cleric.firstDoctrine}"
+                    }
+                ],
+                "slug": "first-doctrine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "LEFC34g21qdVQequ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "qXMG1WCp6Q5TrkCV",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/deity/Sarenrae.webp",
+            "name": "Sarenrae",
+            "sort": 0,
+            "system": {
+                "attribute": [
+                    "con",
+                    "wis"
+                ],
+                "category": "deity",
+                "description": {
+                    "value": "<p>Once a powerful angel and empyreal lord, Sarenrae led the charge to imprison Rovagug. The Dawnflower seeks to redeem evil where possible, burn it away with the fire of the sun when it can't be redeemed, and restore those harmed by evil's machinations.</p>\n<p><strong>Edicts</strong> destroy the Spawn of Rovagug, protect allies, provide aid to the sick and wounded, seek and allow redemption</p>\n<p><strong>Anathema</strong> create undead, lie, deny a repentant creature an opportunity for redemption, fail to strike down evil</p>\n<p><strong>Areas of Concern</strong> healing, honesty, redemption, and the sun</p>"
+                },
+                "domains": {
+                    "alternate": [
+                        "repose"
+                    ],
+                    "primary": [
+                        "fire",
+                        "healing",
+                        "sun",
+                        "truth"
+                    ]
+                },
+                "font": [
+                    "heal"
+                ],
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "sanctification": {
+                    "modal": "can",
+                    "what": [
+                        "holy"
+                    ]
+                },
+                "skill": "med",
+                "slug": "sarenrae",
+                "spells": {
+                    "1": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t",
+                    "3": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+                    "4": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu"
+                },
+                "traits": {},
+                "weapons": [
+                    "scimitar"
+                ]
+            },
+            "type": "deity"
+        },
+        {
+            "_id": "JNHaVwdMtua4axOs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.0Aocw3igLwna9cjp"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "16Hm95IMFQhwXAYR",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "name": "Warpriest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have trained in the more militant doctrine of your church, focusing on both spells and battle.</p>\n<p><strong>First Doctrine (1st):</strong> You're trained in light and medium armor, and you have expert proficiency in Fortitude saves. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction to reduce damage with a shield. If your deity's favored weapon is a simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat. At 13th level, if you gain the @UUID[Compendium.pf2e.classfeatures.Item.Divine Defense] class feature, you also gain expert proficiency in light and medium armor.</p>\n<p><strong>Second Doctrine (3rd):</strong> You're trained in martial weapons.</p>\n<p><strong>Third Doctrine (7th):</strong> You gain expert proficiency with your deity's favored weapon, martial weapons, simple weapons, and unarmed attacks. When you critically succeed at an attack roll using your deity's favored weapon, you apply the weapon's critical specialization effect; you can use your spell DC in place of your class DC.</p>\n<p><strong>Fourth Doctrine (11th):</strong> Your proficiency ranks for the spell attack modifier and spell DC statistics increase to expert.</p>\n<p><strong>Fifth Doctrine (15th):</strong> Your proficiency rank for Fortitude saves increases to master. When you roll a success at a Fortitude save, you get a critical success instead.</p>\n<p><strong>Final Doctrine (19th):</strong> You gain master proficiency with your deity's favored weapon, spell attack modifier, and spell DC.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.cleric",
+                        "value": {
+                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.kmimy4VOaoEOgOiQ",
+                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.N1ugDqZlslxbp3Uy",
+                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.xxkszluN9icAiTO4",
+                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.px3gVYp7zlEQIpcl",
+                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.D34mPo29r1J3DPaX",
+                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Zp81uTBItG1xlH4O"
+                        }
+                    }
+                ],
+                "slug": "warpriest",
+                "traits": {
+                    "otherTags": [
+                        "cleric-doctrine"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "9E1hIilGdFvm2zpS",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "xZyszEos82GxC9yC",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xZyszEos82GxC9yC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.xxkszluN9icAiTO4"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "FgMBm1fCUYKxouTb",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "9E1hIilGdFvm2zpS",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "name": "First Doctrine (Warpriest)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You're trained in light and medium armor, and you have expert proficiency in Fortitude saves. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction to reduce damage with a shield. If your deity's favored weapon is a simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat. At 13th level, if you gain the @UUID[Compendium.pf2e.classfeatures.Item.Divine Defense] class feature, you also gain expert proficiency in light and medium armor.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.light.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.medium.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.saves.fortitude.rank",
+                        "value": 2
+                    },
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.light.rank",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    13
+                                ]
+                            },
+                            "feature:divine-defense"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.medium.rank",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    13
+                                ]
+                            },
+                            "feature:divine-defense"
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": "first-doctrine-warpriest",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cleric"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Kyra (Beginner Box)",
