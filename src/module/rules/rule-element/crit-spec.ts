@@ -1,14 +1,13 @@
-import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import * as R from "remeda";
 import type { BooleanField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { CritSpecEffect } from "../synthetics.ts";
 import { ResolvableValueField, RuleElementPF2e, RuleElementSchema, RuleValue } from "./index.ts";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
@@ -148,6 +147,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         }
 
         switch (weapon.group) {
+            case "crossbow":
             case "dart":
             case "knife": {
                 const dice = new DamageDicePF2e({
@@ -156,14 +156,12 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                     label,
                     damageType: "bleed",
                     diceNumber: 1,
-                    dieSize: "d6",
+                    dieSize: weapon.group === "crossbow" ? "d8" : "d6",
                     critical: true,
                 });
-                const bonusValue = ABP.isEnabled(this.actor)
-                    ? ABP.getAttackPotency(this.actor.level)
-                    : weapon.isOfType("melee")
+                const bonusValue = weapon.isOfType("melee")
                     ? weapon.linkedWeapon?.system.runes.potency ?? 0
-                    : weapon.system.runes.potency;
+                    : weapon.flags.pf2e.attackItemBonus;
                 const bonus =
                     bonusValue > 0
                         ? new ModifierPF2e({

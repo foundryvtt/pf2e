@@ -70,7 +70,7 @@ abstract class IWR<TType extends IWRType> {
             case "area-damage":
                 return ["area-damage"];
             case "arrow-vulnerability":
-                return ["item:group:bow", { not: "item:tag:crossbow" }];
+                return ["item:group:bow"];
             case "auditory":
                 return ["item:trait:auditory"];
             case "axe-vulnerability":

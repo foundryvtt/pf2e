@@ -33,7 +33,7 @@ import type {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types.ts";
-import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -324,13 +324,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, systemData.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.system.range ??= 10;
-
-            // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-            const { otherTags } = systemData.traits;
-            const isCrossbow = this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType);
-            if (isCrossbow && !otherTags.includes("crossbow")) {
-                systemData.traits.otherTags.push("crossbow");
-            }
         }
 
         // Ensure presence of traits array on melee usage if not have been added yet

@@ -143,7 +143,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             .replace(/\b(?:good|evil|lawful|chaotic)\]/g, "spirit]")
             .replace(/\b(\dd\d) (?:good|evil|lawful|chaotic)\b/g, "$1 spirit")
             .replace(/\b(?:Good|Evil|Lawful|Chaotic) Damage\b/g, "Spirit Damage")
-            .replace(/(?<!(nd|or) )\b(?:good|evil|lawful|chaotic) damage\b/g, "spirit damage");
+            .replace(/(?<!(?:nd|or) )\b(?:good|evil|lawful|chaotic) damage\b/g, "spirit damage");
     }
 }
 
