@@ -100,21 +100,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
 const THROWN_RANGES = new Set([10, 15, 20, 30, 40, 60, 80, 100] as const);
 const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 110, 120, 140, 150, 180, 200, 240, 300] as const);
 
-// Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
-const CROSSBOW_WEAPONS = new Set([
-    "arbalest",
-    "alchemical-crossbow",
-    "crossbow",
-    "hand-crossbow",
-    "heavy-crossbow",
-    "repeating-crossbow",
-    "repeating-hand-crossbow",
-    "repeating-heavy-crossbow",
-    "taw-launcher",
-] as const);
-
 export {
-    CROSSBOW_WEAPONS,
     MANDATORY_RANGED_GROUPS,
     MELEE_WEAPON_GROUPS,
     THROWN_RANGES,

@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { CharacterSystemSource } from "@actor/character/data.ts";
-import { recursiveReplaceString } from "@util";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { recursiveReplaceString } from "@util";
+import { MigrationBase } from "../base.ts";
 
 export class Migration884UnifiedSpellcasting extends MigrationBase {
     static override version = 0.884;
