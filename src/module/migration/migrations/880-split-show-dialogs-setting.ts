@@ -14,7 +14,7 @@ export class Migration880SplitShowDialogsSettings extends MigrationBase {
                 settings.showCheckDialogs = settings.showRollDialogs;
                 settings.showDamageDialogs = settings.showRollDialogs;
                 settings["-=showRollDialogs"] = null;
-                return { _id: user.id, "flags.pf2e": userSource.flags.pf2e ?? {} };
+                return { _id: user.id, "flags.pf2e.settings": settings };
             }
 
             return [];
