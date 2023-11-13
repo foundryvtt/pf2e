@@ -1005,6 +1005,19 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             changed.system.defense = null;
         }
 
+        // Normalize damage data
+        for (const partial of Object.values(changed.system?.damage ?? {})) {
+            if (typeof partial?.category === "string") partial.category ||= null;
+        }
+
+        if (changed.system?.heightening && "levels" in changed.system.heightening) {
+            for (const rank of Object.values(changed.system.heightening.levels ?? {})) {
+                for (const partial of Object.values(rank.damage ?? {})) {
+                    if (typeof partial?.category === "string") partial.category ||= null;
+                }
+            }
+        }
+
         const uses = changed.system?.location?.uses;
         if (uses) {
             const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;

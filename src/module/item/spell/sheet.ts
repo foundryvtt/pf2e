@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { OneToTen } from "@module/data.ts";
 import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
-import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import {
     ErrorPF2e,
@@ -11,6 +11,7 @@ import {
     htmlQuery,
     htmlQueryAll,
     objectHasKey,
+    sortStringRecord,
     tagify,
     tupleHasValue,
 } from "@util";
@@ -49,12 +50,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
 
-        const damageTypes = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.damageTypes)
-                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
-                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1])),
-        );
-
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
@@ -90,9 +85,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             passiveDefense,
             variants,
             isVariant: this.item.isVariant,
-            damageTypes,
+            damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
             damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, [...DAMAGE_CATEGORIES_UNIQUE]),
-            damageCategories: CONFIG.PF2E.damageCategories,
+            materials: CONFIG.PF2E.materialDamageEffects,
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             heightenIntervals: [1, 2, 3, 4],
@@ -133,33 +128,35 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             });
         }
 
-        const addDamageAnchor = htmlQuery(html, "a[data-action=add-damage-partial]");
-        addDamageAnchor?.addEventListener("click", () => {
-            const overlayData = this.#getOverlayFromElement(addDamageAnchor);
-            const baseKey = overlayData?.base ?? "system";
-            const emptyDamage: SpellDamageSource = {
-                formula: "",
-                kinds: ["damage"],
-                type: "bludgeoning",
-                category: null,
-                materials: [],
-            };
-            this.item.update({ [`${baseKey}.damage.${randomID()}`]: emptyDamage });
-        });
+        for (const anchor of htmlQueryAll(html, "a[data-action=add-damage-partial]")) {
+            anchor.addEventListener("click", () => {
+                const overlayData = this.#getOverlayFromElement(anchor);
+                const baseKey = overlayData?.base ?? "system";
+                const emptyDamage: SpellDamageSource = {
+                    formula: "",
+                    kinds: ["damage"],
+                    type: "bludgeoning",
+                    category: null,
+                    materials: [],
+                };
+                this.item.update({ [`${baseKey}.damage.${randomID()}`]: emptyDamage });
+            });
+        }
 
-        const removeDamageAnchor = htmlQuery(html, "a[data-action=delete-damage-partial]");
-        removeDamageAnchor?.addEventListener("click", () => {
-            const overlayData = this.#getOverlayFromElement(removeDamageAnchor);
-            const baseKey = overlayData?.base ?? "system";
-            const key = htmlClosest(removeDamageAnchor, "[data-action=damage-delete]")?.dataset.id;
-            if (key) {
-                const values = { [`${baseKey}.damage.-=${key}`]: null };
-                if (!overlayData) {
-                    values[`${baseKey}.heightening.damage.-=${key}`] = null;
+        for (const anchor of htmlQueryAll(html, "a[data-action=delete-damage-partial]")) {
+            anchor.addEventListener("click", () => {
+                const overlayData = this.#getOverlayFromElement(anchor);
+                const baseKey = overlayData?.base ?? "system";
+                const key = anchor.dataset.id;
+                if (key) {
+                    const values = { [`${baseKey}.damage.-=${key}`]: null };
+                    if (!overlayData) {
+                        values[`${baseKey}.heightening.damage.-=${key}`] = null;
+                    }
+                    this.item.update(values);
                 }
-                this.item.update(values);
-            }
-        });
+            });
+        }
 
         htmlQuery(html, "button[data-action=add-interval-heightening]")?.addEventListener("click", (event) => {
             event.preventDefault();
@@ -475,8 +472,8 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
         sort: number;
         actions: string;
     }[];
-    damageCategories: typeof CONFIG.PF2E.damageCategories;
-    damageTypes: Record<string, string>;
+    materials: typeof CONFIG.PF2E.materialDamageEffects;
+    damageTypes: Record<DamageType, string>;
     damageSubtypes: Pick<typeof CONFIG.PF2E.damageCategories, DamageCategoryUnique>;
     areaSizes: typeof CONFIG.PF2E.areaSizes;
     areaTypes: typeof CONFIG.PF2E.areaTypes;
