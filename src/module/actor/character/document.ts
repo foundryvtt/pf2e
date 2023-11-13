@@ -1896,24 +1896,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         return super._preUpdate(changed, options, user);
     }
-
-    /** Toggle between boost-driven and manual management of ability scores */
-    async toggleAttributeManagement(): Promise<void> {
-        if (Object.keys(this._source.system.abilities ?? {}).length === 0) {
-            // Add stored ability scores for manual management
-            const baseAbilities = Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
-                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
-                    ...accumulated,
-                    [abbrev]: { value: 10 as const },
-                }),
-                {},
-            );
-            await this.update({ "system.abilities": baseAbilities });
-        } else {
-            // Delete stored ability scores for boost-driven management
-            await this.update({ "system.-=abilities": null });
-        }
-    }
 }
 
 interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null>
