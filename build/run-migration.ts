@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration867DamageRollDomainFix } from "@module/migration/migrations/867-damage-roll-domain-fix.ts";
 import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
 import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
 import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
@@ -22,10 +21,9 @@ import { Migration877PublicationData } from "@module/migration/migrations/877-pu
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
 import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
 import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
-import { Migration883BanishAlignment } from "@module/migration/migrations/883-banish-alignment.ts";
 import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
-import { Migration885ConvertAlignmentDamage } from "@module/migration/migrations/885-convert-alignment-damage.ts";
 import { Migration886CrossbowGroup } from "@module/migration/migrations/886-crossbow-group.ts";
+import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887-redirect-spell-links.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -35,7 +33,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration867DamageRollDomainFix(),
     new Migration868StrikeRERange(),
     new Migration869RefreshMightyBulwark(),
     new Migration870MartialToProficiencies(),
@@ -47,10 +44,9 @@ const migrations: MigrationBase[] = [
     new Migration878TakeABreather(),
     new Migration879DeviseAStratagemAndFriends(),
     new Migration882SpellDataReorganization(),
-    new Migration883BanishAlignment(),
     new Migration884UnifiedSpellcasting(),
-    new Migration885ConvertAlignmentDamage(),
     new Migration886CrossbowGroup(),
+    new Migration887RedirectSpellLinks(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -222,6 +218,7 @@ async function migrate() {
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+
                     delete (source.system as { slug?: string }).slug;
                     delete (update.system as { _migrations?: object })._migrations;
                     delete (update.system as { slug?: string }).slug;
