@@ -136,7 +136,7 @@
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 spirit damage and 1 spirit splash damage. It damages only fiends, undead, and creatures with the unholy trait.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a benevolent deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet.</p>\n<p><em>Holy water</em> deals 1d6 spirit damage and 1 spirit splash damage. <em>Holy water</em> can damage only creatures with the unholy trait.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -183,9 +183,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "range": 20,
@@ -195,8 +195,8 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r (1[splash])[good]]]{1 good splash damage}<p/>",
+                        "selector": "{item|id}-damage",
+                        "text": "PF2E.SpecificRule.Equipment.HolyWater.Note",
                         "title": "{item|name}"
                     }
                 ],
@@ -214,7 +214,6 @@
                     "value": [
                         "consumable",
                         "divine",
-                        "good",
                         "holy",
                         "splash",
                         "thrown"
