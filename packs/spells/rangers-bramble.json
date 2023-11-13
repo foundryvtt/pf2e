@@ -12,9 +12,14 @@
         },
         "counteraction": false,
         "damage": {},
-        "defense": null,
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "reflex"
+            }
+        },
         "description": {
-            "value": "<p>You cause plants in the area to entangle your foes, with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora]</em>. A creature that critically fails the save takes @Damage[2d4[bleed]] in addition to being @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escaping} your bramble doesn't end the bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bleed damage on a critical failure increases by @Damage[1d4[bleed]].</p>"
+            "value": "<p>You cause plants in the area to entangle your foes, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora]. A creature that critically fails the save takes @Damage[(max(0,@item.level -1))d4[bleed]] damage in addition to being @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escaping} your bramble doesn't end the bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bleed damage on a critical failure increases by 1d4.</p>"
         },
         "duration": {
             "sustained": false,
