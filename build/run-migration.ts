@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration868StrikeRERange } from "@module/migration/migrations/868-strike-re-range.ts";
 import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
 import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
 import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
@@ -24,6 +23,7 @@ import { Migration882SpellDataReorganization } from "@module/migration/migration
 import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
 import { Migration886CrossbowGroup } from "@module/migration/migrations/886-crossbow-group.ts";
 import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887-redirect-spell-links.ts";
+import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrations/888-remaster-languages-heritages.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -33,7 +33,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration868StrikeRERange(),
     new Migration869RefreshMightyBulwark(),
     new Migration870MartialToProficiencies(),
     new Migration873RemoveBonusBulkLimit(),
@@ -47,6 +46,7 @@ const migrations: MigrationBase[] = [
     new Migration884UnifiedSpellcasting(),
     new Migration886CrossbowGroup(),
     new Migration887RedirectSpellLinks(),
+    new Migration888RemasterLanguagesHeritages(),
 ];
 
 global.deepClone = <T>(original: T): T => {

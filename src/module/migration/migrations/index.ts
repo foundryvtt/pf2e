@@ -285,3 +285,4 @@ export { Migration884UnifiedSpellcasting } from "./884-unified-spellcasting.ts";
 export { Migration885ConvertAlignmentDamage } from "./885-convert-alignment-damage.ts";
 export { Migration886CrossbowGroup } from "./886-crossbow-group.ts";
 export { Migration887RedirectSpellLinks } from "./887-redirect-spell-links.ts";
+export { Migration888RemasterLanguagesHeritages } from "./888-remaster-languages-heritages.ts";
