@@ -639,6 +639,11 @@ class TextEditorPF2e extends TextEditor {
             },
         });
 
+        if (roll.instances.length > 0 && roll.instances.every((i) => i.persistent)) {
+            element.draggable = true;
+            element.dataset.persistent = "true";
+        }
+
         return element;
     }
 
