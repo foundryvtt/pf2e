@@ -304,6 +304,7 @@ const spellTraits = {
     dream: "PF2E.TraitDream",
     eidolon: "PF2E.TraitEidolon",
     emotion: "PF2E.TraitEmotion",
+    exploration: "PF2E.TraitExploration",
     extradimensional: "PF2E.TraitExtradimensional",
     fear: "PF2E.TraitFear",
     focus: "PF2E.TraitFocus",
