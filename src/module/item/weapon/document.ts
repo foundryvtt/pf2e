@@ -602,7 +602,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     // Omitted traits include ...
                     (t) =>
                         // Creature traits
-                        !(t in CONFIG.PF2E.creatureTraits) &&
+                        !(t in CONFIG.PF2E.creatureTraits && !["holy", "unholy"].includes(t)) &&
                         // Magical school and tradition traits
                         !setHasElement(MAGIC_TRADITIONS, t) &&
                         !setHasElement(MAGIC_SCHOOLS, t) &&
