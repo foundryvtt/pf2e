@@ -74,7 +74,7 @@ export class DamagePF2e {
             });
 
             const item = context.self?.item;
-            const itemTraits = item?.isOfType("weapon", "melee", "spell")
+            const itemTraits = item?.isOfType("weapon", "melee")
                 ? toTags(
                       // Materials are listed in a separate group of tags
                       Array.from(item.traits).filter((t) => !(t in CONFIG.PF2E.materialDamageEffects)),

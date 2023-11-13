@@ -324,7 +324,7 @@ class CheckPF2e {
 
         const { item } = context;
         const itemTraits =
-            item?.isOfType("weapon", "melee", "spell") && context.type !== "saving-throw"
+            item?.isOfType("weapon", "melee") && context.type !== "saving-throw"
                 ? Array.from(item.traits)
                       .map((t): TraitViewData => {
                           const dictionary = item.isOfType("spell")

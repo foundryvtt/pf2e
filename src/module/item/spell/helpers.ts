@@ -9,7 +9,7 @@ function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
         ? game.i18n.localize("PF2E.Item.Spell.Ritual.Label")
         : game.i18n.localize("TYPES.Item.spell");
 
-    return castRank ? game.i18n.format("ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
+    return castRank ? game.i18n.format("PF2E.ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
 }
 
 export { createSpellRankLabel };

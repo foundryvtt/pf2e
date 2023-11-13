@@ -3,7 +3,6 @@ import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
@@ -44,7 +43,6 @@ import {
     htmlClosest,
     localizer,
     ordinalString,
-    traitSlugToObject,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
@@ -120,11 +118,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
-    }
-
-    /** Action traits added when Casting this Spell */
-    get castingTraits(): ActionTrait[] {
-        return R.compact([getActionIcon(this.system.time.value, null) === null ? "exploration" : null]);
     }
 
     get traditions(): Set<MagicTradition> {
@@ -318,7 +311,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             self: contextData.self,
             target: contextData.target ?? null,
             rollMode: params.rollMode,
-            traits: this.castingTraits,
+            traits: Array.from(this.traits),
         };
 
         // Add modifiers and damage die adjustments
@@ -563,6 +556,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 passive: { statistic: "ac" as const },
                 save: this.system.defense?.save ?? null,
             });
+        }
+
+        if (!this.isRitual && getActionIcon(this.system.time.value, null) === null) {
+            this.system.traits.value.push("exploration");
+            this.system.traits.value.sort();
         }
 
         // Ensure formulas are never empty string and default to 0
@@ -825,9 +823,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damageLabel,
             formula: damage?.template.damage.roll.formula,
             properties,
-            spellTraits,
             traits: spellTraits,
-            actionTraits: this.castingTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             item,
             area,
             variants,
@@ -848,7 +844,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 ...context,
                 action: "cast-a-spell",
                 item: this,
-                traits: this.castingTraits,
+                traits: Array.from(this.traits),
                 attackNumber,
             });
         } else {
