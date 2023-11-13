@@ -874,7 +874,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: [...params.options, ...(params.item?.getRollOptions("item") ?? [])],
         });
 
-        const tokenMarkOption = ((): string | null => {
+        const targetMarkOption = ((): string | null => {
             const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
             return tokenMark ? `target:mark:${tokenMark}` : null;
         })();
@@ -883,14 +883,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             params.viewOnly || !targetToken?.actor
                 ? this
                 : this.getContextualClone(
-                      R.compact(
-                          [
-                              Array.from(params.options),
-                              targetToken.actor.getSelfRollOptions("target"),
-                              tokenMarkOption,
-                              isFlankingAttack ? "self:flanking" : null,
-                          ].flat(),
-                      ),
+                      R.compact([
+                          ...Array.from(params.options),
+                          ...targetToken.actor.getSelfRollOptions("target"),
+                          targetMarkOption,
+                          isFlankingAttack ? "self:flanking" : null,
+                      ]),
                       originEphemeralEffects,
                   );
 
@@ -967,7 +965,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
             if (targetToken) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
-                if (tokenMarkOption) targetOptions.push(tokenMarkOption);
+                if (targetMarkOption) targetOptions.push(targetMarkOption);
             }
             return targetOptions.sort();
         };
@@ -990,16 +988,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             targetEphemeralEffects.push(condition.toObject());
         }
 
+        const originMarkOption = ((): string | null => {
+            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
+            return tokenMark ? `origin:mark:${tokenMark}` : null;
+        })();
+
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
             : (params.target?.actor ?? targetToken?.actor)?.getContextualClone(
-                  [
+                  R.compact([
                       ...selfActor.getSelfRollOptions("origin"),
                       ...params.options,
                       ...itemOptions,
                       ...(originDistance ? [originDistance] : []),
-                  ],
+                      originMarkOption,
+                  ]),
                   targetEphemeralEffects,
               ) ?? null;
 
