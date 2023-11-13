@@ -84,6 +84,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
             traits.value = R.uniq(
                 R.compact(traits.value)
                     .filter((t) => !this.#SCHOOL_TRAITS.has(t))
+                    .map((t) => (t === "metamagic" ? "spellshape" : t))
                     .sort(),
             );
         }
