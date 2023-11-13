@@ -34,6 +34,10 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             }
         }
 
+        if ("damageType" in rule && typeof rule.damageType === "string") {
+            rule.damageType = this.#ALIGNMENTS.has(rule.damageType) ? "spirit" : rule.damageType;
+        }
+
         return rule;
     }
 
