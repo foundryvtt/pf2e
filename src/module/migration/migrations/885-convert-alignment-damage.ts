@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { NPCAttackDamageSource } from "@item/melee/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -9,14 +10,36 @@ import { MigrationBase } from "../base.ts";
 export class Migration885ConvertAlignmentDamage extends MigrationBase {
     static override version = 0.885;
 
-    #ALIGNMENT_DAMAGE_TYPES = ["good", "evil", "lawful", "chaotic"];
+    #ALIGNMENTS = new Set(["good", "evil", "lawful", "chaotic"]);
 
-    #ALIGNMENT_VERSATILE_TRAITS = this.#ALIGNMENT_DAMAGE_TYPES.map((dt) => `versatile-${dt}`);
+    #ALIGNMENT_VERSATILE_TRAITS = Array.from(this.#ALIGNMENTS).map((dt) => `versatile-${dt}`);
+
+    #migrateRule(rule: RuleElementSource): RuleElementSource | never[] {
+        if ("type" in rule) {
+            if (rule.key === "Immunity" && typeof rule.type === "string" && this.#ALIGNMENTS.has(rule.type)) {
+                return [];
+            } else if (["Weakness", "Resistance"].includes(String(rule.key)) && typeof rule.type === "string") {
+                if (["lawful", "chaotic"].includes(rule.type)) return [];
+                if (Array.isArray(rule.predicate)) {
+                    rule.predicate = rule.predicate.filter(
+                        (s) => typeof s !== "string" || !/^self:trait:(?:good|evil|lawful|chaotic)$/.test(s),
+                    );
+                }
+                if (rule.type === "good") rule.type = "holy";
+                if (rule.type === "evil") rule.type = "unholy";
+            } else if (Array.isArray(rule.type)) {
+                rule.type = rule.type.flatMap((t) =>
+                    ["lawful", "chaotic"].includes(t) ? [] : t === "good" ? "holy" : t === "evil" ? "unholy" : t,
+                );
+            }
+        }
+
+        return rule;
+    }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } =
             source.type === "character" ? { value: [] } : source.system.traits ?? { value: [] };
-        if (!source.system.attributes.immunities) return;
 
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
         const iwr: WeaklyTypedIWR = R.pick(source.system.attributes, iwrKeys);
@@ -51,15 +74,14 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
+        source.system.rules = source.system.rules.flatMap((r) => this.#migrateRule(r));
+
         if (source.type === "weapon") {
             const traits: { value: string[] } = source.system.traits;
             traits.value = R.compact(
                 traits.value.map((t) => (this.#ALIGNMENT_VERSATILE_TRAITS.includes(t) ? "versatile-spirit" : t)),
             );
-            if (traits.value.some((t) => ["good", "evil"].includes(t))) {
-                traits.value.push("sanctified");
-            }
-            if (this.#ALIGNMENT_DAMAGE_TYPES.includes(source.system.damage.damageType)) {
+            if (this.#ALIGNMENTS.has(source.system.damage.damageType)) {
                 source.system.damage.damageType = "spirit";
             }
             traits.value = R.uniq(traits.value.sort());
@@ -112,7 +134,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
             for (const partial of damage) {
                 const damageType = partial.type;
-                if (this.#ALIGNMENT_DAMAGE_TYPES.includes(damageType)) {
+                if (this.#ALIGNMENTS.has(damageType)) {
                     partial.type = "spirit";
                 }
                 if (damageType === "good") {
@@ -141,9 +163,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
         description.value = description.value
             .replace(/\[(?:good|evil|lawful|chaotic)\b/g, "[spirit")
             .replace(/\b(?:good|evil|lawful|chaotic)\]/g, "spirit]")
-            .replace(/\b(\dd\d) (?:good|evil|lawful|chaotic)\b/g, "$1 spirit")
-            .replace(/\b(?:Good|Evil|Lawful|Chaotic) Damage\b/g, "Spirit Damage")
-            .replace(/(?<!(?:nd|or) )\b(?:good|evil|lawful|chaotic) damage\b/g, "spirit damage");
+            .replace(/\b(\dd\d) (?:good|evil|lawful|chaotic)\b/g, "$1 spirit");
     }
 }
 
