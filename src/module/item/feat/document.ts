@@ -206,6 +206,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             changed.system.location ||= null;
         }
 
+        if (typeof changed.system?.level?.value === "number" && changed.system.level.value !== 1) {
+            changed.system.onlyLevel1 = false;
+        }
+
         // Normalize action data
         normalizeActionChangeData(this, changed);
 
