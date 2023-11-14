@@ -234,13 +234,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             return unitBulk.isNegligible ? "negligible" : unitBulk.isLight ? "light" : unitBulk.toString();
         })();
         const rangeIncrement = this.range?.increment;
-        const group = this.group || "null";
 
         return [
             super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
-                [`group:${group}`]: true,
+                [`group:${this.group ?? "none"}`]: true,
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`bulk:${bulk}`]: true,
