@@ -239,7 +239,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
-                [`group:${this.group}`]: !!this.group,
+                [`group:${this.group ?? "none"}`]: true,
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`bulk:${bulk}`]: true,

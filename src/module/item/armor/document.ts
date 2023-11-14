@@ -104,7 +104,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
-                [`group:${this.group}`]: !!this.group,
+                [`group:${this.group ?? "none"}`]: true,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`rune:potency`]: this.system.runes.potency > 0,
                 [`rune:resilient`]: this.system.runes.resilient > 0,
