@@ -499,9 +499,28 @@ class AttributeBuilder extends Application {
         }
 
         htmlQuery(html, "input[name=toggle-manual-mode]")?.addEventListener("click", () => {
-            actor.toggleAttributeManagement();
+            this.#toggleAttributeManagement();
         });
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => this.close());
+    }
+
+    /** Toggle between boost-driven and manual management of attributes */
+    async #toggleAttributeManagement(): Promise<void> {
+        const { actor } = this;
+        if (Object.keys(actor._source.system.abilities ?? {}).length === 0) {
+            // Add stored attribute modifiers for manual management
+            const baseAbilities = Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
+                    ...accumulated,
+                    [abbrev]: { value: 10 as const },
+                }),
+                {},
+            );
+            await actor.update({ "system.abilities": baseAbilities });
+        } else {
+            // Delete stored attribute modifiers for boost-driven management
+            await actor.update({ "system.abilities": null });
+        }
     }
 }
 
