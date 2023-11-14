@@ -443,9 +443,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         resources.heroPoints.max = 3;
         resources.investiture = { value: 0, max: 10 };
 
-        resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
-        resources.focus.max = 0;
-        resources.focus.cap = 3;
+        resources.focus = {
+            value: resources.focus.value || 0,
+            max: 3,
+            cap: 3,
+        };
 
         resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;

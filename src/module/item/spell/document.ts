@@ -593,6 +593,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
     }
 
+    override prepareActorData(): void {
+        if (!this.actor?.isOfType("character")) return;
+
+        // Increase focus point max if this is a non-cantrip focus spell
+        const { traits } = this;
+        if (traits.has("focus") && !traits.has("cantrip")) {
+            this.actor.system.resources.focus.max += 1;
+        }
+    }
+
     override getRollOptions(prefix = this.type): string[] {
         const options = new Set(["magical", `${prefix}:rank:${this.rank}`]);
 

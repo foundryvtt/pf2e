@@ -24,6 +24,7 @@ import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/88
 import { Migration886CrossbowGroup } from "@module/migration/migrations/886-crossbow-group.ts";
 import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887-redirect-spell-links.ts";
 import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrations/888-remaster-languages-heritages.ts";
+import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -47,6 +48,7 @@ const migrations: MigrationBase[] = [
     new Migration886CrossbowGroup(),
     new Migration887RedirectSpellLinks(),
     new Migration888RemasterLanguagesHeritages(),
+    new Migration889RemoveFocusMaxIncreases(),
 ];
 
 global.deepClone = <T>(original: T): T => {
