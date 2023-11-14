@@ -5,7 +5,6 @@ import type { BooleanField, NumberField, StringField } from "types/foundry/commo
 
 type RuleElementSource = {
     key?: JSONValue;
-    data?: JSONValue;
     value?: JSONValue;
     label?: JSONValue;
     slug?: JSONValue;
