@@ -361,6 +361,20 @@ abstract class CreaturePF2e<
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
 
+        // Add the holy/unholy trait to sanctified spells and actions
+        const traits = this.system.traits.value;
+        const isHoly = traits.includes("holy");
+        const isUnholy = traits.includes("unholy");
+        if ((isHoly || isUnholy) && !(isHoly && isUnholy)) {
+            const sanctifiedItems = [...this.itemTypes.action, ...this.itemTypes.feat, ...this.itemTypes.spell].filter(
+                (i) => i.system.traits.value.includes("sanctified"),
+            );
+            for (const item of sanctifiedItems) {
+                item.system.traits.value.push(isHoly ? "holy" : "unholy");
+                item.system.traits.value.sort();
+            }
+        }
+
         imposeEncumberedCondition(this);
     }
 
