@@ -37,7 +37,7 @@ interface LabelAndDescription {
 }
 
 function prepareReservedTerms(): ReservedTermsRecord {
-    const otherReservedTerms = ["null", "undefined"];
+    const otherReservedTerms = ["none", "null", "undefined"];
     return {
         baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...otherReservedTerms]),
         creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...otherReservedTerms]),
