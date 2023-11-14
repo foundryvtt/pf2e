@@ -56,7 +56,7 @@
                             <button type="button" data-action="spell-counteract" data-visibility="owner">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
                     {{/if}}
-                    {{#if data.area}}
+                    {{#if (and data.area (not data.isAura))}}
                         <div class="spell-button">
                             <button type="button" data-action="spell-template" data-visibility="owner">
                                 {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=data.area.label}}
