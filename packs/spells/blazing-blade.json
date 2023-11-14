@@ -9,9 +9,9 @@
         },
         "counteraction": false,
         "damage": {
-            "CEV2UAtvWe56S9pd": {
+            "0": {
                 "applyMod": false,
-                "category": null,
+                "category": "",
                 "formula": "1d6",
                 "kinds": [
                     "damage"
@@ -19,9 +19,9 @@
                 "materials": [],
                 "type": "fire"
             },
-            "zeLVGKS8PBTsql39": {
+            "1": {
                 "applyMod": true,
-                "category": null,
+                "category": "",
                 "formula": "1d6",
                 "kinds": [
                     "damage"
@@ -32,7 +32,7 @@
         },
         "defense": null,
         "description": {
-            "value": "<p>A scimitar-shaped beam of fiery light springs from your free hand. While the spell lasts, you can use a single action, which has the attack and concentrate traits, to burn your foes with the blazing blade. When you do, make a spell attack roll. On a success, the blazing blade deals 1d6 fire damage plus 1d6 spirit damage plus your spellcasting ability modifier. On a critical success, it deals double the usual damage.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The blade's fire damage increases to 2d6. On a critical success, the target takes 1d6 persistent spirit damage.</p>\n<p><strong>Heightened (6th)</strong> The blade's fire damage increases to 3d6. On a critical success, the target takes 2d6 persistent spirit damage.</p>\n<p><strong>Heightened (8th)</strong> The blade's fire damage increases to 4d6. On a critical success, the target takes 3d6 persistent spirit damage.</p>"
+            "value": "<p>A scimitar-shaped beam of fiery light springs from your free hand. While the spell lasts, you can use a single action, which has the attack and concentrate traits, to burn your foes with the <em>blazing blade</em>. When you do, make a spell attack roll. On a success, the <em>blazing blade</em> deals 1d6 fire damage plus 1d6 spirit damage plus your spellcasting ability modifier. On a critical success, it deals double the usual damage.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The blade's fire damage increases to 2d6. On a critical success, the target takes @Damage[(ternary(gte(@item.level,8),3,ternary(gte(@item.level,6),2,1)))d6[persistent,spirit]] damage.</p>\n<p><strong>Heightened (6th)</strong> The blade's fire damage increases to 3d6. On a critical success, the target takes 2d6 persistent spirit damage.</p>\n<p><strong>Heightened (8th)</strong> The blade's fire damage increases to 4d6. On a critical success, the target takes 3d6 persistent spirit damage.</p>"
         },
         "duration": {
             "sustained": false,
@@ -42,55 +42,55 @@
             "levels": {
                 "4": {
                     "damage": {
-                        "CEV2UAtvWe56S9pd": {
+                        "0": {
                             "applyMod": false,
-                            "category": null,
+                            "category": "",
                             "formula": "2d6",
                             "materials": [],
                             "type": "fire"
                         },
-                        "zeLVGKS8PBTsql39": {
+                        "1": {
                             "applyMod": true,
-                            "category": null,
+                            "category": "",
                             "formula": "1d6",
                             "materials": [],
-                            "type": "good"
+                            "type": "spirit"
                         }
                     }
                 },
                 "6": {
                     "damage": {
-                        "CEV2UAtvWe56S9pd": {
+                        "0": {
                             "applyMod": false,
-                            "category": null,
+                            "category": "",
                             "formula": "3d6",
                             "materials": [],
                             "type": "fire"
                         },
-                        "zeLVGKS8PBTsql39": {
+                        "1": {
                             "applyMod": true,
-                            "category": null,
+                            "category": "",
                             "formula": "1d6",
                             "materials": [],
-                            "type": "good"
+                            "type": "spirit"
                         }
                     }
                 },
                 "8": {
                     "damage": {
-                        "CEV2UAtvWe56S9pd": {
+                        "0": {
                             "applyMod": false,
-                            "category": null,
+                            "category": "",
                             "formula": "4d6",
                             "materials": [],
                             "type": "fire"
                         },
-                        "zeLVGKS8PBTsql39": {
+                        "1": {
                             "applyMod": true,
-                            "category": null,
+                            "category": "",
                             "formula": "1d6",
                             "materials": [],
-                            "type": "good"
+                            "type": "spirit"
                         }
                     }
                 }
@@ -126,7 +126,6 @@
                 "attack",
                 "concentrate",
                 "fire",
-                "good",
                 "holy",
                 "manipulate"
             ]
