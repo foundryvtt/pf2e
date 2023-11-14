@@ -1,4 +1,4 @@
-import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
+import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { LANGUAGES } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
@@ -68,6 +68,7 @@ import {
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
 const actorTypes: Record<ActorType, string> = {
+    army: "TYPES.Actor.army",
     character: "TYPES.Actor.character",
     familiar: "TYPES.Actor.familiar",
     hazard: "TYPES.Actor.hazard",
@@ -1075,6 +1076,7 @@ export const PF2ECONFIG = {
 
     Actor: {
         documentClasses: {
+            army: ArmyPF2e,
             character: CharacterPF2e,
             npc: NPCPF2e,
             hazard: HazardPF2e,

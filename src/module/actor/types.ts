@@ -27,6 +27,7 @@ import type {
 
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
+    army: ActorInstance.ArmyPF2e<TParent>;
     character: ActorInstance.CharacterPF2e<TParent>;
     creature: ActorInstance.CreaturePF2e<TParent>;
     familiar: ActorInstance.FamiliarPF2e<TParent>;
