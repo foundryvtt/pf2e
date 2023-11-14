@@ -263,7 +263,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }
             case "frequency-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (!validator.isValid(data) || !data.item.system.frequency) return;
+                if (!validator.isValid(data)) return;
+                data.item.system.frequency ??= { max: 1, per: "day" };
                 const frequency = data.item.system.frequency;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
@@ -275,7 +276,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }
             case "frequency-per": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (!validator.isValid(data) || !data.item.system.frequency) return;
+                if (!validator.isValid(data)) return;
+                data.item.system.frequency ??= { max: 1, per: "day" };
                 const newValue = this.#getNewInterval(this.mode, data.item.system.frequency.per, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
