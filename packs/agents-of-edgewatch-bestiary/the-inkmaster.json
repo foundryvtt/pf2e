@@ -215,7 +215,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "oKA5SDFKChqNK73N",
+            "_id": "3v8f0JkFJDvCKYXc",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Item.sX2o0HH4RjJDAZ8C"
@@ -225,13 +225,17 @@
             "name": "Divine Decree",
             "sort": 300000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "emanation",
+                    "value": 40
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "7d10",
                         "kinds": [
@@ -241,24 +245,37 @@
                         "type": "spirit"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>You utter a potent litany from your faith, a mandate that harms those who oppose your ideals. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 7d10 damage to creatures in the area; each creature must attempt a Fortitude save. Creatures with an alignment that matches the one you chose are unaffected by the spell. Those that neither match nor oppose it treat the result of their saving throw as one degree better and don't suffer effects other than damage.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute. On your home plane, a creature that critically fails is banished with the effect of a failed banishment save. A 10th-level creature or lower must attempt a Will save. On a failure, it's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 minute; on a critical failure, it dies.</p>"
+                    "value": "<p>You utter a potent litany from your faith, a mandate that harms those who oppose your ideals. You deal 7d10 spirit damage to your enemies in the area; each enemy must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is enfeebled 2 for 1 minute. If you're on your home plane and the creature is not, the creature is sent back to its home plane. A creature of 10th level or lower must also succeed at a Will save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 minute; if it critically fails, it dies (this is a death effect).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the level of creatures that must attempt a second save on a critical failure increases by 2.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": "varies"
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
-                    "value": 8
+                    "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "value": "FK02FgrkiyUcMuJp"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "40 feet"
@@ -279,7 +296,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate"
+                        "manipulate",
+                        "sanctified"
                     ]
                 }
             },
