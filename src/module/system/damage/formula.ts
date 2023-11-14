@@ -221,7 +221,7 @@ function instancesFromTypeMap(
                         p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null)),
                 );
                 if (leadingTerms.length) {
-                    const append = c === "splash" ? ` ${game.i18n.localize("PF2E.Damage.RollFlavor.splash")}` : "";
+                    const append = c === "splash" ? ` ${game.i18n.localize("PF2E.TraitSplash")}` : "";
                     const label = createSimpleFormula(leadingTerms) + append;
                     breakdownDamage.unshift({ ...leadingTerms[0], label });
                 }
