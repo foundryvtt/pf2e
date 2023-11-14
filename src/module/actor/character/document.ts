@@ -445,7 +445,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         resources.focus = {
             value: resources.focus?.value || 0,
-            max: 3,
+            max: 0,
             cap: 3,
         };
 
