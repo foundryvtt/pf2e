@@ -39,7 +39,7 @@
             {{#if chatData.hasDamage}}
                 <button type="button" class="spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
             {{/if}}
-            {{#if chatData.area}}
+            {{#if (and data.area (not chatData.isAura))}}
                 <button type="button" data-action="spellTemplate" data-visibility="owner">
                     {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=chatData.area.label}}
                 </button>

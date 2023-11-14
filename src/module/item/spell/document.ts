@@ -837,6 +837,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             item,
             area,
             variants,
+            isAura: this.traits.has("aura"),
         };
     }
 
