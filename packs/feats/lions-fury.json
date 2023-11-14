@@ -30,20 +30,15 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "lion-scythe-damage",
-                "text": "PF2E.Item.Weapon.CriticalSpecialization.knife"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "sun-sling-damage",
-                "text": "PF2E.Item.Weapon.CriticalSpecialization.sling"
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:lion-scythe",
+                            "item:base:sun-sling"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {
