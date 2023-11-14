@@ -1,14 +1,24 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/index.ts";
-import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
-import { objectHasKey, setHasElement } from "@util";
+import { objectHasKey } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Remove duplicate magic schools localization map */
 export class Migration621RemoveConfigSpellSchools extends MigrationBase {
     static override version = 0.621;
 
-    private KEY_MAP = {
+    #MAGIC_SCHOOLS = new Set([
+        "abjuration",
+        "conjuration",
+        "divination",
+        "enchantment",
+        "evocation",
+        "illusion",
+        "necromancy",
+        "transmutation",
+    ]);
+
+    #KEY_MAP = {
         abj: "abjuration",
         con: "conjuration",
         div: "divination",
@@ -19,13 +29,13 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
         trs: "transmutation",
     } as const;
 
-    private reassignSchool(abbreviation: string) {
-        if (objectHasKey(this.KEY_MAP, abbreviation)) {
-            return this.KEY_MAP[abbreviation];
-        } else if (setHasElement(MAGIC_SCHOOLS, abbreviation)) {
+    #reassignSchool(abbreviation: string) {
+        if (objectHasKey(this.#KEY_MAP, abbreviation)) {
+            return this.#KEY_MAP[abbreviation];
+        } else if (this.#MAGIC_SCHOOLS.has(abbreviation)) {
             return abbreviation;
         } else {
-            return this.KEY_MAP.evo;
+            return this.#KEY_MAP.evo;
         }
     }
 
@@ -33,7 +43,7 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
         if (source.type === "spell") {
             const system: SpellSystemSourceWithSchool = source.system;
             const school: { value: string } = system.school ?? { value: "evocation" };
-            school.value = this.reassignSchool(school.value);
+            school.value = this.#reassignSchool(school.value);
         }
     }
 }
