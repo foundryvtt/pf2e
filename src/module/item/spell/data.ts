@@ -81,7 +81,7 @@ interface SpellHeighteningInterval {
 
 interface SpellHeighteningFixed {
     type: "fixed";
-    levels: Record<OneToTen, Partial<SpellSystemSource>>;
+    levels: { [K in OneToTen]?: Partial<SpellSystemSource> };
 }
 
 interface SpellHeightenLayer {
