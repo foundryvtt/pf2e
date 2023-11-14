@@ -18,6 +18,9 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
 
     #TRAITS_RENAMES: Record<string, CreatureTrait | undefined> = {
         aasimar: "nephilim",
+        "half-elf": "aiuvarin",
+        "half-orc": "dromaar",
+        gnoll: "gnoll", // Keep this one for now despite the language change
         ifrit: "naari",
         tiefling: "nephilim",
     };
@@ -37,11 +40,19 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system = recursiveReplaceString(
             source.system,
-            (s) => this.#LANGUAGE_RENAMES[s] ?? this.#TRAITS_RENAMES[s] ?? s,
+            (s) => this.#TRAITS_RENAMES[s] ?? this.#LANGUAGE_RENAMES[s] ?? s,
         );
 
-        if (source.type === "ancestry" && Array.isArray(source.system.additionalLanguages?.value)) {
-            source.system.additionalLanguages.value.sort();
+        const traits: { value?: string[] } = source.system.traits ?? { value: [] };
+        traits.value = traits.value?.map((t) => (t === "kholo" ? "gnoll" : t));
+
+        if (source.type === "ancestry") {
+            const languages: { value: string[] } = source.system.languages;
+            const additionalLanguages: { value: string[] } = source.system.languages;
+            languages.value = languages.value.map((l) => (l === "gnoll" ? "kholo" : l));
+            languages.value.sort();
+            additionalLanguages.value = additionalLanguages.value.map((l) => (l === "gnoll" ? "kholo" : l));
+            additionalLanguages.value.sort();
         }
     }
 }

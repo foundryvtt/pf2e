@@ -11,9 +11,8 @@ import * as R from "remeda";
 
 // Ancestry and heritage traits
 const ancestryTraits = {
-    "half-elf": "PF2E.TraitHalfElf",
-    "half-orc": "PF2E.TraitHalfOrc",
     aberration: "PF2E.TraitAberration",
+    aiuvarin: "PF2E.TraitAiuvarin",
     anadi: "PF2E.TraitAnadi",
     android: "PF2E.TraitAndroid",
     aphorite: "PF2E.TraitAphorite",
@@ -25,6 +24,7 @@ const ancestryTraits = {
     changeling: "PF2E.TraitChangeling",
     conrasu: "PF2E.TraitConrasu",
     dhampir: "PF2E.TraitDhampir",
+    dromaar: "PF2E.TraitDromaar",
     duskwalker: "PF2E.TraitDuskwalker",
     dwarf: "PF2E.TraitDwarf",
     elf: "PF2E.TraitElf",
@@ -942,6 +942,7 @@ const traitDescriptions = {
     agathion: "PF2E.TraitDescriptionAgathion",
     agile: "PF2E.TraitDescriptionAgile",
     air: "PF2E.TraitDescriptionAir",
+    aiuvarin: "PF2E.TraitDescriptionAiuvarin",
     alchemical: "PF2E.TraitDescriptionAlchemical",
     alchemist: "PF2E.TraitDescriptionAlchemist",
     amphibious: "PF2E.TraitDescriptionAmphibious",
@@ -1040,6 +1041,7 @@ const traitDescriptions = {
     divine: "PF2E.TraitDescriptionDivine",
     "double-barrel": "PF2E.TraitDescriptionDoubleBarrel",
     downtime: "PF2E.TraitDescriptionDowntime",
+    dromaar: "PF2E.TraitDescriptionDromaar",
     drug: "PF2E.TraitDescriptionDrug",
     druid: "PF2E.TraitDescriptionDruid",
     duskwalker: "PF2E.TraitDescriptionDuskwalker",
@@ -1101,8 +1103,6 @@ const traitDescriptions = {
     grippli: "PF2E.TraitDescriptionGrippli",
     gunslinger: "PF2E.TraitDescriptionGunslinger",
     halfling: "PF2E.TraitDescriptionHalfling",
-    "half-elf": "PF2E.TraitDescriptionHalfElf",
-    "half-orc": "PF2E.TraitDescriptionHalfOrc",
     "jousting-d6": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
     harnessed: "PF2E.TraitDescriptionHarnessed",
