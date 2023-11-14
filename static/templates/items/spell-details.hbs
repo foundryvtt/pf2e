@@ -116,18 +116,12 @@
     </fieldset>
 
     <fieldset>
-        <legend>{{localize "PF2E.DamageLabel"}}</legend>
+        <legend>
+            {{localize "PF2E.DamageLabel"}}
+            {{#if editable}}<a data-action="add-damage-partial"><i class="fa-solid fa-fw fa-plus" ></i></a>{{/if}}
+        </legend>
 
         <div class="damage-formulas">
-            <h3>
-                {{localize "PF2E.FormulaPlaceholder"}}
-                {{#if editable}}
-                    <div class="item-controls">
-                        <a data-action="add-damage-partial"><i class="fa-solid fa-fw fa-plus" ></i></a>
-                    </div>
-                {{/if}}
-            </h3>
-
             {{#each data.damage as |partial id|}}
                 <div class="form-group">
                     <div class="form-fields">
@@ -138,7 +132,7 @@
                         </label>
                         <select name="system.damage.{{id}}.category">
                             {{#select partial.category}}
-                                <option></option>
+                                <option value=""></option>
                                 {{#each @root.damageSubtypes as |name type|}}
                                     <option value="{{type}}">{{localize name}}</option>
                                 {{/each}}
@@ -155,7 +149,7 @@
                             <a
                                 class="tag-selector"
                                 data-tag-selector="basic"
-                                data-title="PF2E.DamageCategoriesLabel"
+                                data-title="PF2E.Item.MaterialEffects.Label"
                                 data-config-types="materialDamageEffects"
                                 data-property="system.damage.{{id}}.materials"
                             ><i class="fa-solid fa-fw fa-edit"></i></a>
@@ -163,9 +157,9 @@
                         </div>
                     </div>
                     {{#if partial.materials}}
-                        <div class="traits-list">
-                            {{#each partial.materials}}
-                                <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
+                        <div class="materials">
+                            {{#each partial.materials as |material|}}
+                                <div class="tag-legacy">{{localize (lookup @root.materials material)}}</div>
                             {{/each}}
                         </div>
                     {{/if}}

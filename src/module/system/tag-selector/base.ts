@@ -20,6 +20,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
         return mergeObject(super.defaultOptions, {
             id: "tag-selector",
             classes: ["pf2e", "tag-selector"],
+            sheetConfig: false,
             width: "auto",
         });
     }

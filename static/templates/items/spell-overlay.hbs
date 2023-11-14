@@ -60,33 +60,6 @@
         </div>
     {{/if}}
 
-    {{#if (includes system "components")}}
-        <div class="form-group">
-            <label class="short">
-                <a data-action="delete-overlay-property" data-property="components"><i class="fa-solid fa-times"></i></a>
-                {{localize "PF2E.SpellComponentsLabel"}}
-            </label>
-            <div class="form-fields spell-components">
-                <label>
-                    <input type="checkbox" name="{{dataPath}}.components.focus" {{checked system.components.focus}} />
-                    <span>{{localize "PF2E.SpellComponentShortF"}}</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="{{dataPath}}.components.material" {{checked system.components.material}} />
-                    <span>{{localize "PF2E.SpellComponentShortM"}}</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="{{dataPath}}.components.somatic" {{checked system.components.somatic}} />
-                    <span>{{localize "PF2E.SpellComponentShortS"}}</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="{{dataPath}}.components.verbal" {{checked system.components.verbal}} />
-                    <span>{{localize "PF2E.SpellComponentShortV"}}</span>
-                </label>
-            </div>
-        </div>
-    {{/if}}
-
     {{#if (includes system "target")}}
         <div class="form-group">
             <label class="short">
@@ -140,9 +113,9 @@
         <div class="damage-formulas">
             <h3>
                 <a data-action="delete-overlay-property" data-property="damage"><i class="fa-solid fa-times"></i></a>
-                {{localize "PF2E.FormulaPlaceholder"}}
+                {{localize "PF2E.DamageLabel"}}
                 <div class="item-controls">
-                    <i class="fa-solid fa-plus" data-action="damage-create"></i>
+                    <a data-action="add-damage-partial"><i class="fa-solid fa-plus"></i></a>
                 </div>
             </h3>
 
@@ -155,15 +128,15 @@
                             <input type="checkbox" name="{{../dataPath}}.damage.{{id}}.applyMod" {{checked damage.applyMod}} />
                         </label>
                         <select name="{{../dataPath}}.damage.{{id}}.category">
-                            {{#select damage.type.category}}
-                                <option></option>
+                            {{#select damage.category}}
+                                <option value=""></option>
                                 {{#each @root.damageSubtypes as |name type|}}
                                     <option value="{{type}}">{{localize name}}</option>
                                 {{/each}}
                             {{/select}}
                         </select>
                         <select name="{{../dataPath}}.damage.{{id}}.type">
-                            {{#select damage.type.value}}
+                            {{#select damage.type}}
                                 <option value=""></option>
                                 {{#each @root.damageTypes as |name type|}}
                                     <option value="{{type}}">{{localize name}}</option>
@@ -173,17 +146,17 @@
                         <div class="item-controls">
                             <a class="tag-selector"
                                 data-tag-selector="basic"
-                                data-title="PF2E.DamageCategoriesLabel"
-                                data-config-types="damageCategories"
+                                data-title="PF2E.Item.MaterialEffects.Label"
+                                data-config-types="materialDamageEffects"
                                 data-property="{{../dataPath}}.damage.{{id}}.materials"
                             ><i class="fa-solid fa-edit"></i></a>
-                            <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-trash"></i></a>
+                            <a data-action="delete-damage-partial" data-id="{{id}}"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
-                    {{#if damage.type.categories}}
-                        <div class="traits-list">
-                            {{#each damage.type.materials}}
-                                <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
+                    {{#if damage.materials}}
+                        <div class="materials">
+                            {{#each damage.materials as |material|}}
+                                <div class="tag-legacy">{{localize (lookup @root.materials this)}}</div>
                             {{/each}}
                         </div>
                     {{/if}}
