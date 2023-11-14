@@ -18,7 +18,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>This <em>+1 trident</em>, usually engraved with a decorative pattern resembling fish scales, is a common weapon among warriors of aquatic ancestries.</p>\n<p><strong>Activate—Fluid Length</strong> <span class=\"action-glyph\">A</span> Manipulate</p>\n<hr />\n<p><strong>Effect</strong> You extend or shorten the trident's haft. When extended, the trident requires two hands to wield and gains the reach trait, but loses the trident's normal thrown trait.</p>"
+            "value": "<p>This <em>+1 trident</em>, usually engraved with a decorative pattern resembling fish scales, is a common weapon among warriors of aquatic ancestries.</p>\n<hr />\n<p><strong>Activate—Fluid Length</strong> <span class=\"action-glyph\">A</span> manipulate</p>\n<p><strong>Effect</strong> You extend or shorten the trident's haft. When extended, the trident requires two hands to wield and gains the reach trait, but loses the trident's normal thrown trait.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -69,7 +69,39 @@
         "reload": {
             "value": "-"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.FightersFork.FluidLengthLabel",
+                "option": "fighters-fork:fluid-length",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "fighters-fork:fluid-length"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "predicate": [
+                    "fighters-fork:fluid-length"
+                ],
+                "property": "weapon-traits",
+                "value": "thrown-20"
+            }
+        ],
         "size": "med",
         "specific": {
             "material": null,
