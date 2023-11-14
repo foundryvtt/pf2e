@@ -180,7 +180,10 @@
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection"
                 ],
-                "type": "holy",
+                "type": [
+                    "holy",
+                    "unholy"
+                ],
                 "value": "@actor.level"
             },
             {
@@ -195,31 +198,10 @@
                         ]
                     }
                 ],
-                "type": "holy",
-                "value": "@actor.level + 2"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection"
+                "type": [
+                    "holy",
+                    "unholy"
                 ],
-                "type": "unholy",
-                "value": "@actor.level"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
-                ],
-                "type": "unholy",
                 "value": "@actor.level + 2"
             },
             {
