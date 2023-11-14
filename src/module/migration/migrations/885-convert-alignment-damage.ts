@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { NPCAttackDamageSource } from "@item/melee/data.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
 import * as R from "remeda";
@@ -88,6 +89,9 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             if (this.#ALIGNMENTS.has(source.system.damage.damageType)) {
                 source.system.damage.damageType = "spirit";
             }
+            traits.value = traits.value.map((t) =>
+                t === "sanctified" ? (traits.value.includes("good") ? "holy" : "unholy") : t,
+            );
             traits.value = R.uniq(traits.value.sort());
         } else if (source.type === "melee") {
             const traits: { value: string[] } = source.system.traits;
@@ -121,7 +125,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                 } else if (damageType === "evil") {
                     traits.value.push("unholy");
                     if (/^\d+$/.test(partial.damage)) {
-                        partials["-=${key}"] = null;
+                        partials[`-=${key}`] = null;
                     } else {
                         partial.damageType = "spirit";
                     }
@@ -147,8 +151,32 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                     traits.value.push("unholy");
                 }
             }
-
             traits.value = R.uniq(traits.value.sort());
+            if (source.system.slug === "divine-decree") {
+                // Special case for Divine Decree spell
+                const system: Pick<SpellSystemSource, "damage"> & { "-=overlays"?: null } = source.system;
+                const damage = Object.values(system.damage).shift();
+                if (isObject(damage)) damage.type = "spirit";
+                system["-=overlays"] = null;
+            } else {
+                // Let's play this one safe
+                try {
+                    const overlayPartials = R.compact(
+                        Object.values(source.system.overlays ?? {})
+                            .filter((o) => isObject(o) && o.overlayType === "override")
+                            .map((o) => (o.system ??= {})?.damage)
+                            .flatMap((p) => (isObject(p) ? Object.values(p) : []))
+                            .flat(),
+                    );
+                    for (const partial of overlayPartials) {
+                        if (this.#ALIGNMENTS.has(partial.type ?? "")) {
+                            partial.type = "spirit";
+                        }
+                    }
+                } catch (error) {
+                    if (error instanceof Error) console.error(error.message);
+                }
+            }
         }
 
         const { description } = source.system;

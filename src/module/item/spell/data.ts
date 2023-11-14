@@ -97,12 +97,6 @@ interface SpellOverlayOverride {
     sort: number;
 }
 
-/** Not implemented */
-interface SpellOverlayDamage {
-    overlayType: "damage";
-    choices: DamageType[];
-}
-
 interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSystemData, "level" | "traits"> {
     damage: Record<string, SpellDamage>;
     defense: SpellDefenseData | null;
@@ -117,7 +111,7 @@ interface SpellDefenseData extends SpellDefenseSource {
 }
 
 type SpellPassiveDefense = "ac" | `${SaveType}-dc`;
-type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
+type SpellOverlay = SpellOverlayOverride;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
 interface RitualData {

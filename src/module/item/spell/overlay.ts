@@ -39,6 +39,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
                         _id: id,
                         sort: this.overrideVariants.length + 1,
                         overlayType: "override",
+                        system: {},
                     },
                 });
                 if (options.renderSheet) {
