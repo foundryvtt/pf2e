@@ -14,7 +14,7 @@ import {
     getPropertySlots,
     prunePropertyRunes,
 } from "@item/physical/index.ts";
-import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RangeData } from "@item/types.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -590,6 +590,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const toAttackTraits = (traits: WeaponTrait[]): NPCAttackTrait[] => {
             const { increment: rangeIncrement, max: maxRange } = this.range ?? {};
+
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
@@ -602,10 +603,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     // Omitted traits include ...
                     (t) =>
                         // Creature traits
-                        !(t in CONFIG.PF2E.creatureTraits) &&
-                        // Magical school and tradition traits
-                        !setHasElement(MAGIC_TRADITIONS, t) &&
-                        !setHasElement(MAGIC_SCHOOLS, t) &&
+                        (["holy", "unholy"].includes(t) || !(t in CONFIG.PF2E.creatureTraits)) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
@@ -619,6 +617,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         // Other traits always excluded
                         !["artifact", "cursed"].includes(t),
                 );
+
+            if (traits.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
+                newTraits.push("magical");
+            }
 
             if (rangeIncrement && !this.isThrown) {
                 const prefix = maxRange === rangeIncrement * 6 ? "range-increment" : "range";
@@ -635,7 +637,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 newTraits.push(reloadTrait);
             }
 
-            return newTraits.sort();
+            return R.uniq(newTraits).sort();
         };
 
         const persistentDamage = ((): NPCAttackDamage | never[] => {

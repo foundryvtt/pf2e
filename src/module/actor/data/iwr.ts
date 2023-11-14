@@ -1,6 +1,5 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
 import { isObject, objectHasKey, setHasElement } from "@util";
@@ -163,10 +162,6 @@ abstract class IWR<TType extends IWRType> {
                         default:
                             return [`damage:material:${iwrType}`];
                     }
-                }
-
-                if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
-                    return ["item:type:effect", `item:trait:${iwrType}`];
                 }
 
                 return [`unhandled:${iwrType}`];
