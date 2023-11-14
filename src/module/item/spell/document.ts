@@ -573,8 +573,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         if (this.system.heightening?.type === "fixed") {
             for (const heighten of Object.values(this.system.heightening.levels)) {
-                for (const formula of Object.values(heighten.damage ?? {})) {
-                    formula.formula = formula.formula?.trim() || "0";
+                for (const partial of R.compact(Object.values(heighten.damage ?? {}))) {
+                    partial.formula = partial.formula?.trim() || "0";
                 }
             }
         } else if (this.system.heightening?.type === "interval") {

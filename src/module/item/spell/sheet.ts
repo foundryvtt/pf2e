@@ -395,7 +395,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (type === "heighten") {
                 const heightening = this.item.system.heightening;
                 if (heightening?.type === "fixed") {
-                    return heightening.levels[level as OneToTen];
+                    return heightening.levels[level as OneToTen] ?? null;
                 }
             }
 
