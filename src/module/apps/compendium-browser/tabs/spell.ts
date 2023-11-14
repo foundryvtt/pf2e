@@ -2,6 +2,7 @@ import { getActionIcon, ordinalString, sluggify } from "@util";
 import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.ts";
+import * as R from "remeda";
 import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
@@ -29,7 +30,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         const indexFields = [
             "img",
             "system.level.value",
-            "system.traits.traditions",
             "system.time",
             "system.traits",
             "system.publication",
@@ -44,6 +44,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 spellData.filters = {};
 
                 if (spellData.type === "spell") {
+                    if ("system" in spellData && R.isObject(spellData.system)) {
+                        spellData.system.ritual ??= null;
+                    }
+
                     if (!this.hasAllIndexFields(spellData, indexFields)) {
                         console.warn(
                             `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
