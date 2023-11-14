@@ -1,4 +1,5 @@
 import type { PartyPF2e } from "@actor";
+import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
@@ -64,4 +65,33 @@ export function registerKeybindings(): void {
             },
         });
     }
+
+    game.keybindings.register("pf2e", "focus-compendium-search", {
+        name: "PF2E.Keybinding.FocusCompendiumSearch.Label",
+        hint: "PF2E.Keybinding.FocusCompendiumSearch.Hint",
+        // Defer to Quick Insert if enabled
+        editable: game.modules.get("quick-insert")?.active ? [] : [{ key: "Space", modifiers: ["Control"] }],
+        onDown: (context: KeyboardEventContext): boolean => {
+            context.event.preventDefault();
+            return true;
+        },
+        onUp: (): boolean => {
+            const focusSearchBox = (directoryHtml: HTMLElement) => {
+                const searchBox = directoryHtml.querySelector(".header-search input") as HTMLInputElement;
+                searchBox.focus();
+            };
+            const tabs = ui.sidebar.tabs as Tabs & { compendium: CompendiumDirectoryPF2e };
+            if (ui.sidebar._collapsed) {
+                const popout = tabs.compendium.createPopout();
+                Hooks.once("renderCompendiumDirectory", (compendiumDirectory) => {
+                    focusSearchBox(compendiumDirectory.element[0]);
+                });
+                popout.render(true);
+            } else {
+                ui.sidebar.activateTab("compendium");
+                focusSearchBox(tabs.compendium.element[0]);
+            }
+            return true;
+        },
+    });
 }
