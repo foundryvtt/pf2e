@@ -143,7 +143,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 by: "name",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
+                    name: "Name",
                 },
             },
             search: {

@@ -14,8 +14,7 @@
                         <div class="item-controls">
                             {{#if entry.isFocusPool}}
                                 <a class="item-control spell-browse" data-tooltip="PF2E.OpenSpellBrowserTitle"
-                                    data-type="focus"
-                                    data-traditions="{{entry.tradition}}"
+                                    data-category="focus"
                                     data-location="{{entry.id}}"><i class="fa-solid fa-fw fa-search"></i></a>
                             {{/if}}
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
@@ -58,7 +57,7 @@
                             <section class="focus-pool">
                                 <span class="pips">
                                     {{#times @root.data.resources.focus.max}}
-                                        <i class="{{#if (gt @root.data.resources.focus.value this)}}fa-solid fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
+                                        <i class="{{#if (gt @root.data.resources.focus.value this)}}fa-solid fa-dot-circle{{else}}fa-regular fa-circle{{/if}}"></i>
                                     {{/times}}
                                 </span>
                                 <h4>{{localize "PF2E.Focus.Pool"}}</h4>

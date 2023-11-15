@@ -333,7 +333,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         // Spell Browser
         for (const button of htmlQueryAll(html, ".spell-browse")) {
-            button.addEventListener("click", () => this.#onClickBrowseSpellCompendia(button));
+            button.addEventListener("click", () => this.#onClickBrowseSpells(button));
         }
     }
 
@@ -471,21 +471,21 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         new this.actorConfigClass(this.actor).render(true);
     }
 
-    #onClickBrowseActions(button: HTMLElement) {
-        const types = (button.dataset.actionType || "").split(",") as ActionType[];
-        const traits = (button.dataset.actionTrait || "").split(",") as ActionTrait[];
-        const categories = (button.dataset.actionCategory || "").split(",") as ActionCategory[];
+    #onClickBrowseActions(anchor: HTMLElement): void {
+        const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
+        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
         game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
 
-    #onClickBrowseSpellCompendia(button: HTMLElement) {
-        const level = Number(button.dataset.level ?? null);
-        const spellcastingIndex = htmlClosest(button, "[data-container-id]")?.dataset.containerId ?? "";
+    #onClickBrowseSpells(anchor: HTMLElement): void {
+        const spellcastingIndex = htmlClosest(anchor, "[data-container-id]")?.dataset.containerId ?? "";
         const entry = this.actor.spellcasting.get(spellcastingIndex);
+        if (!entry) return;
 
-        if (entry) {
-            game.pf2e.compendiumBrowser.openSpellTab(entry, level);
-        }
+        const maxRank = Number(anchor.dataset.rank) || 10;
+        const category = anchor.dataset.category ?? null;
+        game.pf2e.compendiumBrowser.openSpellTab(entry, maxRank, category);
     }
 
     /** Redirect an update to shield HP to the actual item */

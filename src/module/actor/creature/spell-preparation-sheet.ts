@@ -109,8 +109,9 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
                     return;
                 }
                 case "browse-spells": {
-                    const level = Number(anchor.dataset.level) || 0;
-                    game.pf2e.compendiumBrowser.openSpellTab(this.item, level);
+                    const maxRank = Number(anchor.dataset.rank) || 10;
+                    const category = anchor.dataset.category ?? null;
+                    game.pf2e.compendiumBrowser.openSpellTab(this.item, maxRank, category);
                 }
             }
         });
