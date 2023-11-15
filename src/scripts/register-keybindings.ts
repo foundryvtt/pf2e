@@ -69,8 +69,6 @@ export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "focus-compendium-search", {
         name: "PF2E.Keybinding.FocusCompendiumSearch.Label",
         hint: "PF2E.Keybinding.FocusCompendiumSearch.Hint",
-        // Defer to Quick Insert if enabled
-        editable: game.modules.get("quick-insert")?.active ? [] : [{ key: "Space", modifiers: ["Control"] }],
         onDown: (context: KeyboardEventContext): boolean => {
             context.event.preventDefault();
             return true;
