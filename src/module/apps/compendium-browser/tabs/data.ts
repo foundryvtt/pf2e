@@ -102,6 +102,14 @@ interface CampaignFeatureFilters extends BaseFilterData {
     };
 }
 
+type BrowserRuneTrait =
+    | "armor-potency-rune"
+    | "armor-property-rune"
+    | "resiliency-rune"
+    | "striking-rune"
+    | "weapon-potency-rune"
+    | "weapon-property-rune";
+
 interface EquipmentFilters extends BaseFilterData {
     checkboxes: {
         armorTypes: CheckboxData;
@@ -111,7 +119,7 @@ interface EquipmentFilters extends BaseFilterData {
         weaponTypes: CheckboxData;
     };
     multiselects: {
-        traits: MultiselectData<PhysicalItemTrait>;
+        traits: MultiselectData<PhysicalItemTrait | BrowserRuneTrait>;
     };
     ranges: {
         price: RangesInputData;
@@ -183,6 +191,7 @@ export type {
     BaseFilterData,
     BestiaryFilters,
     BrowserFilter,
+    BrowserRuneTrait,
     CampaignFeatureFilters,
     CheckboxData,
     CheckboxOptions,

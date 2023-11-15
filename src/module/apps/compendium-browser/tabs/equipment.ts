@@ -1,9 +1,10 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { localizer, sluggify } from "@util";
+import { localizer, objectHasKey, sluggify } from "@util";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
-import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
+import { BrowserRuneTrait, CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
+import { RUNE_DATA } from "@item/physical/runes.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
@@ -60,6 +61,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         ];
         const publications = new Set<string>();
 
+        // Rune slugs
+        const armorPotencyRunes = ["armorPotency1", "armorPotency2", "armorPotency3", "armorPotency4"];
+        const resiliencyRunes = ["resilient", "resilientGreater", "resilientMajor"];
+        const weaponPotencyRunes = ["weaponPotency1", "weaponPotency2", "weaponPotency3", "weaponPotency4"];
+        const strikingRunes = ["striking", "strikingGreater", "strikingMajor"];
+
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("equipment"),
@@ -112,6 +119,24 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         traits.push("magical");
                     }
 
+                    // originalName is added by Babele
+                    const slug = sluggify(itemData.originalName ?? itemData.name, {
+                        camel: "dromedary",
+                    });
+                    if (armorPotencyRunes.includes(slug)) {
+                        traits.push("armor-potency-rune");
+                    } else if (resiliencyRunes.includes(slug)) {
+                        traits.push("resiliency-rune");
+                    } else if (weaponPotencyRunes.includes(slug)) {
+                        traits.push("weapon-potency-rune");
+                    } else if (strikingRunes.includes(slug)) {
+                        traits.push("striking-rune");
+                    } else if (objectHasKey(RUNE_DATA.armor.property, slug)) {
+                        traits.push("armor-property-rune");
+                    } else if (objectHasKey(RUNE_DATA.weapon.property, slug)) {
+                        traits.push("weapon-property-rune");
+                    }
+
                     inventoryItems.push({
                         type: itemData.type,
                         name: itemData.name,
@@ -145,11 +170,21 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );
 
+        const runeTraits: Record<BrowserRuneTrait, string> = {
+            "armor-potency-rune": "PF2E.Item.Physical.Runes.ArmorPotencyRuneLabel",
+            "armor-property-rune": "PF2E.Item.Physical.Runes.ArmorPropertyRuneLabel",
+            "resiliency-rune": "PF2E.ResiliencyRuneLabel",
+            "weapon-potency-rune": "PF2E.Item.Physical.Runes.WeaponPotencyRuneLabel",
+            "weapon-property-rune": "PF2E.Item.Physical.Runes.WeaponPropertyRuneLabel",
+            "striking-rune": "PF2E.StrikingRuneLabel",
+        };
+
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions({
             ...CONFIG.PF2E.armorTraits,
             ...CONFIG.PF2E.consumableTraits,
             ...CONFIG.PF2E.equipmentTraits,
             ...CONFIG.PF2E.weaponTraits,
+            ...runeTraits,
         });
 
         this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({

@@ -591,7 +591,7 @@ class CompendiumBrowser extends Application {
                         tagTextProp: "label",
                         dropdown: {
                             enabled: 0,
-                            fuzzySearch: false,
+                            fuzzySearch: true,
                             mapValueTo: "label",
                             maxItems: data.options.length,
                             searchKeys: ["label"],
