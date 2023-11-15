@@ -471,7 +471,6 @@ const weaponTraits = {
     "versatile-electricity": "PF2E.TraitVersatileElectricity",
     "versatile-fire": "PF2E.TraitVersatileFire",
     "versatile-force": "PF2E.TraitVersatileForce",
-    "versatile-lawful": "PF2E.TraitVersatileLawful",
     "versatile-p": "PF2E.TraitVersatileP",
     "versatile-poison": "PF2E.TraitVersatilePoison",
     "versatile-s": "PF2E.TraitVersatileS",
