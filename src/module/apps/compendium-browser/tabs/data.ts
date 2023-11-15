@@ -147,11 +147,11 @@ interface HazardFilters extends BaseFilterData {
 
 interface SpellFilters extends BaseFilterData {
     checkboxes: {
-        category: CheckboxData;
         level: CheckboxData;
         rarity: CheckboxData;
         source: CheckboxData;
         traditions: CheckboxData;
+        type: CheckboxData;
     };
     multiselects: {
         traits: MultiselectData<string>;

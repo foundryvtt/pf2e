@@ -92,6 +92,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         traditions: spellData.system.traits.traditions,
                         traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: spellData.system.traits.rarity,
+                        ritual: spellData.system.ritual,
                         source: sourceSlug,
                     });
                 }
@@ -112,6 +113,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.checkboxes.type.options = {spell: { label: 'Spell', selected: false}, ritual: {label: 'Ritual', selected: false}};
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({
@@ -151,15 +153,19 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        if (checkboxes.type.selected.length) {
+          if(entry.ritual && !checkboxes.type.selected.includes('ritual')) return false;
+          if(!entry.ritual && !checkboxes.type.selected.includes('spell')) return false;
+        }
         return true;
     }
 
     protected override prepareFilterData(): SpellFilters {
         return {
             checkboxes: {
-                category: {
+                type: {
                     isExpanded: true,
-                    label: "PF2E.BrowserFilterSpellCategories",
+                    label: "PF2E.BrowserFilterType",
                     options: {},
                     selected: [],
                 },

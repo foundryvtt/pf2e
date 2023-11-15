@@ -241,22 +241,26 @@ class CompendiumBrowser extends Application {
     async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {
         const spellTab = this.tabs.spell;
         const filter = await spellTab.getFilterData();
-        const { category, level, traditions } = filter.checkboxes;
+        const { level, traditions, type } = filter.checkboxes;
+        const { traits } = filter.multiselects;
 
-        if (entry.isRitual || entry.isFocusPool) {
-            category.options[entry.category].selected = true;
-            category.selected.push(entry.category);
+        if (entry.isFocusPool) {
+          traits.selected = traits.options.filter((trait) => trait.value === "focus");
         }
 
-        if (maxLevel) {
+        if (entry.isRitual) {
+          type.options['ritual'].selected = true;
+          type.selected.push('ritual');
+        } else {
+          type.options['spell'].selected = true;
+          type.selected.push('spell');
+        }
+
+        if (maxLevel && !entry.isRitual) {
             const levels = Array.from(Array(maxLevel).keys()).map((l) => String(l + 1));
             for (const l of levels) {
                 level.options[l].selected = true;
                 level.selected.push(l);
-            }
-            if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                category.options["spell"].selected = true;
-                category.selected.push("spell");
             }
         }
 
