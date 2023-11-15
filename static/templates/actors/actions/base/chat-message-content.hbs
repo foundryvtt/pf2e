@@ -4,9 +4,9 @@
     {{/if}}
     <strong>{{localize name}}</strong>
 </h4>
-<div class="tags">
+<div class="tags" data-tooltip-class="pf2e">
     {{#each traits as |trait|}}
-        <span class="tag tooltipstered" data-slug="{{trait.slug}}" data-description="{{trait.description}}">{{localize trait.label}}</span>
+        <span class="tag" data-slug="{{trait.slug}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
     {{/each}}
 </div>
 {{#if description}}
