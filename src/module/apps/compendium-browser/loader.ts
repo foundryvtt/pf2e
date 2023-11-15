@@ -1,5 +1,6 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
+import * as R from "remeda";
 import { CompendiumBrowserSources } from "./index.ts";
 
 class PackLoader {
@@ -72,18 +73,18 @@ class PackLoader {
             return index;
         }
 
-        const filteredIndex: CompendiumIndex = new Collection<CompendiumIndexData>();
+        const filteredIndex = new Collection<CompendiumIndexData>();
         const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
 
-        for (const document of index) {
-            const source = this.#getSourceFromDocument(document);
+        for (const data of index) {
+            const source = this.#getSourceFromDocument(data);
 
             if (
                 (!source && this.sourcesSettings.showEmptySources) ||
                 sources.has(source) ||
                 (this.sourcesSettings.showUnknownSources && !!source && !knownSources.includes(source))
             ) {
-                filteredIndex.set(document._id, document);
+                filteredIndex.set(data._id, deepClone(data));
             }
         }
         return filteredIndex;
@@ -139,16 +140,17 @@ class PackLoader {
     }
 
     #getSourceFromDocument(document: CompendiumIndexData): string {
-        // There are two possible fields where the source can be, check them in order
-        if (document.system?.publication?.title) {
-            return document.system.publication.title;
-        }
+        const { system } = document;
+        if (!R.isObject(system)) return "";
 
-        if (document.system?.source?.value) {
-            return document.system.source.value;
-        }
-
-        return "";
+        // Handle unmigrated data
+        return (
+            system.publication?.title ??
+            system.details?.publication?.title ??
+            system.source?.value ??
+            system.details?.source?.value ??
+            ""
+        );
     }
 
     reset(): void {

@@ -175,6 +175,8 @@ export abstract class CompendiumBrowserTab {
                     return entryA.level - entryB.level || entryA.name.localeCompare(entryB.name, lang);
                 case "price":
                     return entryA.priceInCopper - entryB.priceInCopper || entryA.name.localeCompare(entryB.name, lang);
+                case "rank":
+                    return entryA.rank - entryB.rank || entryA.name.localeCompare(entryB.name, lang);
                 default:
                     return 0;
             }

@@ -38,7 +38,6 @@
                             class="control"
                             data-action="browse-spells"
                             data-tooltip="PF2E.OpenSpellBrowserTitle"
-                            data-type="spell"
                             data-location="{{entry.id}}"
                         ><i class="fa-solid fa-search fa-fw"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}</a>
                     </li>
@@ -72,8 +71,8 @@
                                     class="control"
                                     data-action="browse-spells"
                                     data-tooltip="PF2E.OpenSpellBrowserTitle"
-                                    data-type="spell"
-                                    data-level="{{rank}}"
+                                    data-category="{{#if (eq rank "0")}}cantrip{{else}}spell{{/if}}"
+                                    data-rank="{{#if (eq rank "0")}}10{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-search fa-fw"></i></a>
                             </div>

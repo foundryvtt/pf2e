@@ -21,7 +21,7 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
-import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
+import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import {
     ActionFilters,
@@ -238,25 +238,30 @@ class CompendiumBrowser extends Application {
         actionTab.open(filter);
     }
 
-    async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {
+    async openSpellTab(entry: BaseSpellcastingEntry, maxRank = 10, category: string | null = null): Promise<void> {
         const spellTab = this.tabs.spell;
         const filter = await spellTab.getFilterData();
-        const { category, level, traditions } = filter.checkboxes;
+        const { traditions } = filter.checkboxes;
 
-        if (entry.isRitual || entry.isFocusPool) {
-            category.options[entry.category].selected = true;
-            category.selected.push(entry.category);
+        if (category && filter.checkboxes.category.options[category]) {
+            filter.checkboxes.category.options[category].selected = true;
+            filter.checkboxes.category.selected.push(category);
         }
 
-        if (maxLevel) {
-            const levels = Array.from(Array(maxLevel).keys()).map((l) => String(l + 1));
-            for (const l of levels) {
-                level.options[l].selected = true;
-                level.selected.push(l);
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.checkboxes.category.options[entry.category].selected = true;
+            filter.checkboxes.category.selected.push(entry.category);
+        }
+
+        if (maxRank) {
+            const ranks = Array.from(Array(maxRank).keys()).map((l) => String(l + 1));
+            for (const rank of ranks) {
+                filter.checkboxes.rank.options[rank].selected = true;
+                filter.checkboxes.rank.selected.push(rank);
             }
-            if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                category.options["spell"].selected = true;
-                category.selected.push("spell");
+            if ((entry.isPrepared || entry.isSpontaneous || entry.isInnate) && !category) {
+                filter.checkboxes.category.options["spell"].selected = true;
+                filter.checkboxes.category.selected.push("spell");
             }
         }
 
@@ -420,15 +425,14 @@ class CompendiumBrowser extends Application {
             const order = sortContainer.querySelector<HTMLSelectElement>("select.order");
             if (order) {
                 order.addEventListener("change", () => {
-                    const orderBy = order.value ?? "name";
-                    currentTab.filterData.order.by = orderBy;
+                    currentTab.filterData.order.by = order.value ?? "name";
                     this.#clearScrollLimit(true);
                 });
             }
             const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
             if (directionAnchor) {
                 directionAnchor.addEventListener("click", () => {
-                    const direction = (directionAnchor.dataset.direction as SortDirection) ?? "asc";
+                    const direction = directionAnchor.dataset.direction ?? "asc";
                     currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
                     this.#clearScrollLimit(true);
                 });
@@ -960,7 +964,7 @@ class CompendiumBrowser extends Application {
         const tab = this.activeTab;
         if (tab === "settings") return;
 
-        const list = this.element[0].querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        const list = htmlQuery(this.element[0], ".tab.active ul.item-list");
         if (!list) return;
         list.scrollTop = 0;
         this.tabs[tab].scrollLimit = 100;

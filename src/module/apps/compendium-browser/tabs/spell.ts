@@ -1,8 +1,8 @@
-import { getActionIcon, ordinalString, sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
-import { ContentTabName } from "../data.ts";
-import { CompendiumBrowserTab } from "./base.ts";
+import { getActionGlyph, ordinalString, sluggify } from "@util";
 import * as R from "remeda";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
+import { CompendiumBrowserTab } from "./base.ts";
 import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
@@ -12,7 +12,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name"];
-    override storeFields = ["type", "name", "img", "uuid", "level", "time", "traditions", "traits", "rarity", "source"];
+    override storeFields = ["type", "name", "img", "uuid", "rank", "time", "traditions", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -55,26 +55,29 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         continue;
                     }
 
+                    const isCantrip = spellData.system.traits.value.includes("cantrip");
+                    const isFocusSpell = spellData.system.traits.value.includes("focus");
+                    const isRitual = !!spellData.system.ritual;
+                    const isSpell = !isCantrip && !isFocusSpell && !isRitual;
+                    const categories = R.compact([
+                        isSpell ? "spell" : null,
+                        isCantrip ? "cantrip" : null,
+                        isFocusSpell ? "focus" : null,
+                        isRitual ? "ritual" : null,
+                    ]);
+
                     // recording casting times
-                    let time = spellData.system.time.value;
-                    if (time) {
-                        if (time.includes("reaction")) time = "reaction";
-                        times.add(time);
-                        spellData.system.time.value = sluggify(time);
+                    const time: unknown = spellData.system.time.value;
+                    if (time && typeof time === "string") {
+                        const normalizedTime = time.toLocaleLowerCase("en").includes("reaction")
+                            ? "reaction"
+                            : sluggify(time);
+                        times.add(normalizedTime);
+                        spellData.system.time.value = normalizedTime;
                     }
 
                     // format casting time
-                    if (spellData.system.time.value === "reaction") {
-                        spellData.system.time.img = getActionIcon("reaction");
-                    } else if (spellData.system.time.value === "free") {
-                        spellData.system.time.img = getActionIcon("free");
-                    } else {
-                        spellData.system.time.img = getActionIcon(spellData.system.time.value);
-                    }
-
-                    if (spellData.system.time.img === "systems/pf2e/icons/actions/Empty.webp") {
-                        spellData.system.time.img = "systems/pf2e/icons/actions/LongerAction.webp";
-                    }
+                    const actionGlyph = getActionGlyph(spellData.system.time.value);
 
                     // Prepare publication source
                     const { system } = spellData;
@@ -87,8 +90,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         name: spellData.name,
                         img: spellData.img,
                         uuid: `Compendium.${pack.collection}.${spellData._id}`,
-                        level: spellData.system.level.value,
+                        rank: spellData.system.level.value,
+                        categories,
                         time: spellData.system.time,
+                        actionGlyph,
                         traditions: spellData.system.traits.traditions,
                         traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: spellData.system.traits.rarity,
@@ -104,7 +109,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.traditions.options = this.generateCheckboxOptions(CONFIG.PF2E.magicTraditions);
         // Special case for spell ranks
         for (let rank = 1; rank <= 10; rank++) {
-            this.filterData.checkboxes.level.options[rank] = {
+            this.filterData.checkboxes.rank.options[rank] = {
                 label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                 selected: false,
             };
@@ -112,6 +117,15 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
+            {
+                spell: "TYPES.Item.spell",
+                cantrip: "PF2E.TraitCantrip",
+                focus: "PF2E.TraitFocus",
+                ritual: "PF2E.Item.Spell.Ritual.Label",
+            },
+            false,
+        );
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({
@@ -124,33 +138,51 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading spells");
     }
 
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+    protected override filterIndexData(indexData: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects, selects } = this.filterData;
 
-        // Level
-        if (checkboxes.level.selected.length) {
-            const levels = checkboxes.level.selected.map((level) => Number(level));
-            if (!levels.includes(entry.level)) return false;
+        // Rank
+        if (checkboxes.rank.selected.length > 0) {
+            const ranks = checkboxes.rank.selected.map((r) => Number(r));
+            if (!ranks.includes(indexData.rank)) return false;
         }
+
+        // Categories
+        if (
+            checkboxes.category.selected.length > 0 &&
+            !R.equals(checkboxes.category.selected.sort(), indexData.categories.sort())
+        ) {
+            return false;
+        }
+
         // Casting time
         if (selects.timefilter.selected) {
-            if (!(selects.timefilter.selected === entry.time.value)) return false;
+            if (!(selects.timefilter.selected === indexData.time.value)) return false;
         }
+
         // Traditions
-        if (checkboxes.traditions.selected.length) {
-            if (!this.arrayIncludes(checkboxes.traditions.selected, entry.traditions)) return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
+        if (
+            checkboxes.traditions.selected.length > 0 &&
+            R.intersection(checkboxes.traditions.selected, indexData.traditions).length === 0
+        ) {
             return false;
+        }
+
+        // Traits
+        if (!this.filterTraits(indexData.traits, multiselects.traits.selected, multiselects.traits.conjunction)) {
+            return false;
+        }
+
         // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
+        if (checkboxes.rarity.selected.length > 0) {
+            if (!checkboxes.rarity.selected.includes(indexData.rarity)) return false;
         }
+
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (checkboxes.source.selected.length > 0) {
+            if (!checkboxes.source.selected.includes(indexData.source)) return false;
         }
+
         return true;
     }
 
@@ -169,9 +201,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                level: {
+                rank: {
                     isExpanded: true,
-                    label: "PF2E.BrowserFilterLevels",
+                    label: "PF2E.Item.Spell.Rank.Plural",
                     options: {},
                     selected: [],
                 },
@@ -204,11 +236,11 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "level",
+                by: "rank",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
+                    name: "Name",
+                    rank: "PF2E.Item.Spell.Rank.Label",
                 },
             },
             search: {

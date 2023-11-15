@@ -277,12 +277,12 @@ function getActionIcon(
 const actionGlyphMap: Record<string, string> = {
     0: "F",
     free: "F",
-    1: "A",
-    2: "D",
-    3: "T",
-    "1 or 2": "A/D",
-    "1 to 3": "A - T",
-    "2 or 3": "D/T",
+    1: "1",
+    2: "2",
+    3: "3",
+    "1 or 2": "1/2",
+    "1 to 3": "1 - 3",
+    "2 or 3": "2/3",
     reaction: "R",
 };
 

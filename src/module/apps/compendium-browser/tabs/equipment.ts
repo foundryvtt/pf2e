@@ -276,9 +276,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
-                    price: "PF2E.BrowserSortyByPriceLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
+                    price: "PF2E.PriceLabel",
                 },
             },
             ranges: {
