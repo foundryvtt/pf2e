@@ -43,6 +43,7 @@ import {
     prepareReservedTerms,
 } from "./helpers.ts";
 
+import { WeaponTrait } from "@item/weapon/types.ts";
 import "@yaireo/tagify/src/tagify.scss";
 
 class HomebrewElements extends SettingsMenuPF2e {
@@ -413,10 +414,16 @@ class DamageTypeManager {
         const collections = this.collections;
         const slug = (options.slug ?? sluggify(data.label)) as DamageType;
         collections.DAMAGE_TYPES.add(slug);
-        collections[tupleHasValue(["physical", "energy"], data.category) ? data.category : "physical"].push(slug);
+        if (tupleHasValue(["physical", "energy"], data.category)) {
+            collections[data.category].push(slug);
+        }
         collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category;
         collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
         collections.damageTypesLocalization[slug] = data.label;
+
+        const versatileLabel = game.i18n.format("PF2E.TraitVersatileX", { x: data.label });
+        CONFIG.PF2E.weaponTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
+        CONFIG.PF2E.npcAttackTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
 
         const damageFlavor = data.label.toLocaleLowerCase(game.i18n.lang);
         collections.damageRollFlavorsLocalization[slug] = damageFlavor;

@@ -23,7 +23,6 @@ import { registerFonts } from "@scripts/register-fonts.ts";
 import { registerKeybindings } from "@scripts/register-keybindings.ts";
 import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
-import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 
@@ -179,9 +178,6 @@ export const Init = {
             }
 
             game.pf2e.StatusEffects.initialize();
-
-            // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-            new HomebrewElements().onInit();
         });
     },
 };
