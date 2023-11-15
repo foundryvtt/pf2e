@@ -75,11 +75,11 @@ export class Migration887RedirectSpellLinks extends MigrationBase {
         for (const spell of this.#spells) {
             const { from, to } = spell;
             for (const page of source.pages) {
-                page.text.content = page.text.content.replace(
+                page.text.content &&= page.text.content.replace(
                     `@UUID[Compendium.pf2e.spells-srd.Item.${from._id}]{${from.name}}`,
                     `@UUID[Compendium.pf2e.spells-srd.Item.${to._id}]{${to.name}}`,
                 );
-                page.text.content = page.text.content.replace(
+                page.text.content &&= page.text.content.replace(
                     `@UUID[Compendium.pf2e.spells-srd.Item.${from.name}]`,
                     `@UUID[Compendium.pf2e.spells-srd.Item.${to.name}]`,
                 );

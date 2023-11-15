@@ -50,7 +50,7 @@ type JournalEntryPageSchema<
     }>;
     /** Data particular to text journal entry pages. */
     text: fields.SchemaField<{
-        content: fields.HTMLField<string, string, false>;
+        content: fields.HTMLField<string, string, false, false, false>;
         markdown: fields.StringField<string, string, false, false, false>;
         format: fields.NumberField<JournalEntryPageFormat>;
     }>;
