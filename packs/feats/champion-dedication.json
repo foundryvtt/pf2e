@@ -33,36 +33,6 @@
         },
         "rules": [
             {
-                "choices": {
-                    "filter": [
-                        {
-                            "or": [
-                                "item:category:deity",
-                                "item:category:pantheon"
-                            ]
-                        }
-                    ],
-                    "itemType": "deity"
-                },
-                "flag": "deity",
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "not": "deity"
-                    }
-                ],
-                "prompt": "PF2E.SpecificRule.Prompt.Deity"
-            },
-            {
-                "key": "GrantItem",
-                "predicate": [
-                    {
-                        "not": "deity"
-                    }
-                ],
-                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
@@ -104,9 +74,17 @@
                         "value": "dex"
                     }
                 ],
-                "flag": "keyAbility",
+                "flag": "keyAttribute",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Deity and Cause"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Champion's Code"
             },
             {
                 "key": "ActiveEffectLike",
@@ -114,7 +92,7 @@
                 "path": "system.proficiencies.classDCs.champion",
                 "priority": 39,
                 "value": {
-                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
+                    "ability": "{item|flags.pf2e.rulesSelections.keyAttribute}",
                     "label": "PF2E.TraitChampion",
                     "rank": 1
                 }
