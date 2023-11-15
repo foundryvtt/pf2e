@@ -1565,7 +1565,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon becomes a <em>+2 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Greater)]{Greater Striking} weapon</em> made of cold iron and silver while a marilith wields it. The marilith can change its spirit damage to chaotic whenever it attacks.</p>"
+                    "value": "<p>Any weapon becomes a <em>+2 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Greater)]{Greater Striking} weapon</em> made of cold iron and silver while a marilith wields it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1577,28 +1577,17 @@
                 },
                 "rules": [
                     {
-                        "alwaysActive": true,
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "infuse-weapons",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitEvil",
-                                "value": "evil"
-                            },
-                            {
-                                "label": "PF2E.TraitChaotic",
-                                "value": "chaotic"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.infuseWeapons}",
+                        "damageType": "spirit",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "unholy"
                     },
                     {
                         "definition": [

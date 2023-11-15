@@ -1433,7 +1433,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any weapon a balor wields becomes a <em>+3 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking} @UUID[Compendium.pf2e.equipment-srd.Item.Vorpal] weapon</em> made of cold iron and silver while the demon holds it. A weapon that isn't eligible for the vorpal rune doesn't gain its effects. The balor can change its spirit damage to chaotic whenever it attacks. The demon can conjure a whip made of flames with an Interact action. This whip gains the same benefits as other weapons the balor wields.</p>"
+                    "value": "<p>Any weapon a balor wields becomes a <em>+3 @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking} @UUID[Compendium.pf2e.equipment-srd.Item.Vorpal] weapon</em> made of cold iron and silver while the demon holds it. A weapon that isn't eligible for the vorpal rune doesn't gain its effects. The demon can conjure a whip made of flames with an Interact action. This whip gains the same benefits as other weapons the balor wields.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1445,28 +1445,17 @@
                 },
                 "rules": [
                     {
-                        "alwaysActive": true,
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "infuse-weapons",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitEvil",
-                                "value": "evil"
-                            },
-                            {
-                                "label": "PF2E.TraitChaotic",
-                                "value": "chaotic"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.infuseWeapons}",
+                        "damageType": "spirit",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "unholy"
                     },
                     {
                         "definition": [
