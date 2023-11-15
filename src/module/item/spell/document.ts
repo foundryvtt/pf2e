@@ -563,11 +563,18 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.traits.value.sort();
         }
 
+        // Temporary measure to skip some data preparation during migration 882
+        if ("value" in this.system.damage) {
+            this.system.damage = {};
+            delete this.system.heightening;
+            delete this.system.overlays;
+        }
+
         // Ensure formulas are never empty string and default to 0
         for (const damage of Object.values(this.system.damage)) {
             damage.formula = damage.formula?.trim() || "0";
 
-            damage.kinds = new Set(damage.kinds);
+            damage.kinds = new Set(damage.kinds ?? ["damage"]);
             if (damage.kinds.size === 0) damage.kinds.add("damage");
         }
 
