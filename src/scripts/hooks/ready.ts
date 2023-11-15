@@ -57,13 +57,8 @@ export const Ready = {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }
 
-                // These modules claim compatibility with all of V9 but are abandoned
-                const abandonedModules = new Set([
-                    "dragupload",
-                    "foundry_community_macros",
-                    "pf2e-lootgen",
-                    "pf2e-toolbox",
-                ]);
+                // These modules claim compatibility with V11 but are abandoned
+                const abandonedModules = new Set<string>([]);
 
                 // Nag the GM for running unmaintained modules
                 const subV10Modules = game.modules.filter(
@@ -75,7 +70,7 @@ export const Ready = {
                         // case they were made for private use.
                         !!m.compatibility.verified &&
                         (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.compatibility.verified, "9.280")),
+                            !foundry.utils.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
                 for (const badModule of subV10Modules) {
