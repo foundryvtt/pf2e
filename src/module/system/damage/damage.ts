@@ -233,7 +233,8 @@ export class DamagePF2e {
                         pf2e: {
                             context: contextFlag,
                             target: targetFlag,
-                            modifiers: data.modifiers?.map((m) => m.toObject()) ?? [],
+                            modifiers: data.modifiers?.flatMap((m) => ("kind" in m ? m.toObject() : [])) ?? [],
+                            dice: data.modifiers?.flatMap((m) => ("diceNumber" in m ? m.toObject() : [])) ?? [],
                             origin: item?.getOriginData(),
                             strike,
                             preformatted: "both",

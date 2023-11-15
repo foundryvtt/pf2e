@@ -1,5 +1,4 @@
-import { DamageDicePF2e } from "@actor/modifiers.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
 import { htmlQueryAll, signedInteger } from "@util";
 import { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
 
@@ -35,23 +34,30 @@ class RollInspector extends Application {
         })();
 
         const modifiers =
-            this.message.flags.pf2e.modifiers?.map((mod) => {
-                const value = "dieSize" in mod ? `+${mod.diceNumber}${mod.dieSize}` : signedInteger(mod.modifier ?? 0);
+            this.message.flags.pf2e.modifiers?.map((mod) => ({
+                ...mod,
+                value: signedInteger(mod.modifier),
+                critical:
+                    typeof mod.critical === "boolean"
+                        ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${mod.critical}`)
+                        : null,
+            })) ?? [];
 
-                return {
-                    ...mod,
-                    value,
-                    critical:
-                        mod.critical !== null
-                            ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${mod.critical}`)
-                            : null,
-                };
-            }) ?? [];
+        const dice =
+            this.message.flags.pf2e.dice?.map((dice) => ({
+                ...dice,
+                value: `+${dice.diceNumber}${dice.dieSize}`,
+                critical:
+                    typeof dice.critical === "boolean"
+                        ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${dice.critical}`)
+                        : null,
+            })) ?? [];
 
         return {
             context,
             domains: context?.domains?.sort() ?? [],
             modifiers,
+            dice,
             rollOptions,
         };
     }
@@ -73,12 +79,18 @@ interface ChatRollDetailsData {
     context?: ChatContextFlag;
     domains: string[];
     modifiers: PreparedModifier[];
+    dice: PreparedDice[];
     rollOptions: string[];
 }
 
-interface PreparedModifier extends Omit<Partial<DamageDicePF2e>, "critical" | "predicate"> {
+interface PreparedModifier extends Omit<Partial<RawModifier>, "critical"> {
+    value: string;
     critical: string | null;
-    predicate?: RawPredicate | PredicatePF2e;
+}
+
+interface PreparedDice extends Omit<Partial<RawDamageDice>, "critical"> {
+    value: string;
+    critical: string | null;
 }
 
 export { RollInspector };
