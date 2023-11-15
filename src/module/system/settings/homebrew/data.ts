@@ -38,7 +38,7 @@ type MainDamageCategories = "physical" | "energy";
 
 interface CustomDamageData {
     label: string;
-    category: MainDamageCategories;
+    category: MainDamageCategories | null;
     icon: string | null;
 }
 
