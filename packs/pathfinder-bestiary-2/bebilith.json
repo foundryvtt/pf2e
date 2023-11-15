@@ -623,7 +623,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Against demons, a bebilith's Strikes count as cold iron and good.</p>"
+                    "value": "<p>Against demons, a bebilith's Strikes count as cold iron and holy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -644,14 +644,13 @@
                         "value": "cold-iron"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "good"
-                        },
+                        "key": "AdjustStrike",
+                        "mode": "add",
                         "predicate": [
                             "target:trait:demon"
                         ],
-                        "selector": "strike-damage"
+                        "property": "traits",
+                        "value": "holy"
                     }
                 ],
                 "slug": null,
