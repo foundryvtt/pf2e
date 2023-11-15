@@ -18,29 +18,44 @@
         </ul>
     </section>
 
-    {{#if modifiers}}
-        <section class="modifiers">
-            <h3>{{localize "PF2E.ModifiersTitle"}}</h3>
-            <div class="modifier-list">
-                {{#if (eq context.type "flat-check")}}
-                    <div class="empty">
-                        {{localize "PF2E.ChatRollDetails.FlatCheckNoModifiers"}}
+    <section class="modifiers">
+        <h3>
+            {{~#if dice}}
+                {{localize "PF2E.ChatRollDetails.ModifiersAndDice"}}
+            {{else}}
+                {{localize "PF2E.ModifiersTitle"}}
+            {{/if~}}
+        </h3>
+        <div class="modifier-list">
+            {{#if (eq context.type "flat-check")}}
+                <div class="empty">
+                    {{localize "PF2E.ChatRollDetails.FlatCheckNoModifiers"}}
+                </div>
+            {{else if (not modifiers.length)}}
+                <div class="empty">
+                    {{localize "PF2E.ChatRollDetails.ModifiersEmpty"}}
+                </div>
+            {{/if}}
+
+            {{#each modifiers as |m|}}
+                <div class="modifier {{disabled (not m.enabled)}}">
+                    <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
+                    <div>
+                        <span>{{localize (concat "PF2E.ModifierType." m.type)}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
+                        <span>{{m.critical}}</span>
                     </div>
-                {{else if (not modifiers)}}
-                    <div class="empty">
-                        {{localize "PF2E.ChatRollDetails.ModifiersEmpty"}}
+                </div>
+            {{/each}}
+
+            {{#each dice as |d|}}
+                <div class="modifier {{disabled (not d.enabled)}}">
+                    <h4>{{d.label}} <span class="slug">({{d.slug}})</span></h4>
+                    <div>
+                        <span>{{d.value}} {{d.damageType}} {{#if d.category}}({{d.category}}){{/if}}</span>
+                        <span>{{d.critical}}</span>
                     </div>
-                {{/if}}
-                {{#each modifiers as |m|}}
-                    <div class="modifier {{disabled (not m.enabled)}}">
-                        <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
-                        <div>
-                            <span>{{localize (concat "PF2E.ModifierType." m.type)}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
-                            <span>{{m.critical}}</span>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </section>
-    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </section>
 </div>

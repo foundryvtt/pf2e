@@ -34,13 +34,13 @@ const MODIFIER_TYPES = new Set([
 
 type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 
-interface BaseRawModifier {
+interface RawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
     /** The display name of this modifier; can be a localization key (see en.json). */
     label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
-    modifier?: number;
+    modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
@@ -67,6 +67,8 @@ interface BaseRawModifier {
     traits?: string[];
     /** Hide this modifier in UIs if it is disabled */
     hideIfDisabled?: boolean;
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force?: boolean;
 }
 
 interface ModifierAdjustment {
@@ -78,12 +80,6 @@ interface ModifierAdjustment {
     suppress?: boolean;
     getNewValue?: (current: number) => number;
     getDamageType?: (current: DamageType | null) => DamageType | null;
-}
-
-interface RawModifier extends BaseRawModifier {
-    modifier: number;
-    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
-    force?: boolean;
 }
 
 interface DeferredValueParams {
@@ -688,7 +684,7 @@ class DamageDicePF2e {
     }
 }
 
-type RawDamageDice = Required<DamageDiceParameters>;
+interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
     CheckModifier,
@@ -704,7 +700,6 @@ export {
     ensureProficiencyOption,
 };
 export type {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDiceParameters,
     DeferredPromise,
@@ -712,6 +707,7 @@ export type {
     DeferredValueParams,
     ModifierAdjustment,
     ModifierType,
+    RawDamageDice,
     RawModifier,
     TestableDeferredValueParams,
 };
