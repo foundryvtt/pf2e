@@ -1,0 +1,56 @@
+{
+    "_id": "NNxguHneoM3NvW1S",
+    "img": "icons/commodities/treasure/broach-jewel-gold-blue.webp",
+    "name": "Aura: Shining Symbol",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol], @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol (Major)]</p>\n<p>The light cast by the symbol becomes bright light. Creatures in the light receive a status penalty to Deception and Stealth checks and your enemies gain weakness to spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Shining Symbol"
+                    },
+                    {
+                        "affects": "enemies",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Shining Symbol Weakness"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 20,
+                "slug": "shining-symbol",
+                "traits": [
+                    "light",
+                    "revelation"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
