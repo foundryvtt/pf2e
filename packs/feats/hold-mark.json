@@ -28,16 +28,20 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Orc.HoldMark.Axe",
-                        "value": "axe"
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.BurningSun",
+                        "value": "burning-sun"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Orc.HoldMark.Shield",
-                        "value": "shield"
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.DeathsHead",
+                        "value": "deaths-head"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Orc.HoldMark.Torch",
-                        "value": "torch"
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.DefiledCorpse",
+                        "value": "defiled-corpse"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.EmptyHand",
+                        "value": "empty-hand"
                     }
                 ],
                 "flag": "holdMark",
@@ -46,40 +50,77 @@
                 "rollOption": "hold-mark"
             },
             {
-                "key": "CriticalSpecialization",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
                 "predicate": [
-                    "hold-mark:axe",
-                    {
-                        "or": [
-                            "item:group:axe",
-                            "item:group:pick"
-                        ]
-                    }
-                ]
+                    "hold-mark:burning-sun"
+                ],
+                "value": 1
             },
             {
-                "key": "CriticalSpecialization",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
                 "predicate": [
-                    "hold-mark:shield",
-                    {
-                        "or": [
-                            "item:group:shield",
-                            "item:group:hammer"
-                        ]
-                    }
-                ]
+                    "hold-mark:deaths-head"
+                ],
+                "value": 1
             },
             {
-                "key": "CriticalSpecialization",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
                 "predicate": [
-                    "hold-mark:torch",
+                    "hold-mark:defiled-corpse"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "predicate": [
+                    "hold-mark:empty-hand"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:spell",
                     {
                         "or": [
-                            "item:group:bomb",
-                            "item:group:knife"
+                            {
+                                "and": [
+                                    "arcane",
+                                    "hold-mark:burning-sun"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hold-mark:deaths-head",
+                                    "primal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "divine",
+                                    "hold-mark:defiled-corpse"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hold-mark:empty-hand",
+                                    "occult"
+                                ]
+                            }
                         ]
                     }
-                ]
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
             }
         ],
         "traits": {
