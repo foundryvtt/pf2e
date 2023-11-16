@@ -393,7 +393,7 @@ class DamageTypeManager {
         if (tupleHasValue(["physical", "energy"], data.category)) {
             collections[data.category].push(slug);
         }
-        collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category;
+        collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category ?? null;
         collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
         collections.damageTypesLocalization[slug] = data.label;
 
