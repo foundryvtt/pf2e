@@ -22,6 +22,7 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -79,7 +80,6 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -1263,12 +1263,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             });
         }
 
-        const hpUpdate = this.calculateHealthDelta({
+        const damageResult = this.calculateHealthDelta({
             hp: hitPoints,
             sp: this.isOfType("character") ? this.attributes.hp.sp : null,
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
-        const hpDamage = hpUpdate.totalApplied;
 
         // Save the pre-update state to calculate undo values
         const preUpdateSource = this.toObject();
@@ -1277,29 +1276,30 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (blockingShield && shieldDamage > 0) {
             await blockingShield.update(
                 { "system.hp.value": Math.max(blockingShield._source.system.hp.value - shieldDamage, 0) },
-                { render: hpDamage === 0 },
+                { render: damageResult.totalApplied === 0 },
             );
         }
 
+        const staminaMax = this.isOfType("character") ? this.attributes.hp.sp?.max ?? 0 : 0;
         const instantDeath = ((): string | null => {
-            if (hpUpdate.totalApplied === 0 || hpUpdate.totalApplied < hitPoints.value) {
+            if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
                 return null;
             }
-            const staminaMax = this.isOfType("character") ? this.attributes.hp.sp?.max ?? 0 : 0;
+
             return rollOptions.has("item:trait:death") &&
                 !this.attributes.immunities.some((i) => i.type === "death-effects")
                 ? localize("InstantDeath.DeathEffect")
                 : this.isOfType("npc") && this.modeOfBeing === "undead"
                   ? localize("InstantDeath.Destroyed")
-                  : hpUpdate.totalApplied >= (hitPoints.max + staminaMax) * 2
+                  : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
                     ? localize("InstantDeath.MassiveDamage")
                     : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
                       ? localize("InstantDeath.FinePowder")
                       : null;
         })();
 
-        if (hpDamage !== 0) {
-            const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
+        if (damageResult.totalApplied !== 0) {
+            const updated = await this.update(damageResult.updates, { damageTaken: damageResult.totalApplied });
             const setting = game.settings.get("pf2e", "automation.actorsDeadAtZero");
             const deadAtZero =
                 (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
@@ -1308,7 +1308,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (
                 updated?.isDead &&
                 deadAtZero &&
-                ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated))
+                ((damageResult.totalApplied >= 0 && !token.combatant?.isDefeated) ||
+                    (damageResult.totalApplied < 0 && !!token.combatant?.isDefeated))
             ) {
                 token.combatant?.toggleDefeated();
             }
@@ -1322,12 +1323,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
             if (finalDamage > 0) {
                 return damageAbsorbedByShield > 0
-                    ? hpDamage > 0
+                    ? damageResult.totalApplied > 0
                         ? localize("DamagedForNShield")
                         : localize("ShieldAbsorbsAll")
                     : localize("DamagedForN");
             }
-            return hpDamage < 0 ? localize("HealedForN") : localize("AtFullHealth");
+            return damageResult.totalApplied < 0 ? localize("HealedForN") : localize("AtFullHealth");
         })();
 
         const updatedShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
@@ -1345,7 +1346,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 .map((s) =>
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
-                        hpDamage: Math.abs(hpDamage),
+                        hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
                     }),
@@ -1379,7 +1380,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
-        const canUndoDamage = !!(hpDamage || shieldDamage || persistentCreated.length);
+        const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
             notes,
@@ -1404,10 +1405,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const appliedDamage = canUndoDamage
             ? {
                   uuid: this.uuid,
-                  isHealing: hpDamage < 0,
+                  isHealing: damageResult.totalApplied < 0,
                   shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
                   persistent: persistentCreated.map((c) => c.id),
-                  updates: Object.entries(hpUpdate.updates)
+                  updates: Object.entries(damageResult.updates)
                       .map(([path, newValue]) => {
                           const preUpdateValue = getProperty(preUpdateSource, path);
                           if (typeof preUpdateValue === "number") {
