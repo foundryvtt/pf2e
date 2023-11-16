@@ -22,10 +22,10 @@
         {{#if customDamageTypes}}
             <table class="damage-types">
                 <tr>
-                    <th>Label</th>
-                    <th>Slug</th>
-                    <th>Category</th>
-                    <th>Icon (Font Awesome)</th>
+                    <th>{{localize "PF2E.SETTINGS.Homebrew.DamageTypes.Label"}}</th>
+                    <th>{{localize "PF2E.Slug"}}</th>
+                    <th>{{localize "PF2E.Category"}}</th>
+                    <th>{{localize "PF2E.SETTINGS.Homebrew.DamageTypes.Icon"}}</th>
                     <th class="delete-cell"></th>
                 </tr>
                 {{#each customDamageTypes as |type idx|}}
@@ -37,6 +37,7 @@
                         <td>
                             <select name="damageTypes.{{idx}}.category">
                                 {{#select type.category}}
+                                    <option value="">{{localize "PF2E.NoneOption"}}</option>
                                     {{#each @root.damageCategories as |label category|}}
                                         <option value="{{category}}">{{localize label}}</option>
                                     {{/each}}
@@ -54,7 +55,9 @@
                 {{/each}}
             </table>
         {{/if}}
-        <button type="button" data-action="damage-add"><i class="fa-regular fa-plus"></i>Add Damage Type</button>
+        <button type="button" data-action="damage-add">
+            <i class="fa-regular fa-plus"></i>{{localize "PF2E.SETTINGS.Homebrew.DamageTypes.Add"}}
+        </button>
     </section>
 
     <div class="form-group buttons">

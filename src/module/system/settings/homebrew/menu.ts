@@ -139,7 +139,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
 
         htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {
-            this.cache.damageTypes.push({ label: "Custom", category: "physical", icon: "fa-question" });
+            this.cache.damageTypes.push({ label: "Custom", category: null, icon: "fa-question" });
             this.render();
         });
 
@@ -215,14 +215,17 @@ class HomebrewElements extends SettingsMenuPF2e {
     protected override _getSubmitData(updateData?: Record<string, unknown> | undefined): Record<string, unknown> {
         const original = super._getSubmitData(updateData);
         const data: Partial<HomebrewSubmitData> = expandObject<Record<string, unknown>>(original);
+
+        // Sanitize damage types data, including ensuring they are valid font awesome icons
         if ("damageTypes" in data && !!data.damageTypes && typeof data.damageTypes === "object") {
             data.damageTypes = Object.values(data.damageTypes);
             for (const type of data.damageTypes) {
-                // ensure this is an fa icon
+                type.category ||= null;
                 const sanitized = sluggify(type.icon ?? "");
                 type.icon = sanitized.startsWith("fa-") ? sanitized : null;
             }
         }
+
         return data;
     }
 
