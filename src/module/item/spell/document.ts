@@ -3,6 +3,7 @@ import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
+import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
@@ -452,6 +453,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         variant.trickMagicEntry = this.trickMagicEntry;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
+        processSanctification(variant);
 
         return variant;
     }
@@ -610,6 +612,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (traits.has("focus") && !traits.has("cantrip")) {
             this.actor.system.resources.focus.max += 1;
         }
+    }
+
+    override onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void {
+        processSanctification(this);
     }
 
     override getRollOptions(prefix = this.type): string[] {
