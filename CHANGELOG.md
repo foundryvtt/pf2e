@@ -1,3 +1,21 @@
+## 5.9.1
+
+### Bugfixes
+
+-   (stwlam) Fix regressions in some deity sheet fields
+-   (stwlam) Fix issue creating display errors in some IWR labels
+-   (stwlam) Fix issue preventing bestiary browser from being populated
+
+### Data Updates
+
+-   (kromko) Fix Unholy damage type label in IWR
+-   (stwlam) Add Witch's Broom feat
+-   (stwlam) Update Ruffian sneak attack rule element to PC1
+-   (stwlam) Replace Druidic language with Wildsong
+-   (stwlam) Replace non-feat mentions of "Attack of Opportunity" with "Reactive Strike"
+-   (stwlam) Fix rank of Spiritual Armament spell
+-   (stwlam) Set all classes to start with trained class DCs
+
 ## 5.9.0
 
 ### Highlights
