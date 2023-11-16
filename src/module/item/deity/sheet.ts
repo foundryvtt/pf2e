@@ -63,7 +63,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         // Create tagify selection inputs
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
 
-        tagify(getInput("system.attributes"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
+        tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;
