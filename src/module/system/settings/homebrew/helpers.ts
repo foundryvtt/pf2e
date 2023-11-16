@@ -23,7 +23,7 @@ function isHomebrewCustomDamage(value: object): value is Record<string, CustomDa
         (value) =>
             isObject<CustomDamageData>(value) &&
             typeof value.label === "string" &&
-            ["physical", "energy"].includes(value.category ?? ""),
+            (!value.category || ["physical", "energy"].includes(value.category)),
     );
 }
 
