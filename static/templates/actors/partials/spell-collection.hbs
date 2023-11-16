@@ -56,7 +56,7 @@
                                 <a
                                     class="item-control spell-browse"
                                     data-tooltip="{{localize "PF2E.OpenSpellBrowserTitle"}}"
-                                    data-category="{{#if (eq entry.category "ritual")}}ritual{{else if (eq section.level 0)}}cantrip{{else}}spell{{/if}}"
+                                    {{#if (eq section.level 0)}}data-category="cantrip"{{/if}}
                                     data-rank="{{#if (or (eq entry.category "ritual") (eq rank 0))}}10{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-fw fa-search"></i></a>
