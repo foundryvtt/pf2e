@@ -10,7 +10,7 @@ export class Migration881NoHBPrefix extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } | undefined = source.system.traits;
         if (traits?.value && Array.isArray(traits.value)) {
-            traits.value = traits.value.map((t) => t.replace(/^hb_/, ""));
+            traits.value = traits.value.filter((t) => typeof t === "string").map((t) => t.replace(/^hb_/, ""));
         }
 
         if (source.type === "character" && source.system.proficiencies?.attacks) {
