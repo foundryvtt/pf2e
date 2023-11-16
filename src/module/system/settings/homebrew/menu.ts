@@ -52,8 +52,6 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
     #initialRefresh = true;
 
-    #damageManager = new DamageTypeManager();
-
     static #reservedTerms: ReservedTermsRecord | null = null;
 
     static get reservedTerms(): ReservedTermsRecord {
@@ -91,6 +89,9 @@ class HomebrewElements extends SettingsMenuPF2e {
                 name: "PF2E.SETTINGS.Homebrew.DamageTypes.Name",
                 default: [],
                 type: Object,
+                onChange: () => {
+                    new DamageTypeManager().updateSettings();
+                },
             },
         };
     }
@@ -272,16 +273,12 @@ class HomebrewElements extends SettingsMenuPF2e {
     onInit(): void {
         this.#refreshSettings();
         this.#registerModuleTags();
+        new DamageTypeManager().updateSettings();
     }
 
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
     #refreshSettings(): void {
         const reservedTerms = HomebrewElements.reservedTerms;
-
-        // Perform any cleanup for being the initial refresh
-        if (!this.#initialRefresh) {
-            this.#damageManager.deleteAllHomebrew();
-        }
 
         // Add custom traits from settings
         for (const listKey of HOMEBREW_TRAIT_KEYS) {
@@ -289,14 +286,6 @@ class HomebrewElements extends SettingsMenuPF2e {
             const elements = game.settings.get("pf2e", settingsKey);
             const validElements = elements.filter((e) => !reservedTerms[listKey].has(e.id));
             this.#updateConfigRecords(validElements, listKey);
-        }
-
-        // Add custom damage from settings
-        const customTypes = game.settings
-            .get("pf2e", "homebrew.damageTypes")
-            .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
-        for (const data of customTypes) {
-            this.#damageManager.addCustomDamage(data);
         }
 
         // Refresh any open sheets to show the new settings
@@ -314,7 +303,6 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
-        const reservedTerms = HomebrewElements.reservedTerms;
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
 
         for (const [key, foundryModule] of activeModules) {
@@ -322,6 +310,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             if (!R.isObject(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
+                if (recordKey === "damageTypes") continue; // handled elsewhere
+
                 if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     const elements = homebrew[recordKey];
                     if (!isObject(elements) || !isHomebrewFlagCategory(elements)) {
@@ -343,25 +333,6 @@ class HomebrewElements extends SettingsMenuPF2e {
                         if (typeof value === "object") {
                             const hbKey = key as keyof typeof CONFIG.PF2E.traitsDescriptions;
                             CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
-                        }
-                    }
-                } else if (recordKey === "damageTypes") {
-                    const elements = homebrew.damageTypes;
-                    if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
-                        console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
-                        continue;
-                    }
-
-                    for (const [slug, data] of Object.entries(elements)) {
-                        if (!reservedTerms.damageTypes.has(slug)) {
-                            this.#damageManager.addCustomDamage(data, { slug });
-                        } else {
-                            console.warn(
-                                ErrorPF2e(
-                                    `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
-                                ).message,
-                            );
-                            continue;
                         }
                     }
                 } else {
@@ -432,17 +403,54 @@ class DamageTypeManager {
         collections.resistanceTypes[slug] = damageFlavor;
     }
 
-    deleteAllHomebrew(): void {
+    updateSettings() {
+        const reservedTerms = HomebrewElements.reservedTerms;
+
+        // Delete all existing homebrew damage types first
         for (const collection of Object.values(this.collections)) {
             if (collection instanceof Set) {
-                const hbTraits = [...collection].filter((tag) => tag.startsWith("hb_"));
-                for (const trait of hbTraits) collection.delete(trait);
+                const types = [...collection].filter((t) => !reservedTerms.damageTypes.has(t));
+                for (const damageType of types) collection.delete(damageType);
             } else {
-                const hbTraits = Object.keys(collection).filter((tag): tag is keyof typeof collection =>
-                    tag.startsWith("hb_"),
+                const types = Object.keys(collection).filter(
+                    (t): t is keyof typeof collection => !reservedTerms.damageTypes.has(t),
                 );
-                for (const trait of hbTraits) delete collection[trait];
+                for (const damageType of types) delete collection[damageType];
             }
+        }
+
+        // Read module damage types
+        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+        for (const [key, foundryModule] of activeModules) {
+            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
+            if (!R.isObject(homebrew) || !homebrew.damageTypes) continue;
+
+            const elements = homebrew.damageTypes;
+            if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
+                console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
+                continue;
+            }
+
+            for (const [slug, data] of Object.entries(elements)) {
+                if (!reservedTerms.damageTypes.has(slug)) {
+                    this.addCustomDamage(data, { slug });
+                } else {
+                    console.warn(
+                        ErrorPF2e(
+                            `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
+                        ).message,
+                    );
+                    continue;
+                }
+            }
+        }
+
+        // Read setting damage types
+        const customTypes = game.settings
+            .get("pf2e", "homebrew.damageTypes")
+            .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
+        for (const data of customTypes) {
+            this.addCustomDamage(data);
         }
     }
 }
