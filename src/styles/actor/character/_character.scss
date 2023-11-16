@@ -48,7 +48,7 @@
     .character-details {
         display: grid;
         grid:
-            "img details" 5.5rem
+            "img details" 9rem
             "img deity" auto
             / 120px 1fr;
         margin-top: 0.25rem;
@@ -71,53 +71,68 @@
             }
         }
 
-        .detail-sheet {
+        .abcd {
             grid-area: details;
             display: grid;
-            grid-template-columns: 44% 55%;
-            grid-template-rows: repeat(2, 42px);
+            grid-template: "ancestry heritage" "background class" "deity emblem";
             grid-row-gap: 0.5rem;
+            justify-content: start;
             padding-left: 0.75rem;
 
-            .pc {
-                &_heritage,
-                &_background,
-                &_weight {
-                    margin: 0;
+            > * {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+
+                .details-label {
+                    flex-basis: 100%;
                 }
             }
+
+            .ancestry {
+                grid-area: ancestry;
+            }
+
+            .heritage {
+                grid-area: heritage;
+            }
+
+            .background {
+                grid-area: background;
+            }
+
+            .class {
+                grid-area: class;
+            }
+
+            .heritage,
+            .background,
+            .pc_weight {
+                margin: 0;
+            }
+
             .detail-small {
                 display: flex;
             }
-        }
 
-        .pc_deity {
-            align-items: center;
-            display: flex;
-            grid-area: deity;
-            margin-right: auto;
-            min-width: 16em;
-            padding-left: 0.75rem;
+            .deity {
+                align-items: center;
+                grid-area: deity;
 
-            .input {
-                display: flex;
-                flex-flow: column wrap;
-                justify-content: start;
-
-                span {
-                    padding: 2px 0;
-                }
-
-                h3 {
-                    min-width: 11em;
+                .input {
+                    h3 {
+                        min-width: 11em;
+                    }
                 }
             }
 
-            img.symbol {
+            img.deity-emblem {
                 @include brown-border;
+                align-self: end;
                 border-radius: 50%;
+                grid-area: emblem;
                 height: 2rem;
-                margin: 0.75rem 0 0 0.5rem;
+                margin-left: 0.25rem;
                 width: 2rem;
             }
         }

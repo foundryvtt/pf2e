@@ -10,30 +10,30 @@
             <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
 
-        <div class="detail-sheet">
-            <div class="pc pc_ancestry item">
+         <div class="abcd">
+            <div class="pc item">
                 {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
             </div>
-            <div class="pc pc_heritage item">
+            <div class="pc heritage">
                 {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
             </div>
-            <div class="pc pc_background item">
+            <div class="pc background">
                 {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
             </div>
-            <div class="pc pc_class item">
+            <div class="pc class">
                 {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
-        </div>
 
-        <div class="pc pc_deity item">
-            <div class="input">
+            <div class="pc deity">
                 {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
             </div>
+
             {{#if deity}}
-                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
+                <img class="deity-emblem" src="{{deity.img}}" alt="{{deity.name}}" />
             {{else}}
-                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
+                <img class="deity-emblem" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
             {{/if}}
+
         </div>
     </section>
 
