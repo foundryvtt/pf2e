@@ -35,6 +35,12 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             }
         }
 
+        if ("deactivatedBy" in rule && Array.isArray(rule.deactivatedBy)) {
+            rule.deactivatedBy = rule.deactivatedBy.flatMap((db) =>
+                ["lawful", "chaotic"].includes(db) ? [] : db === "good" ? "holy" : db === "evil" ? "unholy" : db,
+            );
+        }
+
         if ("damageType" in rule && typeof rule.damageType === "string") {
             rule.damageType = this.#ALIGNMENTS.has(rule.damageType) ? "spirit" : rule.damageType;
         }
