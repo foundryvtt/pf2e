@@ -3,6 +3,7 @@
         width: calc(100% - 6px);
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
+
         &:disabled {
             cursor: initial;
         }
@@ -12,36 +13,22 @@
         margin: 10px 6px 10px 0;
     }
 
-    .pc {
-        h3 {
-            background-color: rgba($text-dark-color, 0.1);
-            border: none;
-            color: var(--text-dark);
-            display: flex;
-            font: 700 var(--font-size-14) var(--body-serif);
-            line-height: 1;
-            margin: 0;
-            padding: 0.5rem 0.25rem 0.5rem;
-            width: calc(100% - 6px);
+    .pc h3 {
+        align-items: center;
+        background-color: rgba($text-dark-color, 0.1);
+        border: none;
+        color: var(--text-dark);
+        display: flex;
+        font: 700 var(--font-size-14) / 1em var(--body-serif);
+        margin: 0;
+        padding: 0.5em 0.25em;
+        width: calc(100% - 0.5em);
 
-            a {
-                margin-left: auto;
-
-                i {
-                    position: relative;
-                    right: -2px;
-                    top: -2px;
-                    float: right;
-                }
-            }
-
-            span.value {
-                display: inline-block;
-                max-width: 87%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
+        span.value {
+            flex-basis: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 
@@ -74,7 +61,7 @@
         .abcd {
             grid-area: details;
             display: grid;
-            grid-template: "ancestry heritage" "background class" "deity emblem";
+            grid-template-columns: repeat(2, 1fr);
             grid-row-gap: 0.5rem;
             justify-content: start;
             padding-left: 0.75rem;
@@ -89,35 +76,8 @@
                 }
             }
 
-            .ancestry {
-                grid-area: ancestry;
-            }
-
-            .heritage {
-                grid-area: heritage;
-            }
-
-            .background {
-                grid-area: background;
-            }
-
-            .class {
-                grid-area: class;
-            }
-
-            .heritage,
-            .background,
-            .pc_weight {
-                margin: 0;
-            }
-
-            .detail-small {
-                display: flex;
-            }
-
             .deity {
                 align-items: center;
-                grid-area: deity;
 
                 .input {
                     h3 {
@@ -130,7 +90,6 @@
                 @include brown-border;
                 align-self: end;
                 border-radius: 50%;
-                grid-area: emblem;
                 height: 2rem;
                 margin-left: 0.25rem;
                 width: 2rem;
@@ -139,9 +98,8 @@
 
         .detail-item-control {
             cursor: pointer;
-            margin-left: auto;
 
-            i.fa-ellipsis-v:hover {
+            > i:hover {
                 text-shadow: 0 0 8px var(--color-shadow-primary);
             }
 
@@ -184,6 +142,7 @@
 
     .character-traits {
         display: flex;
+        flex-basis: 100%;
         flex-wrap: wrap;
 
         .tags {
