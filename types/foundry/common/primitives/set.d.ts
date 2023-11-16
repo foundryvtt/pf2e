@@ -82,8 +82,8 @@ declare interface Set<T> {
      * the index of iteration, and the set being filtered.
      * @returns {Set}  A new Set containing only elements which satisfy the test criterion.
      */
-    filter<U extends T = T>(test: (value: T) => value is U): U[];
-    filter(test: (value: T) => boolean): T[];
+    filter<U extends T = T>(test: (value: T) => value is U): Set<U>;
+    filter(test: (value: T) => boolean): Set<T>;
 
     /**
      * Find the first element in this set which satisfies a certain test criterion.
