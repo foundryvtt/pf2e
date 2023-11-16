@@ -9,16 +9,7 @@
             />
             <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
-        <div class="pc pc_deity item">
-            <div class="input">
-                {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
-            </div>
-            {{#if deity}}
-                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
-            {{else}}
-                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
-            {{/if}}
-        </div>
+
         <div class="detail-sheet">
             <div class="pc pc_ancestry item">
                 {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
@@ -32,6 +23,17 @@
             <div class="pc pc_class item">
                 {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
+        </div>
+
+        <div class="pc pc_deity item">
+            <div class="input">
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
+            </div>
+            {{#if deity}}
+                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
+            {{else}}
+                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
+            {{/if}}
         </div>
     </section>
 

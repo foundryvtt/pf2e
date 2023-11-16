@@ -48,8 +48,8 @@
     .character-details {
         display: grid;
         grid:
-            "img deity" 3rem
-            "img details" auto
+            "img details" 5.5rem
+            "img deity" auto
             / 120px 1fr;
         margin-top: 0.25rem;
 
@@ -71,6 +71,26 @@
             }
         }
 
+        .detail-sheet {
+            grid-area: details;
+            display: grid;
+            grid-template-columns: 44% 55%;
+            grid-template-rows: repeat(2, 42px);
+            grid-row-gap: 0.5rem;
+            padding-left: 0.75rem;
+
+            .pc {
+                &_heritage,
+                &_background,
+                &_weight {
+                    margin: 0;
+                }
+            }
+            .detail-small {
+                display: flex;
+            }
+        }
+
         .pc_deity {
             align-items: center;
             display: flex;
@@ -82,10 +102,10 @@
             .input {
                 display: flex;
                 flex-flow: column wrap;
-                justify-content: end;
+                justify-content: start;
 
                 span {
-                    text-align: right;
+                    padding: 2px 0;
                 }
 
                 h3 {
@@ -97,29 +117,8 @@
                 @include brown-border;
                 border-radius: 50%;
                 height: 2rem;
-                margin: 0.5rem 0 0 0.5rem;
+                margin: 0.75rem 0 0 0.5rem;
                 width: 2rem;
-            }
-        }
-
-        .detail-sheet {
-            grid-area: details;
-            display: grid;
-            grid-template-columns: 44% 55%;
-            grid-template-rows: repeat(2, 42px);
-            grid-row-gap: 0.5rem;
-            padding-left: 0.75rem;
-            margin-top: 0.5rem;
-
-            .pc {
-                &_heritage,
-                &_background,
-                &_weight {
-                    margin: 0;
-                }
-            }
-            .detail-small {
-                display: flex;
             }
         }
 
