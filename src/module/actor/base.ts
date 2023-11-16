@@ -42,7 +42,8 @@ import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic, Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import type { ArmorStatistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -825,6 +826,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const trait of this.traits) {
             rollOptions.all[`self:trait:${trait}`] = true;
         }
+
+        // Base spellcasting proficiency (later extended to add attribute modifiers)
+        this.spellcasting.base = new Statistic(this, {
+            slug: "base-spellcasting",
+            label: "PF2E.Actor.Creature.Spellcasting.Label",
+            rank: this.isOfType("character") ? this.system.proficiencies.spellcasting.rank : 0,
+            domains: ["all", "spell-attack-dc"],
+            check: { type: "attack-roll" },
+        });
     }
 
     /** Set defaults for this actor's prototype token */
