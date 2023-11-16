@@ -139,7 +139,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
 
         htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {
-            this.cache.damageTypes.push({ label: "Custom", category: null, icon: "fa-question" });
+            this.cache.damageTypes.push({ label: "Ouch", category: null, icon: "fa-question" });
             this.render();
         });
 
@@ -174,6 +174,8 @@ class HomebrewElements extends SettingsMenuPF2e {
         event: Event,
         options?: OnSubmitFormOptions,
     ): Promise<Record<string, unknown> | false> {
+        event.preventDefault();
+
         for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") {
                 input.value = "[]";
