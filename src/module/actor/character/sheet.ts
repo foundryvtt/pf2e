@@ -1247,10 +1247,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const reason = !this.isEditable
                 ? ""
                 : !game.combat
-                ? "NoActiveEncounter"
-                : alreadyRolled
-                ? "AlreadyRolled"
-                : null;
+                  ? "NoActiveEncounter"
+                  : alreadyRolled
+                    ? "AlreadyRolled"
+                    : null;
             if (reason) link.dataset.tooltip = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
         }
     }

@@ -54,8 +54,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
             ? true
             : this.category === "unarmed" || this.traits.includes("unarmed")
-            ? !!this.graspingAppendage
-            : false;
+              ? !!this.graspingAppendage
+              : false;
     }
 
     static override defineSchema(): StrikeSchema {

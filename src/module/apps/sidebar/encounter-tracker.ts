@@ -41,8 +41,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 numRecipients === 1
                     ? "Award.Tooltip.Singular"
                     : numRecipients === 4
-                    ? "Award.Tooltip.Four"
-                    : "Award.Tooltip.Plural",
+                      ? "Award.Tooltip.Four"
+                      : "Award.Tooltip.Plural",
                 { xpPerFour: metrics.budget.spent, recipients: numRecipients },
             );
             return { label, tooltip };
@@ -88,8 +88,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                     alliance === "party"
                         ? allyColor(combatant)
                         : alliance === "opposition"
-                        ? CONFIG.Canvas.dispositionColors.HOSTILE
-                        : CONFIG.Canvas.dispositionColors.NEUTRAL,
+                          ? CONFIG.Canvas.dispositionColors.HOSTILE
+                          : CONFIG.Canvas.dispositionColors.NEUTRAL,
                 );
                 row.style.background = dispositionColor.toRGBA(0.1);
                 row.style.borderColor = dispositionColor.toString();
@@ -334,10 +334,10 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             hasBelowAndNoAbove || (aboveIsHigherThanBelow && wasDraggedUp)
                 ? belowDropped.initiative + 1
                 : hasAboveAndNoBelow || (belowIsHigherThanAbove && wasDraggedDown)
-                ? aboveDropped.initiative - 1
-                : hasAboveAndBelow
-                ? belowDropped.initiative
-                : dropped.initiative;
+                  ? aboveDropped.initiative - 1
+                  : hasAboveAndBelow
+                    ? belowDropped.initiative
+                    : dropped.initiative;
 
         const withSameInitiative = newOrder.filter((c) => c.initiative === dropped.initiative);
         if (withSameInitiative.length > 1) {

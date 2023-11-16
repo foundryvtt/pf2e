@@ -116,12 +116,12 @@ function generateItemName(item: PhysicalItemPF2e): string {
         const properties = params.property4
             ? "FourProperties"
             : params.property3
-            ? "ThreeProperties"
-            : params.property2
-            ? "TwoProperties"
-            : params.property1
-            ? "OneProperty"
-            : null;
+              ? "ThreeProperties"
+              : params.property2
+                ? "TwoProperties"
+                : params.property1
+                  ? "OneProperty"
+                  : null;
         const material = params.material && "Material";
         const key =
             [potency, fundamental2, properties, material].filter((keyPart): keyPart is string => !!keyPart).join("") ||

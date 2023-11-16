@@ -68,8 +68,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return specifiedMaxRange
             ? { increment: null, max: specifiedMaxRange }
             : rangeIncrement
-            ? { increment: rangeIncrement, max: rangeIncrement * 6 }
-            : null;
+              ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+              : null;
     }
 
     /** The first of this attack's damage instances */

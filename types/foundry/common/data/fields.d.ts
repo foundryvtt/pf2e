@@ -33,12 +33,12 @@ export interface DataFieldOptions<
               | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
               | null
         : THasInitial extends false
-        ? undefined
-        :
-              | TSourceProp
-              | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
-              | null
-              | undefined;
+          ? undefined
+          :
+                | TSourceProp
+                | ((data: Record<string, unknown>) => MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>)
+                | null
+                | undefined;
     validate?: (value: unknown) => DataModelValidationFailure | boolean | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
     readonly?: boolean;
@@ -1079,12 +1079,12 @@ export type MaybeSchemaProp<
         ? TProp | null
         : TProp
     : TNullable extends true
-    ? THasInitial extends true
-        ? TProp | null
-        : TProp | null | undefined
-    : THasInitial extends true
-    ? TProp
-    : TProp | undefined;
+      ? THasInitial extends true
+          ? TProp | null
+          : TProp | null | undefined
+      : THasInitial extends true
+        ? TProp
+        : TProp | undefined;
 
 declare global {
     type ModelPropsFromSchema<TDataSchema extends DataSchema> = {
@@ -1100,8 +1100,8 @@ declare global {
             ? THasId extends true
                 ? string
                 : THasId extends false
-                ? null
-                : string | null
+                  ? null
+                  : string | null
             : SourcePropFromDataField<TDataSchema[K]>;
     };
 

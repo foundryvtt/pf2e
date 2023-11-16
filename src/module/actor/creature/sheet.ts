@@ -165,8 +165,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                     ($target.attr("type") === "checkbox"
                         ? "Boolean"
                         : ["number", "range"].includes($target.attr("type") ?? "")
-                        ? "Number"
-                        : "String");
+                          ? "Number"
+                          : "String");
 
                 switch (dataType) {
                     case "Boolean":

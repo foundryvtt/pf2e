@@ -290,8 +290,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     typeof level === "number"
                         ? Math.trunc(level)
                         : this.item.isOfType("effect")
-                        ? this.item.level
-                        : null,
+                          ? this.item.level
+                          : null,
                 effects: this.#processEffects(),
                 traits: R.uniq(this.traits.filter((t) => t !== "aura")).sort(),
                 appearance: this.#processAppearanceData(),

@@ -397,8 +397,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         details.alliance = ALLIANCES.has(details.alliance)
             ? details.alliance
             : this.hasPlayerOwner
-            ? "party"
-            : "opposition";
+              ? "party"
+              : "opposition";
 
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;

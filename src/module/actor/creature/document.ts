@@ -114,10 +114,10 @@ abstract class CreaturePF2e<
         return this.getCondition("blinded")
             ? VisionLevels.BLINDED
             : senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")
-            ? VisionLevels.DARKVISION
-            : senseTypes.has("lowLightVision")
-            ? VisionLevels.LOWLIGHT
-            : VisionLevels.NORMAL;
+              ? VisionLevels.DARKVISION
+              : senseTypes.has("lowLightVision")
+                ? VisionLevels.LOWLIGHT
+                : VisionLevels.NORMAL;
     }
 
     get hasDarkvision(): boolean {
@@ -184,20 +184,20 @@ abstract class CreaturePF2e<
                       bestShield.acBonus > shield.acBonus
                           ? bestShield
                           : shield.acBonus > bestShield.acBonus
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
                   const withMoreHP =
                       bestShield.hitPoints.value > shield.hitPoints.value
                           ? bestShield
                           : shield.hitPoints.value > bestShield.hitPoints.value
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
                   const withBetterHardness =
                       bestShield.hardness > shield.hardness
                           ? bestShield
                           : shield.hardness > bestShield.hardness
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
 
                   return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
               }, heldShields.slice(-1)[0]);

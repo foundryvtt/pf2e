@@ -55,13 +55,13 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             ? // A class hasn't been selected: no useful pre-filtering available
               []
             : this.actor.level < 2
-            ? // The PC's level is less than 2: only show feats for the class
-              [`traits-${classTrait}`]
-            : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
-            ? // The PC has at least one dedication feat: include all archetype feats
-              [`traits-${classTrait}`, "traits-archetype"]
-            : // No dedication feat has been selected: include dedication but no other archetype feats
-              [`traits-${classTrait}`, "traits-dedication"];
+              ? // The PC's level is less than 2: only show feats for the class
+                [`traits-${classTrait}`]
+              : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
+                ? // The PC has at least one dedication feat: include all archetype feats
+                  [`traits-${classTrait}`, "traits-archetype"]
+                : // No dedication feat has been selected: include dedication but no other archetype feats
+                  [`traits-${classTrait}`, "traits-dedication"];
         this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
@@ -283,8 +283,8 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                     typeof slotOption === "number"
                         ? { id: `${this.id}-${slotOption}`, level: slotOption, label: slotOption.toString() }
                         : typeof slotOption === "string"
-                        ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
-                        : slotOption;
+                          ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
+                          : slotOption;
                 if (typeof slotData.level === "number" && slotData.level > maxLevel) {
                     continue;
                 }

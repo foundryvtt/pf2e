@@ -466,8 +466,8 @@ class CheckPF2e {
                     return maybeActor instanceof ActorPF2e
                         ? maybeActor
                         : maybeActor instanceof TokenDocumentPF2e
-                        ? maybeActor.actor
-                        : null;
+                          ? maybeActor.actor
+                          : null;
                 })();
                 dc.statistic = targetActor?.armorClass;
             }
@@ -582,8 +582,8 @@ class CheckPF2e {
             return maybeActor instanceof ActorPF2e
                 ? maybeActor
                 : maybeActor instanceof TokenDocumentPF2e
-                ? maybeActor.actor
-                : null;
+                  ? maybeActor.actor
+                  : null;
         })();
 
         // Not actually included in the template, but used for creating other template data

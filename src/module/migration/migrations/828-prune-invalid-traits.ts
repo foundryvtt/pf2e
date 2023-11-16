@@ -76,8 +76,8 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                         source.system.slug?.includes("helmsmans")
                             ? t.replace(/^shield-throw$/, "shield-throw-30")
                             : source.system.slug?.includes("klar")
-                            ? t.replace(/^integrated$/, "integrated-1d6-s-versatile-p")
-                            : t,
+                              ? t.replace(/^integrated$/, "integrated-1d6-s-versatile-p")
+                              : t,
                     )
                     .filter((t): t is ArmorTrait => t in armorTraits);
                 return;

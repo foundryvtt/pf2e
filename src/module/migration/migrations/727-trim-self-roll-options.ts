@@ -24,8 +24,8 @@ export class Migration727TrimSelfRollOptions extends MigrationBase {
                     typeof e === "string"
                         ? this.trimRollOption(e)
                         : isObject<Record<string, unknown>>(e)
-                        ? this.trimPredicates(e)
-                        : e,
+                          ? this.trimPredicates(e)
+                          : e,
                 );
             } else if (isObject<Record<string, unknown>>(value)) {
                 obj[key] = this.trimPredicates(value);

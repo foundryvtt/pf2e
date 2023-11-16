@@ -18,8 +18,8 @@ function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | n
     const valuationData = item.isOfType("weapon")
         ? WEAPON_MATERIAL_VALUATION_DATA
         : item.isOfType("armor") && !item.isShield
-        ? ARMOR_MATERIAL_VALUATION_DATA
-        : null;
+          ? ARMOR_MATERIAL_VALUATION_DATA
+          : null;
     if (!valuationData) return null;
 
     const { material } = item;

@@ -459,10 +459,10 @@ class ElementalBlast {
         const modifierValue = traits.has("thrown")
             ? strengthModValue
             : traits.has("propulsive")
-            ? strengthModValue < 0
-                ? strengthModValue
-                : Math.floor(strengthModValue / 2)
-            : null;
+              ? strengthModValue < 0
+                  ? strengthModValue
+                  : Math.floor(strengthModValue / 2)
+              : null;
 
         return typeof modifierValue === "number"
             ? new ModifierPF2e({

@@ -114,8 +114,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.category)
                 ? liquidOrSubstance()
                 : ["scroll", "snare", "ammo"].includes(this.category)
-                ? CONFIG.PF2E.consumableTypes[this.category]
-                : "PF2E.identification.UnidentifiedType.Object",
+                  ? CONFIG.PF2E.consumableTypes[this.category]
+                  : "PF2E.identification.UnidentifiedType.Object",
         );
 
         if (typeOnly) return itemType;
@@ -185,8 +185,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 const damageType = this.traits.has("vitality")
                     ? "vitality"
                     : this.traits.has("void")
-                    ? "void"
-                    : "untyped";
+                      ? "void"
+                      : "untyped";
                 new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
             } else {
                 ChatMessage.create({ speaker, content, flags });

@@ -54,8 +54,8 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
         const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
             ? this.actor.skills[proficiency]
             : proficiency === "ac"
-            ? systemData.attributes.ac
-            : null;
+              ? systemData.attributes.ac
+              : null;
 
         if (statistic) {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);

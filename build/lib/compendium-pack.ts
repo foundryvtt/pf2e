@@ -136,8 +136,8 @@ class CompendiumPack {
                     isActorSource(docSource)
                         ? docSource.items.flatMap((i) => [i.img, ...imagePathsFromItemSystemData(i)])
                         : isItemSource(docSource)
-                        ? imagePathsFromItemSystemData(docSource)
-                        : [],
+                          ? imagePathsFromItemSystemData(docSource)
+                          : [],
                 ].flat();
                 const documentName = docSource.name;
                 for (const imgPath of imgPaths) {

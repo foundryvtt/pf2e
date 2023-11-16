@@ -123,10 +123,10 @@ class WeaponDamagePF2e {
             const modifierValue = WeaponDamagePF2e.#strengthModToDamage(weapon, domains.includes("str-damage"))
                 ? strengthModValue
                 : weaponTraits.some((t) => t === "propulsive")
-                ? strengthModValue < 0
-                    ? strengthModValue
-                    : Math.floor(strengthModValue / 2)
-                : null;
+                  ? strengthModValue < 0
+                      ? strengthModValue
+                      : Math.floor(strengthModValue / 2)
+                  : null;
 
             if (weapon.isOfType("weapon") && typeof modifierValue === "number") {
                 const strModifier = new ModifierPF2e({

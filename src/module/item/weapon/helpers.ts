@@ -18,9 +18,9 @@ class WeaponTraitToggles {
         const selection = tupleHasValue(options, sourceSelection)
             ? sourceSelection
             : // If the weapon's damage type is represented among the modular options, set the selection to it
-            options.includes(this.#weapon.system.damage.damageType)
-            ? this.#weapon.system.damage.damageType
-            : null;
+              options.includes(this.#weapon.system.damage.damageType)
+              ? this.#weapon.system.damage.damageType
+              : null;
 
         return { options, selection };
     }

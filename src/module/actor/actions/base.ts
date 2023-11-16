@@ -113,8 +113,8 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         this.#variants = Array.isArray(data.variants)
             ? data.variants.map(this.toActionVariant.bind(this))
             : data.variants
-            ? [this.toActionVariant(data.variants)]
-            : [];
+              ? [this.toActionVariant(data.variants)]
+              : [];
     }
 
     get glyph(): string {
@@ -129,8 +129,8 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
                 first === last
                     ? String(first)
                     : first === 2 || last === 2
-                    ? `${first} or ${last}`
-                    : `${first} to ${last}`;
+                      ? `${first} or ${last}`
+                      : `${first} to ${last}`;
             return getActionGlyph(key);
         }
         return getActionGlyph(this.cost ?? "");

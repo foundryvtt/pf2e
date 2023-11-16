@@ -170,13 +170,13 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                 const damageType = this.#DAMAGE_TYPES.has(String(typeData.value))
                     ? typeData.value
                     : topLevel
-                    ? "untyped"
-                    : undefined;
+                      ? "untyped"
+                      : undefined;
                 const damageCategory = setHasElement(DAMAGE_CATEGORIES_UNIQUE, typeData.subtype)
                     ? typeData.subtype
                     : topLevel
-                    ? null
-                    : undefined;
+                      ? null
+                      : undefined;
                 system.damage[key] = {
                     applyMod: typeof partial.applyMod === "boolean" ? partial.applyMod : undefined,
                     formula: typeof partial.value === "string" ? partial.value : topLevel ? "" : undefined,

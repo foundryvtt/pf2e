@@ -41,8 +41,8 @@ class ActorInitiative {
         const initiativeSkill = actor.isOfType("hazard")
             ? "stealth"
             : actor.isOfType("character", "npc")
-            ? actor.attributes.initiative?.statistic || "perception"
-            : null;
+              ? actor.attributes.initiative?.statistic || "perception"
+              : null;
         const base = initiativeSkill ? actor.getStatistic(initiativeSkill) : null;
 
         const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;

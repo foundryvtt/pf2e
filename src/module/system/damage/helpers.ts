@@ -294,8 +294,8 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
         firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
             ? `dice-d${firstDice.faces}`
             : firstDice
-            ? "dice-d20"
-            : "calculator";
+              ? "dice-d20"
+              : "calculator";
 
     return fontAwesomeIcon(glyph, { fixedWidth });
 }

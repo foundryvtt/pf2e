@@ -153,8 +153,8 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
         return newSize.isLargerThan(originalSize)
             ? Math.max(SIZE_TO_REACH[this.actor.size], current)
             : newSize.isSmallerThan(originalSize)
-            ? Math.min(SIZE_TO_REACH[this.actor.size], current)
-            : current;
+              ? Math.min(SIZE_TO_REACH[this.actor.size], current)
+              : current;
     }
 }
 

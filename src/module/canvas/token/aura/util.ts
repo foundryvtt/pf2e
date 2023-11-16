@@ -31,8 +31,8 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         data.traits?.includes("visual") && !data.traits.includes("auditory")
             ? "sight"
             : data.traits?.includes("auditory") && !data.traits.includes("visual")
-            ? "sound"
-            : "move";
+              ? "sound"
+              : "move";
 
     const tokenBounds = data.token.mechanicalBounds;
     const tokenCenter = data.token.center;

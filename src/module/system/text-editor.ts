@@ -367,8 +367,8 @@ class TextEditorPF2e extends TextEditor {
         const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
             ? rawParams.showDC
             : actor?.hasPlayerOwner || actor?.isOfType("party") || game.settings.get("pf2e", "metagame_showDC")
-            ? "all"
-            : "gm";
+              ? "all"
+              : "gm";
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -628,8 +628,8 @@ class TextEditorPF2e extends TextEditor {
                 tooltip: args.inlineLabel
                     ? formula
                     : baseFormula && baseFormula !== formula
-                    ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
-                    : null,
+                      ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
+                      : null,
                 damageRoll: params.formula,
                 pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,

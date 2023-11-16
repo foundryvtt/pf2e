@@ -443,8 +443,8 @@ class DamageInstance extends AbstractDamageRoll {
             this.persistent && this.type !== "bleed"
                 ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
                 : this.type !== "untyped"
-                ? typeFlavor
-                : "";
+                  ? typeFlavor
+                  : "";
         return [this.head.expression, damageType].join(" ").trim();
     }
 
@@ -517,8 +517,8 @@ class DamageInstance extends AbstractDamageRoll {
         return head instanceof ArithmeticExpression
             ? head.render()
             : ["precision", "splash"].includes(head.flavor)
-            ? renderComponentDamage(head)
-            : head.expression;
+              ? renderComponentDamage(head)
+              : head.expression;
     }
 
     override get dice(): DiceTerm[] {
@@ -529,8 +529,8 @@ class DamageInstance extends AbstractDamageRoll {
                         t instanceof DiceTerm
                             ? [...dice, t]
                             : t instanceof Grouping || t instanceof ArithmeticExpression || t instanceof IntermediateDie
-                            ? [...dice, ...t.dice]
-                            : [],
+                              ? [...dice, ...t.dice]
+                              : [],
                     this._dice,
                 )
                 .flat(),

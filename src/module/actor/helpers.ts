@@ -232,8 +232,8 @@ function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
     return !flanking.flankable
         ? false
         : typeof flanking.offGuardable === "number"
-        ? origin.level > flanking.offGuardable
-        : flanking.offGuardable;
+          ? origin.level > flanking.offGuardable
+          : flanking.offGuardable;
 }
 
 function getStrikeAttackDomains(
@@ -282,8 +282,8 @@ function getStrikeAttackDomains(
             ? weaponTraits.has("finesse")
                 ? createAttributeModifier({ actor, attribute: "dex", domains })
                 : weaponTraits.has("brutal")
-                ? createAttributeModifier({ actor, attribute: "str", domains })
-                : null
+                  ? createAttributeModifier({ actor, attribute: "str", domains })
+                  : null
             : null;
 
         const attributeModifier = R.compact([

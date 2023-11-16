@@ -161,8 +161,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             actorOrToken instanceof ActorPF2e
                 ? actorOrToken
                 : actorOrToken instanceof TokenDocumentPF2e
-                ? actorOrToken.actor
-                : null;
+                  ? actorOrToken.actor
+                  : null;
         if (actor) {
             await actor.undoDamage(flag);
             ui.notifications.info(

@@ -65,8 +65,8 @@ export class Migration805InlineDamageRolls extends MigrationBase {
             return customLabel && !this.#damageTypeLabelPattern.test(customLabel)
                 ? `${reassembled}{${customLabel}}`
                 : labelEndsWithDamage
-                ? `${reassembled} damage`
-                : reassembled;
+                  ? `${reassembled} damage`
+                  : reassembled;
         });
     }
 

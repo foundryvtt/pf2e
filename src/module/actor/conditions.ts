@@ -120,8 +120,8 @@ class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<Cond
                 temporary === true
                     ? !condition.actor.items.has(condition.id)
                     : temporary === false
-                    ? condition.actor.items.has(condition.id)
-                    : true;
+                      ? condition.actor.items.has(condition.id)
+                      : true;
             return activeFilterSatisfied && temporaryFilterSatisfied;
         });
     }
