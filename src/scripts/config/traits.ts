@@ -1269,6 +1269,7 @@ const traitDescriptions = {
     steam: "PF2E.TraitDescriptionSteam",
     strix: "PF2E.TraitDescriptionStrix",
     structure: "PF2E.TraitDescriptionStructure",
+    subtle: "PF2E.TraitDescriptionSubtle",
     suli: "PF2E.TraitDescriptionSuli",
     summon: "PF2E.TraitDescriptionSummon",
     summoned: "PF2E.TraitDescriptionSummoned",
