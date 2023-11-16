@@ -37,22 +37,28 @@ interface LabelAndDescription {
 }
 
 function prepareReservedTerms(): ReservedTermsRecord {
-    const otherReservedTerms = ["none", "null", "undefined"];
+    const universalReservedTerms = new Set([
+        ...Object.keys(CONFIG.PF2E.damageTypes),
+        ...Object.keys(CONFIG.PF2E.damageCategories),
+        ...Object.keys(CONFIG.PF2E.immunityTypes),
+        ...Object.keys(CONFIG.PF2E.resistanceTypes),
+        ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        "none",
+        "null",
+        "undefined",
+    ]);
+
     return {
-        baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...otherReservedTerms]),
-        creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...otherReservedTerms]),
-        damageTypes: new Set([
-            ...Object.keys(CONFIG.PF2E.damageTypes),
-            ...Object.keys(CONFIG.PF2E.damageCategories),
-            ...otherReservedTerms,
-        ]),
-        equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...otherReservedTerms]),
-        featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...otherReservedTerms]),
-        languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...otherReservedTerms]),
-        spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...otherReservedTerms]),
-        weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...otherReservedTerms]),
-        weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...otherReservedTerms]),
-        weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...otherReservedTerms]),
+        baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...universalReservedTerms]),
+        creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...universalReservedTerms]),
+        damageTypes: universalReservedTerms,
+        equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...universalReservedTerms]),
+        featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...universalReservedTerms]),
+        languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...universalReservedTerms]),
+        spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...universalReservedTerms]),
+        weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
+        weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
+        weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...universalReservedTerms]),
     };
 }
 
