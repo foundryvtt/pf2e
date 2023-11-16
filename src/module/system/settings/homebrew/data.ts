@@ -29,8 +29,8 @@ interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
         : T extends Exclude<HomebrewTraitKey, "baseWeapons">
-        ? keyof ConfigPF2e["PF2E"][T]
-        : never;
+          ? keyof ConfigPF2e["PF2E"][T]
+          : never;
     value: string;
 }
 

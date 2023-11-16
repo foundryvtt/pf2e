@@ -511,8 +511,8 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
             element.classList.contains("focus-points") || element.classList.contains("focus-pool")
                 ? Math.min(Number(element.value) || 0, 3)
                 : element.nodeName === "SELECT"
-                ? element.value
-                : Number(element.value) || 0;
+                  ? element.value
+                  : Number(element.value) || 0;
         await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
     }
 

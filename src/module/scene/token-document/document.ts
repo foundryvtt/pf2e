@@ -217,11 +217,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
                 ? CONST.TOKEN_DISPOSITIONS.SECRET
                 : alliance
-                ? {
-                      party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-                      opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
-                  }[alliance]
-                : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                  ? {
+                        party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                        opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
+                    }[alliance]
+                  : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
     /** Reset sight defaults if using rules-based vision */

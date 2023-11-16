@@ -101,8 +101,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return maxRange
             ? { increment: null, max: maxRange }
             : rangeIncrement
-            ? { increment: rangeIncrement, max: rangeIncrement * 6 }
-            : null;
+              ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+              : null;
     }
 
     get reload(): WeaponReloadTime | null {
@@ -287,8 +287,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
             ? true
             : this.category === "unarmed"
-            ? !!systemData.graspingAppendage
-            : false;
+              ? !!systemData.graspingAppendage
+              : false;
 
         if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.attribute)) {
             systemData.attribute = null;
@@ -596,8 +596,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     t === "reach"
                         ? reachTraitToNPCReach[this.size] ?? []
                         : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
-                        ? (`thrown-${rangeIncrement}` as const)
-                        : t,
+                          ? (`thrown-${rangeIncrement}` as const)
+                          : t,
                 )
                 .filter(
                     // Omitted traits include ...

@@ -1,3 +1,65 @@
+## 5.9.0
+
+### Highlights
+
+-   (Ambrose M., Darkblade1983, Dire Weasel, dogstarrb, Ethan, Intervención, Mecha Maya, MiraculousWaterBottle, nikolaj-a, stwlam, Supe, Tikael) Do a remaster dance
+
+### System Improvements
+
+-   (azrazalea, stwlam) Improve narrowing of spell categories in compendium browser when opened from creature sheets
+-   (Cerapter) Add `none` group to rollOptions for weapons and armour without groups
+-   (Cerapter) Allow frequency ItemAlterations (`max` and `per`) to alter items without a frequency
+-   (stwlam) Add support for using token marks on origins
+-   (stwlam) Automatically create versatile weapon traits from homebrew damage types
+-   (stwlam) Hide "Place Measured Template" buttons on aura spells
+-   (stwlam) Nag about non-V11-compatible modules
+-   (stwlam) Show RE validation failures in rules panel of item sheets
+-   (Supe) Add support for null category in homebrew damage types
+-   (Supe) Support dragdrop of inline @Damage persistent damage
+
+### Bugfixes
+
+-   (stwlam) Fix roll inspector attempting to localize dice as modifiers
+-   (stwlam) Fix tooltips in strike summaries and action macro cards
+-   (stwlam) Refrain from tagging Treat Wounds critical failures as healing rolls
+-   (Supe) Don't mark an inline damage roll as heightened if there is no actor
+-   (Supe) Fix custom damage deletions and propagate to players
+-   (Supe) Fix long party names making buttons on party folder interface inaccessible
+
+### Data Updates
+
+-   (dellatorreadrian) Add emanation to Final Sacrifice
+-   (dellatorreadrian) Add missing RE to Feral Child
+-   (dellatorreadrian) Change save from Confront Selves to Basic
+-   (dellatorreadrian) Create Spirit Sense Spell Effect
+-   (dellatorreadrian) Fix missing RE on Skinstich Salve
+-   (Dire Weasel) Add automation for Arboreal Snag (Axan Wood)'s Blood Roots, Chaplain's Cudgel and Fighter's Fork, Pleroma's Energy Touch
+-   (Dire Weasel) Add automation to Hunter's Anthem for thundering rune with Hunt Prey
+-   (Dire Weasel) Add ChoiceSet to Beast Trainer
+-   (Dire Weasel) Add damage automation for Tino Tung's Retributive Strike
+-   (Dire Weasel) Add effect for Alloy Orb, Clawed Bracers, Deep Sight, Force Shield, Forge Warden, Glow Rod, Horn of Exorcism (Sacred Seeds), Protector's Sphere, Raise Menhir, Sanctify Armament, Sun's Fury
+-   (Dire Weasel) Add Floating Spores ability to Poisonous Mold
+-   (Dire Weasel) Add light to Celestial Armor effect
+-   (Dire Weasel) Unify effects for Elemental Form, Primal Summons, and Sweet Dream
+-   (Dire Weasel) Brush up Ardent Armiger and Humbug Pocket automation
+-   (Dire Weasel) Fix bonus on Entertainer's Cincture (Greater)
+-   (Dire Weasel) Fix defense for Ranger's Bramble and auto-heighten damage link
+-   (Dire Weasel) Fix defense for Shifting Sand and Swamp of Sloth
+-   (Dire Weasel) Fix effect choice labels for Cantrip / Non-Cantrip
+-   (Dire Weasel) Fix heightened area for Wave of Despair
+-   (Dire Weasel) Fix inline damage types for Enervating Wail
+-   (Dire Weasel) Fix prerequisites for Ironblood Stance
+-   (Dire Weasel) Move inline silver trait for Silver Crescent to materials
+-   (Dire Weasel) Remove duplicate damage links from Divine Armageddon
+-   (Dire Weasel) Auto-heighten/level inline damage roll in Blazing Blade and Moonburst
+-   (Igor Romanishkin) Add Rule Elements to Viscous Black Pudding's Adjust Shape
+-   (In3luki) Fix default token config with stamina variant
+-   (rectulo) Fill the price of the staff of the desert winds (major)
+-   (rectulo) Set price for Impulse control upgrade
+-   (stwlam) Have Champion Dedication grant Deity & Cause and Champion's Code
+-   (Tikael) Fix typo in atheism
+-   (Wonton) Add area to Bless
+
 ## 5.8.3
 
 ### Notice

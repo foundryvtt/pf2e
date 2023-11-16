@@ -38,10 +38,10 @@ export function calculateRemainingDuration(
             expiry === "turn-start"
                 ? atTurnStart()
                 : expiry === "turn-end"
-                ? currentInitiative < startInitiative
-                : expiry === "round-end"
-                ? remaining <= 0 && game.time.worldTime > start
-                : false;
+                  ? currentInitiative < startInitiative
+                  : expiry === "round-end"
+                    ? remaining <= 0 && game.time.worldTime > start
+                    : false;
     }
 
     return result;

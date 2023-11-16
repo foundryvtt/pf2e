@@ -267,8 +267,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return traits.has("undead") && !traits.has("eidolon") // Undead eidolons aren't undead
             ? "undead"
             : traits.has("construct") && !isPC && !traits.has("eidolon") // Construct eidolons aren't constructs
-            ? "construct"
-            : "living";
+              ? "construct"
+              : "living";
     }
 
     get visionLevel(): VisionLevel {
@@ -348,8 +348,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
             : damage.isOfType("condition")
-            ? damage.system.persistent?.damageType ?? null
-            : null;
+              ? damage.system.persistent?.damageType ?? null
+              : null;
 
         if (!setHasElement(UNAFFECTED_TYPES, damageType)) return true;
 
@@ -904,19 +904,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const statistic = params.viewOnly
             ? params.statistic
             : isStrike
-            ? strikeActions.find((action): boolean => {
-                  // Find the matching weapon or melee item
-                  if (params.item?.id !== action.item.id || params?.item.name !== action.item.name) return false;
-                  if (params.item.isOfType("melee") && action.item.isOfType("melee")) return true;
+              ? strikeActions.find((action): boolean => {
+                    // Find the matching weapon or melee item
+                    if (params.item?.id !== action.item.id || params?.item.name !== action.item.name) return false;
+                    if (params.item.isOfType("melee") && action.item.isOfType("melee")) return true;
 
-                  // Discriminate between melee/thrown usages by checking that both are either melee or ranged
-                  return (
-                      params.item.isOfType("weapon") &&
-                      action.item.isOfType("weapon") &&
-                      params.item.isMelee === action.item.isMelee
-                  );
-              }) ?? params.statistic
-            : params.statistic;
+                    // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                    return (
+                        params.item.isOfType("weapon") &&
+                        action.item.isOfType("weapon") &&
+                        params.item.isMelee === action.item.isMelee
+                    );
+                }) ?? params.statistic
+              : params.statistic;
 
         const selfItem = ((): ItemPF2e<ActorPF2e> | null => {
             // 1. Simplest case: no context clone, so used the item passed to this method
@@ -1177,8 +1177,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             typeof damage === "number"
                 ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
                 : skipIWR
-                ? { finalDamage: damage.total, applications: [], persistent: [] }
-                : applyIWR(this, damage, rollOptions);
+                  ? { finalDamage: damage.total, applications: [], persistent: [] }
+                  : applyIWR(this, damage, rollOptions);
 
         const { finalDamage } = result;
 
@@ -1286,12 +1286,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 !this.attributes.immunities.some((i) => i.type === "death-effects")
                 ? localize("InstantDeath.DeathEffect")
                 : this.isOfType("npc") && this.modeOfBeing === "undead"
-                ? localize("InstantDeath.Destroyed")
-                : hpUpdate.totalApplied >= (hitPoints.max + staminaMax) * 2
-                ? localize("InstantDeath.MassiveDamage")
-                : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
-                ? localize("InstantDeath.FinePowder")
-                : null;
+                  ? localize("InstantDeath.Destroyed")
+                  : hpUpdate.totalApplied >= (hitPoints.max + staminaMax) * 2
+                    ? localize("InstantDeath.MassiveDamage")
+                    : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
+                      ? localize("InstantDeath.FinePowder")
+                      : null;
         })();
 
         if (hpDamage !== 0) {
@@ -1332,8 +1332,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ? updatedShield.broken
                     ? localize("ShieldDamagedForNBroken")
                     : updatedShield.destroyed
-                    ? localize("ShieldDamagedForNDestroyed")
-                    : localize("ShieldDamagedForN")
+                      ? localize("ShieldDamagedForNDestroyed")
+                      : localize("ShieldDamagedForN")
                 : null;
 
         const statements = ((): string => {

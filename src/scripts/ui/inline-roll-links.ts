@@ -197,8 +197,8 @@ export const InlineRollLinks = {
                                     foundryDoc instanceof ItemPF2e
                                         ? foundryDoc
                                         : foundryDoc instanceof ChatMessagePF2e
-                                        ? foundryDoc.item
-                                        : null;
+                                          ? foundryDoc.item
+                                          : null;
 
                                 return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
                                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
@@ -223,8 +223,8 @@ export const InlineRollLinks = {
                                     pf2Check in CONFIG.PF2E.magicTraditions
                                         ? "PF2E.ActionsCheck.spell"
                                         : statistic.check.type === "attack-roll"
-                                        ? "PF2E.ActionsCheck.x-attack-roll"
-                                        : "PF2E.ActionsCheck.x";
+                                          ? "PF2E.ActionsCheck.x-attack-roll"
+                                          : "PF2E.ActionsCheck.x";
                                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                                     glyph: getActionGlyph(item.actionCost),
                                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
@@ -334,8 +334,8 @@ export const InlineRollLinks = {
             foundryDoc instanceof JournalEntry
                 ? { pf2e: { journalEntry: foundryDoc.uuid } }
                 : message?.flags.pf2e.origin
-                ? { pf2e: { origin: deepClone(message.flags.pf2e.origin) } }
-                : {};
+                  ? { pf2e: { origin: deepClone(message.flags.pf2e.origin) } }
+                  : {};
 
         ChatMessagePF2e.create({
             speaker,

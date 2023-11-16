@@ -120,8 +120,8 @@ class StatementValidator {
         return statement instanceof Object
             ? this.isCompound(statement) || this.isBinaryOp(statement)
             : typeof statement === "string"
-            ? this.isAtomic(statement)
-            : false;
+              ? this.isAtomic(statement)
+              : false;
     }
 
     static isAtomic(statement: unknown): statement is Atom {

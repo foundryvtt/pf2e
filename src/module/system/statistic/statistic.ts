@@ -73,10 +73,10 @@ class Statistic extends BaseStatistic {
         const proficiencyModifier = !actor.isOfType("character")
             ? null
             : typeof data.rank === "number"
-            ? createProficiencyModifier({ actor, rank: data.rank, domains })
-            : data.rank === "untrained-level"
-            ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
-            : null;
+              ? createProficiencyModifier({ actor, rank: data.rank, domains })
+              : data.rank === "untrained-level"
+                ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
+                : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
         const baseModifiers = R.compact([attributeModifier, proficiencyModifier]);
@@ -448,17 +448,17 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const effectLevel = item?.isOfType("spell")
                 ? 2 * item.rank
                 : item?.isOfType("physical")
-                ? item.level
-                : origin?.level ?? selfActor.level;
+                  ? item.level
+                  : origin?.level ?? selfActor.level;
 
             const amount =
                 this.type === "saving-throw" && selfActor.level > effectLevel
                     ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
                     : !!targetActor &&
-                      targetActor.level > effectLevel &&
-                      ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
-                    ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
-                    : null;
+                        targetActor.level > effectLevel &&
+                        ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
+                      ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+                      : null;
 
             if (amount) {
                 dosAdjustments.push({

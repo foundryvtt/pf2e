@@ -74,8 +74,8 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
             o instanceof DiceTerm
                 ? o
                 : o instanceof Grouping || o instanceof ArithmeticExpression || o instanceof IntermediateDie
-                ? o.dice
-                : [],
+                  ? o.dice
+                  : [],
         );
     }
 
@@ -170,8 +170,8 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
             ["precision", "splash"].includes(o.flavor)
                 ? renderComponentDamage(o)
                 : isSystemDamageTerm(o)
-                ? o.render()
-                : o.expression,
+                  ? o.render()
+                  : o.expression,
         );
 
         fragment.append(left, ` ${this.operator} `, right);
@@ -325,8 +325,8 @@ class Grouping extends RollTerm<GroupingData> {
         const expression = ["precision", "splash"].includes(this.flavor)
             ? renderComponentDamage(this.term)
             : isSystemDamageTerm(this.term)
-            ? this.term.render()
-            : this.expression;
+              ? this.term.render()
+              : this.expression;
 
         const fragment = new DocumentFragment();
         // Don't render unnecessary parentheses

@@ -216,8 +216,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             data.level[1] === Infinity
                 ? `${data.level[0]}+`
                 : data.level[0] === data.level[1]
-                ? String(data.level[0])
-                : data.level.join("-");
+                  ? String(data.level[0])
+                  : data.level.join("-");
         const populationRange = data.population[1] === Infinity ? `${data.population[0]}+` : data.population.join("-");
 
         return {

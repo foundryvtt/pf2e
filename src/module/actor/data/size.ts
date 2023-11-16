@@ -114,10 +114,10 @@ export class ActorSizePF2e {
             this.value === "tiny" && skipSmall
                 ? "med"
                 : this.value === "sm" && skipSmall
-                ? "lg"
-                : this.value === "grg"
-                ? "grg"
-                : SIZES[SIZES.indexOf(this.value) + 1];
+                  ? "lg"
+                  : this.value === "grg"
+                    ? "grg"
+                    : SIZES[SIZES.indexOf(this.value) + 1];
 
         const newSpace = ActorSizePF2e.defaultSpaces[this.value];
         this.length = newSpace.length;

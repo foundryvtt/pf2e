@@ -67,8 +67,8 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const slotType = /book\b/.test(this.slug ?? "")
             ? "Book"
             : /\bring\b/.test(this.slug ?? "")
-            ? "Ring"
-            : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
+              ? "Ring"
+              : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
 
         const itemType = objectHasKey(identificationConfig.UnidentifiedType, slotType)
             ? game.i18n.localize(identificationConfig.UnidentifiedType[slotType])

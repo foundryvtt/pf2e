@@ -109,20 +109,20 @@ export class Migration883BanishAlignment extends MigrationBase {
                         system.category === "philosophy"
                             ? null
                             : ["asmodeus", "iomedae", "rovagug", "urgathoa"].includes(system.slug ?? "")
-                            ? "must"
-                            : "can";
+                              ? "must"
+                              : "can";
                     const what: Sanctification[] | null =
                         modal === null || system.slug === "pharasma"
                             ? null
                             : system.slug === "gorum"
-                            ? ["holy", "unholy"]
-                            : followers.some((f) => f.includes("G"))
-                            ? followers.some((f) => f.includes("E"))
-                                ? ["holy", "unholy"]
-                                : ["holy"]
-                            : followers.some((f) => f.includes("E"))
-                            ? ["unholy"]
-                            : null;
+                              ? ["holy", "unholy"]
+                              : followers.some((f) => f.includes("G"))
+                                ? followers.some((f) => f.includes("E"))
+                                    ? ["holy", "unholy"]
+                                    : ["holy"]
+                                : followers.some((f) => f.includes("E"))
+                                  ? ["unholy"]
+                                  : null;
                     system.sanctification = modal === null || what === null ? null : { modal, what };
                 }
                 system["-=alignment"] = null;

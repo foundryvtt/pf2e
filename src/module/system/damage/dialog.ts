@@ -165,8 +165,8 @@ class DamageModifierDialog extends Application {
                     d.diceNumber && d.dieSize
                         ? `${d.diceNumber}${d.dieSize}`
                         : d.diceNumber
-                        ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: addSign(d.diceNumber) })
-                        : "",
+                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: addSign(d.diceNumber) })
+                          : "",
                 enabled: d.enabled,
                 ignored: d.ignored,
                 critical: d.critical,
@@ -190,10 +190,10 @@ class DamageModifierDialog extends Application {
                                       d.override.diceNumber && d.override.dieSize
                                           ? `${d.override.diceNumber}${d.override.dieSize}`
                                           : d.override.diceNumber
-                                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
-                                                dice: d.override.diceNumber,
-                                            })
-                                          : d.override.dieSize ?? "",
+                                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
+                                                  dice: d.override.diceNumber,
+                                              })
+                                            : d.override.dieSize ?? "",
                               })
                             : null,
                     ]).join(" + "),

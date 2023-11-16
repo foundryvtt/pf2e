@@ -145,10 +145,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                           class: actor.class.name,
                       })
                     : actor.isOfType("familiar") && actor.master
-                    ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
-                    : actor.isOfType("npc")
-                    ? actor.system.details.blurb.trim() || null
-                    : null;
+                      ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
+                      : actor.isOfType("npc")
+                        ? actor.system.details.blurb.trim() || null
+                        : null;
             const heroPoints =
                 actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")

@@ -46,10 +46,10 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         const item: ClientDocument | null = isFormula
             ? await fromUuid(itemId ?? "")
             : itemType === "condition"
-            ? actor.conditions.get(itemId, { strict: true })
-            : actionIndex
-            ? actor.system.actions?.[Number(actionIndex)].item ?? null
-            : actor.items.get(itemId ?? "") ?? null;
+              ? actor.conditions.get(itemId, { strict: true })
+              : actionIndex
+                ? actor.system.actions?.[Number(actionIndex)].item ?? null
+                : actor.items.get(itemId ?? "") ?? null;
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");

@@ -24,8 +24,8 @@ function darknessLevelAtTime(time: DateTime) {
         (lightnessLevel > 0
             ? 1
             : lightnessLevel < -rad18degrees
-            ? 0
-            : Math.sin((((lightnessLevel + rad18degrees) / rad18degrees) * Math.PI) / 2))
+              ? 0
+              : Math.sin((((lightnessLevel + rad18degrees) / rad18degrees) * Math.PI) / 2))
     );
 }
 

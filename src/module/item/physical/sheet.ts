@@ -25,8 +25,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             return derivedCopperValue > baseCopperValue
                 ? "higher"
                 : derivedCopperValue < baseCopperValue
-                ? "lower"
-                : null;
+                  ? "lower"
+                  : null;
         })();
 
         const { actionTraits } = CONFIG.PF2E;

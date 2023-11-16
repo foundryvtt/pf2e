@@ -122,8 +122,8 @@ class EncounterPF2e extends Combat {
                     actorTraits.has("minion")
                         ? CONFIG.PF2E.creatureTraits.minion
                         : actorTraits.has("eidolon")
-                        ? CONFIG.PF2E.creatureTraits.eidolon
-                        : actorTypes[actor.type],
+                          ? CONFIG.PF2E.creatureTraits.eidolon
+                          : actorTypes[actor.type],
                 );
                 ui.notifications.info(
                     game.i18n.format("PF2E.Encounter.ExcludingFromInitiative", { type, actor: actor.name }),

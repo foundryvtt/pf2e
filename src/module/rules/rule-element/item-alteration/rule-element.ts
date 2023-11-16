@@ -90,8 +90,8 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
             const items: ItemPF2e<ActorPF2e>[] = this.itemId
                 ? R.compact([this.actor.items.get(this.resolveInjectedProperties(this.itemId))])
                 : this.itemType === "condition"
-                ? this.actor.conditions.contents
-                : this.actor.itemTypes[this.itemType!];
+                  ? this.actor.conditions.contents
+                  : this.actor.itemTypes[this.itemType!];
             items.push(
                 ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );

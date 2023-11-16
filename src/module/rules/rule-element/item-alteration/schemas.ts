@@ -65,8 +65,8 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
     const hasBadge = itemIsOfType(item, "condition")
         ? typeof item.system.value.value === "number"
         : itemIsOfType(item, "effect")
-        ? item.system.badge?.type === "counter"
-        : false;
+          ? item.system.badge?.type === "counter"
+          : false;
     if (!hasBadge) {
         throw new foundry.data.validation.DataModelValidationError("effect lacks a badge");
     }

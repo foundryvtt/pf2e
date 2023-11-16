@@ -655,8 +655,8 @@ class DamageDicePF2e {
         this.category = tupleHasValue(["persistent", "precision", "splash"], params.category)
             ? params.category
             : this.damageType === "bleed"
-            ? "persistent"
-            : null;
+              ? "persistent"
+              : null;
         this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
 
         this.predicate =

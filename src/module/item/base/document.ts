@@ -102,8 +102,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): this is T extends "physical"
         ? PhysicalItemPF2e<TParent>
         : T extends ItemType
-        ? ItemInstances<TParent>[T]
-        : never;
+          ? ItemInstances<TParent>[T]
+          : never;
     isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }

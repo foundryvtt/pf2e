@@ -31,8 +31,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     typeof data.pack === "string"
                         ? `Compendium.${data.pack}`
                         : typeof data.actorId === "string"
-                        ? `Actor.${data.actorId}.Item`
-                        : "Item";
+                          ? `Actor.${data.actorId}.Item`
+                          : "Item";
                 const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
                 if (!(item instanceof ItemPF2e)) return;
 

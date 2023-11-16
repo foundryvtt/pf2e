@@ -228,19 +228,19 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const choices: PickableThing<string | number | object>[] = Array.isArray(this.choices)
             ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
             : isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
-            ? this.choices.ownedItems
-                ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
-                : this.choices.attacks || this.choices.unarmedAttacks
-                ? this.#choicesFromAttacks(
-                      new PredicatePF2e(this.resolveInjectedProperties(this.choices.predicate)),
-                      rollOptions,
-                  )
-                : "filter" in this.choices && Array.isArray(this.choices.filter)
-                ? await this.queryCompendium(this.choices, rollOptions, tempItems)
-                : []
-            : typeof this.choices === "string"
-            ? this.#choicesFromPath(this.choices)
-            : [];
+              ? this.choices.ownedItems
+                  ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
+                  : this.choices.attacks || this.choices.unarmedAttacks
+                    ? this.#choicesFromAttacks(
+                          new PredicatePF2e(this.resolveInjectedProperties(this.choices.predicate)),
+                          rollOptions,
+                      )
+                    : "filter" in this.choices && Array.isArray(this.choices.filter)
+                      ? await this.queryCompendium(this.choices, rollOptions, tempItems)
+                      : []
+              : typeof this.choices === "string"
+                ? this.#choicesFromPath(this.choices)
+                : [];
 
         interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
