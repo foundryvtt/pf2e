@@ -5,7 +5,7 @@ import { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel } from "@util";
 import { AbilityItemSource, AbilitySystemData } from "./data.ts";
-import { normalizeActionChangeData } from "./helpers.ts";
+import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { ActionTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -42,6 +42,10 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         if (this.system.actionType.value === "passive") {
             this.system.selfEffect = null;
         }
+    }
+
+    override onPrepareSynthetics(this: AbilityItemPF2e<ActorPF2e>): void {
+        processSanctification(this);
     }
 
     override getRollOptions(prefix = this.type): string[] {

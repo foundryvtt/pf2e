@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { FeatGroup } from "@actor/character/feats.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
-import { normalizeActionChangeData } from "@item/ability/helpers.ts";
+import { normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
@@ -150,6 +150,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const grant of this.grants.filter((g): g is FeatPF2e<NonNullable<TParent>> => g.isOfType("feat"))) {
             grant.system.level.taken = this.system.level.taken;
         }
+    }
+
+    override onPrepareSynthetics(this: FeatPF2e<ActorPF2e>): void {
+        processSanctification(this);
     }
 
     override async getChatData(
