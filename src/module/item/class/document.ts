@@ -21,10 +21,6 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         return this.system.defenses;
     }
 
-    get classDC(): ZeroToFour {
-        return this.system.classDC;
-    }
-
     get hpPerLevel(): number {
         return this.system.hp;
     }
@@ -114,12 +110,12 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const classDCs: PartialClassDCs = proficiencies.classDCs;
         classDCs[slug] = {
             label: this.name,
-            rank: this.classDC,
+            rank: 1,
             ability: details.keyability.value,
             primary: true,
         };
 
-        this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
+        this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, 1);
 
         const { attacks, defenses } = proficiencies;
 

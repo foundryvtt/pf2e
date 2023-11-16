@@ -287,3 +287,4 @@ export { Migration886CrossbowGroup } from "./886-crossbow-group.ts";
 export { Migration887RedirectSpellLinks } from "./887-redirect-spell-links.ts";
 export { Migration888RemasterLanguagesHeritages } from "./888-remaster-languages-heritages.ts";
 export { Migration889RemoveFocusMaxIncreases } from "./889-remove-focus-max-increases.ts";
+export { Migration890RMClassItemClassDC } from "./890-rm-class-item-class-dc.ts";
