@@ -362,14 +362,14 @@ function getStrikeDamageDomains(
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
 function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
-    const { actor, isMelee, isThrown } = item;
+    const { actor, isMelee } = item;
     if (!actor.isOfType("npc", "hazard")) {
         throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
     }
 
     // Conditions and Custom modifiers to attack rolls
     const meleeOrRanged = isMelee ? "melee" : "ranged";
-    const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
+    const baseOptions = new Set(R.compact(["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value]));
     const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
     const { synthetics } = actor;

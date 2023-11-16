@@ -882,6 +882,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
             return tokenMark ? `target:mark:${tokenMark}` : null;
         })();
+        const initialActionOptions = params.traits?.map((t) => `self:action:trait:${t}`) ?? [];
 
         const selfActor =
             params.viewOnly || !targetToken?.actor
@@ -891,6 +892,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                           ...Array.from(params.options),
                           ...targetToken.actor.getSelfRollOptions("target"),
                           targetMarkOption,
+                          ...initialActionOptions,
                           isFlankingAttack ? "self:flanking" : null,
                       ]),
                       originEphemeralEffects,
@@ -1003,6 +1005,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             : (params.target?.actor ?? targetToken?.actor)?.getContextualClone(
                   R.compact([
                       ...selfActor.getSelfRollOptions("origin"),
+                      ...actionTraits.map((t) => `origin:action:trait${t}`),
                       ...params.options,
                       ...itemOptions,
                       ...(originDistance ? [originDistance] : []),
@@ -1016,6 +1019,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ...params.options,
                 ...selfActor.getRollOptions(params.domains),
                 ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
+                ...actionTraits.map((t) => `self:action:trait:${t}`),
                 ...itemOptions,
                 // Backward compatibility for predication looking for an "attack" trait by its lonesome
                 isAttackAction ? "attack" : null,
