@@ -33,7 +33,37 @@
                 "label": "PF2E.SpecificRule.SneakAttack",
                 "predicate": [
                     "target:condition:off-guard",
-                    "item:category:simple",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:category:simple",
+                                    {
+                                        "lte": [
+                                            "item:damage:die:faces",
+                                            8
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:category:martial",
+                                            "item:category:advanced"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:damage:die:faces",
+                                            6
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
                     {
                         "nor": [
                             {
