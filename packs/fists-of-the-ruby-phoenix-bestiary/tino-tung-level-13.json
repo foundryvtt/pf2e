@@ -1002,7 +1002,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "retributive-strike",
+                        "toggleable": true
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "spirit",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "melee",
+                            "retributive-strike"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 3
+                    }
+                ],
                 "slug": "retributive-strike",
                 "traits": {
                     "rarity": "common",
