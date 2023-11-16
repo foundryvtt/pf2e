@@ -243,12 +243,13 @@ class CompendiumBrowser extends Application {
         const filter = await spellTab.getFilterData();
         const { traditions } = filter.checkboxes;
 
-        if (category && filter.checkboxes.category.options[category]) {
+        // Focus spells are category "spell" but having both selected breaks the filter
+        if (category && filter.checkboxes.category.options[category] && !entry.isFocusPool) {
             filter.checkboxes.category.options[category].selected = true;
             filter.checkboxes.category.selected.push(category);
         }
 
-        if (entry.isRitual || entry.isFocusPool) {
+        if (entry.isFocusPool) {
             filter.checkboxes.category.options[entry.category].selected = true;
             filter.checkboxes.category.selected.push(entry.category);
         }
