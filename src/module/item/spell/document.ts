@@ -296,9 +296,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             item: this as SpellPF2e<ActorPF2e>,
             statistic: checkStatistic.check,
             domains,
-            options: new Set(["action:cast-a-spell", ...spellTraits]),
+            options: new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]),
             checkContext: null,
             outcome: null,
+            traits: Array.from(spellTraits),
             viewOnly: !isAttack || !params.target,
         });
 
@@ -311,7 +312,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             self: contextData.self,
             target: contextData.target ?? null,
             rollMode: params.rollMode,
-            traits: Array.from(this.traits),
+            traits: contextData.traits,
         };
 
         // Add modifiers and damage die adjustments
@@ -857,7 +858,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     ): Promise<void> {
         const statistic = this.spellcasting?.statistic;
         if (statistic) {
-            context.extraRollOptions = R.uniq(R.compact(["action:cast-a-spell", context.extraRollOptions].flat()));
+            context.extraRollOptions = R.uniq(
+                R.compact(["action:cast-a-spell", "self:action:slug:cast-a-spell", context.extraRollOptions].flat()),
+            );
             await statistic.check.roll({
                 ...eventToRollParams(event, { type: "check" }),
                 ...context,

@@ -92,7 +92,7 @@ abstract class IWR<TType extends IWRType> {
             case "ghost-touch":
                 return ["item:rune:property:ghost-touch"];
             case "holy":
-                return [{ or: ["action:trait:holy", "item:trait:holy"] }];
+                return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
             case "magical":
                 return ["item:magical"];
             case "mental":

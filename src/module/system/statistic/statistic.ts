@@ -27,7 +27,7 @@ import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckRollContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { ErrorPF2e, isObject, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -491,6 +491,12 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 .filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
         for (const trait of traits) {
             options.add(trait);
+        }
+        if (args.action) {
+            options.add(`self:action:slug:${sluggify(args.action)}`);
+            for (const trait of traits) {
+                options.add(`self:action:trait:${trait}`);
+            }
         }
 
         // Create parameters for the check roll function

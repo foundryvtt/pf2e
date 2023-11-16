@@ -1217,6 +1217,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const baseOptions = new Set([
             "action:strike",
+            "self:action:slug:strike",
             `item:proficiency:rank:${proficiencyRank}`,
             // @todo migrate away:
             PROFICIENCY_RANK_OPTION[proficiencyRank],
