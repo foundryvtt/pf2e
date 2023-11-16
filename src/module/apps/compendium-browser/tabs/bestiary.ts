@@ -11,7 +11,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     protected index = [
         "img",
-        "system.details.alignment.value",
         "system.details.level.value",
         "system.details.publication.title",
         "system.details.source.value",
@@ -20,18 +19,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name"];
-    override storeFields = [
-        "type",
-        "name",
-        "img",
-        "uuid",
-        "level",
-        "alignment",
-        "actorSize",
-        "traits",
-        "rarity",
-        "source",
-    ];
+    override storeFields = ["type", "name", "img", "uuid", "level", "actorSize", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -71,7 +59,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     img: actorData.img,
                     uuid: `Compendium.${pack.collection}.${actorData._id}`,
                     level: actorData.system.details.level.value,
-                    alignment: actorData.system.details.alignment.value,
                     actorSize: actorData.system.traits.size.value,
                     traits: actorData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: actorData.system.traits.rarity,
@@ -98,21 +85,21 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
+
         // Size
         if (checkboxes.sizes.selected.length) {
             if (!checkboxes.sizes.selected.includes(entry.actorSize)) return false;
         }
-        // Alignment
-        if (checkboxes.alignments.selected.length) {
-            if (!checkboxes.alignments.selected.includes(entry.alignment)) return false;
-        }
+
         // Traits
         if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
+
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+
         // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
@@ -126,12 +113,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 sizes: {
                     isExpanded: true,
                     label: "PF2E.BrowserFilterSizes",
-                    options: {},
-                    selected: [],
-                },
-                alignments: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterAlignments",
                     options: {},
                     selected: [],
                 },

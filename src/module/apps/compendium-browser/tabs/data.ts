@@ -79,7 +79,6 @@ interface ActionFilters extends BaseFilterData {
 
 interface BestiaryFilters extends BaseFilterData {
     checkboxes: {
-        alignments: CheckboxData;
         rarity: CheckboxData;
         sizes: CheckboxData;
         source: CheckboxData;
