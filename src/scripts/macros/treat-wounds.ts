@@ -166,7 +166,8 @@ async function treat(
             }
 
             if (healFormula) {
-                const healRoll = await new DamageRoll(`{(${healFormula})[healing]}`).roll({ async: true });
+                const formulaModifier = outcome === "criticalFailure" ? "" : "[healing]";
+                const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll({ async: true });
                 const rollType =
                     outcome !== "criticalFailure"
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
