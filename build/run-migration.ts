@@ -26,6 +26,7 @@ import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887
 import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrations/888-remaster-languages-heritages.ts";
 import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
+import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -51,6 +52,7 @@ const migrations: MigrationBase[] = [
     new Migration888RemasterLanguagesHeritages(),
     new Migration889RemoveFocusMaxIncreases(),
     new Migration890RMClassItemClassDC(),
+    new Migration891DruidicToWildsong(),
 ];
 
 global.deepClone = <T>(original: T): T => {
