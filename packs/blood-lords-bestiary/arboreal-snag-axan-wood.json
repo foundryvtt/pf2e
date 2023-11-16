@@ -199,7 +199,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The snag's roots go deep into corpses buried beneath and around it. It has regeneration 5 (deactivated by positive) as long as it remains in an area where corpses are buried.</p>"
+                    "value": "<p>The snag's roots go deep into corpses buried beneath and around it. It has regeneration 5 (deactivated by vitality) as long as it remains in an area where corpses are buried.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -209,7 +209,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-roots",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "deactivatedBy": [
+                            "vitality"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            "blood-roots"
+                        ],
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
