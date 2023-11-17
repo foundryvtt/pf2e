@@ -1,7 +1,7 @@
 {
-    "_id": "uy15sDBuYNK48N3v",
+    "_id": "5eqcXtPsYunphMOZ",
     "img": "systems/pf2e/icons/actions/Passive.webp",
-    "name": "Burrower",
+    "name": "Construct",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,7 +11,7 @@
         },
         "category": "familiar",
         "description": {
-            "value": "<p>It gains a burrow Speed of 5 feet, allowing it to dig Tiny holes.</p>"
+            "value": "<p>Your familiar has the construct trait instead of the animal trait. The familiar is immune to death effects, disease, doomed, drained, fatigued, healing, nonlethal attacks, paralyzed, poison, sickened, spirit, unconscious, vitality, and void. Your familiar must have the @UUID[Compendium.pf2e.familiar-abilities.Item.Tough] pet ability to select this.</p>"
         },
         "publication": {
             "license": "ORC",
@@ -23,13 +23,13 @@
         },
         "rules": [
             {
-                "key": "BaseSpeed",
-                "selector": "burrow",
-                "value": 5
+                "add": [
+                    "construct"
+                ],
+                "key": "ActorTraits"
             }
         ],
         "traits": {
-            "rarity": "common",
             "value": []
         },
         "trigger": {

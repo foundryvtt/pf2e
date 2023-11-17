@@ -174,7 +174,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         event: Event,
         options?: OnSubmitFormOptions,
     ): Promise<Record<string, unknown> | false> {
-        event.preventDefault();
+        event.preventDefault(); // Prevent page refresh if it returns early
 
         for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") {
@@ -412,16 +412,23 @@ class DamageTypeManager {
         const reservedTerms = HomebrewElements.reservedTerms;
 
         // Delete all existing homebrew damage types first
+        const typesToDelete: Set<string> = DAMAGE_TYPES.filter((t) => !reservedTerms.damageTypes.has(t));
         for (const collection of Object.values(this.collections)) {
             if (collection instanceof Set) {
-                const types = [...collection].filter((t) => !reservedTerms.damageTypes.has(t));
+                const types = [...collection].filter((t) => typesToDelete.has(t));
                 for (const damageType of types) collection.delete(damageType);
             } else {
-                const types = Object.keys(collection).filter(
-                    (t): t is keyof typeof collection => !reservedTerms.damageTypes.has(t),
-                );
+                const types = Object.keys(collection).filter((t): t is keyof typeof collection => typesToDelete.has(t));
                 for (const damageType of types) delete collection[damageType];
             }
+        }
+
+        // Delete versatile damage traits
+        for (const type of typesToDelete) {
+            const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+            const npcAttackTraits: Record<string, string> = CONFIG.PF2E.npcAttackTraits;
+            delete weaponTraits[`versatile-${type}`];
+            delete npcAttackTraits[`versatile-${type}`];
         }
 
         // Read module damage types
