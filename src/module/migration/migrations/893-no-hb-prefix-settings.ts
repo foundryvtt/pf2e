@@ -1,6 +1,6 @@
 import { HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/data.ts";
-import { MigrationBase } from "../base.ts";
 import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 /** Remove "hb_" prefixes from homebrew element slugs. */
 export class Migration893NoHBPrefixSettings extends MigrationBase {
