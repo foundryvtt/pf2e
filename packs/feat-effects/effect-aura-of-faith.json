@@ -22,9 +22,9 @@
         },
         "rules": [
             {
-                "domain": "damage",
+                "domain": "strike-damage",
                 "key": "RollOption",
-                "label": "First Stike that hits an evil foe this round",
+                "label": "PF2E.SpecificRule.Champion.AuraOfFaith.Toggle",
                 "option": "aura-of-faith",
                 "toggleable": true
             },
@@ -32,7 +32,8 @@
                 "damageType": "spirit",
                 "key": "FlatModifier",
                 "predicate": [
-                    "aura-of-faith"
+                    "aura-of-faith",
+                    "target:trait:unholy"
                 ],
                 "selector": "strike-damage",
                 "value": 1
