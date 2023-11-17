@@ -1,5 +1,6 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import * as R from "remeda";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import {
     BasePhysicalItemSource,
@@ -132,7 +133,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             {} as MaterialSheetData["materials"],
         );
 
-        const value = JSON.stringify(this.item.material);
+        const value = JSON.stringify(R.pick(this.item.material, ["type", "grade"]));
         return { value, materials };
     }
 
