@@ -110,6 +110,9 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             return;
         }
 
+        // Assign texture container before await so that repeated calls exit early
+        this.textureContainer = new PIXI.Graphics();
+
         const texture = await (async (): Promise<PIXI.Texture | null> => {
             const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
             if (!(maybeTexture instanceof PIXI.Texture)) return null;
@@ -134,7 +137,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         const diameter = radius * 2;
         const scale = { x: diameter / texture.width, y: diameter / texture.height };
         const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, radius, radius);
-        this.textureContainer = new PIXI.Graphics()
+        this.textureContainer
             .beginTextureFill({ texture, alpha: data.alpha, matrix })
             .drawCircle(0, 0, radius)
             .endFill();
