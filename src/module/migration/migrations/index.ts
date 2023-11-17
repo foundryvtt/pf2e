@@ -291,3 +291,4 @@ export { Migration890RMClassItemClassDC } from "./890-rm-class-item-class-dc.ts"
 export { Migration891DruidicToWildsong } from "./891-druidic-to-wildsong.ts";
 export { Migration892ChoiceSetREAdjustNameValue } from "./892-choice-re-adjust-name-value.ts";
 export { Migration893NoHBPrefixSettings } from "./893-no-hb-prefix-settings.ts";
+export { Migration894NoLayOnHandsVsUndead } from "./894-no-lay-on-hands-vs-undead.ts";
