@@ -195,8 +195,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!isEquippedShield || !actor.isOfType("character", "npc")) {
             return;
         }
-        const { attributes } = actor;
-        if (attributes.shield.itemId !== null) return;
+        const { attributes } = actor.system;
+        if (![this.id, null].includes(attributes.shield.itemId)) {
+            return;
+        }
 
         const { hitPoints } = this;
         attributes.shield = {
