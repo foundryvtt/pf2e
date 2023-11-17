@@ -10,10 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
-import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
-import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
-import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-move-stamina-stuff.ts";
 import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
 import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
@@ -27,6 +23,7 @@ import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrat
 import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
 import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
+import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -36,10 +33,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration869RefreshMightyBulwark(),
-    new Migration870MartialToProficiencies(),
-    new Migration873RemoveBonusBulkLimit(),
-    new Migration874MoveStaminaStuff(),
     new Migration875SetInnovationIdEarly(),
     new Migration876FeatLevelTaken(),
     new Migration877PublicationData(),
@@ -53,6 +46,7 @@ const migrations: MigrationBase[] = [
     new Migration889RemoveFocusMaxIncreases(),
     new Migration890RMClassItemClassDC(),
     new Migration891DruidicToWildsong(),
+    new Migration894NoLayOnHandsVsUndead(),
 ];
 
 global.deepClone = <T>(original: T): T => {
