@@ -208,7 +208,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             hp: hitPoints,
             hardness: this.hardness,
             brokenThreshold: hitPoints.brokenThreshold,
-            raised: false,
+            raised: this.isRaised,
             broken: this.isBroken,
             destroyed: this.isDestroyed,
             icon: this.img,
