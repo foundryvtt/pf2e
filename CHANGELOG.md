@@ -1,3 +1,41 @@
+## 5.9.2
+
+### Bugfixes
+
+-   (In3luki) Migrate non-boolean `adjustName` values in choice set rule elements
+-   (stwlam) Confirm a damage recipients are at 0 hp before possibly pronouncing instant death
+-   (stwlam) Fix aberrant positioning deity section on PC sheets
+-   (stwlam) Link up holy/unholy traits with immunities/weaknesses/resistances
+-   (Supe) Prevent duplicate phantom aura textures
+-   (Supe) Allow category-less custom damage types from modules
+-   (Supe) Fix spellcasting proficiency increases from rule elements
+
+### Data Updates
+
+-   (avagdu) Update Range on Divine Lance
+-   (dellatorreadrian) Add Atone ritual link in Druid Anathema description
+-   (dellatorreadrian) Add/Update Familiar Abilities from Remaster
+-   (dellatorreadrian) Rename Hearing to Echolocation in Batsbreath Cane Effect
+-   (Dire Weasel) Add arcane to Mindlink traditions
+-   (Dire Weasel) Add automation for Dark Deliverance bestiary abilities
+-   (Dire Weasel) Fix Initiate Warden's link to Heal Companion
+-   (Dire Weasel) Fix traits for Clear Mind
+-   (Dire Weasel) Update damage links in Shed Spirit and Stitching Strike to autolevel
+-   (Dire Weasel) Update Spellmaster's Ward with autoheightening roll link
+-   (Intervención) Add link Untamed Form spell from feat, remove level restriction
+-   (Intervención) Correct Cleanse Affliction rank
+-   (Intervención) Correct Sure Footing spell link on Remaster Journal
+-   (Intervención) Fix Untamed Shape precidate
+-   (Intervención) Remove identify bonus from Staff of the Dead
+-   (Intervención) Update Rogue Resilience to upgrade Fortitude instead of Reflex
+-   (stwlam) Add Holy trait to Holy Light and Moonlight Ray spells
+-   (stwlam) Fix filter in Experimental Spellshaping choice set
+-   (stwlam) Include Subtle trait description in config/traits
+-   (stwlam) Remove "hb\_" prefix in tags among homebrew settings
+-   (stwlam) Remove sanctification options from Gozreh
+-   (stwlam) Update description of Arcane Cascade action item, standard cantrips of Oscillating Wave class feature
+-   (Supe) Automatically remove Monster Hunter effect after rolling
+
 ## 5.9.1
 
 ### Bugfixes
