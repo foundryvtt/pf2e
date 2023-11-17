@@ -21,6 +21,9 @@ declare global {
          */
         get actor(): Actor<this | null> | null;
 
+        /** A reference to the base, World-level Actor this token represents. */
+        get baseActor(): Actor<null> | undefined;
+
         /** An indicator for whether or not the current User has full control over this Token document. */
         override get isOwner(): boolean;
 
