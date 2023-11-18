@@ -3,7 +3,6 @@ import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
 import path from "path";
-import Peggy from "peggy";
 import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -18,7 +17,7 @@ const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: 
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
-    const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
+    const ROLL_GRAMMAR = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const outDir = "dist";
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
@@ -49,7 +48,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     { src: "README.md", dest: "." },
                     { src: "CONTRIBUTING.md", dest: "." },
                 ],
-            })
+            }),
         );
     } else {
         plugins.push(
@@ -80,7 +79,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                         });
                     }
                 },
-            }
+            },
         );
     }
 
@@ -101,7 +100,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
-            ROLL_PARSER: Peggy.generate(rollGrammar, { output: "source" }),
+            ROLL_GRAMMAR: JSON.stringify(ROLL_GRAMMAR),
         },
         esbuild: { keepNames: true },
         build: {
