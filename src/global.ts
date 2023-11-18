@@ -269,5 +269,5 @@ declare global {
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
-    const ROLL_GRAMMAR: string;
+    const ROLL_PARSER: string;
 }
