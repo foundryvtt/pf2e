@@ -1,3 +1,23 @@
+## 5.9.3
+
+### Bugfixes
+
+-   (stwlam) Fix precious material select menu on armor & weapon sheets
+-   (stwlam) Prevent long A(H)BC names from causing overflow on PC sheet
+-   (stwlam) Fix raised-shield status in actor shield data
+
+### Data Updates
+
+-   (Dire Weasel) Add inline damage roll to Grim Ring
+-   (Dire Weasel) Fix predicates based on wild shape
+-   (Dire Weasel) Fix some mentions of Positive and Negative
+-   (stwlam) Add Aura RE to Aura of Faith, update predicates on extra damage
+-   (stwlam) Add description for Summon trait
+-   (stwlam) Remove addition of spellcasting mod to Shadow Illusion and Weapon of Judgment damage
+-   (stwlam) Remove spell "Lay on Hands (Vs. Undead)", redirect links to it to Lay on Hands
+-   (Tikael) Clean up NPC antipaladin and demonologist
+-   (TMun) Update witch and wizard descriptions in Classes journal entry to latest text from _Player Core_
+
 ## 5.9.2
 
 ### Bugfixes
