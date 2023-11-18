@@ -292,4 +292,4 @@ export { Migration891DruidicToWildsong } from "./891-druidic-to-wildsong.ts";
 export { Migration892ChoiceSetREAdjustNameValue } from "./892-choice-re-adjust-name-value.ts";
 export { Migration893NoHBPrefixSettings } from "./893-no-hb-prefix-settings.ts";
 export { Migration894NoLayOnHandsVsUndead } from "./894-no-lay-on-hands-vs-undead.ts";
-export { Migration895FixHealHarmTraits } from "./895-fix-heal-harm-traits.ts";
+export { Migration895FixVariantSpellTraits } from "./895-fix-variant-spell-traits.ts";
