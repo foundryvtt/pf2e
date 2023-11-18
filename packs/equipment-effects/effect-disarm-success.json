@@ -23,13 +23,12 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
+                    "attacks": true,
                     "predicate": [
-                        "item:equipped"
-                    ],
-                    "types": [
-                        "melee",
-                        "weapon"
+                        "item:equipped",
+                        {
+                            "not": "item:category:unarmed"
+                        }
                     ]
                 },
                 "flag": "disarmWeakenedGrasp",
