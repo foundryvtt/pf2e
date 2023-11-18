@@ -23,7 +23,7 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    static parser = Peggy.generate(ROLL_GRAMMAR);
+    declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
@@ -598,6 +598,10 @@ class DamageInstance extends AbstractDamageRoll {
         return this as Rolled<this>;
     }
 }
+
+Promise.resolve().then(() => {
+    AbstractDamageRoll.parser = Peggy.generate(ROLL_GRAMMAR);
+});
 
 interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;
