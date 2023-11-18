@@ -75,7 +75,8 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
 
     #fixOtherVariants(source: SpellSource): void {
         for (const overlay of Object.values(source.system.overlays ?? {})) {
-            const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } = overlay.system;
+            const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } =
+                overlay.system ?? {};
             if (overlaySystem.traits?.value && Array.isArray(overlaySystem.traits.value)) {
                 if (!R.compact(overlaySystem.traits.value).every((t) => ["concentrate", "manipulate"].includes(t))) {
                     continue;
