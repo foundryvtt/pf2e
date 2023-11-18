@@ -599,8 +599,12 @@ class DamageInstance extends AbstractDamageRoll {
     }
 }
 
+// Called asynchronously due to vite adding `define` variables to `globalThis` late in serve mode
 Promise.resolve().then(() => {
-    AbstractDamageRoll.parser = Peggy.generate(ROLL_GRAMMAR);
+    // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
+    // function constructor.
+    const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
+    new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
 });
 
 interface DamageInstance extends AbstractDamageRoll {
