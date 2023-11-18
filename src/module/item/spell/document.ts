@@ -701,6 +701,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 id: entry.id,
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
+            if (this.isFromConsumable) flags.casting.embeddedSpell = this.toObject();
 
             // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
             if (this.system.defense) {
@@ -713,8 +714,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 };
             }
         }
-
-        flags.isFromConsumable = this.isFromConsumable;
 
         if (!create) {
             message.updateSource(messageSource);
@@ -828,11 +827,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const spellTraits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
-        // Embedded item string for consumable fetching.
-        // This needs to be refactored in the future so that injecting DOM strings isn't necessary
-        const original = this.original ?? this;
-        const item = this.isFromConsumable ? JSON.stringify(original.toObject(false)) : undefined;
-
         return {
             ...systemData,
             description: { value: description },
@@ -851,7 +845,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             formula: damage?.template.damage.roll.formula,
             properties,
             traits: spellTraits,
-            item,
             area,
             variants,
             isAura: this.traits.has("aura"),
