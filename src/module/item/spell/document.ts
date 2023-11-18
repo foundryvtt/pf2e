@@ -579,7 +579,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             damage.formula = damage.formula?.trim() || "0";
 
             damage.kinds = new Set(damage.kinds ?? ["damage"]);
-            if (damage.kinds.size === 0) damage.kinds.add("damage");
+            if (damage.kinds.size === 0 || this.system.defense?.save?.statistic) {
+                damage.kinds.add("damage");
+            }
         }
 
         if (this.system.heightening?.type === "fixed") {
