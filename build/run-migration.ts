@@ -10,7 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
 import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
@@ -24,6 +23,7 @@ import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migration
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
 import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
 import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
+import { Migration895FixHealHarmTraits } from "@module/migration/migrations/895-fix-heal-harm-traits.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -33,7 +33,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration875SetInnovationIdEarly(),
     new Migration876FeatLevelTaken(),
     new Migration877PublicationData(),
     new Migration878TakeABreather(),
@@ -47,6 +46,7 @@ const migrations: MigrationBase[] = [
     new Migration890RMClassItemClassDC(),
     new Migration891DruidicToWildsong(),
     new Migration894NoLayOnHandsVsUndead(),
+    new Migration895FixHealHarmTraits(),
 ];
 
 global.deepClone = <T>(original: T): T => {
