@@ -4,7 +4,7 @@
     "name": "Stance: Masquerade of Seasons Stance",
     "system": {
         "description": {
-            "value": "<p>You have mastered the opening steps to the Masquerade of Seasons, a dance that channels the power of spring, summer, winter, and autumn. Choose one of the following traits: water, fire, negative, or cold. You gain resistance 5 to damage dealt by effects with the chosen trait. You can use an action to reenter this stance at any time, changing the granted resistance to another of the available options. If you are at least 12th level, the granted resistance increases to be equal to half your level.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Masquerade of Seasons Stance]</p>\n<p>Choose one of the following traits: water, fire, void, or cold. You gain resistance to damage dealt by effects with the chosen trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,7 +20,36 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Impossible Lands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    }
+                ],
+                "flag": "masqueradeOfSeasons",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.masqueradeOfSeasons}",
+                "value": "max(5,floor(@actor.level/2))"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
