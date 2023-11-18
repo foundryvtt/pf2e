@@ -183,32 +183,6 @@ class HomebrewElements extends SettingsMenuPF2e {
             if (!("__tagify" in input) || !(input.__tagify instanceof Tagify)) {
                 continue;
             }
-            const elements: { value: string }[] = JSON.parse(input.value);
-            const { reservedTerms } = HomebrewElements;
-            const elementType = input.name;
-            for (const element of elements) {
-                if (
-                    objectHasKey(reservedTerms, elementType) &&
-                    elements.some((e) => reservedTerms[elementType].has(e.value))
-                ) {
-                    input.setCustomValidity(
-                        game.i18n.format("PF2E.SETTINGS.Homebrew.ReservedTerm", { term: element.value }),
-                    );
-                    return false;
-                }
-            }
-        }
-
-        if (!this.form.reportValidity()) return false;
-
-        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "input[name^=damageTypes]")) {
-            if (
-                /^damageTypes\.\d+\.label$/.test(input.name) &&
-                HomebrewElements.reservedTerms.damageTypes.has(sluggify(input.value))
-            ) {
-                input.setCustomValidity(game.i18n.format("PF2E.SETTINGS.Homebrew.ReservedTerm", { term: input.value }));
-                return false;
-            }
         }
 
         return super._onSubmit(event, options);
