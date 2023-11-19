@@ -39,11 +39,21 @@
                 },
                 "flag": "deity",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Deity"
             },
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
                 "uuid": "{item|flags.pf2e.rulesSelections.deity}"
             },
             {
@@ -89,7 +99,11 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     {
-                        "not": "deity:primary:sanctification:none"
+                        "nor": [
+                            "deity:primary:sanctification:none",
+                            "sanctification:holy",
+                            "sanctification:unholy"
+                        ]
                     }
                 ],
                 "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
@@ -119,8 +133,7 @@
                 "key": "Strike",
                 "predicate": [
                     "deity:primary:favored-weapon:fist"
-                ],
-                "priority": 99
+                ]
             },
             {
                 "key": "ActiveEffectLike",
