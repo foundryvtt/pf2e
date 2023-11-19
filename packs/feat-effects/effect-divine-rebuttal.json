@@ -1,0 +1,74 @@
+{
+    "_id": "XyXdZ8hp2Ic43Jmj",
+    "img": "icons/skills/melee/sword-engraved-glow-purple.webp",
+    "name": "Effect: Divine Rebuttal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Divine Rebuttal]</p>\n<p>You can Strike the adjacent creature with your deity's favored weapon. If you are holy or unholy, the Strike gains that trait. If your Strike hits, all your allies gain a +2 circumstance bonus to the triggering saving throw (or a +3 circumstance bonus on a critical hit).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:deity-favored"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "definition": [
+                    "item:deity-favored"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "item:deity-favored"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Cleric.DivineRebuttal.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
