@@ -290,6 +290,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             `${this.id}-damage`,
             isAttack ? ["attack-damage", "attack-spell-damage"] : null,
             checkStatistic.base ? `${checkStatistic.base.slug}-damage` : null,
+            this.original?.id ? `${this.original.id}-damage` : null,
         ]).flat();
 
         const contextData = await this.actor.getDamageRollContext({
