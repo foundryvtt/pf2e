@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSource, SpellSystemSource } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/types.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -74,6 +75,13 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     }
 
     #fixOtherVariants(source: SpellSource): void {
+        for (const partial of Object.values(source.system.damage).filter((p) => R.isObject(p))) {
+            if (typeof partial.type === "string") {
+                partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
+                partial.type ||= "untyped";
+            }
+        }
+
         for (const overlay of Object.values(source.system.overlays ?? {})) {
             const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } =
                 overlay.system ?? {};
