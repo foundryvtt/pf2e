@@ -37,7 +37,34 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:mode:living",
+                                    "item:type:spell",
+                                    "item:slug:harm"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:mode:undead",
+                                    "item:type:spell",
+                                    "item:slug:heal"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.SpecificRule.Equipment.ChannelProtectionAmuletLabel",
+                "type": "custom",
+                "value": 5
+            }
+        ],
         "size": "med",
         "stackGroup": null,
         "traits": {
