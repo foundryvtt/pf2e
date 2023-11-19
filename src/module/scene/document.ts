@@ -90,7 +90,8 @@ class ScenePF2e extends Scene {
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
 
-        if (changed.active && canvas.scene === this) {
+        // Check if this is the new active scene or an update to an already active scene
+        if (changed.active !== false && canvas.scene === this) {
             for (const token of canvas.tokens.placeables) {
                 token.auras.reset();
             }
