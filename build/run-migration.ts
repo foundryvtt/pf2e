@@ -25,6 +25,7 @@ import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890
 import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
 import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
 import { Migration895FixVariantSpellTraits } from "@module/migration/migrations/895-fix-variant-spell-traits.ts";
+import { Migration896HealingDomains } from "@module/migration/migrations/896-healing-domains.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -48,6 +49,7 @@ const migrations: MigrationBase[] = [
     new Migration891DruidicToWildsong(),
     new Migration894NoLayOnHandsVsUndead(),
     new Migration895FixVariantSpellTraits(),
+    new Migration896HealingDomains(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

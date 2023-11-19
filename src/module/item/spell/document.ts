@@ -284,13 +284,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { attribute, isAttack } = this;
         const checkStatistic = this.spellcasting.statistic;
         const spellTraits = this.traits;
-        const domains = R.compact([
-            "damage",
-            "spell-damage",
-            `${this.id}-damage`,
-            isAttack ? ["attack-damage", "attack-spell-damage"] : null,
-            checkStatistic.base ? `${checkStatistic.base.slug}-damage` : null,
-        ]).flat();
+        const damageKinds = Array.from(this.damageKinds);
+        const domains = R.compact(
+            [
+                damageKinds,
+                damageKinds.map((k) => `spell-${k}`),
+                damageKinds.map((k) => `${this.id}-${k}`),
+                isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+                checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
+            ].flat(),
+        );
 
         const contextData = await this.actor.getDamageRollContext({
             target: isAttack ? params.target : null,
