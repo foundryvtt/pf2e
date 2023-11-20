@@ -176,7 +176,34 @@ class SpellReferences extends Collection<SpellReferenceSource> {
     ): Promise<SpellPF2e<TActor> | null> {
         const id = specificId ?? randomID();
         await this.entry.update({ [`system.references.${id}`]: reference });
+        // Updating the entry on a synthetic actor leads to stale data after the update
+        // that needs to be handled separately
+        if (this.actor.isToken) {
+            return this.#handleSyntheticActor(reference, id);
+        }
         return (this.spellCache.get(id) as SpellPF2e<TActor>) ?? null;
+    }
+
+    /** Special handling for synthetic actors */
+    async #handleSyntheticActor<TActor extends ActorPF2e | null>(
+        reference: SpellReferenceSource,
+        id: string,
+    ): Promise<SpellPF2e<TActor> | null> {
+        const document = await fromUuid(reference.sourceId);
+        if (document instanceof SpellPF2e) {
+            const source = document.toObject();
+            source._id = id;
+            source.system.location.value = this.entry.id;
+            const spell = new ItemProxyPF2e(source, {
+                parent: this.actor,
+            }) as SpellPF2e<ActorPF2e>;
+            this.spellCache.set(id, spell);
+            const delta = this.actor.token?.object?.document.delta;
+            if (!delta) return null;
+            delta.items.set(id, spell);
+            return spell as SpellPF2e<TActor>;
+        }
+        return null;
     }
 
     async update(

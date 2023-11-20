@@ -89,8 +89,8 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             );
         }
 
-        const isHeigthened = canHeighten && heightenedRank >= spell.baseRank;
-        const heightenedUpdate = isHeigthened ? { "system.location.heightenedLevel": heightenedRank } : {};
+        const isHeightened = canHeighten && heightenedRank >= spell.baseRank;
+        const heightenedUpdate = isHeightened ? { "system.location.heightenedLevel": heightenedRank } : {};
 
         if (spell.actor === actor) {
             // Reference
@@ -100,7 +100,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     // Differnt entry
                     await spell.spellcasting?.references?.move(spell.id, this.id);
                     return (this.entry.references?.spellCache.get(spell.id) as SpellPF2e<TActor>) ?? null;
-                } else if (isHeigthened) {
+                } else if (isHeightened) {
                     // Same entry
                     return spell.update(heightenedUpdate) as Promise<SpellPF2e<TActor>>;
                 }
@@ -114,7 +114,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         } else {
             // Create reference if possible
             const result = await SpellReferences.fromSpell(spell, this.entry, {
-                heightenTo: isHeigthened ? heightenedRank : null,
+                heightenTo: isHeightened ? heightenedRank : null,
             });
             if (result) {
                 return result as SpellPF2e<TActor>;
