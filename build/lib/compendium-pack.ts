@@ -346,27 +346,41 @@ class CompendiumPack {
         const rules: REMaybeWithUUIDs[] = source.system.rules;
 
         for (const rule of rules) {
-            if (rule.key === "Aura" && Array.isArray(rule.effects)) {
-                for (const effect of rule.effects) {
-                    if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
-                        effect.uuid = this.convertUUID(effect.uuid, convertOptions);
+            switch (rule.key) {
+                case "ActiveEffectLike":
+                    if (isObject<{ value?: unknown }>(rule.value) && typeof rule.value.value === "string") {
+                        rule.value.value = this.convertUUID(rule.value.value, convertOptions);
                     }
-                }
-            } else if (tupleHasValue(["EphemeralEffect", "GrantItem"], rule.key) && typeof rule.uuid === "string") {
-                rule.uuid = this.convertUUID(rule.uuid, convertOptions);
-            } else if (rule.key === "ChoiceSet") {
-                if (hasUUIDChoices(rule.choices)) {
-                    for (const [key, choice] of Object.entries(rule.choices)) {
-                        rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
+                    break;
+                case "Aura":
+                    if (Array.isArray(rule.effects)) {
+                        for (const effect of rule.effects) {
+                            if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
+                                effect.uuid = this.convertUUID(effect.uuid, convertOptions);
+                            }
+                        }
                     }
-                }
-                if (
-                    "selection" in rule &&
-                    typeof rule.selection === "string" &&
-                    rule.selection.startsWith("Compendium.pf2e.")
-                ) {
-                    rule.selection = this.convertUUID(rule.selection, convertOptions);
-                }
+                    break;
+                case "ChoiceSet":
+                    if (hasUUIDChoices(rule.choices)) {
+                        for (const [key, choice] of Object.entries(rule.choices)) {
+                            rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
+                        }
+                    }
+                    if (
+                        "selection" in rule &&
+                        typeof rule.selection === "string" &&
+                        rule.selection.startsWith("Compendium.pf2e.")
+                    ) {
+                        rule.selection = this.convertUUID(rule.selection, convertOptions);
+                    }
+                    break;
+                case "EphemeralEffect":
+                case "GrantItem":
+                    if (typeof rule.uuid === "string") {
+                        rule.uuid = this.convertUUID(rule.uuid, convertOptions);
+                    }
+                    break;
             }
         }
     }
