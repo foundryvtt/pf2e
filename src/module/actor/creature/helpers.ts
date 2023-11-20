@@ -120,12 +120,13 @@ function imposeEncumberedCondition(actor: CreaturePF2e): void {
     if (actor.inventory.bulk.isEncumbered && actor.conditions.bySlug("encumbered").length === 0) {
         const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
         const encumbered = new ConditionPF2e(mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), { parent: actor });
+        actor.conditions.set(encumbered.id, encumbered);
         encumbered.prepareSiblingData();
         encumbered.prepareActorData();
         for (const rule of encumbered.prepareRuleElements()) {
+            rule.onApplyActiveEffects?.();
             rule.beforePrepareData?.();
         }
-        actor.conditions.set(encumbered.id, encumbered);
     }
 }
 
