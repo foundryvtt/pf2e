@@ -26,10 +26,17 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "class:champion"
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
                 ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Destructive Vengeance"
             }
         ],
