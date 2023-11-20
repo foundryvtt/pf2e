@@ -191,16 +191,22 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
                     // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
                     // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                    // We remove low-light vision from the result if the actor has darkvision.
-                    const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
-                    const adjustedSenses = hasDarkvision
-                        ? rawSenses.filter((r) => r.type !== "lowLightVision")
-                        : rawSenses;
-                    return adjustedSenses.map((r) => ({
-                        acuity: r.acuity,
-                        labelFull: r.label ?? "",
-                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
-                    }));
+                    // We remove low-light vision from the result if the actor has darkvision, and darkvision if low light
+                    const senseTypes = new Set(rawSenses.map((s) => s.type));
+                    if (senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")) {
+                        senseTypes.delete("lowLightVision");
+                    }
+                    if (senseTypes.has("greaterDarkvision")) {
+                        senseTypes.delete("darkvision");
+                    }
+
+                    return rawSenses
+                        .filter((r) => senseTypes.has(r.type))
+                        .map((r) => ({
+                            acuity: r.acuity,
+                            labelFull: r.label ?? "",
+                            label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                        }));
                 })(),
                 hp: actor.hitPoints,
                 activities: activities.map((action) => ({
