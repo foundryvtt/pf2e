@@ -72,7 +72,21 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             }
             await folderBatch.write();
         }
+
+        await this.#compact();
         await this.close();
+    }
+
+    async #compact(): Promise<void> {
+        const forwardIterator = this.keys({ limit: 1, fillCache: false });
+        const firstKey = await forwardIterator.next();
+        await forwardIterator.close();
+
+        const backwardIterator = this.keys({ limit: 1, reverse: true, fillCache: false });
+        const lastKey = await backwardIterator.next();
+        await backwardIterator.close();
+
+        if (firstKey && lastKey) return this.compactRange(firstKey, lastKey, { keyEncoding: "utf8" });
     }
 
     async getEntries(): Promise<{ packSources: PackEntry[]; folders: DBFolder[] }> {
