@@ -1059,7 +1059,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "destructive-vengeance",
                         "suboptions": [
@@ -1082,6 +1082,15 @@
                         ],
                         "selector": "strike-damage",
                         "value": 4
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "destructive-vengeance:spirit"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "unholy"
                     }
                 ],
                 "slug": "destructive-vengeance",
