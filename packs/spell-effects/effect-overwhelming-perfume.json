@@ -1,0 +1,46 @@
+{
+    "_id": "wdA5DW7YiYR4jXPs",
+    "img": "icons/commodities/flowers/daisy-close-white.webp",
+    "name": "Effect: Overwhelming Perfume",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Unwavering Heart]</p>\n<p>Creatures in the aura can't benefit from the scent ability and are sickened 1 as long as they remain in the aura.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": [
+                "disease"
+            ]
+        }
+    },
+    "type": "effect"
+}

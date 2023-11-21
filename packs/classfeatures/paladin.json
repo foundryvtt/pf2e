@@ -26,19 +26,31 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "class:champion"
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
                 ],
+                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
-                "option": "divine-smite",
+                "label": "PF2E.SpecificRule.Champion.RetributiveStrike",
+                "option": "retributive-strike",
                 "predicate": [
-                    "feature:divine-smite"
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
                 ],
                 "toggleable": true
             },
@@ -48,7 +60,8 @@
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
                 "predicate": [
-                    "divine-smite"
+                    "feature:divine-smite",
+                    "retributive-strike"
                 ],
                 "selector": "strike-damage",
                 "value": "@actor.system.abilities.cha.mod"
