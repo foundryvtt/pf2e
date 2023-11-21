@@ -4,7 +4,6 @@ import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
@@ -18,13 +17,6 @@ interface PackMetadata {
     name: string;
     path: string;
     type: CompendiumDocumentType;
-}
-
-/** A rule element, possibly an Aura, ChoiceSet, GrantItem */
-interface REMaybeWithUUIDs extends RuleElementSource {
-    effects?: unknown[];
-    choices?: Record<string, string | { value?: string }>;
-    uuid?: unknown;
 }
 
 function isActorSource(docSource: PackEntry): docSource is ActorSourcePF2e {
@@ -337,51 +329,28 @@ class CompendiumPack {
             }
         }
 
-        const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
-            typeof choices === "object" &&
-            Object.values(choices ?? {}).every(
-                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e."),
-            );
-
-        const rules: REMaybeWithUUIDs[] = source.system.rules;
-
-        for (const rule of rules) {
-            switch (rule.key) {
-                case "ActiveEffectLike":
-                    if (isObject<{ value?: unknown }>(rule.value) && typeof rule.value.value === "string") {
-                        rule.value.value = this.convertUUID(rule.value.value, convertOptions);
+        const convertValue = (value: unknown) => {
+            if (Array.isArray(value)) {
+                for (const [index, element] of value.entries()) {
+                    if (typeof element === "string") {
+                        value[index] = this.convertUUID(element, convertOptions);
+                    } else {
+                        convertValue(element);
                     }
-                    break;
-                case "Aura":
-                    if (Array.isArray(rule.effects)) {
-                        for (const effect of rule.effects) {
-                            if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
-                                effect.uuid = this.convertUUID(effect.uuid, convertOptions);
-                            }
-                        }
+                }
+            } else if (isObject<Record<string, unknown>>(value)) {
+                for (const [key, element] of Object.entries(value)) {
+                    if (typeof element === "string") {
+                        value[key] = this.convertUUID(element, convertOptions);
+                    } else {
+                        convertValue(element);
                     }
-                    break;
-                case "ChoiceSet":
-                    if (hasUUIDChoices(rule.choices)) {
-                        for (const [key, choice] of Object.entries(rule.choices)) {
-                            rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
-                        }
-                    }
-                    if (
-                        "selection" in rule &&
-                        typeof rule.selection === "string" &&
-                        rule.selection.startsWith("Compendium.pf2e.")
-                    ) {
-                        rule.selection = this.convertUUID(rule.selection, convertOptions);
-                    }
-                    break;
-                case "EphemeralEffect":
-                case "GrantItem":
-                    if (typeof rule.uuid === "string") {
-                        rule.uuid = this.convertUUID(rule.uuid, convertOptions);
-                    }
-                    break;
+                }
             }
+        };
+
+        for (const rule of source.system.rules) {
+            convertValue(rule);
         }
     }
 
@@ -511,4 +480,4 @@ interface ConvertUUIDOptions {
 }
 
 export { CompendiumPack, isActorSource, isItemSource, PackError };
-export type { PackMetadata, REMaybeWithUUIDs };
+export type { PackMetadata };
