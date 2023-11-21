@@ -1,3 +1,62 @@
+## 5.9.4
+
+### System Improvements
+
+-   (Supe) Add melee/ranged and damage type to elemental blast roll options
+
+### Bugfixes
+
+-   (stwlam) Fix rolling damage from scrolls and wands
+-   (stwlam) Fix auto-encumbered not granting Clumsy 1
+-   (Supe) Fix aura rendering when the active scene is updated
+
+### Data Updates
+
+-   (avagdu) Update level-1 Ezren, Feiya, Harsk, Kyra, Lem, Lini, Merisiel, and Valeros using remastered iconics
+-   (avagdu) Add Witch Patron Familiar Abilities
+-   (avagdu) Fix rule elements on Champion's Code to not add both Holy and Unholy when selecting a deity that allows either sanctification
+-   (avagdu) Allow Additional Lore to be Selected Multiple Times
+-   (avagdu) Add Spellcasting and Bounded Spellcasting Archetypes Journals, link Journal Entries to Spellcasting Archetype Feats
+-   (avagdu) Change Blade Brake to a reaction
+-   (avagdu) Convert Dragon Form effects to remaster rules
+-   (avagdu) Correct Channeling Block level and Mark Others as Remastered
+-   (avagdu) Fix rule elements on Everstand Stance Effect to Increase Hardness and Nephilim Resistance
+-   (avagdu) Grant Pet feat from Witch Familiar Feature and Familiar Feat
+-   (avagdu) Restore Paladin rule elements to Shining Oath
+-   (Dana) Add reminder note and effect to Tactician's Helm
+-   (Dire Weasel) Add attack trait to Reposition, remove attack trait from Spy's Mark spell
+-   (Dire Weasel) Add automation for Divine Rebuttal and Stance: Masquerade of Seasons Stance, and Ovinnik's Raise Grain Cloud extra fire resistance
+-   (Dire Weasel) Add Communal Crafting and Unusual Treatment feats
+-   (Dire Weasel) Add effects for Raise Symbol, Restorative Strike, Mantle of the Unwavering Heart
+-   (Dire Weasel) Add Subtle trait to Charm, Invisibility, and Subconscious Suggestion
+-   (Dire Weasel) Add toggle to Swaggering Initiative
+-   (Dire Weasel) Fix damage type of Debilitating Dichotomy
+-   (Dire Weasel) Fix description of Kneecap effect
+-   (Dire Weasel) Update Elemental Shape to use new unified Spell Effect: Elemental Form
+-   (Dire Weasel) Fix hardness and HP of Indestructible Shield
+-   (Dire Weasel) Fix level of Words of Unraveling
+-   (Dire Weasel) Fix Tok Loyalist's Crafting traps variant label
+-   (Dire Weasel) Improve automation of Scamper Underfoot and Titan Slinger
+-   (Dire Weasel) Make Antipaladin and Ghoul Antipaladin strikes unholy
+-   (Dire Weasel) Refresh Kangir's Unburdened Iron
+-   (Dire Weasel) Update Book of Warding Prayers to grant resistance to holy or unholy
+-   (Jesse) Update Disarm description to match remaster text
+-   (Jesse) Update Litany against Wrath description to match errata text
+-   (kakesu) Add Goggles of Night to list of renamed equipment from the remaster
+-   (kakesu) Add links to weapon names in Elven Weapon Familiarity feat
+-   (Minniehajj) Fix dragon sorcerer bloodlines and dragon disciple interaction
+-   (Minniehajj) Update the copy within the compedium for Divine Font's remaster changes
+-   (nikolaj-a) Fix maximum craftable item level for snarecrafter dedication
+-   (rinaldaj) Fix Witches Armaments not adding the selected strike to character sheet
+-   (stwlam) Fix traits and defenses of spells with variants
+-   (stwlam) Have Animal Accomplice and Leshy Familiar feats grant Pet feat
+-   (stwlam) Have Cleric Dedication grant Deity class feature
+-   (stwlam) Limit Courageous Anthem's check bonus to attack rolls
+-   (stwlam) Set default opposing statistic in Perform action to Will DC
+-   (Tikael) Add Aiuvaran and Dromaar to remaster changes journal
+-   (Tikael) Add automation to Channel Protection Amulet
+-   (Tikael) Improve automation for granting champion reactions
+
 ## 5.9.3
 
 ### Bugfixes
