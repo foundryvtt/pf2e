@@ -5,6 +5,7 @@ import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
 import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
+import "./lib/core-helpers.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
 import { MigrationBase } from "@module/migration/base.ts";
@@ -48,34 +49,6 @@ const migrations: MigrationBase[] = [
     new Migration894NoLayOnHandsVsUndead(),
     new Migration895FixVariantSpellTraits(),
 ];
-
-global.deepClone = <T>(original: T): T => {
-    // Simple types
-    if (typeof original !== "object" || original === null) return original;
-
-    // Arrays
-    if (Array.isArray(original)) return original.map(deepClone) as unknown as T;
-
-    // Dates
-    if (original instanceof Date) return new Date(original) as T & Date;
-
-    // Unsupported advanced objects
-    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
-
-    // Other objects
-    const clone: Record<string, unknown> = {};
-    for (const k of Object.keys(original)) {
-        clone[k] = deepClone((original as Record<string, unknown>)[k]);
-    }
-    return clone as T;
-};
-
-global.randomID = function randomID(length = 16): string {
-    const rnd = () => Math.random().toString(36).substring(2);
-    let id = "";
-    while (id.length < length) id += rnd();
-    return id.substring(0, length);
-};
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
 
