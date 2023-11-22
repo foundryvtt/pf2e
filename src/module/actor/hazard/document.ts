@@ -128,7 +128,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
 
         // Initiative
         if (system.attributes.initiative) {
-            this.initiative = new ActorInitiative(this);
+            this.initiative = new ActorInitiative(this, { statistic: "stealth" });
             system.attributes.initiative = this.initiative.getTraceData();
         }
 
