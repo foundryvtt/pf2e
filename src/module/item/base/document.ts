@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor/base.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -314,18 +315,28 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         if (isPhysicalData(currentSource)) {
-            // Preserve container ID
-            const { containerId, quantity } = currentSource.system;
-            mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
-        } else if (currentSource.type === "feat" || currentSource.type === "spell") {
+            // Preserve basic physical data
+            mergeObject(
+                updates,
+                expandObject({
+                    "system.containerId": currentSource.system.containerId,
+                    "system.equipped": currentSource.system.equipped,
+                    "system.material": currentSource.system.material,
+                    "system.quantity": currentSource.system.quantity,
+                }),
+            );
+        } else if (itemIsOfType(currentSource, "feat", "spell")) {
             // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
-        // Preserve material and runes
-        if (currentSource.type === "weapon" || currentSource.type === "armor") {
+        if (currentSource.type === "feat" && currentSource.system.level.taken) {
+            mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
+        }
+
+        // Preserve runes
+        if (itemIsOfType(currentSource, "armor", "weapon")) {
             const materialAndRunes: Record<string, unknown> = {
-                "system.material": currentSource.system.material,
                 "system.potencyRune": currentSource.system.potencyRune,
                 "system.propertyRune1": currentSource.system.propertyRune1,
                 "system.propertyRune2": currentSource.system.propertyRune2,

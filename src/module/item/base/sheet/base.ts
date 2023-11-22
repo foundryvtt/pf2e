@@ -526,6 +526,20 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 },
             });
         }
+
+        const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
+        if (refreshAnchor) {
+            if (
+                this.item.system.rules.some(
+                    (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+                )
+            ) {
+                refreshAnchor.classList.add("disabled");
+                refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Disabled";
+            } else {
+                refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Enabled";
+            }
+        }
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> | null = null): Record<string, unknown> {
@@ -545,16 +559,20 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const buttons = super._getHeaderButtons();
 
         if (
-            (BUILD_MODE === "development" || game.settings.get("pf2e", "dataTools")) &&
             this.isEditable &&
             this.item.sourceId?.startsWith("Compendium.") &&
             (this.actor || !this.item.uuid.startsWith("Compendium."))
         ) {
             buttons.unshift({
-                label: "Refresh",
+                label: "PF2E.Item.RefreshFromCompendium.Label",
                 class: "refresh-from-compendium",
                 icon: "fa-solid fa-sync-alt",
-                onclick: () => this.item.refreshFromCompendium(),
+                onclick: () => {
+                    const enabled = !this.item.system.rules.some(
+                        (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+                    );
+                    if (enabled) this.item.refreshFromCompendium();
+                },
             });
         }
 
