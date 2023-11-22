@@ -8,7 +8,7 @@ import { htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
-        return canvas.tokens?.controlled.at(0)?.document ?? game.scenes.active?.tokens.find((t) => t.actor !== null && game.user.character !== null && t.actor.id == game.user.character.id) ?? null;
+        return canvas.tokens?.controlled.at(0)?.document ?? game.scenes.viewed?.tokens.find((t) => t.actor !== null && game.user.character !== null && t.actor.id == game.user.character.id) ?? null;
     }
 
     private get actor(): ActorPF2e | null {
