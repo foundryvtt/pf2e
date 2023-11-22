@@ -329,7 +329,7 @@ class ChatCards {
             }
 
             const dc = Number(button.dataset.dc ?? "NaN");
-            for (const token of canvas.tokens?.controlled) {
+            for (const token of canvas.tokens?.controlled ?? []) {
                 const save = token.actor?.saves?.[saveType];
                 if (!save) return;
 
