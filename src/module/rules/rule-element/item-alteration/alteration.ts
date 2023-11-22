@@ -90,7 +90,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                armor.system.acBonus = Math.max(newValue, 0);
+                const reincludePotencyRune = this.mode === "override";
+                armor.system.acBonus =
+                    Math.max(newValue, 0) + (reincludePotencyRune ? armor.system.potencyRune.value || 0 : 0);
                 this.#adjustCreatureShieldData(armor);
                 return;
             }
