@@ -38,7 +38,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
 
         const variants = R.isObject(source.system.overlays)
             ? Object.values(source.system.overlays).filter(
-                  (o) => R.isObject(o) && R.isObject(o.system.traits) && Array.isArray(o.system.traits.value),
+                  (o) => R.isObject(o) && R.isObject(o.system?.traits) && Array.isArray(o.system.traits.value),
               )
             : [];
 
