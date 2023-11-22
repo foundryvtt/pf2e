@@ -8,6 +8,7 @@ import { tupleHasValue } from "@util";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import * as R from "remeda";
+import { ActorInitiative } from "@actor/initiative.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare scouting: Statistic;
@@ -77,6 +78,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 ]),
             });
         }
+
+        this.initiative = new ActorInitiative(this, { statistic: "scouting" });
     }
 
     updateLevel(newLevel: number): Promise<this | undefined> {

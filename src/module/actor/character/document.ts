@@ -681,7 +681,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
 
         // Initiative
-        this.initiative = new ActorInitiative(this);
+        const initiativeSkill = systemData.attributes.initiative?.statistic || "perception";
+        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
         this.system.attributes.initiative = this.initiative.getTraceData();
 
         // Resources
