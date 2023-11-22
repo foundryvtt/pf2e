@@ -74,7 +74,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
-    get validTraits(): Record<string, string> | null {
+    protected get validTraits(): Record<string, string> | null {
         if (objectHasKey(CONFIG.PF2E.Item.traits, this.item.type)) {
             return CONFIG.PF2E.Item.traits[this.item.type];
         }
@@ -422,7 +422,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         // Set up traits selection in the header
         const { validTraits } = this;
-        const tagElement = html.querySelector(".sheet-header .tags");
+        const tagElement = htmlQuery(this.form, ":scope > header .tags");
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement instanceof HTMLInputElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });

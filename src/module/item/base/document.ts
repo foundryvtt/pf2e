@@ -404,19 +404,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.processChatData(htmlOptions, deepClone(systemData));
     }
 
-    protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
-        const traits: string[] = [...(this.system.traits?.value ?? [])].sort();
+    protected traitChatData(
+        dictionary: Record<string, string | undefined> = {},
+        traits = this.system.traits.value ?? [],
+    ): TraitChatData[] {
+        const traitChatLabels = traits
+            .map((trait) => {
+                const label = game.i18n.localize(dictionary[trait] ?? trait);
+                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
-        const traitChatLabels = traits.map((trait) => {
-            const label = dictionary[trait] ?? trait;
-            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-
-            return {
-                value: trait,
-                label,
-                description: traitDescriptions[trait],
-            };
-        });
+                return {
+                    value: trait,
+                    label,
+                    description: traitDescriptions[trait],
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
 
         return traitChatLabels;
     }

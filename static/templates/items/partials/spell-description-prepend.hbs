@@ -1,0 +1,15 @@
+{{#if traditions}}<p><strong>{{localize "PF2E.SpellTraditionsLabel"}}</strong> {{traditions}}</p>{{/if}}
+{{#unless spell.actionGlyph}}
+    <p><strong>{{localize "PF2E.CastLabel"}}</strong> {{spell.system.time.value}}</p>
+{{/unless}}
+{{#if (or spell.system.range.value spell.system.target.value spell.system.area)}}
+    <p>
+        {{#if spell.system.range.value}}<strong>{{localize "PF2E.SpellRangeLabel"}}</strong> {{spell.system.range.value}}{{/if}}
+        {{#if spell.system.area}}<strong>{{localize "PF2E.AreaLabel"}}</strong> {{spell.area.label}}{{/if}}
+        {{#if spell.system.target.value}}<strong>{{localize "PF2E.SpellTargetLabel"}}</strong> {{spell.system.target.value}}{{/if}}
+    </p>
+{{/if}}
+{{#if spell.system.duration.value}}
+    <p><strong>{{localize "PF2E.SpellDurationLabel"}}</strong> {{spell.system.duration.value}}</p>
+{{/if}}
+<hr />
