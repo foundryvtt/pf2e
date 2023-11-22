@@ -97,7 +97,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
     }
 
     override async getData(): Promise<PopupData> {
-        const selectedTokens = canvas.tokens.controlled.filter(
+        const selectedTokens = canvas.tokens?.controlled.filter(
             (token) => token.actor && token.actor.id !== this.object.id,
         );
         const tokenInfo = selectedTokens.map((token) => ({

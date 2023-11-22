@@ -9,7 +9,7 @@ import { ActorType } from "@actor/data/index.ts";
  * @returns An array of ActorPF2E elements according to the aforementioned filters.
  */
 function getSelectedOrOwnActors(types?: ActorType[], useOwnCharacter = true): ActorPF2e[] {
-    const actors = canvas.tokens.controlled
+    const actors = canvas.tokens?.controlled
         .flatMap((token) => (token.actor ? token.actor : []))
         .filter((actor) => actor.isOwner)
         .filter((actor) => !types || actor.isOfType(...types));
@@ -20,3 +20,4 @@ function getSelectedOrOwnActors(types?: ActorType[], useOwnCharacter = true): Ac
 }
 
 export { getSelectedOrOwnActors };
+

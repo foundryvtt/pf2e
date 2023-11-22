@@ -713,7 +713,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.preparePrototypeToken();
         if (this.constructed && canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
-            const thisTokenIsControlled = canvas.tokens.controlled.some(
+            const thisTokenIsControlled = canvas.tokens?.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this),
             );
             if (game.user.character === this || thisTokenIsControlled) {
@@ -856,7 +856,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const [selfToken, targetToken] =
             canvas.ready && !params.viewOnly
                 ? [
-                      canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null,
+                      canvas.tokens?.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null,
                       params.target?.token ?? params.target?.actor?.getActiveTokens().shift() ?? null,
                   ]
                 : [null, null];

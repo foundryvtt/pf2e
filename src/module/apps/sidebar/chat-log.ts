@@ -177,7 +177,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
     #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
         const getTokens = (): TokenPF2e[] => {
-            const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+            const tokens = canvas.tokens?.controlled.filter((token) => token.actor);
             if (!tokens.length) {
                 ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
             }
@@ -292,7 +292,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const canApplyDamage: ContextOptionCondition = ($li: JQuery) => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            return canvas.tokens.controlled.length > 0 && message.rolls.some((r) => r instanceof DamageRoll);
+            return canvas.tokens?.controlled.length > 0 && message.rolls.some((r) => r instanceof DamageRoll);
         };
 
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>

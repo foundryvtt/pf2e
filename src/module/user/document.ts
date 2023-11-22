@@ -6,7 +6,7 @@ import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 class UserPF2e extends User<ActorPF2e<null>> {
     override prepareData(): void {
         super.prepareData();
-        if (canvas.ready && canvas.tokens.controlled.length > 0) {
+        if (canvas.ready && canvas.tokens?.controlled.length > 0) {
             game.pf2e.effectPanel.refresh();
         }
     }

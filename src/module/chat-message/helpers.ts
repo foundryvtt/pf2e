@@ -83,7 +83,7 @@ async function applyDamageFromMessage({
     const tokens =
         html?.dataset.actorIsTarget && message.token
             ? [message.token]
-            : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
+            : canvas.tokens?.controlled.filter((t) => !!t.actor).map((t) => t.document);
     if (tokens.length === 0) {
         ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
         return;

@@ -16,7 +16,7 @@ export function registerKeybindings(): void {
             const party = ((): PartyPF2e | null => {
                 if (game.user.isGM) {
                     const token =
-                        canvas.ready && canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
+                        canvas.ready && canvas.tokens?.controlled.length === 1 ? canvas.tokens?.controlled[0] : null;
                     return token?.actor?.isOfType("party") ? token.actor : game.actors.party;
                 } else if (game.user.character?.isOfType("character")) {
                     const pcParties = Array.from(game.user.character.parties);

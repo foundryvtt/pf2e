@@ -222,7 +222,7 @@ export class StatusEffects {
 
         const tokensAndActors = R.uniqBy(
             R.compact(
-                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null)),
+                canvas.tokens?.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null)),
             ),
             ([, a]) => a,
         );

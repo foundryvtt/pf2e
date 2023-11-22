@@ -53,7 +53,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
             if (button?.dataset.action === "split-coins") {
                 new DistributeCoinsPopup(this.actor).render(true);
             } else if (button?.dataset.action === "loot-npcs") {
-                if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
+                if (canvas.tokens?.controlled.some((token) => token.actor?.id !== this.actor.id)) {
                     new LootNPCsPopup(this.actor).render(true);
                 } else {
                     ui.notifications.warn("No tokens selected.");
