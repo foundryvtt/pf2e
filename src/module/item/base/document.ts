@@ -854,7 +854,11 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>],
     ) {
-        const ItemClass = CONFIG.PF2E.Item.documentClasses[args[0]?.type] ?? ItemPF2e;
+        const type =
+            args[0]?.type === "armor" && (args[0].system?.category as string | undefined) === "shield"
+                ? "shield"
+                : args[0]?.type;
+        const ItemClass = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
         return new ItemClass(...args);
     },
 });

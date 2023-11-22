@@ -10,6 +10,7 @@ import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
 import { BackgroundSheetPF2e } from "@item/background/sheet.ts";
+import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { BookSheetPF2e } from "@item/book/sheet.ts";
 import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
 import { ClassSheetPF2e } from "@item/class/sheet.ts";
@@ -24,8 +25,8 @@ import { KitSheetPF2e } from "@item/kit/sheet.ts";
 import { MeleeSheetPF2e } from "@item/melee/sheet.ts";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
-import { SpellSheetPF2e } from "@item/spell/index.ts";
+import { ShieldSheetPF2e } from "@item/shield/sheet.ts";
+import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet.ts";
@@ -131,6 +132,7 @@ export function registerSheets(): void {
         ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],
         ["melee", MeleeSheetPF2e],
+        ["shield", ShieldSheetPF2e],
         ["spell", SpellSheetPF2e],
         ["treasure", TreasureSheetPF2e],
         ["weapon", WeaponSheetPF2e],

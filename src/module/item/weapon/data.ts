@@ -11,6 +11,7 @@ import {
     PreciousMaterialGrade,
     UsageDetails,
 } from "@item/physical/index.ts";
+import { BaseShieldType } from "@item/shield/types.ts";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { WeaponTraitToggles } from "./helpers.ts";
@@ -98,7 +99,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponTraitsSource;
     category: WeaponCategory;
     group: WeaponGroup | null;
-    baseItem: BaseWeaponType | null;
+    /** A base shield type can be used for attacks generated from shields */
+    baseItem: BaseWeaponType | BaseShieldType | null;
     bonus: {
         value: number;
     };
@@ -208,10 +210,12 @@ export type {
     WeaponDamage,
     WeaponFlags,
     WeaponMaterialData,
+    WeaponMaterialSource,
     WeaponPersistentDamage,
     WeaponPropertyRuneSlot,
     WeaponRuneData,
     WeaponSource,
     WeaponSystemData,
     WeaponSystemSource,
+    WeaponTraitsSource,
 };

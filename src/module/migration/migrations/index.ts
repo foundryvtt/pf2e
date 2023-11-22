@@ -296,3 +296,4 @@ export { Migration895FixVariantSpellTraits } from "./895-fix-variant-spell-trait
 export { Migration896HealingDomains } from "./896-healing-domains.ts";
 export { Migration897ClearLayOnHandsDamage } from "./897-clear-lay-on-hands-damage.ts";
 export { Migration898NoHBAgain } from "./898-no-hb-again.ts";
+export { Migration899ArmorShieldToShieldShield } from "./899-armor-shields-to-shield-shields.ts";

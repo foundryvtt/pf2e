@@ -115,6 +115,8 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/melee-details.hbs",
         "systems/pf2e/templates/items/mystify-panel.hbs",
         "systems/pf2e/templates/items/rules-panel.hbs",
+        "systems/pf2e/templates/items/shield-details.hbs",
+        "systems/pf2e/templates/items/shield-sidebar.hbs",
         "systems/pf2e/templates/items/spell-details.hbs",
         "systems/pf2e/templates/items/spell-overlay.hbs",
         "systems/pf2e/templates/items/treasure-details.hbs",

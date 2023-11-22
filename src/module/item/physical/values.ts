@@ -4,6 +4,7 @@ const PHYSICAL_ITEM_TYPES = new Set([
     "book",
     "consumable",
     "equipment",
+    "shield",
     "treasure",
     "weapon",
 ] as const);

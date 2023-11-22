@@ -18,6 +18,7 @@ import type { KitSource } from "@item/kit/data.ts";
 import type { LoreSource } from "@item/lore/data.ts";
 import type { MeleeSource } from "@item/melee/data.ts";
 import type { PhysicalItemType } from "@item/physical/types.ts";
+import type { ShieldSource } from "@item/shield/data.ts";
 import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
@@ -52,6 +53,7 @@ type PhysicalItemSource =
     | ConsumableSource
     | ContainerSource
     | EquipmentSource
+    | ShieldSource
     | TreasureSource
     | WeaponSource;
 
@@ -93,6 +95,7 @@ interface TraitChatData {
     excluded?: boolean;
 }
 
+export * from "./helpers.ts";
 export type {
     ActionCost,
     ActionType,
@@ -102,7 +105,7 @@ export type {
     ItemFlagsPF2e,
     ItemSystemData,
 } from "./system.ts";
-export * from "./helpers.ts";
+
 export type {
     AbilityItemSource,
     AncestrySource,
@@ -127,6 +130,7 @@ export type {
     NonPhysicalItemType,
     PhysicalItemSource,
     ProficiencyRank,
+    ShieldSource,
     SpellSource,
     SpellcastingEntrySource,
     TraitChatData,
