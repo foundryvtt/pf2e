@@ -36,7 +36,7 @@
                     {{{data.save.label}}}
                 </button>
             {{/if}}
-            {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
+            {{#if (or data.check data.hasDamage data.counteraction data.area.type)}}
                 <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
@@ -50,7 +50,7 @@
                             <button type="button" data-action="spell-damage" data-visibility="owner">{{localize data.damageLabel}}</button>
                         </div>
                     {{/if}}
-                    {{#if data.hasCounteractCheck.value}}
+                    {{#if data.counteraction}}
                         <div class="spell-button">
                             <button type="button" data-action="spell-counteract" data-visibility="owner">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>

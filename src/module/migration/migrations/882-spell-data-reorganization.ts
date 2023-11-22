@@ -137,7 +137,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         }
         if ("sustained" in system) system["-=sustained"] = null;
 
-        // Shorten `hasCounteractCheck.value` to `counteracts`
+        // Shorten `hasCounteractCheck.value` to `counteraction`
         if (isObject(system.hasCounteractCheck)) {
             system.counteraction = !!system.hasCounteractCheck.value;
         } else if (topLevel) {
