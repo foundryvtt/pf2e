@@ -3,7 +3,7 @@ import { ItemPF2e, type ContainerPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { Rarity, Size } from "@module/data.ts";
+import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import * as R from "remeda";
@@ -61,7 +61,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** The number of hands being used to hold this item */
-    get handsHeld(): number {
+    get handsHeld(): ZeroToTwo {
         return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
     }
 
@@ -554,7 +554,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (hasSlot) {
             equipped.inSlot = isSlotted;
-        } else {
+        } else if ("inSlot" in this._source.system.equipped) {
             equipped["-=inSlot"] = null;
         }
 
