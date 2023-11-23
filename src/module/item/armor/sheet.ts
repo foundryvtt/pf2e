@@ -9,7 +9,7 @@ import {
 } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import * as R from "remeda";
-import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
+import type { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
