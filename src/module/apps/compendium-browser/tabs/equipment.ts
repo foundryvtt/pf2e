@@ -152,7 +152,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             ...CONFIG.PF2E.weaponTraits,
         });
 
-        this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({
+        this.filterData.checkboxes.itemTypes.options = this.generateCheckboxOptions({
             weapon: "TYPES.Item.weapon",
             armor: "TYPES.Item.armor",
             equipment: "TYPES.Item.equipment",
@@ -176,7 +176,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
             return false;
         // Item type
-        if (checkboxes.itemtypes.selected.length > 0 && !checkboxes.itemtypes.selected.includes(entry.type)) {
+        if (checkboxes.itemTypes.selected.length > 0 && !checkboxes.itemTypes.selected.includes(entry.type)) {
             return false;
         }
         // Armor
@@ -233,7 +233,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override prepareFilterData(): EquipmentFilters {
         return {
             checkboxes: {
-                itemtypes: {
+                itemTypes: {
                     isExpanded: true,
                     label: "PF2E.BrowserFilterInventoryTypes",
                     options: {},
