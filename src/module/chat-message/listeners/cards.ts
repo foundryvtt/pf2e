@@ -322,26 +322,27 @@ class ChatCards {
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
     static async #rollActorSaves({ event, button, actor, item }: RollActorSavesParams): Promise<void> {
-        if (canvas.tokens.controlled.length > 0) {
-            const saveType = button.dataset.save;
-            if (!tupleHasValue(SAVE_TYPES, saveType)) {
-                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-            }
+        const tokens = game.user.getActiveTokens();
+        if (tokens.length === 0) {
+            ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
+            return;
+        }
+        const saveType = button.dataset.save;
+        if (!tupleHasValue(SAVE_TYPES, saveType)) {
+            throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+        }
 
-            const dc = Number(button.dataset.dc ?? "NaN");
-            for (const token of canvas.tokens.controlled) {
-                const save = token.actor?.saves?.[saveType];
-                if (!save) return;
+        const dc = Number(button.dataset.dc ?? "NaN");
+        for (const token of tokens) {
+            const save = token.actor?.saves?.[saveType];
+            if (!save) return;
 
-                save.check.roll({
-                    ...eventToRollParams(event, { type: "check" }),
-                    dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
-                    item,
-                    origin: actor,
-                });
-            }
-        } else {
-            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+            save.check.roll({
+                ...eventToRollParams(event, { type: "check" }),
+                dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
+                item,
+                origin: actor,
+            });
         }
     }
 }

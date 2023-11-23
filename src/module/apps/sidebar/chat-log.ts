@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
 import { ArmorPF2e } from "@item";
-import { TokenPF2e } from "@module/canvas/index.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
@@ -176,17 +175,17 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 
     #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
-        const getTokens = (): TokenPF2e[] => {
-            const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+        const getTokens = (): TokenDocumentPF2e[] => {
+            const tokens = game.user.getActiveTokens();
             if (!tokens.length) {
-                ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
+                ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
             }
             return tokens;
         };
-        const getNonBrokenShields = (tokens: TokenPF2e[]): ArmorPF2e<ActorPF2e>[] => {
-            const actor = tokens[0].actor!;
-            const heldShields = actor.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
-            return heldShields.filter((shield) => !shield.isBroken);
+        const getNonBrokenShields = (tokens: TokenDocumentPF2e[]): ArmorPF2e<ActorPF2e>[] => {
+            const actor = tokens.find((t) => !!t.actor)?.actor;
+            const heldShields = actor?.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+            return heldShields?.filter((shield) => !shield.isBroken) ?? [];
         };
 
         // Add a tooltipster instance to the shield button if needed.
