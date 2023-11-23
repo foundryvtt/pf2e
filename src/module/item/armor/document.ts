@@ -2,7 +2,6 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/base/data/index.ts";
 import {
-    PhysicalItemHitPoints,
     PhysicalItemPF2e,
     RUNE_DATA,
     getPropertySlots,
@@ -67,26 +66,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         return this.system.acBonus;
     }
 
-    get hitPoints(): PhysicalItemHitPoints {
-        return deepClone(this.system.hp);
-    }
-
-    get hardness(): number {
-        return this.system.hardness;
-    }
-
     override get isSpecific(): boolean {
         return this.system.specific?.value ?? false;
-    }
-
-    get isBroken(): boolean {
-        const { hitPoints } = this;
-        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= hitPoints.brokenThreshold;
-    }
-
-    get isDestroyed(): boolean {
-        const { hitPoints } = this;
-        return hitPoints.max > 0 && hitPoints.value === 0;
     }
 
     /** Given this is a shield, is it raised? */
