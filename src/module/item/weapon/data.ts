@@ -34,7 +34,7 @@ type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
-        /** Whether this attack is from a battle form */
+        /** Whether this attack is compatible with a battle form */
         battleForm?: boolean;
         comboMeleeUsage: boolean;
         /**

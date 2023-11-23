@@ -3,7 +3,7 @@ import { ArmorTrait } from "@item/armor/types.ts";
 import { ConsumableTrait } from "@item/consumable/data.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
-import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
+import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
@@ -113,7 +113,7 @@ interface IdentificationData extends IdentificationSource {
 type EquippedData = {
     carryType: ItemCarryType;
     inSlot?: boolean;
-    handsHeld?: number;
+    handsHeld?: ZeroToTwo;
     invested?: boolean | null;
 };
 

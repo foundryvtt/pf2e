@@ -109,7 +109,7 @@ class WeaponAuxiliaryAction {
     readonly action: "Interact" | "Release";
     readonly actions: ZeroToThree;
     readonly carryType: ItemCarryType | null;
-    readonly hands: ZeroToThree | null;
+    readonly hands: ZeroToTwo | null;
     readonly purpose: AuxiliaryActionPurpose;
     /** A "full purpose" reflects the options to draw, sheathe, etc. a weapon */
     readonly fullPurpose: string;

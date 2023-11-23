@@ -9,7 +9,7 @@ import { isCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
+import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
@@ -389,7 +389,7 @@ abstract class CreaturePF2e<
             inSlot = false,
         }: {
             carryType: ItemCarryType;
-            handsHeld?: number;
+            handsHeld?: ZeroToTwo;
             inSlot?: boolean;
         },
     ): Promise<void> {
