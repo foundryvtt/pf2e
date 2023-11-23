@@ -28,7 +28,40 @@
             "remaster": false,
             "title": "Pathfinder #153: Life's Long Shadows"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": [
+                    "survival",
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            25
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "ravenings-desperation",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
