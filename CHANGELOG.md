@@ -2,6 +2,36 @@
 
 ### System Improvements
 
+-   (stwlam) Add "Refresh from Compendium" button to sheets of owned items
+-   (stwlam) Include a "healing" domain for healing spells
+-   (stwlam) Prominently display spell details alongside descriptions
+
+### Bugfixes
+
+-   (azrazalea) Prevent granted heritages from overriding PCs' main heritages
+-   (shemetz) Restore presence of counteractions rollable from some spell chat cards
+-   (stwlam) Reinclude AC bonus from potency rune following override-mode item alterations
+
+### Data Updates
+
+-   (Dire Weasel) Add effect for Bespell Strikes
+-   (Dire Weasel) Clean up some enriched HTML
+-   (Dire Weasel) Fix path to icon of Animal Instinct tongue attack
+-   (Dire Weasel) Fix unholy champion reaction damage and include auto-heightening damage links
+-   (Dire Weasel) Unify Worm's Feast damage links and auto-heighten
+-   (Intervención) Update Inventor Feat to PC1 text
+-   (Minniehajj) Update divine font note in Cleric class journal entry page
+-   (stwlam) Add rows for removed LO:AG lineage feats to Remaster Changes journal entry
+-   (stwlam) Localize prompt in Unified Magical Theory choice set
+-   (stwlam) Migrate "hb\_"-prefixed homebrew tags occurring in middle of strings
+-   (stwlam) Update old copies of Lay on Hands and Touch of Corruption
+-   (stwlam) Update text of Recall Knowledge action
+-   (Tikael) Add automation to Ravening's Desperation
+
+## 5.9.4
+
+### System Improvements
+
 -   (Supe) Add melee/ranged and damage type to elemental blast roll options
 
 ### Bugfixes
