@@ -295,3 +295,4 @@ export { Migration894NoLayOnHandsVsUndead } from "./894-no-lay-on-hands-vs-undea
 export { Migration895FixVariantSpellTraits } from "./895-fix-variant-spell-traits.ts";
 export { Migration896HealingDomains } from "./896-healing-domains.ts";
 export { Migration897ClearLayOnHandsDamage } from "./897-clear-lay-on-hands-damage.ts";
+export { Migration898NoHBAgain } from "./898-no-hb-again.ts";
