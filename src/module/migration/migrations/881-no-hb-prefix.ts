@@ -2,7 +2,6 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
-import { IWRType } from "@actor/types.ts";
 
 /** Remove "hb_" prefixes from homebrew element slugs. */
 export class Migration881NoHBPrefix extends MigrationBase {
@@ -20,16 +19,6 @@ export class Migration881NoHBPrefix extends MigrationBase {
                 if (key.includes("hb_")) {
                     attacks[key.replace("hb_", "")] = value;
                     attacks[`-=${key}`] = null;
-                }
-            }
-        }
-
-        for (const type of ["immunities", "weaknesses", "resistances"] as const) {
-            const entries = source.system.attributes[type];
-            if (!Array.isArray(entries)) continue;
-            for (const entry of entries) {
-                if (entry.type.startsWith("hb_")) {
-                    entry.type = entry.type.replace("hb_", "") as IWRType;
                 }
             }
         }
