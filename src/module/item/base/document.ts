@@ -287,6 +287,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options.name ??= true;
 
         const currentSource = this.toObject();
+        if (
+            currentSource.system.rules.some(
+                (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+            )
+        ) {
+            ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
+            return;
+        }
+
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
