@@ -165,6 +165,9 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if (isObject(oldSpellDamage) && R.isObject(oldSpellDamage?.value)) {
             system.damage = {};
             for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {
+                if (topLevel && ["lay-on-hands", "touch-of-corruption"].includes(source.system?.slug ?? "")) {
+                    break;
+                }
                 if (!R.isObject(partial)) continue;
                 const typeData = R.isObject(partial.type) ? partial.type : {};
                 const damageType = this.#DAMAGE_TYPES.has(String(typeData.value))

@@ -28,7 +28,6 @@ export class Migration894NoLayOnHandsVsUndead extends MigrationBase {
                 "",
             );
         }
-        // JhihziXQuoteftdd
         if (source.type === "spell" && source.system.slug === "lay-on-hands") {
             source.system.overlays ??= {
                 a33QUFoKgoOprovO: {
@@ -74,7 +73,7 @@ export class Migration894NoLayOnHandsVsUndead extends MigrationBase {
 
             if (
                 source.system.overlays?.["uLuOg62dVyxvbW66"]?.overlayType === "override" &&
-                source.system.overlays["uLuOg62dVyxvbW66"].system.damage?.["b39tbePoPlJSzLku"]
+                source.system.overlays["uLuOg62dVyxvbW66"].system?.damage?.["b39tbePoPlJSzLku"]
             ) {
                 source.system.overlays["uLuOg62dVyxvbW66"].system.damage["b39tbePoPlJSzLku"].kinds = ["healing"];
             }
