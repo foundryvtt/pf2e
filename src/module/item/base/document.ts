@@ -274,7 +274,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(options: { name?: boolean } = {}): Promise<void> {
+    async refreshFromCompendium(options: { name?: boolean } = { name: true }): Promise<void> {
         if (!this.isOwned) {
             ui.notifications.error("This utility may only be used on owned items");
             return;
@@ -284,7 +284,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             return;
         }
 
-        options.name ??= false;
+        options.name ??= true;
 
         const currentSource = this.toObject();
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
