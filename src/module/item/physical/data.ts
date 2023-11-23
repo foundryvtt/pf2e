@@ -39,9 +39,6 @@ interface PhysicalSystemSource extends ItemSystemSource {
     equipped: EquippedData;
     identification: IdentificationSource;
     stackGroup: string | null;
-    negateBulk: {
-        value: string;
-    };
     containerId: string | null;
     material: ItemMaterialSource;
     size: Size;
