@@ -80,12 +80,9 @@ async function applyDamageFromMessage({
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
     const html = htmlQuery(ui.chat.element[0], `li.chat-message[data-message-id="${message.id}"]`);
-    const tokens =
-        html?.dataset.actorIsTarget && message.token
-            ? [message.token]
-            : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
+    const tokens = html?.dataset.actorIsTarget && message.token ? [message.token] : game.user.getActiveTokens();
     if (tokens.length === 0) {
-        ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
+        ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
         return;
     }
 
