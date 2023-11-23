@@ -101,7 +101,7 @@ declare interface Set<T> {
      *                  and the set being transformed.
      * @returns A new Set of equal size containing transformed elements.
      */
-    map<U>(transfor: (value: T) => U): U[];
+    map<U>(transfor: (value: T) => U): Set<U>;
 
     /**
      * Create a new Set with elements that are filtered and transformed by a provided reducer function.

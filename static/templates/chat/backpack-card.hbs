@@ -21,9 +21,13 @@
         {{/each}}
     </div>
 
-    <div class="card-content">
-        {{{item.description}}}
-    </div>
+    <hr />
+
+    {{#if item.description}}
+        <div class="card-content">
+            {{{item.description}}}
+        </div>
+    {{/if}}
 
     <footer class="card-footer">
         {{#if item.isIdentified}}
