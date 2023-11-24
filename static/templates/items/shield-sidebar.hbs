@@ -1,0 +1,45 @@
+<div class="inventory-details">
+    <div class="form-group">
+        <label for="{{item.uuid}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
+        <input type="number" name="system.quantity" id="{{item.uuid}}-quantity" value="{{data.quantity}}" />
+    </div>
+
+    <div class="form-group">
+        <label for="{{item.uuid}}-bulk">{{localize "PF2E.Item.Physical.Bulk.Label"}}</label>
+        <select name="system.weight.value" id="{{item.uuid}}-bulk">
+            {{#select data.weight.value}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="{{item.uuid}}-size">{{localize "PF2E.Size"}}</label>
+        <select name="system.size" id="{{item.uuid}}-size">
+            {{#select data.size}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="{{item.uuid}}-price">
+            {{localize "PF2E.PriceLabel"}}
+            {{#if adjustedPriceHint}}<i class="fa-solid fa-info-circle" data-tooltip="{{adjustedPriceHint}}"></i>{{/if}}
+        </label>
+        <input
+            type="text"
+            {{#if (eq priceAdjustment "higher")}}class="adjusted adjusted-higher"{{else if (eq priceAdjustment "lower")}}class="adjusted-lower"{{/if}}
+            id="{{item.uuid}}-price"
+            value="{{item.price.value}}"
+            data-property="system.price.value"
+            data-value-base="{{basePrice}}"
+            spellcheck="false"
+        />
+    </div>
+</div>

@@ -1159,11 +1159,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
 
         // Exclude handwraps as a strike
-        const weapons = [
-            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
-            Array.from(synthetics.strikes.values()),
-            basicUnarmed ?? [],
-        ].flat() as WeaponPF2e<this>[];
+        const weapons = R.compact(
+            [
+                itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+                Array.from(synthetics.strikes.values()),
+                basicUnarmed ?? [],
+                // Generate a shield attacks from the character's shields
+                this.itemTypes.shield
+                    .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
+                    .map((s) => s.generateWeapon()),
+            ].flat(),
+        ) as WeaponPF2e<this>[];
 
         // Sort alphabetically, force basic unarmed attack to end, and finally move all readied strikes to beginning
         const { handsReallyFree } = this;
@@ -1319,6 +1325,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             switch (weapon.carryType) {
                 case "held": {
+                    if (weapon.shield && !weapon.shield.isRaised) {
+                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "RaiseAShield" }));
+                    }
+
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
                             new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Grip", hands: 1 }),
@@ -1334,6 +1344,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     auxiliaryActions.push(
                         new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Drop", hands: 0 }),
                     );
+
                     break;
                 }
                 case "worn": {

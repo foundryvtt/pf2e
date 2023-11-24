@@ -74,7 +74,7 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
 
 const ITEM_ALTERATION_VALIDATORS = {
     "ac-bonus": new ItemAlterationValidator({
-        itemType: new fields.StringField({ required: true, choices: ["armor"] }),
+        itemType: new fields.StringField({ required: true, choices: ["armor", "shield"] }),
         mode: new fields.StringField({
             required: true,
             choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
@@ -324,7 +324,7 @@ const ITEM_ALTERATION_VALIDATORS = {
     "speed-penalty": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
-            choices: ["armor"],
+            choices: ["armor", "shield"],
         }),
         mode: new fields.StringField({
             required: true,

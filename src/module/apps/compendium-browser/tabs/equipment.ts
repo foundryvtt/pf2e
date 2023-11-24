@@ -1,5 +1,6 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { localizer, sluggify } from "@util";
+import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -40,24 +41,17 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
-        const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
+        const itemTypes = ["weapon", "shield", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "system.price", "system.traits"];
-        const baseFields = [
-            ...kitFields,
-            "system.stackGroup",
-            "system.level.value",
-            "system.publication",
-            "system.source",
-        ];
-        const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
-        const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
-        const consumableFields = [...baseFields, "system.consumableType.value"];
-        const indexFields = [
-            ...new Set([...armorFields, ...weaponFields, ...consumableFields]),
-            "system.denomination.value",
-            "system.value.value",
-        ];
+
+        const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
+        const physicalItemFields = [...baseFields, "system.stackGroup", "system.level.value"];
+        const armorAndWeaponFields = [...physicalItemFields, "system.category", "system.group", "system.potencyRune"];
+        const armorFields = [...armorAndWeaponFields, "system.resiliencyRune"];
+        const weaponFields = [...armorAndWeaponFields, "system.strikingRune"];
+        const shieldFields = [...physicalItemFields, "system.runes"];
+        const consumableFields = [...physicalItemFields, "system.consumableType"];
+        const indexFields = [...new Set([...armorFields, ...weaponFields, ...consumableFields])];
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -75,12 +69,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                                 return !this.hasAllIndexFields(itemData, armorFields);
                             case "weapon":
                                 return !this.hasAllIndexFields(itemData, weaponFields);
+                            case "shield":
+                                return !this.hasAllIndexFields(itemData, shieldFields);
                             case "kit":
-                                return !this.hasAllIndexFields(itemData, kitFields);
+                                return !this.hasAllIndexFields(itemData, baseFields);
                             case "consumable":
                                 return !this.hasAllIndexFields(itemData, consumableFields);
                             default:
-                                return !this.hasAllIndexFields(itemData, baseFields);
+                                return !this.hasAllIndexFields(itemData, physicalItemFields);
                         }
                     })();
                     if (skip) {
@@ -105,7 +101,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     // Infer magical trait from runes
                     const traits = itemData.system.traits.value ?? [];
                     if (
-                        (itemData.type === "armor" && itemData.system.potencyRune.value) ||
+                        (itemData.type === "armor" &&
+                            (itemData.system.potencyRune.value || itemData.system.resiliencyRune.value)) ||
+                        (itemData.type === "shield" && itemData.system.runes.reinforcing) ||
                         (itemData.type === "weapon" &&
                             (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
                     ) {
@@ -122,7 +120,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         group: itemData.system.group ?? "",
                         price: priceCoins,
                         priceInCopper: coinValue,
-                        traits: itemData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
+                        traits: R.uniq(itemData.system.traits.value),
                         rarity: itemData.system.traits.rarity,
                         source: sourceSlug,
                     });
@@ -149,11 +147,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             ...CONFIG.PF2E.armorTraits,
             ...CONFIG.PF2E.consumableTraits,
             ...CONFIG.PF2E.equipmentTraits,
+            ...CONFIG.PF2E.shieldTraits,
             ...CONFIG.PF2E.weaponTraits,
         });
 
         this.filterData.checkboxes.itemTypes.options = this.generateCheckboxOptions({
             weapon: "TYPES.Item.weapon",
+            shield: "TYPES.Item.shield",
             armor: "TYPES.Item.armor",
             equipment: "TYPES.Item.equipment",
             consumable: "TYPES.Item.consumable",

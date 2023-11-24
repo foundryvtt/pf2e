@@ -185,6 +185,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        if (formData["system.quantity"] === null) {
+            formData["system.quantity"] = 0;
+        }
+
         // Process precious-material selection
         const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
         const typeIsValid =
@@ -196,6 +200,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         if (!typeIsValid || !gradeIsValid) {
             formData["system.material.type"] = null;
             formData["system.material.grade"] = null;
+        }
+
+        if (formData["system.baseItem"] === "") {
+            formData["system.baseItem"] = null;
         }
 
         // Convert price from a string to an actual object

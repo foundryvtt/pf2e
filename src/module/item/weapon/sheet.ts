@@ -1,10 +1,10 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import {
+    MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
-    WEAPON_MATERIAL_VALUATION_DATA,
     getPropertySlots,
 } from "@item/physical/index.ts";
 import { OneToFour } from "@module/data.ts";
@@ -99,7 +99,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         return {
             ...sheetData,
             propertyRuneSlots,
-            preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
+            preciousMaterials: this.prepareMaterials(MATERIAL_DATA.weapon),
             fundamentalRunes,
             propertyRunes,
             otherTags,

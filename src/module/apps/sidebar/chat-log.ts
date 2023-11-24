@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
-import { ArmorPF2e } from "@item";
+import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
 import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
@@ -182,10 +182,9 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             }
             return tokens;
         };
-        const getNonBrokenShields = (tokens: TokenDocumentPF2e[]): ArmorPF2e<ActorPF2e>[] => {
+        const getNonBrokenShields = (tokens: TokenDocumentPF2e[]): ShieldPF2e<ActorPF2e>[] => {
             const actor = tokens.find((t) => !!t.actor)?.actor;
-            const heldShields = actor?.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
-            return heldShields?.filter((shield) => !shield.isBroken) ?? [];
+            return actor?.itemTypes.shield.filter((s) => s.isEquipped && !s.isBroken && !s.isDestroyed) ?? [];
         };
 
         // Add a tooltipster instance to the shield button if needed.

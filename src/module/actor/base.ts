@@ -13,7 +13,8 @@ import {
     SaveType,
     UnaffectedType,
 } from "@actor/types.ts";
-import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import type { ArmorPF2e, ShieldPF2e } from "@item";
+import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { AfflictionSource } from "@item/affliction/index.ts";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } from "@item/base/data/index.ts";
@@ -42,8 +43,8 @@ import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic } from "@system/statistic/index.ts";
 import type { ArmorStatistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -286,7 +287,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
-    get heldShield(): ArmorPF2e<this> | null {
+    get heldShield(): ShieldPF2e<this> | null {
         return null;
     }
 
