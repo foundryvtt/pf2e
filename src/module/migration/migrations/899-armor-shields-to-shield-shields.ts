@@ -1,8 +1,9 @@
 import { ArmorSystemSource } from "@item/armor/data.ts";
 import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
-import { IntegratedWeaponSource, SpecificShieldData } from "@item/shield/data.ts";
-import { MigrationBase } from "../base.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
+import { IntegratedWeaponSource, SpecificShieldData } from "@item/shield/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Convert shield "armor" items to shield items */
 export class Migration899ArmorShieldToShieldShield extends MigrationBase {
@@ -122,6 +123,8 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             if ("negateBulk" in system) system["-=negateBulk"] = null;
         }
 
+        this.#migrateRules(source);
+
         if (source.type !== "armor") return;
 
         const category: string = source.system.category;
@@ -155,6 +158,20 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             if (key in system) {
                 system[`-=${key}`] = null;
             }
+        }
+    }
+
+    #migrateRules(source: ItemSourcePF2e): void {
+        const shieldAlterations = source.system.rules.filter(
+            (r: MaybeShieldAlteration): r is { key: string; predicate: JSONValue[]; itemType: string } =>
+                r.key === "ItemAlteration" &&
+                r.itemType === "armor" &&
+                Array.isArray(r.predicate) &&
+                r.predicate.includes("item:category:shield"),
+        );
+        for (const rule of shieldAlterations) {
+            rule.itemType = "shield";
+            rule.predicate = rule.predicate.filter((s) => s !== "item:category:shield");
         }
     }
 
@@ -260,4 +277,8 @@ type ShieldConversionData = Pick<ArmorSystemSource, "acBonus" | "material" | "sl
     "-=resiliencyRune"?: null;
     "-=strength"?: null;
     "-=unequippedBulk"?: null;
+};
+
+type MaybeShieldAlteration = RuleElementSource & {
+    itemType?: JSONValue;
 };
