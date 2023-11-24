@@ -1,5 +1,5 @@
 import { MeasuredTemplateDocumentPF2e } from "@scene/measured-template-document.ts";
-import { TemplateLayerPF2e } from "./index.ts";
+import { TemplateLayerPF2e, TokenPF2e } from "./index.ts";
 import { highlightGrid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
 import { ItemPF2e } from "@item";
@@ -14,8 +14,11 @@ class MeasuredTemplatePF2e<
     /** Track the timestamp when the last mouse move event was captured. */
     #moveTime = 0;
 
-    // Workaround for https://github.com/microsoft/TypeScript/issues/32912
-    #wheelListenerOptions: AddEventListenerOptions & EventListenerOptions = { passive: false };
+    #wheelListenerController = new AbortController();
+
+    #token: TokenPF2e | null = null;
+
+    #range: number = 0;
 
     get type(): MeasuredTemplateType {
         return this.document.t;
@@ -46,10 +49,26 @@ class MeasuredTemplatePF2e<
         await this.draw();
         this.layer.preview.addChild(this);
 
+        // Try to determine the range if the item is a spell
+        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+            const { item } = this.document;
+            if (item?.isOfType("spell") && item.actor) {
+                const token = item.actor.getActiveTokens().at(0);
+                if (token) {
+                    this.#token = token;
+                    const rangeString = item.system.range.value;
+                    this.#range = Number(rangeString.match(/\d+/)?.at(0)) || 0;
+                }
+            }
+        }
+
         canvas.stage.on("mousemove", this.#onPreviewMouseMove);
         canvas.stage.on("mousedown", this.#onPreviewLeftClick);
         canvas.stage.on("rightdown", this.#onPreviewRightClick);
-        canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
+        canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, {
+            passive: false,
+            signal: this.#wheelListenerController.signal,
+        });
 
         // Resolve existing preview
         MeasuredTemplatePF2e.currentPreview?.resolve(null);
@@ -70,7 +89,7 @@ class MeasuredTemplatePF2e<
         canvas.stage.off("mousemove", this.#onPreviewMouseMove);
         canvas.stage.off("mousedown", this.#onPreviewLeftClick);
         canvas.stage.off("rightdown", this.#onPreviewRightClick);
-        canvas.app.view.removeEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
+        this.#wheelListenerController.abort();
         super.destroy(options);
     }
 
@@ -81,6 +100,20 @@ class MeasuredTemplatePF2e<
         if (MeasuredTemplatePF2e.currentPreview?.placed) {
             MeasuredTemplatePF2e.currentPreview.resolve(this);
         }
+    }
+
+    // Adapted from https://stackoverflow.com/questions/8515900/how-to-constrain-movement-within-the-area-of-a-circle
+    #constrainToCircle(point: Point, range: number, token: TokenPF2e): void {
+        const { x, y } = point;
+        const { center } = token;
+        const distance = Math.sqrt((center.x - x) ** 2 + (center.y - y) ** 2);
+        const radius =
+            0.5 * token.mechanicalBounds.width +
+                (range / (canvas.dimensions?.distance ?? 0)) * canvas.dimensions?.size ?? 100;
+        if (distance <= radius) return;
+        const radians = Math.atan2(y - center.y, x - center.x);
+        point.x = Math.cos(radians) * radius + center.x;
+        point.y = Math.sin(radians) * radius + center.y;
     }
 
     #onPreviewMouseMove = (event: PIXI.FederatedPointerEvent) => {
@@ -94,6 +127,9 @@ class MeasuredTemplatePF2e<
             this.#moveTime === 0 && hexTypes.includes(canvas.grid.type)
                 ? this.document.direction + 30
                 : this.document.direction;
+        if (this.#range && this.#token) {
+            this.#constrainToCircle(snapped, this.#range, this.#token);
+        }
         this.document.updateSource({ ...snapped, direction });
 
         this.refresh();
