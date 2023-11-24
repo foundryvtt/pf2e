@@ -223,31 +223,24 @@
             "name": "Curse Of Lost Time",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": true,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
-                    "value": "<p>You curse the target with rapid aging or erosion. The effect depends on whether the target is an object, a construct, or a living creature. Artifacts and objects and constructs made of precious materials (as determined by the GM), are immune.</p>\n<hr />\n<ul>\n<li><strong>Object</strong> If the object is attended, its bearer can attempt a Fortitude save. If the bearer fails or the object is unattended, the object immediately takes [[/r 4d6]] damage (applying Hardness normally) and the item is cursed with an unlimited duration. Until the curse ends, the item becomes shoddy and can't be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, and the curse attempts to counteract any spell that would restore the object's Hit Points. <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> can target an item affected by this spell.</li>\n<li><strong>Construct</strong> The construct takes [[/r 4d6]] damage (basic Fortitude save). On a failure, for 1 hour the construct is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, and can't be Repaired, and the curse attempts to counteract any spell that would restore the construct's Hit Points. On a critical failure, these effects have an unlimited duration.</li>\n<li><strong>Living Creature</strong> The living creature must attempt a Fortitude save. Ageless creatures are immune.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The living creature is unaffected.</p>\n<p><strong>Success</strong> The living creature briefly ages, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> As success, with a duration of 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, with an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6]].</p>"
+                    "value": "<p>You curse the target with rapid aging or erosion. The effect depends on whether the target is an object, a construct, or a living creature. Artifacts and objects and constructs made of precious materials (as determined by the GM), are immune.</p>\n<hr />\n<ul>\n<li><strong>Object</strong> If the object is attended, its bearer can attempt a Fortitude save. If the bearer fails or the object is unattended, the object immediately takes [[/r 4d6]] damage (applying Hardness normally) and the item is cursed with an unlimited duration. Until the curse ends, the item becomes shoddy and can't be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, and the curse attempts to counteract any spell that would restore the object's Hit Points. <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em> can target an item affected by this spell.</li>\n<li><strong>Construct</strong> The construct takes [[/r 4d6]] damage (basic Fortitude save). On a failure, for 1 hour the construct is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, and can't be Repaired, and the curse attempts to counteract any spell that would restore the construct's Hit Points. On a critical failure, these effects have an unlimited duration.</li>\n<li><strong>Living Creature</strong> The living creature must attempt a Fortitude save. Ageless creatures are immune.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The living creature is unaffected.</p>\n<p><strong>Success</strong> The living creature briefly ages, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> As success, with a duration of 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, with an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6]].</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": true
                 },
                 "level": {
                     "value": 3
@@ -255,15 +248,6 @@
                 "location": {
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": false
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -273,44 +257,27 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "curse-of-lost-time",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 Large or smaller object, construct, or living creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
-                        "void",
-                        "transmutation"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -327,31 +294,24 @@
             "name": "Earthbind",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
                     "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 3
@@ -359,15 +319,6 @@
                 "location": {
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -377,40 +328,24 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "earthbind",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 flying creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -427,31 +362,19 @@
             "name": "Haste",
             "sort": 500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Magic empowers the target to act faster. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "levels": {
@@ -470,15 +393,6 @@
                     "heightenedLevel": 3,
                     "value": "OExj5bVPy0ABfKjW"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -487,41 +401,25 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "haste",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -538,40 +436,25 @@
             "name": "Mystic Carriage",
             "sort": 600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "toy carriage, horse statues, rare incense, and feathers worth 50 gp"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>This ritual allows you and the other casters to conjure a magical carriage that transports you to a destination of your choice. To summon the mystic carriage, you must be within 250 miles of your destination and spend 1 hour burning incense and feathers while chanting the name of the location you wish the carriage to take you to. When it arrives, the carriage is a Large vehicle that can fit 4 Medium or smaller passengers, as well as 100 Bulk. It has a Speed of 60 feet, AC of 14, Fortitude saving throw modifier of +8, Hardness 5, 100 Hit Points (BT 50), object immunities, and immunities to critical hits and precision damage.</p>\n<p>Once loaded and boarded, the mystic carriage sets out at a Speed of 60 feet, heading unerringly towards its destination using whatever roads and trails are available. If it's attacked, it continues going as long as nothing blocks its passage. If something blocks its way, living or otherwise, it will stop until the way is cleared, waiting to continue until all of its passengers are aboard once more.</p>\n<hr />\n<p><strong>Critical Success</strong> You create a mystic carriage that lasts for 2 weeks, instead of 1 week. It can take you to up to two destinations, the first of which must be within 250 miles and the second of which must be within 250 miles of the first destination.</p>\n<p><strong>Success</strong> You create a mystic carriage as described above.</p>\n<p><strong>Failure</strong> You don't create a mystic carriage.</p>\n<p><strong>Critical Failure</strong> You don't create a mystic carriage, and you're attacked by a herd of four riding horses.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The carriage's AC, Fortitude save, and Hardness increase by 2, its Hit Points increase by 20, and its Broken Threshold increases by 10.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 week or until the named destination is reached, whichever comes first"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana (Expert) or Occultism (Expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -581,38 +464,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (Expert) or Occultism (Expert)"
+                    },
+                    "secondary": {
+                        "casters": 0,
+                        "checks": "Crafting or Driving Lore"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": "Crafting or Driving Lore"
-                },
                 "slug": "mystic-carriage",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 hour"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "conjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -628,43 +501,25 @@
             "name": "Unseen Custodians",
             "sort": 700000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "rare oils, salts, and herbs worth a total value of 15 gp"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>You create a site-bound, long-lasting <em>@UUID[Compendium.pf2e.spells-srd.Item.Unseen Servant]</em> spell effect, forming entities of pure force to carry out basic tasks at a fixed location.</p>\n<hr />\n<p><strong>Critical Success</strong> The ritual creates six unseen servants. You don't need to concentrate on them, and they aren't summoned minions. You can spend an action, which has the concentrate trait, to command one to perform a basic task; it continues to perform the task until commanded again.</p>\n<p><strong>Success</strong> As critical success, but the ritual creates three unseen servants.</p>\n<p><strong>Failure</strong> The ritual fails to create any servants.</p>\n<p><strong>Critical Failure</strong> The ritual creates six unseen servants, but these creatures are hostile and capable of making fist @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} with an attack bonus equal to your skill modifier for the primary skill check, dealing @Damage[1d6[force]] damage. They attack you and your allies and attempt to break objects belonging to you and your allies within the area.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> If destroyed, the unseen servants reform the next morning. The cost increases to 30 gp.</p>"
+                    "value": "<p>You create a site-bound, long-lasting <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Minion]</em> spell effect, forming entities of pure force to carry out basic tasks at a fixed location.</p>\n<hr />\n<p><strong>Critical Success</strong> The ritual creates six unseen servants. You don't need to concentrate on them, and they aren't summoned minions. You can spend an action, which has the concentrate trait, to command one to perform a basic task; it continues to perform the task until commanded again.</p>\n<p><strong>Success</strong> As critical success, but the ritual creates three unseen servants.</p>\n<p><strong>Failure</strong> The ritual fails to create any servants.</p>\n<p><strong>Critical Failure</strong> The ritual creates six unseen servants, but these creatures are hostile and capable of making fist @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} with an attack bonus equal to your skill modifier for the primary skill check, dealing @Damage[1d6[force]] damage. They attack you and your allies and attempt to break objects belonging to you and your allies within the area.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> If destroyed, the unseen servants reform the next morning. The cost increases to 30 gp.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 year"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana or Occultism (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -674,38 +529,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana or Occultism (expert)"
+                    },
+                    "secondary": {
+                        "casters": 2,
+                        "checks": "Arcana or Occultism (whichever isn't used for the primary check), Diplomacy"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "2"
-                },
-                "secondarycheck": {
-                    "value": "Arcana or Occultism (whichever isn't used for the primary check), Diplomacy"
-                },
                 "slug": "unseen-custodians",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "conjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -721,41 +566,30 @@
             "name": "Acid Arrow",
             "sort": 800000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "acid"
-                            },
-                            "value": "3d8"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
                     }
                 },
+                "defense": null,
                 "description": {
                     "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -771,15 +605,6 @@
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -788,42 +613,26 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "acid-arrow",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
                         "acid",
                         "attack",
-                        "evocation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -840,43 +649,25 @@
             "name": "Create Undead (Zombie)",
             "sort": 900000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "black onyx, see Table 7-1"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>.</p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Creature Level</th>\n<th>Spell Level Required</th>\n<th>Cost</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>-1 or 0</td>\n<td>2</td>\n<td>15 gp</td>\n</tr>\n<tr>\n<td>1</td>\n<td>2</td>\n<td>60 gp</td>\n</tr>\n<tr>\n<td>2</td>\n<td>3</td>\n<td>105 gp</td>\n</tr>\n<tr>\n<td>3</td>\n<td>3</td>\n<td>180 gp</td>\n</tr>\n<tr>\n<td>4</td>\n<td>4</td>\n<td>300 gp</td>\n</tr>\n<tr>\n<td>5</td>\n<td>4</td>\n<td>480 gp</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>750 gp</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>1,080 gp</td>\n</tr>\n<tr>\n<td>8</td>\n<td>6</td>\n<td>1,500 gp</td>\n</tr>\n<tr>\n<td>9</td>\n<td>6</td>\n<td>2,100 gp</td>\n</tr>\n<tr>\n<td>10</td>\n<td>7</td>\n<td>3,000 gp</td>\n</tr>\n<tr>\n<td>11</td>\n<td>7</td>\n<td>4,200 gp</td>\n</tr>\n<tr>\n<td>12</td>\n<td>8</td>\n<td>6,000 gp</td>\n</tr>\n<tr>\n<td>13</td>\n<td>8</td>\n<td>9,000 gp</td>\n</tr>\n<tr>\n<td>14</td>\n<td>9</td>\n<td>13,500 gp</td>\n</tr>\n<tr>\n<td>15</td>\n<td>9</td>\n<td>19,500 gp</td>\n</tr>\n<tr>\n<td>16</td>\n<td>10</td>\n<td>30,000 gp</td>\n</tr>\n<tr>\n<td>17</td>\n<td>10</td>\n<td>45,000 gp</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</p>\n<p><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.</p>\n<p><strong>Failure</strong> You fail to create the undead.</p>\n<p><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana (expert), Occultism (expert), or Religion (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -886,39 +677,29 @@
                 "range": {
                     "value": "10 feet"
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (expert), Occultism (expert), or Religion (expert)"
+                    },
+                    "secondary": {
+                        "casters": 1,
+                        "checks": "Religion"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "1"
-                },
-                "secondarycheck": {
-                    "value": "Religion"
-                },
                 "slug": "create-undead",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 dead creature"
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
-                        "evil",
-                        "necromancy"
+                        "evil"
                     ]
                 }
             },
@@ -935,31 +716,19 @@
             "name": "False Life",
             "sort": 1000000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>You create a reservoir of vitality from necromantic energy, gaining a number of temporary Hit Points equal to 6 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The temporary Hit Points increase by 3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: False Life]</p>"
+                    "value": "<p>You create a reservoir of vitality from necromantic energy, gaining a number of temporary Hit Points equal to 6 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The temporary Hit Points increase by 3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: False Vitality]{Spell Effect: False Life}</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "8 hours"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -967,15 +736,6 @@
                 "location": {
                     "heightenedLevel": 3,
                     "value": "OExj5bVPy0ABfKjW"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -985,40 +745,24 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "false-life",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "necromancy"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -1035,43 +779,25 @@
             "name": "Heartbond",
             "sort": 1100000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "fine wine and a set of matching rings or other tokens worth 40 gp total"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You create a magical bond between two willing creatures, who are secondary casters of the ritual and must share genuine affection for one another. As part of the ritual, both members of the bond receive a ring, amulet, or similar token to symbolize their shared connection. They lose the effects of the ritual when not wearing the token, and the bond is broken if either token is destroyed.</p>\n<p>Creatures benefiting from a successful heartbond ritual can later participate in a heightened version of the ritual without requiring new checks by spending the required time and paying the difference of the two costs. A creature can be under the effects of multiple heartbond rituals at once.</p>\n<hr />\n<p><strong>Critical Success</strong> Once per day, each bonded creature can use a 2-action activity, which has the concentrate trait, to learn the present state of the other bonded creature. The creature knows the other creature's direction and distance and any conditions affecting them. Both of the participants can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Message]</em> as a divine innate spell at will, but can only target the other participant.</p>\n<p><strong>Success</strong> As a critical success, except the bonded creatures can't cast message as a divine innate spell.</p>\n<p><strong>Failure</strong> The ritual has no effect.</p>\n<p><strong>Critical Failure</strong> Magical backlash creates discordant energy among the participants. For 1 week, each ritual participant is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} whenever they are within 30 feet of another ritual participant.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Increase the cost to a total value of 600 gp. On a success, secondary casters in the ritual permanently gain the effects of a 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Telepathy]</em> spell, but only with each other.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Nature or Religion (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1081,38 +807,28 @@
                 "range": {
                     "value": "20 feet"
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Nature or Religion (expert)"
+                    },
+                    "secondary": {
+                        "casters": 2,
+                        "checks": "Diplomacy, Society"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "2"
-                },
-                "secondarycheck": {
-                    "value": "Diplomacy, Society"
-                },
                 "slug": "heartbond",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 hour"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "abjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -1128,43 +844,25 @@
             "name": "Inveigle",
             "sort": 1200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "rare oils worth a total value of 10 gp × the target's level"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You win over the target's mind, causing it to see you as a close and trusted friend and look upon your every suggestion as reasonable. The target is helpful toward you, so it will go out of its way to help you. As with any other helpful creature, there are limits to what you can ask of it. If you ever ask the target to do something completely against its nature or needlessly harmful to the target or its interests, not only does it refuse, but it also can attempt a Will save to end the effect early. Because of the casting time and range, it's generally difficult to cast this ritual unless the target is willing (perhaps convinced the ritual will have some other effect) or restrained. If the creature is unwilling to accept the ritual, it can attempt a Will save to negate the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The ritual succeeds and the target takes a -4 status penalty to Will saves to end the effect.</p>\n<p><strong>Success</strong> The ritual succeeds.</p>\n<p><strong>Failure</strong> The ritual fails.</p>\n<p><strong>Critical Failure</strong> The ritual fails and the target instead hates you, becoming hostile to you for the duration.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can use <em>inveigle</em> on a creature up to 1 mile away throughout the casting, as long as you have a lock of hair, a drop of blood, or some other piece of the creature's body, which you mix into the oils used in the cost. The base cost increases to 100 gp. The duration is shorter than normal, based on how large a piece of the creature's body you use. Blood, hair, scales, and the like cause the ritual to last 1 week, while a hand or other substantial body part causes the ritual to last 1 month.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 year or until dismissed"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana (expert), Occultism (expert), or Religion (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1174,39 +872,29 @@
                 "range": {
                     "value": "10 feet"
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (expert), Occultism (expert), or Religion (expert)"
+                    },
+                    "secondary": {
+                        "casters": 0,
+                        "checks": ""
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "inveigle",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature of a level no greater than double the inveigle ritual's level"
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -1223,31 +911,19 @@
             "name": "Mimic Undead",
             "sort": 1300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You take death and wrap it about you like a cloak-your colors wash out and your skin grows cold to the touch. Your heartbeat, breathing, and similar life functions become very difficult to detect. Senses such as lifesense detect you as undead unless a creature succeeds at a Perception check against the spell's DC, and on a failed check, they don't detect you at all if they only sense living creatures. Detection spells that specifically sense living creatures must succeed at a counteract check against <em>mimic undead</em> to detect you. You gain a +4 status bonus to Impersonate an undead but physically intact version of yourself and can add your level as your proficiency bonus even if you're untrained. You don't gain these benefits to Impersonate any other sort of undead. Mindless undead usually don't have a reason to even attempt the Perception check to notice your Impersonation unless you interact with them in some way.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mimic Undead]</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -1255,9 +931,6 @@
                 "location": {
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
-                },
-                "materials": {
-                    "value": "You're a living creature"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1267,35 +940,24 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "You're a living creature",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
                 "slug": "mimic-undead",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
                     "value": [
-                        "necromancy"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -1312,31 +974,19 @@
             "name": "Water Walk",
             "sort": 1400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>The target can walk on the surface of water and other liquids without falling through. It can go underwater if it wishes, but in that case it must Swim normally. This spell doesn't grant the ability to breathe underwater.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's range increases to 30 feet, the duration increases to 1 hour, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "levels": {
@@ -1358,15 +1008,6 @@
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -1375,41 +1016,25 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "water-walk",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -1426,40 +1051,25 @@
             "name": "Elemental Sentinel",
             "sort": 1500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "precious metals, rare incense, and herbs worth a total value of 15 gp per spell level"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You place a tiny elemental wisp within a single object, usually a mirror, statue, or other mundane-looking item, to serve as an alarm. Shattering or otherwise destroying the object frees the wisp and ends the ritual's effect even if the object is magically restored.</p>\n<hr />\n<p><strong>Critical Success</strong> The elemental wisps inhabits the object and willingly serves you to the best of its ability. The wisp becomes aware of the target object's surroundings and can telepathically contact you with a range of 500 feet. It reports to you about intruders or other changes to the room in which it's located. You must tell the wisp what the criteria for the reports will be-for instance, when anyone not openly wearing a certain symbol enters the room or when an item is removed. The wisp has a +5 Perception modifier and observes the room using normal vision, normal hearing, and touch.</p>\n<p><strong>Success</strong> As critical success, but the range of the telepathy is 100 feet and the wisp's Perception modifier is +3.</p>\n<p><strong>Failure</strong> You're unable to harness the spirit. The ritual fails.</p>\n<p><strong>Critical Failure</strong> The elemental wisp is trapped in the object as with a success, but it refuses or is somehow unable to help you. The elemental might have extremely low Intelligence or simply be spiteful. Regardless, the object's reports are always misleading.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The range of the telepathic link increases, allowing the wisp to contact you anywhere on the same planet. Its Perception modifier increases to +10, or +12 on a critical success.</p>\n<p><strong>Heightened (6th)</strong> As 4th level, except the wisp can see invisibility, and its Perception modifier increases to +15, or +17 on a critical success.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "unlimited"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana (expert) or Occultism (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1469,38 +1079,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (expert) or Occultism (expert)"
+                    },
+                    "secondary": {
+                        "casters": 0,
+                        "checks": ""
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "elemental-sentinel",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 object"
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "conjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -1516,37 +1116,36 @@
             "name": "Harm",
             "sort": 1600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {},
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "value": "void"
-                            },
-                            "value": "1d8"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d8",
+                        "kinds": [
+                            "damage",
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel void energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 void damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, verbal, somatic)</strong> You disperse void energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -1562,9 +1161,6 @@
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
                 },
-                "materials": {
-                    "value": ""
-                },
                 "overlays": {
                     "4gyp3qlsv5ywdyjq": {
                         "_id": "4gyp3qlsv5ywdyjq",
@@ -1572,17 +1168,15 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
-                            "components": {
-                                "somatic": true,
-                                "verbal": true
-                            },
                             "damage": {
-                                "value": {
-                                    "0": {
-                                        "value": "1d8+8"
-                                    }
+                                "0": {
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1591,18 +1185,18 @@
                             "range": {
                                 "value": "30 feet"
                             },
-                            "save": {
-                                "basic": "",
-                                "value": ""
-                            },
-                            "spellType": {
-                                "value": "heal"
-                            },
                             "target": {
                                 "value": "1 willing undead creature"
                             },
                             "time": {
                                 "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "manipulate",
+                                    "void"
+                                ]
                             }
                         }
                     },
@@ -1611,9 +1205,6 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "components": {
-                                "somatic": true
-                            },
                             "range": {
                                 "value": "touch"
                             },
@@ -1631,11 +1222,6 @@
                                 "type": "emanation",
                                 "value": 30
                             },
-                            "components": {
-                                "material": true,
-                                "somatic": true,
-                                "verbal": true
-                            },
                             "range": {
                                 "value": ""
                             },
@@ -1644,6 +1230,13 @@
                             },
                             "time": {
                                 "value": "3"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "manipulate",
+                                    "void"
+                                ]
                             }
                         }
                     },
@@ -1653,9 +1246,12 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
-                            "components": {
-                                "somatic": true,
-                                "verbal": true
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
                             },
                             "range": {
                                 "value": "30 feet"
@@ -1665,15 +1261,16 @@
                             },
                             "time": {
                                 "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "manipulate",
+                                    "void"
+                                ]
                             }
                         }
                     }
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1683,40 +1280,23 @@
                 "range": {
                     "value": "varies"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "harm",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 living creature or 1 willing undead creature"
                 },
                 "time": {
                     "value": "1 to 3"
                 },
-                "traditions": {
-                    "value": [
-                        "divine"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
                     "value": [
-                        "void",
-                        "necromancy"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -1733,32 +1313,19 @@
             "name": "Summon Construct",
             "sort": 1700000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You conjure a construct to fight for you. This works like <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Animal]</em>, except you summon a common creature that has the construct trait and whose level is -1.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1</p>\n<p><strong>Heightened (3rd)</strong> Level 2</p>\n<p><strong>Heightened (4th)</strong> Level 3</p>\n<p><strong>Heightened (5th)</strong> Level 5</p>\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
                 },
                 "duration": {
+                    "sustained": true,
                     "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 1
@@ -1766,15 +1333,6 @@
                 "location": {
                     "heightenedLevel": 3,
                     "value": "aMJUziFriyOV9ggf"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1784,39 +1342,23 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "summon-construct",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "3"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane"
+                    ],
                     "value": [
-                        "conjuration"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -1852,9 +1394,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {}
@@ -1989,7 +1528,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Iron Taviah adds <em>@UUID[Compendium.pf2e.spells-srd.Item.Earthbind]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Passwall]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Spellwrack]</em> to her coven's spells.</p>"
+                    "value": "<p>Iron Taviah adds <em>@UUID[Compendium.pf2e.spells-srd.Item.Earthbind]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Passage]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Spellwrack]</em> to her coven's spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2144,7 +1683,6 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "conjuration",
                         "occult"
                     ]
                 },
@@ -2190,8 +1728,7 @@
                     "value": [
                         "concentrate",
                         "occult",
-                        "polymorph",
-                        "transmutation"
+                        "polymorph"
                     ]
                 },
                 "trigger": {
@@ -2642,11 +2179,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "Female annis hag ritualist",
-            "creatureType": "",
             "level": {
                 "value": 6
             },
@@ -2698,6 +2231,7 @@
                 "value": "lg"
             },
             "value": [
+                "evil",
                 "hag",
                 "humanoid"
             ]

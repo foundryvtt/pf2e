@@ -197,7 +197,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Despite not being undead, this creature gains negative healing. Its Strikes deal an additional @Damage[1d6[evil]] damage to creatures that can cast divine or primal spells.</p>"
+                    "value": "<p>Despite not being undead, this creature gains void healing. Its Strikes deal an additional @Damage[1d6[spirit]] damage to creatures that can cast divine or primal spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -216,7 +216,7 @@
                         "toggleable": true
                     },
                     {
-                        "damageType": "evil",
+                        "damageType": "spirit",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
@@ -335,11 +335,10 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "necromancy",
-                        "occult",
-                        "shadow",
                         "emotion",
-                        "fear"
+                        "fear",
+                        "occult",
+                        "shadow"
                     ]
                 },
                 "trigger": {
@@ -461,7 +460,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 60,
                 "temp": 0,
                 "value": 60
@@ -483,17 +482,13 @@
             },
             "weaknesses": [
                 {
-                    "type": "good",
+                    "type": "holy",
                     "value": 5
                 }
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "Beast",
             "level": {
                 "value": 4
             },
@@ -539,7 +534,10 @@
                 "value": "med"
             },
             "value": [
-                "beast"
+                "beast",
+                "chaotic",
+                "evil",
+                "unholy"
             ]
         }
     },

@@ -6,7 +6,7 @@ aside .sidebar {
     .save-roll input[type="number"] {
         width: 3ch;
         font-size: var(--font-size-20);
-        height: 24px;
+        height: 1.5rem;
     }
 
     .hitpoints .container {
@@ -42,10 +42,9 @@ header.char-header {
     }
 }
 
-.sheet-body .sheet-content > .tab {
+.sheet-body .sheet-content > .tab.active {
     &:not(.inventory),
     .inventory .inventory-list {
-        overflow: hidden scroll;
         flex-grow: 1;
         overflow: hidden scroll;
     }
@@ -72,8 +71,12 @@ header.char-header {
                     object-fit: contain;
                     border-radius: 0;
                     border: none;
-                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39,
-                        inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+                    box-shadow:
+                        0 0 0 1px #918c88,
+                        0 0 0 2px #e1d8cf,
+                        0 0 0 3px #a98f39,
+                        inset 0 0 8px rgba(0, 0, 0, 0.5),
+                        0 0 8px black;
                 }
             }
 
@@ -87,7 +90,7 @@ header.char-header {
             .detail-sheet {
                 display: grid;
                 grid: repeat(2, 42px) / 3fr 2fr;
-                grid-row-gap: 8px;
+                grid-row-gap: 0.5rem;
                 padding-left: 12px;
             }
 
@@ -107,7 +110,7 @@ header.char-header {
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
 
         .vehicle-properties > div > span {
@@ -115,8 +118,12 @@ header.char-header {
         }
 
         .detailsInput {
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
+    }
+
+    &.inventory {
+        display: flex;
     }
 
     &.effects {
@@ -141,6 +148,35 @@ header.char-header {
             }
         }
     }
+
+    &.description {
+        padding-bottom: 0.5rem;
+
+        header {
+            margin-bottom: 0.25rem;
+        }
+
+        .description {
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 22ch;
+            margin-bottom: 1rem;
+
+            > .editor {
+                display: inherit;
+                flex-direction: inherit;
+                flex: inherit;
+            }
+        }
+
+        .publication {
+            margin-top: auto;
+
+            > .content {
+                @include publication-data;
+            }
+        }
+    }
 }
 
 input.adjustable:not(:focus),
@@ -152,10 +188,6 @@ span.adjustable {
     &.adjusted-lower {
         color: $adjusted-lower;
     }
-}
-
-.inventory {
-    margin-bottom: 0.6rem;
 }
 
 // Grid-positions

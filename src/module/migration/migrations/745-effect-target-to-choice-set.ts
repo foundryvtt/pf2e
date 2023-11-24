@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSchema } from "@module/rules/rule-element/choice-set/data.ts";
 import { PredicateStatement } from "@system/predication.ts";
@@ -17,7 +17,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
     #toChoiceSet(
         rule: EffectTargetSource,
         itemSource: ItemSourcePF2e,
-        actorSource: ActorSourcePF2e | null
+        actorSource: ActorSourcePF2e | null,
     ): OwnedWeaponChoiceSetSource {
         const newRE: OwnedWeaponChoiceSetSource = {
             key: "ChoiceSet",
@@ -27,7 +27,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
 
         if (typeof rule.targetId === "string" && actorSource) {
             const weapon = actorSource.items.find(
-                (i): i is WeaponSource => i.type === "weapon" && i._id === rule.targetId
+                (i): i is WeaponSource => i.type === "weapon" && i._id === rule.targetId,
             );
             if (weapon) newRE.selection = weapon.system.slug ?? sluggify(weapon.name);
         }
@@ -57,7 +57,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
                 rules[rules.indexOf(rule)] = this.#toChoiceSet(rule, source, actorSource ?? null);
                 const otherRules = rules.filter(
                     (r: RuleElementSource & { selector?: unknown }): r is RuleElementSource & { selector: string } =>
-                        typeof r.selector === "string" && /item\|data\.target/.test(r.selector)
+                        typeof r.selector === "string" && /item\|data\.target/.test(r.selector),
                 );
                 for (const other of otherRules) {
                     const flag = sluggify(source.system.slug ?? source.name, { camel: "dromedary" });

@@ -38,7 +38,7 @@ function decipherWriting(options: SkillActionOptions): void {
 
 class DecipherWritingActionVariant extends SingleCheckActionVariant {
     override async use(
-        options: Partial<SingleCheckActionUseOptions> & { statistic: string }
+        options: Partial<SingleCheckActionUseOptions> & { statistic: string },
     ): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
             throw new Error(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));

@@ -38,6 +38,13 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         return this.draw();
     }
 
+    /** Reposition aura textures after the token moves. */
+    refreshPositions(): void {
+        for (const aura of this.values()) {
+            aura.repositionTexture();
+        }
+    }
+
     /** Whether auras' borders and highlights should be shown to the present user */
     get #showBordersHighlights(): boolean {
         const inEncounter = () =>

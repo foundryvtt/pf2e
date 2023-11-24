@@ -134,13 +134,13 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -158,7 +158,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -176,7 +176,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -192,7 +192,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -210,7 +210,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -226,7 +226,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -244,7 +244,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -267,7 +267,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -320,7 +320,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -353,7 +353,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -394,7 +394,7 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -403,7 +403,7 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -548,13 +548,13 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -572,7 +572,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -590,7 +590,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -606,7 +606,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -624,7 +624,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -640,7 +640,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -658,7 +658,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -681,7 +681,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -734,7 +734,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -767,7 +767,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -808,7 +808,7 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -817,7 +817,7 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -830,7 +830,7 @@ export class ClientBaseActiveEffect<
     TParent extends
         | ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>
         | ClientBaseItem<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null>
-        | null
+        | null,
 > extends foundry.documents.BaseActiveEffect<TParent> {
     protected _sheet: DocumentSheet<this> | null;
 
@@ -966,13 +966,13 @@ export class ClientBaseActiveEffect<
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -990,7 +990,7 @@ export class ClientBaseActiveEffect<
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1008,7 +1008,7 @@ export class ClientBaseActiveEffect<
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1024,7 +1024,7 @@ export class ClientBaseActiveEffect<
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1042,7 +1042,7 @@ export class ClientBaseActiveEffect<
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1058,7 +1058,7 @@ export class ClientBaseActiveEffect<
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1076,7 +1076,7 @@ export class ClientBaseActiveEffect<
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -1099,7 +1099,7 @@ export class ClientBaseActiveEffect<
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -1152,7 +1152,7 @@ export class ClientBaseActiveEffect<
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -1185,7 +1185,7 @@ export class ClientBaseActiveEffect<
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -1325,13 +1325,13 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -1349,7 +1349,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1367,7 +1367,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1383,7 +1383,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1401,7 +1401,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1417,7 +1417,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1435,7 +1435,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -1458,7 +1458,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -1511,7 +1511,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -1544,7 +1544,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -1684,13 +1684,13 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -1708,7 +1708,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1726,7 +1726,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1742,7 +1742,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1760,7 +1760,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1776,7 +1776,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -1794,7 +1794,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -1817,7 +1817,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -1870,7 +1870,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -1903,7 +1903,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -2042,13 +2042,13 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -2066,7 +2066,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2084,7 +2084,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2100,7 +2100,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2118,7 +2118,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2134,7 +2134,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2152,7 +2152,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -2175,7 +2175,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -2228,7 +2228,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -2261,7 +2261,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -2400,13 +2400,13 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -2424,7 +2424,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2442,7 +2442,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2458,7 +2458,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2476,7 +2476,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2492,7 +2492,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2510,7 +2510,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -2533,7 +2533,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -2586,7 +2586,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -2619,7 +2619,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -2758,13 +2758,13 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -2782,7 +2782,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2800,7 +2800,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2816,7 +2816,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2834,7 +2834,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2850,7 +2850,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -2868,7 +2868,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -2891,7 +2891,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -2944,7 +2944,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -2977,7 +2977,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -3116,13 +3116,13 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -3140,7 +3140,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3158,7 +3158,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3174,7 +3174,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3192,7 +3192,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3208,7 +3208,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3226,7 +3226,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -3249,7 +3249,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -3302,7 +3302,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -3335,7 +3335,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -3474,13 +3474,13 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -3498,7 +3498,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3516,7 +3516,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3532,7 +3532,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3550,7 +3550,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3566,7 +3566,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3584,7 +3584,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -3607,7 +3607,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -3660,7 +3660,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -3693,7 +3693,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -3833,13 +3833,13 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -3857,7 +3857,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3875,7 +3875,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3891,7 +3891,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3909,7 +3909,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3925,7 +3925,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -3943,7 +3943,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -3966,7 +3966,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -4019,7 +4019,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -4052,7 +4052,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -4191,13 +4191,13 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -4215,7 +4215,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4233,7 +4233,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4249,7 +4249,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4267,7 +4267,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4283,7 +4283,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4301,7 +4301,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -4324,7 +4324,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -4377,7 +4377,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -4410,7 +4410,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -4451,7 +4451,7 @@ export class CanvasBaseDrawing<TParent extends ClientBaseScene | null> extends C
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4460,7 +4460,7 @@ export class CanvasBaseDrawing<TParent extends ClientBaseScene | null> extends C
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4604,13 +4604,13 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -4628,7 +4628,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4646,7 +4646,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4662,7 +4662,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4680,7 +4680,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4696,7 +4696,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -4714,7 +4714,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -4737,7 +4737,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -4790,7 +4790,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -4823,7 +4823,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -4962,13 +4962,13 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -4986,7 +4986,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5004,7 +5004,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5020,7 +5020,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5038,7 +5038,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5054,7 +5054,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5072,7 +5072,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -5095,7 +5095,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -5148,7 +5148,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -5181,12 +5181,12 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
 export class ClientBaseItem<
-    TParent extends ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null
+    TParent extends ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null,
 > extends foundry.documents.BaseItem<TParent> {
     protected _sheet: DocumentSheet<this> | null;
 
@@ -5322,13 +5322,13 @@ export class ClientBaseItem<
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -5346,7 +5346,7 @@ export class ClientBaseItem<
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5364,7 +5364,7 @@ export class ClientBaseItem<
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5380,7 +5380,7 @@ export class ClientBaseItem<
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5398,7 +5398,7 @@ export class ClientBaseItem<
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5414,7 +5414,7 @@ export class ClientBaseItem<
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5432,7 +5432,7 @@ export class ClientBaseItem<
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -5455,7 +5455,7 @@ export class ClientBaseItem<
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -5508,7 +5508,7 @@ export class ClientBaseItem<
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -5541,7 +5541,7 @@ export class ClientBaseItem<
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -5680,13 +5680,13 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -5704,7 +5704,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5722,7 +5722,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5738,7 +5738,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5756,7 +5756,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5772,7 +5772,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -5790,7 +5790,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -5813,7 +5813,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -5866,7 +5866,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -5899,7 +5899,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -6039,13 +6039,13 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -6063,7 +6063,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6081,7 +6081,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6097,7 +6097,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6115,7 +6115,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6131,7 +6131,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6149,7 +6149,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -6172,7 +6172,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -6225,7 +6225,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -6258,7 +6258,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -6397,13 +6397,13 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -6421,7 +6421,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6439,7 +6439,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6455,7 +6455,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6473,7 +6473,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6489,7 +6489,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6507,7 +6507,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -6530,7 +6530,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -6583,7 +6583,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -6616,7 +6616,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -6756,13 +6756,13 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -6780,7 +6780,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6798,7 +6798,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6814,7 +6814,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6832,7 +6832,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6848,7 +6848,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -6866,7 +6866,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -6889,7 +6889,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -6942,7 +6942,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -6975,7 +6975,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -6985,7 +6985,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
  * @category - Mixins
  */
 export class CanvasBaseMeasuredTemplate<
-    TParent extends ClientBaseScene | null
+    TParent extends ClientBaseScene | null,
 > extends ClientBaseMeasuredTemplate<TParent> {
     /** A reference to the PlaceableObject instance which represents this Embedded Document. */
     _object: PlaceableObject<this> | null;
@@ -7018,7 +7018,7 @@ export class CanvasBaseMeasuredTemplate<
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7027,7 +7027,7 @@ export class CanvasBaseMeasuredTemplate<
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7171,13 +7171,13 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -7195,7 +7195,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7213,7 +7213,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7229,7 +7229,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7247,7 +7247,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7263,7 +7263,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7281,7 +7281,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -7304,7 +7304,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -7357,7 +7357,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -7390,7 +7390,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -7431,7 +7431,7 @@ export class CanvasBaseNote<TParent extends ClientBaseScene | null> extends Clie
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7440,7 +7440,7 @@ export class CanvasBaseNote<TParent extends ClientBaseScene | null> extends Clie
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7584,13 +7584,13 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -7608,7 +7608,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7626,7 +7626,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7642,7 +7642,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7660,7 +7660,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7676,7 +7676,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7694,7 +7694,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -7717,7 +7717,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -7770,7 +7770,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -7803,7 +7803,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -7943,13 +7943,13 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -7967,7 +7967,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -7985,7 +7985,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8001,7 +8001,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8019,7 +8019,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8035,7 +8035,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8053,7 +8053,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -8076,7 +8076,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -8129,7 +8129,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -8162,7 +8162,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -8301,13 +8301,13 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -8325,7 +8325,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8343,7 +8343,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8359,7 +8359,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8377,7 +8377,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8393,7 +8393,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8411,7 +8411,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -8434,7 +8434,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -8487,7 +8487,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -8520,7 +8520,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -8659,13 +8659,13 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -8683,7 +8683,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8701,7 +8701,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8717,7 +8717,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8735,7 +8735,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8751,7 +8751,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -8769,7 +8769,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -8792,7 +8792,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -8845,7 +8845,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -8878,7 +8878,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -9017,13 +9017,13 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -9041,7 +9041,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9059,7 +9059,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9075,7 +9075,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9093,7 +9093,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9109,7 +9109,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9127,7 +9127,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -9150,7 +9150,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -9203,7 +9203,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -9236,7 +9236,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -9376,13 +9376,13 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -9400,7 +9400,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9418,7 +9418,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9434,7 +9434,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9452,7 +9452,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9468,7 +9468,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9486,7 +9486,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -9509,7 +9509,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -9562,7 +9562,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -9595,7 +9595,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -9734,13 +9734,13 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -9758,7 +9758,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9776,7 +9776,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9792,7 +9792,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9810,7 +9810,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9826,7 +9826,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -9844,7 +9844,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -9867,7 +9867,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -9920,7 +9920,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -9953,7 +9953,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -9994,7 +9994,7 @@ export class CanvasBaseTile<TParent extends ClientBaseScene | null> extends Clie
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10003,7 +10003,7 @@ export class CanvasBaseTile<TParent extends ClientBaseScene | null> extends Clie
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10147,13 +10147,13 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -10171,7 +10171,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10189,7 +10189,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10205,7 +10205,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10223,7 +10223,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10239,7 +10239,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10257,7 +10257,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -10280,7 +10280,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -10333,7 +10333,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -10366,7 +10366,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -10407,7 +10407,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10416,7 +10416,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10560,13 +10560,13 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -10584,7 +10584,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10602,7 +10602,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10618,7 +10618,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10636,7 +10636,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10652,7 +10652,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10670,7 +10670,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -10693,7 +10693,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -10746,7 +10746,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -10779,7 +10779,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -10918,13 +10918,13 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -10942,7 +10942,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10960,7 +10960,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         data: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10976,7 +10976,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -10994,7 +10994,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         documents: ClientDocument[],
         changes: object[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -11010,7 +11010,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -11028,7 +11028,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void;
 
     /** Gets the default new name for a Document */
@@ -11051,7 +11051,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-        } & Partial<FormApplicationOptions>
+        } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
 
     /**
@@ -11104,7 +11104,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
     static fromDropData<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data: object,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Promise<TDocument | undefined>;
 
     /**
@@ -11137,7 +11137,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
             clearOwnership?: boolean;
             clearState?: boolean;
             keepId?: boolean;
-        }
+        },
     ): this["_source"];
 }
 
@@ -11178,7 +11178,7 @@ export class CanvasBaseWall<TParent extends ClientBaseScene | null> extends Clie
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -11187,7 +11187,7 @@ export class CanvasBaseWall<TParent extends ClientBaseScene | null> extends Clie
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**

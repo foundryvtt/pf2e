@@ -119,57 +119,43 @@
             "name": "Massacre",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": {
                     "type": "line",
                     "value": 60
                 },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "void"
-                            },
-                            "value": "9d6"
-                        }
+                    "0": {
+                        "category": null,
+                        "formula": "9d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the negative energy violently explodes back toward you, dealing an additional 30 negative damage to every creature in the line (even those above 17th level) and 30 negative damage to you.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes 9d6 negative damage.</p>\n<p><strong>Failure</strong> The creature takes 100 negative damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr /><strong>Heightened (10th)</strong> The spell can affect creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure."
+                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy violently explodes back toward you, dealing an additional 30 void damage to every creature in the line (even those above 17th level) and 30 void damage to you.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes 9d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 100 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr /><strong>Heightened (10th)</strong> The spell can affect creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure."
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 9
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -179,43 +165,27 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "massacre",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "death",
-                        "void",
-                        "necromancy"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -232,54 +202,36 @@
             "name": "Power Word Kill",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "value": "untyped"
-                            },
-                            "value": "50"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "50",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
                     }
                 },
+                "defense": null,
                 "description": {
                     "value": "<p>You utter the most powerful arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 14th or Lower The target dies instantly. 15th If the target has 50 Hit Points or fewer, it dies instantly; otherwise, it drops to 0 Hit Points and becomes @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 1}, or increases its Dying condition by 1 if it's already Dying. 16th or Higher The target takes 50 damage; if this brings the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 9
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -289,42 +241,25 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "power-word-kill",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "1"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane"
+                    ],
                     "value": [
                         "auditory",
+                        "concentrate",
                         "death",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -341,42 +276,37 @@
             "name": "Vampiric Exsanguination",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": {
                     "type": "cone",
                     "value": 30
                 },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "void"
-                            },
-                            "value": "18d6"
-                        }
+                    "0": {
+                        "category": null,
+                        "formula": "18d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 void damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -391,15 +321,6 @@
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -408,43 +329,27 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "vampiric-exsanguination",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "death",
-                        "void",
-                        "necromancy"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -461,46 +366,30 @@
             "name": "Paralyze",
             "sort": 500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is Paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 7
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -510,43 +399,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "paralyze",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "incapacitation",
-                        "mental",
-                        "enchantment"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -563,46 +435,25 @@
             "name": "Regenerate",
             "sort": 600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>An infusion of positive energy grants a creature continuous healing. The target temporarily gains regeneration 15, which restores 15 Hit Points to it at the start of each of its turns. While it has regeneration, the target can't die from damage and its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition can't increase to a value that would kill it (this stops most creatures from going beyond dying 3), though if its @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value becomes 4 or higher, it stays @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] until its wounds are treated. If the target takes acid or fire damage, its regeneration deactivates until after the end of its next turn. Each time the creature regains Hit Points from regeneration, it also regrows one damaged or ruined organ (if any). During the spell's duration, the creature can also reattach severed body parts by spending an Interact action to hold the body part to the area it was severed from.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The regeneration increases to 20.</p>"
+                    "value": "<p>An infusion of vitality energy grants a creature continuous healing. The target temporarily gains regeneration 15, which restores 15 Hit Points to it at the start of each of its turns. While it has regeneration, the target can't die from damage and its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition can't increase to a value that would kill it (this stops most creatures from going beyond dying 3), though if its @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value becomes 4 or higher, it stays @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] until its wounds are treated. If the target takes acid or fire damage, its regeneration deactivates until after the end of its next turn. Each time the creature regains Hit Points from regeneration, it also regrows one damaged or ruined organ (if any). During the spell's duration, the creature can also reattach severed body parts by spending an Interact action to hold the body part to the area it was severed from.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The regeneration increases to 20.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 7
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -612,42 +463,26 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "regenerate",
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 willing living creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
                     "value": [
+                        "concentrate",
                         "healing",
-                        "vitality",
-                        "necromancy"
+                        "manipulate",
+                        "vitality"
                     ]
                 }
             },
@@ -664,46 +499,25 @@
             "name": "True Seeing (Constant)",
             "sort": 700000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": true
                 },
                 "level": {
                     "value": 6
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -713,43 +527,27 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "true-seeing",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "revelation",
-                        "divination"
+                        "concentrate",
+                        "manipulate",
+                        "revelation"
                     ]
                 }
             },
@@ -766,46 +564,25 @@
             "name": "Dimension Door (At will)",
             "sort": 800000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 5
                 },
                 "location": {
                     "value": "yinuvv1DAaHpt2dq"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -815,41 +592,25 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "dimension-door",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "teleportation",
-                        "conjuration"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
@@ -866,43 +627,25 @@
             "name": "Abyssal Pact",
             "sort": 900000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Religion (expert; you must be a demon)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -912,39 +655,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Religion (expert; you must be a demon)"
+                    },
+                    "secondary": {
+                        "casters": 0,
+                        "checks": ""
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "abyssal-pact",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "conjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -971,7 +703,7 @@
                     },
                     "vc2d6vll09cgk5drn317": {
                         "damage": "1d6",
-                        "damageType": "evil"
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -989,7 +721,8 @@
                     "value": [
                         "evil",
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unholy"
                     ]
                 },
                 "weaponType": {
@@ -1024,7 +757,7 @@
                     },
                     "44bh7rzlocr0a5e4t7wc": {
                         "damage": "1d6",
-                        "damageType": "evil"
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -1043,7 +776,8 @@
                         "agile",
                         "chaotic",
                         "evil",
-                        "magical"
+                        "magical",
+                        "unholy"
                     ]
                 },
                 "weaponType": {
@@ -1077,7 +811,7 @@
                     },
                     "13iig2sy959ssl2yx23l": {
                         "damage": "1d6",
-                        "damageType": "evil"
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -1095,7 +829,8 @@
                     "value": [
                         "evil",
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unholy"
                     ]
                 },
                 "weaponType": {
@@ -1183,7 +918,6 @@
                     "rarity": "common",
                     "value": [
                         "aura",
-                        "divination",
                         "magical"
                     ]
                 },
@@ -1371,9 +1105,7 @@
                         "radius": 30,
                         "slug": "death-stealing-gaze",
                         "traits": [
-                            "aura",
                             "divine",
-                            "necromancy",
                             "visual"
                         ]
                     }
@@ -1384,7 +1116,6 @@
                     "value": [
                         "aura",
                         "divine",
-                        "necromancy",
                         "visual"
                     ]
                 },
@@ -1467,7 +1198,6 @@
                     "value": [
                         "concentrate",
                         "divine",
-                        "necromancy",
                         "visual"
                     ]
                 },
@@ -1549,7 +1279,6 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
-                        "enchantment",
                         "mental"
                     ]
                 },
@@ -1839,17 +1568,13 @@
                     "value": 15
                 },
                 {
-                    "type": "good",
+                    "type": "holy",
                     "value": 15
                 }
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "Fiend",
             "level": {
                 "value": 19
             },
@@ -1894,9 +1619,9 @@
                 "custom": "Telepathy 100 feet",
                 "selected": [],
                 "value": [
-                    "abyssal",
-                    "celestial",
+                    "chthonian",
                     "draconic",
+                    "empyrean",
                     "necril"
                 ]
             },
@@ -1908,8 +1633,11 @@
                 "value": "lg"
             },
             "value": [
+                "chaotic",
                 "demon",
-                "fiend"
+                "evil",
+                "fiend",
+                "unholy"
             ]
         }
     },

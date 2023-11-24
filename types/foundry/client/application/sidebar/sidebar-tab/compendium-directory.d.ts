@@ -35,7 +35,7 @@ declare class CompendiumDirectory extends SidebarTab {
 
     protected _entryIsSelf(
         entry: CompendiumIndexData | CompendiumDocument,
-        otherEntry: CompendiumIndexData | CompendiumDocument
+        otherEntry: CompendiumIndexData | CompendiumDocument,
     ): boolean;
 
     /**
@@ -49,7 +49,7 @@ declare class CompendiumDirectory extends SidebarTab {
      */
     protected _sortRelative<TEntry extends CompendiumIndexData | CompendiumDocument>(
         entry: TEntry,
-        sortData: { sortKey: string; sortBefore: boolean; updateData: Record<string, unknown> }
+        sortData: { sortKey: string; sortBefore: boolean; updateData: Record<string, unknown> },
     ): Promise<TEntry>;
 
     override activateListeners(html: JQuery): void;

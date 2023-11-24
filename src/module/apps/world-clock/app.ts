@@ -1,4 +1,4 @@
-import { ErrorPF2e, ordinal, tupleHasValue } from "@util";
+import { ErrorPF2e, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
@@ -137,7 +137,7 @@ export class WorldClock extends Application {
                       era: this.era,
                       year: this.year,
                       month: this.month,
-                      day: ordinal(this.worldTime.day),
+                      day: ordinalString(this.worldTime.day),
                       weekday: this.weekday,
                   });
 
@@ -221,7 +221,7 @@ export class WorldClock extends Application {
 
                 const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
                 const advanceButtons = Array.from(
-                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []
+                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? [],
                 );
 
                 for (const button of advanceButtons) {

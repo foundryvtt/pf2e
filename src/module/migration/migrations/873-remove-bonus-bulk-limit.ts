@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -25,7 +25,7 @@ export class Migration873RemoveBonusBulkLimit extends MigrationBase {
         source.system.rules = recursiveReplaceString(source.system.rules, (text) =>
             text
                 .replace(/^system\.attributes\.bonusEncumbranceBulk$/, "inventory.bulk.encumberedAfterAddend")
-                .replace(/^system\.attributes\.bonusLimitBulk$/, "inventory.bulk.maxAddend")
+                .replace(/^system\.attributes\.bonusLimitBulk$/, "inventory.bulk.maxAddend"),
         );
     }
 }

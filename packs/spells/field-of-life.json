@@ -3,74 +3,55 @@
     "img": "icons/magic/life/heart-area-circle-red-green.webp",
     "name": "Field of Life",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "healing"
-                    },
-                    "value": "1d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "healing"
+                ],
+                "materials": [],
+                "type": "untyped"
             }
         },
+        "defense": null,
         "description": {
-            "value": "<p>A field of positive energy fills the area, exuding warmth and rejuvenating those within. Each living creature that starts its turn in the area regains 1d8 Hit Points, and any undead creature that starts its turn in the area takes 1d8 positive damage.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The healing and damage increase to 1d10.</p>\n<p><strong>Heightened (9th)</strong> The healing and damage increase to 1d12.</p>"
+            "value": "<p>A field of life energy fills the area, exuding warmth and rejuvenating those within. Each living creature that starts its turn in the area regains 1d8 Hit Points, and any undead creature that starts its turn in the area takes 1d8 vitality damage.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The healing and damage increase to 1d10.</p>\n<p><strong>Heightened (9th)</strong> The healing and damage increase to 1d12.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "levels": {
                 "8": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "healing"
-                                },
-                                "value": "1d10"
-                            }
+                        "0": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "1d10",
+                            "materials": [],
+                            "type": ""
                         }
                     }
                 },
                 "9": {
                     "damage": {
-                        "value": {
-                            "0": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "healing"
-                                },
-                                "value": "1d12"
-                            }
+                        "0": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "1d12",
+                            "materials": [],
+                            "type": ""
                         }
                     }
                 }
@@ -80,58 +61,33 @@
         "level": {
             "value": 6
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "heal"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "divine",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "divine",
+                "primal"
+            ],
             "value": [
+                "concentrate",
                 "healing",
-                "vitality",
-                "necromancy"
+                "manipulate",
+                "vitality"
             ]
         }
     },

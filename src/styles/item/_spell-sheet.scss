@@ -1,27 +1,70 @@
+.save-basic {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: end;
+}
+
 .damage-formulas {
     margin-top: 8px;
 
     .form-fields {
         gap: 2px;
-        margin-top: 4px;
     }
 
     input[type="checkbox"] {
         margin-left: 2px;
     }
 
-    .traits-list {
-        display: flex;
-        margin-top: 2px;
-    }
-
-    .tag {
-        float: none; // remove when global rule is removed
+    .materials {
+        align-self: end;
     }
 }
 
-button[data-action="damage-add"] {
-    margin-top: 4px;
+button + fieldset {
+    margin-top: 0.5rem;
+}
+
+fieldset.heightening {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .add {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        button.only-option {
+            grid-column: span 2;
+        }
+    }
+
+    .overlay {
+        .toggle-button-list {
+            column-gap: 2px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            margin: 4px 0;
+
+            button {
+                font-size: var(--font-size-12);
+                line-height: normal;
+                margin: 0;
+                padding: 0.25em;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.overlay {
+    .traits {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+        .tags {
+            flex: 1;
+        }
+    }
 }
 
 .variants .variant {

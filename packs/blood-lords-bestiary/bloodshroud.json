@@ -117,39 +117,29 @@
             "name": "Polar Ray",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "cold"
-                            },
-                            "value": "10d8"
-                        }
+                    "0": {
+                        "category": null,
+                        "formula": "10d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
                     }
                 },
+                "defense": null,
                 "description": {
                     "value": "<p>You fire a blue-white ray of freezing air and sleet that deals 10d8 cold damage. Make a spell attack roll against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}</p>\n<p><strong>Success</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d8</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -169,15 +159,6 @@
                     },
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -186,42 +167,26 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "polar-ray",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
                         "attack",
                         "cold",
-                        "evocation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -238,41 +203,35 @@
             "name": "Disintegrate",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "untyped"
-                            },
-                            "value": "12d10"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "12d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
                     "value": "<p>You fire a green ray at your target. Make a spell attack. On a hit, you deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -288,15 +247,6 @@
                     "heightenedLevel": 7,
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -305,40 +255,24 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "disintegrate",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature or unattended object"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane"
+                    ],
                     "value": [
                         "attack",
-                        "evocation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -355,31 +289,24 @@
             "name": "Chromatic Ray",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
                     "value": "<p>You send out a ray of colored light streaming toward your enemy, with a magical effect depending on the ray's color. Make a spell attack roll. If you hit, roll [[/r 1d4]]{1d4} to see which beam you cast. If the ray deals damage, that damage is doubled on a critical hit. Any additional traits that apply to a ray are listed in parentheses just after the name of the color.</p>\n<ol>\n<li><strong>Red</strong> (fire) The ray deals @Damage[30[fire]] damage to the target.</li>\n<li><strong>Orange</strong> (acid) The ray deals @Damage[40[acid]] damage to the target.</li>\n<li><strong>Yellow</strong> (electricity) The ray deals @Damage[50[electricity]] damage to the target.</li>\n<li><strong>Green</strong> (poison) The ray deals @Damage[25[poison]] damage to the target, and the target must succeed at a Fortitude save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure).</li>\n</ol>\n<hr />\n<p><strong>Heightened (6th)</strong> The damage for @Damage[40[fire]]{Red}, @Damage[50[acid]]{Orange}, @Damage[60[electricity]]{Yellow}, and @Damage[35[poison]]{Green} each increase by 10. Roll [[/r 1d8]]{1d8} to determine the ray's color, using the results for 1-4 above and the results for 5-8 below.</p>\n<ol start=\"5\">\n<li><strong>Blue</strong> The ray has the effect of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Petrify]</em> spell. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} as long as it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed] by the <em>flesh to stone</em> effect.</li>\n<li><strong>Indigo</strong> (emotion, incapacitation, mental) The ray has the effect of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</em> spell. On a critical hit, it has the effect of <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em> instead.</li>\n<li><strong>Violet</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed] for 1 minute. It must also succeed at a will save or be teleported 120 feet directly away from you (if there isn't room for it to appear there, it appears in the nearest open space); this is a teleportation effect.</li>\n<li><strong>Intense Color</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of your next turn, or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] if your attack roll was a critical hit. Roll again and add the effects of another color (rerolling results of 8).</li>\n</ol>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
@@ -392,12 +319,6 @@
                     },
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -406,37 +327,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
                 "slug": "chromatic-ray",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
                         "attack",
+                        "concentrate",
                         "light",
-                        "evocation"
+                        "manipulate"
                     ]
                 }
             },
@@ -453,41 +363,30 @@
             "name": "Acid Arrow",
             "sort": 500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "acid"
-                            },
-                            "value": "3d8"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
                     }
                 },
+                "defense": null,
                 "description": {
                     "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -507,15 +406,6 @@
                     },
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -524,42 +414,26 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "acid-arrow",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
                         "acid",
                         "attack",
-                        "evocation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -576,32 +450,19 @@
             "name": "Scorching Ray",
             "sort": 600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "applyMod": false,
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for scorching ray. If you spend 2 or more actions Casting the Spell, the damage increases to 4d6 fire damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by 2d6 for the 2-action and 3-action versions.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -614,9 +475,6 @@
                     },
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
                 "overlays": {
                     "hqiwae0wgehycnex": {
                         "_id": "hqiwae0wgehycnex",
@@ -624,16 +482,12 @@
                         "sort": 2,
                         "system": {
                             "damage": {
-                                "value": {
-                                    "d80radfbikwjogmr": {
-                                        "applyMod": false,
-                                        "type": {
-                                            "categories": [],
-                                            "subtype": "",
-                                            "value": "fire"
-                                        },
-                                        "value": "4d6"
-                                    }
+                                "d80radfbikwjogmr": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "4d6",
+                                    "materials": [],
+                                    "type": "fire"
                                 }
                             },
                             "heightening": {
@@ -657,16 +511,12 @@
                         "sort": 1,
                         "system": {
                             "damage": {
-                                "value": {
-                                    "tgzp2lzatpg4c9a5": {
-                                        "applyMod": false,
-                                        "type": {
-                                            "categories": [],
-                                            "subtype": "",
-                                            "value": "fire"
-                                        },
-                                        "value": "2d6"
-                                    }
+                                "tgzp2lzatpg4c9a5": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "2d6",
+                                    "materials": [],
+                                    "type": "fire"
                                 }
                             },
                             "heightening": {
@@ -693,37 +543,26 @@
                 "range": {
                     "value": "60 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
                 "slug": "scorching-ray",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 or more creatures"
                 },
                 "time": {
                     "value": "1 to 3"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
                         "attack",
+                        "concentrate",
                         "fire",
-                        "evocation"
+                        "manipulate"
                     ]
                 }
             },
@@ -740,39 +579,29 @@
             "name": "Shocking Grasp",
             "sort": 700000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "electricity"
-                            },
-                            "value": "2d12"
-                        }
+                    "0": {
+                        "category": null,
+                        "formula": "2d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
                     }
                 },
+                "defense": null,
                 "description": {
                     "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes 1d4 persistent electricity damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>\n<p>[[/r (1d4+(@item.level)-1)[persistent,electricity]]]{Leveled Persistent Electricity Damage}</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -792,15 +621,6 @@
                     },
                     "value": "rS4CtIjMBxJnIHVh"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -809,42 +629,26 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "shocking-grasp",
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
                         "attack",
+                        "concentrate",
                         "electricity",
-                        "evocation"
+                        "manipulate"
                     ]
                 }
             },
@@ -899,9 +703,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -945,7 +746,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "evocation",
                         "magical",
                         "versatile-p"
                     ]
@@ -1220,8 +1020,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "conjuration",
-                        "necromancy",
                         "teleportation"
                     ]
                 },
@@ -1261,7 +1059,6 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -1464,7 +1261,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 210,
                 "temp": 0,
                 "value": 210
@@ -1525,11 +1322,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 13
             },
@@ -1561,10 +1354,10 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "abyssal",
-                    "celestial",
+                    "chthonian",
                     "common",
                     "draconic",
+                    "empyrean",
                     "necril"
                 ]
             },
@@ -1576,7 +1369,9 @@
                 "value": "med"
             },
             "value": [
-                "undead"
+                "evil",
+                "undead",
+                "unholy"
             ]
         }
     },

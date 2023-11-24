@@ -119,31 +119,19 @@
             "name": "Speak with Plants (Constant) (Trees Only)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You can ask questions of and receive answers from plants, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {},
@@ -157,15 +145,6 @@
                     "heightenedLevel": 4,
                     "value": "nHJB2s5hLplCZOOs"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -174,40 +153,24 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "speak-with-plants",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
-                        "plant",
-                        "divination"
+                        "concentrate",
+                        "manipulate",
+                        "plant"
                     ]
                 }
             },
@@ -482,7 +445,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The leshy crafter calls forth materials and natural energies from the surrounding area, creating a brief vortex of flora and debris. Each non-plant creature within @Template[type:emanation|distance:10]{10 feet} of the leshy crafter takes @Damage[2d6[piercing],2d6[void]]{2d6 piercing damage and 2d6 negative damage}, with a @Check[type:fortitude|dc:20|basic:true] save.</p>\n<p>The debris cloud lasts until the leshy crafter's next turn; while the cloud lasts, all creatures within it become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The leshy crafter calls forth materials and natural energies from the surrounding area, creating a brief vortex of flora and debris. Each non-plant creature within @Template[type:emanation|distance:10]{10 feet} of the leshy crafter takes @Damage[2d6[piercing],2d6[void]]{2d6 piercing damage and 2d6 void damage}, with a @Check[type:fortitude|dc:20|basic:true] save.</p>\n<p>The debris cloud lasts until the leshy crafter's next turn; while the cloud lasts, all creatures within it become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -638,11 +601,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 3
             },
@@ -674,10 +633,10 @@
                 "custom": "Speak With Plants (Trees Only)",
                 "selected": [],
                 "value": [
-                    "abyssal",
+                    "chthonian",
                     "common",
-                    "druidic",
-                    "fey"
+                    "fey",
+                    "wildsong"
                 ]
             },
             "rarity": "unique",
@@ -688,6 +647,8 @@
                 "value": "sm"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "leshy",
                 "plant"
             ]

@@ -117,45 +117,19 @@
             "name": "Touch of Corruption",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "void"
-                            },
-                            "value": "1d6"
-                        }
-                    }
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
+                    "value": "<p>You infuse the target with void energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -163,14 +137,67 @@
                 "location": {
                     "value": "y1bBayQkcWaeH3LE"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
+                "overlays": {
+                    "2a6Vm4mIjBgrzlO2": {
+                        "_id": "2a6Vm4mIjBgrzlO2",
+                        "name": "Touch of Corruption (Vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "Esn7klJ9WRsIFnrE": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "Esn7klJ9WRsIFnrE": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "gHIOzknAtexc6GUE": {
+                        "_id": "gHIOzknAtexc6GUE",
+                        "name": "Touch of Corruption (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "cM137DAlBX1LcWAX": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "untyped"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cM137DAlBX1LcWAX": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
                 },
                 "publication": {
                     "license": "OGL",
@@ -180,39 +207,23 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "touch-of-corruption",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 willing undead creature or 1 living creature"
                 },
                 "time": {
                     "value": "1"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
                         "champion",
-                        "void",
-                        "necromancy"
+                        "focus",
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -229,40 +240,30 @@
             "name": "Touch of Corruption (Healing)",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "void"
-                            },
-                            "value": "6"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "void"
                     }
                 },
+                "defense": null,
                 "description": {
-                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
+                    "value": "<p>You infuse the target with void energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -277,15 +278,6 @@
                 "location": {
                     "value": "y1bBayQkcWaeH3LE"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -294,37 +286,21 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "touch-of-corruption-healing",
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 willing undead creature"
                 },
                 "time": {
                     "value": "1"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
-                        "necromancy"
+                        "focus",
+                        "manipulate"
                     ]
                 }
             },
@@ -378,9 +354,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 0
@@ -475,7 +448,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": "bow",
+                "group": "crossbow",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -487,9 +460,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -556,14 +526,11 @@
             "sort": 600000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -572,7 +539,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 5,
                 "hp": {
                     "max": 20,
@@ -585,29 +551,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -615,16 +562,16 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "steel-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -635,7 +582,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "9ycGEHWoJ4RwwZ8d",
@@ -656,7 +603,7 @@
                 "description": {
                     "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
                 },
-                "dexCap": 0,
+                "dexCap": null,
                 "equipped": {
                     "carryType": "worn",
                     "inSlot": false,
@@ -678,10 +625,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -779,9 +722,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "per": 10,
@@ -1111,7 +1051,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The ghoul antipaladin takes damage from an enemy within 15 feet</p>\n<hr />\n<p><strong>Effect</strong> The ghoul antipaladin increases the amount of damage they take by [[/r 3d6]], and they deal 3d6 damage to the triggering enemy, choosing @Damage[3d6[evil]] or @Damage[3d6[void]] damage to deal to the enemy each time the antipaladin uses this reaction. In addition, the antipaladin deals 4 extra damage of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's turn. An enemy damaged from the ghoul antipaladin's Destructive Vengeance also takes @Damage[4[persistent,evil]] damage; this applies only to the damage the reaction itself deals to the triggering creature, not the damage the antipaladin deals with subsequent Strikes.</p>"
+                    "value": "<p><strong>Trigger</strong> The ghoul antipaladin takes damage from an enemy within 15 feet</p>\n<hr />\n<p><strong>Effect</strong> The ghoul antipaladin increases the amount of damage they take by [[/r 3d6]], and they deal 3d6 damage to the triggering enemy, choosing @Damage[3d6[spirit]] or @Damage[3d6[void]] damage to deal to the enemy each time the antipaladin uses this reaction. In addition, the antipaladin deals 4 extra damage of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's turn. An enemy damaged from the ghoul antipaladin's Destructive Vengeance also takes @Damage[4[persistent,spirit]] damage; this applies only to the damage the reaction itself deals to the triggering creature, not the damage the antipaladin deals with subsequent Strikes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1123,13 +1063,13 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "destructive-vengeance",
                         "suboptions": [
                             {
-                                "label": "PF2E.TraitEvil",
-                                "value": "evil"
+                                "label": "PF2E.TraitSpirit",
+                                "value": "spirit"
                             },
                             {
                                 "label": "PF2E.TraitVoid",
@@ -1146,12 +1086,20 @@
                         ],
                         "selector": "strike-damage",
                         "value": 4
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "unholy"
                     }
                 ],
                 "slug": "destructive-vengeance",
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unholy"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -1330,7 +1278,6 @@
                     "rarity": "common",
                     "value": [
                         "incapacitation",
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -1571,7 +1518,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 155,
                 "temp": 0,
                 "value": 155
@@ -1605,11 +1552,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 9
             },
@@ -1658,8 +1601,11 @@
                 "value": "med"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "ghoul",
-                "undead"
+                "undead",
+                "unholy"
             ]
         }
     },

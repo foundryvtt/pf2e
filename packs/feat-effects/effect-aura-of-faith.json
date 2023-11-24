@@ -4,7 +4,7 @@
     "name": "Effect: Aura of Faith",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>Each good-aligned ally within 15 feet deal an extra 1 good damage against evil creatures on their first Strike that hits an evil creature each round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>Your first strike against an unholy creature each round deals an additional 1 spirit damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,18 +22,18 @@
         },
         "rules": [
             {
-                "domain": "damage",
+                "domain": "strike-damage",
                 "key": "RollOption",
-                "label": "First Stike that hits an evil foe this round",
+                "label": "PF2E.SpecificRule.Champion.AuraOfFaith.Toggle",
                 "option": "aura-of-faith",
                 "toggleable": true
             },
             {
-                "damageType": "good",
+                "damageType": "spirit",
                 "key": "FlatModifier",
-                "label": "Aura of Faith (Allies)",
                 "predicate": [
-                    "aura-of-faith"
+                    "aura-of-faith",
+                    "target:trait:unholy"
                 ],
                 "selector": "strike-damage",
                 "value": 1

@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -89,7 +89,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             children: R.compact([fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null]),
             dataset: {
                 tooltip: game.i18n.localize(
-                    `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`
+                    `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`,
                 ),
             },
         });
@@ -128,7 +128,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                     alias: this.name,
                 },
             },
-            { rollMode: "publicroll" }
+            { rollMode: "publicroll" },
         );
 
         this.update({
@@ -244,7 +244,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         const customModifiers = (this.customModifiers ??= {});
         for (const selector of Object.keys(customModifiers)) {
             const modifiers = (customModifiers[selector] = customModifiers[selector].map(
-                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
+                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier),
             ));
             (synthetics.modifiers[selector] ??= []).push(...modifiers.map((m) => () => m));
         }
@@ -265,7 +265,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         slug: "size",
                         label: "Size Modifier",
                         modifier: sizeData.controlMod,
-                    })
+                    }),
             );
         }
 
@@ -281,7 +281,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                             type: "item",
                             label: KINGDOM_RUIN_LABELS[ability],
                             modifier: penalty,
-                        })
+                        }),
                 );
             }
         }
@@ -318,7 +318,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                             label: "PF2E.Kingmaker.Kingdom.Invested",
                             type: "status",
                             modifier: 1,
-                        })
+                        }),
                 );
             }
         }
@@ -335,7 +335,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         label: "PF2E.Kingmaker.Kingdom.Unrest",
                         type: "status",
                         modifier,
-                    })
+                    }),
             );
         }
 
@@ -435,11 +435,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         const features = R.sortBy(
             allFeatures.filter((f) => f.isFeature),
             (f) => f.level ?? 1,
-            (f) => f.name
+            (f) => f.name,
         );
         const feats = R.sortBy(
             allFeatures.filter((f) => f.isFeat),
-            (f) => f.sort
+            (f) => f.sort,
         );
         for (const feature of features) {
             this.features.assignFeat(feature);
@@ -486,7 +486,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 const data = R.pick(incoming, ["name", "img", "system"]);
                 const diff = diffObject(d.toObject(true), data);
                 return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
-            })
+            }),
         );
 
         // Exit out early if there's nothing to add or update
@@ -558,7 +558,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             fromUuid(feat).then(async (f) => {
                 if (!(f instanceof CampaignFeaturePF2e)) return;
                 const currentGovernmentFeat = actor.itemTypes.campaignFeature.find(
-                    (f) => f.system.location === "government"
+                    (f) => f.system.location === "government",
                 );
                 const newFeat = f.clone({ "system.location": "government" });
                 await currentGovernmentFeat?.delete();

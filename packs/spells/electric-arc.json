@@ -3,40 +3,35 @@
     "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
     "name": "Electric Arc",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "1d4"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "electricity"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
-            "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+            "value": "<p>An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,59 +43,33 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 or 2 creatures"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
-                "electricity",
                 "cantrip",
-                "evocation"
+                "concentrate",
+                "electricity",
+                "manipulate"
             ]
         }
     },

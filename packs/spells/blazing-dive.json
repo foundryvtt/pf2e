@@ -3,53 +3,47 @@
     "img": "systems/pf2e/icons/spells/blazing-dive.webp",
     "name": "Blazing Dive",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "emanation",
             "value": 10
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "3d4"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "fire"
-                    },
-                    "value": "3d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d4",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "bludgeoning"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>Superheated air collects under you, buoying you high into the sky before you plummet back down in a fiery comet. You Fly 15 feet straight up into the air, then Fly in a straight line to an empty space of your choice on the ground within 60 feet. When you land, the blistering air blasts out from you, dealing 3d4 bludgeoning damage and 3d6 fire damage (basic Reflex save) to all creatures in a 10-foot emanation.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4 bludgeoning and 1d6 fire.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -62,12 +56,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -76,36 +64,25 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "air",
+                "concentrate",
                 "fire",
-                "evocation"
+                "manipulate"
             ]
         }
     },

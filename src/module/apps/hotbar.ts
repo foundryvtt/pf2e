@@ -31,8 +31,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     typeof data.pack === "string"
                         ? `Compendium.${data.pack}`
                         : typeof data.actorId === "string"
-                        ? `Actor.${data.actorId}.Item`
-                        : "Item";
+                          ? `Actor.${data.actorId}.Item`
+                          : "Item";
                 const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
                 if (!(item instanceof ItemPF2e)) return;
 
@@ -100,14 +100,14 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     img: item.img,
                     flags: { pf2e: { itemMacro: true } },
                 },
-                { renderSheet: false }
+                { renderSheet: false },
             ));
         game.user.assignHotbarMacro(macro ?? null, slot);
     }
 
     static async #createRollOptionToggleMacro(
         data: Pick<RollOptionData, "label" | "domain" | "option"> & { item: ItemPF2e },
-        slot: number
+        slot: number,
     ): Promise<void> {
         const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
         const escapedName = new Handlebars.SafeString(data.label);

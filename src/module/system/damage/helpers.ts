@@ -47,33 +47,66 @@ const DamageCategorization = {
 const FACES = [4, 6, 8, 10, 12];
 
 /** Apply damage dice overrides and upgrades to a non-weapon's damage formula */
-function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]): void {
+function applyDamageDiceOverrides(
+    baseEntries: BaseDamageData[],
+    dice: DamageDicePF2e[],
+    options: { critical?: boolean; maxIncreases?: number } = {},
+): void {
+    const critical = options.critical ?? false;
+    const maxIncreases = options.maxIncreases ?? Infinity;
+
     type RequiredNonNullable<T, K extends keyof T> = T & { [P in K]-?: NonNullable<T[P]> };
     const overrideDice = dice.filter(
-        (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override
+        (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override,
     );
 
     if (!overrideDice.length) return;
 
-    for (const data of base) {
-        for (const adjustment of overrideDice) {
-            const die = data.terms?.find((t): t is RequiredNonNullable<DamagePartialTerm, "dice"> => !!t.dice);
-            if (!die || (adjustment.damageType && adjustment.damageType !== data.damageType)) {
-                continue;
-            }
+    for (const base of baseEntries) {
+        const die = base.terms?.find((t): t is RequiredNonNullable<DamagePartialTerm, "dice"> => !!t.dice);
+        if (base.terms && !die) continue;
 
-            die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
-            if (adjustment.override.dieSize) {
-                const faces = Number(/\d{1,2}/.exec(adjustment.override.dieSize)?.shift());
-                if (Number.isInteger(faces)) die.dice.faces = faces;
-            } else if (adjustment.override.upgrade || adjustment.override.downgrade) {
-                // die size increases are once-only for weapons, but has no such limit for non-weapons
-                const direction = adjustment.override.upgrade ? 1 : -1;
+        // filter adjustments that can apply here
+        const adjustments = overrideDice.filter((m) => {
+            const outcomeMatches = m.critical === null || (critical && m.critical) || (!critical && !m.critical);
+            return outcomeMatches && (!m.damageType || m.damageType === base.damageType);
+        });
+
+        // First, increase or decrease the damage die. This has to occur before overrides (ex: fatal powerful fist)
+        // die size increases are once-only for weapons, but has no such limit elsewhere
+        const numUpgrades = Math.min(maxIncreases, adjustments.filter((d) => d.override?.upgrade).length);
+        const numDowngrades = Math.min(maxIncreases, adjustments.filter((d) => d.override?.downgrade).length);
+        const delta = numUpgrades - numDowngrades;
+        for (let i = 0; i < Math.abs(delta); i++) {
+            if (die) {
+                const direction = delta > 0 ? 1 : -1;
                 die.dice.faces = FACES[FACES.indexOf(die.dice.faces) + direction] ?? die.dice.faces;
+            } else if (base.dieSize) {
+                base.dieSize =
+                    delta > 0
+                        ? nextDamageDieSize({ upgrade: base.dieSize })
+                        : nextDamageDieSize({ downgrade: base.dieSize });
+            }
+        }
+
+        // Perform overrides, and handle fatal/deadly
+        for (const adjustment of adjustments) {
+            if (!adjustment.override) continue;
+
+            base.damageType = adjustment.override.damageType ?? base.damageType;
+            for (const die of dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
+                die.damageType = adjustment.override.damageType ?? die.damageType;
             }
 
-            if (adjustment.override.damageType) {
-                data.damageType = adjustment.override.damageType;
+            if (die) {
+                die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
+                if (adjustment.override.dieSize) {
+                    const faces = Number(/\d{1,2}/.exec(adjustment.override.dieSize)?.shift());
+                    if (Number.isInteger(faces)) die.dice.faces = faces;
+                }
+            } else {
+                base.dieSize = adjustment.override.dieSize ?? base.dieSize;
+                base.diceNumber = adjustment.override.diceNumber ?? base.diceNumber;
             }
         }
     }
@@ -91,7 +124,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
     function recursiveExtractTerms(
         expression: RollTerm,
-        { category = null }: { category?: DamageCategoryUnique | null } = {}
+        { category = null }: { category?: DamageCategoryUnique | null } = {},
     ): DamagePartialWithCategory[] {
         // If this expression introduces a category, override it when recursing
         category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
@@ -261,8 +294,8 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
         firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
             ? `dice-d${firstDice.faces}`
             : firstDice
-            ? "dice-d20"
-            : "calculator";
+              ? "dice-d20"
+              : "calculator";
 
     return fontAwesomeIcon(glyph, { fixedWidth });
 }

@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -33,13 +33,13 @@ export class Migration738UpdateLaughingShadow extends MigrationBase {
             // Retrieve the ChoiceSet selection if one has been made
             const withSelection = source.system.rules.find(
                 (r: RuleElementSource & { selection?: unknown }): r is RuleElementSource & { selection: string } =>
-                    r.key === "ChoiceSet" && typeof r.selection === "string"
+                    r.key === "ChoiceSet" && typeof r.selection === "string",
             );
 
             if (withSelection) {
                 const unselected = newRules.find(
                     (r: RuleElementSource & { selection?: unknown }): r is RuleElementSource & { selection?: string } =>
-                        r.key === "ChoiceSet"
+                        r.key === "ChoiceSet",
                 );
                 if (unselected) unselected.selection = withSelection.selection;
             }

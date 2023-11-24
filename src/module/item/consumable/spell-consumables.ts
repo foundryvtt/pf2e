@@ -1,10 +1,11 @@
 import { ConsumablePF2e, type SpellPF2e } from "@item";
-import { ConsumableSource } from "@item/data/index.ts";
+import { ConsumableSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { DCOptions, calculateDC } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
+import * as R from "remeda";
 
 const CANTRIP_DECK_ID = "tLa4bewBhyqzi6Ow";
 
@@ -75,7 +76,7 @@ async function createConsumableFromSpell(
         type: SpellConsumableItemType;
         heightenedLevel?: number;
         mystified?: boolean;
-    }
+    },
 ): Promise<ConsumableSource> {
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
@@ -84,16 +85,22 @@ async function createConsumableFromSpell(
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
-    const consumableSource = consumable.toObject();
-    consumableSource.system.traits.value.push(...spell.traditions);
+    const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
+
+    const { traits } = consumableSource.system;
+    traits.value = R.uniq([...traits.value, ...spell.traits]);
+    traits.rarity = spell.rarity;
+    if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
+        traits.value.splice(traits.value.indexOf("magical"), 1);
+    }
+    traits.value.sort();
+
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
 
     consumableSource.system.description.value = (() => {
         const paragraphElement = document.createElement("p");
-        const linkElement = document.createElement("em");
-        linkElement.append(spell.sourceId ? `@UUID[${spell.sourceId}]{${spell.name}}` : spell.description);
-        paragraphElement.append(linkElement);
+        paragraphElement.append(spell.sourceId ? `@UUID[${spell.sourceId}]{${spell.name}}` : spell.description);
 
         const containerElement = document.createElement("div");
         const hrElement = document.createElement("hr");
@@ -124,7 +131,7 @@ interface TrickMagicItemDifficultyData {
 
 function calculateTrickMagicItemCheckDC(
     item: ConsumablePF2e,
-    options: DCOptions = { proficiencyWithoutLevel: false }
+    options: DCOptions = { proficiencyWithoutLevel: false },
 ): TrickMagicItemDifficultyData {
     const level = Number(item.level);
     const saveDC = calculateDC(level, options);

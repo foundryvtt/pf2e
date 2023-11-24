@@ -3,41 +3,35 @@
     "img": "systems/pf2e/icons/spells/worms-repast.webp",
     "name": "Worm's Repast",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "piercing"
-                    },
-                    "value": "4d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "piercing"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>Gnawing worms materialize within the flesh of the target creature, dealing 4d6 piercing damage and [[/r floor(@item.level/2)d6[persistent,piercing]]] damage. If the target is a non-skeletal corporeal undead creature, you deal an extra [[/r floor((@item.level/2)+1)d6[persistent,piercing]]] damage. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The worms writhe away harmlessly and the target takes no damage.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] due to the pain for as long as it takes persistent damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double the initial damage and is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} by the pain for as long as it takes persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial and persistent damage increase by 2d6 and 1d6, respectively</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "see description"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,15 +43,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -66,41 +51,24 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 corporeal creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "occult",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "rare",
             "selected": [],
+            "traditions": [
+                "occult",
+                "primal"
+            ],
             "value": [
-                "necromancy"
+                "concentrate",
+                "manipulate"
             ]
         }
     },

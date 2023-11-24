@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { objectHasKey } from "@util";
 
 export class Migration601SplitEffectCompendia extends MigrationBase {
@@ -196,7 +196,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
                         ? Migration601SplitEffectCompendia.effectLocations[itemId]
                         : "??";
                     return first + packName + dot + itemId + rest;
-                }
+                },
             );
         }
         if (typeof item.flags.core?.sourceId === "string") {
@@ -207,7 +207,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
                         ? Migration601SplitEffectCompendia.effectLocations[itemId]
                         : "??";
                     return first + packName + dot + itemId;
-                }
+                },
             ) as ItemUUID;
         }
     }
@@ -221,7 +221,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
                         ? Migration601SplitEffectCompendia.effectLocations[itemId]
                         : "??";
                     return first + packName + dot + itemId;
-                }
+                },
             );
         }
     }

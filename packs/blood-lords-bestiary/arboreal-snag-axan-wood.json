@@ -199,7 +199,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The snag's roots go deep into corpses buried beneath and around it. It has regeneration 5 (deactivated by positive) as long as it remains in an area where corpses are buried.</p>"
+                    "value": "<p>The snag's roots go deep into corpses buried beneath and around it. It has regeneration 5 (deactivated by vitality) as long as it remains in an area where corpses are buried.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -209,12 +209,30 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-roots",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "deactivatedBy": [
+                            "vitality"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            "blood-roots"
+                        ],
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "necromancy",
                         "primal"
                     ]
                 },
@@ -333,7 +351,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>An arboreal snag takes [[/r 5]]{5 additional Damage} from axes.</p>"
+                    "value": "<p>An arboreal snag takes 5 additional damage from axes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -613,7 +631,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing, blood roots",
+                "details": "void healing, blood roots",
                 "max": 45,
                 "temp": 0,
                 "value": 45
@@ -667,11 +685,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 3
             },
@@ -712,8 +726,10 @@
                 "value": "lg"
             },
             "value": [
+                "evil",
                 "mindless",
-                "undead"
+                "undead",
+                "unholy"
             ]
         }
     },

@@ -1,0 +1,213 @@
+{
+    "_id": "AF4vQ1xoOiJ1ewH1",
+    "img": "systems/pf2e/icons/spells/elemental-gift.webp",
+    "name": "Spell Effect: Elemental Gift",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Elemental Gift]</p>\n<p>Choose an element when you Cast the Spell. The target gains the benefit of that element as described below, and this spell gains that trait's element.</p>\n<ul>\n<li><strong>Air</strong> The target gains a +30-foot status bonus to its land Speed and gains a fly Speed equal to its land Speed without the status bonus.</li>\n<li><strong>Earth</strong> While on the ground, the target gets a +2 status bonus to Fortitude and Reflex saves against effects that would Shove or Trip it, and to saves against effects that would attempt to knock it prone. In addition, the ground adjacent to the target is difficult terrain, and the difficult terrain moves with the target, though the target ignores this difficult terrain with its own movement.</li>\n<li><strong>Fire</strong> The target's melee unarmed Strikes and melee weapon Strikes deal 1d6 persistent fire damage on a hit.</li>\n<li><strong>Metal</strong> The target's Strikes using a metal weapon or an unarmed attack deal an additional 1d4 electricity damage on a hit and get a +1 status bonus to the attack roll if the target is made of metal or wearing metal armor.</li>\n<li><strong>Water</strong> The target takes on a watery sheen, gaining resistance 5 to fire and a swim Speed equal to its land Speed.</li>\n<li><strong>Wood</strong> The target gains a number of temporary Hit Points equal to the spell's rank, then gains half that number of temporary HP at the start of each of its turns.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "elementalGift",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "elemental-gift"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "elemental-gift:air"
+                ],
+                "selector": "fly-speed",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "elemental-gift:air"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": 30
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "elemental-gift:earth",
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "elemental-gift:earth",
+                    "inflicts:prone"
+                ],
+                "selector": "saving-throw",
+                "slug": "earth-prone",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "elemental-gift:fire",
+                    "melee"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Weapon.Metal",
+                "option": "metal-weapon",
+                "predicate": [
+                    "elemental-gift:metal"
+                ],
+                "toggleable": true
+            },
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Target.Metal",
+                "option": "target:metal",
+                "predicate": [
+                    "elemental-gift:metal"
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "elemental-gift:metal",
+                    {
+                        "or": [
+                            "metal-weapon",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "elemental-gift:metal",
+                    "target:metal",
+                    {
+                        "or": [
+                            "metal-weapon",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "elemental-gift:water"
+                ],
+                "selector": "swim-speed",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-gift:water"
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "elemental-gift:wood"
+                ],
+                "value": "@item.level"
+            },
+            {
+                "events": {
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "elemental-gift:wood"
+                ],
+                "value": "floor(@item.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

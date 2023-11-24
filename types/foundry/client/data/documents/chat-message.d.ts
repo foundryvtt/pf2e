@@ -145,19 +145,19 @@ declare global {
         protected override _preUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<null>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -174,19 +174,19 @@ declare global {
         function create<TDocument extends ChatMessage>(
             this: ConstructorOf<TDocument>,
             data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[],
-            context?: ChatMessageModificationContext
+            context?: ChatMessageModificationContext,
         ): Promise<TDocument[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
             data: DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext
+            context?: ChatMessageModificationContext,
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
             data:
                 | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
                 | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext
+            context?: ChatMessageModificationContext,
         ): Promise<T[] | T | undefined>;
     }
 

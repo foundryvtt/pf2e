@@ -21,9 +21,13 @@
         {{/each}}
         {{#if (and item.isIdentified data.material)}}<span class="tag tag_material">{{data.material}}</span>{{/if}}
     </div>
+
+    <hr />
+
     <div class="card-content">
         {{{item.description}}}
     </div>
+
     <footer class="card-footer">
         {{#if item.isIdentified}}
             <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>

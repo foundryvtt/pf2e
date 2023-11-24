@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -372,7 +369,6 @@
                         "slug": "great-despair",
                         "traits": [
                             "emotion",
-                            "enchantment",
                             "fear",
                             "incapacitation",
                             "mental",
@@ -386,7 +382,6 @@
                     "value": [
                         "aura",
                         "emotion",
-                        "enchantment",
                         "fear",
                         "incapacitation",
                         "mental",
@@ -464,8 +459,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "occult",
-                        "necromancy"
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -488,7 +482,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or a similar effect. The affliction can then be removed as normal for a disease. A creature killed by cold rot turns to ice crystals and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, then carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[void],2d6[cold]]{5d6 negative damage plus 2d6 cold damage} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em> or a similar effect. The affliction can then be removed as normal for a disease. A creature killed by cold rot turns to ice crystals and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, then carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[void],2d6[cold]]{5d6 void damage plus 2d6 cold damage} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -506,8 +500,7 @@
                         "cold",
                         "curse",
                         "disease",
-                        "divine",
-                        "necromancy"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -547,8 +540,7 @@
                     "value": [
                         "cold",
                         "concentrate",
-                        "divine",
-                        "evocation"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -689,7 +681,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 130,
                 "temp": 0,
                 "value": 130
@@ -736,11 +728,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 8
             },
@@ -785,8 +773,10 @@
             },
             "value": [
                 "cold",
+                "evil",
                 "mummy",
-                "undead"
+                "undead",
+                "unholy"
             ]
         }
     },

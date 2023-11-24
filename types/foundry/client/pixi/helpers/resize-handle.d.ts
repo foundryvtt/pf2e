@@ -12,7 +12,7 @@ declare class ResizeHandle extends PIXI.Graphics {
         current: PIXI.Point,
         origin: PIXI.Rectangle,
         destination: PIXI.Point,
-        { aspectRatio }?: { aspectRatio?: number | null }
+        { aspectRatio }?: { aspectRatio?: number | null },
     ): {
         x: number;
         y: number;

@@ -7,36 +7,34 @@
             "type": "burst",
             "value": 5
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "yI4fzrhnbFxup4Ep": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "acid"
-                    },
-                    "value": "1d8"
-                }
+            "yI4fzrhnbFxup4Ep": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "acid"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You fling a large glob of acid that immediately detonates, spraying nearby creatures. Creatures in the area take 1d8 acid damage with a basic Reflex save; on a critical failure, the creature also takes @Damage[(floor(@item.level/2)+1)[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a critical failure increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,9 +46,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -59,35 +54,25 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "acid",
                 "cantrip",
-                "concentrate"
+                "concentrate",
+                "manipulate"
             ]
         }
     },

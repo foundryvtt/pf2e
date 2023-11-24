@@ -117,31 +117,24 @@
             "name": "Dominate (At Will)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "until the next time you make your daily preparations"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 6
@@ -149,15 +142,6 @@
                 "location": {
                     "heightenedLevel": 6,
                     "value": "L9n3mpJyFOVILSD8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -167,44 +151,28 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "dominate",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "divine",
                         "incapacitation",
+                        "manipulate",
                         "mental",
-                        "visual",
-                        "enchantment"
+                        "visual"
                     ]
                 }
             },
@@ -259,9 +227,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -306,7 +271,6 @@
                     "rarity": "uncommon",
                     "value": [
                         "disarm",
-                        "evocation",
                         "finesse",
                         "magical",
                         "trip"
@@ -363,10 +327,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 1
                 },
@@ -399,13 +359,12 @@
                 "rules": [],
                 "size": "med",
                 "slug": "studded-leather-armor",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": 1,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "invested",
                         "magical"
                     ]
@@ -456,9 +415,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 900
@@ -484,7 +440,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "enchantment",
                         "invested",
                         "magical"
                     ]
@@ -674,7 +629,6 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "enchantment",
                         "mental"
                     ]
                 },
@@ -872,7 +826,6 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "necromancy",
                         "void"
                     ]
                 },
@@ -1010,8 +963,7 @@
                     "value": [
                         "concentrate",
                         "divine",
-                        "polymorph",
-                        "transmutation"
+                        "polymorph"
                     ]
                 },
                 "trigger": {
@@ -1058,8 +1010,7 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "downtime",
-                        "necromancy"
+                        "downtime"
                     ]
                 },
                 "trigger": {
@@ -1106,7 +1057,6 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "enchantment",
                         "incapacitation",
                         "mental",
                         "visual"
@@ -1205,8 +1155,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divine",
-                        "necromancy"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -1322,8 +1271,7 @@
                     "rarity": "common",
                     "value": [
                         "concentrate",
-                        "divine",
-                        "transmutation"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -1561,7 +1509,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "coffin restoration, fast healing 10, negative healing",
+                "details": "coffin restoration, fast healing 10, void healing",
                 "max": 210,
                 "temp": 0,
                 "value": 210
@@ -1606,11 +1554,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "Male halfling vampire rogue",
-            "creatureType": "",
             "level": {
                 "value": 13
             },
@@ -1655,7 +1599,10 @@
                 "value": "sm"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "undead",
+                "unholy",
                 "vampire"
             ]
         }

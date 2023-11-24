@@ -256,7 +256,6 @@
                         "radius": 90,
                         "slug": "frightful-presence",
                         "traits": [
-                            "aura",
                             "emotion",
                             "fear",
                             "mental"
@@ -296,7 +295,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ravener husk breathes a torrent of negative energy that deals @Damage[16d6[void]] damage in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:34|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The ravener husk breathes a torrent of void energy that deals @Damage[16d6[void]] damage in a @Template[type:cone|distance:40] (@Check[type:reflex|dc:34|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -312,7 +311,6 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "evocation",
                         "void"
                     ]
                 },
@@ -359,8 +357,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divine",
-                        "necromancy"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -373,10 +370,56 @@
             "type": "action"
         },
         {
+            "_id": "JHI0pAuDGPiot5zs",
+            "img": "systems/pf2e/icons/actions/Empty.webp",
+            "name": "Vicious Criticals",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ravener treats an attack roll as a critical hit on a roll of 19 or 20, as long as the attack roll was a success. Additionally, whenever the ravener makes a critical hit with one of their Strikes, the target must succeed on a @Check[fortitude|dc:32] save or gain the @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} condition. If the target already has a drained value of greater than 0, their drained value instead increases by 1, to a maximum of drained 4. Whenever the ravener applies drain to a creature in this way, their soul ward gains 5 Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "check:roll:total:natural:19"
+                        ],
+                        "selector": "attack-roll"
+                    }
+                ],
+                "slug": "vicious-criticals",
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "4htw546fu8aoNfS7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -401,7 +444,7 @@
             "_id": "ZHXYCFvPngmx02O5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -493,17 +536,13 @@
             },
             "weaknesses": [
                 {
-                    "type": "good",
+                    "type": "holy",
                     "value": 10
                 }
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "Dragon, Undead",
             "level": {
                 "value": 14
             },
@@ -547,8 +586,11 @@
                 "value": "grg"
             },
             "value": [
+                "chaotic",
                 "dragon",
-                "undead"
+                "evil",
+                "undead",
+                "unholy"
             ]
         }
     },

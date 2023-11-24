@@ -50,19 +50,19 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
         };
     }
 
-    static override validateJoint(data: Record<string, unknown>): void {
+    static override validateJoint(data: SourceFromSchema<AdjustModifierSchema>): void {
         super.validateJoint(data);
 
         const { DataModelValidationError } = foundry.data.validation;
         if (data.suppress === true) {
             if (typeof data.maxApplications === "number") {
                 throw new DataModelValidationError(
-                    "  use of `maxApplications` in combination with `suppress` is not currently supported"
+                    "  use of `maxApplications` in combination with `suppress` is not currently supported",
                 );
             }
         } else if (data.value === null && !data.damageType) {
             throw new DataModelValidationError(
-                "  value: must be provided unless damageType is provided or suppress is true"
+                "  value: must be provided unless damageType is provided or suppress is true",
             );
         }
     }

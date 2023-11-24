@@ -29,7 +29,7 @@ declare global {
         override get title(): string;
 
         override getData(
-            options?: Partial<FormApplicationOptions>
+            options?: Partial<FormApplicationOptions>,
         ): DocumentSheetConfigData<TDocument> | Promise<DocumentSheetConfigData<TDocument>>;
 
         protected override _updateObject(event: Event, formData: FormApplicationData): Promise<void>;
@@ -62,7 +62,7 @@ declare global {
             documentClass: ConstructorOf<T>,
             scope: string,
             sheetClass: ConstructorOf<T["sheet"]>,
-            options?: RegisterSheetOptions
+            options?: RegisterSheetOptions,
         ): void;
 
         /** Perform the sheet registration */
@@ -79,7 +79,7 @@ declare global {
             documentClass: ConstructorOf<T>,
             scope: string,
             sheetClass: ConstructorOf<T["sheet"]>,
-            options?: { types: string[] }
+            options?: { types: string[] },
         ): void;
 
         /** Perform the sheet de-registration */

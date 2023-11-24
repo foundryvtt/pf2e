@@ -21,12 +21,12 @@ declare global {
         /* -------------------------------------------- */
 
         override getData(
-            options?: Partial<DocumentSheetOptions> | undefined
+            options?: Partial<DocumentSheetOptions> | undefined,
         ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
 
         protected override _renderInner(
             data: FormApplicationData<TDocument>,
-            options: RenderOptions
+            options: RenderOptions,
         ): Promise<JQuery<HTMLElement>>;
 
         /* -------------------------------------------- */
@@ -44,7 +44,7 @@ declare global {
         override activateEditor(
             name: string,
             options?: EditorCreateOptions | undefined,
-            initialContent?: string | undefined
+            initialContent?: string | undefined,
         ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
         /**
@@ -59,13 +59,13 @@ declare global {
 
     /** The Application responsible for displaying and editing a single JournalEntryPage image document. */
     class JournalImagePageSheet<
-        TDocument extends JournalEntryPage<JournalEntry | null>
+        TDocument extends JournalEntryPage<JournalEntry | null>,
     > extends JournalPageSheet<TDocument> {
         static override get defaultOptions(): DocumentSheetOptions;
     }
 
     class JournalTextPageSheet<
-        TDocument extends JournalEntryPage<JournalEntry | null>
+        TDocument extends JournalEntryPage<JournalEntry | null>,
     > extends JournalPageSheet<TDocument> {
         /** Bi-directional HTML <-> Markdown converter. */
         protected static _converter: object;
@@ -96,7 +96,7 @@ declare global {
     }
 
     class JournalTextTinyMCESheet<
-        TDocument extends JournalEntryPage<JournalEntry | null>
+        TDocument extends JournalEntryPage<JournalEntry | null>,
     > extends JournalTextPageSheet<TDocument> {
         override getData(options?: DocumentSheetOptions): Promise<DocumentSheetData<TDocument>>;
 
@@ -110,7 +110,7 @@ declare global {
         activateEditor(
             name: string,
             options?: Partial<TinyMCE.EditorOptions>,
-            initialContent?: string
+            initialContent?: string,
         ): Promise<TinyMCE.Editor>;
     }
 }

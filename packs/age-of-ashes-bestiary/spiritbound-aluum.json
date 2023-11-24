@@ -120,31 +120,19 @@
             "name": "Bind Soul",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": "black sapphire with a gp value of at least the target's level × 100"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You wrench the target's soul away before it can pass on to the afterlife and imprison it in a black sapphire. While the soul is in the gem, the target can't be returned to life through any means, even powerful magic such as wish. If the gem is destroyed or bind soul is counteracted on the gem, the soul is freed. The gem has AC 16 and Hardness 10. A gem can't hold more than one soul, and any attempt wastes the spell.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "unlimited"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 9
@@ -156,15 +144,6 @@
                     },
                     "value": "LePEQxJOrm3uEIPP"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -173,41 +152,25 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "bind-soul",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature that died within the last minute"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "evil",
-                        "necromancy"
+                        "manipulate"
                     ]
                 }
             },
@@ -224,32 +187,19 @@
             "name": "Locate",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You learn the direction to the target (if you picked a specific object, such as \"my mother's sword\") or the nearest target (if you picked a type of object, such as \"swords\"). If the target is a specific object, you must have observed it directly with your own senses. If it's a type of object, you still need to have an accurate mental image of the type of object. If there's lead or running water between you and the target, this spell can't locate the object. This means you might find a type of object farther away if the nearest one is behind lead or running water.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> You can target a specific creature or ancestry instead of an object, but you must have met or seen up close the creature or ancestry you want to target.</p>"
                 },
                 "duration": {
+                    "sustained": true,
                     "value": "sustained"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "levels": {
@@ -268,15 +218,6 @@
                     "heightenedLevel": 5,
                     "value": "LePEQxJOrm3uEIPP"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -285,42 +226,26 @@
                 "range": {
                     "value": "500 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "locate",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 specific object or type of object"
                 },
                 "time": {
                     "value": "10 minutes"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult"
-                    ]
-                },
-                "traits": {
-                    "rarity": "uncommon",
+                    ],
                     "value": [
+                        "concentrate",
                         "detection",
-                        "divination"
+                        "manipulate"
                     ]
                 }
             },
@@ -430,7 +355,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Spiritbound aluums are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants a spiritbound aluum the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition until the end of its next turn instead of its normal effects. A positive spell or ability makes a spiritbound aluum @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn instead of its normal effects.</p>"
+                    "value": "<p>Spiritbound aluums are immune to spells and magical abilities, with two exceptions. A void spell or magical ability grants a spiritbound aluum the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition until the end of its next turn instead of its normal effects. A vitality spell or ability makes a spiritbound aluum @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn instead of its normal effects.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -470,7 +395,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The spiritbound aluum has bound a soul using its <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Soul]</em> innate spell</p>\n<hr />\n<p><strong>Effect</strong> The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals @Damage[20d6[force]] damage in a @Template[type:line|distance:30] (@Check[type:reflex|dc:38|basic:true] save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p>The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #Recharge Obliteration Beam]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The spiritbound aluum has bound a soul using its <em>@UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]</em> innate spell</p>\n<hr />\n<p><strong>Effect</strong> The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals @Damage[20d6[force]] damage in a @Template[type:line|distance:30] (@Check[type:reflex|dc:38|basic:true] save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p>The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #Recharge Obliteration Beam]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -486,7 +411,6 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "evocation",
                         "force"
                     ]
                 },
@@ -513,7 +437,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature damaged by the Spirtibound Aluum's fist Strike must succeed at a @Check[type:fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/r 1d4 #minutes]]{1d4 minutes} and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>A creature damaged by the Spiritbound Aluum's fist Strike must succeed at a @Check[type:fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/br 1d4 #minutes]]{1d4 minutes} and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -529,8 +453,7 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "incapacitation",
-                        "necromancy"
+                        "incapacitation"
                     ]
                 },
                 "trigger": {
@@ -556,7 +479,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a spiritbound aluum uses its <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Soul]</em> innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls.</p>\n<p>When encountered, a spiritbound aluum's crystal typically contains [[/br 1d6 #souls]]{1d6 souls}.</p>"
+                    "value": "<p>When a spiritbound aluum uses its <em>@UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]</em> innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls.</p>\n<p>When encountered, a spiritbound aluum's crystal typically contains [[/br 1d6 #souls]]{1d6 souls}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -613,7 +536,6 @@
                     "value": [
                         "arcane",
                         "auditory",
-                        "evocation",
                         "mental",
                         "sonic"
                     ]
@@ -720,11 +642,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "N"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 16
             },

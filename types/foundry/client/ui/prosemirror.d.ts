@@ -23,7 +23,7 @@ declare global {
             view: ProseMirror.EditorView,
             isDirtyPlugin: boolean,
             collaborate: boolean,
-            options?: { document: ClientDocument }
+            options?: { document: ClientDocument },
         );
 
         /** Retire this editor instance and clean up. */
@@ -68,7 +68,7 @@ declare global {
         static create(
             target: HTMLElement,
             content?: string | undefined,
-            options?: ProseMirrorEditorOptions
+            options?: ProseMirrorEditorOptions,
         ): Promise<ProseMirrorEditor>;
 
         /**
@@ -82,7 +82,7 @@ declare global {
             uuid: string,
             target: HTMLElement,
             state: ProseMirror.EditorState,
-            plugins: ProseMirror.Plugin
+            plugins: ProseMirror.Plugin,
         ): Promise<ProseMirror.EditorView>;
 
         /**
@@ -94,7 +94,7 @@ declare global {
         protected static _createLocalEditorView(
             target: HTMLElement,
             state: ProseMirror.EditorState,
-            plugins: ProseMirror.Plugin[]
+            plugins: ProseMirror.Plugin[],
         ): ProseMirror.EditorView;
 
         /* -------------------------------------------- */

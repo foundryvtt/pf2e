@@ -3,43 +3,38 @@
     "img": "systems/pf2e/icons/spells/acid-storm.webp",
     "name": "Acid Storm",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "details": "20-foot-radius burst",
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "acid"
-                    },
-                    "value": "3d8"
-                }
+            "0": {
+                "category": null,
+                "formula": "3d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "acid"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You evoke a storm of acid rain that pelts the area for the spell's duration. A creature that begins its turn in the area takes 3d8 acid damage (basic Reflex save).</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d8.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -51,15 +46,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -68,41 +54,24 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "acid",
-                "evocation"
+                "concentrate",
+                "manipulate"
             ]
         }
     },

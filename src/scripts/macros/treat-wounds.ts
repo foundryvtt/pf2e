@@ -94,7 +94,7 @@ async function treat(
     actor: CreaturePF2e,
     $html: JQuery,
     event: JQuery.TriggeredEvent | Event | null = null,
-    domIdAppend: string
+    domIdAppend: string,
 ): Promise<void> {
     const { name } = actor;
     const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
@@ -128,12 +128,12 @@ async function treat(
     });
 
     (actor.synthetics.degreeOfSuccessAdjustments["medicine"] ??= []).push(
-        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : [])
+        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : []),
     );
 
     skill.check.roll({
         dc,
-        ...eventToRollParams(event),
+        ...eventToRollParams(event, { type: "check" }),
         extraRollOptions: rollOptions,
         callback: async (_roll, outcome, message) => {
             const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
@@ -166,7 +166,8 @@ async function treat(
             }
 
             if (healFormula) {
-                const healRoll = await new DamageRoll(`{(${healFormula})[healing]}`).roll({ async: true });
+                const formulaModifier = outcome === "criticalFailure" ? "" : "[healing]";
+                const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll({ async: true });
                 const rollType =
                     outcome !== "criticalFailure"
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")

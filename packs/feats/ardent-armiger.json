@@ -1,6 +1,6 @@
 {
     "_id": "iKOcwFCbNX1a2OFT",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Ardent Armiger",
     "system": {
         "actionType": {
@@ -31,19 +31,26 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. social interactions  (Ardent Armiger)",
+                "predicate": [
+                    "inflicts:improve-attitude"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
                 "predicate": [
                     {
                         "or": [
-                            "improve-attitude",
-                            "coerce",
-                            "demoralize",
-                            "make-an-impression",
-                            "make-a-request"
+                            "action:coerce",
+                            "action:demoralize",
+                            "action:make-an-impression",
+                            "action:request"
                         ]
                     }
                 ],
-                "selector": "will",
+                "selector": "will-dc",
                 "type": "circumstance",
                 "value": 1
             }

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Coins } from "@item/physical/data.ts";
 import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
@@ -73,7 +73,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
                     const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
-                        (p) => p.collection === "pf2e.equipment-srd"
+                        (p) => p.collection === "pf2e.equipment-srd",
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
 

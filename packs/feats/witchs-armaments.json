@@ -1,0 +1,121 @@
+{
+    "_id": "XHaxSBOaFMnBbBKt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Witch's Armaments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your patron's power changes your body to ensure you are never defenseless. You gain one of the following unarmed attacks.</p>\n<ul>\n<li><strong>Eldritch Nails</strong> Your nails are supernaturally long and sharp. You gain a nails unarmed attack that deals 1d6 slashing damage, is in the brawling group, and has the agile and unarmed traits.</li>\n<li><strong>Iron Teeth</strong> With a click of your jaw, your teeth transform into long metallic points. You gain a jaws unarmed attack that deals 1d8 piercing damage and is in the brawling group.</li>\n<li><strong>Living Hair</strong> You can instantly grow or shrink your hair, eyebrows, beard, or mustache by up to several feet and manipulate your hair for use as a weapon, though your control isn't fine enough for more dexterous tasks. You gain a hair unarmed attack that deals 1d4 bludgeoning damage; is in the brawling group; and has the agile, disarm, finesse, trip, and unarmed traits.</li>\n</ul>\n<hr />\n<p><strong>Special</strong> You can take this feat more than once, gaining a different unarmed attack each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Eldritch Nails",
+                        "value": "nails"
+                    },
+                    {
+                        "label": "Iron Teeth",
+                        "value": "teeth"
+                    },
+                    {
+                        "label": "Living Hair",
+                        "value": "hair"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select a witch's armament",
+                "rollOption": "witchs-armaments"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "Eldritch Nails",
+                "predicate": [
+                    "witchs-armaments:nails"
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "Iron Teeth",
+                "predicate": [
+                    "witchs-armaments:teeth"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "Living Hair",
+                "predicate": [
+                    "witchs-armaments:hair"
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "disarm",
+                    "finesse",
+                    "trip",
+                    "unarmed"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

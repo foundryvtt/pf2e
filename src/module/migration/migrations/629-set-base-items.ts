@@ -1,8 +1,8 @@
 import { MigrationBase } from "../base.ts";
 import { sluggify } from "@util";
 import { BaseArmorType } from "@item/armor/types.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 
 /** Set the `baseItem` property of base armor and weapons for the benefit of better unidentified names */
 export class Migration629SetBaseItems extends MigrationBase {

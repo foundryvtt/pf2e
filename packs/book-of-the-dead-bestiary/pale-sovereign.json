@@ -119,44 +119,38 @@
             "name": "Spirit Song",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": {
                     "type": "cone",
                     "value": 60
                 },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "force"
-                            },
-                            "value": "18d6"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "18d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "force"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
                     "value": "<p>Your eldritch song sends pulsing waves of ethereal energy to attack creatures' spirits in the area, dealing 18d6 force damage. Because spirit song affects creatures' spirits, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The vibrating waves of spiritual song penetrate into, but not through, solid barriers, damaging incorporeal creatures hiding in solid objects in the area but not passing onward to damage creatures in other rooms. Possessed creatures aren't harmed by the song. The song doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -172,15 +166,6 @@
                     "heightenedLevel": 8,
                     "value": "L95LvvfAZVKzDqz8"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -189,40 +174,24 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "spirit-song",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "force",
-                        "necromancy"
+                        "manipulate"
                     ]
                 }
             },
@@ -239,31 +208,24 @@
             "name": "Spiritual Epidemic",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You curse the target, sapping its spirit and leaving a contagious trap in its essence. The target must attempt a Will save. Any creature that casts a divine or occult spell on the target while it's affected is targeted by spiritual epidemic and must also attempt a Will save. The curse continues to spread in this way.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} permanently.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} permanently.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 8
@@ -271,15 +233,6 @@
                 "location": {
                     "heightenedLevel": 8,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -289,41 +242,25 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "spiritual-epidemic",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
-                        "necromancy"
+                        "manipulate"
                     ]
                 }
             },
@@ -340,31 +277,19 @@
             "name": "Project Image",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You project an illusory image of yourself. You must stay within range of the image, and if at any point you can't see the image, the spell ends. Whenever you Cast a Spell other than one whose area is an emanation, you can cause the spell effect to originate from either yourself or the image. Because the image is an illusion, it can't benefit from spells, though visual manifestations of the spell appear. The image has the same AC and saves as you. If it is hit by an attack or fails a save, the spell ends.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The maximum duration you can Sustain the Spell increases to 10 minutes.</p>"
                 },
                 "duration": {
+                    "sustained": true,
                     "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 7
@@ -372,15 +297,6 @@
                 "location": {
                     "heightenedLevel": 7,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -390,41 +306,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "project-image",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "mental",
-                        "illusion"
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -441,31 +342,24 @@
             "name": "Feeblemind",
             "sort": 500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 6
@@ -473,15 +367,6 @@
                 "location": {
                     "heightenedLevel": 7,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -491,43 +376,27 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "feeblemind",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
                         "incapacitation",
-                        "mental",
-                        "enchantment"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -544,43 +413,25 @@
             "name": "Ward Domain",
             "sort": 600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "rare incenses, oils, and powdered silver, worth 150 gp total"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>This ritual has long been used to guard the private sanctums of powerful rulers, spellcasters, and other figures of import. You and the other casters spend the casting time burning incense, anointing doorframes, and drawing lines of powered silver across entryways. The ritual creates the following magical effects within the area; these effects are heightened to the level of ward domain and remain throughout the duration.</p>\n<p>All gates, doors, windows, and similar apertures in the area (if any) are locked, with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Lock]</em>. In addition, you can obscure up to six doors, doorways, or similar entrances within the area with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Object]</em> to appear as plain walls. <em>@UUID[Compendium.pf2e.spells-srd.Item.Scrying]</em> spells can't perceive any stimuli from the area, and ward domain attempts to counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Teleport]</em> effects into or out of the area, including attempts to summon creatures into the area, using a modifier equal to the ritual's save DC - 10.</p>\n<p>A successful <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> used on a specific effect removes only that effect (such as the lock effect on one window). A successful <em>@UUID[Compendium.pf2e.spells-srd.Item.Disjunction]</em> ends the entire ritual.</p>\n<hr />\n<p><strong>Critical Success</strong> You create the effects described above, and you protect an area twice as large.</p>\n<p><strong>Success</strong> You create the effects described above.</p>\n<p><strong>Failure</strong> The ritual has no effect.</p>\n<p><strong>Critical Failure</strong> The area becomes trapped and hostile to you and your allies in a way you didn't anticipate.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ward covers an additional area 100 feet × 100 feet, up to 50 feet high, which must be contiguous with the original area.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 week"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 6
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana, Nature, or Occultism (master)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -590,38 +441,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana, Nature, or Occultism (master)"
+                    },
+                    "secondary": {
+                        "casters": 3,
+                        "checks": "Lore (any), Survival, Thievery"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "3"
-                },
-                "secondarycheck": {
-                    "value": "Lore (any), Survival, Thievery"
-                },
                 "slug": "ward-domain",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "abjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -637,31 +478,19 @@
             "name": "Cloak of Colors",
             "sort": 700000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>A cloak of swirling colors shrouds the target. Creatures are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] while adjacent to it, and attacking the target causes a brilliant flash of light. A creature that hits the target with a melee attack must attempt a Will save.The creature is temporarily immune until the end of its turn; this effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Success</strong> The attacker is unaffected.</p>\n<p><strong>Failure</strong> The attacker is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> The attacker is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 5
@@ -669,15 +498,6 @@
                 "location": {
                     "heightenedLevel": 6,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -687,41 +507,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "cloak-of-colors",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "visual",
-                        "illusion"
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "visual"
                     ]
                 }
             },
@@ -738,31 +543,24 @@
             "name": "Hallucination",
             "sort": 800000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>The target consistently detects one thing as another, can't detect something that's there, or detects something that's not there, though it doesn't alter their beliefs. You choose which of these effects applies, and you determine the specifics of the hallucination. For example, you could make the target see all elves as humans, be unable to detect the presence of their brother, see their beloved pocket watch on their person even when it isn't, or see a tower in the center of town. The target can attempt an initial Will save, with effects below. They also receive a Will save to disbelieve the hallucination every time they Seek or directly interact with the hallucination. For example, the target could attempt to disbelieve the hallucination each time they interacted with an elf, bumped into their brother accidentally, tried to check their pocket watch, or studied the tower. The target can attempt to disbelieve with a large circumstance bonus in situations determined by the GM, such as if the target attempted to climb the nonexistent tower.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature perceives what you chose until it disbelieves, but it knows what the hallucination is.</p>\n<p><strong>Failure</strong> The creature perceives what you chose until it disbelieves.</p>\n<p><strong>Critical Failure</strong> The creature perceives what you chose until it disbelieves, and it trusts its false senses, taking a -4 circumstance penalty to saves to disbelieve.</p>\n<hr /><strong>Heightened (6th)</strong> Choose to either target up to 10 creatures or change the spell's duration to until the next time you make your daily preparations.\n<p><strong>Heightened (8th)</strong> Choose to either target any number of creatures or change the spell's duration to unlimited.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 hour"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 5
@@ -770,15 +568,6 @@
                 "location": {
                     "heightenedLevel": 7,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -788,42 +577,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "hallucination",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
+                        "illusion",
                         "incapacitation",
-                        "mental",
-                        "illusion"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -840,31 +613,19 @@
             "name": "Air Walk (Constant)",
             "sort": 900000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "5 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {},
@@ -878,15 +639,6 @@
                     "heightenedLevel": 5,
                     "value": "L95LvvfAZVKzDqz8"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -895,41 +647,25 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "air-walk",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
                     "value": [
                         "air",
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -946,31 +682,24 @@
             "name": "Bestial Curse",
             "sort": 1000000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
                     "value": "<p>You tap into the target's inner being and curse it to become a bestial version of itself. The effect is based on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's body gains minor bestial features. Its insides churn as they partially transform, causing it to be @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. When it recovers from the Clumsy condition, its features revert to normal and the spell ends.</p>\n<p><strong>Failure</strong> The target transforms into a bestial form for 1 hour. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and gains weakness 1 to silver. It gains a claw, hoof, horn, or jaws Strike(your choice) that uses the target's unarmed Strike statistics except that the damage type changes to bludgeoning, piercing, or slashing, as appropriate. Whenever the target attempts to use any manipulate action, it must succeed at a @Check[type:flat|dc:5] or the action is lost. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bestial Curse (Failure)]</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is unlimited. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bestial Curse (Critical Failure)]</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
@@ -978,15 +707,6 @@
                 "location": {
                     "heightenedLevel": 6,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": false
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -996,43 +716,27 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "bestial-curse",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 living humanoid"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
-                        "polymorph",
-                        "transmutation"
+                        "manipulate",
+                        "polymorph"
                     ]
                 }
             },
@@ -1049,43 +753,28 @@
             "name": "Garden of Death",
             "sort": 1100000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": {
                     "type": "burst",
                     "value": 40
                 },
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "water infused with a dozen deadly toxins worth a total of 50 gp"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Typically associated with the less friendly fey or druids, this ritual calls all the poisonous, toxic, and venomous plants and animals of an area to congregate in a certain place, creating a beautiful but extravagantly deadly garden.</p>\n<p>You and the secondary casters sprinkle the ground of the garden with water infused with various poisons and a few drops of your blood. Within the bounds of the ritual, the ecosystem attracts every possible poisonous plant or animal native to the environment, with nonpoisonous plants or animals growing only if there's no toxic counterpart. This deadly ecosystem flourishes, if at all possible (plants still need light and water, for instance), for a year and gradually disperses after this period. If this ritual is successfully cast on the grounds of an existing garden of death, it resets the duration and expands the garden's radius by 20 feet instead.</p>\n<p>The maximum level of plants or animals called by the ritual is equal to its spell level, and the called plants and animals can use the ritual's spell DC instead of their own poison DC, whichever is higher. The garden's residents don't willingly use their poison on you or the secondary casters, but you don't otherwise control or command them.</p>\n<hr />\n<p><strong>Critical Success</strong> A poisonous garden forms, and you and the secondary casters gain a +2 circumstance bonus to Nature or Crafting checks to deal with the plants or animals, such as feeding them or harvesting poison from them. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Garden of Death (Critical Success)]</p>\n<p><strong>Success</strong> As critical success, but without the circumstance bonus when interacting with the garden.</p>\n<p><strong>Failure</strong> The ritual has no effect.</p>\n<p><strong>Critical Failure</strong> You and the secondary casters are each bitten by the most poisonous creature found naturally in the environment.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 year"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Nature (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1095,38 +784,29 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Nature (expert)"
+                    },
+                    "secondary": {
+                        "casters": 2,
+                        "checks": "Crafting, Medicine"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "2"
-                },
-                "secondarycheck": {
-                    "value": "Crafting, Medicine"
-                },
                 "slug": "garden-of-death",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
                         "consecration",
-                        "necromancy",
                         "plant",
                         "poison"
                     ]
@@ -1145,31 +825,24 @@
             "name": "Outcast's Curse",
             "sort": 1200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You afflict the target with a curse that makes its presence abrasive and off-putting. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> For 10 minutes, the target must roll twice and use the worse result whenever attempting a Deception, Diplomacy, Intimidation, or Performance check, and creatures they encounter have an initial attitude toward them of one step worse (for instance, @UUID[Compendium.pf2e.conditionitems.Item.Unfriendly] instead of @UUID[Compendium.pf2e.conditionitems.Item.Indifferent]).</p>\n<p><strong>Failure</strong> As success, but the effect is permanent.</p>\n<p><strong>Critical Failure</strong> As failure, and creatures that the target encounters have an initial attitude toward them of two steps worse.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
@@ -1177,15 +850,6 @@
                 "location": {
                     "heightenedLevel": 6,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1195,44 +859,28 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "outcasts-curse",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
+                        "manipulate",
                         "mental",
-                        "misfortune",
-                        "enchantment"
+                        "misfortune"
                     ]
                 }
             },
@@ -1249,31 +897,24 @@
             "name": "Suggestion",
             "sort": 1300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
@@ -1281,15 +922,6 @@
                 "location": {
                     "heightenedLevel": 7,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1299,43 +931,27 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "suggestion",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
+                        "concentrate",
                         "incapacitation",
                         "linguistic",
-                        "mental",
-                        "enchantment"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -1352,31 +968,24 @@
             "name": "Curse Of Lost Time",
             "sort": 1400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": true,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
-                    "value": "<p>You curse the target with rapid aging or erosion.. The effect depends on whether the target is an object, a construct, or a living creature. Artifacts and objects and constructs made of precious materials (as determined by the GM), are immune.</p>\n<hr />\n<p><strong>• Object</strong> If the object is attended, its bearer can attempt a Fortitude save. If the bearer fails or the object is unattended, the object immediately takes [[/r 4d6]] damage (applying Hardness normally) and the item is cursed with an unlimited duration. Until the curse ends, the item becomes shoddy and can't be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, and the curse attempts to counteract any spell that would restore the object's Hit Points. <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> can target an item affected by this spell.</p>\n<p><strong>• Construct</strong> The construct takes [[/r 4d6]] damage (basic Fortitude save). On a failure, for 1 hour the construct is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, and can't be Repaired, and the curse attempts to counteract any spell that would restore the construct's Hit Points. On a critical failure, these effects have an unlimited duration.</p>\n<p><strong>• Living Creature</strong> The living creature must attempt a Fortitude save. Ageless creatures are immune.</p>\n<hr />\n<p><strong>Critical Success</strong> The living creature is unaffected.</p>\n<p><strong>Success</strong> The living creature briefly ages, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> As success, with a duration of 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, with an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6]].</p>"
+                    "value": "<p>You curse the target with rapid aging or erosion.. The effect depends on whether the target is an object, a construct, or a living creature. Artifacts and objects and constructs made of precious materials (as determined by the GM), are immune.</p>\n<hr />\n<p><strong>• Object</strong> If the object is attended, its bearer can attempt a Fortitude save. If the bearer fails or the object is unattended, the object immediately takes [[/r 4d6]] damage (applying Hardness normally) and the item is cursed with an unlimited duration. Until the curse ends, the item becomes shoddy and can't be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, and the curse attempts to counteract any spell that would restore the object's Hit Points. <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em> can target an item affected by this spell.</p>\n<p><strong>• Construct</strong> The construct takes [[/r 4d6]] damage (basic Fortitude save). On a failure, for 1 hour the construct is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, and can't be Repaired, and the curse attempts to counteract any spell that would restore the construct's Hit Points. On a critical failure, these effects have an unlimited duration.</p>\n<p><strong>• Living Creature</strong> The living creature must attempt a Fortitude save. Ageless creatures are immune.</p>\n<hr />\n<p><strong>Critical Success</strong> The living creature is unaffected.</p>\n<p><strong>Success</strong> The living creature briefly ages, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> As success, with a duration of 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, with an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6]].</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": true
                 },
                 "level": {
                     "value": 3
@@ -1384,15 +993,6 @@
                 "location": {
                     "heightenedLevel": 7,
                     "value": "L95LvvfAZVKzDqz8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": false
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1402,44 +1002,27 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "curse-of-lost-time",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 Large or smaller object, construct, or living creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "curse",
-                        "void",
-                        "transmutation"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -1456,31 +1039,24 @@
             "name": "Enthrall (At Will)",
             "sort": 1500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>Your words fascinate your targets. You speak or sing without interruption throughout the casting and duration. Targets who notice your speech or song might give their undivided attention; each target must attempt a Will save. The GM might grant a circumstance bonus (to a maximum of +4) if the target is of an opposing religion, ancestry, or political leaning, or is otherwise unlikely to agree with what you're saying.</p>\n<p>Each creature that comes within range has to attempt a save when you Sustain the Spell. If you're speaking, enthrall gains the linguistic trait.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and notices that you tried to use magic.</p>\n<p><strong>Success</strong> The target needn't pay attention but doesn't notice you tried to use magic (it might notice others are enthralled).</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you. It can attempt another Will save if it witnesses actions or speech with which it disagrees. If it succeeds, it's no longer Fascinated and is temporarily immune for 1 hour. If the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it, the fascination ends immediately.</p>\n<p><strong>Critical Failure</strong> As failure, but the target can't attempt a save to end the fascination if it disagrees with you.</p>"
                 },
                 "duration": {
+                    "sustained": true,
                     "value": "sustained"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {},
@@ -1494,15 +1070,6 @@
                     "heightenedLevel": 6,
                     "value": "L95LvvfAZVKzDqz8"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -1511,42 +1078,26 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "enthrall",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "all creatures in range"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
                         "auditory",
+                        "concentrate",
                         "emotion",
-                        "enchantment"
+                        "manipulate"
                     ]
                 }
             },
@@ -1563,43 +1114,25 @@
             "name": "Unseen Custodians",
             "sort": 1600000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": "rare oils, salts, and herbs worth a total value of 15 gp"
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>You create a site-bound, long-lasting <em>@UUID[Compendium.pf2e.spells-srd.Item.Unseen Servant]</em> spell effect, forming entities of pure force to carry out basic tasks at a fixed location.</p>\n<hr />\n<p><strong>Critical Success</strong> The ritual creates six unseen servants. You don't need to concentrate on them, and they aren't summoned minions. You can spend an action, which has the concentrate trait, to command one to perform a basic task; it continues to perform the task until commanded again.</p>\n<p><strong>Success</strong> As critical success, but the ritual creates three unseen servants.</p>\n<p><strong>Failure</strong> The ritual fails to create any servants.</p>\n<p><strong>Critical Failure</strong> The ritual creates six unseen servants, but these creatures are hostile and capable of making fist @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} with an attack bonus equal to your skill modifier for the primary skill check, dealing @Damage[1d6[force]] damage. They attack you and your allies and attempt to break objects belonging to you and your allies within the area.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> If destroyed, the unseen servants reform the next morning. The cost increases to 30 gp.</p>"
+                    "value": "<p>You create a site-bound, long-lasting <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Minion]</em> spell effect, forming entities of pure force to carry out basic tasks at a fixed location.</p>\n<hr />\n<p><strong>Critical Success</strong> The ritual creates six unseen servants. You don't need to concentrate on them, and they aren't summoned minions. You can spend an action, which has the concentrate trait, to command one to perform a basic task; it continues to perform the task until commanded again.</p>\n<p><strong>Success</strong> As critical success, but the ritual creates three unseen servants.</p>\n<p><strong>Failure</strong> The ritual fails to create any servants.</p>\n<p><strong>Critical Failure</strong> The ritual creates six unseen servants, but these creatures are hostile and capable of making fist @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} with an attack bonus equal to your skill modifier for the primary skill check, dealing @Damage[1d6[force]] damage. They attack you and your allies and attempt to break objects belonging to you and your allies within the area.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> If destroyed, the unseen servants reform the next morning. The cost increases to 30 gp.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 year"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Arcana or Occultism (expert)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1609,38 +1142,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana or Occultism (expert)"
+                    },
+                    "secondary": {
+                        "casters": 2,
+                        "checks": "Arcana or Occultism (whichever isn't used for the primary check), Diplomacy"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "2"
-                },
-                "secondarycheck": {
-                    "value": "Arcana or Occultism (whichever isn't used for the primary check), Diplomacy"
-                },
                 "slug": "unseen-custodians",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "conjuration"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -1770,7 +1293,6 @@
                     "rarity": "common",
                     "value": [
                         "curse",
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -1810,7 +1332,6 @@
                     "rarity": "common",
                     "value": [
                         "detection",
-                        "divination",
                         "occult"
                     ]
                 },
@@ -2043,7 +1564,6 @@
                         "radius": 80,
                         "slug": "aura-of-charm",
                         "traits": [
-                            "aura",
                             "emotion",
                             "incapacitation",
                             "mental",
@@ -2098,7 +1618,6 @@
                     "rarity": "common",
                     "value": [
                         "curse",
-                        "enchantment",
                         "incapacitation",
                         "mental",
                         "occult",
@@ -2140,9 +1659,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "necromancy",
-                        "void",
-                        "occult"
+                        "occult",
+                        "void"
                     ]
                 },
                 "trigger": {
@@ -2308,7 +1826,7 @@
                 "value": "-2 to all saves vs. curses"
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 298,
                 "temp": 0,
                 "value": 298
@@ -2344,11 +1862,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LN"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 16
             },
@@ -2397,6 +1911,7 @@
                 "value": "med"
             },
             "value": [
+                "lawful",
                 "undead"
             ]
         }

@@ -128,7 +128,7 @@ interface SettingsMenuOptions extends FormApplicationOptions {
 function settingsToSheetData(
     settings: Record<string, PartialSettingsData>,
     cache: Record<string, unknown>,
-    prefix = ""
+    prefix = "",
 ): Record<string, SettingsTemplateData> {
     return Object.entries(settings).reduce((result: Record<string, SettingsTemplateData>, [key, setting]) => {
         const lookupKey = `${prefix}${key}`;

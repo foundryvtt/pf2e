@@ -28,7 +28,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
                     choices: ["all", ...DEGREE_OF_SUCCESS_STRINGS],
                 }),
                 new fields.StringField({ required: true, nullable: false, choices: degreeAdjustmentAmountString }),
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
         };
     }
@@ -50,13 +50,16 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
             "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_SUCCESS,
         } as const;
 
-        const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce((accumulated, outcome) => {
-            const adjustment = adjustments[outcome];
-            if (adjustment) {
-                accumulated[outcome] = { label: this.label, amount: stringToAdjustment[adjustment] };
-            }
-            return accumulated;
-        }, {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } });
+        const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce(
+            (accumulated, outcome) => {
+                const adjustment = adjustments[outcome];
+                if (adjustment) {
+                    accumulated[outcome] = { label: this.label, amount: stringToAdjustment[adjustment] };
+                }
+                return accumulated;
+            },
+            {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } },
+        );
 
         const synthetics = (this.actor.synthetics.degreeOfSuccessAdjustments[selector] ??= []);
         synthetics.push({

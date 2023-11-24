@@ -80,7 +80,7 @@ export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> ext
     override initialize(
         value: SourceFromSchema<TSchema>[],
         model: ConstructorOf<DataModel>,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): Set<ModelPropsFromSchema<TSchema>>;
 
     /** Extend the logic for validating the complete set of packs to ensure uniqueness. */
@@ -161,12 +161,12 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
      */
     static testDependencyCompatibility(
         compatibility: PackageCompatibility,
-        dependency: BasePackage<BasePackageSchema>
+        dependency: BasePackage<BasePackageSchema>,
     ): boolean;
 
     static override cleanData(
         source?: Record<string, unknown>,
-        options?: Record<string, unknown>
+        options?: Record<string, unknown>,
     ): SourceFromSchema<BasePackageSchema>;
 
     /**
@@ -189,7 +189,7 @@ export default abstract class BasePackage<TDataSchema extends BasePackageSchema>
     static fromRemoteManifest<T extends BasePackage<BasePackageSchema>>(
         this: ConstructorOf<T>,
         manifestUrl: string,
-        options?: { strict?: boolean }
+        options?: { strict?: boolean },
     ): Promise<T | null>;
 }
 

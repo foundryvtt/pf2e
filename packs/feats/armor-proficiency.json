@@ -1,6 +1,6 @@
 {
     "_id": "BStw1cANwx5baL6d",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Armor Proficiency",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "general",
         "description": {
-            "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor above.</p>"
+            "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor. If you are at least 13th level, you become an expert in this armor type.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor, as detailed above.</p>"
         },
         "level": {
             "value": 1
@@ -21,9 +21,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -31,21 +31,21 @@
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.heavy.rank",
                 "priority": 41,
-                "value": "max(min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank))"
+                "value": "ternary(gte(@actor.level,13),2*max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)),max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.medium.rank",
                 "priority": 41,
-                "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
+                "value": "ternary(gte(@actor.level,13),2*min(1,@actor.system.proficiencies.defenses.light.rank),min(1,@actor.system.proficiencies.defenses.light.rank))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.light.rank",
                 "priority": 41,
-                "value": 1
+                "value": "ternary(gte(@actor.level,13),2,1)"
             }
         ],
         "traits": {

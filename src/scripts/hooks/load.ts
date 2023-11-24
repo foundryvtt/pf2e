@@ -85,6 +85,7 @@ export const Load = {
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
             feat: "fa-solid fa-medal",
+            shield: "fa-solid fa-shield-halved",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
             weapon: "fa-solid fa-sword",

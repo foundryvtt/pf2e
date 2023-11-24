@@ -102,7 +102,7 @@ function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams
             const dieValue = roll.dice[0].results[0].result;
             const modifier = roll.total - dieValue;
             calculateIncome({ actor, skill, rollBrief: { dieValue, modifier }, level, days, dc });
-        }
+        },
     );
 }
 

@@ -4,37 +4,29 @@
     "name": "Ignition",
     "system": {
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "cQDyW0QpjJ38MlSi": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "fire"
-                    },
-                    "value": "2d4"
-                }
+            "cQDyW0QpjJ38MlSi": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You snap your fingers and point at a target, which begins to smolder. Make a spell attack roll against the target's AC, dealing 2d4 fire damage on a hit. If the target is within your melee reach, you can choose to make a melee spell attack with the flame instead of a ranged spell attack, which increases all the spell's damage dice to d6s.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent fire damage on a critical hit increases by 1d4.</p>\n<p>[[/r (@item.level)d4[persistent,fire]]]{Leveled Persistent Fire Damage}</p>\n<p>[[/r (@item.level)d6[persistent,fire]]]{Leveled Persistent Fire Damage (Melee)}</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -46,15 +38,13 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "overlays": {
             "eOCNn2ohYAvsYZjn": {
                 "_id": "eOCNn2ohYAvsYZjn",
                 "img": "icons/magic/fire/flame-burning-earth-orange.webp",
                 "overlayType": "override",
-                "sort": 1
+                "sort": 1,
+                "system": {}
             },
             "xYyA7CV1GaFTRjBQ": {
                 "_id": "xYyA7CV1GaFTRjBQ",
@@ -63,10 +53,8 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "cQDyW0QpjJ38MlSi": {
-                                "value": "2d6"
-                            }
+                        "cQDyW0QpjJ38MlSi": {
+                            "formula": "2d6"
                         }
                     },
                     "heightening": {
@@ -88,35 +76,26 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "attack",
                 "cantrip",
-                "fire"
+                "concentrate",
+                "fire",
+                "manipulate"
             ]
         }
     },

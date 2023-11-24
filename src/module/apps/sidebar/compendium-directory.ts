@@ -115,7 +115,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                         packCollection,
                         indexData._id,
                         {},
-                        { renderSheet: true }
+                        { renderSheet: true },
                     );
                 },
             },

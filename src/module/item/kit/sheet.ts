@@ -1,6 +1,6 @@
 import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";
 
@@ -17,7 +17,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
                 key,
                 { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
-            ])
+            ]),
         );
 
         return {
@@ -67,15 +67,16 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    async removeItem(event: MouseEvent): Promise<KitPF2e> {
+    async removeItem(event: MouseEvent): Promise<KitPF2e | null> {
         const target = htmlClosest(event.currentTarget ?? null, "li");
         const index = target?.dataset.index;
         if (!index) return this.item;
 
         const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
         const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
+        const update = await this.item.update({ [`system.items.${path}`]: null });
 
-        return this.item.update({ [`system.items.${path}`]: null });
+        return update ?? null;
     }
 
     override activateListeners($html: JQuery): void {

@@ -1,16 +1,27 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
-import { ActionType } from "@item/data/base.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, setHasElement } from "@util";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    isBlank,
+    isObject,
+    localizer,
+    objectHasKey,
+    setHasElement,
+} from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
-import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
+import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import {
     ActionFilters,
@@ -153,7 +164,7 @@ class CompendiumBrowser extends Application {
             const tabNames = R.uniq(
                 R.uniq(pack.index.map((entry) => entry.type))
                     .filter((t): t is BrowsableType => setHasElement(browsableTypes, t))
-                    .flatMap((t) => typeToTab.get(t) ?? [])
+                    .flatMap((t) => typeToTab.get(t) ?? []),
             );
 
             for (const tabName of tabNames) {
@@ -173,7 +184,7 @@ class CompendiumBrowser extends Application {
             settings[tab] = Object.fromEntries(
                 Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
                     return (dataA?.name ?? "") > (dataB?.name ?? "") ? 1 : -1;
-                })
+                }),
             );
         }
 
@@ -227,25 +238,30 @@ class CompendiumBrowser extends Application {
         actionTab.open(filter);
     }
 
-    async openSpellTab(entry: BaseSpellcastingEntry, maxLevel = 10): Promise<void> {
+    async openSpellTab(entry: BaseSpellcastingEntry, maxRank = 10, category: string | null = null): Promise<void> {
         const spellTab = this.tabs.spell;
         const filter = await spellTab.getFilterData();
-        const { category, level, traditions } = filter.checkboxes;
+        const { traditions } = filter.checkboxes;
 
-        if (entry.isRitual || entry.isFocusPool) {
-            category.options[entry.category].selected = true;
-            category.selected.push(entry.category);
+        if (category && filter.checkboxes.category.options[category]) {
+            filter.checkboxes.category.options[category].selected = true;
+            filter.checkboxes.category.selected.push(category);
         }
 
-        if (maxLevel) {
-            const levels = Array.from(Array(maxLevel).keys()).map((l) => String(l + 1));
-            for (const l of levels) {
-                level.options[l].selected = true;
-                level.selected.push(l);
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.checkboxes.category.options[entry.category].selected = true;
+            filter.checkboxes.category.selected.push(entry.category);
+        }
+
+        if (maxRank) {
+            const ranks = Array.from(Array(maxRank).keys()).map((l) => String(l + 1));
+            for (const rank of ranks) {
+                filter.checkboxes.rank.options[rank].selected = true;
+                filter.checkboxes.rank.selected.push(rank);
             }
-            if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                category.options["spell"].selected = true;
-                category.selected.push("spell");
+            if ((entry.isPrepared || entry.isSpontaneous || entry.isInnate) && !category) {
+                filter.checkboxes.category.options["spell"].selected = true;
+                filter.checkboxes.category.selected.push("spell");
             }
         }
 
@@ -409,15 +425,14 @@ class CompendiumBrowser extends Application {
             const order = sortContainer.querySelector<HTMLSelectElement>("select.order");
             if (order) {
                 order.addEventListener("change", () => {
-                    const orderBy = order.value ?? "name";
-                    currentTab.filterData.order.by = orderBy;
+                    currentTab.filterData.order.by = order.value ?? "name";
                     this.#clearScrollLimit(true);
                 });
             }
             const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
             if (directionAnchor) {
                 directionAnchor.addEventListener("click", () => {
-                    const direction = (directionAnchor.dataset.direction as SortDirection) ?? "asc";
+                    const direction = directionAnchor.dataset.direction ?? "asc";
                     currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
                     this.#clearScrollLimit(true);
                 });
@@ -445,7 +460,7 @@ class CompendiumBrowser extends Application {
 
         // Create Roll Table button
         htmlQuery(html, "[data-action=create-roll-table]")?.addEventListener("click", () =>
-            currentTab.createRollTable()
+            currentTab.createRollTable(),
         );
 
         // Add to Roll Table button
@@ -568,7 +583,7 @@ class CompendiumBrowser extends Application {
                 if (!multiselects) continue;
                 if (objectHasKey(multiselects, filterName)) {
                     const multiselect = container.querySelector<HTMLInputElement>(
-                        `input[name=${filterName}][data-tagify-select]`
+                        `input[name=${filterName}][data-tagify-select]`,
                     );
                     if (!multiselect) continue;
                     const data = multiselects[filterName];
@@ -597,13 +612,14 @@ class CompendiumBrowser extends Application {
                     tagify.on("click", (event) => {
                         const target = event.detail.event.target as HTMLElement;
                         if (!target) return;
-
-                        const value = event.detail.data.value;
-                        const selected = data.selected.find((s) => s.value === value);
-                        if (selected) {
-                            const current = !!selected.not;
-                            selected.not = !current;
-                            this.render();
+                        const action = htmlClosest(target, "[data-action]")?.dataset?.action;
+                        if (action === "toggle-not") {
+                            const value = event.detail.data.value;
+                            const selected = data.selected.find((s) => s.value === value);
+                            if (selected) {
+                                selected.not = !selected.not;
+                                this.render();
+                            }
                         }
                     });
                     tagify.on("change", (event) => {
@@ -612,7 +628,7 @@ class CompendiumBrowser extends Application {
                             Array.isArray(selections) &&
                             selections.every(
                                 (s: unknown): s is { value: string; label: string } =>
-                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
+                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string",
                             );
 
                         if (isValid) {
@@ -623,7 +639,7 @@ class CompendiumBrowser extends Application {
 
                     for (const element of htmlQueryAll<HTMLInputElement>(
                         container,
-                        `input[name=${filterName}-filter-conjunction]`
+                        `input[name=${filterName}-filter-conjunction]`,
                     )) {
                         element.addEventListener("change", () => {
                             const value = element.value;
@@ -632,6 +648,17 @@ class CompendiumBrowser extends Application {
                                 this.render();
                             }
                         });
+                    }
+
+                    for (const tag of htmlQueryAll(container, "tag")) {
+                        const icon = fontAwesomeIcon("ban", { style: "solid" });
+                        icon.classList.add("fa-2xs");
+                        const notButton = createHTMLElement("a", {
+                            classes: ["conjunction-not-button"],
+                            children: [icon],
+                            dataset: { action: "toggle-not" },
+                        });
+                        tag.appendChild(notButton);
                     }
                 }
             }
@@ -782,7 +809,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #takePhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "npc"]);
+        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
@@ -799,7 +826,7 @@ class CompendiumBrowser extends Application {
                 game.i18n.format("PF2E.CompendiumBrowser.AddedItemToCharacter", {
                     item: item.name,
                     character: game.user.character.name,
-                })
+                }),
             );
         } else {
             ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.AddedItem", { item: item.name }));
@@ -807,7 +834,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "npc"]);
+        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
@@ -830,14 +857,14 @@ class CompendiumBrowser extends Application {
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
                         character: actors[0].name,
-                    })
+                    }),
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
                         item: item.name,
                         character: actors[0].name,
-                    })
+                    }),
                 );
             }
         } else {
@@ -845,13 +872,13 @@ class CompendiumBrowser extends Application {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
                         item: item.name,
-                    })
+                    }),
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
                         item: item.name,
-                    })
+                    }),
                 );
             }
         }
@@ -884,7 +911,7 @@ class CompendiumBrowser extends Application {
             JSON.stringify({
                 type: item.dataset.type,
                 uuid: item.dataset.entryUuid,
-            })
+            }),
         );
         // awful hack (dataTransfer.types will include "from-browser")
         event.dataTransfer.setData("from-browser", "true");
@@ -898,7 +925,7 @@ class CompendiumBrowser extends Application {
                     });
                 }, 500);
             },
-            { once: true }
+            { once: true },
         );
     }
 
@@ -937,7 +964,7 @@ class CompendiumBrowser extends Application {
         const tab = this.activeTab;
         if (tab === "settings") return;
 
-        const list = this.element[0].querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        const list = htmlQuery(this.element[0], ".tab.active ul.item-list");
         if (!list) return;
         list.scrollTop = 0;
         this.tabs[tab].scrollLimit = 100;

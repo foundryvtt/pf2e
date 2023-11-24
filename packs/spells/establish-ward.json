@@ -3,43 +3,33 @@
     "img": "systems/pf2e/icons/spells/establish-ward.webp",
     "name": "Establish Ward",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "burst",
             "value": 30
         },
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "2d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "untyped"
             }
         },
+        "defense": null,
         "description": {
-            "value": "<p>You bind a part of your essence to your surroundings, creating a warded area that grants you power within it, but drains you outside of it. While within the area, you can make nature's wrath Strikes by commanding plants, wind, rocks, and other natural features to attack enemies. These are melee Strikes that use your spell attack modifier, can target any creature within the ward, and deal bludgeoning, piercing, or slashing damage equal to [[/r 2d8]] plus your spellcasting ability modifier.</p>\n<p>Upon @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Casting the Spell}, you can immediately make a single nature's wrath Strike. You are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] while inside the ward, and can use the additional action only to make nature's wrath Strikes. You are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while outside the area.</p>\n<hr />\n<p>Heightened (+2) The area increases by 5 feet, and the Strikes deal an additional [[/r 1d8]] damage.</p>"
+            "value": "<p>You bind a part of your essence to your surroundings, creating a warded area that grants you power within it, but drains you outside of it. While within the area, you can make nature's wrath Strikes by commanding plants, wind, rocks, and other natural features to attack enemies. These are melee Strikes that use your spell attack modifier, can target any creature within the ward, and deal 3d8 bludgeoning, piercing, or slashing damage.</p>\n<p>Upon @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Casting the Spell}, you can immediately make a single nature's wrath Strike. You are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] while inside the ward, and can use the additional action only to make nature's wrath Strikes. You are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while outside the area.</p>\n<hr />\n<p>Heightened (+2) The area increases by 5 feet, and the Strikes deal an additional [[/r 1d8]] damage.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -51,15 +41,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -68,37 +49,23 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
-                "sorcerer",
-                "abjuration"
+                "attack",
+                "concentrate",
+                "focus",
+                "manipulate",
+                "sorcerer"
             ]
         }
     },

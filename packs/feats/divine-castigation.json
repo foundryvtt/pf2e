@@ -1,0 +1,53 @@
+{
+    "_id": "142QRyK2aPIrJu48",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Divine Castigation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your deity's grace doesn't extend to your sworn enemies. When you cast a @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell, you can add your holy or unholy trait to it. If you do, the spell deals damage to creatures with the opposing trait, even if it wouldn't normally damage them. The spell deals spirit damage when used this way. For example, if you are holy, you could add the holy trait to a <em>heal</em> spell and deal spirit damage to a fiend that has the unholy trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "holy or unholy trait"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "item:type:spell",
+                    "item:slug:heal",
+                    "target:trait:fiend"
+                ],
+                "selectors": [
+                    "damage-received"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Divine Castigation"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

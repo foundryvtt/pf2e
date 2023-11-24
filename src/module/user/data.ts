@@ -1,8 +1,8 @@
 import { UserSettingsPF2e } from "./document.ts";
 
-interface UserSourcePF2e extends foundry.documents.UserSource {
+type UserSourcePF2e = Omit<foundry.documents.UserSource, "flags"> & {
     flags: DeepPartial<UserFlagsPF2e>;
-}
+};
 
 type UserFlagsPF2e = DocumentFlags & {
     pf2e: {

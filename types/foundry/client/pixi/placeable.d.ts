@@ -4,7 +4,7 @@ declare global {
      * @param document The Document instance which is represented by this object
      */
     abstract class PlaceableObject<
-        TDocument extends CanvasDocument = CanvasDocument
+        TDocument extends CanvasDocument = CanvasDocument,
     > extends RenderFlagsContainer<TDocument> {
         constructor(document: TDocument);
 
@@ -160,7 +160,7 @@ declare global {
          * The inner _destroy method which may optionally be defined by each PlaceableObject subclass.
          * @param [options] Options passed to the initial destroy call
          */
-        protected _destroy(options?: object): void;
+        protected _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Draw the placeable object into its parent container */
         draw(): Promise<this>;
@@ -184,7 +184,7 @@ declare global {
         protected _onCreate(
             data: TDocument["_source"],
             options: DocumentModificationContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is updated with new data */
@@ -192,7 +192,7 @@ declare global {
         protected _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
             options: DocumentUpdateContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
@@ -267,7 +267,7 @@ declare global {
         /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
         protected _onHoverIn(
             event: PIXI.FederatedPointerEvent,
-            { hoverOutOthers }?: { hoverOutOthers?: boolean }
+            { hoverOutOthers }?: { hoverOutOthers?: boolean },
         ): boolean | void;
 
         /** Actions that should be taken for this Placeable Object when a mouseout event occurs */

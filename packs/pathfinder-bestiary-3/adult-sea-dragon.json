@@ -119,43 +119,25 @@
             "name": "Control Weather (No Secondary Caster Required)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season.</p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).</p>\n<p><strong>Success</strong> You change the weather as desired.</p>\n<p><strong>Failure</strong> You fail to change the weather as desired.</p>\n<p><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "4d12 hours"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 8
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Nature (master)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -165,39 +147,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Nature (master)"
+                    },
+                    "secondary": {
+                        "casters": 1,
+                        "checks": "Survival"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "1"
-                },
-                "secondarycheck": {
-                    "value": "Survival"
-                },
                 "slug": "control-weather",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "evocation"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -213,31 +184,19 @@
             "name": "Endure Elements (Self Only)",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You shield the target against dangerous temperatures. Choose severe cold or heat. The target is protected from the temperature you chose (but not extreme cold or heat).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The target is protected from severe cold and heat.</p>\n<p><strong>Heightened (5th)</strong> The target is protected from severe cold, severe heat, extreme cold, and extreme heat.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "until the next time you make your daily preparations"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -245,15 +204,6 @@
                 "location": {
                     "heightenedLevel": 2,
                     "value": "iZqo211s6bnAgJto"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -263,41 +213,25 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "endure-elements",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "self"
                 },
                 "time": {
                     "value": "10 minutes"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "abjuration"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -314,31 +248,19 @@
             "name": "Water Walk (Constant)",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>The target can walk on the surface of water and other liquids without falling through. It can go underwater if it wishes, but in that case it must Swim normally. This spell doesn't grant the ability to breathe underwater.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's range increases to 30 feet, the duration increases to 1 hour, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "levels": {
@@ -360,15 +282,6 @@
                     "heightenedLevel": 2,
                     "value": "iZqo211s6bnAgJto"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -377,41 +290,25 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "water-walk",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -428,31 +325,19 @@
             "name": "Create Water (At Will)",
             "sort": 500000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>As you cup your hands, water begins to flow forth from them. You create 2 gallons of water. If no one drinks it, it evaporates after 1 day.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 1
@@ -460,15 +345,6 @@
                 "location": {
                     "heightenedLevel": 2,
                     "value": "iZqo211s6bnAgJto"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -478,42 +354,26 @@
                 "range": {
                     "value": "0 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "create-water",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "water",
-                        "conjuration"
+                        "concentrate",
+                        "manipulate",
+                        "water"
                     ]
                 }
             },
@@ -967,8 +827,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "arcane",
-                        "transmutation"
+                        "arcane"
                     ]
                 },
                 "trigger": {
@@ -1015,7 +874,6 @@
                         "radius": 90,
                         "slug": "frightful-presence",
                         "traits": [
-                            "aura",
                             "emotion",
                             "fear",
                             "mental"
@@ -1088,7 +946,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "arcane",
                         "water"
                     ]
@@ -1132,7 +989,6 @@
                         "radius": 40,
                         "slug": "vortex",
                         "traits": [
-                            "aura",
                             "water"
                         ]
                     }
@@ -1184,7 +1040,6 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "evocation",
                         "water"
                     ]
                 },
@@ -1706,11 +1561,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CG"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 12
             },
@@ -1768,7 +1619,9 @@
             },
             "value": [
                 "amphibious",
+                "chaotic",
                 "dragon",
+                "good",
                 "water"
             ]
         }

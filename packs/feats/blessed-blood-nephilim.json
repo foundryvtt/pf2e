@@ -1,0 +1,49 @@
+{
+    "_id": "BuaOQzmRNgIhGsfN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blessed Blood (Nephilim)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your spilled blood is sanctified, with effects similar to those of @UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]. Whenever a fiend, undead, or creature with a weakness to holy drinks your blood or deals piercing or slashing damage to you with jaws, fangs, or a similar attack, that creature takes @Damage[1d6[spirit]|traits:holy] damage with the holy trait. You gain a +4 circumstance bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] <em>holy water</em> using your blood as one of the ingredients.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Blessed Blood (craft Holy Water with own blood)",
+                "predicate": [
+                    "action:craft",
+                    "item:holy-water",
+                    "own-blood"
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

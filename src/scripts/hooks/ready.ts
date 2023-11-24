@@ -43,7 +43,7 @@ export const Ready = {
                     if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                         ui.notifications.error(
                             `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                            { permanent: true }
+                            { permanent: true },
                         );
                     }
                     await migrationRunner.runMigration();
@@ -57,13 +57,8 @@ export const Ready = {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }
 
-                // These modules claim compatibility with all of V9 but are abandoned
-                const abandonedModules = new Set([
-                    "dragupload",
-                    "foundry_community_macros",
-                    "pf2e-lootgen",
-                    "pf2e-toolbox",
-                ]);
+                // These modules claim compatibility with V11 but are abandoned
+                const abandonedModules = new Set<string>([]);
 
                 // Nag the GM for running unmaintained modules
                 const subV10Modules = game.modules.filter(
@@ -74,7 +69,8 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "9.280"))
+                        (abandonedModules.has(m.id) ||
+                            !foundry.utils.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
                 for (const badModule of subV10Modules) {
@@ -128,13 +124,6 @@ export const Ready = {
                 ...game.actors.filter((a) => a.type === "familiar"),
             ]);
             resetActors(new Set(actorsToReprepare));
-
-            // Open the active party by default if the folder state is set
-            const activeParty = game.actors.party;
-            if (activeParty && game.settings.get("pf2e", "activePartyFolderState")) {
-                ui.actors.extraFolders[activeParty.id] = true;
-                ui.actors.render();
-            }
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
             if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {

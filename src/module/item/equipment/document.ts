@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { objectHasKey } from "@util";
@@ -54,7 +54,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
@@ -67,8 +67,8 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const slotType = /book\b/.test(this.slug ?? "")
             ? "Book"
             : /\bring\b/.test(this.slug ?? "")
-            ? "Ring"
-            : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
+              ? "Ring"
+              : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
 
         const itemType = objectHasKey(identificationConfig.UnidentifiedType, slotType)
             ? game.i18n.localize(identificationConfig.UnidentifiedType[slotType])
@@ -86,7 +86,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
@@ -97,7 +97,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Remove apex data if apex trait is no longer present
         const changedTraits = changed.system?.traits?.value;

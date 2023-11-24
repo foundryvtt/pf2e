@@ -1,0 +1,77 @@
+{
+    "_id": "4wZaiZJtAA0iyWR5",
+    "img": "systems/pf2e/icons/spells/suns-fury.webp",
+    "name": "Spell Effect: Sun's Fury",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sun's Fury]</p>\n<p>The weapon deals an additional 1d4 fire and 1 spirit damage on a successful Strike. In addition, the flame causes the weapon to glow as bright as a torch.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Legends"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectSunsFury",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectSunsFury}-damage"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.effectSunsFury}-damage",
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.45,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#ffae3d",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

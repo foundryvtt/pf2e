@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -161,9 +158,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -262,10 +256,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -298,9 +288,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "leather-armor",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": 0,
+                "strength": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -753,7 +743,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The husk zombie's turn begins</p>\n<hr />\n<p><strong>Effect</strong> The withered has a sudden burst of speed. They are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] this turn and can use the extra action only to Stride or Strike. If the withered's first action this turn is a melee Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>\n<p>The withered can't use Sudden Surge for [[/r 1d4 #Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> The husk zombie's turn begins</p>\n<hr />\n<p><strong>Effect</strong> The withered has a sudden burst of speed. They are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] this turn and can use the extra action only to Stride or Strike. If the withered's first action this turn is a melee Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>\n<p>The withered can't use Sudden Surge for [[/br 1d4 #Recharge Sudden Surge]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -907,7 +897,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 80,
                 "temp": 0,
                 "value": 80
@@ -948,11 +938,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 5
             },
@@ -996,7 +982,9 @@
                 "value": "med"
             },
             "value": [
+                "evil",
                 "undead",
+                "unholy",
                 "zombie"
             ]
         }

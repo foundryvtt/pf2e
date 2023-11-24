@@ -7,33 +7,26 @@
             "type": "cone",
             "value": 60
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
-        "damage": {
-            "value": {}
+        "counteraction": false,
+        "damage": {},
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
         },
         "description": {
             "value": "<p>You open a miniature portal to an elemental plane within your mouth, then exhale a powerful explosion of the plane's element. Roll 1d6 to determine the element. If you used 3 actions to Cast this Spell, you can choose the element instead. This spell gains the trait matching the element.</p>\n<p>Each creature in the cone must attempt a basic Reflex save.</p>\n<ul>\n<li><strong>Air</strong> Strong winds and lightning strikes buffet creatures in the cone, dealing @Damage[6d10[electricity]] damage. A creature that fails its save is also pushed 10 feet.</li>\n<li><strong>Earth</strong> A cone of mud deals @Damage[5d10[bludgeoning]] damage to creatures in the area. A creature on the ground that fails its save slips and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</li>\n<li><strong>Fire</strong> A surging cone of fire deals @Damage[7d10[fire]] damage.</li>\n<li><strong>Metal</strong> A cone of rust slices flesh and damages metal. Each creature in the area takes @Damage[5d10[slashing]] damage. A creature made of metal gets a result one degree of success worse than it rolled, and an unattended metal object gets a critical failure.</li>\n<li><strong>Water</strong> A torrent of chilled water deals @Damage[3d10[cold]] damage and @Damage[3d10[bludgeoning]] damage.</li>\n<li><strong>Wood</strong> Branches rip through creatures, dealing @Damage[3d10[piercing]] damage and @Damage[3d10[slashing]] damage. Ground in the area becomes difficult terrain for 1 minute.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d10]]. For water and wood, you can choose which damage type increases for each rank the spell is heightened.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "level": {
             "value": 5
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "2XryWRa6OkDAbAw0": {
@@ -43,16 +36,12 @@
                 "sort": 4,
                 "system": {
                     "damage": {
-                        "value": {
-                            "cIQMOJJsHOShytJy": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "slashing"
-                                },
-                                "value": "5d10"
-                            }
+                        "cIQMOJJsHOShytJy": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d10",
+                            "materials": [],
+                            "type": "slashing"
                         }
                     },
                     "heightening": {
@@ -76,16 +65,12 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "CI0T8rUwcB2khY0t": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                },
-                                "value": "5d10"
-                            }
+                        "CI0T8rUwcB2khY0t": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d10",
+                            "materials": [],
+                            "type": "bludgeoning"
                         }
                     },
                     "heightening": {
@@ -109,16 +94,12 @@
                 "sort": 1,
                 "system": {
                     "damage": {
-                        "value": {
-                            "ycNNS1IJaYJ9uw80": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "electricity"
-                                },
-                                "value": "6d10"
-                            }
+                        "ycNNS1IJaYJ9uw80": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "6d10",
+                            "materials": [],
+                            "type": "electricity"
                         }
                     },
                     "heightening": {
@@ -142,25 +123,19 @@
                 "sort": 5,
                 "system": {
                     "damage": {
-                        "value": {
-                            "5s8WDBie6obDFd7O": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "cold"
-                                },
-                                "value": "3d10"
-                            },
-                            "65e8IoTrChnWR3jL": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                },
-                                "value": "3d10"
-                            }
+                        "5s8WDBie6obDFd7O": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "3d10",
+                            "materials": [],
+                            "type": "cold"
+                        },
+                        "65e8IoTrChnWR3jL": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "3d10",
+                            "materials": [],
+                            "type": "bludgeoning"
                         }
                     },
                     "heightening": {
@@ -185,25 +160,19 @@
                 "sort": 6,
                 "system": {
                     "damage": {
-                        "value": {
-                            "9uHHaYTm9m5EKYXr": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "piercing"
-                                },
-                                "value": "3d10"
-                            },
-                            "M2B0VWxc4jyJ2ZMk": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "slashing"
-                                },
-                                "value": "3d10"
-                            }
+                        "9uHHaYTm9m5EKYXr": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "3d10",
+                            "materials": [],
+                            "type": "piercing"
+                        },
+                        "M2B0VWxc4jyJ2ZMk": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "3d10",
+                            "materials": [],
+                            "type": "slashing"
                         }
                     },
                     "heightening": {
@@ -228,16 +197,12 @@
                 "sort": 3,
                 "system": {
                     "damage": {
-                        "value": {
-                            "0tjfe8H7wz7QoXYE": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "fire"
-                                },
-                                "value": "7d10"
-                            }
+                        "0tjfe8H7wz7QoXYE": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "7d10",
+                            "materials": [],
+                            "type": "fire"
                         }
                     },
                     "heightening": {
@@ -263,32 +228,24 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2 or 3"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
-            "value": []
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
+            "value": [
+                "concentrate",
+                "manipulate"
+            ]
         }
     },
     "type": "spell"

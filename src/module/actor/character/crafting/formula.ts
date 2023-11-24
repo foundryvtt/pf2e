@@ -17,7 +17,7 @@ class CraftingFormula implements CraftingFormulaData {
 
     constructor(
         public item: PhysicalItemPF2e,
-        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
+        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {},
     ) {
         this.dc =
             dc ??

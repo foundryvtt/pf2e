@@ -12,7 +12,7 @@ const toHighestModifier = (highest: StatisticModifier | null, current: Statistic
 
 function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>
+    data: CheckContextData<ItemType>,
 ) {
     const actionRollOptions = ["action:escape", "action:escape:unarmed"];
     const { rollOptions } = opts.buildContext({
@@ -24,12 +24,10 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     const strikes = (() => {
         if (actor instanceof CharacterPF2e) {
             return actor.system.actions.filter((strike) =>
-                strike.weaponTraits.map((trait) => trait.name).includes("unarmed")
+                strike.weaponTraits.map((trait) => trait.name).includes("unarmed"),
             );
         } else if (actor instanceof NPCPF2e) {
-            return actor.system.actions.filter((strike) =>
-                strike.traits.map((trait) => trait.name).includes("unarmed")
-            );
+            return actor.system.actions.filter((strike) => strike.item.category === "unarmed");
         }
         return [] as StrikeData[];
     })();
@@ -44,7 +42,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
 
 function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>
+    data: CheckContextData<ItemType>,
 ): CheckContext<ItemType> | undefined {
     // find all unarmed strikes and pick the one with the highest modifier
     const unarmed = data.slug && data.slug !== "unarmed" ? null : unarmedStrikeWithHighestModifier(opts, data);
@@ -68,7 +66,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                 statistic: new StatisticModifier(
                     statistic.slug,
                     statistic.modifiers.concat(data.modifiers ?? []),
-                    rollOptions
+                    rollOptions,
                 ),
             };
         });
@@ -77,7 +75,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     const highest = alternatives.reduce(
         (highest, current) =>
             !highest || current.statistic.totalModifier > (highest?.statistic.totalModifier ?? 0) ? current : highest,
-        unarmed
+        unarmed,
     );
 
     if (highest) {
@@ -125,7 +123,7 @@ class EscapeActionVariant extends SingleCheckActionVariant {
 
     protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         return escapeCheckContext(opts, data);
     }

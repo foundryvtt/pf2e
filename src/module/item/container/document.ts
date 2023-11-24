@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { InventoryBulk } from "@actor/inventory/index.ts";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { Bulk, weightToBulk } from "@item/physical/bulk.ts";
@@ -41,7 +41,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Reload this container's contents following Actor embedded-document preparation */
     override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         this.contents = new Collection(
-            this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item])
+            this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item]),
         );
     }
 
@@ -55,7 +55,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override async getChatData(
         this: ContainerPF2e<TParent>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),

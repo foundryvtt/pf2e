@@ -34,13 +34,13 @@ const MODIFIER_TYPES = new Set([
 
 type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 
-interface BaseRawModifier {
+interface RawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
     /** The display name of this modifier; can be a localization key (see en.json). */
     label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
-    modifier?: number;
+    modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
@@ -67,6 +67,8 @@ interface BaseRawModifier {
     traits?: string[];
     /** Hide this modifier in UIs if it is disabled */
     hideIfDisabled?: boolean;
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force?: boolean;
 }
 
 interface ModifierAdjustment {
@@ -78,12 +80,6 @@ interface ModifierAdjustment {
     suppress?: boolean;
     getNewValue?: (current: number) => number;
     getDamageType?: (current: DamageType | null) => DamageType | null;
-}
-
-interface RawModifier extends BaseRawModifier {
-    modifier: number;
-    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
-    force?: boolean;
 }
 
 interface DeferredValueParams {
@@ -269,7 +265,7 @@ type ModifierOrderedParams = [
     enabled?: boolean,
     ignored?: boolean,
     source?: string,
-    notes?: string
+    notes?: string,
 ];
 
 /**
@@ -358,7 +354,7 @@ const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modi
 function applyStacking(
     best: Record<string, ModifierPF2e>,
     modifier: ModifierPF2e,
-    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean
+    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -552,7 +548,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
                 }
                 return resolved;
             },
-            { value: modifier.modifier, relabel: null }
+            { value: modifier.modifier, relabel: null },
         );
         modifier.modifier = resolvedAdjustment.value;
 
@@ -563,7 +559,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
         // If applicable, change the damage type of this modifier, using only the final adjustment found
         modifier.damageType = adjustments.reduce(
             (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
-            modifier.damageType
+            modifier.damageType,
         );
     }
 }
@@ -582,7 +578,7 @@ class CheckModifier extends StatisticModifier {
         slug: string,
         statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
         modifiers: ModifierPF2e[] = [],
-        rollOptions: string[] | Set<string> = new Set()
+        rollOptions: string[] | Set<string> = new Set(),
     ) {
         const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
         super(slug, baseModifiers.concat(modifiers), rollOptions);
@@ -659,8 +655,8 @@ class DamageDicePF2e {
         this.category = tupleHasValue(["persistent", "precision", "splash"], params.category)
             ? params.category
             : this.damageType === "bleed"
-            ? "persistent"
-            : null;
+              ? "persistent"
+              : null;
         this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
 
         this.predicate =
@@ -688,7 +684,7 @@ class DamageDicePF2e {
     }
 }
 
-type RawDamageDice = Required<DamageDiceParameters>;
+interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
     CheckModifier,
@@ -704,7 +700,6 @@ export {
     ensureProficiencyOption,
 };
 export type {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDiceParameters,
     DeferredPromise,
@@ -712,6 +707,7 @@ export type {
     DeferredValueParams,
     ModifierAdjustment,
     ModifierType,
+    RawDamageDice,
     RawModifier,
     TestableDeferredValueParams,
 };

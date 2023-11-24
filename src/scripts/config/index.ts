@@ -1,6 +1,6 @@
-import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
+import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { Alignment } from "@actor/creature/types.ts";
+import { LANGUAGES } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
 import {
@@ -23,6 +23,7 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
+    ShieldPF2e,
     SpellPF2e,
     SpellcastingEntryPF2e,
     TreasurePF2e,
@@ -41,8 +42,6 @@ import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
-    alignmentTraits,
-    ancestryItemTraits,
     ancestryTraits,
     armorTraits,
     backgroundTraits,
@@ -55,13 +54,13 @@ import {
     featTraits,
     hazardTraits,
     kingmakerTraits,
-    magicSchools,
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
+    shieldTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,
@@ -71,6 +70,7 @@ import {
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
 const actorTypes: Record<ActorType, string> = {
+    army: "TYPES.Actor.army",
     character: "TYPES.Actor.character",
     familiar: "TYPES.Actor.familiar",
     hazard: "TYPES.Actor.hazard",
@@ -172,7 +172,7 @@ const weaponCategories = {
 };
 
 const baseArmorTypes = R.mapValues(EN_JSON.PF2E.Item.Armor.Base, (_v, slug) => `PF2E.Item.Armor.Base.${slug}`);
-
+const baseShieldTypes = R.mapValues(EN_JSON.PF2E.Item.Shield.Base, (_v, slug) => `PF2E.Item.Shield.Base.${slug}`);
 const baseWeaponTypes = R.mapValues(EN_JSON.PF2E.Weapon.Base, (_v, slug) => `PF2E.Weapon.Base.${slug}`);
 
 /** Base weapon types that are considered equivalent for all rules purposes */
@@ -208,6 +208,7 @@ const weaponGroups: Record<WeaponGroup, string> = {
     ...meleeWeaponGroups,
     bomb: "PF2E.WeaponGroupBomb",
     bow: "PF2E.WeaponGroupBow",
+    crossbow: "PF2E.WeaponGroupCrossbow",
     firearm: "PF2E.WeaponGroupFirearm",
     sling: "PF2E.WeaponGroupSling",
 };
@@ -263,18 +264,6 @@ const creatureTypes = R.pick(creatureTraits, [
     "undead",
 ]);
 
-const alignments: Record<Alignment, string> = {
-    LG: "PF2E.AlignmentLG",
-    NG: "PF2E.AlignmentNG",
-    CG: "PF2E.AlignmentCG",
-    LN: "PF2E.AlignmentLN",
-    N: "PF2E.AlignmentN",
-    CN: "PF2E.AlignmentCN",
-    LE: "PF2E.AlignmentLE",
-    NE: "PF2E.AlignmentNE",
-    CE: "PF2E.AlignmentCE",
-};
-
 const deityDomains = R.mapToObj(Object.keys(EN_JSON.PF2E.Item.Deity.Domain), (key) => {
     const label = `PF2E.Item.Deity.Domain.${key}.Label`;
     const description = `PF2E.Item.Deity.Domain.${key}.Description`;
@@ -293,7 +282,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
 function notifyDeprecatedPath(configPath: string, locPath: string): void {
     foundry.utils.logCompatibilityWarning(
         `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
-        { since: "5.2.0", until: "6.0.0" }
+        { since: "5.2.0", until: "6.0.0" },
     );
 }
 
@@ -446,6 +435,7 @@ export const PF2ECONFIG = {
     meleeWeaponGroups,
 
     baseArmorTypes,
+    baseShieldTypes,
     baseWeaponTypes,
     equivalentWeapons,
 
@@ -470,8 +460,10 @@ export const PF2ECONFIG = {
     usages: {
         "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
         "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
+        "affixed-to-a-metal-weapon": "PF2E.TraitAffixedToAMetalWeapon",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
+        "affixed-to-a-shield-or-weapon": "PF2E.TraitAffixedToAShieldOrWeapon",
         "affixed-to-a-thrown-weapon": "PF2E.TraitAffixedToThrownWeapon",
         "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixedToATwoHandedFirearmOrCrossbow",
         "affixed-to-an-innovation": "PF2E.TraitAffixedToInnovation",
@@ -492,6 +484,7 @@ export const PF2ECONFIG = {
         "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
         "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
         "affixed-to-melee-weapon": "PF2E.TraitAffixedToMeleeWeapon",
+        "affixed-to-metal-weapon": "PF2E.TraitAffixedToMetalWeapon",
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
@@ -524,6 +517,7 @@ export const PF2ECONFIG = {
         "each-rune-applied-to-a-separate-item-that-has-pockets":
             "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
+        "etched-onto-a-shield": "PF2E.TraitEtchedOntoAShield",
         "etched-onto-armor": "PF2E.TraitEtchedOntoArmor",
         "etched-onto-heavy-armor": "PF2E.TraitEtchedOntoHeavyArmor",
         "etched-onto-light-armor": "PF2E.TraitEtchedOntoLightArmor",
@@ -597,10 +591,8 @@ export const PF2ECONFIG = {
     },
 
     magicTraditions,
-    magicSchools,
     classTraits,
     ancestryTraits,
-    ancestryItemTraits,
     deityDomains,
 
     weaponTraits,
@@ -615,6 +607,7 @@ export const PF2ECONFIG = {
     otherConsumableTags,
 
     actionTraits,
+    shieldTraits,
     spellTraits,
     featTraits,
     creatureTraits,
@@ -672,7 +665,6 @@ export const PF2ECONFIG = {
         light: "PF2E.ArmorTypeLight",
         medium: "PF2E.ArmorTypeMedium",
         heavy: "PF2E.ArmorTypeHeavy",
-        shield: "PF2E.ArmorTypeShield",
         "light-barding": "PF2E.Item.Armor.Category.light-barding",
         "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
     },
@@ -712,9 +704,9 @@ export const PF2ECONFIG = {
         prepared: "PF2E.PreparationTypePrepared",
         spontaneous: "PF2E.PreparationTypeSpontaneous",
         innate: "PF2E.PreparationTypeInnate",
-        focus: "PF2E.SpellCategoryFocus",
-        ritual: "PF2E.SpellCategoryRitual",
+        focus: "PF2E.TraitFocus",
         items: "PF2E.PreparationTypeItems",
+        ritual: "PF2E.Item.Spell.Ritual.Label",
     },
 
     areaTypes: {
@@ -750,9 +742,6 @@ export const PF2ECONFIG = {
         5280: "PF2E.AreaSize1Mile",
     },
 
-    alignments,
-    alignmentTraits,
-
     attitude: {
         hostile: "PF2E.Attitudes.Hostile",
         unfriendly: "PF2E.Attitudes.Unfriendly",
@@ -787,32 +776,6 @@ export const PF2ECONFIG = {
         M: "PF2E.SpellComponentM",
         F: "PF2E.SpellComponentF",
     },
-
-    spellCategories: {
-        spell: "PF2E.SpellCategorySpell",
-        focus: "PF2E.SpellCategoryFocus",
-        ritual: "PF2E.SpellCategoryRitual",
-    },
-
-    spellTypes: {
-        attack: "PF2E.SpellTypeAttack",
-        save: "PF2E.SpellTypeSave",
-        heal: "PF2E.SpellTypeHeal",
-        utility: "PF2E.SpellTypeUtility",
-    },
-
-    spellLevels: {
-        1: "PF2E.SpellLevel1",
-        2: "PF2E.SpellLevel2",
-        3: "PF2E.SpellLevel3",
-        4: "PF2E.SpellLevel4",
-        5: "PF2E.SpellLevel5",
-        6: "PF2E.SpellLevel6",
-        7: "PF2E.SpellLevel7",
-        8: "PF2E.SpellLevel8",
-        9: "PF2E.SpellLevel9",
-        10: "PF2E.SpellLevel10",
-    }, // TODO: Compute levels!
 
     featCategories,
 
@@ -964,124 +927,7 @@ export const PF2ECONFIG = {
 
     immunityTypes,
 
-    // Languages, alphabetical by common, uncommon, secret
-    languages: {
-        common: "PF2E.LanguageCommon",
-        draconic: "PF2E.LanguageDraconic",
-        dwarven: "PF2E.LanguageDwarven",
-        elven: "PF2E.LanguageElven",
-        gnomish: "PF2E.LanguageGnomish",
-        goblin: "PF2E.LanguageGoblin",
-        halfling: "PF2E.LanguageHalfling",
-        jotun: "PF2E.LanguageJotun",
-        orcish: "PF2E.LanguageOrcish",
-        undercommon: "PF2E.LanguageUndercommon",
-        ysoki: "PF2E.LanguageYsoki",
-        abyssal: "PF2E.LanguageAbyssal",
-        adlet: "PF2E.LanguageAdlet",
-        aklo: "PF2E.LanguageAklo",
-        akitonian: "PF2E.LanguageAkitonian",
-        alghollthu: "PF2E.LanguageAlghollthu",
-        amurrun: "PF2E.LanguageAmurrun",
-        anadi: "PF2E.LanguageAnadi",
-        "ancient-osiriani": "PF2E.LanguageAncientOsiriani",
-        anugobu: "PF2E.LanguageAnugobu",
-        arcadian: "PF2E.LanguageArcadian",
-        arboreal: "PF2E.LanguageArboreal",
-        boggard: "PF2E.LanguageBoggard",
-        calda: "PF2E.LanguageCalda",
-        caligni: "PF2E.LanguageCaligni",
-        celestial: "PF2E.LanguageCelestial",
-        cyclops: "PF2E.LanguageCyclops",
-        daemonic: "PF2E.LanguageDaemonic",
-        destrachan: "PF2E.LanguageDestrachan",
-        drooni: "PF2E.LanguageDrooni",
-        dziriak: "PF2E.LanguageDziriak",
-        ekujae: "PF2E.LanguageEkujae",
-        "elder-thing": "PF2E.LanguageElderThing",
-        empyrean: "PF2E.LanguageEmpyrean",
-        erutaki: "PF2E.LanguageErutaki",
-        fey: "PF2E.LanguageFey",
-        formian: "PF2E.LanguageFormian",
-        garundi: "PF2E.LanguageGarundi",
-        girtablilu: "PF2E.LanguageGirtablilu",
-        gnoll: "PF2E.LanguageGnoll",
-        goloma: "PF2E.LanguageGoloma",
-        grippli: "PF2E.LanguageGrippli",
-        hallit: "PF2E.LanguageHallit",
-        hwan: "PF2E.LanguageHwan",
-        iblydan: "PF2E.LanguageIblydan",
-        ikeshti: "PF2E.LanguageIkeshti",
-        immolis: "PF2E.LanguageImmolis",
-        infernal: "PF2E.LanguageInfernal",
-        iruxi: "PF2E.LanguageIruxi",
-        jistkan: "PF2E.LanguageJistkan",
-        jyoti: "PF2E.LanguageJyoti",
-        kaava: "PF2E.LanguageKaava",
-        kashrishi: "PF2E.LanguageKashrishi",
-        kibwani: "PF2E.LanguageKibwani",
-        kitsune: "PF2E.LanguageKitsune",
-        kelish: "PF2E.LanguageKelish",
-        lirgeni: "PF2E.LanguageLirgeni",
-        mahwek: "PF2E.LanguageMahwek",
-        minaten: "PF2E.LanguageMinaten",
-        minkaian: "PF2E.LanguageMinkaian",
-        muan: "PF2E.LanguageMuan",
-        mwangi: "PF2E.LanguageMwangi",
-        mzunu: "PF2E.LanguageMzunu",
-        nagaji: "PF2E.LanguageNagaji",
-        necril: "PF2E.LanguageNecril",
-        ocotan: "PF2E.LanguageOcotan",
-        okaiyan: "PF2E.LanguageOkaiyan",
-        orvian: "PF2E.LanguageOrvian",
-        osiriani: "PF2E.LanguageOsiriani",
-        petran: "PF2E.LanguagePetran",
-        protean: "PF2E.LanguageProtean",
-        pyric: "PF2E.LanguagePyric",
-        rasu: "PF2E.LanguageRasu",
-        ratajin: "PF2E.LanguageRatajin",
-        razatlani: "PF2E.LanguageRazatlani",
-        requian: "PF2E.LanguageRequian",
-        russian: "PF2E.LanguageRussian",
-        sakvroth: "PF2E.LanguageSakvroth",
-        senzar: "PF2E.LanguageSenzar",
-        shadowtongue: "PF2E.LanguageShadowtongue",
-        shobhad: "PF2E.LanguageShobhad",
-        shisk: "PF2E.LanguageShisk",
-        shoanti: "PF2E.LanguageShoanti",
-        shoony: "PF2E.LanguageShoony",
-        shory: "PF2E.LanguageShory",
-        skald: "PF2E.LanguageSkald",
-        sphinx: "PF2E.LanguageSphinx",
-        strix: "PF2E.LanguageStrix",
-        sussuran: "PF2E.LanguageSussuran",
-        taldane: "PF2E.LanguageTaldane",
-        talican: "PF2E.LanguageTalican",
-        tekritanin: "PF2E.LanguageTekritanin",
-        tengu: "PF2E.LanguageTengu",
-        thalassic: "PF2E.LanguageThalassic",
-        thassilonian: "PF2E.LanguageThassilonian",
-        tien: "PF2E.LanguageTien",
-        utopian: "PF2E.LanguageUtopian",
-        vanara: "PF2E.LanguageVanara",
-        varisian: "PF2E.LanguageVarisian",
-        varki: "PF2E.LanguageVarki",
-        vishkanyan: "PF2E.LanguageVishkanyan",
-        vudrani: "PF2E.LanguageVudrani",
-        wyrwood: "PF2E.LanguageWyrwood",
-        xanmba: "PF2E.LanguageXanmba",
-        androffan: "PF2E.LanguageAndroffan",
-        azlanti: "PF2E.LanguageAzlanti",
-        grioth: "PF2E.LanguageGrioth",
-        kovintal: "PF2E.LanguageKovintal",
-        migo: "PF2E.LanguageMiGo",
-        munavri: "PF2E.LanguageMunavri",
-        samsaran: "PF2E.LanguageSamsaran",
-        sasquatch: "PF2E.LanguageSasquatch",
-        shae: "PF2E.LanguageShae",
-        yithian: "PF2E.LanguageYithian",
-        druidic: "PF2E.LanguageDruidic",
-    },
+    languages: R.mapToObj(LANGUAGES, (l) => [l, `PF2E.Actor.Creature.Language.${l}`]),
 
     attackEffects: {
         grab: "PF2E.AttackEffectGrab",
@@ -1139,7 +985,6 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
                 neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
                 npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
-                pcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.PCsOnly",
                 both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
             },
             lootableNPCs: {
@@ -1159,10 +1004,6 @@ export const PF2ECONFIG = {
             languages: {
                 name: "PF2E.SETTINGS.Homebrew.Languages.Name",
                 hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
-            },
-            magicSchools: {
-                name: "PF2E.SETTINGS.Homebrew.MagicSchools.Name",
-                hint: "PF2E.SETTINGS.Homebrew.MagicSchools.Hint",
             },
             spellTraits: {
                 name: "PF2E.SETTINGS.Homebrew.SpellTraits.Name",
@@ -1238,6 +1079,7 @@ export const PF2ECONFIG = {
 
     Actor: {
         documentClasses: {
+            army: ArmyPF2e,
             character: CharacterPF2e,
             npc: NPCPF2e,
             hazard: HazardPF2e,
@@ -1269,6 +1111,7 @@ export const PF2ECONFIG = {
             kit: KitPF2e,
             lore: LorePF2e,
             melee: MeleePF2e,
+            shield: ShieldPF2e,
             spell: SpellPF2e,
             spellcastingEntry: SpellcastingEntryPF2e,
             treasure: TreasurePF2e,
@@ -1289,6 +1132,7 @@ export const PF2ECONFIG = {
             heritage: featTraits,
             kit: classTraits,
             melee: npcAttackTraits,
+            shield: shieldTraits,
             spell: spellTraits,
             weapon: weaponTraits,
         },

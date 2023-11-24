@@ -53,7 +53,7 @@ declare global {
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentUpdateContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;

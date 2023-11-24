@@ -33,6 +33,10 @@
             background-color: var(--alt);
         }
 
+        &.ghost-touch {
+            background-color: #516178;
+        }
+
         &.tag_material {
             background-color: var(--alt-dark);
         }
@@ -133,10 +137,6 @@
             border-right-width: 3px;
         }
 
-        &.alignment {
-            background-color: var(--color-bg-alignment);
-        }
-
         &.size {
             background-color: var(--color-bg-size);
         }
@@ -213,6 +213,31 @@ tags.tags.paizo-style {
         .tagify__tag-text {
             text-decoration: line-through;
             text-decoration-color: var(--color-text-trait);
+        }
+
+        &-button {
+            order: 4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            cursor: pointer;
+            background: var(--tag-remove-btn-bg);
+            color: var(--tag-remove-btn-color);
+
+            width: 14px;
+            height: 14px;
+            // Not needed for Firefox
+            -webkit-padding-before: 2px;
+            margin-left: 2px;
+
+            overflow: hidden;
+            transition: 0.2s ease-out;
+
+            &:hover {
+                color: white;
+                background: var(--tag-remove-btn-bg--hover);
+            }
         }
     }
 

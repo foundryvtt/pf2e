@@ -1,0 +1,71 @@
+{
+    "_id": "a5rWrWwuevTzs9Io",
+    "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+    "name": "Spell Effect: Untamed Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Untamed Form]</p>\n<p>You reach within for a different part of yourself, and you set it free, transforming your body into another form. You can polymorph into any form listed in <em>pest form</em>, which lasts 10 minutes. All other <em>untamed form</em> shapes last 1 minute. You can add more shapes to your <em>untamed form</em> list with druid feats; your feat might grant you some or all of the shapes from a given polymorph spell.</p>\n<p>When you transform into a shape granted by a spell, you gain all the effects of the shape you chose from a version of the spell heightened to <em>untamed form</em>'s rank. <em>Untamed form</em> allows you to use your own shapeshifting training more easily than most polymorph spells. When you choose to use your own attack modifier while polymorphed instead of the form's default attack modifier, you gain a +2 status bonus to your attack rolls.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can transform into shapes listed in <em>animal form</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.wildShapeForms",
+                "flag": "formEffect",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:untamed-form"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.UntamedForm"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
+                "predicate": [
+                    "feat:untamed-form"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.formEffect}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "battle-form:own-attack-modifier",
+                    {
+                        "not": "self:effect:pest-form"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

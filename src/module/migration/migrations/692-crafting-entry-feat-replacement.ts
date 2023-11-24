@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ErrorPF2e } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -52,7 +52,7 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
         if (actorSource.type === "character") {
             this.slugToPromise.forEach(async (promise, slug) => {
                 const current = actorSource.items.find(
-                    (itemSource) => itemSource.type === "feat" && itemSource.system.slug === slug
+                    (itemSource) => itemSource.type === "feat" && itemSource.system.slug === slug,
                 );
                 if (current)
                     this.replaceItem({

@@ -1,0 +1,60 @@
+{
+    "_id": "2ImD2TB0RVic1VUc",
+    "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+    "name": "Tempered Reflexes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Practiced reflexes let you find safety even in the face of cataclysmic explosions. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Reflex",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.reflex.rank",
+                "value": 3
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

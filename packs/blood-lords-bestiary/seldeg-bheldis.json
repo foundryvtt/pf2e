@@ -117,45 +117,19 @@
             "name": "Touch of Corruption",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "void"
-                            },
-                            "value": "1d6"
-                        }
-                    }
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
+                    "value": "<p>You infuse the target with void energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of Corruption]</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Corruption (Healing)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -163,14 +137,67 @@
                 "location": {
                     "value": "EoknAO1gEQrmcFDR"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
+                "overlays": {
+                    "2a6Vm4mIjBgrzlO2": {
+                        "_id": "2a6Vm4mIjBgrzlO2",
+                        "name": "Touch of Corruption (Vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "Esn7klJ9WRsIFnrE": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "Esn7klJ9WRsIFnrE": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "gHIOzknAtexc6GUE": {
+                        "_id": "gHIOzknAtexc6GUE",
+                        "name": "Touch of Corruption (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "cM137DAlBX1LcWAX": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "untyped"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cM137DAlBX1LcWAX": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
                 },
                 "publication": {
                     "license": "OGL",
@@ -180,39 +207,23 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "touch-of-corruption",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 willing undead creature or 1 living creature"
                 },
                 "time": {
                     "value": "1"
                 },
-                "traditions": {
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
                         "champion",
-                        "void",
-                        "necromancy"
+                        "focus",
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -266,9 +277,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -374,9 +382,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -451,7 +456,7 @@
                 "description": {
                     "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
                 },
-                "dexCap": 0,
+                "dexCap": null,
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
@@ -474,10 +479,6 @@
                     "grade": "standard",
                     "type": "adamantine"
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 2
                 },
@@ -516,7 +517,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "bulwark",
                         "invested",
                         "magical"
@@ -543,14 +543,11 @@
             "sort": 600000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 20, HP 160, and BT 80.</p>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -559,7 +556,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 20,
                 "hp": {
                     "max": 160,
@@ -572,28 +568,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 40000
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -601,19 +579,28 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "sturdy-shield-supreme",
-                "speedPenalty": null,
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "magical"
                     ]
                 },
@@ -624,7 +611,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "jRpiPUidZcaGDNG3",
@@ -936,7 +923,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Seldeg</p>\n<hr />\n<p><strong>Effect</strong> Seldeg puts an impertinent foe who dared harm him in their proper place. He commands the enemy to kneel in obedience. If they refuse, they must pay the price in pain and anguish. The triggering creature must choose one of the following options: the enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action, or the enemy refuses and takes @Damage[5d6[mental]] damage. In addition, Seldeg's Strikes against the triggering creature deal an additional 3 damage until the end of his next turn. Seldeg chooses whether the additional damage is evil or negative each time he uses this reaction.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Seldeg</p>\n<hr />\n<p><strong>Effect</strong> Seldeg puts an impertinent foe who dared harm him in their proper place. He commands the enemy to kneel in obedience. If they refuse, they must pay the price in pain and anguish. The triggering creature must choose one of the following options: the enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action, or the enemy refuses and takes @Damage[5d6[mental]] damage. In addition, Seldeg's Strikes against the triggering creature deal an additional 3 damage until the end of his next turn. Seldeg chooses whether the additional damage is spirit or void each time he uses this reaction.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -953,8 +940,8 @@
                         "option": "iron-command",
                         "suboptions": [
                             {
-                                "label": "PF2E.TraitEvil",
-                                "value": "evil"
+                                "label": "PF2E.TraitSpirit",
+                                "value": "spirit"
                             },
                             {
                                 "label": "PF2E.TraitVoid",
@@ -1004,7 +991,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/br 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>), transporting it to the Positive Energy Plane, or throwing it into the heart of a volcano.</p>"
+                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/br 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>), transporting it to the Forge of Creation, or throwing it into the heart of a volcano.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1019,8 +1006,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divine",
-                        "necromancy"
+                        "divine"
                     ]
                 },
                 "trigger": {
@@ -1051,7 +1037,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>When a creature in the aura uses a positive spell or ability, the graveknight automatically attempts to counteract it, with a counteract modifier of [[/r 1d20+27 #Counteract]]{+27}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>When a creature in the aura uses a vitality spell or ability, the graveknight automatically attempts to counteract it, with a counteract modifier of [[/r 1d20+27 #Counteract]]{+27}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1067,10 +1053,7 @@
                         "radius": 30,
                         "slug": "sacrilegious-aura",
                         "traits": [
-                            "abjuration",
-                            "aura",
-                            "divine",
-                            "evil"
+                            "divine"
                         ]
                     }
                 ],
@@ -1078,7 +1061,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "aura",
                         "divine",
                         "evil"
@@ -1156,7 +1138,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Seldeg unleashes a @Template[type:cone|distance:30] of fire. Creatures in the area take @Damage[9d12[fire]] damage (@Check[type:reflex|dc:35|basic:true]). Seldeg can use this ability once every [[/r 1d4 #Recharge Devastating Blast]]{1d4 rounds}.</p>"
+                    "value": "<p>Seldeg unleashes a @Template[type:cone|distance:30] of fire. Creatures in the area take @Damage[9d12[fire]] damage (@Check[type:reflex|dc:35|basic:true]). Seldeg can use this ability once every [[/br 1d4 #Recharge Devastating Blast]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1172,7 +1154,6 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "evocation",
                         "fire"
                     ]
                 },
@@ -1220,8 +1201,7 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "curse",
-                        "necromancy"
+                        "curse"
                     ]
                 },
                 "trigger": {
@@ -1252,7 +1232,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>HP 130; AC 39, Fort +28, Ref +25, Will +22</p>\n<hr />\n<p>Seldeg summons a supernatural mount as per <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Steed]</em> (8th level). Unlike phantom steed, the steed's AC and saving throw bonuses are all 4 levels lower than Seldeg's, and the steed has one-third of Seldeg's Hit Points (rounded down). If the steed is destroyed, Seldeg must wait 1 hour before using this ability again.</p>"
+                    "value": "<p>HP 130; AC 39, Fort +28, Ref +25, Will +22</p>\n<hr />\n<p>Seldeg summons a supernatural mount as per <em>@UUID[Compendium.pf2e.spells-srd.Item.Marvelous Mount]</em> (8th level). Unlike phantom steed, the steed's AC and saving throw bonuses are all 4 levels lower than Seldeg's, and the steed has one-third of Seldeg's Hit Points (rounded down). If the steed is destroyed, Seldeg must wait 1 hour before using this ability again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1267,8 +1247,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "arcane",
-                        "conjuration"
+                        "arcane"
                     ]
                 },
                 "trigger": {
@@ -1590,7 +1569,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing, rejuvenation",
+                "details": "void healing, rejuvenation",
                 "max": 390,
                 "temp": 0,
                 "value": 390
@@ -1627,11 +1606,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 17
             },
@@ -1668,9 +1643,9 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "abyssal",
+                    "chthonian",
                     "common",
-                    "infernal",
+                    "diabolic",
                     "kelish",
                     "necril",
                     "orcish",
@@ -1685,7 +1660,10 @@
                 "value": "med"
             },
             "value": [
-                "undead"
+                "evil",
+                "lawful",
+                "undead",
+                "unholy"
             ]
         }
     },

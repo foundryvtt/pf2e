@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
-import { compact, isObject } from "remeda";
+import * as R from "remeda";
 import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
 import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
 import systemJSON from "../../static/system.json" assert { type: "json" };
@@ -34,14 +34,14 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
         if (this.#embeddedKey) {
             this.#embeddedDb = this.sublevel(
                 `${this.#dbkey}.${this.#embeddedKey}`,
-                dbOptions
+                dbOptions,
             ) as unknown as Sublevel<EmbeddedEntry>;
         }
     }
 
     async createPack(docSources: DBEntry[], folders: DBFolder[]): Promise<void> {
         const isDoc = (source: unknown): source is EmbeddedEntry => {
-            return isObject(source) && "_id" in source;
+            return R.isObject(source) && "_id" in source;
         };
         const docBatch = this.#documentDb.batch();
         const embeddedBatch = this.#embeddedDb?.batch();
@@ -71,6 +71,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             }
             await folderBatch.write();
         }
+
         await this.close();
     }
 
@@ -80,26 +81,34 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             const embeddedKey = this.#embeddedKey;
             if (embeddedKey && source[embeddedKey] && this.#embeddedDb) {
                 const embeddedDocs = await this.#embeddedDb.getMany(
-                    source[embeddedKey]?.map((embeddedId) => `${docId}.${embeddedId}`) ?? []
+                    source[embeddedKey]?.map((embeddedId) => `${docId}.${embeddedId}`) ?? [],
                 );
-                source[embeddedKey] = compact(embeddedDocs);
+                source[embeddedKey] = R.compact(embeddedDocs);
             }
             packSources.push(source as PackEntry);
         }
+
         const folders: DBFolder[] = [];
         for await (const [_key, folder] of this.#foldersDb.iterator()) {
             folders.push(folder);
         }
         await this.close();
 
-        return { packSources, folders };
+        return {
+            packSources,
+            folders: R.sortBy(
+                folders,
+                (f) => f.sort,
+                (f) => f.name,
+            ),
+        };
     }
 
     #getDBKeys(packName: string): { dbKey: DBKey; embeddedKey: EmbeddedKey | null } {
         const metadata = systemJSON.packs.find((p) => p.path.endsWith(packName));
         if (!metadata) {
             throw PackError(
-                `Error generating dbKeys: Compendium ${packName} has no metadata in the local system.json file.`
+                `Error generating dbKeys: Compendium ${packName} has no metadata in the local system.json file.`,
             );
         }
 
@@ -171,4 +180,4 @@ interface LevelDatabaseOptions<T> {
     dbOptions?: DatabaseOptions<string, T>;
 }
 
-export { type DBFolder, LevelDatabase };
+export { LevelDatabase, type DBFolder };

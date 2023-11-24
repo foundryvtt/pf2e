@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
 import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { EquippedData } from "@item/physical/data.ts";
@@ -22,7 +22,7 @@ export class Migration718CarryType extends MigrationBase {
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
         } else if (itemData.type === "armor") {
-            const { category } = itemData.system;
+            const category: string = itemData.system.category;
             systemData.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
         } else if (itemData.type === "equipment" && systemData.slug?.startsWith("clothing-")) {
             // Basic adventurer's gear clothing
@@ -51,7 +51,7 @@ export class Migration718CarryType extends MigrationBase {
         const containerId = itemData.system.containerId ?? { value: null };
         if (containerId instanceof Object && containerId.value) {
             const inStowingContainer = actor.items.some(
-                (i) => i.type === "backpack" && i.system.stowing && i._id === containerId.value
+                (i) => i.type === "backpack" && i.system.stowing && i._id === containerId.value,
             );
 
             if (!inStowingContainer) {

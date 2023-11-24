@@ -38,9 +38,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 4
@@ -96,7 +93,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>This thin, black liquid imparts a bone-deep chill while rapidly repairing an undead creature's physical or spiritual form. When you dash oil of unlife onto an undead creature, or a living creature with negative healing, the oil absorbs quickly into its body, and the creature regains [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}. You can pour oil of unlife on an incorporeal undead; in this case, the creature absorbs the oil into itself.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>This thin, black liquid imparts a bone-deep chill while rapidly repairing an undead creature's physical or spiritual form. When you dash oil of unlife onto an undead creature, or a living creature with void healing, the oil absorbs quickly into its body, and the creature regains [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}. You can pour oil of unlife on an incorporeal undead; in this case, the creature absorbs the oil into itself.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -116,9 +113,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -140,7 +134,6 @@
                     "value": [
                         "consumable",
                         "magical",
-                        "necromancy",
                         "oil",
                         "void"
                     ]
@@ -181,7 +174,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Animate Dead]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Undead]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -200,9 +193,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -229,32 +219,19 @@
                     "name": "Animate Dead",
                     "sort": 0,
                     "system": {
-                        "ability": {
-                            "value": ""
-                        },
                         "area": null,
-                        "category": {
-                            "value": "spell"
-                        },
-                        "components": {
-                            "material": true,
-                            "somatic": true,
-                            "verbal": true
-                        },
                         "cost": {
                             "value": ""
                         },
-                        "damage": {
-                            "value": {}
-                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": null,
                         "description": {
                             "value": "<p>Your magic dredges up a corpse or skeleton and fills it with necromantic life, and you force the dead to fight at your command. You summon a common creature that has the undead trait and whose level is -1; this creature gains the summoned trait. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1.</p>\n<p><strong>Heightened (3rd)</strong> Level 2.</p>\n<p><strong>Heightened (4th)</strong> Level 3.</p>\n<p><strong>Heightened (5th)</strong> Level 5.</p>\n<p><strong>Heightened (6th)</strong> Level 7.</p>\n<p><strong>Heightened (7th)</strong> Level 9.</p>\n<p><strong>Heightened (8th)</strong> Level 11.</p>\n<p><strong>Heightened (9th)</strong> Level 13.</p>\n<p><strong>Heightened (10th)</strong> Level 15.</p>"
                         },
                         "duration": {
+                            "sustained": true,
                             "value": "sustained up to 1 minute"
-                        },
-                        "hasCounteractCheck": {
-                            "value": false
                         },
                         "level": {
                             "value": 1
@@ -262,15 +239,6 @@
                         "location": {
                             "heightenedLevel": 5,
                             "value": null
-                        },
-                        "materials": {
-                            "value": ""
-                        },
-                        "prepared": {
-                            "value": false
-                        },
-                        "primarycheck": {
-                            "value": ""
                         },
                         "publication": {
                             "license": "OGL",
@@ -280,41 +248,25 @@
                         "range": {
                             "value": "30 feet"
                         },
+                        "requirements": "",
                         "rules": [],
-                        "save": {
-                            "basic": "",
-                            "value": ""
-                        },
-                        "secondarycasters": {
-                            "value": ""
-                        },
-                        "secondarycheck": {
-                            "value": ""
-                        },
                         "slug": "animate-dead",
-                        "spellType": {
-                            "value": "utility"
-                        },
-                        "sustained": {
-                            "value": false
-                        },
                         "target": {
                             "value": ""
                         },
                         "time": {
                             "value": "3"
                         },
-                        "traditions": {
-                            "value": [
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
                                 "arcane",
                                 "divine",
                                 "occult"
-                            ]
-                        },
-                        "traits": {
-                            "rarity": "common",
+                            ],
                             "value": [
-                                "necromancy"
+                                "concentrate",
+                                "manipulate"
                             ]
                         }
                     },
@@ -606,7 +558,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -649,7 +600,6 @@
                     "rarity": "common",
                     "value": [
                         "incapacitation",
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -845,7 +795,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 90,
                 "temp": 0,
                 "value": 90
@@ -879,11 +829,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LE"
-            },
             "blurb": "Variant female kurobozu",
-            "creatureType": "",
             "level": {
                 "value": 7
             },
@@ -930,7 +876,10 @@
                 "value": "med"
             },
             "value": [
-                "undead"
+                "evil",
+                "lawful",
+                "undead",
+                "unholy"
             ]
         }
     },

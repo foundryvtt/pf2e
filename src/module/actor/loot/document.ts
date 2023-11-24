@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -62,7 +62,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         item: ItemPF2e<ActorPF2e>,
         quantity: number,
         containerId?: string,
-        newStack = false
+        newStack = false,
     ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.isOwner && targetActor.isOwner)) {
@@ -94,8 +94,8 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const promises = scenesAndTokens.map(([scene, tokenDocs]) =>
             scene.updateEmbeddedDocuments(
                 "Token",
-                tokenDocs.map((tokenDoc) => ({ _id: tokenDoc.id, hidden: hiddenStatus }))
-            )
+                tokenDocs.map((tokenDoc) => ({ _id: tokenDoc.id, hidden: hiddenStatus })),
+            ),
         );
         await Promise.allSettled(promises);
     }
@@ -113,7 +113,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     protected override _onCreate(
         data: LootSource,
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
@@ -124,7 +124,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
@@ -138,7 +138,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         result: ActiveEffectPF2e<this>["_source"][] | ItemPF2e<this>["_source"][],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
@@ -152,7 +152,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();

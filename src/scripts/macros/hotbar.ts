@@ -62,7 +62,7 @@ export async function createActionMacro({
             return {
                 name: `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`,
                 command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}",  type: "strike", itemId: "${action.item.id}", slug: "${action.slug}" })`,
-                img: action.imageUrl,
+                img: action.item.img,
             };
         }
         return null;
@@ -79,7 +79,7 @@ export async function createActionMacro({
                 img: data.img,
                 flags: { pf2e: { actionMacro: true } },
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
@@ -170,7 +170,7 @@ export async function createSkillMacro(
     skill: SkillAbbreviation,
     skillName: string,
     actorId: string,
-    slot: number
+    slot: number,
 ): Promise<void> {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
@@ -192,7 +192,7 @@ if (a) {
                 img: "icons/svg/d20-grey.svg",
                 flags: { pf2e: { skillMacro: true } },
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
@@ -204,9 +204,7 @@ export async function createToggleEffectMacro(effect: ConditionPF2e | EffectPF2e
         return;
     }
 
-    const command = `
-const actors = Array.from(new Set(canvas.tokens.controlled.flatMap((token) => token.actor ?? [])));
-if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+    const command = `const actors = game.user.getActiveTokens().flatMap((t) => t.actor ?? []);
 if (actors.length === 0) {
     return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }
@@ -242,7 +240,7 @@ if (item?.type === "condition") {
                 type: "script",
                 img: effect.img,
             },
-            { renderSheet: false }
+            { renderSheet: false },
         ));
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }

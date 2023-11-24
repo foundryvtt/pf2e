@@ -1,0 +1,55 @@
+{
+    "_id": "6ArAZeZyYSNLI0X5",
+    "img": "systems/pf2e/icons/spells/positive-luminance.webp",
+    "name": "Spell Effect: Vital Luminance",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You glow with bright light in a 30-foot emanation (and dim light to the next 30 feet).</p>\n<p>If an undead creature damages you with an attack or spell while it's within the area of your light, that creature takes vitality damage equal to half your luminance reservoir value. It takes this damage only the first time it damages you in a round. (@Damage[(0.5 * @item.badge.value * @item.level)[vitality]])</p>\n<p>You can Dismiss this Spell. When you do, you can target a creature within your light and direct the vitality energy into it. The target must be a willing living creature or an undead creature. This heals a living target or damages an undead target by an amount equal to your luminance reservoir's value. ([[/r (@item.badge.value * @item.level)[healing]]]{Healing})</p>\n<hr />\n<p><em>Note: The reservoir value is the effect level times the badge value of this effect. The effect level will be set automatically when casting the spell.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.3,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": 30,
+                    "color": "#dfbc0c",
+                    "dim": 60
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

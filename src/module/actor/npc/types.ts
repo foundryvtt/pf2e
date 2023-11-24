@@ -1,4 +1,3 @@
-import { CreatureSheetData } from "@actor/creature/types.ts";
 import { HitPointsStatistic, PerceptionData } from "@actor/data/base.ts";
 import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
 import type { AbilityItemPF2e, ItemPF2e } from "@item";
@@ -8,6 +7,7 @@ import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import type { NPCPF2e, NPCStrike } from "./index.ts";
+import type { CreatureSheetData } from "@actor/creature/sheet.ts";
 
 interface ActionsDetails {
     label: string;

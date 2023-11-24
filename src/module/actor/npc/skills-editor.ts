@@ -1,7 +1,7 @@
 import type { NPCPF2e } from "@actor";
 import { NPCSkillData } from "@actor/npc/data.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
-import { LoreSource } from "@item/data/index.ts";
+import { LoreSource } from "@item/base/data/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */

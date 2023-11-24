@@ -22,8 +22,8 @@ $header-height: 89px; /* Adjust height of the header */
         }
 
         [data-action="show-image"] {
-            position: absolute;
             bottom: 0.25rem;
+            position: absolute;
             right: 0.025rem;
         }
     }
@@ -32,19 +32,33 @@ $header-height: 89px; /* Adjust height of the header */
     @import "item-summary";
     @import "inventory";
 
+    a.disabled {
+        cursor: default;
+
+        &:hover {
+            text-shadow: none;
+        }
+    }
+
+    i.fa-info-circle {
+        cursor: help;
+    }
+
     .item-image {
-        display: flex;
         cursor: pointer;
-        position: relative;
+        display: flex;
+        flex: 0 0 1.5rem;
         font-size: var(--font-size-16);
-        height: 24px;
-        min-width: 24px; // Prevent long item names from reducing width
+        height: 1.5rem;
+        position: relative;
 
         &.framed {
             background-color: var(--tertiary);
+
             img {
                 border-radius: 2px;
             }
+
             &,
             i {
                 @include frame-icon;
@@ -53,31 +67,26 @@ $header-height: 89px; /* Adjust height of the header */
 
         img {
             border: none;
+            border-radius: 0;
         }
 
         i {
+            box-shadow: inset 0 0 4px rgba(black, 0.5);
+            color: var(--text-dark);
             display: none;
+            height: 100%;
             position: absolute;
             width: 100%;
-            height: 100%;
-            color: var(--text-dark);
-            box-shadow: inset 0 0 4px rgba(black, 0.5);
         }
 
         &:hover {
             i {
+                align-items: center;
                 background: #f1eee9;
                 display: flex;
                 justify-content: center;
-                align-items: center;
             }
         }
-    }
-
-    .alignment-select {
-        background-color: var(--color-bg-alignment);
-        border: 2px solid var(--color-border-trait);
-        color: var(--color-text-trait);
     }
 
     .size-select {
@@ -131,7 +140,9 @@ $header-height: 89px; /* Adjust height of the header */
 
         background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
-        background-size: auto $header-height, cover;
+        background-size:
+            auto $header-height,
+            cover;
         background-attachment: local;
         height: 100%;
 
@@ -170,13 +181,6 @@ $header-height: 89px; /* Adjust height of the header */
                 position: absolute;
                 top: 0;
                 width: 100%;
-
-                &.tab[data-tab] {
-                    display: none;
-                    &.active {
-                        display: initial;
-                    }
-                }
             }
 
             .sheet-content {
@@ -184,9 +188,14 @@ $header-height: 89px; /* Adjust height of the header */
 
                 > .tab {
                     padding: 0.6rem 0.6rem 0;
+                    display: none;
+
+                    &.active {
+                        display: initial;
+                    }
                 }
 
-                @import "spell-list";
+                @import "spell-collection";
 
                 ol.directory-list {
                     > h3,
@@ -205,7 +214,9 @@ $header-height: 89px; /* Adjust height of the header */
                         background: var(--primary);
                         border: none;
                         border-radius: 0.25em;
-                        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+                        box-shadow:
+                            inset 0 0 0 1px rgb(0 0 0 / 30%),
+                            inset 0 0 0 2px rgb(255 255 255 / 20%);
                         display: flex;
                         flex-basis: 100%;
                         flex-wrap: nowrap;
@@ -228,14 +239,10 @@ $header-height: 89px; /* Adjust height of the header */
 
                         .drag-handle {
                             cursor: move;
-                        }
-
-                        & > a {
-                            .fas,
-                            > .fa {
-                                flex-basis: 0;
-                                color: var(--text-light);
-                                margin-right: 0.25em;
+                            color: var(--text-light);
+                            flex-basis: 0;
+                            margin-right: 0.25em;
+                            i {
                                 padding-top: 0.25em;
                             }
                         }

@@ -25,7 +25,7 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
             return this.failValidation("value is not a valid image file path");
         }
         this.actor.synthetics.tokenEffectIcons.push(
-            new TokenEffect(new EffectPF2e({ type: "effect", name: this.label, img: path }))
+            new TokenEffect(new EffectPF2e({ type: "effect", name: this.label, img: path })),
         );
     }
 }

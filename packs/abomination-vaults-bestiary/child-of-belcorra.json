@@ -215,9 +215,7 @@
                         "radius": 30,
                         "slug": "breath-of-the-bog",
                         "traits": [
-                            "aura",
                             "divine",
-                            "enchantment",
                             "mental"
                         ]
                     }
@@ -228,7 +226,6 @@
                     "value": [
                         "aura",
                         "divine",
-                        "enchantment",
                         "mental"
                     ]
                 },
@@ -294,7 +291,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>"
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em> or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -312,7 +309,6 @@
                         "curse",
                         "disease",
                         "divine",
-                        "necromancy",
                         "void"
                     ]
                 },
@@ -423,7 +419,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 85,
                 "temp": 0,
                 "value": 85
@@ -474,11 +470,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "LE"
-            },
             "blurb": "Bog mummy (Pathfinder Bestiary 2 177)",
-            "creatureType": "",
             "level": {
                 "value": 5
             },
@@ -526,8 +518,11 @@
                 "value": "sm"
             },
             "value": [
+                "evil",
+                "lawful",
                 "mummy",
-                "undead"
+                "undead",
+                "unholy"
             ]
         }
     },

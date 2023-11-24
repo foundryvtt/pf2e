@@ -3,7 +3,7 @@
  * Each Drawing is a placeable object in the DrawingsLayer.
  */
 declare class Drawing<
-    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>
+    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
@@ -85,7 +85,7 @@ declare class Drawing<
         factor: number,
         previous: [number, number],
         point: [number, number],
-        next: [number, number]
+        next: [number, number],
     ): void;
 
     /** Refresh the boundary frame which outlines the Drawing shape */

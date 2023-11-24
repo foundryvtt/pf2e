@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ItemGrantDeleteAction } from "@item/data/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -93,6 +93,10 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (data.track && !data.flag) {
             throw Error("must have explicit flag set if granted item is tracked");
         }
+
+        if (data.reevaluateOnUpdate && data.predicate.length === 0) {
+            throw Error("reevaluateOnUpdate: must have non-empty predicate");
+        }
     }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
@@ -100,11 +104,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const { itemSource, pendingItems, context } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
-
-        if (this.reevaluateOnUpdate && this.predicate.length === 0) {
-            ruleSource.ignored = true;
-            return this.failValidation("`reevaluateOnUpdate` may only be used with a predicate.");
-        }
 
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
@@ -116,6 +115,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
+
         ruleSource.flag =
             typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
                 ? sluggify(ruleSource.flag, { camel: "dromedary" })
@@ -140,7 +140,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
                     item: grantedItem.name,
-                })
+                }),
             );
             return;
         }
@@ -158,6 +158,15 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
+        // Apply alterations
+        try {
+            for (const alteration of this.alterations) {
+                alteration.applyTo(grantedSource);
+            }
+        } catch (error) {
+            if (error instanceof Error) this.failValidation(error.message);
+        }
+
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor });
 
@@ -172,17 +181,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             rule.onApplyActiveEffects?.();
         }
 
-        this.#applyChoiceSelections(tempGranted);
-
-        try {
-            for (const alteration of this.alterations) {
-                alteration.applyTo(grantedSource);
-            }
-        } catch (error) {
-            if (error instanceof Error) this.failValidation(error.message);
-        }
+        this.#applyChoicePreselections(tempGranted);
 
         if (this.ignored) return;
+
+        args.tempItems.push(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
@@ -228,7 +231,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
+        await this.preCreate({ itemSource, pendingItems, ruleSource, tempItems: [], context, reevaluation: true });
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
@@ -266,11 +269,12 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         return null;
     }
 
-    #applyChoiceSelections(grantedItem: ItemPF2e<ActorPF2e>): void {
+    /** Apply preselected choices to the granted item's choices sets. */
+    #applyChoicePreselections(grantedItem: ItemPF2e<ActorPF2e>): void {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
-                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.flag === flag
+                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.flag === flag,
             );
             if (rule) {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
@@ -316,7 +320,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: ItemPF2e<ActorPF2e>,
         grantedSource: ItemSourcePF2e,
-        context: DocumentModificationContext<ActorPF2e | null>
+        context: DocumentModificationContext<ActorPF2e | null>,
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
         for (const rule of grantedItem.rules) {
@@ -359,7 +363,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 flags,
                 system: { references: { parent: { id: this.item.id } } },
             }),
-            { parent: this.actor }
+            { parent: this.actor },
         );
 
         condition.prepareSiblingData();

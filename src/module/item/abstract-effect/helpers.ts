@@ -4,7 +4,7 @@ import { DURATION_UNITS } from "./values.ts";
 
 export function calculateRemainingDuration(
     effect: AbstractEffectPF2e,
-    durationData: DurationData | { unit: "unlimited" }
+    durationData: DurationData | { unit: "unlimited" },
 ): { expired: boolean; remaining: number } {
     if (durationData.unit === "encounter") {
         const isExpired = effect.system.expired;
@@ -38,10 +38,10 @@ export function calculateRemainingDuration(
             expiry === "turn-start"
                 ? atTurnStart()
                 : expiry === "turn-end"
-                ? currentInitiative < startInitiative
-                : expiry === "round-end"
-                ? remaining <= 0 && game.time.worldTime > start
-                : false;
+                  ? currentInitiative < startInitiative
+                  : expiry === "round-end"
+                    ? remaining <= 0 && game.time.worldTime > start
+                    : false;
     }
 
     return result;

@@ -1,7 +1,8 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { MigrationBase } from "../base.ts";
+import { isObject } from "@util";
 
 /** Remove ritual spellcasting entries */
 export class Migration829RMRitualEntries extends MigrationBase {
@@ -23,6 +24,13 @@ export class Migration829RMRitualEntries extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (
+            !("category" in source.system) ||
+            !isObject<{ value: unknown }>(source.system.category) ||
+            typeof source.system.category.value !== "string"
+        ) {
+            return;
+        }
         if (source.type === "spell" && source.system.category.value === "ritual" && source.system.location) {
             source.system.location.value = null;
         }

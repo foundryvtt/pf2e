@@ -1,25 +1,26 @@
-<form class="check-modifiers-content" autocomplete="off" spellcheck="off">
+<form class="check-modifiers-content" autocomplete="off" spellcheck="off" data-tooltip-class="pf2e" data-tooltip-direction="UP">
     <div class="dialog-row header">
-        <span class="mod">{{localize "PF2E.Damage.Dialog.DiceHeader"}}</span>
+        <span class="mod">{{localize "PF2E.Roll.Dialog.Damage.DiceHeader"}}</span>
     </div>
     <div class="modifier-container dice">
         <div class="dialog-row base-damage">
-            <div class="mod">{{localize "PF2E.Damage.Dialog.BaseDamage"}}</div>
+            <div class="mod">{{localize "PF2E.Roll.Dialog.Damage.BaseDamage"}}</div>
             <div class="value">
                 {{{baseFormula}}}
             </div>
             <div class="exclude"></div>
         </div>
-        {{#each dice as |die idx|}}
-            {{#if die.show}}
-                {{> dice-row dice=die idx=idx}}
-            {{/if}}
+        {{#each overrides as |die|}}
+            {{> dice-row dice=die}}
+        {{/each}}
+        {{#each dice as |die|}}
+            {{> dice-row dice=die}}
         {{/each}}
     </div>
     <hr/>
 
     <section class="add-entry-row add-dice-panel">
-        <input type="text" class="add-dice-name" placeholder="{{localize "PF2E.Damage.Dialog.Label"}}">
+        <input type="text" class="add-dice-name" placeholder="{{localize "PF2E.Roll.Dialog.Damage.Label"}}">
         <input type="text" class="add-dice-count" placeholder="1">
         <select class="add-dice-faces">
             <option value="d4">{{localize "PF2E.DamageDieD4"}}</option>
@@ -50,22 +51,21 @@
         <span class="exclude"></span>
     </div>
     <div class="modifier-container modifiers">
-        {{#if hasVisibleModifiers}}
-            {{#each modifiers as |modifier idx|}}
-                {{#if modifier.show}}
-                    {{> modifier-row modifier=modifier idx=idx}}
-                {{/if}}
+        {{#if modifiers}}
+            {{#each modifiers as |modifier|}}
+                {{> modifier-row modifier=modifier}}
             {{/each}}
         {{else}}
             <div class="dialog-row">
-                <span class="no-mod">{{localize "PF2E.Damage.Dialog.None"}}</span>
+                <span class="no-mod">{{localize "PF2E.Roll.Dialog.Damage.None"}}</span>
             </div>
         {{/if}}
     </div>
     <hr />
 
     <section class="add-entry-row add-modifier-panel">
-        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Damage.Dialog.Label"}}>
+        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Roll.Dialog.Damage.Label"}}>
+        <input type="number" class="add-modifier-value" placeholder="+1">
         <select class="add-modifier-type">
             <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
             <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
@@ -81,53 +81,47 @@
             {{/each}}
         </select>
         <select class="add-modifier-damage-type">
-            <option value=""></option>
             {{#each damageTypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         </select>
-        <input type="number" class="add-modifier-value" placeholder="+1">
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </section>
     <hr />
 
     <div class="roll-mode-panel">
-        <span class="label">{{localize "PF2E.RollModeLabel"}}</span>
-        <select name="rollmode">
-            {{#select rollMode}}
-                {{#each rollModes as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
+        <label class="roll-mode">
+            {{localize "PF2E.RollModeLabel"}}
+            <select name="rollmode">
+                {{#select rollMode}}
+                    {{#each rollModes as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </label>
+        <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">
+            {{localize "PF2E.Roll.Dialog.ShowDefault"}}
+            <input data-action="change-show-default" type="checkbox" {{checked showDamageDialogs}} />
+        </label>
     </div>
     <hr />
 
     <button type="button" class="roll">{{{formula}}}</button>
-
-    <!-- Settings Menu -->
-    <div class="hover-content" id="{{appId}}-settings">
-        <ul class="modifier-list settings-list">
-            <label class="item">
-                <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
-                <input class="quick-rolls-submit" type="checkbox" {{checked showRollDialogs}} />
-            </label>
-        </ul>
-    </div>
 </form>
 
 {{#*inline "modifier-row"}}
     <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{modifier.label}}</span>
         <span class="type"><span class="tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span></span>
-        <div class="value" title="{{modifier.typeLabel}}">
+        <div class="value" data-tooltip="{{modifier.typeLabel}}">
             <div class="modifier-type{{#if modifier.damageType}} damage color {{modifier.damageType}}{{/if}}">
                 {{numberFormat modifier.modifier decimals=0 sign=true}} {{{modifier.icon}}}
             </div>
         </div>
         <div class="exclude">
             <label class="toggle">
-                <input type="checkbox" data-modifier-index="{{idx}}" {{checked (not modifier.ignored)}} />
+                <input type="checkbox" data-modifier-index="{{modifier.idx}}" {{checked (not modifier.ignored)}} />
                 <span class="widget"></span>
             </label>
         </div>
@@ -137,14 +131,14 @@
 {{#*inline "dice-row"}}
     <div class="dialog-row{{#unless dice.enabled}} disabled{{/unless}}">
         <span class="mod">{{dice.label}}</span>
-        <div class="value" title="{{dice.typeLabel}}">
+        <div class="value" data-tooltip="{{dice.typeLabel}}">
             <span class="dice-type damage color{{#if dice.damageType}} {{dice.damageType}}{{/if}}">
                 {{dice.diceLabel}} {{{dice.icon}}}
             </span>
         </div>
         <div class="exclude">
             <label class="toggle">
-                <input type="checkbox" data-dice-index="{{idx}}" data-slug="{{dice.slug}}" {{checked (not dice.ignored)}} />
+                <input type="checkbox" data-dice-index="{{dice.idx}}" data-slug="{{dice.slug}}" {{checked (not dice.ignored)}} />
                 <span class="widget"></span>
             </label>
         </div>

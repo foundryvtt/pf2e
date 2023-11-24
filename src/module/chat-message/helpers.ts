@@ -22,14 +22,14 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFla
 
 /** Create a message with collapsed action description and button to apply an effect */
 async function createSelfEffectMessage(
-    item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>
+    item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
 ): Promise<ChatMessagePF2e | undefined> {
     if (!item.system.selfEffect) {
         throw ErrorPF2e(
             [
                 "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
                 "Support will be expanded at a later time.",
-            ].join(" ")
+            ].join(" "),
         );
     }
 
@@ -80,12 +80,9 @@ async function applyDamageFromMessage({
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
     const html = htmlQuery(ui.chat.element[0], `li.chat-message[data-message-id="${message.id}"]`);
-    const tokens =
-        html?.dataset.actorIsTarget && message.token
-            ? [message.token]
-            : canvas.tokens.controlled.filter((t) => !!t.actor).map((t) => t.document);
+    const tokens = html?.dataset.actorIsTarget && message.token ? [message.token] : game.user.getActiveTokens();
     if (tokens.length === 0) {
-        ui.notifications.error("PF2E.UI.errorTargetToken", { localize: true });
+        ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
         return;
     }
 
@@ -145,7 +142,7 @@ async function applyDamageFromMessage({
                 resolvables,
                 test: applicationRollOptions,
             }).filter(
-                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions)
+                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions),
             );
 
             for (const dice of damageDice) {
@@ -165,7 +162,7 @@ async function applyDamageFromMessage({
             }
 
             const modifiers = extractModifiers(contextClone.synthetics, [domain], { resolvables }).filter(
-                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions)
+                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions),
             );
 
             // unlikely to have any typed modifiers, but apply stacking rules just in case even though the context of
@@ -183,7 +180,7 @@ async function applyDamageFromMessage({
                 .filter(
                     (n) =>
                         (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                        n.predicate.test(applicationRollOptions)
+                        n.predicate.test(applicationRollOptions),
                 )
                 .map((note) => note.text);
         })();
@@ -210,27 +207,24 @@ interface ApplyDamageFromMessageParams {
     rollIndex?: number;
 }
 
-function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): void {
-    new Dialog({
+async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): Promise<void> {
+    const content = await renderTemplate("systems/pf2e/templates/chat/damage/adjustment-dialog.hbs");
+    const AdjustmentDialog = class extends Dialog {
+        override activateListeners($html: JQuery): void {
+            super.activateListeners($html);
+            $html[0].querySelector("input")?.focus();
+        }
+    };
+    new AdjustmentDialog({
         title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
-        content: `<form>
-                <div class="form-group">
-                    <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
-                    <input type="number" name="modifier" value="" placeholder="0">
-                </div>
-                </form>
-                <script type="text/javascript">
-                $(function () {
-                    $(".form-group input").focus();
-                });
-                </script>`,
+        content,
         buttons: {
             ok: {
-                label: "Ok",
+                label: game.i18n.localize("PF2E.OK"),
                 callback: async ($dialog: JQuery) => {
                     // In case of healing, multipler will have negative sign. The user will expect that positive
                     // modifier would increase healing value, while negative would decrease.
-                    const adjustment = (Number($dialog.find("[name=modifier]").val()) || 0) * Math.sign(multiplier);
+                    const adjustment = (Number($dialog[0].querySelector("input")?.value) || 0) * Math.sign(multiplier);
                     applyDamageFromMessage({
                         message,
                         multiplier,
@@ -239,6 +233,9 @@ function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollInd
                         rollIndex,
                     });
                 },
+            },
+            cancel: {
+                label: "Cancel",
             },
         },
         default: "ok",
@@ -250,9 +247,11 @@ function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollInd
 
 /** Toggle off the Shield Block button on a damage chat message */
 function toggleOffShieldBlock(messageId: string): void {
-    const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
-    const $button = $message.find("button.shield-block");
-    $button.removeClass("shield-activated");
+    for (const app of ["#chat-log", "#chat-popout"]) {
+        const selector = `${app} > li.chat-message[data-message-id="${messageId}"] button[data-action=shield-block]`;
+        const button = htmlQuery(document.body, selector);
+        button?.classList.remove("shield-activated");
+    }
     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
 }
 

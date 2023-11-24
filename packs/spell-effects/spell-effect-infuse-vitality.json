@@ -1,0 +1,54 @@
+{
+    "_id": "X7RD0JRxhJV9u2LC",
+    "img": "icons/weapons/swords/sword-gold-holy.webp",
+    "name": "Spell Effect: Infuse Vitality",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Infuse Vitality]</em>.</p>\n<p>Each target's unarmed and weapon Strikes deal extra vitality damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "damageType": "vitality",
+                "diceNumber": "ternary(gte(@item.level,5),3,ternary(gte(@item.level,3),2,1))",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

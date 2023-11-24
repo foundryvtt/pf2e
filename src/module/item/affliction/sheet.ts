@@ -1,6 +1,6 @@
 import { AfflictionPF2e, ConditionPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
@@ -40,11 +40,14 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         const stages: Record<string, AfflictionStageSheetData> = {};
 
         for (const [idx, [id, stage]] of Object.entries(Object.entries(this.item.system.stages))) {
-            const conditions = Object.entries(stage.conditions).reduce((result, [key, data]) => {
-                const document = ConditionManager.getCondition(data.slug);
-                result[key] = { ...data, document };
-                return result;
-            }, {} as Record<string, AfflictionConditionSheetData>);
+            const conditions = Object.entries(stage.conditions).reduce(
+                (result, [key, data]) => {
+                    const document = ConditionManager.getCondition(data.slug);
+                    result[key] = { ...data, document };
+                    return result;
+                },
+                {} as Record<string, AfflictionConditionSheetData>,
+            );
 
             const effectDocuments = await UUIDUtils.fromUUIDs(stage.effects.map((e) => e.uuid));
 
@@ -205,7 +208,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Set empty-string damage categories to `null`
         const categories = Object.keys(formData).filter((k) =>
-            /^system\.stages\.[a-z0-9]+\.damage\.[a-z0-9]+\.category$/i.test(k)
+            /^system\.stages\.[a-z0-9]+\.damage\.[a-z0-9]+\.category$/i.test(k),
         );
         for (const key of categories) {
             formData[key] ||= null;

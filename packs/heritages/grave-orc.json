@@ -9,12 +9,12 @@
             "uuid": "Compendium.pf2e.ancestries.Item.lSGWXjcbOa6O5fTx"
         },
         "description": {
-            "value": "<p>You were exposed to powerful necromantic energies that should have killed you—but you survived. Your skin is cold, clammy, and gray. You gain resistance to negative damage equal to half your level (minimum 1). You also gain a +1 circumstance bonus to saving throws against necromancy effects.</p>"
+            "value": "<p>You were exposed to powerful necromantic energies that should have killed you—but you survived. Your skin is cold, clammy, and gray. You gain resistance to void damage equal to half your level (minimum 1). You also gain a +1 circumstance bonus to saving throws against effects with the death or void trait.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -25,7 +25,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "necromancy"
+                    {
+                        "or": [
+                            "death",
+                            "void"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",

@@ -4,46 +4,39 @@
     "name": "Percussive Impact",
     "system": {
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "1kBezKdL9iXSMfzn": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "4d8"
-                },
-                "rcaspoacHgRYSM72": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "splash",
-                        "value": "sonic"
-                    },
-                    "value": "1d4"
-                }
+            "1kBezKdL9iXSMfzn": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
+            },
+            "rcaspoacHgRYSM72": {
+                "applyMod": false,
+                "category": "splash",
+                "formula": "1d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "sonic"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You lob a compressed ball of sound at a foe. The ball explodes on impact, unleashing a powerful blast of sound. Make a spell attack roll. If you hit, you deal @Damage[4d8[bludgeoning]] damage plus [[/r (1d4[splash])[sonic]]]{1d4 sonic splash damage}. On a critical success, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The bludgeoning damages increases by 4d8, the sonic splash damage increases by 1d4, and the duration of the deafened condition increases by 2 rounds.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -56,9 +49,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -67,35 +57,26 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
                 "arcane",
                 "divine",
                 "occult"
-            ]
-        },
-        "traits": {
-            "rarity": "uncommon",
+            ],
             "value": [
-                "sonic",
-                "evocation"
+                "attack",
+                "concentrate",
+                "manipulate",
+                "sonic"
             ]
         }
     },

@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { CoinDenomination } from "@item/physical/types.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
@@ -26,7 +26,7 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     override async getChatData(
         this: TreasurePF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData({});

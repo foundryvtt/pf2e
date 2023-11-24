@@ -57,7 +57,7 @@ const SKILL_DICTIONARY = {
 const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
 
 const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
-    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
+    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation]),
 );
 
 const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);

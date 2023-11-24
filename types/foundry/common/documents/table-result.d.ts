@@ -18,7 +18,7 @@ export default class BaseTableResult<TParent extends documents.BaseRollTable | n
     override testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

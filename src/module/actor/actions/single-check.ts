@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
+import { DC_SLUGS } from "@actor/values.ts";
 import type { ItemPF2e } from "@item";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { ActionMacroHelpers } from "@system/action-macros/index.ts";
@@ -12,7 +13,7 @@ import {
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { getActionGlyph } from "@util";
+import { getActionGlyph, isObject, setHasElement } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
 
@@ -88,31 +89,36 @@ class SingleCheckActionVariant extends BaseActionVariant {
     }
 
     override async use(options: Partial<SingleCheckActionUseOptions> = {}): Promise<CheckResultCallback[]> {
-        const modifiers = this.modifiers.map((raw) => new ModifierPF2e(raw)).concat(options?.modifiers ?? []);
-        if (options?.multipleAttackPenalty) {
+        const modifiers = this.modifiers.map((raw) => new ModifierPF2e(raw)).concat(options.modifiers ?? []);
+        if (options.multipleAttackPenalty) {
             const map = options.multipleAttackPenalty;
             const modifier = map > 0 ? Math.min(2, map) * -5 : map;
             modifiers.push(new ModifierPF2e({ label: "PF2E.MultipleAttackPenalty", modifier }));
         }
         const notes = (this.notes as SingleCheckActionRollNoteData[])
-            .concat(options?.notes ?? [])
+            .concat(options.notes ?? [])
             .map(toRollNoteSource)
             .map((note) => new RollNotePF2e(note));
-        const rollOptions = this.rollOptions.concat(options?.rollOptions ?? []);
-        const slug = options?.statistic?.trim() || this.statistic;
+        const rollOptions = this.rollOptions.concat(options.rollOptions ?? []);
+        const slug = options.statistic?.trim() || this.statistic;
         const title = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
         const results: CheckResultCallback[] = [];
+        const difficultyClass =
+            setHasElement(DC_SLUGS, options.difficultyClass) ||
+            (isObject<{ value: unknown }>(options.difficultyClass) && typeof options.difficultyClass.value === "number")
+                ? options.difficultyClass
+                : this.difficultyClass;
 
         await ActionMacroHelpers.simpleRollActionCheck({
-            actors: options?.actors,
+            actors: options.actors,
             title,
             actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
             callback: (result) => results.push(result),
             checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
-            difficultyClass: this.difficultyClass,
-            event: options?.event,
+            difficultyClass,
+            event: options.event,
             extraNotes: (selector) =>
                 notes.map((note) => {
                     note.selector ||= selector; // treat empty selectors as always applicable to this check
@@ -126,7 +132,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
     protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         return ActionMacroHelpers.defaultCheckContext(opts, data);
     }

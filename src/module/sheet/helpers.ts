@@ -4,7 +4,7 @@ import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 function createSheetOptions(
     options: Record<string, string>,
     selections: SheetSelections = [],
-    { selected = false } = {}
+    { selected = false } = {},
 ): SheetOptions {
     const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
         const selectionList = Array.isArray(selections) ? selections : selections.value;
@@ -30,9 +30,9 @@ function createSheetTags(options: Record<string, string>, selections: SheetSelec
 
 function createTagifyTraits(
     traits: Iterable<string>,
-    { sourceTraits, record }: TagifyTraitOptions
+    { sourceTraits, record }: TagifyTraitOptions,
 ): { id: string; value: string; readonly: boolean }[] {
-    const sourceSet = new Set(sourceTraits);
+    const sourceSet = new Set(sourceTraits ?? traits);
     const traitSlugs = [...traits];
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
     return traitSlugs
@@ -107,7 +107,7 @@ type SheetOptions = Record<string, SheetOption>;
 type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: never });
 
 interface TagifyTraitOptions {
-    sourceTraits: Iterable<string>;
+    sourceTraits?: Iterable<string>;
     record: Record<string, string>;
 }
 

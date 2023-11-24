@@ -3,39 +3,29 @@
     "img": "systems/pf2e/icons/spells/delay-affliction.webp",
     "name": "Delay Affliction",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": true,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "vitality"
-                    },
-                    "value": "3d8"
-                }
+            "0": {
+                "category": null,
+                "formula": "3d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "vitality"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>With a surge of healing energy, you push back against an affliction threatening the target and grant a small amount of healing. The target recovers 3d8 Hit Points.</p>\n<p>You attempt to counteract any one affliction you are aware the target has, suspending its effects for 1 hour on a success rather than removing it.</p>\n<p>The target is then temporarily immune to<em> delay affliction</em> for 1 day. You don't need to have identified the name of the specific affliction, but you do need to be aware of it; for instance, you couldn't delay an ingested poison during its onset period unless you were aware of the poison.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The target recovers an additional 1d8 Hit Points and you can attempt to suspend an additional affliction.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": true
         },
         "heightening": {
             "damage": {
@@ -47,15 +37,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -64,41 +45,26 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
-                "healing",
-                "oracle",
-                "vitality",
+                "attack",
+                "concentrate",
                 "cursebound",
-                "necromancy"
+                "focus",
+                "healing",
+                "manipulate",
+                "oracle",
+                "vitality"
             ]
         }
     },

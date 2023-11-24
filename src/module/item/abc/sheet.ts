@@ -4,7 +4,7 @@ import { ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
 abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
@@ -105,7 +105,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
             if (itemUUID) {
                 htmlQuery(li, "a.name")?.addEventListener("click", () =>
-                    fromUuid(itemUUID).then((i) => i?.sheet.render(true))
+                    fromUuid(itemUUID).then((i) => i?.sheet.render(true)),
                 );
             }
 

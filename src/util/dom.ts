@@ -18,19 +18,19 @@ type MaybeHTML = Maybe<Document | Element | EventTarget>;
  */
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    options?: CreateHTMLElementOptionsWithChildren
+    options?: CreateHTMLElementOptionsWithChildren,
 ): HTMLElementTagNameMap[K];
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    options?: CreateHTMLElementOptionsWithInnerHTML
+    options?: CreateHTMLElementOptionsWithInnerHTML,
 ): HTMLElementTagNameMap[K];
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    options?: CreateHTMLElementOptionsWithNeither
+    options?: CreateHTMLElementOptionsWithNeither,
 ): HTMLElementTagNameMap[K];
 function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     nodeName: K,
-    { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {}
+    { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {},
 ): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
     if (classes.length > 0) element.classList.add(...classes);
@@ -75,7 +75,7 @@ interface CreateHTMLElementOptionsWithNeither extends CreateHTMLElementOptions {
 
 function htmlQuery<K extends keyof HTMLElementTagNameMap>(
     parent: MaybeHTML,
-    selectors: K
+    selectors: K,
 ): HTMLElementTagNameMap[K] | null;
 function htmlQuery(parent: MaybeHTML, selectors: string): HTMLElement | null;
 function htmlQuery<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E | null;
@@ -86,7 +86,7 @@ function htmlQuery(parent: MaybeHTML, selectors: string): HTMLElement | null {
 
 function htmlQueryAll<K extends keyof HTMLElementTagNameMap>(
     parent: MaybeHTML,
-    selectors: K
+    selectors: K,
 ): HTMLElementTagNameMap[K][];
 function htmlQueryAll(parent: MaybeHTML, selectors: string): HTMLElement[];
 function htmlQueryAll<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E[];
@@ -97,7 +97,7 @@ function htmlQueryAll(parent: MaybeHTML, selectors: string): HTMLElement[] {
 
 function htmlClosest<K extends keyof HTMLElementTagNameMap>(
     parent: MaybeHTML,
-    selectors: K
+    selectors: K,
 ): HTMLElementTagNameMap[K] | null;
 function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null;
 function htmlClosest<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E | null;

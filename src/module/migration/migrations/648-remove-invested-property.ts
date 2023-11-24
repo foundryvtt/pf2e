@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PhysicalSystemSource } from "@item/physical/data.ts";
 import { MigrationBase } from "../base.ts";
 

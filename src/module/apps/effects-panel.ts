@@ -62,7 +62,7 @@ export class EffectsPanel extends Application {
                         : this.#getRemainingDurationLabel(
                               duration.remaining,
                               system.start.initiative ?? 0,
-                              system.duration.expiry
+                              system.duration.expiry,
                           );
                 }
                 return effect;
@@ -227,7 +227,7 @@ export class EffectsPanel extends Application {
                 const actor = "actor" in effect ? effect.actor : null;
                 const rollData = { actor, item: effect };
                 return await TextEditor.enrichHTML(effect.description, { async: true, rollData });
-            })
+            }),
         );
     }
 }

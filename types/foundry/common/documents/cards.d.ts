@@ -27,7 +27,7 @@ export default class BaseCards extends abstract.Document<null, CardsSchema> {
     override testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

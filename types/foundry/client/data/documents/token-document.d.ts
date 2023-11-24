@@ -4,7 +4,7 @@ declare global {
     class TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
         constructor(
             data: PreCreate<foundry.documents.TokenSource>,
-            context?: TokenDocumentConstructionContext<TParent, Actor<TokenDocument> | null>
+            context?: TokenDocumentConstructionContext<TParent, Actor<TokenDocument> | null>,
         );
 
         /** An array of detection modes which are available to this Token */
@@ -47,12 +47,12 @@ declare global {
 
         override clone(
             data: DeepPartial<this["_source"]> | undefined,
-            options: { save: true; keepId?: boolean }
+            options: { save: true; keepId?: boolean },
         ): Promise<this>;
         override clone(data?: DeepPartial<this["_source"]>, options?: { save?: false; keepId?: boolean }): this;
         override clone(
             data?: DeepPartial<this["_source"]>,
-            options?: { save?: boolean; keepId?: boolean }
+            options?: { save?: boolean; keepId?: boolean },
         ): this | Promise<this>;
 
         /**
@@ -91,7 +91,7 @@ declare global {
          */
         modifyActorDocument(
             update: Record<string, unknown>,
-            options: DocumentModificationContext<this>
+            options: DocumentModificationContext<this>,
         ): Promise<Actor<this>[]>;
 
         /* -------------------------------------------- */
@@ -101,13 +101,13 @@ declare global {
         protected override _preUpdate(
             data: Record<string, unknown>,
             options: TokenUpdateContext<TParent>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<TParent>,
-            userId: string
+            userId: string,
         ): void;
 
         /**
@@ -120,7 +120,7 @@ declare global {
             collection: string,
             data: object[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preUpdateDescendantDocuments(
@@ -128,7 +128,7 @@ declare global {
             collection: string,
             changes: Record<string, unknown>[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preDeleteDescendantDocuments(
@@ -136,7 +136,7 @@ declare global {
             collection: string,
             ids: string[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onCreateDescendantDocuments(
@@ -145,7 +145,7 @@ declare global {
             documents: ClientDocument[],
             data: object[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -154,7 +154,7 @@ declare global {
             documents: ClientDocument[],
             changes: Record<string, unknown>[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDeleteDescendantDocuments(
@@ -163,7 +163,7 @@ declare global {
             documents: ClientDocument[],
             ids: string[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /**
@@ -172,7 +172,7 @@ declare global {
          */
         _onUpdateBaseActor(
             update?: Record<string, unknown>,
-            options?: DocumentModificationContext<ClientDocument | null>
+            options?: DocumentModificationContext<ClientDocument | null>,
         ): void;
 
         /**
@@ -186,7 +186,7 @@ declare global {
         static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;
 
         /** Inspect the Actor data model and identify the set of attributes which could be used for a Token Bar */
-        static getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription;
+        static getTrackedAttributeChoices(attributes?: TrackedAttributesDescription): TrackedAttributesDescription;
     }
 
     interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {

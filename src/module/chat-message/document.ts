@@ -10,10 +10,10 @@ import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
-import { ChatInspectRoll } from "./chat-inspect-roll.ts";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
+import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -105,18 +105,19 @@ class ChatMessagePF2e extends ChatMessage {
         if (strike?.item) return strike.item;
 
         const item = (() => {
-            const domItem = this.getItemFromDOM();
-            if (domItem) return domItem;
+            const { actor } = this;
+            const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
+            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
             const origin = this.flags.pf2e?.origin ?? null;
             const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            return this.actor?.items.get(match?.[1] ?? "") ?? null;
+            return actor?.items.get(match?.[1] ?? "") ?? null;
         })();
         if (!item) return null;
 
         // Assign spellcasting entry, currently only used for trick magic item
         const { tradition } = this.flags.pf2e?.casting ?? {};
-        const isCharacter = item.actor.isOfType("character");
+        const isCharacter = !!item.actor?.isOfType("character");
         if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
             const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
             item.trickMagicEntry = trick;
@@ -157,28 +158,9 @@ class ChatMessagePF2e extends ChatMessage {
               }) ?? null;
     }
 
-    /** Get stringified item source from the DOM-rendering of this chat message */
-    getItemFromDOM(): ItemPF2e<ActorPF2e> | null {
-        const html = ui.chat.element[0];
-        const messageElem = htmlQuery(html, `#chat-log > li[data-message-id="${this.id}"]`);
-        const sourceString = htmlQuery(messageElem, ".pf2e.item-card")?.dataset.embeddedItem ?? "null";
-        try {
-            const itemSource = JSON.parse(sourceString);
-            const item = itemSource
-                ? new ItemProxyPF2e(itemSource, {
-                      parent: this.actor,
-                      fromConsumable: this.flags?.pf2e?.isFromConsumable,
-                  })
-                : null;
-            return item as ItemPF2e<ActorPF2e> | null;
-        } catch (_error) {
-            return null;
-        }
-    }
-
     async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
-        new ChatInspectRoll(this).render(true);
+        new RollInspector(this).render(true);
     }
 
     /** Get the token of the speaker if possible */
@@ -295,7 +277,7 @@ class ChatMessagePF2e extends ChatMessage {
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<null>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
 

@@ -119,43 +119,31 @@
             "name": "Gentle Repose",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>The targeted corpse doesn't decay, nor can it be transformed into an undead. If the corpse is subject to a spell that requires the corpse to have died within a certain amount of time (for example, raise dead), do not count the duration of gentle repose against that time. This spell also prevents ordinary bugs and pests (such as maggots) from consuming the body.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell's duration is unlimited, but the spell takes one more action to cast and requires a material component and a cost (embalming fluid worth 6 gp).</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "until the next time you make your daily preparations"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "levels": {
                         "5": {
-                            "components": {
-                                "focus": false,
-                                "material": true,
-                                "somatic": true,
-                                "verbal": true
-                            },
                             "time": {
                                 "value": "3"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "manipulate"
+                                ]
                             }
                         }
                     },
@@ -168,15 +156,6 @@
                     "heightenedLevel": 2,
                     "value": "iIIyNY3zJBmroqzM"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -185,42 +164,26 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "gentle-repose",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 corpse"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
-                        "necromancy"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -237,41 +200,35 @@
             "name": "Chill Touch (Undead Only)",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": true,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "void"
-                            },
-                            "value": "1d4"
-                        }
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning void energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals void damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -286,15 +243,6 @@
                 "location": {
                     "value": "iIIyNY3zJBmroqzM"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -303,43 +251,27 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "chill-touch",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 living or undead creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
                         "cantrip",
-                        "void",
-                        "necromancy"
+                        "concentrate",
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
@@ -356,41 +288,35 @@
             "name": "Disrupt Undead",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
+                "counteraction": false,
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": true,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "vitality"
-                            },
-                            "value": "1d6"
-                        }
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "vitality"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>You lance the target with energy. You deal 1d6 positive damage plus your spellcasting ability modifier. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You lance the target with energy. You deal 2d6 vitality damage. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "heightening": {
                     "damage": {
@@ -405,15 +331,6 @@
                 "location": {
                     "value": "iIIyNY3zJBmroqzM"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -422,43 +339,26 @@
                 "range": {
                     "value": "30 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "disrupt-undead",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 undead creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
                     "value": [
-                        "vitality",
                         "cantrip",
-                        "necromancy"
+                        "concentrate",
+                        "manipulate",
+                        "vitality"
                     ]
                 }
             },
@@ -483,11 +383,11 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d6+6",
-                        "damageType": "vitality"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>The Strikes deals damage that's either @Damage[(2d6+6)[bludgeoning]]{bludgeoning} or @Damage[(2d6+6)[vitality]]{positive} - whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The Strike deals damage that's either bludgeoning or vitality - whichever deals more damage to the target creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -530,11 +430,11 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d8+6",
-                        "damageType": "vitality"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>The Strikes deals damage that's either @Damage[(2d8+6)[bludgeoning]]{bludgeoning} or @Damage[(2d8+6)[vitality]]{positive} - whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The Strike deals damage that's either bludgeoning or vitality - whichever deals more damage to the target creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -696,7 +596,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The eunemvro's Strikes deal damage that's either bludgeoning or positive - whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The eunemvro's Strikes deal damage that's either bludgeoning or vitality - whichever deals more damage to the target creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -706,7 +606,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "blessed-strikes",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "vitality"
+                        },
+                        "predicate": [
+                            "blessed-strikes:vitality"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -735,7 +663,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The eunemvro isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]</p>\n<hr />\n<p><strong>Effect</strong> The eunemvro channels from their soul a blast of searing positive energy, bathing their enemies in a wave of blinding light and cosmic power.</p>\n<p>The eunemvro creates either a @Template[type:cone|distance:10] or a @Template[type:line|distance:30], dealing @Damage[6d8[vitality]] damage (@Check[type:fortitude|dc:22|basic:true] save). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for [[/br 1d4 #Duration Blinded]]{1d4 rounds}.</p>\n<p>After using this ability, the eunemvro becomes fatigued.</p>"
+                    "value": "<p><strong>Requirements</strong> The eunemvro isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]</p>\n<hr />\n<p><strong>Effect</strong> The eunemvro channels from their soul a blast of searing vitality energy, bathing their enemies in a wave of blinding light and cosmic power.</p>\n<p>The eunemvro creates either a @Template[type:cone|distance:10] or a @Template[type:line|distance:30], dealing @Damage[6d8[vitality]] damage (@Check[type:fortitude|dc:22|basic:true] save). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for [[/br 1d4 #Duration Blinded]]{1d4 rounds}.</p>\n<p>After using this ability, the eunemvro becomes fatigued.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -750,7 +678,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "evocation",
                         "light",
                         "occult",
                         "vitality"
@@ -860,16 +787,16 @@
             "type": "lore"
         },
         {
-            "_id": "BFDzAx17u67MnGWO",
+            "_id": "WdP7r88rTRk6Y9Lu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
+            "name": "Forge of Creation Lore",
             "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 10
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -885,16 +812,16 @@
             "type": "lore"
         },
         {
-            "_id": "WdP7r88rTRk6Y9Lu",
+            "_id": "BFDzAx17u67MnGWO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Positive Energy Plane Lore",
+            "name": "Intimidation",
             "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 12
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -1019,16 +946,12 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LN"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Eunemvros wander the Material Plane with the sole purpose of destroying undead. These mysterious beings claim to hail from the Positive Energy Plane, although they have no direct evidence of their supposedly otherworldly origins other than their unusual appearance: tall, lean humanoids with an okapi's head. If they truly hail from the Positive Energy Plane, they don't seem to have any method to return there and have made their home on the Material Plane-a home, unfortunately, infested by the unnatural living dead.</p>\n<p>Beings composed or animated by negative energy-including lowly skeletons and zombies as well as wights and ghouls-rightly fear confrontation with a eunemvro, for few other creatures possess innate abilities so perfectly suited for the eradication of such monsters with but a touch. In addition to magical abilities, eunemvros are adept martial artists whose mighty fists and feet channel the force of positive energy with every blow.</p>\n<p>Most of these solitary hunters believe mortals incapable of comprehending their cosmic mandate, though they themselves only understand this drive as a directive instilled in them by the strange powers that sent them to the Material Plane. If pressed, some eunemvro might grudgingly accept aid from those who have proven capable of slaying the undead.</p>",
+            "publicNotes": "<p>Eunemvros wander the Material Plane with the sole purpose of destroying undead. These mysterious beings claim to hail from the Forge of Creation, although they have no direct evidence of their supposedly otherworldly origins other than their unusual appearance: tall, lean humanoids with an okapi's head. If they truly hail from the Forge of Creation, they don't seem to have any method to return there and have made their home on the Material Plane-a home, unfortunately, infested by the unnatural living dead.</p>\n<p>Beings composed or animated by void energy-including lowly skeletons and zombies as well as wights and ghouls-rightly fear confrontation with a eunemvro, for few other creatures possess innate abilities so perfectly suited for the eradication of such monsters with but a touch. In addition to magical abilities, eunemvros are adept martial artists whose mighty fists and feet channel the force of vitality energy with every blow.</p>\n<p>Most of these solitary hunters believe mortals incapable of comprehending their cosmic mandate, though they themselves only understand this drive as a directive instilled in them by the strange powers that sent them to the Material Plane. If pressed, some eunemvro might grudgingly accept aid from those who have proven capable of slaying the undead.</p>",
             "publication": {
                 "license": "OGL",
                 "remaster": false,
@@ -1075,6 +998,7 @@
             },
             "value": [
                 "humanoid",
+                "lawful",
                 "vitality"
             ]
         }

@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { MigrationBase } from "../base.ts";
-import { MagicSchool, SpellSystemSource } from "@item/spell/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { SpellSystemSource } from "@item/spell/index.ts";
 import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 // Spell schools are gone as of remaster and rage of elements. Convert to trait for old spells
 export class Migration846SpellSchoolOptional extends MigrationBase {
@@ -12,7 +12,8 @@ export class Migration846SpellSchoolOptional extends MigrationBase {
 
         const system: SpellSystemSourceWithSchool = source.system;
         if (system.school) {
-            source.system.traits.value = R.uniq(R.compact([...source.system.traits.value, system.school.value]));
+            const traits: { value: string[] } = system.traits;
+            traits.value = R.uniq(R.compact([...source.system.traits.value, system.school.value]));
             system["-=school"] = null;
             delete system.school;
         }
@@ -20,6 +21,6 @@ export class Migration846SpellSchoolOptional extends MigrationBase {
 }
 
 interface SpellSystemSourceWithSchool extends SpellSystemSource {
-    school?: { value: MagicSchool };
+    school?: { value: string };
     "-=school"?: null;
 }

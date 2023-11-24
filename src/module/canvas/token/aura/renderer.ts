@@ -1,10 +1,11 @@
 import { AuraAppearanceData, AuraData } from "@actor/types.ts";
-import { ItemTrait } from "@item/data/base.ts";
+import { ItemTrait } from "@item/base/data/system.ts";
 import { TokenAuraData } from "@scene/token-document/aura/index.ts";
 import { isVideoFilePath } from "@util";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
+import { IDestroyOptions } from "pixi.js";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -30,7 +31,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     border = new PIXI.Graphics();
 
-    texture: PIXI.Texture | null = null;
+    textureContainer: PIXI.Graphics | null = null;
 
     constructor(params: AuraRendererParams) {
         super();
@@ -53,7 +54,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             bounds.x - (radiusPixels - bounds.width / 2),
             bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
-            radiusPixels * 2
+            radiusPixels * 2,
         );
     }
 
@@ -84,6 +85,14 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return this.#drawTexture();
     }
 
+    /** Reposition this aura's texture after the token has moved. */
+    repositionTexture(): void {
+        if (this.textureContainer) {
+            const { bounds, radiusPixels } = this;
+            this.textureContainer.position.set(bounds.x + radiusPixels, bounds.y + radiusPixels);
+        }
+    }
+
     /** Draw the aura's border, making sure it's only ever drawn once. */
     #drawBorder(): void {
         const data = this.appearance.border;
@@ -97,29 +106,44 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Draw the aura's texture, resizing the image/video over the area (applying adjustments to that if provided) */
     async #drawTexture(): Promise<void> {
         const data = this.appearance.texture;
-        if (!data || this.token.isPreview || this.texture) {
+        if (!data || this.token.isPreview || this.textureContainer) {
             return;
         }
 
-        const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
-        this.texture = maybeTexture instanceof PIXI.Texture ? maybeTexture : null;
-        if (!this.texture) return;
+        // Assign texture container before await so that repeated calls exit early
+        this.textureContainer = new PIXI.Graphics();
 
-        const globalVideo = isVideoFilePath(data.src) ? game.video.getVideoSource(this.texture) : null;
-        if (globalVideo) {
-            this.texture.destroy();
-            this.texture = await game.video.cloneTexture(globalVideo);
-            const video = game.video.getVideoSource(this.texture) ?? globalVideo;
-            video.playbackRate = data.playbackRate;
-            const offset = data.loop ? Math.random() * video.duration : 0;
-            game.video.play(video, { volume: 0, offset, loop: data.loop });
-        }
+        const texture = await (async (): Promise<PIXI.Texture | null> => {
+            const maybeTexture = await loadTexture(data.src, { fallback: "icons/svg/hazard.svg" });
+            if (!(maybeTexture instanceof PIXI.Texture)) return null;
 
-        const radius = data.scale * this.radiusPixels;
+            const globalVideo = isVideoFilePath(data.src) ? game.video.getVideoSource(maybeTexture) : null;
+            if (globalVideo) {
+                maybeTexture.destroy();
+                const videoTexture = await game.video.cloneTexture(globalVideo);
+                const video = game.video.getVideoSource(videoTexture) ?? globalVideo;
+                video.playbackRate = data.playbackRate;
+                const offset = data.loop ? Math.random() * video.duration : 0;
+                game.video.play(video, { volume: 0, offset, loop: data.loop });
+                return videoTexture;
+            } else {
+                return maybeTexture;
+            }
+        })();
+        if (!texture) return;
+
+        const { bounds, radiusPixels } = this;
+        const radius = data.scale * radiusPixels;
         const diameter = radius * 2;
-        const scale = { x: diameter / this.texture.width, y: diameter / this.texture.height };
+        const scale = { x: diameter / texture.width, y: diameter / texture.height };
         const matrix = new PIXI.Matrix(scale.x, undefined, undefined, scale.y, radius, radius);
-        this.beginTextureFill({ texture: this.texture, alpha: data.alpha, matrix }).drawCircle(0, 0, radius).endFill();
+        this.textureContainer
+            .beginTextureFill({ texture, alpha: data.alpha, matrix })
+            .drawCircle(0, 0, radius)
+            .endFill();
+        this.textureContainer.position.set(bounds.x + radiusPixels, bounds.y + radiusPixels);
+
+        canvas.grid.grid.addChild(this.textureContainer);
     }
 
     /** Highlight the affected grid squares of this aura and indicate the radius */
@@ -164,6 +188,15 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             .drawCircle(center.x, center.y - this.radiusPixels, 6)
             .endFill()
             .addChild(text);
+    }
+
+    override destroy(options?: boolean | IDestroyOptions): void {
+        super.destroy(options);
+
+        if (this.textureContainer) {
+            canvas.grid.grid.removeChild(this.textureContainer);
+            if (!this.textureContainer.destroyed) this.textureContainer.destroy();
+        }
     }
 }
 

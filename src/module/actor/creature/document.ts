@@ -3,13 +3,13 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
+import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isCycle } from "@item/container/helpers.ts";
-import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
+import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
@@ -21,7 +21,8 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, localizer, setHasElement } from "@util";
+import * as R from "remeda";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -33,19 +34,12 @@ import {
 } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureSensePF2e } from "./sense.ts";
-import {
-    Alignment,
-    AlignmentTrait,
-    CreatureTrait,
-    CreatureType,
-    CreatureUpdateContext,
-    GetReachParameters,
-} from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
-    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
+    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends ActorPF2e<TParent> {
     declare parties: Set<PartyPF2e>;
     /** A creature always has an AC */
@@ -57,22 +51,21 @@ abstract class CreaturePF2e<
 
     declare perception: Statistic;
 
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "affliction"];
+    }
+
     /** Types of creatures (as provided by bestiaries 1-3) of which this creature is a member */
     get creatureTypes(): CreatureType[] {
         return this.system.traits.value.filter((t): t is CreatureType => t in CONFIG.PF2E.creatureTypes).sort();
-    }
-
-    /** The creature's position on the alignment axes */
-    get alignment(): Alignment {
-        return this.system.details.alignment.value;
     }
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
     }
 
-    override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "affliction"];
+    override get hardness(): number {
+        return Math.floor(Math.abs(this.system.attributes.hardness.value)) || 0;
     }
 
     /**
@@ -121,10 +114,10 @@ abstract class CreaturePF2e<
         return this.getCondition("blinded")
             ? VisionLevels.BLINDED
             : senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")
-            ? VisionLevels.DARKVISION
-            : senseTypes.has("lowLightVision")
-            ? VisionLevels.LOWLIGHT
-            : VisionLevels.NORMAL;
+              ? VisionLevels.DARKVISION
+              : senseTypes.has("lowLightVision")
+                ? VisionLevels.LOWLIGHT
+                : VisionLevels.NORMAL;
     }
 
     get hasDarkvision(): boolean {
@@ -176,12 +169,12 @@ abstract class CreaturePF2e<
     }
 
     get wornArmor(): ArmorPF2e<this> | null {
-        return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
+        return this.itemTypes.armor.find((a) => a.isEquipped) ?? null;
     }
 
     /** Get the held shield of most use to the wielder */
-    override get heldShield(): ArmorPF2e<this> | null {
-        const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+    override get heldShield(): ShieldPF2e<this> | null {
+        const heldShields = this.itemTypes.shield.filter((s) => s.isEquipped);
         return heldShields.length === 0
             ? null
             : heldShields.slice(0, -1).reduce((bestShield, shield) => {
@@ -191,20 +184,20 @@ abstract class CreaturePF2e<
                       bestShield.acBonus > shield.acBonus
                           ? bestShield
                           : shield.acBonus > bestShield.acBonus
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
                   const withMoreHP =
                       bestShield.hitPoints.value > shield.hitPoints.value
                           ? bestShield
                           : shield.hitPoints.value > bestShield.hitPoints.value
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
                   const withBetterHardness =
                       bestShield.hardness > shield.hardness
                           ? bestShield
                           : shield.hardness > bestShield.hardness
-                          ? shield
-                          : null;
+                            ? shield
+                            : null;
 
                   return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
               }, heldShields.slice(-1)[0]);
@@ -214,22 +207,24 @@ abstract class CreaturePF2e<
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        if (slug === "perception") return this.perception;
-        if (tupleHasValue(["spell", "spell-attack"], slug)) {
-            return (
-                this.spellcasting.contents
-                    .flatMap((sc) => sc.statistic ?? [])
-                    .sort((a, b) => b.mod - a.mod)
-                    .shift() ?? null
-            );
-        }
-        if (slug === "spell-dc") {
-            return (
-                this.spellcasting.contents
-                    .flatMap((sc) => sc.statistic ?? [])
-                    .sort((a, b) => b.dc.value - a.dc.value)
-                    .shift() ?? null
-            );
+        switch (slug) {
+            case "perception":
+                return this.perception;
+            case "spell":
+            case "spell-attack":
+                return (
+                    this.spellcasting.contents
+                        .flatMap((sc) => sc.statistic ?? [])
+                        .sort((a, b) => b.mod - a.mod)
+                        .shift() ?? null
+                );
+            case "spell-dc":
+                return (
+                    this.spellcasting.contents
+                        .flatMap((sc) => sc.statistic ?? [])
+                        .sort((a, b) => b.dc.value - a.dc.value)
+                        .shift() ?? null
+                );
         }
 
         return (
@@ -272,7 +267,7 @@ abstract class CreaturePF2e<
         const customModifiers = (this.system.customModifiers ??= {});
         for (const selector of Object.keys(customModifiers)) {
             customModifiers[selector] = customModifiers[selector].map(
-                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
+                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier),
             );
         }
 
@@ -323,23 +318,9 @@ abstract class CreaturePF2e<
         attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
         attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
 
-        // Add alignment traits from the creature's alignment
-        const alignmentTraits = ((): AlignmentTrait[] => {
-            const { alignment } = this;
-            return [
-                ["LG", "NG", "CG"].includes(alignment) ? ("good" as const) : [],
-                ["LE", "NE", "CE"].includes(alignment) ? ("evil" as const) : [],
-                ["LG", "LN", "LE"].includes(alignment) ? ("lawful" as const) : [],
-                ["CG", "CN", "CE"].includes(alignment) ? ("chaotic" as const) : [],
-            ].flat();
-        })();
         const { rollOptions } = this;
-        for (const trait of alignmentTraits) {
-            this.system.traits.value.push(trait);
-            rollOptions.all[`self:trait:${trait}`] = true;
-        }
 
-        // Other creature-specific self: roll options
+        // Add creature-specific self: roll options
         if (this.isSpellcaster) {
             rollOptions.all["self:caster"] = true;
         }
@@ -408,9 +389,9 @@ abstract class CreaturePF2e<
             inSlot = false,
         }: {
             carryType: ItemCarryType;
-            handsHeld?: number;
+            handsHeld?: ZeroToTwo;
             inSlot?: boolean;
-        }
+        },
     ): Promise<void> {
         const { usage } = item.system;
         if (carryType === "stowed") {
@@ -425,12 +406,16 @@ abstract class CreaturePF2e<
 
             const updates: (DeepPartial<ArmorSource> & { _id: string })[] = [];
 
-            if (isEquipped(usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+            if (isEquipped(usage, equipped) && item.isOfType("armor")) {
                 // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped);
                 for (const armor of wornArmors) {
                     updates.push({ _id: armor.id, system: { equipped: { inSlot: false } } });
                 }
+            } else if (equipped.carryType !== "held" && item.isOfType("weapon") && item.shield?.isRaised) {
+                // Stop raising the shield when the weapon it is attached to becomes stowed
+                const raiseAShieldEffect = item.actor.itemTypes.effect.find((e) => e.slug === "effect-raise-a-shield");
+                await raiseAShieldEffect?.delete();
             }
 
             updates.push({ _id: item.id, system: { containerId: null, equipped: equipped } });
@@ -532,7 +517,7 @@ abstract class CreaturePF2e<
             label: "PF2E.Check.Specific.Recovery",
             check: { type: "flat-check" },
         }).roll({
-            ...eventToRollParams(event),
+            ...eventToRollParams(event, { type: "check" }),
             dc,
             extraRollNotes: notes,
         });
@@ -577,7 +562,7 @@ abstract class CreaturePF2e<
             const stat: CreatureSpeeds = mergeObject(
                 new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
                 landSpeed,
-                { overwrite: false }
+                { overwrite: false },
             );
             const typeLabel = game.i18n.localize("PF2E.SpeedTypesLand");
             const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: typeLabel });
@@ -615,7 +600,7 @@ abstract class CreaturePF2e<
             const fastest = candidateSpeeds.reduce(
                 (best: LabeledSpeed | BaseSpeedSynthetic | null, speed) =>
                     !best ? speed : speed?.value > best.value ? speed : best,
-                null
+                null,
             );
             if (!fastest) return null;
 
@@ -646,7 +631,7 @@ abstract class CreaturePF2e<
                             .concat(
                                 stat.modifiers
                                     .filter((m) => m.enabled)
-                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
                             )
                             .join(", ");
                     },
@@ -665,12 +650,12 @@ abstract class CreaturePF2e<
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
@@ -684,7 +669,7 @@ abstract class CreaturePF2e<
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp hit points
         const currentHP = this.hitPoints;
@@ -706,6 +691,15 @@ abstract class CreaturePF2e<
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
             if (this.isToken) options.diff = false; // Force an update and sheet re-render
+        }
+
+        // Preserve alignment traits if not exposed
+        const traitChanges = changed.system?.traits;
+        if (R.isObject(traitChanges) && Array.isArray(traitChanges.value)) {
+            const sourceAlignmentTraits = this._source.system.traits?.value.filter(
+                (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
+            );
+            traitChanges.value = R.uniq(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
         }
 
         return super._preUpdate(changed, options, user);
@@ -744,33 +738,33 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>
+        options?: DocumentUpdateContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 

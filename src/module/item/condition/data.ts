@@ -1,5 +1,5 @@
 import { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData } from "@item/abstract-effect/data.ts";
-import { BaseItemSourcePF2e, OtherTagsOnly } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, OtherTagsOnly } from "@item/base/data/system.ts";
 import { DamageType } from "@system/damage/index.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import { ConditionSlug } from "./types.ts";

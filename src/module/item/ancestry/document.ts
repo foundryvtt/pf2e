@@ -48,7 +48,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             new Set([
                 ...super.getLinkedItems(),
                 ...this.actor.itemTypes.feat.filter((f) => f.category === "ancestryfeature"),
-            ])
+            ]),
         );
     }
 
@@ -113,7 +113,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         // Add languages
         const innateLanguages = this.system.languages.value;
         for (const language of innateLanguages) {
-            if (!actor.system.traits.languages.value.includes(language)) {
+            if (language in CONFIG.PF2E.languages && !actor.system.traits.languages.value.includes(language)) {
                 actor.system.traits.languages.value.push(language);
             }
         }

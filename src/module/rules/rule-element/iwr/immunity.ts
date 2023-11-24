@@ -1,7 +1,8 @@
 import { Immunity } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
-import { IWRRuleElement, IWRRuleSchema, type IWRExceptionField, IWRException } from "./base.ts";
+import * as R from "remeda";
+import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
@@ -24,6 +25,8 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     }
 
     getIWR(): Immunity[] {
+        const immunities = this.property;
+
         return this.type
             .map(
                 (t): Immunity =>
@@ -33,17 +36,16 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
                         definition: this.definition,
                         exceptions: this.exceptions,
                         source: this.item.name,
-                    })
+                    }),
             )
             .filter((immunity) => {
-                const existing = this.property.find((e) => e.type === immunity.type);
-                return (
-                    this.mode === "remove" ||
-                    !(
-                        existing?.type === immunity.type &&
-                        existing.exceptions.every((x) => immunity.exceptions.includes(x))
-                    )
+                const existing = immunities.find(
+                    (i) =>
+                        i.type === immunity.type &&
+                        (this.exceptions.length === 0 || R.equals(i.exceptions, this.exceptions)) &&
+                        R.equals(i.definition, this.definition ?? null),
                 );
+                return !existing || this.mode === "remove";
             });
     }
 }

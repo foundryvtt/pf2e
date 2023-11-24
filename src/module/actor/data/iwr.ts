@@ -1,6 +1,6 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { MAGIC_SCHOOLS } from "@item/spell/values.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
 import { isObject, objectHasKey, setHasElement } from "@util";
@@ -70,7 +70,7 @@ abstract class IWR<TType extends IWRType> {
             case "area-damage":
                 return ["area-damage"];
             case "arrow-vulnerability":
-                return ["item:group:bow", { not: "item:tag:crossbow" }];
+                return ["item:group:bow"];
             case "auditory":
                 return ["item:trait:auditory"];
             case "axe-vulnerability":
@@ -92,8 +92,18 @@ abstract class IWR<TType extends IWRType> {
                 return ["item:type:effect", "item:trait:fear"];
             case "ghost-touch":
                 return ["item:rune:property:ghost-touch"];
+            case "holy":
+                return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
             case "magical":
-                return ["item:magical"];
+                return [
+                    {
+                        or: [
+                            "item:magical",
+                            "origin:action:trait:magical",
+                            ...MAGIC_TRADITIONS.map((t) => `origin:action:trait:${t}`),
+                        ],
+                    },
+                ];
             case "mental":
                 return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
             case "non-magical":
@@ -134,6 +144,8 @@ abstract class IWR<TType extends IWRType> {
             }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
+            case "unholy":
+                return [{ or: ["action:trait:unholy", "item:trait:unholy"] }];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
@@ -159,10 +171,6 @@ abstract class IWR<TType extends IWRType> {
                         default:
                             return [`damage:material:${iwrType}`];
                     }
-                }
-
-                if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
-                    return ["item:type:effect", `item:trait:${iwrType}`];
                 }
 
                 return [`unhandled:${iwrType}`];
@@ -282,7 +290,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     readonly doubleVs: IWRException<ResistanceType>[];
 
     constructor(
-        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] }
+        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] },
     ) {
         super(data);
         this.value = data.value;
@@ -348,12 +356,14 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "air",
     "earth",
     "ghost-touch",
+    "holy",
     "metal",
     "plant",
     "radiation",
-    "salt",
     "salt-water",
+    "salt",
     "spells",
+    "unholy",
     "water",
     "wood",
 ]);

@@ -4,10 +4,10 @@ import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToFour, OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
+import { OneToFour, ZeroToFour, goesToEleven } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import {
@@ -34,7 +34,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" }
+            { since: "5.3.0", until: "6.0.0" },
         );
         return this.attribute;
     }
@@ -93,7 +93,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.system.proficiency.slug ||= this.system.tradition.value;
+
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
 
@@ -124,20 +124,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
-        const actor = this.actor;
-
-        // Upgrade the actor proficiency using the internal ones
-        // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
-        // the elevating itself
-        const tradition = this.tradition;
-        if (actor.isOfType("character") && !this.isInnate && tradition) {
-            const proficiency = actor.system.proficiencies.traditions[tradition];
-            const rank = this.system.proficiency.value;
-            proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
-        }
-    }
-
     /** Prepares the statistic for this spellcasting entry */
     prepareStatistic(): void {
         const actor = this.actor;
@@ -159,20 +145,18 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // Characters prepare spellcasting by extending a statistic.
         // NPCs prepare spellcasting with explicit values.
         if (actor.isOfType("character")) {
-            // Innate casting entries match the highest proficiency
-            if (this.isInnate) {
-                const allRanks = Object.values(actor.traditions).map((t) => t.rank ?? 0);
-                this.system.proficiency.value = Math.max(1, this.rank, ...allRanks) as ZeroToFour;
-            }
-
             // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
-            const baseStat = actor.getStatistic(this.system.proficiency.slug);
+            const baseStat = actor.getStatistic(this.system.proficiency.slug || "base-spellcasting");
             if (!baseStat) return;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
             this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
             this.statistic = baseStat.extend({
                 slug,
+                label:
+                    baseStat.slug === "base-spellcasting" && tradition
+                        ? CONFIG.PF2E.magicTraditions[tradition]
+                        : baseStat.label,
                 attribute: this.attribute,
                 rank: this.rank,
                 rollOptions: this.getRollOptions("spellcasting"),
@@ -287,7 +271,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             }
         }
 
-        const rankLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[rank as OneToTen]);
+        const rankLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
         const slotKey = goesToEleven(rank) ? (`slot${rank}` as const) : "slot0";
         if (this.system.slots === null || !this.spells) {
             return false;
@@ -299,7 +283,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             slot ??= Number(
                 Object.entries(preparedData)
                     .filter(([_, slot]) => slot.id === spell.id && !slot.expended)
-                    .at(0)?.[0]
+                    .at(0)?.[0],
             );
 
             if (!Number.isInteger(slot)) {
@@ -332,7 +316,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             return true;
         } else {
             ui.notifications.warn(
-                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: rankLabel })
+                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: rankLabel }),
             );
             return false;
         }
@@ -344,23 +328,23 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
      */
     async addSpell(
         spell: SpellPF2e<TParent | null>,
-        options?: { slotLevel?: number }
+        options?: { slotLevel?: number },
     ): Promise<SpellPF2e<NonNullable<TParent>> | null> {
         return this.spells?.addSpell(spell, options) ?? null;
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<this | null> {
+    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<Maybe<this>> {
         return this.spells?.prepareSpell(spell, slotRank, spellSlot) ?? null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    async unprepareSpell(spellLevel: number, slotRank: number): Promise<this | null> {
+    async unprepareSpell(spellLevel: number, slotRank: number): Promise<Maybe<this>> {
         return this.spells?.unprepareSpell(spellLevel, slotRank) ?? null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    async setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<this | null> {
+    async setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<Maybe<this>> {
         return this.spells?.setSlotExpendedState(slotRank, spellSlot, isExpended) ?? null;
     }
 
@@ -407,7 +391,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp slot updates
         if (changed.system?.slots) {

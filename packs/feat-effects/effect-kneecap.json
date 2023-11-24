@@ -1,0 +1,59 @@
+{
+    "_id": "kZdVPBO58uq38KIR",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Effect: Kneecap",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Kneecap]</p>\n<p>The target takes a status penalty to its Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.criticalSuccess",
+                        "value": -15
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Attack.success",
+                        "value": -10
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

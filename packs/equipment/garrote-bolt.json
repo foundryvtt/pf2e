@@ -36,9 +36,6 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 1200
@@ -50,15 +47,23 @@
             "title": "Pathfinder #161: Belly of the Black Whale"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "slashing",
+                "diceNumber": 2,
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "size": "med",
         "stackGroup": null,
         "traits": {
             "rarity": "uncommon",
             "value": [
                 "consumable",
-                "magical",
-                "transmutation"
+                "magical"
             ]
         },
         "usage": {

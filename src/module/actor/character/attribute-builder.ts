@@ -63,10 +63,13 @@ class AttributeBuilder extends Application {
     }
 
     #createButtons(): Record<AttributeString, BoostFlawState> {
-        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce((accumulated, attribute) => {
-            accumulated[attribute] = { ability: attribute };
-            return accumulated;
-        }, {} as Record<AttributeString, BoostFlawState>);
+        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+            (accumulated, attribute) => {
+                accumulated[attribute] = { ability: attribute };
+                return accumulated;
+            },
+            {} as Record<AttributeString, BoostFlawState>,
+        );
     }
 
     #calculateAncestryBoosts(): { ancestryBoosts: AncestryBoosts | null; voluntaryFlaws: VoluntaryFlaws | null } {
@@ -255,7 +258,7 @@ class AttributeBuilder extends Application {
     }
 
     #getBoostFlawLabels(
-        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>
+        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>,
     ): string[] {
         return Object.values(boostData).flatMap((boosts) => {
             if (boosts.value.length === 6) {
@@ -365,7 +368,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
@@ -373,7 +376,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: attribute });
@@ -426,7 +429,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     actor.background?.update({
@@ -436,7 +439,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     actor.background?.update({
@@ -496,9 +499,28 @@ class AttributeBuilder extends Application {
         }
 
         htmlQuery(html, "input[name=toggle-manual-mode]")?.addEventListener("click", () => {
-            actor.toggleAttributeManagement();
+            this.#toggleAttributeManagement();
         });
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => this.close());
+    }
+
+    /** Toggle between boost-driven and manual management of attributes */
+    async #toggleAttributeManagement(): Promise<void> {
+        const { actor } = this;
+        if (Object.keys(actor._source.system.abilities ?? {}).length === 0) {
+            // Add stored attribute modifiers for manual management
+            const baseAbilities = Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
+                    ...accumulated,
+                    [abbrev]: { value: 10 as const },
+                }),
+                {},
+            );
+            await actor.update({ "system.abilities": baseAbilities });
+        } else {
+            // Delete stored attribute modifiers for boost-driven management
+            await actor.update({ "system.abilities": null });
+        }
     }
 }
 

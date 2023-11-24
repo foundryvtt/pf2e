@@ -18,7 +18,6 @@
             }
 
             .dice-total {
-                flex-direction: column;
                 font-weight: normal;
 
                 .total {
@@ -38,13 +37,14 @@
                     display: flex;
                     flex-wrap: wrap;
                     font-size: var(--font-size-12);
+                    gap: 1px;
                     justify-content: center;
-                    line-height: var(--font-size-12);
-                    margin-bottom: 0.2em;
+                    line-height: normal;
+                    margin-bottom: 1px;
                     vertical-align: top;
 
                     .instance {
-                        padding: 0.15em 0.25em;
+                        padding: 1px 0.25em 0;
                     }
                 }
             }
@@ -152,15 +152,13 @@
             &.half-damage {
                 position: relative;
 
-                .transparent-half {
-                    background: rgb(248, 247, 233);
-                    display: block;
-                    height: 24px;
-                    left: 49%;
-                    opacity: 0.6;
-                    position: absolute;
-                    top: 0px;
-                    width: 10px;
+                i.fa-heart-broken {
+                    -moz-background-clip: text;
+                    -moz-text-fill-color: transparent;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    background-image: linear-gradient(to right, var(--text-dark) 50%, var(--color-text-light-6) 50%);
                 }
             }
 
@@ -169,18 +167,38 @@
                 height: var(--font-size-18);
             }
 
-            &.heal-damage .fa-stack {
+            .label {
+                font-size: 0.5em;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+
+            &.apply-healing .fa-stack {
                 font-size: 0.5em;
 
                 i.fa-plus {
-                    font-size: var(--font-size-10);
+                    font-size: var(--font-size-11);
                 }
             }
 
-            .label {
-                font-size: var(--font-size-9);
-                font-weight: 500;
-                text-transform: uppercase;
+            &.healing-only {
+                flex-direction: row;
+                justify-content: center;
+                gap: 0.25rem;
+
+                .fa-stack {
+                    font-size: 0.5em;
+
+                    i.fa-plus {
+                        font-size: var(--font-size-11);
+                    }
+                }
+
+                .label {
+                    font-size: var(--font-size-14);
+                    font-weight: normal;
+                    text-transform: none;
+                }
             }
         }
     }

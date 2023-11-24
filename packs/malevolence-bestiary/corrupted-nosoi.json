@@ -127,7 +127,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divination",
                         "divine"
                     ]
                 },
@@ -215,7 +214,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "void",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -262,7 +272,6 @@
                         "auditory",
                         "concentrate",
                         "divine",
-                        "enchantment",
                         "incapacitation",
                         "mental"
                     ]
@@ -358,7 +367,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 28,
                 "temp": 0,
                 "value": 28
@@ -400,11 +409,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 2
             },
@@ -436,9 +441,9 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "abyssal",
-                    "celestial",
-                    "infernal",
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
                     "requian"
                 ]
             },
@@ -450,6 +455,7 @@
                 "value": "tiny"
             },
             "value": [
+                "evil",
                 "monitor",
                 "psychopomp"
             ]

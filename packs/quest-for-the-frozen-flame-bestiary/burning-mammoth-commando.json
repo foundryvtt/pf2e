@@ -56,9 +56,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -167,9 +164,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -268,10 +262,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -304,9 +294,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "leather-armor",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": 0,
+                "strength": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -349,9 +339,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -404,7 +391,7 @@
                 },
                 "damageRolls": {
                     "kEvyhOwUwKlw2cJx": {
-                        "damage": "2d6+8",
+                        "damage": "1d6+8",
                         "damageType": "slashing"
                     }
                 },
@@ -423,7 +410,6 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach",
                         "sweep"
                     ]
                 },
@@ -456,7 +442,7 @@
                 },
                 "damageRolls": {
                     "deyB7oyBerS7FTjb": {
-                        "damage": "2d6+8",
+                        "damage": "1d6+8",
                         "damageType": "slashing"
                     }
                 },
@@ -586,7 +572,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Burning Mammoth commandos ably carve flesh and wood with their axes. An axe the commando uses gains the reach trait and deals an additional [[/r {1d6}]]{1d6 damage} (included in the <i>hatchet</i> Strikes above).</p>"
+                    "value": "<p>Burning Mammoth commandos ably carve flesh and wood with their axes. An axe the commando uses gains the reach trait and deals an additional 1d6 damage (included in the <em>hatchet</em> Strikes above).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -596,7 +582,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:group:axe"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:group:axe",
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "reach"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -858,11 +864,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 7
             },
@@ -905,6 +907,7 @@
                 "value": "med"
             },
             "value": [
+                "evil",
                 "human",
                 "humanoid"
             ]

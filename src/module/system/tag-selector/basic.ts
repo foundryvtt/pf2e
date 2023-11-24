@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
@@ -72,14 +72,17 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
             }
         })();
 
-        const choices = Object.keys(this.choices).reduce((accumulated, type) => {
-            accumulated[type] = {
-                label: this.choices[type],
-                selected: chosen.includes(type),
-                disabled: disabled.includes(type),
-            };
-            return accumulated;
-        }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
+        const choices = Object.keys(this.choices).reduce(
+            (accumulated, type) => {
+                accumulated[type] = {
+                    label: this.choices[type],
+                    selected: chosen.includes(type),
+                    disabled: disabled.includes(type),
+                };
+                return accumulated;
+            },
+            {} as Record<string, { label: string; selected: boolean; disabled: boolean }>,
+        );
 
         return {
             ...(await super.getData(options)),
@@ -102,7 +105,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const { flat } = event.target ? $(event.target).data() : { flat: false };
+        const flat = event.target instanceof HTMLElement ? event.target.dataset.flat : false;
         const value = this.#getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             return super._updateObject(event, { [this.objectProperty]: { value, custom: formData["custom"] } });

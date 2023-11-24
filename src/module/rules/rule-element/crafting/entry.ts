@@ -39,9 +39,9 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
                         expended: new fields.BooleanField({ required: false, initial: undefined }),
                         isSignatureItem: new fields.BooleanField({ required: false, initial: undefined }),
                     },
-                    { required: true, nullable: false }
+                    { required: true, nullable: false },
                 ),
-                { initial: [] }
+                { initial: [] },
             ),
         };
     }

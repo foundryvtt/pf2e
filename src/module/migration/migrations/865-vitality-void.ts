@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -28,7 +28,7 @@ export class Migration865VitalityVoid extends MigrationBase {
                 .replace(/\bTraitVersatilePositive\b/g, "TraitVersatileVitality")
                 .replace(/\bTraitVersatileNegative\b/g, "TraitVersatileVoid")
                 // ???
-                .replace(/\bnegative negative damage\b/, "void damage")
+                .replace(/\bnegative negative damage\b/, "void damage"),
         );
     }
 

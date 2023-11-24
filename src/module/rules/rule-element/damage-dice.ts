@@ -12,7 +12,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, initial: undefined })
+                new fields.StringField({ required: true, blank: false, initial: undefined }),
             ),
             diceNumber: new ResolvableValueField({ required: false, initial: undefined }),
             dieSize: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
@@ -43,7 +43,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             this.failValidation(
                 "The override property must be an object with one property of 'upgrade' (boolean),",
                 "'downgrade (boolean)', 'diceNumber' (integer between 0 and 10), 'dieSize' (d6-d12), or 'damageType'",
-                "(recognized damage type)"
+                "(recognized damage type)",
             );
             this.override = null;
         }
@@ -87,7 +87,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 if (this.override) {
                     this.override.damageType &&= this.resolveInjectedProperties(
                         this.override.damageType,
-                        resolveOptions
+                        resolveOptions,
                     );
                     if (
                         "damageType" in this.override &&
@@ -98,7 +98,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     }
 
                     this.override.diceNumber &&= Math.floor(
-                        Number(this.resolveValue(this.override.diceNumber, resolveOptions))
+                        Number(this.resolveValue(this.override.diceNumber, resolveOptions)),
                     );
                     if (typeof this.override.diceNumber === "number" && this.override.diceNumber < 0) {
                         if (testPassed) this.failValidation("A dice number must resolve to at least zero");

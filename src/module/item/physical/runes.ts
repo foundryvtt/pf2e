@@ -3,13 +3,16 @@ import { CreatureTrait } from "@actor/creature/index.ts";
 import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
-import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { OneToFour, Rarity, ZeroToFour, ZeroToSix, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import * as R from "remeda";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
@@ -39,37 +42,49 @@ function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string,
             r in validTypes &&
             !runeSet.has(`greater${r.titleCase()}`) &&
             !runeSet.has(`major${r.replace(/^greater/, "").titleCase()}`) &&
-            !runeSet.has(`true${r.replace(/^greater|^major/, "").titleCase()}`)
+            !runeSet.has(`true${r.replace(/^greater|^major/, "").titleCase()}`),
     );
 }
 
 function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
-    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+    if (!item.isOfType("armor", "shield", "weapon")) {
         return [];
     }
 
-    type WorkingData = {
-        runes: Record<string, Record<string | number, RuneData | null>>;
-        secondaryFundamental: "resilient" | "striking";
+    type ItemRuneData = {
+        ""?: number;
+        potency?: ZeroToFour;
+        resilient?: ZeroToThree;
+        reinforcing?: ZeroToSix;
+        striking?: ZeroToThree;
+        property?: string[];
     };
     const itemRunes: ItemRuneData = item.system.runes;
 
-    type ItemRuneData = {
-        potency: ZeroToFour;
-        resilient?: ZeroToThree;
-        striking?: ZeroToThree;
-        property: string[];
-        effects: string[];
+    type WorkingData = {
+        runes: Record<string, Record<number | string, RuneData | null>>;
+        weaponRunes?: Record<string, Record<number | string, RuneData | null>>;
+        secondaryFundamental: "resilient" | "striking" | "";
     };
     const data: WorkingData = item.isOfType("armor")
         ? { runes: RUNE_DATA.armor, secondaryFundamental: "resilient" }
-        : { runes: RUNE_DATA.weapon, secondaryFundamental: "striking" };
+        : item.isOfType("shield")
+          ? { runes: RUNE_DATA.shield, weaponRunes: RUNE_DATA.weapon, secondaryFundamental: "" }
+          : { runes: RUNE_DATA.weapon, secondaryFundamental: "striking" };
 
-    return [
-        data.runes.potency[item.system.runes.potency],
-        data.runes[data.secondaryFundamental][itemRunes[data.secondaryFundamental] ?? ""],
-        ...item.system.runes.property.map((p) => data.runes.property[p]),
-    ].filter((d): d is RuneData => !!d);
+    return R.compact(
+        item.isOfType("shield")
+            ? [
+                  data.runes.reinforcing[item.system.runes.reinforcing],
+                  data.weaponRunes!.potency[item.system.traits.integrated?.runes.potency ?? 0],
+                  data.weaponRunes!.striking[item.system.traits.integrated?.runes.striking ?? 0],
+              ].flat()
+            : [
+                  data.runes.potency[item.system.runes.potency],
+                  data.runes[data.secondaryFundamental]?.[itemRunes[data.secondaryFundamental] ?? ""],
+                  item.system.runes.property.map((p) => data.runes.property[p]),
+              ].flat(),
+    );
 }
 
 const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> = new Map([
@@ -80,6 +95,17 @@ const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> 
 
 function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
+}
+
+function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
+    return R.uniq(
+        R.compact(
+            [
+                item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+                item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+            ].flat(2),
+        ),
+    );
 }
 
 const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree> = new Map([
@@ -142,13 +168,18 @@ interface PotencyRuneData extends RuneData {
     value: OneToFour;
 }
 
-interface SecondaryFundamentalRuneData extends RuneData {
-    slug: string;
+interface SecondaryFundamentalRuneData<TSlug extends string> extends RuneData {
+    slug: TSlug;
+}
+
+interface ReinforcingRuneData extends RuneData {
+    hardness: { increase: number; max: number };
+    maxHP: { increase: number; max: number };
 }
 
 interface FundamentalArmorRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    resilient: Record<ZeroToThree, SecondaryFundamentalRuneData | null>;
+    resilient: Record<ZeroToThree, SecondaryFundamentalRuneData<ResilientRuneType> | null>;
 }
 
 const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
@@ -161,7 +192,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             level: 5,
             price: 160,
             rarity: "common",
-            traits: ["abjuration"],
+            traits: [],
         },
         2: {
             name: "PF2E.ArmorPotencyRune2",
@@ -169,7 +200,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             level: 11,
             price: 1060,
             rarity: "common",
-            traits: ["abjuration"],
+            traits: [],
         },
         3: {
             name: "PF2E.ArmorPotencyRune3",
@@ -177,7 +208,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             level: 18,
             price: 20_560,
             rarity: "common",
-            traits: ["abjuration"],
+            traits: [],
         },
         4: {
             name: "PF2E.ArmorPotencyRune4",
@@ -185,7 +216,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             level: 18,
             price: 20_560,
             rarity: "common",
-            traits: ["abjuration"],
+            traits: [],
         },
     },
     resilient: {
@@ -196,7 +227,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             price: 340,
             rarity: "common",
             slug: "resilient",
-            traits: ["abjuration"],
+            traits: [],
         },
         2: {
             name: "PF2E.ArmorGreaterResilientRune",
@@ -204,7 +235,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             price: 3440,
             rarity: "common",
             slug: "greaterResilient",
-            traits: ["abjuration"],
+            traits: [],
         },
         3: {
             name: "PF2E.ArmorMajorResilientRune",
@@ -212,7 +243,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
             price: 49_440,
             rarity: "common",
             slug: "majorResilient",
-            traits: ["abjuration"],
+            traits: [],
         },
     },
 };
@@ -223,7 +254,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
 
 interface FundamentalWeaponRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    striking: Record<ZeroToThree, SecondaryFundamentalRuneData | null>;
+    striking: Record<ZeroToThree, SecondaryFundamentalRuneData<StrikingRuneType> | null>;
 }
 const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -235,7 +266,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             level: 2,
             price: 35,
             rarity: "common",
-            traits: ["evocation"],
+            traits: [],
         },
         2: {
             name: "PF2E.WeaponPotencyRune2",
@@ -243,7 +274,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             level: 10,
             price: 935,
             rarity: "common",
-            traits: ["evocation"],
+            traits: [],
         },
         3: {
             name: "PF2E.WeaponPotencyRune3",
@@ -251,7 +282,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             level: 16,
             price: 8935,
             rarity: "common",
-            traits: ["evocation"],
+            traits: [],
         },
         4: {
             name: "PF2E.WeaponPotencyRune4",
@@ -259,7 +290,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             level: 16,
             price: 8935,
             rarity: "common",
-            traits: ["evocation"],
+            traits: [],
         },
     },
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -271,7 +302,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             price: 65,
             rarity: "common",
             slug: "striking",
-            traits: ["evocation"],
+            traits: [],
         },
         2: {
             name: "PF2E.Item.Weapon.Rune.Striking.Greater",
@@ -279,7 +310,7 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             price: 1065,
             rarity: "common",
             slug: "greaterStriking",
-            traits: ["evocation"],
+            traits: [],
         },
         3: {
             name: "PF2E.Item.Weapon.Rune.Striking.Major",
@@ -287,7 +318,71 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             price: 31_065,
             rarity: "common",
             slug: "majorStriking",
-            traits: ["evocation"],
+            traits: [],
+        },
+    },
+};
+
+type FundamentalShieldRuneData = {
+    reinforcing: Record<ZeroToSix, ReinforcingRuneData | null>;
+};
+
+const FUNDAMENTAL_SHIELD_RUNE_DATA: FundamentalShieldRuneData = {
+    reinforcing: {
+        0: null,
+        1: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Minor",
+            level: 4,
+            price: 75,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 8 },
+            maxHP: { increase: 44, max: 64 },
+        },
+        2: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Lesser",
+            level: 7,
+            price: 300,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 10 },
+            maxHP: { increase: 52, max: 80 },
+        },
+        3: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Moderate",
+            level: 10,
+            price: 900,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 13 },
+            maxHP: { increase: 64, max: 104 },
+        },
+        4: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Greater",
+            level: 13,
+            price: 2500,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 5, max: 15 },
+            maxHP: { increase: 80, max: 120 },
+        },
+        5: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Major",
+            level: 16,
+            price: 8000,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 5, max: 17 },
+            maxHP: { increase: 84, max: 136 },
+        },
+        6: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Supreme",
+            level: 19,
+            price: 32_000,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 7, max: 20 },
+            maxHP: { increase: 108, max: 160 },
         },
     },
 };
@@ -300,6 +395,8 @@ interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends Pro
 
 interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends PropertyRuneData<TSlug> {
     attack?: {
+        /** Degree-of-success adjustments */
+        dosAdjustments?: DegreeOfSuccessAdjustment[];
         notes?: RuneNoteData[];
     };
     damage?: {
@@ -313,7 +410,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
-    strikeAdjustments?: Pick<StrikeAdjustment, "adjustWeapon">[];
+    strikeAdjustments?: Pick<StrikeAdjustment, "adjustTraits" | "adjustWeapon">[];
 }
 
 /** Title and text are mandatory for these notes */
@@ -330,7 +427,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 420,
         rarity: "common",
         slug: "acidResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     advancing: {
         name: "PF2E.ArmorPropertyRuneAdvancing",
@@ -338,7 +435,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 625,
         rarity: "common",
         slug: "advancing",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     aimAiding: {
         name: "PF2E.ArmorPropertyRuneAimAiding",
@@ -346,7 +443,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 225,
         rarity: "common",
         slug: "aimAiding",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     antimagic: {
         name: "PF2E.ArmorPropertyRuneAntimagic",
@@ -354,7 +451,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 6500,
         rarity: "uncommon",
         slug: "antimagic",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     assisting: {
         name: "PF2E.ArmorPropertyRuneAssisting",
@@ -362,7 +459,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 125,
         rarity: "common",
         slug: "assisting",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     bitter: {
         name: "PF2E.ArmorPropertyRuneBitter",
@@ -370,7 +467,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 135,
         rarity: "uncommon",
         slug: "bitter",
-        traits: ["magical", "poison", "transmutation"],
+        traits: ["magical", "poison"],
     },
     coldResistant: {
         name: "PF2E.ArmorPropertyRuneColdResistant",
@@ -378,7 +475,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 420,
         rarity: "common",
         slug: "coldResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     deathless: {
         name: "PF2E.ArmorPropertyRuneDeathless",
@@ -386,7 +483,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 330,
         rarity: "uncommon",
         slug: "deathless",
-        traits: ["healing", "magical", "necromancy"],
+        traits: ["healing", "magical"],
     },
     electricityResistant: {
         name: "PF2E.ArmorPropertyRuneElectricityResistant",
@@ -394,7 +491,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 420,
         rarity: "common",
         slug: "electricityResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     energyAdaptive: {
         name: "PF2E.ArmorPropertyRuneEnergyAdaptive",
@@ -402,7 +499,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 225,
         rarity: "common",
         slug: "energyAdaptive",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     ethereal: {
         name: "PF2E.ArmorPropertyRuneEthereal",
@@ -410,7 +507,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 13_500,
         rarity: "common",
         slug: "ethereal",
-        traits: ["conjuration", "magical"],
+        traits: ["magical"],
     },
     fireResistant: {
         name: "PF2E.ArmorPropertyRuneFireResistant",
@@ -418,7 +515,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 420,
         rarity: "common",
         slug: "fireResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     fortification: {
         name: "PF2E.ArmorPropertyRuneFortification",
@@ -426,7 +523,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 2000,
         rarity: "common",
         slug: "fortification",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     glamered: {
         name: "PF2E.ArmorPropertyRuneGlamered",
@@ -442,7 +539,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 450,
         rarity: "common",
         slug: "gliding",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterAcidResistant: {
         name: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
@@ -450,7 +547,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1650,
         rarity: "common",
         slug: "greaterAcidResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterAdvancing: {
         name: "PF2E.ArmorPropertyRuneGreaterAdvancing",
@@ -458,7 +555,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 8000,
         rarity: "common",
         slug: "greaterAdvancing",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterColdResistant: {
         name: "PF2E.ArmorPropertyRuneGreaterColdResistant",
@@ -466,7 +563,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1650,
         rarity: "common",
         slug: "greaterColdResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterDread: {
         name: "PF2E.ArmorPropertyRuneGreaterDread",
@@ -474,7 +571,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 21_000,
         rarity: "uncommon",
         slug: "greaterDread",
-        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+        traits: ["emotion", "fear", "magical", "mental", "visual"],
     },
     greaterElectricityResistant: {
         name: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
@@ -482,7 +579,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1650,
         rarity: "common",
         slug: "greaterElectricityResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterFireResistant: {
         name: "PF2E.ArmorPropertyRuneGreaterFireResistant",
@@ -490,7 +587,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1650,
         rarity: "common",
         slug: "greaterFireResistant",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterFortification: {
         name: "PF2E.ArmorPropertyRuneGreaterFortification",
@@ -498,7 +595,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 24_000,
         rarity: "common",
         slug: "greaterFortification",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterInvisibility: {
         name: "PF2E.ArmorPropertyRuneGreaterInvisibility",
@@ -514,7 +611,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1200,
         rarity: "common",
         slug: "greaterReady",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     greaterShadow: {
         name: "PF2E.ArmorPropertyRuneGreaterShadow",
@@ -522,7 +619,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 650,
         rarity: "common",
         slug: "greaterShadow",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterSlick: {
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
@@ -530,7 +627,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 450,
         rarity: "common",
         slug: "greaterSlick",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterStanching: {
         name: "PF2E.ArmorPropertyRuneGreaterStanching",
@@ -538,7 +635,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 600,
         rarity: "uncommon",
         slug: "greaterStanching",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterQuenching: {
         name: "PF2E.ArmorPropertyRuneGreaterQuenching",
@@ -546,7 +643,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1000,
         rarity: "common",
         slug: "greaterQuenching",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterSwallowSpike: {
         name: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
@@ -554,7 +651,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1750,
         rarity: "common",
         slug: "greaterSwallowSpike",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterWinged: {
         name: "PF2E.ArmorPropertyRuneGreaterWinged",
@@ -562,7 +659,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 35_000,
         rarity: "common",
         slug: "greaterWinged",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     immovable: {
         name: "PF2E.ArmorPropertyRuneImmovable",
@@ -570,7 +667,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1800,
         rarity: "uncommon",
         slug: "immovable",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     implacable: {
         name: "PF2E.ArmorPropertyRuneImplacable",
@@ -578,7 +675,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1200,
         rarity: "uncommon",
         slug: "implacable",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     invisibility: {
         name: "PF2E.ArmorPropertyRuneInvisibility",
@@ -594,7 +691,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 225,
         rarity: "uncommon",
         slug: "lesserDread",
-        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+        traits: ["emotion", "fear", "magical", "mental", "visual"],
     },
     magnetizing: {
         name: "PF2E.ArmorPropertyRuneMagnetizing",
@@ -602,7 +699,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 900,
         rarity: "common",
         slug: "magnetizing",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     majorQuenching: {
         name: "PF2E.ArmorPropertyRuneMajorQuenching",
@@ -610,7 +707,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 4500,
         rarity: "common",
         slug: "majorQuenching",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     majorShadow: {
         name: "PF2E.ArmorPropertyRuneMajorShadow",
@@ -618,7 +715,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 14_000,
         rarity: "common",
         slug: "majorShadow",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     majorSlick: {
         name: "PF2E.ArmorPropertyRuneMajorSlick",
@@ -626,7 +723,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 9000,
         rarity: "common",
         slug: "majorSlick",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     majorStanching: {
         name: "PF2E.ArmorPropertyRuneMajorStanching",
@@ -634,7 +731,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 2500,
         rarity: "uncommon",
         slug: "majorStanching",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     majorSwallowSpike: {
         name: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
@@ -642,7 +739,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 19_250,
         rarity: "common",
         slug: "majorSwallowSpike",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     malleable: {
         name: "PF2E.ArmorPropertyRuneMalleable",
@@ -666,7 +763,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 1800,
         rarity: "uncommon",
         slug: "moderateDread",
-        traits: ["emotion", "enchantment", "fear", "magical", "mental", "visual"],
+        traits: ["emotion", "fear", "magical", "mental", "visual"],
     },
     portable: {
         name: "PF2E.ArmorPropertyRunePortable",
@@ -674,7 +771,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 660,
         rarity: "common",
         slug: "portable",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     quenching: {
         name: "PF2E.ArmorPropertyRuneQuenching",
@@ -682,7 +779,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 250,
         rarity: "common",
         slug: "quenching",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     ready: {
         name: "PF2E.ArmorPropertyRuneReady",
@@ -690,7 +787,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 200,
         rarity: "common",
         slug: "ready",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     rockBraced: {
         name: "PF2E.ArmorPropertyRuneRockBraced",
@@ -698,7 +795,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 3000,
         rarity: "rare",
         slug: "rockBraced",
-        traits: ["abjuration", "dwarf", "magical", "saggorak"],
+        traits: ["dwarf", "magical", "saggorak"],
     },
     shadow: {
         name: "PF2E.ArmorPropertyRuneShadow",
@@ -706,7 +803,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 55,
         rarity: "common",
         slug: "shadow",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     sinisterKnight: {
         name: "PF2E.ArmorPropertyRuneSinisterKnight",
@@ -714,7 +811,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 500,
         rarity: "uncommon",
         slug: "sinisterKnight",
-        traits: ["abjuration", "illusion", "magical"],
+        traits: ["illusion", "magical"],
     },
     slick: {
         name: "PF2E.ArmorPropertyRuneSlick",
@@ -722,7 +819,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 45,
         rarity: "common",
         slug: "slick",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     soaring: {
         name: "PF2E.ArmorPropertyRuneSoaring",
@@ -730,7 +827,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 3750,
         rarity: "common",
         slug: "soaring",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     stanching: {
         name: "PF2E.ArmorPropertyRuneStanching",
@@ -738,7 +835,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 130,
         rarity: "uncommon",
         slug: "stanching",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     swallowSpike: {
         name: "PF2E.ArmorPropertyRuneSwallowSpike",
@@ -746,7 +843,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 200,
         rarity: "common",
         slug: "swallowSpike",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     trueQuenching: {
         name: "PF2E.ArmorPropertyRuneTrueQuenching",
@@ -754,7 +851,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 24_000,
         rarity: "common",
         slug: "trueQuenching",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     trueStanching: {
         name: "PF2E.ArmorPropertyRuneTrueStanching",
@@ -762,7 +859,7 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 12_500,
         rarity: "uncommon",
         slug: "trueStanching",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     winged: {
         name: "PF2E.ArmorPropertyRuneWinged",
@@ -770,43 +867,19 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         price: 2500,
         rarity: "common",
         slug: "winged",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
 const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRuneData<T> } = {
-    anarchic: {
-        damage: {
-            dice: [
-                {
-                    damageType: "chaotic",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.anarchic.Name",
-                    text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
-                },
-            ],
-        },
-        level: 11,
-        name: "PF2E.WeaponPropertyRune.anarchic.Name",
-        price: 1400,
-        rarity: "common",
-        slug: "anarchic",
-        traits: ["chaotic", "evocation", "magical"],
-    },
     ancestralEchoing: {
         level: 15,
         name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name",
         price: 9500,
         rarity: "rare",
         slug: "ancestralEchoing",
-        traits: ["dwarf", "evocation", "magical", "saggorak"],
+        traits: ["dwarf", "magical", "saggorak"],
     },
     anchoring: {
         damage: {
@@ -823,7 +896,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 900,
         rarity: "uncommon",
         slug: "anchoring",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     ashen: {
         damage: {
@@ -848,7 +921,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 700,
         rarity: "common",
         slug: "ashen",
-        traits: ["enchantment", "magical"],
+        traits: ["magical"],
     },
     authorized: {
         level: 3,
@@ -856,31 +929,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 50,
         rarity: "common",
         slug: "authorized",
-        traits: ["abjuration", "magical"],
-    },
-    axiomatic: {
-        damage: {
-            dice: [
-                {
-                    damageType: "lawful",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.axiomatic.Name",
-                    text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
-                },
-            ],
-        },
-        level: 11,
-        name: "PF2E.WeaponPropertyRune.axiomatic.Name",
-        price: 1400,
-        rarity: "common",
-        slug: "axiomatic",
-        traits: ["evocation", "lawful", "magical"],
+        traits: ["magical"],
     },
     bane: {
         level: 4,
@@ -888,7 +937,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 100,
         rarity: "uncommon",
         slug: "bane",
-        traits: ["divination", "magical"],
+        traits: ["magical"],
     },
     bloodbane: {
         level: 8,
@@ -896,7 +945,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 475,
         rarity: "uncommon",
         slug: "bloodbane",
-        traits: ["dwarf", "evocation", "magical"],
+        traits: ["dwarf", "magical"],
     },
     bloodthirsty: {
         damage: {
@@ -913,22 +962,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 8500,
         rarity: "uncommon",
         slug: "bloodthirsty",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     brilliant: {
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
-                    damageType: "good",
+                    damageType: "spirit",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                    predicate: ["target:trait:fiend"],
                 },
                 {
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -944,7 +994,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 2000,
         rarity: "common",
         slug: "brilliant",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     called: {
         level: 7,
@@ -952,7 +1002,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 350,
         rarity: "common",
         slug: "called",
-        traits: ["conjuration", "magical"],
+        traits: ["magical"],
     },
     coating: {
         level: 9,
@@ -960,7 +1010,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 700,
         rarity: "common",
         slug: "coating",
-        traits: ["conjuration", "extradimensional", "magical"],
+        traits: ["extradimensional", "magical"],
     },
     conducting: {
         level: 7,
@@ -968,7 +1018,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 300,
         rarity: "common",
         slug: "conducting",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     corrosive: {
         damage: {
@@ -986,7 +1036,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "corrosive",
-        traits: ["acid", "conjuration", "magical"],
+        traits: ["acid", "magical"],
     },
     crushing: {
         damage: {
@@ -1003,7 +1053,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 50,
         rarity: "uncommon",
         slug: "crushing",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     cunning: {
         level: 5,
@@ -1011,7 +1061,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 140,
         rarity: "common",
         slug: "cunning",
-        traits: ["divination", "magical"],
+        traits: ["magical"],
     },
     dancing: {
         level: 13,
@@ -1019,7 +1069,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 2700,
         rarity: "uncommon",
         slug: "dancing",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     deathdrinking: {
         damage: {
@@ -1047,7 +1097,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 360,
         rarity: "rare",
         slug: "deathdrinking",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     demolishing: {
         damage: {
@@ -1066,7 +1116,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 225,
         rarity: "rare",
         slug: "demolishing",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     disrupting: {
         damage: {
@@ -1075,6 +1125,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1082,6 +1133,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
+                    predicate: ["target:mode:undead"],
                 },
             ],
         },
@@ -1090,7 +1142,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 150,
         rarity: "common",
         slug: "disrupting",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     earthbinding: {
         level: 5,
@@ -1098,7 +1150,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 125,
         rarity: "common",
         slug: "earthbinding",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     energizing: {
         level: 6,
@@ -1106,7 +1158,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 250,
         rarity: "uncommon",
         slug: "energizing",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     extending: {
         level: 7,
@@ -1114,7 +1166,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 700,
         rarity: "common",
         slug: "extending",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     fanged: {
         level: 2,
@@ -1122,7 +1174,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 30,
         rarity: "uncommon",
         slug: "fanged",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     fearsome: {
         damage: {
@@ -1139,7 +1191,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 160,
         rarity: "common",
         slug: "fearsome",
-        traits: ["emotion", "enchantment", "fear", "magical", "mental"],
+        traits: ["emotion", "fear", "magical", "mental"],
     },
     flaming: {
         damage: {
@@ -1159,7 +1211,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "flaming",
-        traits: ["conjuration", "fire", "magical"],
+        traits: ["fire", "magical"],
     },
     flurrying: {
         level: 7,
@@ -1167,7 +1219,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 360,
         rarity: "common",
         slug: "flurrying",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     frost: {
         damage: {
@@ -1185,24 +1237,15 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "frost",
-        traits: ["cold", "conjuration", "magical"],
+        traits: ["cold", "magical"],
     },
     ghostTouch: {
-        damage: {
-            notes: [
-                {
-                    predicate: [{ or: ["target:trait:incorporeal", { not: "target" }] }],
-                    title: "PF2E.WeaponPropertyRune.ghostTouch.Name",
-                    text: "PF2E.WeaponPropertyRune.ghostTouch.Note",
-                },
-            ],
-        },
         level: 4,
         name: "PF2E.WeaponPropertyRune.ghostTouch.Name",
         price: 75,
         rarity: "common",
         slug: "ghostTouch",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     giantKilling: {
         damage: {
@@ -1229,7 +1272,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 450,
         rarity: "rare",
         slug: "giantKilling",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterAnchoring: {
         damage: {
@@ -1251,7 +1294,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 22_000,
         rarity: "uncommon",
         slug: "greaterAnchoring",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     greaterAshen: {
         damage: {
@@ -1276,7 +1319,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 9000,
         rarity: "common",
         slug: "greaterAshen",
-        traits: ["enchantment", "magical"],
+        traits: ["magical"],
     },
     greaterBloodbane: {
         level: 13,
@@ -1284,22 +1327,22 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 2800,
         rarity: "uncommon",
         slug: "greaterBloodbane",
-        traits: ["dwarf", "evocation", "magical"],
+        traits: ["dwarf", "magical"],
     },
     greaterBrilliant: {
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
-                    damageType: "good",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                    predicate: ["target:trait:fiend"],
                 },
                 {
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1325,7 +1368,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 24_000,
         rarity: "common",
         slug: "greaterBrilliant",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     greaterCorrosive: {
         damage: {
@@ -1348,7 +1391,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6500,
         rarity: "common",
         slug: "greaterCorrosive",
-        traits: ["acid", "conjuration", "magical"],
+        traits: ["acid", "magical"],
     },
     greaterCrushing: {
         damage: {
@@ -1365,7 +1408,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 650,
         rarity: "uncommon",
         slug: "greaterCrushing",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterDisrupting: {
         damage: {
@@ -1374,6 +1417,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 2,
                     dieSize: "d6",
+                    predicate: ["target:mode:undead"],
                 },
             ],
             notes: [
@@ -1381,6 +1425,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
+                    predicate: ["target:mode:undead"],
                 },
             ],
         },
@@ -1389,7 +1434,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 4300,
         rarity: "uncommon",
         slug: "greaterDisrupting",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterExtending: {
         level: 13,
@@ -1397,7 +1442,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 3000,
         rarity: "common",
         slug: "greaterExtending",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterFanged: {
         level: 8,
@@ -1405,7 +1450,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 425,
         rarity: "uncommon",
         slug: "greaterFanged",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     greaterFearsome: {
         damage: {
@@ -1422,7 +1467,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 2000,
         rarity: "common",
         slug: "greaterFearsome",
-        traits: ["emotion", "enchantment", "fear", "magical", "mental"],
+        traits: ["emotion", "fear", "magical", "mental"],
     },
     greaterFlaming: {
         damage: {
@@ -1455,7 +1500,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6500,
         rarity: "common",
         slug: "greaterFlaming",
-        traits: ["conjuration", "fire", "magical"],
+        traits: ["fire", "magical"],
     },
     greaterFrost: {
         damage: {
@@ -1479,7 +1524,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6500,
         rarity: "common",
         slug: "greaterFrost",
-        traits: ["cold", "conjuration", "magical"],
+        traits: ["cold", "magical"],
     },
     greaterGiantKilling: {
         damage: {
@@ -1507,7 +1552,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6000,
         rarity: "rare",
         slug: "greaterGiantKilling",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
     greaterHauling: {
         level: 11,
@@ -1515,7 +1560,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 1300,
         rarity: "uncommon",
         slug: "greaterHauling",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     greaterImpactful: {
         damage: {
@@ -1533,7 +1578,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 15_000,
         rarity: "common",
         slug: "greaterImpactful",
-        traits: ["evocation", "force", "magical"],
+        traits: ["force", "magical"],
     },
     greaterRooting: {
         level: 11,
@@ -1579,7 +1624,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6500,
         rarity: "common",
         slug: "greaterShock",
-        traits: ["electricity", "evocation", "magical"],
+        traits: ["electricity", "magical"],
     },
     greaterThundering: {
         damage: {
@@ -1603,7 +1648,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6500,
         rarity: "common",
         slug: "greaterThundering",
-        traits: ["evocation", "magical", "sonic"],
+        traits: ["magical", "sonic"],
     },
     grievous: {
         damage: {
@@ -1697,7 +1742,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 700,
         rarity: "common",
         slug: "grievous",
-        traits: ["enchantment", "magical"],
+        traits: ["magical"],
     },
     hauling: {
         level: 6,
@@ -1705,24 +1750,38 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 225,
         rarity: "uncommon",
         slug: "hauling",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     holy: {
-        damage: {
-            dice: [
-                {
-                    damageType: "good",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-        },
         level: 11,
         name: "PF2E.WeaponPropertyRune.holy.Name",
         price: 1400,
         rarity: "common",
         slug: "holy",
-        traits: ["evocation", "good", "magical"],
+        traits: ["holy", "magical"],
+        damage: {
+            dice: [
+                {
+                    damageType: "spirit",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ not: "target:trait:unholy" }],
+                },
+                {
+                    damageType: "spirit",
+                    diceNumber: 2,
+                    dieSize: "d4",
+                    predicate: ["target:trait:unholy"],
+                },
+            ],
+        },
+        strikeAdjustments: [
+            {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                    if (!traits.includes("holy")) traits.push("holy");
+                },
+            },
+        ],
     },
     hopeful: {
         attack: {
@@ -1739,7 +1798,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 1200,
         rarity: "uncommon",
         slug: "hopeful",
-        traits: ["enchantment", "magical"],
+        traits: ["magical"],
     },
     hooked: {
         level: 5,
@@ -1747,7 +1806,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 140,
         rarity: "rare",
         slug: "hooked",
-        traits: ["conjuration", "magical"],
+        traits: ["magical"],
         strikeAdjustments: [
             {
                 adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
@@ -1774,7 +1833,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 1000,
         rarity: "common",
         slug: "impactful",
-        traits: ["evocation", "force", "magical"],
+        traits: ["force", "magical"],
     },
     impossible: {
         level: 20,
@@ -1782,7 +1841,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 70_000,
         rarity: "common",
         slug: "impossible",
-        traits: ["conjuration", "magical"],
+        traits: ["magical"],
         strikeAdjustments: [
             {
                 // Double the base range increment
@@ -1799,11 +1858,13 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     keen: {
         attack: {
-            notes: [
+            dosAdjustments: [
                 {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.keen.Name",
-                    text: "PF2E.WeaponPropertyRune.keen.Note",
+                    adjustments: { success: { label: "PF2E.WeaponPropertyRune.keen.Name", amount: "criticalSuccess" } },
+                    predicate: new PredicatePF2e([
+                        "check:total:natural:19",
+                        { or: ["item:damage:type:slashing", "item:damage:type:piercing"] },
+                    ]),
                 },
             ],
         },
@@ -1812,7 +1873,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 3000,
         rarity: "uncommon",
         slug: "keen",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     kinWarding: {
         level: 3,
@@ -1820,7 +1881,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 52,
         rarity: "uncommon",
         slug: "kinWarding",
-        traits: ["abjuration", "dwarf", "magical"],
+        traits: ["dwarf", "magical"],
     },
     majorFanged: {
         level: 15,
@@ -1828,7 +1889,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 6000,
         rarity: "uncommon",
         slug: "majorFanged",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     majorRooting: {
         level: 15,
@@ -1862,7 +1923,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 70,
         rarity: "common",
         slug: "merciful",
-        traits: ["abjuration", "magical", "mental"],
+        traits: ["magical", "mental"],
     },
     pacifying: {
         level: 5,
@@ -1870,7 +1931,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 150,
         rarity: "uncommon",
         slug: "pacifying",
-        traits: ["enchantment", "magical"],
+        traits: ["magical"],
     },
     returning: {
         attack: {
@@ -1883,7 +1944,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 55,
         rarity: "common",
         slug: "returning",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     rooting: {
         level: 7,
@@ -1911,7 +1972,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 1000,
         rarity: "uncommon",
         slug: "serrating",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     shifting: {
         level: 6,
@@ -1919,7 +1980,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 225,
         rarity: "common",
         slug: "shifting",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     shock: {
         damage: {
@@ -1937,7 +1998,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "shock",
-        traits: ["electricity", "conjuration", "magical"],
+        traits: ["electricity", "magical"],
     },
     speed: {
         level: 16,
@@ -1945,7 +2006,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 10_000,
         rarity: "rare",
         slug: "speed",
-        traits: ["magical", "transmutation"],
+        traits: ["magical"],
     },
     spellStoring: {
         level: 13,
@@ -1953,7 +2014,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 2700,
         rarity: "uncommon",
         slug: "spellStoring",
-        traits: ["abjuration", "magical"],
+        traits: ["magical"],
     },
     swarming: {
         level: 9,
@@ -1961,7 +2022,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 700,
         rarity: "common",
         slug: "swarming",
-        traits: ["conjuration", "magical"],
+        traits: ["magical"],
     },
     thundering: {
         damage: {
@@ -1979,7 +2040,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "thundering",
-        traits: ["evocation", "magical", "sonic"],
+        traits: ["magical", "sonic"],
     },
     trueRooting: {
         level: 19,
@@ -2007,21 +2068,35 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical", "water"],
     },
     unholy: {
-        damage: {
-            dice: [
-                {
-                    damageType: "evil",
-                    diceNumber: 1,
-                    dieSize: "d6",
-                },
-            ],
-        },
         level: 11,
         name: "PF2E.WeaponPropertyRune.unholy.Name",
         price: 1400,
         rarity: "common",
         slug: "unholy",
-        traits: ["evil", "evocation", "magical"],
+        traits: ["unholy", "magical"],
+        damage: {
+            dice: [
+                {
+                    damageType: "spirit",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ not: "target:trait:holy" }],
+                },
+                {
+                    damageType: "spirit",
+                    diceNumber: 2,
+                    dieSize: "d4",
+                    predicate: ["target:trait:holy"],
+                },
+            ],
+        },
+        strikeAdjustments: [
+            {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                    if (!traits.includes("unholy")) traits.push("unholy");
+                },
+            },
+        ],
     },
     vorpal: {
         level: 17,
@@ -2029,7 +2104,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 15_000,
         rarity: "rare",
         slug: "vorpal",
-        traits: ["evocation", "magical"],
+        traits: ["magical"],
     },
     wounding: {
         damage: {
@@ -2040,17 +2115,19 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 340,
         rarity: "common",
         slug: "wounding",
-        traits: ["magical", "necromancy"],
+        traits: ["magical"],
     },
 };
 
 const RUNE_DATA = {
     armor: { ...FUNDAMENTAL_ARMOR_RUNE_DATA, property: ARMOR_PROPERTY_RUNES },
+    shield: FUNDAMENTAL_SHIELD_RUNE_DATA,
     weapon: { ...FUNDAMENTAL_WEAPON_RUNE_DATA, property: WEAPON_PROPERTY_RUNES },
 };
 
 export {
     RUNE_DATA,
+    getPropertyRuneDegreeAdjustments,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
     getPropertyRuneStrikeAdjustments,

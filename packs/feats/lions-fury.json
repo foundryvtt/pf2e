@@ -1,6 +1,6 @@
 {
     "_id": "d81PT3w97SkyAiXQ",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Lion's Fury",
     "system": {
         "actionType": {
@@ -30,20 +30,15 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "lion-scythe-damage",
-                "text": "PF2E.Item.Weapon.CriticalSpecialization.knife"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "sun-sling-damage",
-                "text": "PF2E.Item.Weapon.CriticalSpecialization.sling"
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:lion-scythe",
+                            "item:base:sun-sling"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

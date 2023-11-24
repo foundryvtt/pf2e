@@ -135,7 +135,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             traits.push(...this.#htmlQueryTags(html, "input#check-prompt-traits"));
             // get action tags
             traits.push(
-                ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => this.#formatActionType(a))
+                ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => this.#formatActionType(a)),
             );
 
             if (!!html.querySelector("input#check-prompt-secret:checked") && !traits.includes("secret")) {

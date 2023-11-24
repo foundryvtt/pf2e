@@ -1,7 +1,7 @@
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import * as R from "remeda";
-import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
+import { energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",
@@ -45,7 +45,6 @@ const physicalDamageTypes = {
 };
 
 const damageTypes: Record<DamageType, string> = {
-    ...alignmentTraits,
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
@@ -54,10 +53,13 @@ const damageTypes: Record<DamageType, string> = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
-    result[key] = `PF2E.Damage.RollFlavor.${key}`;
-    return result;
-}, {} as Record<DamageType, string>);
+const damageRollFlavors = [...DAMAGE_TYPES].reduce(
+    (result, key) => {
+        result[key] = `PF2E.Damage.RollFlavor.${key}`;
+        return result;
+    },
+    {} as Record<DamageType, string>,
+);
 
 export {
     damageCategories,

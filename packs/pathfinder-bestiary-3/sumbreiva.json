@@ -117,31 +117,24 @@
             "name": "Earthbind",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
                 },
                 "description": {
                     "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 3
@@ -149,15 +142,6 @@
                 "location": {
                     "heightenedLevel": 4,
                     "value": "9sOhZcHSPREufoxA"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -167,40 +151,24 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "earthbind",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 flying creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -217,35 +185,22 @@
             "name": "Darkness",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": {
                     "type": "burst",
                     "value": 20
                 },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -253,15 +208,6 @@
                 "location": {
                     "heightenedLevel": 4,
                     "value": "9sOhZcHSPREufoxA"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -271,43 +217,27 @@
                 "range": {
                     "value": "120 feet"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "darkness",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "3"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
+                        "concentrate",
                         "darkness",
-                        "evocation"
+                        "manipulate"
                     ]
                 }
             },
@@ -706,7 +636,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sumbreiva claims the soul of a creature they killed within the last minute. This works like <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Soul]</em>, except that no black sapphire is required and the soul is turned into a glowing blue light called a <em>soul trophy</em>. Anyone who kills the sumbreiva can then free the soul from any <em>soul trophy </em>by touching it and speaking the word for \"freedom\" in any language.</p>"
+                    "value": "<p>The sumbreiva claims the soul of a creature they killed within the last minute. This works like <em>@UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]</em>, except that no black sapphire is required and the soul is turned into a glowing blue light called a <em>soul trophy</em>. Anyone who kills the sumbreiva can then free the soul from any <em>soul trophy </em>by touching it and speaking the word for \"freedom\" in any language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -816,8 +746,7 @@
                     "rarity": "common",
                     "value": [
                         "arcane",
-                        "death",
-                        "necromancy"
+                        "death"
                     ]
                 },
                 "trigger": {
@@ -1005,7 +934,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 290,
                 "temp": 0,
                 "value": 290
@@ -1030,16 +959,12 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 16
             },
             "privateNotes": "",
-            "publicNotes": "<p>Sumbreivas are the Negative Energy Plane's unstoppable hunters, tracking down and destroying other creatures on their plane for sport and practice. Occasionally they pass through a rift or are brought to the Material Plane via planar binding, where they collect living souls to display as trophies.</p>\n<p>Sumbreivas gather at Night Lodges, where they train and display their soul trophies, which appear as floating wisps of blue energy. The more formidable the soul, the more intense the blue glow that emanates from it. Sumbreivas in lodges periodically raid the Material Plane on a Night Hunt. Over the course of one night, the sumbreivas from that lodge split up and compete to see who can capture the most brilliant souls as trophies. The winner of the Night Hunt leads the lodge until the next hunt.</p>\n<p>Night Lodges are ranked against each other by the accomplishments of the hunters within. All sumbreivas have the ultimate goal of capturing a soul worthy of being placed in the Twilight Lodge, reserved for the truly elite souls and hunters.</p>",
+            "publicNotes": "<p>Sumbreivas are the Void's unstoppable hunters, tracking down and destroying other creatures on their plane for sport and practice. Occasionally they pass through a rift or are brought to the Material Plane via planar binding, where they collect living souls to display as trophies.</p>\n<p>Sumbreivas gather at Night Lodges, where they train and display their soul trophies, which appear as floating wisps of blue energy. The more formidable the soul, the more intense the blue glow that emanates from it. Sumbreivas in lodges periodically raid the Material Plane on a Night Hunt. Over the course of one night, the sumbreivas from that lodge split up and compete to see who can capture the most brilliant souls as trophies. The winner of the Night Hunt leads the lodge until the next hunt.</p>\n<p>Night Lodges are ranked against each other by the accomplishments of the hunters within. All sumbreivas have the ultimate goal of capturing a soul worthy of being placed in the Twilight Lodge, reserved for the truly elite souls and hunters.</p>",
             "publication": {
                 "license": "OGL",
                 "remaster": false,
@@ -1086,7 +1011,9 @@
                 "value": "lg"
             },
             "value": [
+                "evil",
                 "humanoid",
+                "lawful",
                 "void"
             ]
         }

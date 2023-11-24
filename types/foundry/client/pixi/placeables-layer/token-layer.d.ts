@@ -65,7 +65,7 @@ declare global {
          */
         targetObjects(
             { x, y, width, height }: { x: number; y: number; width: number; height: number },
-            { releaseOthers }?: { releaseOthers?: boolean }
+            { releaseOthers }?: { releaseOthers?: boolean },
         ): number;
 
         /**
@@ -88,7 +88,7 @@ declare global {
         toggleCombat(
             state: boolean | undefined,
             combat: Combat,
-            { token }?: { token?: TToken | null }
+            { token }?: { token?: TToken | null },
         ): Promise<NonNullable<TToken["combatant"]>>[];
 
         /** Get the tab cycle order for tokens by sorting observable tokens based on their distance from top-left. */
@@ -104,7 +104,7 @@ declare global {
         /** Handle dropping of Actor data onto the Scene canvas */
         protected _onDropActorData(
             event: ElementDragEvent,
-            data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>
+            data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>,
         ): Promise<TToken["actor"]>;
 
         protected override _onClickLeft(event: PIXI.FederatedEvent): void;

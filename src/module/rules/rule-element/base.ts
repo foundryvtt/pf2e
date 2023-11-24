@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
@@ -50,7 +50,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
         this.label =
             typeof source.label === "string"
-                ? game.i18n.localize(this.resolveInjectedProperties(source.label))
+                ? game.i18n.format(this.resolveInjectedProperties(source.label), {
+                      actor: item.actor.name,
+                      item: item.name,
+                      origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
+                  })
                 : item.name;
 
         if (this.invalid) {
@@ -135,7 +139,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             if (error instanceof foundry.data.validation.DataModelValidationError) {
                 const message = error.message.replace(
                     /validation errors|Joint Validation Error/,
-                    `validation errors on item ${this.item.name} (${this.item.uuid})`
+                    `validation errors on item ${this.item.name} (${this.item.uuid})`,
                 );
                 console.warn(message);
                 return false;
@@ -166,7 +170,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         if (!this.suppressWarnings) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             this.actor.synthetics.preparationWarnings.add(
-                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`
+                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
             );
         }
         this.ignored = true;
@@ -194,11 +198,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveInjectedProperties<T extends string | number | object | null | undefined>(
         source: T,
-        options?: { warn?: boolean }
+        options?: { warn?: boolean },
     ): T;
     resolveInjectedProperties(
         source: string | number | object | null | undefined,
-        { warn = true } = {}
+        { warn = true } = {},
     ): string | number | object | null | undefined {
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
@@ -250,7 +254,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     resolveValue(
         value: unknown,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
+        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {},
     ): number | string | boolean | object | null {
         value ??= defaultValue ?? null;
         if (typeof value === "number" || typeof value === "boolean" || value === null) {
@@ -298,7 +302,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             }
 
             const trimmed = resolvedFromBracket.trim();
-            return (trimmed.includes("@") || /^\d+$/.test(trimmed)) && evaluate
+            return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
                 ? saferEval(Roll.replaceFormulaData(trimmed, { actor: this.actor, item: this.item, ...resolvables }))
                 : trimmed;
         }
@@ -316,7 +320,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     #resolveBracketedValue(
         value: BracketedValue,
-        defaultValue: Exclude<RuleValue, BracketedValue>
+        defaultValue: Exclude<RuleValue, BracketedValue>,
     ): Exclude<RuleValue, BracketedValue> {
         const bracketNumber = ((): number => {
             if (!value.field) return this.actor.level;
@@ -463,7 +467,9 @@ namespace RuleElementPF2e {
         /** The source of the rule in `itemSource`'s `system.rules` array */
         ruleSource: T;
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
-        pendingItems: PreCreate<ItemSourcePF2e>[];
+        pendingItems: ItemSourcePF2e[];
+        /** Items temporarily constructed from pending item source */
+        tempItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.createDocuments` call */
         context: DocumentModificationContext<ActorPF2e | null>;
         /** Whether this preCreate run is from a pre-update reevaluation */

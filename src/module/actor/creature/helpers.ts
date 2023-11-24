@@ -1,11 +1,12 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { Immunity } from "@actor/data/iwr.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
-import { AbilityItemPF2e, ConditionPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ConditionPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
-import { CreaturePF2e } from "./document.ts";
+import type { CreaturePF2e } from "./document.ts";
 
 /** A static class of helper functions for applying automation for certain weapon traits on attack rolls */
 class AttackTraitHelpers {
@@ -39,7 +40,7 @@ class AttackTraitHelpers {
                         ignored: true,
                         predicate: new PredicatePF2e(
                             { lte: ["target:distance", penaltyRange] },
-                            { not: "self:ignore-volley-penalty" }
+                            { not: "self:ignore-volley-penalty" },
                         ),
                     });
                 }
@@ -92,7 +93,6 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
             "drained",
             "fatigued",
             "healing",
-            "necromancy",
             "nonlethal-attacks",
             "paralyzed",
             "poison",
@@ -103,7 +103,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
         for (const immunityType of constructImmunities) {
             if (!immunities.some((i) => i.type === immunityType)) {
                 immunities.push(
-                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") })
+                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") }),
                 );
             }
         }
@@ -120,12 +120,13 @@ function imposeEncumberedCondition(actor: CreaturePF2e): void {
     if (actor.inventory.bulk.isEncumbered && actor.conditions.bySlug("encumbered").length === 0) {
         const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
         const encumbered = new ConditionPF2e(mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), { parent: actor });
+        actor.conditions.set(encumbered.id, encumbered);
         encumbered.prepareSiblingData();
         encumbered.prepareActorData();
         for (const rule of encumbered.prepareRuleElements()) {
+            rule.onApplyActiveEffects?.();
             rule.beforePrepareData?.();
         }
-        actor.conditions.set(encumbered.id, encumbered);
     }
 }
 

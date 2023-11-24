@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { WeaponSystemSource } from "@item/weapon/data.ts";
 import { WeaponCategory, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MigrationBase } from "../base.ts";

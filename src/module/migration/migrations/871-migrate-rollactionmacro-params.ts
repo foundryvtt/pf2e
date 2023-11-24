@@ -14,7 +14,7 @@ export class Migration871MigrateRollActionMacroParams extends MigrationBase {
             const [current, itemId, slug] = match;
             source.command = source.command.replace(
                 current,
-                `game.pf2e.rollActionMacro({ itemId: "${itemId}", slug: "${slug}" })`
+                `game.pf2e.rollActionMacro({ itemId: "${itemId}", slug: "${slug}" })`,
             );
         }
     }

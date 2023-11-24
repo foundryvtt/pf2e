@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import { PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
@@ -80,7 +80,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-        rollOptions: Record<string, unknown> = {}
+        rollOptions: Record<string, unknown> = {},
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
@@ -114,8 +114,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.category)
                 ? liquidOrSubstance()
                 : ["scroll", "snare", "ammo"].includes(this.category)
-                ? CONFIG.PF2E.consumableTypes[this.category]
-                : "PF2E.identification.UnidentifiedType.Object"
+                  ? CONFIG.PF2E.consumableTypes[this.category]
+                  : "PF2E.identification.UnidentifiedType.Object",
         );
 
         if (typeOnly) return itemType;
@@ -162,15 +162,14 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 ui.notifications.warn(message);
                 return;
             }
-        } else {
+        } else if (this.category !== "ammo") {
+            // Announce consumption of non-ammunition
             const exhausted = max > 1 && value === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: value - 1,
             });
-
-            // If using this consumable creates a roll, we need to show it
             const flags = {
                 pf2e: {
                     origin: {
@@ -180,28 +179,27 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                     },
                 },
             };
+            const speaker = ChatMessage.getSpeaker({ actor });
 
-            if (this.category !== "ammo") {
-                const speaker = ChatMessage.getSpeaker({ actor });
-
-                if (this.formula) {
-                    const damageType = this.traits.has("vitality")
-                        ? "vitality"
-                        : this.traits.has("void")
-                        ? "void"
-                        : "untyped";
-                    new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
-                } else {
-                    ChatMessage.create({ speaker, content, flags });
-                }
+            if (this.formula) {
+                const damageType = this.traits.has("vitality")
+                    ? "vitality"
+                    : this.traits.has("void")
+                      ? "void"
+                      : "untyped";
+                new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
+            } else {
+                ChatMessage.create({ speaker, content, flags });
             }
         }
 
-        const quantity = this.quantity;
-
         // Optionally destroy the item
         if (this.autoDestroy && value <= 1) {
-            if (quantity <= 1) {
+            const { quantity } = this;
+
+            // Keep ammunition if it has rule elements
+            const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
+            if (quantity <= 1 && !isPreservedAmmo) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
@@ -229,7 +227,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             return actor.spellcasting
                 .filter(
                     (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
-                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
+                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this }),
                 )
                 .reduce((previous, current) => {
                     const previousDC = previous.statistic.dc.value;

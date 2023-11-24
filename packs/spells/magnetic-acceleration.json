@@ -3,50 +3,39 @@
     "img": "icons/magic/light/projectile-beam-yellow.webp",
     "name": "Magnetic Acceleration",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "3d6"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "piercing"
-                    },
-                    "value": "3d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "bludgeoning"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "piercing"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You magnetize a small metal object, such as a nail or coin, and launch it away from you at massive speed. Make a ranged spell attack roll; if the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with <em>magnetic acceleration</em>. On a hit, the target takes 3d6 bludgeoning damage and 3d6 piercing damage, or double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning and piercing damage each increase by 1d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -59,9 +48,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -70,35 +56,24 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature or object"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "attack",
-                "evocation",
+                "concentrate",
+                "manipulate",
                 "metal"
             ]
         }

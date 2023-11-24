@@ -1,0 +1,67 @@
+{
+    "_id": "rnVjsjav50CHwMVr",
+    "img": "icons/consumables/potions/vial-cork-red.webp",
+    "name": "Effect: Blood Booster (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blood Booster (Lesser)]</p>\n<p>You receive resistance 5 to persistent bleed and persistent poison damage, and you lower the DC for any flat checks to end persistent bleed or persistent poison damage as if you received particularly appropriate aid.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "bleed",
+                "value": 5
+            },
+            {
+                "definition": [
+                    "damage:category:persistent",
+                    "damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.PersistentPoison",
+                "type": "custom",
+                "value": 5
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:bleed",
+                            "item:damage:type:poison"
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

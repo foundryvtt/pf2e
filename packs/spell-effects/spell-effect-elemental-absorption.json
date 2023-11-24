@@ -17,8 +17,8 @@
         },
         "publication": {
             "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
         },
         "rules": [
             {
@@ -36,17 +36,56 @@
                         "value": "fire"
                     },
                     {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
                         "label": "PF2E.TraitWater",
                         "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
                     }
                 ],
                 "flag": "elementalAbsorption",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Element"
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "elemental-absorption"
             },
             {
                 "key": "Resistance",
                 "type": "{item|flags.pf2e.rulesSelections.elementalAbsorption}",
+                "value": "5*floor(@item.level/3)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-absorption:water"
+                ],
+                "type": "cold",
+                "value": "5*floor(@item.level/3)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-absorption:metal"
+                ],
+                "type": [
+                    "electricity",
+                    "slashing"
+                ],
+                "value": "5*floor(@item.level/3)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-absorption:wood"
+                ],
+                "type": [
+                    "bludgeoning",
+                    "vitality"
+                ],
                 "value": "5*floor(@item.level/3)"
             }
         ],

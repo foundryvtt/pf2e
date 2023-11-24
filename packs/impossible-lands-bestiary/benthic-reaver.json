@@ -117,31 +117,19 @@
             "name": "True Seeing (Constant)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": true
                 },
                 "level": {
                     "value": 6
@@ -149,15 +137,6 @@
                 "location": {
                     "heightenedLevel": 9,
                     "value": "j26Lepuho7qRRsJ8"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -167,44 +146,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "true-seeing",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
                         "arcane",
                         "divine",
                         "occult",
                         "primal"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
+                    ],
                     "value": [
                         "arcane",
-                        "revelation",
-                        "divination"
+                        "concentrate",
+                        "manipulate",
+                        "revelation"
                     ]
                 }
             },
@@ -627,9 +590,7 @@
                         "slug": "intense-chill",
                         "traits": [
                             "arcane",
-                            "aura",
-                            "cold",
-                            "evocation"
+                            "cold"
                         ]
                     }
                 ],
@@ -639,8 +600,7 @@
                     "value": [
                         "arcane",
                         "aura",
-                        "cold",
-                        "evocation"
+                        "cold"
                     ]
                 },
                 "trigger": {
@@ -737,7 +697,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The benthic reaver unleashes a cry of mourning. All creatures within 60 feet must attempt a @Check[type:will|dc:41] save to resist. The benthic reaver can't use Song of the Lost for [[/r 1d4 #Recharge Song of the Lost]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} with sympathy.</p>"
+                    "value": "<p>The benthic reaver unleashes a cry of mourning. All creatures within 60 feet must attempt a @Check[type:will|dc:41] save to resist. The benthic reaver can't use Song of the Lost for [[/br 1d4 #Recharge Song of the Lost]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} with sympathy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -755,7 +715,6 @@
                         "arcane",
                         "auditory",
                         "emotion",
-                        "enchantment",
                         "fear",
                         "mental"
                     ]
@@ -953,7 +912,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 500,
                 "temp": 0,
                 "value": 500
@@ -1013,17 +972,13 @@
             },
             "weaknesses": [
                 {
-                    "type": "good",
+                    "type": "holy",
                     "value": 20
                 }
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 21
             },
@@ -1067,8 +1022,11 @@
                 "value": "grg"
             },
             "value": [
+                "chaotic",
                 "cold",
-                "undead"
+                "evil",
+                "undead",
+                "unholy"
             ]
         }
     },

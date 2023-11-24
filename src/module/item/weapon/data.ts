@@ -1,15 +1,17 @@
 import { AttributeString } from "@actor/types.ts";
-import { ItemFlagsPF2e } from "@item/data/base.ts";
+import { ItemFlagsPF2e } from "@item/base/data/system.ts";
 import {
     BasePhysicalItemSource,
     Investable,
     ItemMaterialData,
+    ItemMaterialSource,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
     PreciousMaterialGrade,
     UsageDetails,
 } from "@item/physical/index.ts";
+import { BaseShieldType } from "@item/shield/types.ts";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { WeaponTraitToggles } from "./helpers.ts";
@@ -33,7 +35,7 @@ type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
-        /** Whether this attack is from a battle form */
+        /** Whether this attack is compatible with a battle form */
         battleForm?: boolean;
         comboMeleeUsage: boolean;
         /**
@@ -97,7 +99,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponTraitsSource;
     category: WeaponCategory;
     group: WeaponGroup | null;
-    baseItem: BaseWeaponType | null;
+    /** A base shield type can be used for attacks generated from shields */
+    baseItem: BaseWeaponType | BaseShieldType | null;
     bonus: {
         value: number;
     };
@@ -134,7 +137,10 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     propertyRune3: WeaponPropertyRuneSlot;
     propertyRune4: WeaponPropertyRuneSlot;
 
-    material: WeaponMaterialData;
+    material: WeaponMaterialSource;
+
+    /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
+    graspingAppendage?: boolean;
 
     // Refers to custom damage, *not* property runes
     property1: {
@@ -150,7 +156,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-interface WeaponMaterialData extends ItemMaterialData {
+interface WeaponMaterialSource extends ItemMaterialSource {
     type: WeaponMaterialType | null;
 }
 
@@ -159,6 +165,7 @@ interface WeaponSystemData
         Omit<Investable<PhysicalSystemData>, "material"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
+    material: WeaponMaterialData;
     maxRange: number | null;
     reload: {
         value: WeaponReloadTime | null;
@@ -169,6 +176,7 @@ interface WeaponSystemData
     };
     runes: WeaponRuneData;
     usage: WeaponUsageDetails;
+    graspingAppendage: boolean;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
 
@@ -177,6 +185,10 @@ type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];
     toggles: WeaponTraitToggles;
+}
+
+interface WeaponMaterialData extends ItemMaterialData {
+    type: WeaponMaterialType | null;
 }
 
 interface WeaponRuneData {
@@ -198,10 +210,12 @@ export type {
     WeaponDamage,
     WeaponFlags,
     WeaponMaterialData,
+    WeaponMaterialSource,
     WeaponPersistentDamage,
     WeaponPropertyRuneSlot,
     WeaponRuneData,
     WeaponSource,
     WeaponSystemData,
     WeaponSystemSource,
+    WeaponTraitsSource,
 };

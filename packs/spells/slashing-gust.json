@@ -4,37 +4,29 @@
     "name": "Slashing Gust",
     "system": {
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "rrgCumtxsY2Gaxqv": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "slashing"
-                    },
-                    "value": "2d4"
-                }
+            "rrgCumtxsY2Gaxqv": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "slashing"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>You slash your hand through the air, channeling miniature ripples of air from each finger to slice your enemy. If you have two hands free, you can target two creatures with this spell; otherwise, you target one.</p>\n<p>Make a spell attack roll against each target's AC. This deals 2d4 slashing damage. On a critical success, a target also takes [[/r (@item.level)d4[bleed]]] damage. If you're attacking two creatures, this counts as two attacks for your multiple attack penalty, but the penalty doesn't increase until after both attacks.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and 1d4 persistent bleed damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4, and the persistent damage on a critical hit increases by 1d4.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -46,9 +38,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": "You have at least one free hand."
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -57,35 +46,26 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "You have at least one free hand.",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 or 2 creatures"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "air",
                 "attack",
-                "cantrip"
+                "cantrip",
+                "concentrate",
+                "manipulate"
             ]
         }
     },

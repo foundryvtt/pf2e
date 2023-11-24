@@ -7,7 +7,8 @@
             "loot",
             "familiar",
             "party",
-            "vehicle"
+            "vehicle",
+            "army"
         ],
         "templates": {
             "common": {
@@ -25,9 +26,6 @@
                     }
                 },
                 "details": {
-                    "alignment": {
-                        "value": "N"
-                    },
                     "level": {
                         "value": 1
                     }
@@ -62,7 +60,7 @@
             "templates": [
                 "common"
             ],
-            "exploration": [],
+            "abilities": null,
             "details": {
                 "biography": {
                     "appearance": "",
@@ -182,7 +180,8 @@
                     "RO": null,
                     "VW": null
                 }
-            }
+            },
+            "exploration": []
         },
         "npc": {
             "templates": [
@@ -249,7 +248,6 @@
                 }
             },
             "details": {
-                "creatureType": "",
                 "blurb": "",
                 "publicNotes": "",
                 "privateNotes": "",
@@ -263,7 +261,6 @@
         },
         "hazard": {
             "templates": [],
-            "creatureType": "",
             "saves": {
                 "fortitude": {
                     "value": 0,
@@ -437,6 +434,59 @@
                 "version": null,
                 "previous": null
             }
+        },
+        "army": {
+            "templates": [],
+            "ac": {
+                "value": null,
+                "potency": 0
+            },
+            "attributes": {
+                "hp": {
+                    "value": 10,
+                    "max": 10
+                }
+            },
+            "details": {
+                "level": {
+                    "value": 1
+                },
+                "alignment": "Neutral",
+                "description": "",
+                "blurb": ""
+            },
+            "traits": {
+                "rarity": "common",
+                "type": "infantry",
+                "size": {
+                    "value": "med"
+                },
+                "value": []
+            },
+            "consumption": 1,
+            "resources": {
+                "potions": {
+                    "value": 0
+                },
+                "ammunition": {
+                    "value": 5,
+                    "max": 5
+                }
+            },
+            "saves": {
+                "maneuver": 10,
+                "morale": 4
+            },
+            "weapons": {
+                "melee": {
+                    "name": "Melee Strike",
+                    "potency": 0
+                },
+                "ranged": {
+                    "name": "Ranged Strike",
+                    "potency": 0
+                }
+            }
         }
     },
     "Item": {
@@ -460,6 +510,7 @@
             "kit",
             "lore",
             "melee",
+            "shield",
             "spell",
             "spellcastingEntry",
             "treasure",
@@ -525,9 +576,6 @@
                     "carryType": "worn"
                 },
                 "stackGroup": null,
-                "negateBulk": {
-                    "value": "0"
-                },
                 "containerId": null,
                 "size": "med",
                 "material": {
@@ -548,7 +596,7 @@
                     "misidentified": {}
                 },
                 "usage": {
-                    "value": ""
+                    "value": "carried"
                 }
             },
             "itemLevel": {
@@ -594,6 +642,9 @@
             ],
             "bulkCapacity": {
                 "value": ""
+            },
+            "negateBulk": {
+                "value": "0"
             },
             "collapsed": false,
             "stowing": false,
@@ -690,27 +741,27 @@
             "category": "light",
             "group": null,
             "acBonus": 0,
-            "strength": 0,
-            "dexCap": 0,
-            "checkPenalty": null,
-            "speedPenalty": null,
+            "strength": null,
+            "dexCap": null,
+            "checkPenalty": 0,
+            "speedPenalty": 0,
             "potencyRune": {
                 "value": 0
             },
             "resiliencyRune": {
-                "value": ""
+                "value": null
             },
             "propertyRune1": {
-                "value": ""
+                "value": null
             },
             "propertyRune2": {
-                "value": ""
+                "value": null
             },
             "propertyRune3": {
-                "value": ""
+                "value": null
             },
             "propertyRune4": {
-                "value": ""
+                "value": null
             },
             "usage": {
                 "value": "wornarmor"
@@ -891,7 +942,6 @@
                 "medium": 0,
                 "heavy": 0
             },
-            "classDC": 0,
             "ancestryFeatLevels": {
                 "value": [
                     1,
@@ -1013,6 +1063,24 @@
             },
             "deathNote": false
         },
+        "shield": {
+            "templates": [
+                "common",
+                "physical"
+            ],
+            "acBonus": 2,
+            "runes": {
+                "reinforcing": 0
+            },
+            "specific": null,
+            "speedPenalty": 0,
+            "traits": {
+                "integrated": null
+            },
+            "usage": {
+                "value": "held-in-one-hand"
+            }
+        },
         "spell": {
             "templates": [
                 "common",
@@ -1022,24 +1090,10 @@
             "level": {
                 "value": 1
             },
-            "spellType": {
-                "value": "attack"
+            "traits": {
+                "traditions": []
             },
-            "category": {
-                "value": "spell"
-            },
-            "traditions": {
-                "value": []
-            },
-            "components": {
-                "focus": false,
-                "material": false,
-                "somatic": false,
-                "verbal": false
-            },
-            "materials": {
-                "value": ""
-            },
+            "requirements": "",
             "target": {
                 "value": ""
             },
@@ -1051,27 +1105,18 @@
                 "value": "2"
             },
             "duration": {
-                "value": ""
-            },
-            "damage": {
-                "value": {}
-            },
-            "save": {
                 "value": "",
-                "basic": ""
+                "sustained": false
             },
-            "sustained": {
-                "value": false
-            },
+            "damage": {},
+            "defense": null,
             "cost": {
                 "value": ""
             },
             "location": {
                 "value": null
             },
-            "hasCounteractCheck": {
-                "value": false
-            }
+            "counteraction": false
         },
         "spellcastingEntry": {
             "templates": [
@@ -1227,10 +1272,11 @@
                 "common"
             ],
             "category": "deity",
-            "alignment": {
-                "own": "N",
-                "follower": [
-                    "N"
+            "sanctification": {
+                "modal": "can",
+                "what": [
+                    "holy",
+                    "unholy"
                 ]
             },
             "domains": {
@@ -1241,7 +1287,7 @@
                 "harm",
                 "heal"
             ],
-            "ability": [],
+            "attribute": [],
             "skill": null,
             "weapons": [],
             "spells": {}

@@ -3,41 +3,35 @@
     "img": "systems/pf2e/icons/spells/enthrall.webp",
     "name": "Confront Selves",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "aCPbEUxslprwNRxh": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "mental"
-                    },
-                    "value": "2d6"
-                }
+            "aCPbEUxslprwNRxh": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "mental"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "will"
             }
         },
         "description": {
             "value": "<p>You show the target the spiraling web of actions and consequences that is their life and the changes wrought by these decisions upon themselves and those around them. These events swirl around the target like shards of broken pottery. The creature must attempt a Will save to resist these visions.</p>\n<p>Each time you sustain this spell, you force the target to confront an alternate permutation of themselves, witnessing the events of their life as if they'd chosen another path. They take 2d6 mental damage (basic Will save) and are @UUID[Compendium.pf2e.conditionitems.Item.Encumbered]. On a critical success, the spell ends and can no longer be sustained.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The mental damage increases by 1d6.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +43,6 @@
         "level": {
             "value": 4
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -60,31 +51,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
-                "mental",
-                "illusion"
+                "concentrate",
+                "focus",
+                "illusion",
+                "manipulate",
+                "mental"
             ]
         }
     },

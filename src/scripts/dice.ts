@@ -59,11 +59,11 @@ class DicePF2e {
         rollType?: string;
     }): Promise<unknown> {
         // Inner roll function
-        const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
+        const userSettingQuickD20Roll = !game.user.settings.showCheckDialogs;
         const _roll = async (
             rollParts: (string | string[] | number)[],
             adv: number,
-            $form?: JQuery
+            $form?: JQuery,
         ): Promise<Rolled<Roll>> => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
@@ -105,7 +105,7 @@ class DicePF2e {
                 },
                 {
                     rollMode: $form ? ($form.find("[name=rollMode]").val() as RollMode) : rollMode,
-                }
+                },
             );
             return roll;
         };
@@ -167,7 +167,7 @@ class DicePF2e {
                             resolve(roll);
                         },
                     },
-                    dialogOptions
+                    dialogOptions,
                 ).render(true);
             });
         } else {
@@ -185,7 +185,7 @@ class DicePF2e {
                 nd = nd * (multiply || 1) + (add || 0);
                 mods = mods || "";
                 return `${nd}d${d}${mods}`;
-            })
+            }),
         );
 
         return this;

@@ -1,0 +1,53 @@
+{
+    "_id": "r2ZPRAw9c3VGZi8A",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+    "name": "Starless Shadow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your patron first contacted you at the witching hour, as your body lay paralyzed by sleep while your mind had yet to escape the waking world. Your patron might be a creature of the Netherworld or a long-forgotten spirit of twilight—all you remember of them are haunting eyes of moonlight, offering you power from the darkness.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Lesson of Night's Terrors</strong> Your patron taught you that the darkness can hide all manner of things best left unseen. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Shroud of Night] hex cantrip, and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Fear].</p>\n<p><strong>Familiar of Stalking Night</strong> Your familiar is dark of fur or feather, and light seems to disappear into it. When you Cast or Sustain a hex, and your familiar is adjacent to an enemy to which it's @UUID[Compendium.pf2e.conditionitems.Item.Concealed], @UUID[Compendium.pf2e.conditionitems.Item.Hidden], or undetected, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "occult"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

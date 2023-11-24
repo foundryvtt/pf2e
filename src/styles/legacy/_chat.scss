@@ -8,27 +8,32 @@
     .card-header {
         padding: 2px 0;
         border-top: 2px groove #fff;
-        border-bottom: 2px groove #fff;
         align-items: center;
-        min-height: 36px;
+        min-height: 2.25rem;
 
         img {
-            flex: 0 0 36px;
-            margin-right: 5px;
-            height: 36px;
-            width: 36px;
+            flex: 0 0 2.25rem;
+            margin-right: 0.25rem;
+            height: 2.25rem;
+            width: 2.25rem;
         }
 
         h3 {
             border-bottom: none;
             flex: 1;
             margin: 0;
+            font-size: var(--font-size-16);
         }
 
         h4 {
             flex: 0;
-            margin: 0 5px 0 0;
+            margin: 0 0.5em 0 0;
             white-space: nowrap;
+
+            &.level,
+            &.rank {
+                margin-left: auto;
+            }
         }
     }
 
@@ -37,10 +42,10 @@
     }
 
     .card-content {
-        margin: 4px 0;
+        margin: 0.25rem 0;
 
         p {
-            margin: 4px 0;
+            margin: 0.25rem 0;
             min-height: unset;
         }
     }
@@ -49,22 +54,10 @@
         display: flex;
         flex-basis: 100%;
         flex-direction: column;
-        margin: 4px 0;
+        margin: 0.25rem 0;
 
         button {
             margin: 2px 0;
-
-            &.with-image {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                img {
-                    border: none;
-                    height: 2em;
-                    margin-right: 0.5em;
-                }
-            }
 
             span {
                 border: none;
@@ -112,7 +105,7 @@
 
         span {
             border-right: 2px groove #fff;
-            padding: 0 5px 0 0;
+            padding: 0 0.25rem 0 0;
             font-size: var(--font-size-12);
 
             &:last-child {
@@ -122,15 +115,9 @@
         }
     }
 
-    .card-buttons-multiattack {
-        display: grid;
-        grid-template-columns: auto 40px 40px;
-        grid-column-gap: 4px;
-    }
-
     .card-buttons-two-column {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-column-gap: 4px;
+        grid-column-gap: 0.25rem;
     }
 }

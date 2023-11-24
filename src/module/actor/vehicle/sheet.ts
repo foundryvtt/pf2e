@@ -1,7 +1,7 @@
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import { AbilityItemPF2e, ItemPF2e } from "@item";
-import { ActionCost, Frequency } from "@item/data/base.ts";
+import { ActionCost, Frequency } from "@item/base/data/system.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { AdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
@@ -64,7 +64,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             saves: {
                 fortitude: getAdjustment(
                     this.actor.saves.fortitude.mod,
-                    this.actor._source.system.saves.fortitude.value
+                    this.actor._source.system.saves.fortitude.value,
                 ),
             },
         };

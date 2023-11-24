@@ -1,0 +1,48 @@
+{
+    "_id": "QOWjsM4GYUHw6pFA",
+    "img": "icons/magic/fire/barrier-wall-flame-ring-yellow.webp",
+    "name": "Effect: Aura Junction (Fire)",
+    "system": {
+        "description": {
+            "value": "<p>Enemies in your kinetic aura gain weakness to fire from your fire impulses. The weakness is equal to half your level (minimum weakness 1).</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "damage:type:fire",
+                    "item:trait:impulse",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "key": "Weakness",
+                "label": "PF2E.IWR.Custom.ImpulseFireFrom",
+                "type": "custom",
+                "value": "max(1, floor(@item.level/2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

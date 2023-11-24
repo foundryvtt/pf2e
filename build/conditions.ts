@@ -1,4 +1,4 @@
-import { CompendiumPack } from "./lib/compendium-pack.js";
+import { CompendiumPack } from "./lib/compendium-pack.ts";
 
 CompendiumPack.loadJSON("packs/actions");
 CompendiumPack.loadJSON("packs/adventure-specific-actions");

@@ -1,4 +1,4 @@
-<div class="tab character" data-group="primary" data-tab="character">
+<div class="tab character" data-group="primary" data-tab="character" data-tooltip-class="pf2e">
     <section class="character-details">
         <div class="image-container">
             <img
@@ -9,55 +9,29 @@
             />
             <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
-        <div class="alignment">
-            <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
-                <select aria-label="{{localize "PF2E.Alignment"}}" name="system.details.alignment.value">
-                    {{#select data.details.alignment.value}}
-                        {{#each alignments as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </span>
-        </div>
-        <div class="pc pc_deity item">
-            <div class="input">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=deity type="deity" compendium="pf2e.deities"
-                }}
+
+         <div class="abcd">
+            <div class="pc ancestry">
+                {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
             </div>
+            <div class="pc heritage">
+                {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
+            </div>
+            <div class="pc background">
+                {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
+            </div>
+            <div class="pc class">
+                {{> detailItem item=class type="class" compendium="pf2e.classes" }}
+            </div>
+
+            <div class="pc deity">
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
+            </div>
+
             {{#if deity}}
-                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
-            {{else}}
-                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
+                <img class="deity-emblem" src="{{deity.img}}" alt="{{deity.name}}" />
             {{/if}}
-        </div>
-        <div class="detail-sheet">
-            <div class="pc pc_ancestry item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=ancestry type="ancestry" compendium="pf2e.ancestries"
-                }}
-            </div>
-            <div class="pc pc_heritage item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=heritage type="heritage" compendium="pf2e.heritages"
-                }}
-            </div>
-            <div class="pc pc_class item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=class type="class" compendium="pf2e.classes"
-                }}
-            </div>
-            <div class="pc pc_background item">
-                {{>
-                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
-                    item=background type="background" compendium="pf2e.backgrounds"
-                }}
-            </div>
+
         </div>
     </section>
 
@@ -65,11 +39,11 @@
     <section class="character-background">
         <label>
             <span class="details-label">{{localize "PF2E.GenderPronoun"}}</span>
-            <input type="text" class="details-input" title="{{localize "PF2E.GenderPronounTitle"}}" name="system.details.gender.value" value="{{data.details.gender.value}}" />
+            <input type="text" class="details-input" name="system.details.gender.value" value="{{data.details.gender.value}}" />
         </label>
         <label>
             <span class="details-label">{{localize "PF2E.Age"}}</span>
-            <input type="text" class="details-input" title="{{localize "PF2E.AgeTitle"}}" name="system.details.age.value" value="{{data.details.age.value}}" />
+            <input type="text" class="details-input" name="system.details.age.value" value="{{data.details.age.value}}" />
         </label>
         <label>
             <span class="details-label">{{localize "PF2E.Ethnicity"}}</span>
@@ -84,15 +58,15 @@
     <hr />
     <section class="character-traits">
         <div class="pc pc_land-speed">
-            <span class="details-label" >{{localize "PF2E.Speed"}}</span>
+            <span class="details-label">{{localize "PF2E.Speed"}}</span>
             <span>
-                <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
+                <h3 data-tooltip="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
             </span>
         </div>
         <div class="pc pc_size">
             <span class="details-label">{{localize "PF2E.Size"}}</span>
             <span>
-                <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
+            <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
             </span>
         </div>
 
@@ -103,7 +77,7 @@
                 <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
                 <ol class="tags">
                     {{#each data.attributes.speed.otherSpeeds as |speed|}}
-                        <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
+                        <li class="tag tag_alt" data-slug="{{speed.type}}" data-tooltip="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
                     {{/each}}
                     {{#if @root.options.editable}}
                         <li class="tag tag_secondary edit-btn">
@@ -169,24 +143,24 @@
             <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
         </button>
     </h3>
-    <section class="character-attributes">
+    <section class="character-attributes" data-tooltip-direction="UP">
         <ol class="attributes">
             {{#each data.abilities as |attribute abbrev|}}
                 <li class="attribute {{#if (eq ../actor.keyAttribute abbrev)}}key{{/if}}" data-attribute="{{abbrev}}">
                     <h2 class="abbreviation">
                         {{#if (eq ../data.details.keyability.value abbrev)}}
-                            <i class="key fa-solid fa-key" title="{{localize "PF2E.Actor.Character.Attribute.Key"}}"></i>
+                            <i class="key fa-solid fa-key" data-tooltip="PF2E.Actor.Character.Attribute.Key"></i>
                         {{/if}}
-                        <span title="{{localize attribute.label}}">{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
+                        <span>{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
                         {{#if (eq ../data.build.attributes.apex abbrev)}}
-                            <i class="apex fa-solid fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                            <i class="apex fa-solid fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
                         {{else if (and ../editable (includes ../apexAttributeOptions abbrev))}}
                             <a data-action="apex-attribute">
-                                <i class="apex unselected fa-regular fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                                <i class="apex unselected fa-regular fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
                             </a>
                         {{/if}}
                     </h2>
-                    <h3 class="modifier" title="{{localize "PF2E.ModifierTitle"}}">
+                    <h3 class="modifier" aria-label="PF2E.ModifierTitle">
                         {{numberFormat attribute.mod decimals=0 sign=true}}
                     </h3>
                     <div class="label details-label">{{localize attribute.label}}</div>
@@ -195,3 +169,17 @@
         </ol>
     </section>
 </div>
+
+{{#*inline "detailItem"}}
+    <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
+    <h3>
+        <span class="value">{{item.name}}</span>
+        {{#if @root.options.editable}}
+            {{#if item}}
+                <span class="detail-item-control" data-item-id="{{item.id}}"><i class="fa-solid fa-fw fa-ellipsis-v"></i></span>
+            {{else}}
+                <a class="open-compendium" data-compendium={{compendium}}><i class="fa-solid fa-fw fa-plus-circle"></i></a>
+            {{/if}}
+        {{/if}}
+    </h3>
+{{/inline}}

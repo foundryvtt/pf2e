@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 2
                 },
@@ -98,7 +95,6 @@
                     "rarity": "common",
                     "value": [
                         "deadly-d8",
-                        "evocation",
                         "forceful",
                         "magical",
                         "reach"
@@ -155,10 +151,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 2
                 },
@@ -197,7 +189,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "invested",
                         "magical"
                     ]
@@ -456,7 +447,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A corpsekiller's Strikes affect incorporeal creatures as though etched with a ghost touch property rune and deal an additional @Damage[2d8[slashing]] damage to undead creatures.</p>"
+                    "value": "<p>A corpsekiller's Strikes affect incorporeal creatures as though etched with a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal an additional @Damage[2d8[slashing]] damage to undead creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -467,6 +458,12 @@
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "slashing",
                         "diceNumber": 2,
@@ -762,7 +759,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 330,
                 "temp": 0,
                 "value": 330
@@ -820,11 +817,7 @@
             "weaknesses": []
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 16
             },
@@ -868,10 +861,13 @@
                 "value": "med"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "human",
                 "humanoid",
                 "skeleton",
-                "undead"
+                "undead",
+                "unholy"
             ]
         }
     },

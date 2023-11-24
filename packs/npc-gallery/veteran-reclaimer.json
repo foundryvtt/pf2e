@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -157,9 +154,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -267,9 +261,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -369,10 +360,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -469,9 +456,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
@@ -493,9 +477,8 @@
                         "consumable",
                         "healing",
                         "magical",
-                        "necromancy",
-                        "vitality",
-                        "potion"
+                        "potion",
+                        "vitality"
                     ]
                 },
                 "usage": {
@@ -554,9 +537,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "per": 10,
@@ -1084,40 +1064,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "composite-longbow-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "weapon-mastery",
+                        "toggleable": true
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "dagger-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.knife",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "bastard-sword-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "bastard-sword-two-handed-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "weapon-mastery"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -1359,11 +1315,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CG"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 11
             },
@@ -1407,6 +1359,8 @@
                 "value": "med"
             },
             "value": [
+                "chaotic",
+                "good",
                 "human",
                 "humanoid",
                 "orc"

@@ -7,7 +7,7 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
@@ -16,7 +16,6 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
-import { AbstractNPCSheet } from "./sheet.ts";
 import { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
@@ -38,10 +37,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     get description(): string {
         return this.system.details.publicNotes;
-    }
-
-    override get hardness(): number {
-        return Math.abs(this.system.attributes.hardness?.value ?? 0);
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -108,7 +103,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
         const { level } = details;
-        level.base = level.value;
+        level.base = Math.clamped(level.value, -1, 100);
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
@@ -146,8 +141,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
                         this.getHpAdjustment(baseLevel, "elite"),
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -160,8 +155,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
                         this.getHpAdjustment(baseLevel, "weak") * -1,
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         }
         system.details.level.base = baseLevel;
@@ -240,7 +235,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
             system.attributes.perception = mergeObject(
                 system.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 
@@ -253,7 +248,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         // Initiative
-        this.initiative = new ActorInitiative(this);
+        const initiativeSkill = system.attributes.initiative?.statistic || "perception";
+        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
         this.system.attributes.initiative = this.initiative.getTraceData();
     }
 
@@ -393,7 +389,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     selector: "all",
                     visibility: "gm",
                     text: attack.description,
-                })
+                }),
             );
         }
         const formatItemName = (item: ItemPF2e<this | null>): string => {
@@ -416,7 +412,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         for (const attackEffect of attack.attackEffects) {
             const item = this.items.find(
-                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect)
+                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect),
             );
             if (item) {
                 // Get description from the actor item.
@@ -555,8 +551,6 @@ interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     flags: NPCFlags;
     readonly _source: NPCSource;
     system: NPCSystemData;
-
-    get sheet(): AbstractNPCSheet<this>;
 }
 
 export { NPCPF2e };

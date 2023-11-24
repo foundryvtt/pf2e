@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -14,7 +14,7 @@ export class Migration817FieldDiscoveryPredicates extends MigrationBase {
                 typeof r.path === "string" &&
                 /^system.crafting.entries.\w+.fieldDiscovery$/.test(r.path) &&
                 "value" in r &&
-                typeof r.value === "string"
+                typeof r.value === "string",
         );
 
         for (const rule of aeLikes) {

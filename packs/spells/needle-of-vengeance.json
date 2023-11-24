@@ -3,39 +3,35 @@
     "img": "systems/pf2e/icons/spells/needle-of-vengeance.webp",
     "name": "Needle of Vengeance",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "value": "mental"
-                    },
-                    "value": "2"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "mental"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "will"
             }
         },
         "description": {
-            "value": "<p>A long, jagged needle jabs into the target foe's psyche whenever it tries to attack a specifically forbidden creature. Name yourself or one of your allies. The target takes @Damage[2[mental]] damage any time it uses a hostile action against the named creature.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by @Damage[2[mental]]{2 mental}.</p>"
+            "value": "<p>A long, jagged needle jabs into the target foe's psyche whenever it tries to attack a creature your patron holds in special regard. Name yourself or one of your allies. The target takes @Damage[2[mental]] damage any time it uses a hostile action against the named creature, with a basic Will save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by @Damage[2[mental]]{2 mental}.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "Sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -47,56 +43,31 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "will"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 enemy"
         },
         "time": {
             "value": "1"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
-                "mental",
-                "witch",
+                "focus",
                 "hex",
-                "enchantment"
+                "manipulate",
+                "mental",
+                "witch"
             ]
         }
     },

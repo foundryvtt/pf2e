@@ -3,42 +3,27 @@
     "img": "icons/magic/fire/flame-burning-eye.webp",
     "name": "Blinding Fury",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
-        "damage": {
-            "value": {}
+        "counteraction": false,
+        "damage": {},
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "will"
+            }
         },
         "description": {
             "value": "<p><strong>Trigger</strong> A creature damages you.</p>\n<hr />\n<p>You curse the target with your outrage at being attacked. The effect is determined by the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target can't @UUID[Compendium.pf2e.conditionitems.Item.Observed]{Observe} you until the end of its turn, and if you're currently Observed by it, you become @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to it.</p>\n<p><strong>Failure</strong> As success, and for 1 minute, every time the target damages you, it can't Observe you until the end of its turn.</p>\n<p><strong>Critical Failure</strong> As success, and for an unlimited duration, the first time each round the target damages a creature, it can't Observe that creature until the end of its turn. If it damages several creatures at once, the creature it can't perceive is chosen randomly among those creatures.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "varies"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "level": {
             "value": 6
-        },
-        "materials": {
-            "value": "A creature damages you"
-        },
-        "prepared": {
-            "value": false
-        },
-        "primarycheck": {
-            "value": ""
         },
         "publication": {
             "license": "OGL",
@@ -48,44 +33,27 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "A creature damages you",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "The triggering creature"
         },
         "time": {
             "value": "reaction"
         },
-        "traditions": {
-            "value": [
+        "traits": {
+            "rarity": "common",
+            "traditions": [
                 "divine",
                 "occult",
                 "primal"
-            ]
-        },
-        "traits": {
-            "rarity": "common",
+            ],
             "value": [
+                "concentrate",
                 "curse",
                 "emotion",
                 "incapacitation",
-                "mental",
-                "enchantment"
+                "mental"
             ]
         }
     },

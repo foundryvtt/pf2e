@@ -3,8 +3,8 @@ import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.js";
-import { MarkTargetPrompt } from "./prompt.js";
+import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
+import { MarkTargetPrompt } from "./prompt.ts";
 
 /** Remember a token for later referencing */
 class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
@@ -65,8 +65,8 @@ interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPr
 }
 
 interface MarkTokenSource extends RuleElementSource {
-    slug?: unknown;
-    uuid?: unknown;
+    slug?: JSONValue;
+    uuid?: JSONValue;
 }
 
 export { TokenMarkRuleElement };

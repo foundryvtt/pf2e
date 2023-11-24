@@ -15,13 +15,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import {
-    Alignment,
-    CreatureInitiativeSource,
-    CreatureSpeeds,
-    CreatureTraitsSource,
-    SenseData,
-} from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, SenseData } from "@actor/creature/index.ts";
 import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     ActorAttributesSource,
@@ -36,10 +30,9 @@ import {
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
-import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -73,7 +66,7 @@ type CharacterFlags = ActorFlagsPF2e & {
 };
 
 interface CharacterSystemSource extends CreatureSystemSource {
-    abilities?: Record<AttributeString, { mod: number }>;
+    abilities: Record<AttributeString, { mod: number }> | null;
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
     traits: CharacterTraitsSource;
@@ -82,6 +75,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
         defenses?: Record<string, MartialProficiencySource | undefined>;
+        spellcasting?: { rank?: ZeroToFour };
     };
     resources: CharacterResourcesSource;
     crafting?: { formulas: CraftingFormulaData[] };
@@ -117,7 +111,6 @@ interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "s
 }
 
 interface CharacterDetailsSource extends CreatureDetailsSource {
-    alignment: { value: Alignment };
     level: { value: number };
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
@@ -236,8 +229,8 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifie
         defenses: Record<ArmorCategory, MartialProficiency> & Record<string, MartialProficiency | undefined>;
         /** Zero or more class DCs, used for saves related to class abilities. */
         classDCs: Record<string, ClassDCData>;
-        /** Spellcasting attack modifiers and DCs for each magical tradition */
-        traditions: MagicTraditionProficiencies;
+        /** Spellcasting attack modifier and dc for all spellcasting */
+        spellcasting: CharacterProficiency;
         /** Aliased path components for use by rule element during property injection */
         aliases?: Record<string, string | undefined>;
     };
@@ -344,7 +337,6 @@ interface MartialProficiency extends CharacterProficiency {
     custom?: boolean;
 }
 
-type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
 type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiency>;
 
 type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
@@ -365,6 +357,8 @@ interface CharacterStrike extends StrikeData {
     visible: boolean;
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
+    /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
+    handsAvailable: boolean;
     altUsages: CharacterStrike[];
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
@@ -441,9 +435,9 @@ interface CharacterDeities {
     domains: { [K in DeityDomain]?: string };
 }
 
-type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+interface DeityDetails extends Pick<DeitySystemData, "skill"> {
     weapons: BaseWeaponType[];
-};
+}
 
 interface CharacterAttributes extends Omit<CharacterAttributesSource, AttributesSourceOmission>, CreatureAttributes {
     /** The perception statistic */
@@ -520,7 +514,6 @@ export type {
     CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
-    MagicTraditionProficiencies,
     MartialProficiency,
     WeaponGroupProficiencyKey,
 };

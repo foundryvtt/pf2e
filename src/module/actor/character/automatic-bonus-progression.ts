@@ -44,7 +44,7 @@ class AutomaticBonusProgression {
                         label: "PF2E.AutomaticBonusProgression.savePotency",
                         modifier: save,
                         type: "potency",
-                    })
+                    }),
             );
         }
 
@@ -57,7 +57,7 @@ class AutomaticBonusProgression {
                         label: "PF2E.AutomaticBonusProgression.defensePotency",
                         modifier: ac,
                         type: "potency",
-                    })
+                    }),
             );
         }
 
@@ -70,7 +70,7 @@ class AutomaticBonusProgression {
                         label: "PF2E.AutomaticBonusProgression.perceptionPotency",
                         modifier: perception,
                         type: "potency",
-                    })
+                    }),
             );
         }
 
@@ -86,7 +86,7 @@ class AutomaticBonusProgression {
                             label: "PF2E.AutomaticBonusProgression.attackPotency",
                             modifier: attack,
                             type: "potency",
-                        })
+                        }),
                 );
             }
         }

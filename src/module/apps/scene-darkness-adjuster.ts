@@ -110,7 +110,7 @@ export class SceneDarknessAdjuster extends Application {
                 const newValue = Number(values[1]);
                 await canvas.scene.update(
                     { darkness: newValue },
-                    { animateDarkness: Math.round(5000 * Math.abs(canvas.scene.darkness - newValue)) }
+                    { animateDarkness: Math.round(5000 * Math.abs(canvas.scene.darkness - newValue)) },
                 );
             }
         });

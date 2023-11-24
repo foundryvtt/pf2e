@@ -1,5 +1,5 @@
 import { AuraAppearanceData, AuraData, AuraEffectData } from "@actor/types.ts";
-import { ItemTrait } from "@item/data/base.ts";
+import { ItemTrait } from "@item/base/data/system.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import { measureDistanceCuboid } from "@module/canvas/index.ts";
 import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
@@ -53,7 +53,7 @@ class TokenAura implements TokenAuraData {
             bounds.x - (radiusPixels - bounds.width / 2),
             bounds.y - (radiusPixels - bounds.width / 2),
             radiusPixels * 2,
-            radiusPixels * 2
+            radiusPixels * 2,
         );
     }
 
@@ -68,27 +68,31 @@ class TokenAura implements TokenAuraData {
 
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: TokenDocumentPF2e): boolean {
-        // 1. If the token is the one emitting the aura, return true early
+        // If either token is hidden or not rendered, return false early
+        if (this.token.hidden || token.hidden || !this.token.object || !token.object) {
+            return false;
+        }
+
+        // If the token is the one emitting the aura, return true early
         if (token === this.token) return true;
 
-        // 2. If this aura is out of range, return false early
-        if (!this.token.object || !token.object) return false;
+        // If this aura is out of range, return false early
         if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
-        // 3. Check whether any aura square intersects the token's space
+        // Check whether any aura square intersects the token's space
         return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.mechanicalBounds) === 0);
     }
 
-    /** Notify tokens' actors if they are inside an aura in this collection */
+    /** Notify tokens' actors if they are inside this aura. */
     async notifyActors(): Promise<void> {
         if (!this.scene.isInFocus) return;
 
         const auraActor = this.token.actor;
         const auraData = auraActor?.auras.get(this.slug);
-        if (!(auraActor && auraData)) return;
+        if (!(auraActor && auraData?.effects.length)) return;
 
         const auradTokens = this.scene.tokens.filter(
-            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t)
+            (t) => t.actor?.primaryUpdater === game.user && this.containsToken(t),
         );
         const affectedActors = new Set(auradTokens.flatMap((t) => t.actor ?? []));
 

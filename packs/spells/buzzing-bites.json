@@ -3,40 +3,35 @@
     "img": "icons/creatures/invertebrates/fly-wasp-mosquito-green.webp",
     "name": "Buzzing Bites",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "nq1rqbq4e9qh9tfk": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "piercing"
-                    },
-                    "value": "1d4"
-                }
+            "nq1rqbq4e9qh9tfk": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d4",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "piercing"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You evoke buzzing and crawling insects to climb onto a foe's body and bite, dealing 1d4 piercing damage and potentially sickening the foe, depending on its Fortitude save. You deal the piercing damage initially and then again the first time each round you Sustain the Spell, starting on the round after you cast it and rolling the damage based on the target's saving throw result each time. However, the creature only attempts the Fortitude save once, when you first Cast the Spell. Once this spell ends, the target becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the crawling insects. The sickened value can't be reduced below 1 while the spell is active.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,9 +43,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -59,33 +51,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "1"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "rare",
+            "traditions": [],
             "value": [
                 "cantrip",
+                "focus",
                 "hex",
-                "witch",
-                "evocation"
+                "manipulate",
+                "witch"
             ]
         }
     },

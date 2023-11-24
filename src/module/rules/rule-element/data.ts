@@ -4,17 +4,16 @@ import * as R from "remeda";
 import type { BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 type RuleElementSource = {
-    key?: unknown;
-    data?: unknown;
-    value?: unknown;
-    label?: unknown;
-    slug?: unknown;
-    predicate?: unknown;
-    priority?: unknown;
-    ignored?: unknown;
-    requiresInvestment?: unknown;
-    requiresEquipped?: unknown;
-    removeUponCreate?: unknown;
+    key?: JSONValue;
+    value?: JSONValue;
+    label?: JSONValue;
+    slug?: JSONValue;
+    predicate?: JSONValue;
+    priority?: JSONValue;
+    ignored?: JSONValue;
+    requiresInvestment?: JSONValue;
+    requiresEquipped?: JSONValue;
+    removeUponCreate?: JSONValue;
 };
 
 type RuleValue = string | number | boolean | object | BracketedValue | null;
@@ -51,7 +50,7 @@ type RuleElementSchema = {
 class ResolvableValueField<
     TRequired extends boolean,
     TNullable extends boolean,
-    THasInitial extends boolean = false
+    THasInitial extends boolean = false,
 > extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
     protected override _validateType(value: unknown): boolean {
         return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);
@@ -65,7 +64,7 @@ class ResolvableValueField<
     /** Coerce a string value that looks like a number into a number. */
     #coerceNumber(value: string): number | string {
         const trimmed = value.trim();
-        return /^\d+(?:\.\d+)?$/.test(trimmed) ? Number(trimmed) : trimmed || 0;
+        return /^-?\d+(?:\.\d+)?$/.test(trimmed) ? Number(trimmed) : trimmed || 0;
     }
 
     protected override _cleanType(value: RuleValue): RuleValue {

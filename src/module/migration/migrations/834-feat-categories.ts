@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { isObject, recursiveReplaceString, setHasElement } from "@util";
@@ -53,7 +53,7 @@ export class Migration834FeatCategories extends MigrationBase {
                 Array.isArray(rule.allowedDrops.predicate)
             ) {
                 rule.allowedDrops.predicate = recursiveReplaceString(rule.allowedDrops.predicate, (s) =>
-                    s.replace(/\bfeat(?:ure)?-type\b/, "category")
+                    s.replace(/\bfeat(?:ure)?-type\b/, "category"),
                 );
             }
 

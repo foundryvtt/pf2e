@@ -345,7 +345,6 @@
                         "radius": 60,
                         "slug": "frightful-presence",
                         "traits": [
-                            "aura",
                             "emotion",
                             "fear",
                             "mental"
@@ -424,7 +423,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Grendel's fist Strikes deal 18 bludgeoning damage on a failure (but no damage on a critical failure).</p>"
+                    "value": "<p>Grendel's fist Strikes deal @Damage[18[bludgeoning]] damage on a failure (but no damage on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -434,7 +433,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "selector": "fist-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -761,11 +771,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "Humanoid",
             "level": {
                 "value": 19
             },
@@ -811,6 +817,8 @@
                 "value": "lg"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "humanoid"
             ]
         }

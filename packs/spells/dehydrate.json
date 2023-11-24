@@ -7,37 +7,34 @@
             "type": "burst",
             "value": 5
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "KCA7zyzlqSK9qPCG": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "fire"
-                    },
-                    "value": "1d6"
-                }
+            "KCA7zyzlqSK9qPCG": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
             }
         },
         "description": {
             "value": "<p>You stir the inner fire of all things within the area, driving out moisture. All creatures in the area take @Damage[1d6[persistent,fire]] damage with a basic Fortitude save; creatures with the water or plant traits get a result one degree of success worse than they rolled. The spell ends for a creature when its persistent damage ends.</p>\n<p>A creature affected by <em>dehydrate</em> attempts an additional Fortitude save at the end of each of its turns, before rolling to recover from the persistent damage. It can forgo this additional save if it consumed water or a similar hydrating liquid within the last round (drinking typically requires a single action).</p>\n<hr />\n<p><strong>Success</strong> The creature takes no additional effect.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the end of its next turn.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The range increases by 10 feet, the burst increases by 5 feet, and the persistent fire damage increases by [[/r 3d6]].</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "levels": {
@@ -48,16 +45,12 @@
                         "value": "10"
                     },
                     "damage": {
-                        "value": {
-                            "KCA7zyzlqSK9qPCG": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "persistent",
-                                    "value": "fire"
-                                },
-                                "value": "4d6"
-                            }
+                        "KCA7zyzlqSK9qPCG": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "4d6",
+                            "materials": [],
+                            "type": "fire"
                         }
                     },
                     "range": {
@@ -71,16 +64,12 @@
                         "value": "15"
                     },
                     "damage": {
-                        "value": {
-                            "KCA7zyzlqSK9qPCG": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "persistent",
-                                    "value": "fire"
-                                },
-                                "value": "7d6"
-                            }
+                        "KCA7zyzlqSK9qPCG": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "7d6",
+                            "materials": [],
+                            "type": "fire"
                         }
                     },
                     "range": {
@@ -94,16 +83,12 @@
                         "value": "20"
                     },
                     "damage": {
-                        "value": {
-                            "KCA7zyzlqSK9qPCG": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "persistent",
-                                    "value": "fire"
-                                },
-                                "value": "10d6"
-                            }
+                        "KCA7zyzlqSK9qPCG": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "10d6",
+                            "materials": [],
+                            "type": "fire"
                         }
                     },
                     "range": {
@@ -117,16 +102,12 @@
                         "value": "25"
                     },
                     "damage": {
-                        "value": {
-                            "KCA7zyzlqSK9qPCG": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "persistent",
-                                    "value": "fire"
-                                },
-                                "value": "13d6"
-                            }
+                        "KCA7zyzlqSK9qPCG": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "13d6",
+                            "materials": [],
+                            "type": "fire"
                         }
                     },
                     "range": {
@@ -139,9 +120,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -150,33 +128,24 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "fortitude"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
-                "fire"
+                "concentrate",
+                "fire",
+                "manipulate"
             ]
         }
     },

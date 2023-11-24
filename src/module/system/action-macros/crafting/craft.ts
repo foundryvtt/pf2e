@@ -18,7 +18,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name ?? "" })
+            game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name ?? "" }),
         );
         return;
     }

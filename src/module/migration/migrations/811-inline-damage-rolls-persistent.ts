@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -37,8 +37,8 @@ export class Migration811InlineDamageRollsPersistent extends MigrationBase {
                 const instances = expressions.map((i) =>
                     i.replace(
                         /^\{([^}]+)\}\[([a-z,]+)\]$/,
-                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]"
-                    )
+                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]",
+                    ),
                 );
 
                 const reassembled = instances.length === 1 ? instances[0] : `{${instances.join(",")}}`;

@@ -5,7 +5,7 @@ import {
     FrequencySource,
     ItemSystemSource,
     ItemTraits,
-} from "@item/data/base.ts";
+} from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import { KingmakerCategory, KingmakerTrait } from "./types.ts";
 

@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/base.ts";
-import { AbstractEffectPF2e, ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
-import { isItemSystemData } from "@item/data/helpers.ts";
+import type { ActorPF2e } from "@actor/base.ts";
+import type { ConsumablePF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e } from "@item";
+import { ItemSummaryData, isItemSystemData } from "@item/base/data/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
@@ -46,10 +46,10 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         const item: ClientDocument | null = isFormula
             ? await fromUuid(itemId ?? "")
             : itemType === "condition"
-            ? actor.conditions.get(itemId, { strict: true })
-            : actionIndex
-            ? actor.system.actions?.[Number(actionIndex)].item ?? null
-            : actor.items.get(itemId ?? "") ?? null;
+              ? actor.conditions.get(itemId, { strict: true })
+              : actionIndex
+                ? actor.system.actions?.[Number(actionIndex)].item ?? null
+                : actor.items.get(itemId ?? "") ?? null;
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
@@ -58,7 +58,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
                 const insertLocation = htmlQueryAll(
                     element,
-                    ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
+                    ":scope > .item-name, :scope > .item-controls, :scope > .action-header",
                 ).at(-1)?.parentNode?.lastChild;
                 if (!insertLocation && !existing) return null;
 
@@ -91,7 +91,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             await gsap.fromTo(
                 summary,
                 { height: 0, opacity: 0, hidden: false },
-                { height: "auto", opacity: 1, duration }
+                { height: "auto", opacity: 1, duration },
             );
         } else {
             await gsap.to(summary, {
@@ -157,6 +157,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                             break;
                         case "spellDamage":
                             spell?.rollDamage(event);
+                            break;
+                        case "spellTemplate":
+                            spell?.placeTemplate();
                             break;
                         case "consume":
                             if (item.isOfType("consumable")) {

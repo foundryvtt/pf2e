@@ -1,0 +1,42 @@
+{
+    "_id": "XXtz5BDNNBmP9ub2",
+    "img": "systems/pf2e/icons/spells/protectors-sphere.webp",
+    "name": "Spell Effect: Protector's Sphere",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Protector's Sphere]</p>\n<p>You gain resistance to all damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": true,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "max(@item.level -1,0)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

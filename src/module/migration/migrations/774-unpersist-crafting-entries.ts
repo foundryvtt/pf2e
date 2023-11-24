@@ -1,6 +1,6 @@
 import { CraftingEntryData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement } from "@system/predication.ts";
@@ -41,7 +41,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         // Change requiredTraits property to craftableItems predicate
         const craftingEntryRules = rules.filter(
             (r: RuleElementSource & { requiredTraits?: unknown }): r is MaybeWithRequiredTraits =>
-                r.key === "CraftingEntry" && Array.isArray(r.requiredTraits)
+                r.key === "CraftingEntry" && Array.isArray(r.requiredTraits),
         );
 
         const newCraftingEntryRules = craftingEntryRules.map((craftingEntryRule) => {
@@ -64,7 +64,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
             (r: RuleElementSource & { path?: unknown }) =>
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
-                r.path.startsWith("system.crafting.entries.")
+                r.path.startsWith("system.crafting.entries."),
         );
         const newCraftingEntryAELikes = craftingEntryAELikes.map((craftingEntryAELike) => {
             craftingEntryAELike.phase = "beforeDerived";

@@ -47,7 +47,7 @@ class PartyClownCar {
             tokens.map(async (token) => {
                 await token.object?._animation;
                 return token.delete();
-            })
+            }),
         );
     }
 
@@ -87,10 +87,10 @@ class PartyClownCar {
                     (s) =>
                         !(s.x === placeable.x && s.y === placeable.y) &&
                         !(s.center.x === center.x && s.center.y === center.y) &&
-                        !placeable.checkCollision(s.center, { type: "move", mode: "any" })
+                        !placeable.checkCollision(s.center, { type: "move", mode: "any" }),
                 )
                 .reverse(), // Favor positions on the right
-            (s) => canvas.grid.measureDistance(center, s.center)
+            (s) => canvas.grid.measureDistance(center, s.center),
         );
     }
 }

@@ -10,7 +10,7 @@ import type * as abstract from "./module.d.ts";
 /** The abstract base interface for all Document types. */
 export default abstract class Document<
     TParent extends Document | null = _Document | null,
-    TSchema extends DataSchema = DataSchema
+    TSchema extends DataSchema = DataSchema,
 > extends DataModel<TParent, TSchema> {
     protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 
@@ -103,7 +103,7 @@ export default abstract class Document<
     testUserPermission(
         user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 
     /**
@@ -130,7 +130,7 @@ export default abstract class Document<
      */
     override clone(
         data: Record<string, unknown> | undefined,
-        context: DocumentCloneContext & { save: true }
+        context: DocumentCloneContext & { save: true },
     ): Promise<this>;
     override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
     override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
@@ -140,7 +140,7 @@ export default abstract class Document<
      * The data model is defined by the template.json specification included by the game system.
      * @returns The migrated system data object
      */
-    migrateSystemData(): Record<string, unknown>;
+    migrateSystemData(): Record<string, JSONValue>;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -181,7 +181,7 @@ export default abstract class Document<
      * @param source           The candidate source data from which the model will be constructed
      * @returns                Migrated source data, if necessary
      */
-    static migrateData<TSource extends object>(source: TSource): TSource;
+    static migrateData(source: object): Record<string, JSONValue>;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -215,7 +215,7 @@ export default abstract class Document<
     static createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
 
     /**
@@ -246,7 +246,7 @@ export default abstract class Document<
     static updateDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         updates?: Record<string, unknown>[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
 
     /**
@@ -279,7 +279,7 @@ export default abstract class Document<
     static deleteDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
 
     /**
@@ -305,17 +305,17 @@ export default abstract class Document<
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]>,
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument | undefined>;
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]>[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[] | TDocument | undefined>;
 
     /**
@@ -338,7 +338,7 @@ export default abstract class Document<
      * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
      * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
      */
-    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this>;
+    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this | undefined>;
 
     /**
                  * Delete the current Document.
@@ -402,7 +402,7 @@ export default abstract class Document<
     createEmbeddedDocuments(
         embeddedName: string,
         data: object[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<Document[]>;
 
     /**
@@ -419,7 +419,7 @@ export default abstract class Document<
     updateEmbeddedDocuments(
         embeddedName: string,
         updateData: EmbeddedDocumentUpdateData[],
-        context?: DocumentUpdateContext<this>
+        context?: DocumentUpdateContext<this>,
     ): Promise<Document[]>;
 
     /**
@@ -433,7 +433,7 @@ export default abstract class Document<
     deleteEmbeddedDocuments(
         embeddedName: string,
         dataId: string[],
-        context?: DocumentModificationContext<this>
+        context?: DocumentModificationContext<this>,
     ): Promise<Document<this>[]>;
 
     /* -------------------------------------------- */
@@ -494,7 +494,7 @@ export default abstract class Document<
     protected _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     /**
@@ -508,7 +508,7 @@ export default abstract class Document<
     protected _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        user: BaseUser
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     /**
@@ -538,7 +538,7 @@ export default abstract class Document<
     protected _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void;
 
     /**
@@ -558,7 +558,7 @@ export default abstract class Document<
      */
     protected static _onCreateDocuments(
         documents: Document[],
-        context: DocumentModificationContext<Document | null>
+        context: DocumentModificationContext<Document | null>,
     ): void;
 
     /**
@@ -570,7 +570,7 @@ export default abstract class Document<
      */
     protected static _onUpdateDocuments(
         documents: Document[],
-        context: DocumentModificationContext<Document | null>
+        context: DocumentModificationContext<Document | null>,
     ): void;
 
     /**
@@ -582,7 +582,7 @@ export default abstract class Document<
      */
     protected static _onDeleteDocuments(
         documents: Document[],
-        context: DocumentModificationContext<Document | null>
+        context: DocumentModificationContext<Document | null>,
     ): void;
 
     /* ---------------------------------------- */

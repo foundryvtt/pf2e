@@ -30,7 +30,7 @@ export default class BaseNote<TParent extends documents.BaseScene | null> extend
     testUserPermission(
         user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 

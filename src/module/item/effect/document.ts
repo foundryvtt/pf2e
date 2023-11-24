@@ -131,7 +131,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
@@ -150,7 +150,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (duration?.unit === "unlimited") {
@@ -192,13 +192,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
             }
 
+            // Delete min/max under certain conditions. Foundry is a bit shakey with -= behavior in _preUpdates
             if (badgeTypeChanged || labels || badgeChange.min === null) {
                 delete badgeChange.min;
-                badgeChange["-=min"] = null;
+                if ("min" in (this._source.system.badge ?? {})) badgeChange["-=min"] = null;
             }
             if (badgeTypeChanged || labels || badgeChange.max === null) {
                 delete badgeChange.max;
-                badgeChange["-=max"] = null;
+                if ("max" in (this._source.system.badge ?? {})) badgeChange["-=max"] = null;
             }
         }
 

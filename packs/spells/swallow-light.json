@@ -3,53 +3,48 @@
     "img": "systems/pf2e/icons/spells/swallow-light.webp",
     "name": "Swallow Light",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "cone",
             "value": 15
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": true,
         "damage": {
-            "value": {
-                "ab3ptdpkosjwwhas": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "cold"
-                    },
-                    "value": "1d6"
-                },
-                "ykcgd1y626dthnzt": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "void"
-                    },
-                    "value": "1d6"
-                }
+            "ab3ptdpkosjwwhas": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
+            },
+            "ykcgd1y626dthnzt": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "void"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
-            "value": "<p>You draw magical light into your open mouth, consuming it and turning its essence into fuel for a gout of life-draining shadows. Attempt a counteract check against the light effect. If you successfully counteract it, you gain a breath weapon of chilling shadows you can use until the spell ends. Exhaling the breath is a two-action activity. The breath weapon is a 15-foot cone and deals 1d6 cold damage plus 1d6 negative damage. Creatures in the area can attempt a basic Reflex save against your spell DC. Once activated, you can't use the breath weapon again for [[/r 1d4 #Rounds]] rounds.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase the damage of the breath weapon by 1d6 cold damage and 1d6 negative damage.</p>"
+            "value": "<p>You draw magical light into your open mouth, consuming it and turning its essence into fuel for a gout of life-draining shadows. Attempt a counteract check against the light effect. If you successfully counteract it, you gain a breath weapon of chilling shadows you can use until the spell ends. Exhaling the breath is a two-action activity. The breath weapon is a 15-foot cone and deals 1d6 cold damage plus 1d6 void damage. Creatures in the area can attempt a basic Reflex save against your spell DC. Once activated, you can't use the breath weapon again for [[/r 1d4 #Rounds]] rounds.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase the damage of the breath weapon by 1d6 cold damage and 1d6 void damage.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": "1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": true
         },
         "heightening": {
             "damage": {
@@ -62,9 +57,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -73,38 +65,27 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 magical light effect"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
                 "arcane",
                 "divine",
                 "occult"
-            ]
-        },
-        "traits": {
-            "rarity": "uncommon",
+            ],
             "value": [
                 "cold",
+                "concentrate",
                 "darkness",
-                "void",
-                "evocation"
+                "manipulate",
+                "void"
             ]
         }
     },

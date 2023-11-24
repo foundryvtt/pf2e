@@ -43,7 +43,7 @@ export interface GenericIdentifyDCs {
 function getIdentifyMagicDCs(
     item: PhysicalItemPF2e,
     baseDC: number,
-    notMatchingTraditionModifier: number
+    notMatchingTraditionModifier: number,
 ): IdentifyMagicDCs {
     const result = {
         occult: baseDC,
@@ -73,7 +73,7 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
+    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
     const baseDC = calculateDC(item.level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(item);
@@ -101,7 +101,9 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
                 return "weapon";
             }
         } else if (item.isOfType("armor")) {
-            return item.category === "shield" ? "shields" : "armor";
+            return "armor";
+        } else if (item.isOfType("shield")) {
+            return "shields";
         } else if (item.isOfType("consumable")) {
             switch (item.category) {
                 case "ammo":

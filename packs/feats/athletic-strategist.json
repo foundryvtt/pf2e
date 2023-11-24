@@ -1,6 +1,6 @@
 {
     "_id": "Tu1hOEr6Ko9Df54L",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Athletic Strategist",
     "system": {
         "actionType": {
@@ -34,12 +34,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "class:investigator",
-                    {
-                        "or": [
-                            "devise-a-stratagem",
-                            "target:mark:devise-a-stratagem"
-                        ]
-                    },
+                    "target:mark:devise-a-stratagem",
                     {
                         "or": [
                             "action:disarm",
@@ -60,7 +55,14 @@
                                     }
                                 ]
                             },
-                            "item:base:sap"
+                            "item:base:sap",
+                            {
+                                "and": [
+                                    "feat:takedown-expert",
+                                    "item:group:club",
+                                    "item:hands-held:1"
+                                ]
+                            }
                         ]
                     }
                 ],

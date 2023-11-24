@@ -1,12 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ActionCost, Frequency } from "@item/data/base.ts";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
 import { RangeData } from "@item/types.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel } from "@util";
 import { AbilityItemSource, AbilitySystemData } from "./data.ts";
-import { normalizeActionChangeData } from "./helpers.ts";
+import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { ActionTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -45,6 +44,10 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         }
     }
 
+    override onPrepareSynthetics(this: AbilityItemPF2e<ActorPF2e>): void {
+        processSanctification(this);
+    }
+
     override getRollOptions(prefix = this.type): string[] {
         const options = super.getRollOptions(prefix);
         if (this.frequency || this.system.deathNote) {
@@ -55,7 +58,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
+        htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
@@ -67,7 +70,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     protected override async _preCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
@@ -82,7 +85,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (typeof changed.system?.category === "string") {
             changed.system.category ||= null;

@@ -9,7 +9,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
         // PC Sheet Tooltips and Section Partials
-        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
         "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs",
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
@@ -51,11 +50,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/inventory.hbs",
         "systems/pf2e/templates/actors/partials/item-line.hbs",
         "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs",
+        "systems/pf2e/templates/actors/partials/spell-collection.hbs",
         "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/partials/total-bulk.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
-        "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs",
 
         // SVG icons
@@ -116,9 +115,10 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/melee-details.hbs",
         "systems/pf2e/templates/items/mystify-panel.hbs",
         "systems/pf2e/templates/items/rules-panel.hbs",
+        "systems/pf2e/templates/items/shield-details.hbs",
+        "systems/pf2e/templates/items/shield-sidebar.hbs",
         "systems/pf2e/templates/items/spell-details.hbs",
         "systems/pf2e/templates/items/spell-overlay.hbs",
-        "systems/pf2e/templates/items/spell-sidebar.hbs",
         "systems/pf2e/templates/items/treasure-details.hbs",
         "systems/pf2e/templates/items/treasure-sidebar.hbs",
         "systems/pf2e/templates/items/weapon-details.hbs",
@@ -137,11 +137,11 @@ export function registerTemplates(): void {
         // Vehicle partials
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.hbs",
-        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/details.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/actions.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/inventory.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/description.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/effects.hbs",
 
         // Compendium Browser Partials
         "systems/pf2e/templates/compendium-browser/settings/settings.hbs",

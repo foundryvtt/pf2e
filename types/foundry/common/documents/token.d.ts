@@ -138,11 +138,11 @@ type TokenSchema = {
 export type TokenSource = SourceFromSchema<TokenSchema>;
 
 declare class ActorDeltaField<
-    TDocument extends BaseActorDelta<BaseToken> = BaseActorDelta<BaseToken>
+    TDocument extends BaseActorDelta<BaseToken> = BaseActorDelta<BaseToken>,
 > extends fields.EmbeddedDocumentField<TDocument> {
     override initialize(
         value: fields.MaybeSchemaProp<TDocument["_source"], true, true, true>,
         model?: ConstructorOf<TDocument>,
-        options?: object
+        options?: object,
     ): fields.MaybeSchemaProp<TDocument, true, true, true>;
 }

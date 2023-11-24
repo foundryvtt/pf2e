@@ -106,10 +106,10 @@ describe("test migration runner", () => {
         }
     }
 
-    class ChangeAlignmentMigration extends MigrationBase {
+    class ChangeXPMigration extends MigrationBase {
         static version = 12;
         async updateActor(source: CharacterSource) {
-            source.system.details.alignment.value = "CG";
+            source.system.details.xp.value = 3;
         }
     }
 
@@ -122,8 +122,7 @@ describe("test migration runner", () => {
 
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateItem(item: any) {
+        async updateItem(item: { system: Record<string, unknown> }) {
             item.system["-=someFakeProperty"] = null;
         }
     }
@@ -175,9 +174,9 @@ describe("test migration runner", () => {
     test("expect update actor deep property", async () => {
         game.actors.set(characterData._id, new MockActor(characterData));
 
-        const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
+        const migrationRunner = new MigrationRunner([new ChangeXPMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0].system.details.alignment.value).toEqual("CG");
+        expect(game.actors.contents[0].system.details.xp.value).toEqual(3);
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {
@@ -225,8 +224,7 @@ describe("test migration runner", () => {
     test("migrations run in sequence", async () => {
         class ChangeItemProp extends MigrationBase {
             static version = 13;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            async updateItem(item: any) {
+            async updateItem(item: { system: Record<string, unknown> }) {
                 item.system.prop = 456;
             }
         }
@@ -250,8 +248,7 @@ describe("test migration runner", () => {
     test("migrations can remove items from actors", async () => {
         class RemoveItemsFromActor extends MigrationBase {
             static version = 13;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            async updateActor(actor: any) {
+            async updateActor(actor: { items: unknown[] }) {
                 actor.items = [];
             }
         }
@@ -269,8 +266,7 @@ describe("test migration runner", () => {
 
         requiresFlush = true;
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateActor(actor: { items: any[] }) {
+        async updateActor(actor: { items: unknown[] }) {
             actor.items.push({
                 name: "sample item",
                 type: "melee",
@@ -299,8 +295,7 @@ describe("test migration runner", () => {
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateActor(actor: { items: any[] }) {
+        async updateActor(actor: { items: Record<string, unknown>[] }) {
             actor.system.sampleItemId = actor.items.find((i: { name: string }) => i.name === "sample item")._id;
         }
     }

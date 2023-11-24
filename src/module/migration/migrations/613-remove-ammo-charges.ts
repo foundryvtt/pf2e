@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 
 /** Remove charges from ammunition to ensure ammo consumption works properly. */
 export class Migration613RemoveAmmoCharges extends MigrationBase {

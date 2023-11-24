@@ -90,13 +90,13 @@ declare global {
         protected override _preUpdate(
             data: Record<string, unknown>,
             options: DocumentModificationContext<null>,
-            user: User
+            user: User,
         ): Promise<void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
@@ -107,7 +107,7 @@ declare global {
             documents: PlaylistSound<this>[],
             data: PlaylistSound<this>["_source"][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -116,7 +116,7 @@ declare global {
             documents: PlaylistSound<this>[],
             changes: DeepPartial<PlaylistSound<this>["_source"]>[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDeleteDescendantDocuments(
@@ -125,7 +125,7 @@ declare global {
             documents: PlaylistSound<this>[],
             ids: string[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Handle callback logic when an individual sound within the Playlist concludes playback naturally */

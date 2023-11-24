@@ -119,43 +119,25 @@
             "name": "Control Weather",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "ritual"
-                },
-                "components": {},
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season.</p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).</p>\n<p><strong>Success</strong> You change the weather as desired.</p>\n<p><strong>Failure</strong> You fail to change the weather as desired.</p>\n<p><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "4d12 hours"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 8
                 },
                 "location": {
                     "value": null
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Nature (master)"
                 },
                 "publication": {
                     "license": "OGL",
@@ -165,39 +147,28 @@
                 "range": {
                     "value": ""
                 },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Nature (master)"
+                    },
+                    "secondary": {
+                        "casters": 1,
+                        "checks": "Survival"
+                    }
+                },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": "1"
-                },
-                "secondarycheck": {
-                    "value": "Survival"
-                },
                 "slug": "control-weather",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": ""
                 },
                 "time": {
                     "value": "1 day"
                 },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
                 "traits": {
                     "rarity": "uncommon",
-                    "value": [
-                        "evocation"
-                    ]
+                    "traditions": [],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -213,32 +184,19 @@
             "name": "Wind Walk (At Will)",
             "sort": 300000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>When you cast this spell, each target transforms into a vaguely cloud-like form and is picked up by a wind moving in the direction of your choice. You can change the wind's direction by using a single action, which has the concentrate trait. The wind carries the targets at a Speed of 20 miles per hour, but if any of the targets make an attack, Cast a Spell, come under attack, or otherwise enter encounter mode, the spell ends for all targets just after they roll initiative, and they drift gently to the ground.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "8 hours"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 8
@@ -246,15 +204,6 @@
                 "location": {
                     "heightenedLevel": 8,
                     "value": "vNxkTMY4P5VmwDyM"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -264,40 +213,24 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "wind-walk",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "you and up to five creatures touched"
                 },
                 "time": {
                     "value": "10 minutes"
                 },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
                         "air",
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -314,32 +247,24 @@
             "name": "Nightmare (see Dream Haunting)",
             "sort": 400000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
                 "description": {
                     "value": "<p>You send disturbing nightmares to your target. The next time the target falls asleep, it must attempt a Will save. If you know the target only by name and have never met them, the target gets a +4 circumstance bonus to the Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target suffers no adverse effects and is temporarily immune for 1 week.</p>\n<p><strong>Success</strong> The target experiences the nightmares but suffers no adverse effects other than unpleasant memories.</p>\n<p><strong>Failure</strong> The target experiences the nightmares and awakens @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>\n<p><strong>Critical Failure</strong> The target experiences the nightmares, awakens Fatigued, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} until it is no longer Fatigued.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "1 day"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
@@ -347,15 +272,6 @@
                 "location": {
                     "heightenedLevel": 4,
                     "value": "vNxkTMY4P5VmwDyM"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -365,41 +281,26 @@
                 "range": {
                     "value": "planetary"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "nightmare",
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature you know by name"
                 },
                 "time": {
                     "value": "10 minutes"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "mental",
-                        "illusion"
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
@@ -587,7 +488,6 @@
                     "rarity": "common",
                     "value": [
                         "aura",
-                        "divination",
                         "magical"
                     ]
                 },
@@ -629,7 +529,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divination",
                         "primal"
                     ]
                 },
@@ -876,7 +775,6 @@
                     "value": [
                         "auditory",
                         "concentrate",
-                        "enchantment",
                         "fear",
                         "incapacitation",
                         "mental",
@@ -906,7 +804,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The wendigo casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Wind Walk]</em> while it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a foe.</p>\n<hr />\n<p><strong>Effect</strong> The wendigo attempts to turn the grabbed creature into wind and carry it along as part of the action. If the target succeeds at a @Check[type:will|dc:38] save, it prevents itself from being transformed; in this case, the wendigo still transforms, automatically releasing the victim.</p>\n<p>A creature forced to Ride the Wind along with the wendigo is exposed to wendigo torment. The target can attempt a new Will save each round to return to normal, though it immediately becomes corporeal and begins falling if it succeeds.</p>"
+                    "value": "<p><strong>Trigger</strong> The wendigo casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Migration]</em> while it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a foe.</p>\n<hr />\n<p><strong>Effect</strong> The wendigo attempts to turn the grabbed creature into wind and carry it along as part of the action. If the target succeeds at a @Check[type:will|dc:38] save, it prevents itself from being transformed; in this case, the wendigo still transforms, automatically releasing the victim.</p>\n<p>A creature forced to Ride the Wind along with the wendigo is exposed to wendigo torment. The target can attempt a new Will save each round to return to normal, though it immediately becomes corporeal and begins falling if it succeeds.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -923,8 +821,7 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "primal",
-                        "transmutation"
+                        "primal"
                     ]
                 },
                 "trigger": {
@@ -950,7 +847,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:38]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 day)</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Wind Walk]</em> and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over [[/br 2d6 #minutes]]{2d6 minutes}.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</p>"
+                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:38]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 day)</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Migration]</em> and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over [[/br 2d6 #minutes]]{2d6 minutes}.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -966,7 +863,6 @@
                     "rarity": "common",
                     "value": [
                         "curse",
-                        "enchantment",
                         "mental",
                         "primal"
                     ]
@@ -1321,11 +1217,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "Beast",
             "level": {
                 "value": 17
             },
@@ -1381,7 +1273,9 @@
             },
             "value": [
                 "beast",
-                "cold"
+                "chaotic",
+                "cold",
+                "evil"
             ]
         }
     },

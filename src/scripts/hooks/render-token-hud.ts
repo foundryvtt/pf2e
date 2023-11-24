@@ -17,7 +17,7 @@ export class RenderTokenHUD {
     /** Replace the token HUD's status effects button with one for depositing/retrieving party-member tokens.  */
     static addClownCarButton(
         html: HTMLElement,
-        token: TokenPF2e<TokenDocumentPF2e<ScenePF2e>> | null | undefined
+        token: TokenPF2e<TokenDocumentPF2e<ScenePF2e>> | null | undefined,
     ): void {
         if (!token?.actor?.isOfType("party")) return;
 
@@ -28,7 +28,7 @@ export class RenderTokenHUD {
             const willRetrieve = actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
             imgElement.className = willRetrieve ? "retrieve" : "deposit";
             imgElement.title = game.i18n.localize(
-                willRetrieve ? "PF2E.Actor.Party.ClownCar.Retrieve" : "PF2E.Actor.Party.ClownCar.Deposit"
+                willRetrieve ? "PF2E.Actor.Party.ClownCar.Retrieve" : "PF2E.Actor.Party.ClownCar.Deposit",
             );
 
             return imgElement;
@@ -48,7 +48,7 @@ export class RenderTokenHUD {
                 const switchToDeposit = actionIcon.className === "retrieve";
                 actionIcon.className = switchToDeposit ? "deposit" : "retrieve";
                 actionIcon.title = game.i18n.localize(
-                    switchToDeposit ? "PF2E.Actor.Party.ClownCar.Deposit" : "PF2E.Actor.Party.ClownCar.Retrieve"
+                    switchToDeposit ? "PF2E.Actor.Party.ClownCar.Deposit" : "PF2E.Actor.Party.ClownCar.Retrieve",
                 );
             } finally {
                 delete controlButton.dataset.disabled;

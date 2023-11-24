@@ -2,7 +2,7 @@ import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";

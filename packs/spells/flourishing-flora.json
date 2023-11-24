@@ -7,33 +7,26 @@
             "type": "burst",
             "value": 5
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
-        "damage": {
-            "value": {}
+        "counteraction": false,
+        "damage": {},
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
         },
         "description": {
             "value": "<p>Plants rapidly grow up from the ground. All creatures in the target area take 2d4 damage. The type of damage depends on the type of plant you choose to grow. On a critical failure, targets experience additional effects, also depending on what you choose to grow. The type of plant and its effects are chosen when you Cast the Spell.</p>\n<ul>\n<li><strong>Cacti</strong> Piercing damage, and @Damage[(@item.level)[bleed]] damage on a critical failure.</li>\n<li><strong>Flowers</strong> Poison damage, and @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 2 rounds on a critical failure.</li>\n<li><strong>Fruits</strong> Bludgeoning damage, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 2 rounds on a critical failure.</li>\n<li><strong>Roots</strong> Bludgeoning damage, and the affected creatures fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4, and the persistent bleed damage from cacti increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "level": {
             "value": 1
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "6vSnfwRnUWyZHy9T": {
@@ -43,16 +36,12 @@
                 "sort": 4,
                 "system": {
                     "damage": {
-                        "value": {
-                            "yDUpRhWBFgdtBTqW": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                },
-                                "value": "2d4"
-                            }
+                        "yDUpRhWBFgdtBTqW": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "2d4",
+                            "materials": [],
+                            "type": "bludgeoning"
                         }
                     },
                     "heightening": {
@@ -71,16 +60,12 @@
                 "sort": 2,
                 "system": {
                     "damage": {
-                        "value": {
-                            "NG8iJ8V08LYNGE2U": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "poison"
-                                },
-                                "value": "2d4"
-                            }
+                        "NG8iJ8V08LYNGE2U": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "2d4",
+                            "materials": [],
+                            "type": "poison"
                         }
                     },
                     "heightening": {
@@ -99,16 +84,12 @@
                 "sort": 1,
                 "system": {
                     "damage": {
-                        "value": {
-                            "GP7TJnF7wP3usMHf": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "piercing"
-                                },
-                                "value": "2d4"
-                            }
+                        "GP7TJnF7wP3usMHf": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "2d4",
+                            "materials": [],
+                            "type": "piercing"
                         }
                     },
                     "heightening": {
@@ -127,16 +108,12 @@
                 "sort": 3,
                 "system": {
                     "damage": {
-                        "value": {
-                            "NdoyC7Quio9EO78V": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "bludgeoning"
-                                },
-                                "value": "2d4"
-                            }
+                        "NdoyC7Quio9EO78V": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "2d4",
+                            "materials": [],
+                            "type": "bludgeoning"
                         }
                     },
                     "heightening": {
@@ -157,32 +134,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
+                "concentrate",
+                "manipulate",
                 "plant",
                 "wood"
             ]

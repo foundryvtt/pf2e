@@ -3,41 +3,30 @@
     "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
     "name": "Fire Ray",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "fire"
-                    },
-                    "value": "2d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "fire"
             }
         },
+        "defense": null,
         "description": {
-            "value": "<p>A blazing band of fire arcs through the air. Make a spell attack roll. The ray deals 2d6 fire damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The ray deals double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the persistent fire damage on a critical success increases by 1d4.</p>"
+            "value": "<p>A blazing band of fire arcs through the air, lighting your opponent and the ground they stand upon on fire. Make a spell attack roll against the target's AC. The ray deals 2d6 fire damage on a hit (or double damage on a critical hit). On any result other than a critical failure, the ground in the target's space catches fire, dealing 1d6 fire damage to each creature that ends its turn in one of the squares.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the fire damage dealt by the burning space increases by 1d6.</p>"
         },
         "duration": {
-            "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
+            "sustained": false,
+            "value": "until the end of the target's turn"
         },
         "heightening": {
             "damage": {
@@ -49,56 +38,32 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "attack",
                 "cleric",
+                "concentrate",
                 "fire",
-                "evocation"
+                "focus",
+                "manipulate"
             ]
         }
     },

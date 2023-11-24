@@ -3,7 +3,7 @@ import { MigrationRunner } from "@module/migration/index.ts";
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {
     /** Is a remigration currently running? */
-    private isRemigrating = false;
+    #isRemigrating = false;
 
     constructor(options: Partial<MigrationSummaryOptions> = {}) {
         super(options);
@@ -13,16 +13,12 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             : game.i18n.localize("PF2E.Migrations.Summary.Title");
 
         const existing = Object.values(ui.windows).find(
-            (app): app is MigrationSummary => app instanceof MigrationSummary
+            (app): app is MigrationSummary => app instanceof MigrationSummary,
         );
         if (existing) {
             existing.options = mergeObject(existing.options, options);
             return existing;
         }
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/system/migration-summary.hbs";
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -31,6 +27,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             id: "migration-summary",
             width: 400,
             height: "auto",
+            template: "systems/pf2e/templates/system/migration-summary.hbs",
         };
     }
 
@@ -49,7 +46,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
 
         const helpResourcesText = await TextEditor.enrichHTML(
             game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
-            { async: true }
+            { async: true },
         );
 
         return {
@@ -59,15 +56,17 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             actors,
             items,
             canRemigrate,
-            helpResources: canRemigrate && this.isRemigrating,
+            helpResources: canRemigrate && this.#isRemigrating,
             helpResourcesText,
         };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("button[data-action=remigrate]").on("click", async (event) => {
+        const remigrateButton = html.querySelector<HTMLButtonElement>("button[data-action=remigrate]");
+        remigrateButton?.addEventListener("click", async () => {
             const { LATEST_SCHEMA_VERSION, RECOMMENDED_SAFE_VERSION } = MigrationRunner;
             const lowestVersions = {
                 actor:
@@ -81,15 +80,16 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             };
             const lowestSchemaVersion = Math.max(
                 Math.min(lowestVersions.actor, lowestVersions.item),
-                RECOMMENDED_SAFE_VERSION
+                RECOMMENDED_SAFE_VERSION,
             );
 
-            $html.find(".docs-successful").text("...");
+            const result = html.querySelector<HTMLElement>(".docs-successful");
+            if (result) result.textContent = "...";
 
             try {
-                this.isRemigrating = true;
+                this.#isRemigrating = true;
                 this.options.troubleshoot = false;
-                $(event.currentTarget).prop("disabled", true);
+                remigrateButton.disabled = true;
                 await game.pf2e.system.remigrate({ from: lowestSchemaVersion });
                 this.options.troubleshoot = false;
                 this.render(false);
@@ -98,7 +98,9 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             }
         });
 
-        $html.find("button[data-action=close]").on("click", () => this.close());
+        html.querySelector("button[data-action=close]")?.addEventListener("click", () => {
+            this.close();
+        });
     }
 }
 

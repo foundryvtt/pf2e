@@ -3,38 +3,35 @@
     "img": "systems/pf2e/icons/spells/litany-against-wrath.webp",
     "name": "Litany against Wrath",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "good"
-                    },
-                    "value": "3d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "3d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "spirit"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "will"
             }
         },
         "description": {
-            "value": "<p>Your litany rails against the sin of wrath, punishing the target for attacking good creatures. The target must attempt a Will save. A particularly wrathful creature, such as a wrath demon, uses the outcome one degree of success worse than the result of its saving throw. The target then becomes temporarily immune to all of your litanies for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The first time the target uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<p><strong>Failure</strong> Each time the target uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. Each time it uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
+            "value": "<p>Your litany rails against the sin of wrath, punishing the target for attacking creatures that aren't unholy. The target must attempt a Will save. A particularly wrathful creature, such as a wrath demon, uses the outcome one degree of success worse than the result of its saving throw. The target then becomes temporarily immune to all of your litanies for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The first time the target uses an action that deals damage to at least one creature that isn't unholy, the target takes 3d6 spirit damage.</p>\n<p><strong>Failure</strong> Each time the target uses an action that deals damage to at least one creature that isn't unholy, the target takes 3d6 spirit damage.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. Each time it uses an action that deals damage to at least one creature that isn't unholy, the target takes 3d6 spirit damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
         },
         "duration": {
+            "sustained": false,
             "value": "1 round"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -46,15 +43,6 @@
         "level": {
             "value": 3
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -63,39 +51,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "will"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
-            "value": "1 evil creature"
+            "value": "1 creature that isn't holy"
         },
         "time": {
             "value": "1"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "champion",
-                "good",
-                "litany",
-                "evocation"
+                "concentrate",
+                "focus",
+                "holy",
+                "litany"
             ]
         }
     },

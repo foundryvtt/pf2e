@@ -21,10 +21,6 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         return this.system.defenses;
     }
 
-    get classDC(): ZeroToFour {
-        return this.system.classDC;
-    }
-
     get hpPerLevel(): number {
         return this.system.hp;
     }
@@ -38,20 +34,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
     }
 
     get grantedFeatSlots(): Record<"ancestry" | "class" | "skill" | "general", (number | FeatSlotCreationData)[]> {
-        const actorLevel = this.actor?.level ?? 0;
         const system = this.system;
 
-        const ancestryLevels: (number | FeatSlotCreationData)[] = deepClone(system.ancestryFeatLevels.value);
-        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
-            ancestryLevels.unshift({ id: "ancestry-bonus", level: 1, label: "1" });
-            for (let level = 3; level <= actorLevel; level += 4) {
-                const index = (level + 1) / 2;
-                ancestryLevels.splice(index, 0, level);
-            }
-        }
-
         return {
-            ancestry: ancestryLevels,
+            ancestry: deepClone(system.ancestryFeatLevels.value),
             class: [...system.classFeatLevels.value],
             skill: [...system.skillFeatLevels.value],
             general: [...system.generalFeatLevels.value],
@@ -69,22 +55,15 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
                 ...actor.itemTypes.feat.filter(
                     (f) =>
                         f.category === "classfeature" &&
-                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id))
+                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id)),
                 ),
-            ])
+            ]),
         );
     }
 
-    /** Pulls the features that should be granted by this class, sorted by level and choice set */
+    /** Pulls the features that should be granted by this class, sorted by level */
     override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
-        const hasChoiceSet = (f: FeatPF2e<null>) => f.system.rules.some((re) => re.key === "ChoiceSet");
-        return (await super.createGrantedItems(options)).sort((a, b) => {
-            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
-            if (aLevel !== bLevel) return aLevel - bLevel;
-            const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
-            if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
-            return a.name.localeCompare(b.name, game.i18n.lang);
-        });
+        return (await super.createGrantedItems(options)).sort((a, b) => a.system.level.value - b.system.level.value);
     }
 
     override prepareBaseData(): void {
@@ -124,12 +103,12 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const classDCs: PartialClassDCs = proficiencies.classDCs;
         classDCs[slug] = {
             label: this.name,
-            rank: this.classDC,
+            rank: 1,
             ability: details.keyability.value,
             primary: true,
         };
 
-        this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
+        this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, 1);
 
         const { attacks, defenses } = proficiencies;
 
@@ -140,7 +119,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         const nonBarding = Array.from(ARMOR_CATEGORIES).filter(
             (c): c is Exclude<ArmorCategory, "light-barding" | "heavy-barding" | "shield"> =>
-                !["light-barding", "heavy-barding"].includes(c)
+                !["light-barding", "heavy-barding"].includes(c),
         );
         for (const category of nonBarding) {
             defenses[category].rank = Math.max(defenses[category].rank, this.defenses[category]) as ZeroToFour;

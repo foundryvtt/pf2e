@@ -121,11 +121,6 @@
                         "category": "splash",
                         "damage": "1d6",
                         "damageType": "acid"
-                    },
-                    "2": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
@@ -300,7 +295,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": "mucus",
                 "traits": {
                     "rarity": "common",
@@ -489,11 +493,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "N"
-            },
             "blurb": "",
-            "creatureType": "Animal",
             "level": {
                 "value": 8
             },

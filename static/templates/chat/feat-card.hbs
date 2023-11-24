@@ -1,14 +1,11 @@
 <div class="pf2e chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" alt="{{item.name}}" />
-        <h3>
-            {{item.name}}
-            {{{actionGlyph item.system.actions.value}}}
-        </h3>
+        <h3>{{item.name}}{{#if item.actionCost}} {{{actionGlyph item.actionCost}}}{{/if}}</h3>
     </header>
 
     <div class="tags" data-tooltip-class="pf2e">
-        {{#unless (eq data.rarity.name "common")}}
+        {{#unless (eq item.rarity "common")}}
             <span
                 class="tag rarity {{item.rarity}}"
                 data-trait="{{item.rarity}}"
@@ -19,6 +16,9 @@
             <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
         {{/each}}
     </div>
+
+    <hr />
+
     <div class="card-content">
         {{{item.description}}}
     </div>

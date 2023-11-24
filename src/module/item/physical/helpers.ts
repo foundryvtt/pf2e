@@ -1,3 +1,4 @@
+import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS, weightToBulk } from "./bulk.ts";
@@ -19,7 +20,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const materialPrice = materialData?.price ?? 0;
     const heldOrStowedBulk = new Bulk({ light: item.system.bulk.heldOrStowed });
     const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
-    const materialValue = materialPrice + (bulk * materialPrice) / 10;
+    const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0);
@@ -38,13 +39,13 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
     // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
     const materialData = getMaterialValuationData(item);
     const price = computePrice(item);
-    if (!(item.isMagical || materialData) || item.isSpecific || (item.isOfType("armor") && item.isShield)) {
+    if (!(item.isMagical || materialData) || item.isSpecific) {
         return { ...R.pick(item, ["level", "rarity"]), price };
     }
 
     const runesData = getRuneValuationData(item);
     const level = runesData
-        .map((runeData) => runeData.level)
+        .map((r) => r.level)
         .concat(materialData?.level ?? 0)
         .reduce((highest, level) => (level > highest ? level : highest), item.level);
 
@@ -68,20 +69,26 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
  * have significant implementations.
  */
 function generateItemName(item: PhysicalItemPF2e): string {
-    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+    if (!item.isOfType("armor", "shield", "weapon")) {
         return item.name;
     }
 
     type Dictionaries = [
         Record<string, string | undefined>,
-        Record<string, { name: string } | undefined>,
-        Record<string, { name: string } | null>
+        Record<string, { name: string } | undefined> | null,
+        Record<string, { name: string } | null> | null,
     ];
 
     // Acquire base-type and rune dictionaries, with "fundamental 2" being either resilient or striking
     const [baseItemDictionary, propertyDictionary, fundamentalTwoDictionary]: Dictionaries = item.isOfType("armor")
         ? [CONFIG.PF2E.baseArmorTypes, RUNE_DATA.armor.property, RUNE_DATA.armor.resilient]
-        : [CONFIG.PF2E.baseWeaponTypes, RUNE_DATA.weapon.property, RUNE_DATA.weapon.striking];
+        : item.isOfType("shield")
+          ? [CONFIG.PF2E.baseShieldTypes, null, null]
+          : [
+                { ...CONFIG.PF2E.baseWeaponTypes, ...CONFIG.PF2E.baseShieldTypes },
+                RUNE_DATA.weapon.property,
+                RUNE_DATA.weapon.striking,
+            ];
 
     const storedName = item._source.name;
     const baseType = item.baseType ?? "";
@@ -96,36 +103,48 @@ function generateItemName(item: PhysicalItemPF2e): string {
 
     const { material } = item;
     const { runes } = item.system;
-    const potencyRune = runes.potency;
-    const fundamental2 = "resilient" in runes ? runes.resilient : runes.striking;
+    const potency = "potency" in runes && runes.potency ? runes.potency : null;
+    const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
+    const reinforcing =
+        "reinforcing" in runes ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[runes.reinforcing] ?? "") || null : null;
 
-    const params = {
-        base: baseType ? game.i18n.localize(baseItemDictionary[baseType] ?? "") : item.name,
+    const params: Record<string, string | number | null> = {
+        base: baseType
+            ? material.type && ["hide-armor", "steel-shield", "wooden-shield"].includes(baseType)
+                ? game.i18n.localize(`TYPES.Item.${item.type}`)
+                : game.i18n.localize(baseItemDictionary[baseType] ?? "")
+            : item.name,
         material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
-        potency: potencyRune,
-        fundamental2: game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null,
-        property1: game.i18n.localize(propertyDictionary[runes.property[0]]?.name ?? "") || null,
-        property2: game.i18n.localize(propertyDictionary[runes.property[1]]?.name ?? "") || null,
-        property3: game.i18n.localize(propertyDictionary[runes.property[2]]?.name ?? "") || null,
-        property4: game.i18n.localize(propertyDictionary[runes.property[3]]?.name ?? "") || null,
+        potency,
+        reinforcing,
+        fundamental2:
+            fundamental2 && fundamentalTwoDictionary
+                ? game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
+                : null,
     };
+    if ("property" in runes && propertyDictionary) {
+        for (const index of [0, 1, 2, 3] as const) {
+            params[`property${index + 1}`] =
+                game.i18n.localize(propertyDictionary[runes.property[index]]?.name ?? "") || null;
+        }
+    }
+
     // Construct a localization key from material and runes
     const formatString = (() => {
-        const potency = params.potency && "Potency";
+        const potency = params.potency ? "Potency" : null;
+        const reinforcing = params.reinforcing ? "Reinforcing" : null;
         const fundamental2 = params.fundamental2 && "Fundamental2";
         const properties = params.property4
             ? "FourProperties"
             : params.property3
-            ? "ThreeProperties"
-            : params.property2
-            ? "TwoProperties"
-            : params.property1
-            ? "OneProperty"
-            : null;
+              ? "ThreeProperties"
+              : params.property2
+                ? "TwoProperties"
+                : params.property1
+                  ? "OneProperty"
+                  : null;
         const material = params.material && "Material";
-        const key =
-            [potency, fundamental2, properties, material].filter((keyPart): keyPart is string => !!keyPart).join("") ||
-            null;
+        const key = R.compact([potency, reinforcing, fundamental2, properties, material]).join("") || null;
         return key && game.i18n.localize(key);
     })();
 

@@ -1,6 +1,6 @@
 import { ItemPF2e } from "@item";
 import { ArmorTrait } from "@item/armor/types.ts";
-import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
+import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { BulkValue } from "@item/physical/types.ts";
 import { BULK_VALUES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
@@ -65,8 +65,8 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
     const hasBadge = itemIsOfType(item, "condition")
         ? typeof item.system.value.value === "number"
         : itemIsOfType(item, "effect")
-        ? item.system.badge?.type === "counter"
-        : false;
+          ? item.system.badge?.type === "counter"
+          : false;
     if (!hasBadge) {
         throw new foundry.data.validation.DataModelValidationError("effect lacks a badge");
     }
@@ -74,7 +74,7 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
 
 const ITEM_ALTERATION_VALIDATORS = {
     "ac-bonus": new ItemAlterationValidator({
-        itemType: new fields.StringField({ required: true, choices: ["armor"] }),
+        itemType: new fields.StringField({ required: true, choices: ["armor", "shield"] }),
         mode: new fields.StringField({
             required: true,
             choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
@@ -99,7 +99,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                 initial: undefined,
             } as const),
         },
-        { validateForItem: itemHasCounterBadge }
+        { validateForItem: itemHasCounterBadge },
     ),
     "badge-value": new ItemAlterationValidator(
         {
@@ -116,7 +116,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                 initial: undefined,
             } as const),
         },
-        { validateForItem: itemHasCounterBadge }
+        { validateForItem: itemHasCounterBadge },
     ),
     "bulk-held-or-stowed": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -234,7 +234,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     });
                 }
             },
-        }
+        },
     ),
     "persistent-damage": new ItemAlterationValidator(
         {
@@ -262,7 +262,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                         initial: 15,
                     }),
                 },
-                { nullable: false } as const
+                { nullable: false } as const,
             ),
         },
         {
@@ -273,7 +273,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     });
                 }
             },
-        }
+        },
     ),
     rarity: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
@@ -324,7 +324,7 @@ const ITEM_ALTERATION_VALIDATORS = {
     "speed-penalty": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
-            choices: ["armor"],
+            choices: ["armor", "shield"],
         }),
         mode: new fields.StringField({
             required: true,
@@ -375,7 +375,7 @@ const ITEM_ALTERATION_VALIDATORS = {
 interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
     extends DataFieldOptions<TSourceProp, true, false, false> {
     validateForItem?: (
-        item: ItemPF2e | ItemSourcePF2e
+        item: ItemPF2e | ItemSourcePF2e,
     ) => asserts item is
         | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>
         | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>["_source"];
@@ -388,7 +388,7 @@ interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<Alteration
 type AlterationSchema = {
     itemType: StringField<ItemType, ItemType, true, false, false>;
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    value: DataField<unknown, unknown, true, boolean, boolean>;
+    value: DataField<JSONValue, unknown, true, boolean, boolean>;
 };
 
 type PersistentDamageValueSchema = {

@@ -13,6 +13,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
     constructor(...statements: PredicateStatement[] | [PredicateStatement[]]) {
         super(...(Array.isArray(statements[0]) ? statements[0] : (statements as PredicateStatement[])));
         this.isValid = PredicatePF2e.isValid(this);
+        Object.defineProperty(this, "isValid", { enumerable: false });
     }
 
     /** Structurally validate the predicates */
@@ -119,8 +120,8 @@ class StatementValidator {
         return statement instanceof Object
             ? this.isCompound(statement) || this.isBinaryOp(statement)
             : typeof statement === "string"
-            ? this.isAtomic(statement)
-            : false;
+              ? this.isAtomic(statement)
+              : false;
     }
 
     static isAtomic(statement: unknown): statement is Atom {

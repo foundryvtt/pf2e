@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -24,8 +24,8 @@ export class Migration727TrimSelfRollOptions extends MigrationBase {
                     typeof e === "string"
                         ? this.trimRollOption(e)
                         : isObject<Record<string, unknown>>(e)
-                        ? this.trimPredicates(e)
-                        : e
+                          ? this.trimPredicates(e)
+                          : e,
                 );
             } else if (isObject<Record<string, unknown>>(value)) {
                 obj[key] = this.trimPredicates(value);

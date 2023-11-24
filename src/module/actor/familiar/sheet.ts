@@ -35,7 +35,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter(
-            (a): a is CharacterPF2e<null> => a.type === "character" && a.testUserPermission(game.user, "OWNER")
+            (a): a is CharacterPF2e<null> => a.type === "character" && a.testUserPermission(game.user, "OWNER"),
         );
 
         // list of abilities that can be selected as spellcasting ability
@@ -53,7 +53,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         }
 
         const skills = Object.values(sheetData.data.skills).sort((a, b) =>
-            a.label.localeCompare(b.label, game.i18n.lang)
+            a.label.localeCompare(b.label, game.i18n.lang),
         );
 
         return {
@@ -75,11 +75,11 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const html = $html[0];
 
         htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
-            this.actor.perception.roll(eventToRollParams(event));
+            this.actor.perception.roll(eventToRollParams(event, { type: "check" }));
         });
 
         htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
-            this.actor.attackStatistic.roll(eventToRollParams(event));
+            this.actor.attackStatistic.roll(eventToRollParams(event, { type: "check" }));
         });
     }
 }

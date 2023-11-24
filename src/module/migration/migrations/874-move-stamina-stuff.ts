@@ -1,6 +1,6 @@
 import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -38,7 +38,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
         source.system.rules = recursiveReplaceString(source.system.rules, (text) =>
             text
                 .replace(/^system\.attributes\.sp\.max$/, "system.attributes.hp.sp.max")
-                .replace(/^system\.attributes\.resolve.max$/, "system.resources.resolve.max")
+                .replace(/^system\.attributes\.resolve.max$/, "system.resources.resolve.max"),
         );
     }
 

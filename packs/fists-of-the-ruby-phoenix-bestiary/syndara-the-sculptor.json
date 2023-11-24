@@ -118,46 +118,25 @@
             "name": "Air Walk (Constant)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "somatic": true,
-                    "verbal": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "5 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "value": "6nmmJj2H9dXi2wXU"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -167,41 +146,25 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "air-walk",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
                     "value": [
                         "air",
-                        "transmutation"
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -594,7 +557,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "conjuration",
                         "divine",
                         "teleportation"
                     ]
@@ -718,9 +680,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": [
-                            "chaotic"
-                        ],
+                        "predicate": [],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -887,7 +847,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Syndara can foil any attempts to use planar powers against him. He is immune to all extradimensional effects, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em>, but can choose to be affected by such effects normally.</p>"
+                    "value": "<p>Syndara can foil any attempts to use planar powers against him. He is immune to all extradimensional effects, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Quandary]</em>, but can choose to be affected by such effects normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -941,7 +901,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "conjuration",
                         "teleportation"
                     ]
                 },
@@ -1341,11 +1300,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "LE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 22
             },
@@ -1397,6 +1352,8 @@
             },
             "value": [
                 "aeon",
+                "evil",
+                "lawful",
                 "monitor"
             ]
         }

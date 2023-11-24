@@ -3,52 +3,46 @@
     "img": "icons/magic/death/undead-ghosts-trio-blue.webp",
     "name": "Invoke Spirits",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "burst",
             "value": 10
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "applyMod": false,
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "mental"
-                    },
-                    "value": "2d4"
-                },
-                "1": {
-                    "applyMod": false,
-                    "type": {
-                        "subtype": "",
-                        "value": "void"
-                    },
-                    "value": "2d4"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "mental"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d4",
+                "kinds": [
+                    "damage"
+                ],
+                "type": "void"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "will"
             }
         },
         "description": {
             "value": "<p>Ragged apparitions of the dead rise to stalk the living. They deal 2d4 mental damage and 2d4 void damage to each living creature in the area, with a basic Will save. Additionally, creatures that critically fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and are @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<p>On subsequent rounds, the first time you Sustain the Spell each round, you can move the area up to 30 feet within the range of the spell. Living creatures in the new area must attempt saves with the same effects as above, except that critically failing doesn't make them flee.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The mental damage and void damage each increase by 1d4.</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 1 minute"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -61,9 +55,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -72,36 +63,26 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "will"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "custom": "",
-            "value": [
+        "traits": {
+            "rarity": "common",
+            "traditions": [
                 "arcane",
                 "divine",
                 "occult"
-            ]
-        },
-        "traits": {
-            "rarity": "common",
+            ],
             "value": [
+                "concentrate",
                 "emotion",
                 "fear",
+                "manipulate",
                 "mental",
                 "void"
             ]

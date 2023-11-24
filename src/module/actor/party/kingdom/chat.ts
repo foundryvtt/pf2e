@@ -20,7 +20,7 @@ export async function handleKingdomChatMessageEvents(options: KingdomChatMessage
             createHTMLElement("div", {
                 classes: ["confirmation"],
                 children: [fontAwesomeIcon("fa-check"), "Resources Collected"],
-            })
+            }),
         );
         message.update({ content: content.innerHTML });
     }

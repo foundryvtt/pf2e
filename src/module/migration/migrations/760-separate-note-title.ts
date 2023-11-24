@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -14,7 +14,7 @@ export class Migration760SeparateNoteTitle extends MigrationBase {
                 .replace(/^PF2E\.WeaponDescription([A-Z][a-z]+)$/, (substring, group) =>
                     typeof group === "string"
                         ? `PF2E.Item.Weapon.CriticalSpecialization.${group.toLowerCase()}`
-                        : substring
+                        : substring,
                 )
         );
     }
@@ -22,7 +22,7 @@ export class Migration760SeparateNoteTitle extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const notes = source.system.rules.filter(
             (r: MaybeNoteSource): r is RollNoteSource =>
-                r.key === "Note" && typeof r.text === "string" && !("title" in r)
+                r.key === "Note" && typeof r.text === "string" && !("title" in r),
         );
 
         for (const note of notes) {

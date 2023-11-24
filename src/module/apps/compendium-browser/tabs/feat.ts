@@ -32,9 +32,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.actionType.value",
             "system.actions.value",
             "system.category",
-            // Migrated to `system.category` but still retrieved in case of unmigrated items
-            // Remove in system version 5?
-            "system.featType.value",
             "system.level.value",
             "system.prerequisites.value",
             "system.traits",
@@ -49,14 +46,14 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     [key]: game.i18n.localize(value).toLocaleLowerCase(game.i18n.lang),
                 };
             },
-            {}
+            {},
         );
         const skillList = Object.entries(translatedSkills);
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("feat"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index) {
@@ -71,7 +68,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
                         console.warn(
                             `Feat "${featData.name}" does not have all required data fields.`,
-                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`
+                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`,
                         );
                         continue;
                     }
@@ -86,7 +83,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     // Prerequisites are strings that could contain translated skill names
                     const prereqs: { value: string }[] = featData.system.prerequisites.value;
                     const prerequisitesArr = prereqs.map((prerequisite) =>
-                        prerequisite?.value ? prerequisite.value.toLowerCase() : ""
+                        prerequisite?.value ? prerequisite.value.toLowerCase() : "",
                     );
                     const skills: Set<string> = new Set();
                     for (const prereq of prerequisitesArr) {
@@ -113,7 +110,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
-                        traits: featData.system.traits.value,
+                        traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: featData.system.traits.rarity,
                         source: sourceSlug,
                     });
@@ -137,7 +134,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     protected override filterTraits(
         traits: string[],
         selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"]
+        condition: MultiselectData["conjunction"],
     ): boolean {
         // Pre-filter the selected traits if the current ancestry item has no ancestry traits
         if (
@@ -217,8 +214,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
                 },
             },
             sliders: {

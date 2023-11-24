@@ -8,8 +8,7 @@
  *
  * @return A flag for whether or not the object was updated
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function setProperty(obj: Record<string, any>, key: string, value: any): boolean {
+function setProperty(obj: object, key: string, value: unknown): boolean {
     let target = obj;
     let changed = false;
 
@@ -18,15 +17,15 @@ function setProperty(obj: Record<string, any>, key: string, value: any): boolean
         const parts = key.split(".");
         key = parts.pop() ?? "";
         target = parts.reduce((o, i) => {
-            if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
-            return o[i];
+            if (!Object.prototype.hasOwnProperty.call(o, i)) (o as Record<string, unknown>)[i] = {};
+            return (o as Record<string, unknown>)[i] as unknown as Record<string, unknown>;
         }, obj);
     }
 
     // Update the target
-    if (target[key] !== value) {
+    if ((target as Record<string, unknown>)[key] !== value) {
         changed = true;
-        target[key] = value;
+        (target as Record<string, unknown>)[key] = value;
     }
 
     // Return changed status
@@ -58,8 +57,7 @@ function getType(token: unknown): string {
  * @param _d   Recursion depth, to prevent overflow
  * @return An expanded object
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function expandObject(obj: any, _d = 0) {
+function expandObject(obj: object, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error("Maximum depth exceeded");
     for (const [k, v0] of Object.entries(obj)) {
@@ -78,49 +76,16 @@ function duplicate<T>(original: T): T {
     return JSON.parse(JSON.stringify(original));
 }
 
-/**
- * Update a source object by replacing its keys and values with those from a target object.
- *
- * @param original     The initial object which should be updated with values from the target
- * @param other        A new object whose values should replace those in the source
- *
- * @param [insertKeys]      Control whether to insert new top-level objects into the resulting structure
- *                                    which do not previously exist in the original object.
- * @param [insertValues]    Control whether to insert new nested values into child objects in the resulting
- *                                    structure which did not previously exist in the original object.
- * @param [overwrite]       Control whether to replace existing values in the source, or only merge values
- *                                    which do not already exist in the original object.
- * @param [recursive]       Control whether to merge inner-objects recursively (if true), or whether to
- *                                    simply replace inner objects with a provided new value.
- * @param [inplace]         Control whether to apply updates to the original object in-place (if true),
- *                                    otherwise the original object is duplicated and the copy is merged.
- * @param [enforceTypes]    Control whether strict type checking requires that the value of a key in the
- *                                    other object must match the data type in the original data to be merged.
- * @param [_d]               A privately used parameter to track recursion depth.
- *
- * @returns The original source object including updated, inserted, or overwritten records.
- *
- * @example <caption>Control how new keys and values are added</caption>
- * mergeObject({k1: "v1"}, {k2: "v2"}, {insertKeys: false}); // {k1: "v1"}
- * mergeObject({k1: "v1"}, {k2: "v2"}, {insertKeys: true});  // {k1: "v1", k2: "v2"}
- * mergeObject({k1: {i1: "v1"}}, {k1: {i2: "v2"}}, {insertValues: false}); // {k1: {i1: "v1"}}
- * mergeObject({k1: {i1: "v1"}}, {k1: {i2: "v2"}}, {insertValues: true}); // {k1: {i1: "v1", i2: "v2"}}
- *
- * @example <caption>Control how existing data is overwritten</caption>
- * mergeObject({k1: "v1"}, {k1: "v2"}, {overwrite: true}); // {k1: "v2"}
- * mergeObject({k1: "v1"}, {k1: "v2"}, {overwrite: false}); // {k1: "v1"}
- *
- * @example <caption>Control whether merges are performed recursively</caption>
- * mergeObject({k1: {i1: "v1"}}, {k1: {i2: "v2"}}, {recursive: false}); // {k1: {i1: "v2"}}
- * mergeObject({k1: {i1: "v1"}}, {k1: {i2: "v2"}}, {recursive: true}); // {k1: {i1: "v1", i2: "v2"}}
- *
- * @example <caption>Deleting an existing object key</caption>
- * mergeObject({k1: "v1", k2: "v2"}, {"-=k1": null});   // {k2: "v2"}
- */
-function mergeObject(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    original: any,
-    other = {},
+/** Update a source object by replacing its keys and values with those from a target object. */
+export function mergeObject<T extends object, U extends object = T>(
+    original: T,
+    other?: U,
+    options?: MergeObjectOptions,
+    _d?: number,
+): T & U;
+export function mergeObject(
+    original: object,
+    other: object = {},
     {
         insertKeys = true,
         insertValues = true,
@@ -128,93 +93,115 @@ function mergeObject(
         recursive = true,
         inplace = true,
         enforceTypes = false,
+        performDeletions = false,
     } = {},
-    _d = 0
-) {
+    _d = 0,
+): object {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw Error("One of original or other are not Objects!");
+        throw new Error("One of original or other are not Objects!");
     }
-    const depth = _d + 1;
+    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, performDeletions };
 
-    // Maybe copy the original data at depth 0
-    if (!inplace && _d === 0) original = duplicate(original);
-
-    // Enforce object expansion at depth 0
-    if (_d === 0 && Object.keys(original).some((k) => /\./.test(k))) original = expandObject(original);
-    if (_d === 0 && Object.keys(other).some((k) => /\./.test(k))) other = expandObject(other);
+    // Special handling at depth 0
+    if (_d === 0) {
+        if (Object.keys(other).some((k) => /\./.test(k))) other = expandObject(other);
+        if (Object.keys(original).some((k) => /\./.test(k))) {
+            const expanded = expandObject(original);
+            if (inplace) {
+                Object.keys(original).forEach((k) => delete (original as Record<string, unknown>)[k]);
+                Object.assign(original, expanded);
+            } else original = expanded;
+        } else if (!inplace) original = deepClone(original);
+    }
 
     // Iterate over the other object
-    for (const [k0, v] of Object.entries(other)) {
-        let k = k0;
-        const tv = getType(v as Token);
+    for (const k of Object.keys(other)) {
+        const v = (other as Record<string, unknown>)[k];
+        if (Object.hasOwn(original, k)) _mergeUpdate(original, k, v, options, _d + 1);
+        else _mergeInsert(original, k, v, options, _d + 1);
+    }
+    return original;
+}
 
-        // Prepare to delete
-        let toDelete = false;
-        if (k.startsWith("-=")) {
-            k = k.slice(2);
-            toDelete = v === null;
-        }
-
-        // Get the existing object
-        let x = original[k];
-        let has = Object.hasOwnProperty.call(original, k);
-        let tx = getType(x);
-
-        // Ensure that inner objects exist
-        if (!has && tv === "Object") {
-            x = {};
-            original[k] = {};
-            has = true;
-            tx = "Object";
-        }
-
-        // Case 1 - Key exists
-        if (has) {
-            // 1.1 - Recursively merge an inner object
-            if (tv === "Object" && tx === "Object" && recursive) {
-                mergeObject(
-                    x,
-                    v as Token,
-                    {
-                        insertKeys,
-                        insertValues,
-                        overwrite,
-                        inplace: true,
-                        enforceTypes,
-                    },
-                    depth
-                );
-            }
-
-            // 1.2 - Remove an existing key
-            else if (toDelete) {
-                delete original[k];
-            }
-
-            // 1.3 - Overwrite existing value
-            else if (overwrite) {
-                if (tx && tv !== tx && enforceTypes) {
-                    throw new Error(`Mismatched data types encountered during object merge.`);
-                }
-                original[k] = v;
-            }
-
-            // 1.4 - Insert new value
-            else if (x === undefined && insertValues) {
-                original[k] = v;
-            }
-        }
-
-        // Case 2 - Key does not exist
-        else if (!toDelete) {
-            const canInsert = (depth === 1 && insertKeys) || (depth > 1 && insertValues);
-            if (canInsert) original[k] = v;
-        }
+/** A helper function for merging objects when the target key does not exist in the original */
+function _mergeInsert(
+    original: object,
+    k: string,
+    v: unknown,
+    {
+        insertKeys,
+        insertValues,
+        performDeletions,
+    }: { insertKeys?: boolean; insertValues?: boolean; performDeletions?: boolean } = {},
+    _d: number,
+): object | void {
+    // Delete a key
+    if (k.startsWith("-=") && performDeletions) {
+        delete (original as Record<string, unknown>)[k.slice(2)];
+        return;
     }
 
-    // Return the object for use
-    return original;
+    const canInsert = (_d <= 1 && insertKeys) || (_d > 1 && insertValues);
+    if (!canInsert) return;
+
+    // Recursively create simple objects
+    if (v?.constructor === Object) {
+        (original as Record<string, unknown>)[k] = mergeObject({}, v, {
+            insertKeys: true,
+            inplace: true,
+            performDeletions,
+        });
+        return;
+    }
+
+    // Insert a key
+    (original as Record<string, unknown>)[k] = v;
+}
+
+/** A helper function for merging objects when the target key exists in the original */
+function _mergeUpdate(
+    original: object,
+    k: string,
+    v: unknown,
+    {
+        insertKeys,
+        insertValues,
+        enforceTypes,
+        overwrite,
+        recursive,
+        performDeletions,
+    }: Partial<MergeObjectOptions> = {},
+    _d: number,
+): object | void {
+    const x = (original as Record<string, unknown>)[k];
+    const tv = getType(v);
+    const tx = getType(x);
+
+    // Recursively merge an inner object
+    if (tv === "Object" && tx === "Object" && recursive) {
+        return mergeObject(
+            x as object,
+            v as object,
+            {
+                insertKeys,
+                insertValues,
+                overwrite,
+                enforceTypes,
+                performDeletions,
+                inplace: true,
+            },
+            _d,
+        );
+    }
+
+    // Overwrite an existing value
+    if (overwrite) {
+        if (tx !== "undefined" && tv !== tx && enforceTypes) {
+            throw new Error(`Mismatched data types encountered during object merge.`);
+        }
+        (original as Record<string, unknown>)[k] = v;
+    }
 }
 
 function arrayEquals(self: unknown[], other: unknown[]): boolean {
@@ -248,13 +235,15 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
     }
 
     // Recursively call the _difference function
-    return Object.keys(other).reduce((obj, key) => {
-        if (inner && original[key] === undefined) return obj;
-        const [isDifferent, difference] = _difference(original[key], other[key]);
-        if (isDifferent) obj[key] = difference;
-        return obj;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }, {} as Record<string, any>);
+    return Object.keys(other).reduce(
+        (obj, key) => {
+            if (inner && original[key] === undefined) return obj;
+            const [isDifferent, difference] = _difference(original[key], other[key]);
+            if (isDifferent) obj[key] = difference;
+            return obj;
+        },
+        {} as Record<string, unknown>,
+    );
 }
 
 export function populateFoundryUtilFunctions(): void {

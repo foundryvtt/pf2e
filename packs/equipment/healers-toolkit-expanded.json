@@ -1,0 +1,70 @@
+{
+    "_id": "SGkOHFyBbzWdBk8D",
+    "img": "icons/containers/bags/pouch-gold-green.webp",
+    "name": "Healer's Toolkit (Expanded)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Expanded healer's toolkits provide a +1 item bonus to such checks. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 50
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Expanded Healer's Tools (1st aid, treat disease, poison or wounds",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison",
+                            "action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "other"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

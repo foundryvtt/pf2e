@@ -1,0 +1,269 @@
+ol.spell-list {
+    @include p-reset;
+    border-bottom: 1px solid var(--color-border-light-2);
+    flex-basis: 100%;
+    gap: 1px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+
+    > li {
+        @include p-reset;
+        align-items: center;
+        background: none;
+        cursor: default;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 0.35em;
+
+        &[data-expended-state="true"] {
+            h4 {
+                color: var(--color-disabled);
+                text-decoration: line-through;
+            }
+
+            .cast-spell button {
+                background: var(--color-disabled);
+                box-shadow: inset 0 0 0 1px rgba(white, 0.5);
+                cursor: not-allowed;
+            }
+        }
+
+        &:nth-child(odd) {
+            background-color: rgba($alt-color, 0.1);
+        }
+
+        &:last-child {
+            border-bottom: 1px solid var(--sub);
+            .item-image {
+                margin-bottom: 0;
+                margin-top: 2px;
+            }
+        }
+
+        &.spell-level-header {
+            background: rgba($sub-color, 0.25);
+            border: 1px solid var(--color-border-light-2);
+            border-radius: 2px;
+            color: var(--text-dark);
+            font: 500 var(--font-size-12) var(--sans-serif);
+            letter-spacing: 0.25px;
+            line-height: 1;
+            text-transform: uppercase;
+
+            h3 {
+                text-transform: capitalize;
+                font-size: var(--font-size-13);
+                margin-left: 0;
+                padding: 4px 0;
+            }
+
+            .item-name {
+                line-height: 1;
+                gap: 0.25em;
+                padding-left: 0.2em;
+                h3 {
+                    @include p-reset;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .uses {
+            align-items: center;
+            display: flex;
+            gap: 0.25em;
+            line-height: 1;
+        }
+
+        &.spell-level-header,
+        .uses {
+            input {
+                background: var(--alt);
+                border-radius: 3px;
+                border: 1px solid var(--sub);
+                color: var(--text-light);
+                font: var(--font-size-12) var(--sans-serif);
+                height: unset;
+                text-align: center;
+                width: 2em;
+            }
+
+            .spell-slots-increment-reset {
+                padding-left: 5px;
+                font-size: var(--font-size-10);
+            }
+        }
+
+        &.spell {
+            border: none;
+            font-size: var(--font-size-13);
+        }
+
+        .level-prepared-toggle {
+            flex: 0;
+            font-size: 0.75rem;
+            color: var(--secondary);
+        }
+
+        .item-name {
+            align-items: center;
+            display: flex;
+            flex: 1;
+            flex-wrap: nowrap;
+            min-height: 1.75rem;
+
+            &.empty {
+                pointer-events: none;
+            }
+
+            h3 {
+                white-space: nowrap;
+            }
+
+            + span {
+                font-size: 0.75rem;
+            }
+
+            .focus-pool-input {
+                align-items: center;
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            .slash {
+                font-size: 0.75rem;
+            }
+
+            .spell-slots,
+            .spell-max {
+                padding-top: 3px;
+                font-size: 0.75rem;
+
+                &.infinity {
+                    position: relative;
+                    top: -2px;
+                }
+            }
+
+            .item-image {
+                height: 1.5rem;
+                width: 1.5rem;
+                flex: 0 0 auto;
+                margin: 2px 0;
+            }
+
+            h4 {
+                @include p-reset;
+                font-size: var(--font-size-14);
+                letter-spacing: -0.075em;
+                line-height: 1;
+                margin-left: 8px;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--secondary);
+                }
+            }
+
+            .action-glyph {
+                margin-left: 4px;
+                font-size: small;
+            }
+        }
+
+        .spell-range {
+            flex: 0 0 6rem;
+            padding-left: 0.2em;
+        }
+
+        .cast-spell {
+            flex: 0 0 3.5rem;
+            display: flex;
+            justify-content: center;
+
+            button {
+                align-items: center;
+                background: var(--secondary);
+                border-radius: 2px;
+                border: black;
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+                color: var(--text-light);
+                cursor: pointer;
+                font: 700 0.55rem var(--sans-serif);
+                letter-spacing: 0.25px;
+                max-width: fit-content;
+                padding: 0.5em 1em;
+                text-transform: uppercase;
+            }
+        }
+
+        .item-controls {
+            flex: 0 0 3.25rem;
+            display: flex;
+            justify-content: end;
+            padding-right: 0.25em;
+        }
+
+        .item-summary {
+            background-color: var(--bg);
+            border-bottom: 1px solid var(--sub);
+            border-top: 1px solid lighten($sub-color, 30);
+            flex: 100%;
+            padding: 8px;
+        }
+    }
+
+    &[data-category="spontaneous"] {
+        .virtual {
+            position: relative;
+            &::before {
+                pointer-events: none;
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: #0005ff1d;
+                mix-blend-mode: saturation;
+            }
+        }
+
+        .item:not(.virtual) + .virtual {
+            border-top: 1px solid rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    .level-prepared-header {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin: 0;
+        padding: 4px;
+        text-align: center;
+        background: var(--secondary);
+        position: relative;
+    }
+
+    input.toggle-signature-spell[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+        margin: 0 2px 0 0;
+        flex: 0 0 auto;
+    }
+
+    .spellbook-empty {
+        display: flex;
+        align-items: center;
+        min-height: 28px;
+        justify-content: flex-end;
+        h4 {
+            margin: 0;
+            white-space: nowrap;
+            margin-right: auto;
+        }
+        a {
+            flex: 0 1 0;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+    }
+}

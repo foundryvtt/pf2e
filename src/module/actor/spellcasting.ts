@@ -4,13 +4,20 @@ import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
-import { ErrorPF2e } from "@util";
+import { Statistic } from "@system/statistic/statistic.ts";
+import { DelegatedCollection, ErrorPF2e } from "@util";
 
-export class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {
+export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
+    /** The base casting proficiency, which spellcasting build off of */
+    declare base: Statistic;
+
     /** All available spell lists on this actor */
     collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
 
-    constructor(public readonly actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
+    constructor(
+        public readonly actor: TActor,
+        entries: BaseSpellcastingEntry<TActor>[],
+    ) {
         super(entries.map((entry) => [entry.id, entry]));
 
         for (const entry of entries) {

@@ -11,11 +11,14 @@ const materialIWR = R.mapValues(
         "sovereign-steel",
         "warpglass",
     ]),
-    (_v, k) => `PF2E.Damage.IWR.Type.${k}`
+    (_v, k) => `PF2E.Damage.IWR.Type.${k}`,
 );
+
+const sanctifiedIWR = { holy: "PF2E.Damage.IWR.Type.holy", unholy: "PF2E.Damage.IWR.Type.unholy" };
 
 const immunityTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -27,7 +30,6 @@ const immunityTypes = {
     clumsy: "PF2E.Damage.IWR.Type.clumsy",
     cold: "PF2E.Damage.RollFlavor.cold",
     confused: "PF2E.Damage.IWR.Type.confused",
-    conjuration: "PF2E.Damage.IWR.Type.conjuration",
     controlled: "PF2E.Damage.IWR.Type.controlled",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
     curse: "PF2E.Damage.IWR.Type.curse",
@@ -42,11 +44,9 @@ const immunityTypes = {
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",
     emotion: "PF2E.Damage.IWR.Type.emotion",
-    enchantment: "PF2E.Damage.IWR.Type.enchantment",
     energy: "PF2E.Damage.IWR.Type.energy",
     enfeebled: "PF2E.Damage.IWR.Type.enfeebled",
     evil: "PF2E.Damage.RollFlavor.evil",
-    evocation: "PF2E.Damage.IWR.Type.evocation",
     fascinated: "PF2E.Damage.IWR.Type.fascinated",
     fatigued: "PF2E.Damage.IWR.Type.fatigued",
     "fear-effects": "PF2E.Damage.IWR.Type.fear-effects",
@@ -66,7 +66,6 @@ const immunityTypes = {
     mental: "PF2E.Damage.RollFlavor.mental",
     metal: "PF2E.Damage.IWR.Type.metal",
     "misfortune-effects": "PF2E.Damage.IWR.Type.misfortune-effects",
-    necromancy: "PF2E.Damage.IWR.Type.necromancy",
     "non-magical": "PF2E.Damage.IWR.Type.non-magical",
     "nonlethal-attacks": "PF2E.Damage.IWR.Type.nonlethal-attacks",
     "object-immunities": "PF2E.Damage.IWR.Type.object-immunities",
@@ -98,7 +97,6 @@ const immunityTypes = {
     stupefied: "PF2E.Damage.IWR.Type.stupefied",
     "swarm-attacks": "PF2E.Damage.IWR.Type.swarm-attacks",
     "swarm-mind": "PF2E.Damage.IWR.Type.swarm-mind",
-    transmutation: "PF2E.Damage.IWR.Type.transmutation",
     trip: "PF2E.Damage.IWR.Type.trip",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     unconscious: "PF2E.Damage.IWR.Type.unconscious",
@@ -112,6 +110,7 @@ const immunityTypes = {
 
 const weaknessTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -168,6 +167,7 @@ const weaknessTypes = {
 
 const resistanceTypes = {
     ...materialIWR,
+    ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",

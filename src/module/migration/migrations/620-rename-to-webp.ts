@@ -1,7 +1,7 @@
 import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
-import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data/index.ts";
+import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/base/data/index.ts";
 import { KitEntryData } from "@item/kit/data.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -54,7 +54,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         if (this.#isABCK(itemData)) {
             const embedData = itemData.system.items;
             const embeds = Object.values(embedData).filter(
-                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed
+                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed,
             );
             for (const embed of embeds) {
                 embed.img = this.#renameToWebP(embed.img);

@@ -10,6 +10,7 @@ type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
+type DamageKind = "damage" | "healing";
 type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
 
 /**
@@ -57,7 +58,10 @@ interface DamageFormulaData {
     base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
+    /** Maximum number of die increases. Weapons should be set to 1 */
+    maxIncreases?: number;
     ignoredResistances: { type: ResistanceType; max: number | null }[];
+    kinds?: Set<DamageKind>;
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
@@ -88,7 +92,6 @@ interface WeaponBaseDamageData extends BaseDamageData {
 
 interface BaseDamageTemplate {
     name: string;
-    traits: string[];
     materials: MaterialDamageEffect[];
     modifiers?: (ModifierPF2e | DamageDicePF2e)[];
 }
@@ -118,6 +121,7 @@ export type {
     DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
+    DamageKind,
     DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,

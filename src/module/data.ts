@@ -49,6 +49,8 @@ type ZeroToFour = ZeroToThree | 4;
 type OneToFour = Exclude<ZeroToFour, 0>;
 type ZeroToFive = ZeroToFour | 5;
 type OneToFive = OneToThree | Extract<ZeroToFive, 4 | 5>;
+type ZeroToSix = ZeroToFive | 6;
+type OneToSix = Exclude<ZeroToSix, 0>;
 type ZeroToTen = ZeroToFive | 6 | 7 | 8 | 9 | 10;
 type OneToTen = Exclude<ZeroToTen, 0>;
 type ZeroToEleven = ZeroToTen | 11;
@@ -150,6 +152,7 @@ export type {
     MigrationRecord,
     OneToFive,
     OneToFour,
+    OneToSix,
     OneToTen,
     OneToThree,
     PublicationData,
@@ -164,6 +167,7 @@ export type {
     ZeroToEleven,
     ZeroToFive,
     ZeroToFour,
+    ZeroToSix,
     ZeroToTen,
     ZeroToThree,
     ZeroToTwo,

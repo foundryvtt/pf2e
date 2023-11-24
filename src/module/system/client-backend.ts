@@ -8,7 +8,7 @@ class ClientDatabaseBackendPF2e extends ClientDatabaseBackend {
     protected override async _getDocuments(
         documentClass: typeof foundry.abstract.Document,
         context: DatabaseBackendGetContext,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<(DeepPartial<ClientDocument["_source"]> & CompendiumIndexData)[] | foundry.abstract.Document[]> {
         const type = documentClass.documentName;
         if (!["Actor", "Item"].includes(type) || context.pack?.startsWith("pf2e.") || context.options?.index) {
@@ -33,7 +33,7 @@ class ClientDatabaseBackendPF2e extends ClientDatabaseBackend {
                 }
 
                 return document;
-            })
+            }),
         );
     }
 }

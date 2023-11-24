@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -13,7 +13,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.878;
+    static LATEST_SCHEMA_VERSION = 0.899;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -132,7 +132,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedTable(
         tableSource: foundry.documents.RollTableSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.RollTableSource> {
         const current = deepClone(tableSource);
 
@@ -149,7 +149,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedMacro(
         macroSource: foundry.documents.MacroSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.MacroSource> {
         const current = deepClone(macroSource);
 
@@ -166,7 +166,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedJournalEntry(
         source: foundry.documents.JournalEntrySource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.JournalEntrySource> {
         const clone = deepClone(source);
 
@@ -183,7 +183,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(
         token: TokenDocumentPF2e<ScenePF2e>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
@@ -195,7 +195,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedUser(
         userData: foundry.documents.UserSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.UserSource> {
         const current = deepClone(userData);
         for (const migration of migrations) {

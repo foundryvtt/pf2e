@@ -160,7 +160,7 @@ class ChatCards {
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${consumableString} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`,
                             );
                             if (currentQuant === 0) {
                                 const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
@@ -216,7 +216,7 @@ class ChatCards {
                 case "elemental-blast-damage": {
                     if (!actor.isOfType("character")) return;
                     const roll = message.rolls.find(
-                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast"
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast",
                     );
                     const checkContext = (
                         roll ? message.flags.pf2e.context ?? null : null
@@ -322,26 +322,27 @@ class ChatCards {
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
     static async #rollActorSaves({ event, button, actor, item }: RollActorSavesParams): Promise<void> {
-        if (canvas.tokens.controlled.length > 0) {
-            const saveType = button.dataset.save;
-            if (!tupleHasValue(SAVE_TYPES, saveType)) {
-                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-            }
+        const tokens = game.user.getActiveTokens();
+        if (tokens.length === 0) {
+            ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
+            return;
+        }
+        const saveType = button.dataset.save;
+        if (!tupleHasValue(SAVE_TYPES, saveType)) {
+            throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+        }
 
-            const dc = Number(button.dataset.dc ?? "NaN");
-            for (const token of canvas.tokens.controlled) {
-                const save = token.actor?.saves?.[saveType];
-                if (!save) return;
+        const dc = Number(button.dataset.dc ?? "NaN");
+        for (const token of tokens) {
+            const save = token.actor?.saves?.[saveType];
+            if (!save) return;
 
-                save.check.roll({
-                    ...eventToRollParams(event),
-                    dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
-                    item,
-                    origin: actor,
-                });
-            }
-        } else {
-            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+            save.check.roll({
+                ...eventToRollParams(event, { type: "check" }),
+                dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
+                item,
+                origin: actor,
+            });
         }
     }
 }

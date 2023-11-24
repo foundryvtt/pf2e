@@ -1,7 +1,7 @@
 import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
 import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
 import { Rarity } from "@module/data.ts";
@@ -199,7 +199,7 @@ export class Migration711HeritageItems extends MigrationBase {
                 traits: {
                     value: traits.value.filter(
                         (t): t is CreatureTrait =>
-                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries)
+                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries),
                     ),
                     rarity: traits.rarity,
                     otherTags: [],

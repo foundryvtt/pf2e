@@ -1,9 +1,9 @@
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     addSign,
     fontAwesomeIcon,
-    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     pick,
@@ -12,11 +12,11 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
+import * as R from "remeda";
 import { createDamageFormula } from "./formula.ts";
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
-import * as R from "remeda";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -29,7 +29,7 @@ class DamageModifierDialog extends Application {
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
     /** Is this critical damage? */
-    isCritical: boolean;
+    degree: DegreeOfSuccessIndex;
     /** A Promise resolve method */
     #resolve?: (value: boolean) => void;
     /** Was the roll button pressed? */
@@ -44,7 +44,7 @@ class DamageModifierDialog extends Application {
         this.formulaData = params.formulaData;
         this.context = params.context;
         this.baseDamageType = params.formulaData.base.at(0)?.damageType ?? "untyped";
-        this.isCritical = this.context.outcome === "criticalSuccess";
+        this.degree = DEGREE_OF_SUCCESS_STRINGS.indexOf(this.context.outcome ?? "success") as DegreeOfSuccessIndex;
 
         this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
     }
@@ -62,8 +62,12 @@ class DamageModifierDialog extends Application {
 
     override get title(): string {
         return this.isCritical
-            ? game.i18n.localize("PF2E.Damage.Dialog.CriticalDamageRoll")
-            : game.i18n.localize("PF2E.Damage.Dialog.DamageRoll");
+            ? game.i18n.localize("PF2E.Roll.Dialog.Damage.TitleCritical")
+            : game.i18n.localize("PF2E.Roll.Dialog.Damage.Title");
+    }
+
+    get isCritical(): boolean {
+        return this.degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
     }
 
     #getModifierIcon(object: { damageType: DamageType | null; category: DamageCategoryUnique | null }): string {
@@ -101,48 +105,19 @@ class DamageModifierDialog extends Application {
             case "persistent":
                 return game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
             case "splash":
-                return game.i18n.format("PF2E.Damage.Dialog.Splash", { damageType: typeLabel });
+                return game.i18n.format("PF2E.Roll.Dialog.Damage.Splash", { damageType: typeLabel });
             default:
                 return typeLabel;
         }
     }
 
     override async getData(): Promise<DamageDialogData> {
-        const modifiers: ModifierData[] = this.formulaData.modifiers.map((m) => ({
-            label: m.label,
-            category: m.category,
-            type: m.type,
-            modifier: m.modifier,
-            hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
-            damageType: m.damageType,
-            typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
-            enabled: m.enabled,
-            ignored: m.ignored,
-            critical: m.critical,
-            show: this.isCritical || !m.critical,
-            icon: this.#getModifierIcon(m),
-        }));
-
-        const dice: DialogDiceData[] = this.formulaData.dice.map((d) => ({
-            label: d.label,
-            category: d.category,
-            damageType: d.damageType,
-            typeLabel: this.#getTypeLabel(d.damageType, d.category),
-            diceLabel:
-                d.diceNumber && d.dieSize
-                    ? `${d.diceNumber}${d.dieSize}`
-                    : d.diceNumber
-                    ? game.i18n.format("PF2E.Damage.Dialog.BonusDice", { dice: addSign(d.diceNumber) })
-                    : "",
-            enabled: d.enabled,
-            ignored: d.ignored,
-            critical: d.critical,
-            show: !d.override && (this.isCritical || !d.critical),
-            icon: this.#getModifierIcon(d),
-        }));
-
-        const hasVisibleModifiers = modifiers.filter((m) => m.show).length > 0;
-        const hasVisibleDice = dice.filter((d) => d.show).length > 0;
+        // Separate regular dice and override dice. Unfortunately some dice qualify as both (fatal)
+        const visibleModifiers = [...this.formulaData.modifiers.entries()].filter(
+            ([_, m]) => this.isCritical || !m.critical,
+        );
+        const visibleDiceAll = [...this.formulaData.dice.entries()].filter(([_, d]) => this.isCritical || !d.critical);
+        const visibleDice = visibleDiceAll.filter(([_, d]) => !d.override || d.dieSize || d.diceNumber);
 
         // Render base formula
         const baseResult = createDamageFormula({
@@ -155,23 +130,85 @@ class DamageModifierDialog extends Application {
         const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");
 
         // Render final formula
-        const result = createDamageFormula(this.formulaData);
-        const roll = new DamageRoll(result.formula);
-        const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
+        const result = createDamageFormula(this.formulaData, this.degree);
+        const roll = new DamageRoll(result?.formula ?? "0");
+        const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render({ tooltips: false })))).join(
+            " + ",
+        );
+
+        type DamageDicePF2eWithOverride = DamageDicePF2e & { override: NonNullable<DamageDicePF2e["override"]> };
 
         return {
             appId: this.id,
             baseFormula: baseFormulaTemplate,
-            modifiers,
-            dice,
+            modifiers: visibleModifiers.map(([idx, m]) => ({
+                idx,
+                label: m.label,
+                category: m.category,
+                type: m.type,
+                modifier: m.modifier,
+                hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
+                damageType: m.damageType,
+                typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
+                enabled: m.enabled,
+                ignored: m.ignored,
+                critical: m.critical,
+                icon: this.#getModifierIcon(m),
+            })),
+            dice: visibleDice.map(([idx, d]) => ({
+                idx,
+                label: d.label,
+                category: d.category,
+                damageType: d.damageType,
+                typeLabel: this.#getTypeLabel(d.damageType, d.category),
+                diceLabel:
+                    d.diceNumber && d.dieSize
+                        ? `${d.diceNumber}${d.dieSize}`
+                        : d.diceNumber
+                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: addSign(d.diceNumber) })
+                          : "",
+                enabled: d.enabled,
+                ignored: d.ignored,
+                critical: d.critical,
+                icon: this.#getModifierIcon(d),
+            })),
+            overrides: R.pipe(
+                visibleDiceAll,
+                R.filter((args): args is [number, DamageDicePF2eWithOverride] => !!args[1].override),
+                R.sortBy(([_, d]) => (d.override.diceNumber && !d.override.dieSize ? 1 : d.override.upgrade ? 2 : 3)),
+                R.map(([idx, d]) => ({
+                    idx,
+                    label: d.label,
+                    category: d.category,
+                    damageType: d.override.damageType ?? d.damageType,
+                    typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
+                    diceLabel: R.compact([
+                        d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
+                        d.override.diceNumber || d.override.dieSize
+                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
+                                  value:
+                                      d.override.diceNumber && d.override.dieSize
+                                          ? `${d.override.diceNumber}${d.override.dieSize}`
+                                          : d.override.diceNumber
+                                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
+                                                  dice: d.override.diceNumber,
+                                              })
+                                            : d.override.dieSize ?? "",
+                              })
+                            : null,
+                    ]).join(" + "),
+                    enabled: d.enabled,
+                    ignored: d.ignored,
+                    critical: d.critical,
+                    icon: this.#getModifierIcon(d),
+                })),
+            ),
             isCritical: this.isCritical,
-            hasVisibleDice,
-            hasVisibleModifiers,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
             damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
-            showRollDialogs: game.user.settings.showRollDialogs,
+            showDamageDialogs: game.user.settings.showDamageDialogs,
             formula: formulaTemplate,
         };
     }
@@ -249,7 +286,7 @@ class DamageModifierDialog extends Application {
                         type,
                         damageType,
                         damageCategory: category,
-                    })
+                    }),
                 );
                 this.#applyStackingRules();
                 this.render();
@@ -276,7 +313,7 @@ class DamageModifierDialog extends Application {
                 return;
             }
             const faceLabel = game.i18n.localize(`PF2E.DamageDie${faces.toUpperCase()}`);
-            const label = game.i18n.format("PF2E.Damage.Dialog.Bonus", { dice: `+${count}${faceLabel}` });
+            const label = game.i18n.format("PF2E.Roll.Dialog.Damage.ExtraDice", { dice: `+${count}${faceLabel}` });
             const slug = sluggify(`${label}-${type}`);
             this.formulaData.dice.push(
                 new DamageDicePF2e({
@@ -287,7 +324,7 @@ class DamageModifierDialog extends Application {
                     damageType: type,
                     slug,
                     selector: "damage",
-                })
+                }),
             );
             this.render();
         });
@@ -301,28 +338,11 @@ class DamageModifierDialog extends Application {
             this.context.rollMode = rollMode;
         });
 
-        // Dialog settings menu
-        const settingsButton = htmlQuery(htmlClosest(html, ".app"), "a.header-button.settings");
-        if (settingsButton && !settingsButton?.dataset.tooltipContent) {
-            settingsButton.dataset.tooltipContent = `#${this.id}-settings`;
-            const $tooltip = $(settingsButton).tooltipster({
-                animation: "fade",
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["top"],
-                theme: "crb-hover",
-                minWidth: 165,
-            });
-
-            const toggle = htmlQuery<HTMLInputElement>(html, ".settings-list input.quick-rolls-submit");
-            toggle?.addEventListener("click", async () => {
-                await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
-                $tooltip.tooltipster("close");
-            });
-        }
+        // Toggle show dialog default
+        const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
+        toggle?.addEventListener("click", async () => {
+            await game.user.update({ "flags.pf2e.settings.showDamageDialogs": toggle.checked });
+        });
     }
 
     /** Apply stacking rules to the current set of modifiers, splitting by persistent/not-persistent */
@@ -344,17 +364,6 @@ class DamageModifierDialog extends Application {
         super.close(options);
     }
 
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-        const settingsButton: ApplicationHeaderButton = {
-            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
-            class: "settings",
-            icon: "fa-solid fa-cog",
-            onclick: () => null,
-        };
-        return [settingsButton, ...buttons];
-    }
-
     /** Overriden to add some additional first-render behavior */
     protected override _injectHTML($html: JQuery<HTMLElement>): void {
         super._injectHTML($html);
@@ -370,6 +379,7 @@ interface DamageDialogParams {
 }
 
 interface BaseData {
+    idx: number;
     label: string;
     enabled: boolean;
     ignored: boolean;
@@ -377,7 +387,6 @@ interface BaseData {
     damageType: string | null;
     typeLabel: string | null;
     category: DamageCategoryUnique | string | null;
-    show: boolean;
     icon: string;
 }
 
@@ -396,14 +405,13 @@ interface DamageDialogData {
     baseFormula: string;
     modifiers: ModifierData[];
     dice: DialogDiceData[];
+    overrides: DialogDiceData[];
     isCritical: boolean;
-    hasVisibleDice: boolean;
-    hasVisibleModifiers: boolean;
     damageTypes: typeof CONFIG.PF2E.damageTypes;
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
-    showRollDialogs: boolean;
+    showDamageDialogs: boolean;
     formula: string;
 }
 

@@ -13,12 +13,12 @@
         "category": "simple",
         "containerId": null,
         "damage": {
-            "damageType": "evil",
+            "damageType": "spirit",
             "dice": 1,
             "die": "d6"
         },
         "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>An evil deity's malice lies within this vial of water. You activate a vial of <em>unholy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Unholy water</em> deals 1d6 evil damage and 1 evil splash damage. It damages only celestials and creatures that have a weakness to evil damage.</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>A malicious deity's lies within this vial of water. You activate a vial of <em>unholy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet.</p>\n<p><em>Unholy water</em> deals 1d6 spirit damage and 1 spirit splash damage. <em>Unholy water</em> can damage only creatures with the holy trait.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -35,9 +35,6 @@
         "material": {
             "grade": null,
             "type": null
-        },
-        "negateBulk": {
-            "value": "0"
         },
         "potencyRune": {
             "value": null
@@ -60,9 +57,9 @@
             "value": null
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "quantity": 1,
         "range": 20,
@@ -72,8 +69,8 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": "{item|_id}-damage",
-                "text": "<p>Damages only celestials and creatures that have a weakness to evil damage</p>\n<p>[[/r (1[splash])[evil]]]{1 evil splash damage}<p/>",
+                "selector": "{item|id}-damage",
+                "text": "PF2E.SpecificRule.Equipment.UnholyWater.Note",
                 "title": "{item|name}"
             }
         ],
@@ -90,13 +87,13 @@
             "value": [
                 "consumable",
                 "divine",
-                "evil",
-                "necromancy",
                 "splash",
-                "thrown"
+                "thrown",
+                "unholy"
             ]
         },
         "usage": {
+            "canBeAmmo": false,
             "value": "held-in-one-hand"
         },
         "weight": {

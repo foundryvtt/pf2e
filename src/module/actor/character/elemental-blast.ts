@@ -17,7 +17,6 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
-import { applyDamageDiceOverrides } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -82,7 +81,7 @@ class ElementalBlast {
                 initial: "systems/pf2e/icons/default-icons/spell.svg" as ImageFilePath,
             }),
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined })
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
             ),
             dieFaces: new fields.NumberField({
                 required: true,
@@ -106,7 +105,7 @@ class ElementalBlast {
 
         return new fields.SchemaField({
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined })
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
             ),
             range: new fields.SchemaField(
                 {
@@ -123,7 +122,7 @@ class ElementalBlast {
                         nullable: false,
                     }),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: null },
             ),
             traits: new fields.SchemaField({
                 melee: new fields.ArrayField(
@@ -132,7 +131,7 @@ class ElementalBlast {
                         nullable: false,
                         choices: () => CONFIG.PF2E.weaponTraits,
                         initial: undefined,
-                    })
+                    }),
                 ),
                 ranged: new fields.ArrayField(
                     new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
@@ -140,7 +139,7 @@ class ElementalBlast {
                         nullable: false,
                         choices: () => CONFIG.PF2E.weaponTraits,
                         initial: undefined,
-                    })
+                    }),
                 ),
             }),
         });
@@ -203,7 +202,7 @@ class ElementalBlast {
 
         return blasts.map((blast) => {
             const damageTypes: BlastConfigDamageType[] = R.uniq(
-                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat())
+                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
             )
                 .map((dt) => ({
                     value: dt,
@@ -256,11 +255,11 @@ class ElementalBlast {
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
     #getBlastConfig(element: ElementTrait, damageType: DamageType): ElementalBlastConfig {
         const config = this.configs.find(
-            (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType)
+            (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType),
         );
         if (!config) {
             throw ErrorPF2e(
-                `Elemental blast configuration of element ${element} and damage type ${damageType} not found.`
+                `Elemental blast configuration of element ${element} and damage type ${damageType} not found.`,
             );
         }
 
@@ -280,8 +279,8 @@ class ElementalBlast {
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
             return R.uniq(
                 R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits
-                )
+                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                ),
             ).sort();
         })();
 
@@ -348,8 +347,13 @@ class ElementalBlast {
             melee,
             damaging: true,
             dc: { slug: "ac" },
-            extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
-            ...eventToRollParams(params.event),
+            extraRollOptions: [
+                `action:${actionSlug}`,
+                `action:cost:${actionCost}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+            ],
+            ...eventToRollParams(params.event, { type: "check" }),
         });
     }
 
@@ -385,7 +389,14 @@ class ElementalBlast {
             outcome,
             melee,
             checkContext: params.checkContext,
-            options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...item.traits]),
+            options: new Set([
+                `action:${actionSlug}`,
+                `action:cost:${actionCost}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+                `item:damage:type:${params.damageType}`,
+                ...item.traits,
+            ]),
         });
 
         const baseDamage: BaseDamageData = {
@@ -399,11 +410,11 @@ class ElementalBlast {
             ],
         };
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
-            modifiers: extractModifiers(this.actor.synthetics, domains, {
+            modifiers: extractModifiers(context.self.actor.synthetics, domains, {
                 test: context.options,
                 resolvables: { blast: item },
             }),
-            dice: extractDamageDice(this.actor.synthetics.damageDice, domains, {
+            dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
                 test: context.options,
                 resolvables: { blast: item, target: context.target?.actor ?? null },
             }),
@@ -411,8 +422,6 @@ class ElementalBlast {
         });
         const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
-        applyDamageDiceOverrides([baseDamage], damageSynthetics.dice);
-
         const formulaData: DamageFormulaData = {
             dice: damageSynthetics.dice,
             modifiers,
@@ -428,17 +437,18 @@ class ElementalBlast {
             outcome,
             options: context.options,
             domains,
-            ...eventToRollParams(params.event),
+            traits: item.system.traits.value,
+            ...eventToRollParams(params.event, { type: "damage" }),
         };
 
-        if (BUILD_MODE === "development" && !params.getFormula && !damageContext.skipDialog) {
+        if (!params.getFormula && !damageContext.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context: damageContext }).resolve();
             if (!rolled) return null;
         }
 
         const damageData = createDamageFormula(
             formulaData,
-            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+            outcome === "success" ? DEGREE_OF_SUCCESS.SUCCESS : DEGREE_OF_SUCCESS.CRITICAL_SUCCESS,
         );
         const roll = new DamageRoll(damageData.formula);
 
@@ -446,7 +456,6 @@ class ElementalBlast {
 
         const damageTemplate: SimpleDamageTemplate = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
-            traits: item.system.traits.value,
             materials: [],
             modifiers,
             damage: { roll, breakdown: damageData.breakdown },
@@ -462,10 +471,10 @@ class ElementalBlast {
         const modifierValue = traits.has("thrown")
             ? strengthModValue
             : traits.has("propulsive")
-            ? strengthModValue < 0
-                ? strengthModValue
-                : Math.floor(strengthModValue / 2)
-            : null;
+              ? strengthModValue < 0
+                  ? strengthModValue
+                  : Math.floor(strengthModValue / 2)
+              : null;
 
         return typeof modifierValue === "number"
             ? new ModifierPF2e({

@@ -1,36 +1,36 @@
 <li class="item strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike="" data-action-index="{{index}}">
     <div class="item-name rollable">
-        <div class="item-image variant-strike framed" data-action="strike-attack" data-variant-index="0">
-            <img src="{{action.imageUrl}}" />
+        <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
+            <img src="{{action.item.img}}" />
             <i class="fa-solid fa-dice-d20"></i>
         </div>
         <div class="actions-title">
             {{#unless omitName}}
                 <div class="action-name">
-                    <h4>
-                        {{action.label}}
-                        {{#if action.item.isTemporary}}
-                            <i
-                                class="fa-solid fa-info-circle"
-                                data-tooltip="PF2E.TemporaryItemToolTip"
-                                data-tooltip-class="pf2e"
-                                data-tooltip-direction="RIGHT"
-                            ></i>
-                        {{/if}}
-                    </h4>
+                    <h4>{{action.label}}</h4>
+                    {{#if action.item.isTemporary}}
+                        <i
+                            class="fa-solid fa-info-circle"
+                            data-tooltip="PF2E.TemporaryItemToolTip"
+                            data-tooltip-class="pf2e"
+                            data-tooltip-direction="RIGHT"
+                        ></i>
+                    {{/if}}
                 </div>
             {{/unless}}
 
             {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                 <!-- ATTACK/DAMAGE -->
                 {{#> attackDamage action}}{{/attackDamage}}
+            {{else if (and (not action.ready) (not action.handsAvailable))}}
+                <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
             {{/if}}
         </div>
     </div>
 
     {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
         {{#each action.altUsages as |usage|}}
-            <div class="alt-usage">
+            <div class="alt-usage" data-tooltip-class="pf2e" data-tooltip-direction="LEFT">
                 {{#if usage.item.isThrown}}
                     <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                 {{else}}
@@ -62,23 +62,25 @@
         </div>
     {{/if}}
 
-    <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
-        {{#each action.auxiliaryActions as |aux aid|}}
-            <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                <span>{{aux.label}}</span>
-                <span class="action-glyph">{{aux.glyph}}</span>
-                {{#if aux.options}}
-                <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                    {{#each aux.options as |option|}}
-                        <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
-                            {{option.label}} {{#if option.selected}}✔️{{/if}}
-                        </option>
-                    {{/each}}
-                </select>
-                {{/if}}
-            </button>
-        {{/each}}
-    </div>
+    {{#if action.handsAvailable}}
+        <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
+            {{#each action.auxiliaryActions as |aux index|}}
+                <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
+                    <span>{{aux.label}}</span>
+                    <span class="action-glyph">{{aux.glyph}}</span>
+                    {{#if aux.options}}
+                    <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
+                        {{#each aux.options as |option|}}
+                            <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
+                                {{option.label}} {{#if option.selected}}✔️{{/if}}
+                            </option>
+                        {{/each}}
+                    </select>
+                    {{/if}}
+                </button>
+            {{/each}}
+        </div>
+    {{/if}}
 
     <div class="item-summary">
         <div class="item-description">
@@ -91,12 +93,12 @@
                 <dd>{{{localize action.success}}}</dd>
             </dl>
         </div>
-        <div class="item-properties tags">
+        <div class="item-properties tags" data-tooltip-class="pf2e">
             {{#each action.traits as |trait|}}
-                <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
+                <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</span>
             {{/each}}
             {{#each action.weaponTraits as |trait|}}
-                <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{trait.label}}</span>
+                <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</span>
             {{/each}}
             {{#if action.item.system.reload.label}}
                 <span class="tag tag_secondary">{{action.item.system.reload.label}}</span>
@@ -111,11 +113,11 @@
 </li>
 
 {{#*inline "attackDamage"}}
-    <div class="button-group tags">
+    <div class="button-group tags" data-tooltip-class="pf2e" data-tooltip-direction="UP">
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+                {{#if (eq ../quantity 0)}} disabled="disabled" data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
                 {{#if (eq index 0)}}
                     <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>

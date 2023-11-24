@@ -1,6 +1,6 @@
 import {
-    ARMOR_MATERIAL_VALUATION_DATA,
     CoinsPF2e,
+    MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
@@ -9,7 +9,7 @@ import {
 } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import * as R from "remeda";
-import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
+import type { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
@@ -37,8 +37,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             categories: CONFIG.PF2E.armorCategories,
             groups: CONFIG.PF2E.armorGroups,
             baseTypes: CONFIG.PF2E.baseArmorTypes,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
-            preciousMaterials: this.prepareMaterials(ARMOR_MATERIAL_VALUATION_DATA),
+            preciousMaterials: this.prepareMaterials(MATERIAL_DATA.armor),
             ...propertyRuneSlots,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
             basePrice: new CoinsPF2e(this.item._source.system.price.value),
@@ -63,7 +62,6 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     categories: Record<ArmorCategory, string>;
     groups: Record<ArmorGroup, string>;
     baseTypes: Record<BaseArmorType, string>;
-    bulkTypes: typeof CONFIG.PF2E.bulkTypes;
     preciousMaterials: MaterialSheetData;
     fundamentalRunes: Pick<typeof RUNE_DATA.armor, "potency" | "resilient">;
     propertyRunes: { slug: string; name: string }[];

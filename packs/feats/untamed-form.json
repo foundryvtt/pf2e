@@ -1,0 +1,98 @@
+{
+    "_id": "VaIHQzOE5ibmbtqU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Untamed Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are one with the wild, always changing and adapting to meet any challenge. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Untamed Form] order spell, which lets you transform into a variety of shapes that you can expand with druid feats.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "untamed order"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.wildShapeForms",
+                "priority": 10,
+                "value": [
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Pest Form"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            3
+                        ]
+                    }
+                ],
+                "priority": 11,
+                "value": [
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Pest Form"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Ape)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Bear)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Bull)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Canine)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Cat)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Deer)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Frog)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Shark)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Snake)"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

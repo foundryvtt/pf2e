@@ -1,6 +1,6 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
@@ -67,7 +67,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override updateSource(
         data?: Record<string, unknown>,
-        options?: DocumentSourceUpdateContext
+        options?: DocumentSourceUpdateContext,
     ): DeepPartial<this["_source"]> {
         if (!this.campaign) return super.updateSource(data, options);
 
@@ -96,7 +96,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     override prepareBaseData(): void {
+        // Provide base structure for parent method
+        this.system.details.level = { value: 0 };
+
         super.prepareBaseData();
+
         this.members = this.system.details.members
             .map((m) => fromUuidSync(m.uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"))
@@ -105,6 +109,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const member of this.members) {
             member?.parties.add(this);
         }
+
+        // Determine alliance based on the contained members
+        this.system.details.alliance = this.members.some((m) => m.alliance === "party")
+            ? "party"
+            : this.members.some((m) => m.alliance === "opposition")
+              ? "opposition"
+              : null;
 
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
@@ -140,10 +151,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const partyLevel = Math.round(
             R.meanBy(
                 this.members.filter((m) => m.isOfType("character")),
-                (m) => m.level
-            )
+                (m) => m.level,
+            ),
         );
-        this.system.details.level = { value: partyLevel };
+        this.system.details.level.value = partyLevel;
     }
 
     /** Run rule elements (which may occur if it contains a kingdom) */
@@ -237,7 +248,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const members = this.members;
         const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
@@ -259,7 +270,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     protected override _onUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

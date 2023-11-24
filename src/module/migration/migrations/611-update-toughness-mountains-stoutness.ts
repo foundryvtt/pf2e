@@ -1,7 +1,7 @@
 import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
-import { FeatSource } from "@item/data/index.ts";
+import { FeatSource } from "@item/base/data/index.ts";
 import { ErrorPF2e } from "@util";
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
@@ -21,7 +21,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
 
         const oldFeatsData = actorData.items.filter(
             (itemData): itemData is FeatSource =>
-                this.#featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat"
+                this.#featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat",
         );
         for (const oldFeatData of oldFeatsData) {
             if (oldFeatData.system.slug === "mountain-s-stoutness") {

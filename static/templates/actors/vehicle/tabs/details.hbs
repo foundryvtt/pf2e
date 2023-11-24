@@ -1,0 +1,79 @@
+<div class="tab details" data-tab="details">
+    <div class="details-content">
+        <div class="bio-item trait-size">
+            <section class="vehicle-details">
+                <div class="frame image-container">
+                    <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%" data-edit="img" />
+                    <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+                </div>
+                <div class="detail-sheet">
+                    <div class="detail-small row-nr-1 span-2-columns" title="{{localize "PF2E.vehicle.PropertyDescriptionSpace"}}">
+                        <div class="inputSplit">
+                            <label class="details-label" for="{{options.id}}-vehicle-space-long">{{localize "PF2E.vehicle.SpaceLongLabel"}}</label>
+                            <input class="details-input" id="{{options.id}}-vehicle-space-long" name="system.details.space.long" type="number" min="5" step="5" value="{{data.details.space.long}}" placeholder="2" />
+                        </div>
+                        <div class="inputSplit">
+                            <label class="details-label" for="{{options.id}}-vehicle-space-wide">{{localize "PF2E.vehicle.SpaceWideLabel"}}</label>
+                            <input class="details-input" id="{{options.id}}-vehicle-space-wide" name="system.details.space.wide" type="number" min="5" step="5" value="{{data.details.space.wide}}" placeholder="2" />
+                        </div>
+                        <div class="inputSplit">
+                            <label class="details-label" for="{{options.id}}-vehicle-spac-high">{{localize "PF2E.vehicle.SpaceHighLabel"}}</label>
+                            <input class="details-input" id="{{options.id}}-vehicle-spac-high" name="system.details.space.high" type="number" min="1" step="1" value="{{data.details.space.high}}" placeholder="1" />
+                        </div>
+                        <div title="{{localize "PF2E.vehicle.PropertyDescriptionPrice"}}">
+                            <label class="details-label" for="{{options.id}}-vehicle-price">{{localize "PF2E.PriceLabel"}}</label>
+                            <input class="details-input" id="{{options.id}}-vehicle-price" name="system.details.price" type="number" value="{{data.details.price}}" placeholder="0" />
+                        </div>
+                    </div>
+
+                    <div class="row-nr-2 span-2-columns" title="{{localize "PF2E.vehicle.PropertyDescriptionSpeed"}}">
+                        <label class="details-label" for="{{options.id}}-vehicle-speed">{{localize "PF2E.Speed"}}</label>
+                        <input class="details-input" id="{{options.id}}-vehicle-speed" name="system.details.speed" type="text" value="{{data.details.speed}}" placeholder="0" />
+                    </div>
+                </div>
+            </section>
+            <section class="vehicle-properties">
+                <div class="detailsInput flexitem-5" title="{{localize "PF2E.vehicle.PropertyDescriptionCrew"}}">
+                    <label class="details-label" for="{{options.id}}-vehicle-crew">{{localize "PF2E.vehicle.CrewLabel"}}</label>
+                    <input class="details-input" id="{{options.id}}-vehicle-crew" name="system.details.crew" type="text" value="{{data.details.crew}}" />
+                </div>
+                <div class="detailsInput flexitem-1"
+                    title="{{localize "PF2E.vehicle.PropertyDescriptionPassengers"}}">
+                    <label class="details-label" for="{{options.id}}-vehicle-passengers">{{localize "PF2E.vehicle.PassengersLabel"}}</label>
+                    <input class="details-input" id="{{options.id}}-vehicle-passengers" name="system.details.passengers" type="text" value="{{data.details.passengers}}" />
+                </div>
+                <div class="detailsInput flexitem-2"
+                    title="{{localize "PF2E.vehicle.PropertyDescriptionCollisionDC"}}">
+                    <label class="details-label" for="{{options.id}}-vehicle-collisionDC">{{localize "PF2E.vehicle.collisionDCLabel"}}</label>
+                    <input class="details-input" id="{{options.id}}-vehicle-collisionDC" name="system.attributes.collisionDC.value" type="number" value="{{data.attributes.collisionDC.value}}" />
+                </div>
+                <div class="detailsInput flexitem-1"
+                    title="{{localize "PF2E.vehicle.PropertyDescriptionCollisionDamage"}}">
+                    <label class="details-label" for="{{options.id}}-vehicle-collisionDamage">{{localize "PF2E.vehicle.collisionDamageLabel"}}</label>
+                    <input class="details-input" id="{{options.id}}-vehicle-collisionDamage" name="system.attributes.collisionDamage.value" type="text" value="{{data.attributes.collisionDamage.value}}" />
+                </div>
+                <div class="detailsInput flexitem-5"
+                    title="{{localize "PF2E.vehicle.PropertyDescriptionPilotingCheck"}}">
+                    <label class="details-label" for="{{options.id}}-vehicle-pilotingCheck">{{localize "PF2E.vehicle.PilotingCheckLabel"}}</label>
+                    <input class="details-input" id="{{options.id}}-vehicle-pilotingCheck" name="system.details.pilotingCheck" type="text" value="{{data.details.pilotingCheck}}" />
+                </div>
+
+                <div class="detailsInput flexitem-full">
+                    <span class="details-label">{{localize "PF2E.Traits"}}</span>
+                    <ul class="tags">
+                        {{#each traits as |trait|}}
+                            <li class="tag tag_alt" data-slug="{{trait.value}}">{{trait.label}}</li>
+                        {{/each}}
+                        <li class="tag tag_secondary edit-btn">
+                            {{#if editable}}
+                                <a class="tag-selector" data-tag-selector="basic" data-config-types="vehicleTraits" data-property="system.traits">
+                                    {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                                </a>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

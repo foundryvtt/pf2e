@@ -5,7 +5,7 @@ import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/help
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
@@ -63,6 +63,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             details: {};
         };
         const systemData: PartialSystemData = this.system;
+        systemData.details.level = { value: 0 };
         systemData.traits = {
             value: ["minion"],
             senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
@@ -80,8 +81,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
-
-        systemData.details.alignment = { value: "N" };
 
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
@@ -109,7 +108,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         const { master } = this;
-        systemData.details.level = { value: master?.level ?? 0 };
+        systemData.details.level.value = master?.level ?? 0;
         this.rollOptions.all[`self:level:${this.level}`] = true;
         systemData.details.alliance = master?.alliance ?? "party";
 
@@ -117,7 +116,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         if (master) {
             this.flags.pf2e.rollOptions.all = mergeObject(
                 this.flags.pf2e.rollOptions.all,
-                createEncounterRollOptions(master)
+                createEncounterRollOptions(master),
             );
         }
     }
@@ -166,26 +165,29 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         systemData.attributes.ac = statistic.getTraceData();
 
         // Saving Throws
-        this.saves = SAVE_TYPES.reduce((partialSaves, saveType) => {
-            const save = master?.saves[saveType];
-            const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
-            const totalMod = applyStackingRules(source);
-            const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
-            const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
-            const stat = new Statistic(this, {
-                slug: saveType,
-                label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-                domains: selectors,
-                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
-                check: { type: "saving-throw" },
-            });
+        this.saves = SAVE_TYPES.reduce(
+            (partialSaves, saveType) => {
+                const save = master?.saves[saveType];
+                const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
+                const totalMod = applyStackingRules(source);
+                const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
+                const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
+                const stat = new Statistic(this, {
+                    slug: saveType,
+                    label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+                    domains: selectors,
+                    modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                    check: { type: "saving-throw" },
+                });
 
-            return { ...partialSaves, [saveType]: stat };
-        }, {} as Record<SaveType, Statistic>);
+                return { ...partialSaves, [saveType]: stat };
+            },
+            {} as Record<SaveType, Statistic>,
+        );
 
         this.system.saves = SAVE_TYPES.reduce(
             (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
-            {} as CreatureSaves
+            {} as CreatureSaves,
         );
 
         // Senses
@@ -217,7 +219,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
             systemData.attributes.perception = mergeObject(
                 systemData.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 

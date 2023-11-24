@@ -28,7 +28,7 @@ export class ConditionManager {
                         [condition.slug, condition],
                         [condition.uuid, condition],
                     ];
-                }) ?? []
+                }) ?? [],
             );
             delete this.CONDITION_SOURCES;
         }
@@ -38,7 +38,7 @@ export class ConditionManager {
             for (const condition of this.conditions.values()) {
                 condition.name = condition._source.name = localize(`${condition.slug}.name`);
                 condition.system.description.value = condition._source.system.description.value = localize(
-                    `${condition.slug}.rules`
+                    `${condition.slug}.rules`,
                 );
             }
         }
@@ -67,7 +67,7 @@ export class ConditionManager {
     static async updateConditionValue(
         itemId: string,
         actorOrToken: ActorPF2e | TokenPF2e,
-        value: number
+        value: number,
     ): Promise<void> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         const condition = actor?.items.get(itemId);

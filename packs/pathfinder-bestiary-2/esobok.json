@@ -119,31 +119,19 @@
             "name": "Invisibility (Self only)",
             "sort": 200000,
             "system": {
-                "ability": {
-                    "value": ""
-                },
                 "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true
-                },
                 "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
+                    "sustained": false,
                     "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
                 },
                 "level": {
                     "value": 2
@@ -155,15 +143,6 @@
                     },
                     "value": "TeoUKrxXSlxbQGds"
                 },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
@@ -172,40 +151,24 @@
                 "range": {
                     "value": "touch"
                 },
+                "requirements": "",
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
                 "slug": "invisibility",
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
                 "target": {
                     "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "illusion"
+                        "illusion",
+                        "manipulate"
                     ]
                 }
             },
@@ -488,7 +451,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune and deal @Damage[1d6[void]] damage to living creatures and @Damage[1d6[vitality]] damage to undead.</p>"
+                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[1d6[void]] damage to living creatures and @Damage[1d6[vitality]] damage to undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -499,6 +462,12 @@
                     "value": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "void",
                         "diceNumber": 1,
@@ -567,8 +536,7 @@
                     "value": [
                         "attack",
                         "divine",
-                        "incapacitation",
-                        "necromancy"
+                        "incapacitation"
                     ]
                 },
                 "trigger": {
@@ -841,11 +809,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "N"
-            },
             "blurb": "",
-            "creatureType": "Monitor",
             "level": {
                 "value": 3
             },
@@ -885,9 +849,9 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "abyssal",
-                    "celestial",
-                    "infernal",
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
                     "requian"
                 ]
             },

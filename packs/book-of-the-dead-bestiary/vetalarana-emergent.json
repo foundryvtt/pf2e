@@ -38,7 +38,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": "bow",
+                "group": "crossbow",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -50,9 +50,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -431,7 +428,6 @@
                         "curse",
                         "incapacitation",
                         "mental",
-                        "necromancy",
                         "occult"
                     ]
                 },
@@ -519,7 +515,8 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "anticipatory-attack"
+                            "anticipatory-attack",
+                            "target:condition:stupefied"
                         ],
                         "selector": "damage"
                     }
@@ -569,7 +566,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "divination",
                         "mental",
                         "occult"
                     ]
@@ -781,7 +777,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "fast healing 10, mental rebirth, negative healing",
+                "details": "fast healing 10, mental rebirth, void healing",
                 "max": 100,
                 "temp": 0,
                 "value": 100
@@ -834,11 +830,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "CE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 8
             },
@@ -882,7 +874,10 @@
                 "value": "med"
             },
             "value": [
+                "chaotic",
+                "evil",
                 "undead",
+                "unholy",
                 "vampire"
             ]
         }

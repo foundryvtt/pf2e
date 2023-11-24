@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { BooleanField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
@@ -42,14 +42,14 @@ class LoseHitPointsRuleElement extends RuleElementPF2e<LoseHitPointsRuleSchema> 
         const newItem = this.item.clone(changes);
         const rule = newItem.system.rules.find((r): r is LoseHitPointsSource => r.key === this.key);
         const newValue = Math.trunc(
-            Math.abs(Number(this.resolveValue(String(rule?.value), 0, { resolvables: { item: newItem } })))
+            Math.abs(Number(this.resolveValue(String(rule?.value), 0, { resolvables: { item: newItem } }))),
         );
         const valueChange = newValue - previousValue;
         if (valueChange > 0) {
             const currentHP = this.actor._source.system.attributes.hp.value;
             await this.actor.update(
                 { "system.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
-                { render: false }
+                { render: false },
             );
         }
     }

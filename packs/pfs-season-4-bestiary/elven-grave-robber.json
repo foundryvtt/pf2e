@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -161,9 +158,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -265,9 +259,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -385,9 +376,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -504,9 +492,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -595,12 +580,12 @@
                 "category": "simple",
                 "containerId": null,
                 "damage": {
-                    "damageType": "good",
+                    "damageType": "spirit",
                     "dice": 1,
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 good damage and 1 good splash damage. It damages only fiends, undead, and creatures that have a weakness to good damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a benevolent deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet.</p>\n<p><em>Holy water</em> deals 1d6 spirit damage and 1 spirit splash damage. <em>Holy water</em> can damage only creatures with the unholy trait.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -623,9 +608,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -647,9 +629,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "range": 20,
@@ -659,8 +641,8 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r (1[splash])[good]]]{1 good splash damage}<p/>",
+                        "selector": "{item|id}-damage",
+                        "text": "PF2E.SpecificRule.Equipment.HolyWater.Note",
                         "title": "{item|name}"
                     }
                 ],
@@ -678,7 +660,7 @@
                     "value": [
                         "consumable",
                         "divine",
-                        "good",
+                        "holy",
                         "splash",
                         "thrown"
                     ]
@@ -734,10 +716,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -770,7 +748,7 @@
                 "rules": [],
                 "size": "med",
                 "slug": "studded-leather-armor",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": 1,
                 "traits": {
@@ -821,9 +799,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -888,9 +863,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1268,28 +1240,35 @@
                 "damageRolls": {
                     "0": {
                         "damage": "1d6",
-                        "damageType": "good"
+                        "damageType": "spirit"
                     },
                     "1": {
                         "category": "splash",
                         "damage": "1",
-                        "damageType": "good"
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
-                    "value": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|id}-damage",
+                        "text": "PF2E.SpecificRule.Equipment.HolyWater.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "holy-water",
                 "traits": {
                     "value": [
                         "consumable",
-                        "good",
+                        "holy",
                         "splash",
                         "thrown-20"
                     ]
@@ -1538,11 +1517,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "Variant grave robber",
-            "creatureType": "",
             "level": {
                 "value": 1
             },
@@ -1586,6 +1561,8 @@
                 "value": "med"
             },
             "value": [
+                "evil",
+                "holy",
                 "humanoid"
             ]
         }

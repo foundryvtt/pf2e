@@ -20,7 +20,7 @@ export class ClientBaseModule extends packages.BaseModule {
      */
     static getVersionBadge(
         availability: PackageAvailabilityCode,
-        data: Partial<packages.PackageManifestData>
+        data: Partial<packages.PackageManifestData>,
     ): PackageCompatibilityBadge | null;
 
     /**
@@ -32,7 +32,7 @@ export class ClientBaseModule extends packages.BaseModule {
     protected static _formatBadDependenciesTooltip(
         availability: PackageAvailabilityCode,
         data: Partial<packages.PackageManifestData>,
-        deps: Iterable<packages.RelatedPackage>
+        deps: Iterable<packages.RelatedPackage>,
     ): string;
 
     /** When a package has been installed, add it to the local game data. */
@@ -58,7 +58,7 @@ export class ClientBaseModule extends packages.BaseModule {
     static fromRemoteManifest<T extends packages.BasePackage<packages.BasePackageSchema>>(
         this: ConstructorOf<T>,
         manifest: string,
-        options?: { strict?: boolean }
+        options?: { strict?: boolean },
     ): Promise<T | null>;
 }
 
@@ -82,7 +82,7 @@ export class ClientBaseSystem extends packages.BaseSystem {
      */
     static getVersionBadge(
         availability: PackageAvailabilityCode,
-        data: Partial<packages.PackageManifestData>
+        data: Partial<packages.PackageManifestData>,
     ): PackageCompatibilityBadge | null;
 
     /**
@@ -94,7 +94,7 @@ export class ClientBaseSystem extends packages.BaseSystem {
     protected static _formatBadDependenciesTooltip(
         availability: PackageAvailabilityCode,
         data: Partial<packages.PackageManifestData>,
-        deps: Iterable<packages.RelatedPackage>
+        deps: Iterable<packages.RelatedPackage>,
     ): string;
 
     /** When a package has been installed, add it to the local game data. */
@@ -120,7 +120,7 @@ export class ClientBaseSystem extends packages.BaseSystem {
     static fromRemoteManifest<T extends packages.BasePackage<packages.BasePackageSchema>>(
         this: ConstructorOf<T>,
         manifest: string,
-        options?: { strict?: boolean }
+        options?: { strict?: boolean },
     ): Promise<T | null>;
 }
 
@@ -144,7 +144,7 @@ export class ClientBaseWorld extends packages.BaseWorld {
      */
     static getVersionBadge(
         availability: PackageAvailabilityCode,
-        data: Partial<packages.PackageManifestData>
+        data: Partial<packages.PackageManifestData>,
     ): PackageCompatibilityBadge | null;
 
     /**
@@ -156,7 +156,7 @@ export class ClientBaseWorld extends packages.BaseWorld {
     protected static _formatBadDependenciesTooltip(
         availability: PackageAvailabilityCode,
         data: Partial<packages.PackageManifestData>,
-        deps: Iterable<packages.RelatedPackage>
+        deps: Iterable<packages.RelatedPackage>,
     ): string;
 
     /** When a package has been installed, add it to the local game data. */
@@ -182,7 +182,7 @@ export class ClientBaseWorld extends packages.BaseWorld {
     static fromRemoteManifest<T extends packages.BasePackage<packages.BasePackageSchema>>(
         this: ConstructorOf<T>,
         manifest: string,
-        options?: { strict?: boolean }
+        options?: { strict?: boolean },
     ): Promise<T | null>;
 }
 
@@ -206,7 +206,7 @@ declare global {
 
         constructor(
             data: SourceFromSchema<packages.BaseModule["schema"]["fields"]>,
-            options?: DataModelConstructionOptions<null>
+            options?: DataModelConstructionOptions<null>,
         );
     }
 
@@ -221,7 +221,7 @@ declare global {
     class World extends ClientBaseWorld {
         static override getVersionBadge(
             availability: PackageAvailabilityCode,
-            data: Partial<packages.PackageManifestData>
+            data: Partial<packages.PackageManifestData>,
         ): PackageCompatibilityBadge | null;
 
         /** Provide data for a system badge displayed for the world which reflects the system ID and its availability */
@@ -230,7 +230,7 @@ declare global {
         protected static override _formatBadDependenciesTooltip(
             availability: PackageAvailabilityCode,
             data: Partial<packages.PackageManifestData>,
-            deps: Iterable<packages.RelatedPackage>
+            deps: Iterable<packages.RelatedPackage>,
         ): string;
     }
 

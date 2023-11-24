@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -37,7 +37,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
 
         return Array.from(text.matchAll(/(?<=@UUID\[)[^\]]+(?=\])/g)).reduce(
             (replaced, [link]) => replaced.replace(link, (s) => this.#replaceUUID(s)),
-            text
+            text,
         );
     }
 
@@ -103,7 +103,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         description.value = this.#replaceUUIDsInLinks(description.value);
         description.value = description.value.replace(
             /Compendium\.pf2e\.journals\.(?!JournalEntry)/g,
-            "Compendium.pf2e.journals.JournalEntry."
+            "Compendium.pf2e.journals.JournalEntry.",
         );
         description.gm &&= this.#replaceUUIDsInLinks(description.gm);
     }

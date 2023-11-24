@@ -33,7 +33,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     }
 
     protected static createExceptionsField<TType extends string>(
-        types?: Record<TType, string>
+        types?: Record<TType, string>,
     ): StrictArrayField<IWRExceptionField<TType>> {
         const customExceptionField = new foundry.data.fields.SchemaField(
             {
@@ -44,7 +44,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
                     initial: undefined,
                 }),
             },
-            { required: true, initial: undefined }
+            { required: true, initial: undefined },
         );
         const exceptionField = new DataUnionField(
             [
@@ -56,7 +56,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
                 }),
                 customExceptionField,
             ],
-            { required: true, nullable: false, initial: undefined }
+            { required: true, nullable: false, initial: undefined },
         );
 
         return new StrictArrayField(exceptionField);
@@ -114,6 +114,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
+        this.definition = this.resolveInjectedProperties(this.definition);
 
         const value = Math.floor(Number(this.resolveValue(this.value)));
         if (!this.#isValid(value)) return;

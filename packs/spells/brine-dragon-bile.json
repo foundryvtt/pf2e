@@ -4,34 +4,29 @@
     "name": "Brine Dragon Bile",
     "system": {
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {},
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "lFwT0JKtqmiZhm2D": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "persistent",
-                        "value": "acid"
-                    },
-                    "value": "2d6"
-                }
+            "lFwT0JKtqmiZhm2D": {
+                "applyMod": false,
+                "category": "persistent",
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "acid"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p><strong>Trigger</strong> A creature within range takes damage from a slashing or piercing attack, or one that inflicts persistent bleed damage.</p>\n<hr />\n<p>You spit a glob of caustic saltwater that stings the wounds of the creature. Make a ranged spell attack against the triggering creature's AC. On a hit, salt scours its open wound, dealing 2d6 persistent acid damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent damage increases by 2d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -43,9 +38,6 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -54,33 +46,23 @@
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "the creature that took damage"
         },
         "time": {
             "value": "reaction"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "acid",
+                "attack",
                 "concentrate",
                 "water"
             ]

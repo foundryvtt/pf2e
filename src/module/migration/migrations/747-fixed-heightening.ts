@@ -1,6 +1,6 @@
-import { SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
-import { sluggify } from "@util";
+import type { SpellPF2e } from "@item";
+import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
+import { isObject, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -29,10 +29,12 @@ export class Migration747FixedHeightening extends MigrationBase {
         const newDamage = newSpell.system.damage;
         const newKeys = new Set(Object.keys(newDamage.value));
         const diff = Object.keys(spell.system.damage.value).filter((key) => !newKeys.has(key));
-        const damage: { value: Record<string, unknown> } = spell.system.damage;
+        const damage: Record<string, unknown> | { value: Record<string, unknown> } = spell.system.damage;
         damage.value = newDamage.value;
         for (const deleteKey of diff) {
-            damage.value[`-=${deleteKey}`] = null;
+            if (isObject<Record<string, unknown>>(damage.value)) {
+                damage.value[`-=${deleteKey}`] = null;
+            }
         }
     }
 

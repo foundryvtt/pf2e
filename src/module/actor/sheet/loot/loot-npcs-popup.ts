@@ -1,15 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { PhysicalItemPF2e } from "@item";
-import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
-
-interface PopupData extends FormApplicationData<ActorPF2e> {
-    tokenInfo: {
-        id: string;
-        name: string;
-        checked: boolean;
-    }[];
-}
 
 class LootNPCsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions(): FormApplicationOptions {
@@ -22,10 +13,24 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
+    override async getData(): Promise<PopupData> {
+        const selectedTokens = canvas.ready
+            ? canvas.tokens.controlled.filter((t) => t.actor && t.actor.id !== this.object.id)
+            : [];
+        const tokenInfo = selectedTokens.map((t) => ({
+            id: t.id,
+            name: t.name,
+            checked: t.actor!.hasPlayerOwner,
+        }));
+        return { ...(await super.getData()), tokenInfo };
+    }
+
     override async _updateObject(
         _event: Event,
-        formData: Record<string, unknown> & { selection?: boolean }
+        formData: Record<string, unknown> & { selection?: boolean },
     ): Promise<void> {
+        if (!canvas.ready) return;
+
         const lootActor = this.object;
         const newItems: PhysicalItemPF2e[] = [];
         const itemUpdates = new Map<string, number>();
@@ -51,7 +56,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
                 // Deletions will be performed last in case of the other operations failing
                 itemsToDelete.set(
                     currentSource,
-                    currentSource.inventory.map((item) => item.id)
+                    currentSource.inventory.map((item) => item.id),
                 );
             }
         }
@@ -95,22 +100,14 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
             }
         }
     }
-
-    override async getData(): Promise<PopupData> {
-        const selectedTokens = canvas.tokens.controlled.filter(
-            (token) => token.actor && token.actor.id !== this.object.id
-        );
-        const tokenInfo = selectedTokens.map((token) => ({
-            id: token.id,
-            name: token.name,
-            checked: token.actor!.hasPlayerOwner,
-        }));
-        return { ...(await super.getData()), tokenInfo };
-    }
 }
 
-interface LootNPCsPopup extends FormApplication<ActorPF2e> {
-    object: ActorPF2e<TokenDocumentPF2e<ScenePF2e> | null>;
+interface PopupData extends FormApplicationData<ActorPF2e> {
+    tokenInfo: {
+        id: string;
+        name: string;
+        checked: boolean;
+    }[];
 }
 
 export { LootNPCsPopup };

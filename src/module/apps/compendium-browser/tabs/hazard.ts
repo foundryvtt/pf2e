@@ -37,13 +37,13 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
             this.browser.loadedPacks("hazard"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const actorData of index.filter((d) => d.type === "hazard")) {
                 if (!this.hasAllIndexFields(actorData, this.index)) {
                     console.warn(
-                        `Hazard '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                        `Hazard '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                     );
                     continue;
                 }
@@ -78,7 +78,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 simple: "PF2E.Actor.Hazard.Simple",
                 complex: "PF2E.TraitComplex",
             },
-            false
+            false,
         );
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.hazardTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
@@ -144,8 +144,8 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
                 },
             },
             sliders: {

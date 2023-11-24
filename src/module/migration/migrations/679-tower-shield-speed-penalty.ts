@@ -1,4 +1,4 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { MigrationBase } from "../base.ts";
 

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -14,7 +14,7 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
     ]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type !== "armor" || source.system.category === "shield") {
+        if (source.type !== "armor" || (source.system.category as string) === "shield") {
             return;
         }
 

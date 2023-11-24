@@ -3,57 +3,59 @@
     "img": "icons/magic/fire/explosion-mushroom-nuke-orange.webp",
     "name": "Wronged Monk's Wrath",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": {
             "type": "emanation",
             "value": 5
         },
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "electricity"
-                    },
-                    "value": "2d12"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "force"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d12",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "electricity"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>You unleash your ki as a powerful storm of force and lightning, dealing 2d6 force damage and 2d12 electricity damage to creatures in the area.</p>\n<p>If you use 2 actions to cast the spell, increase the size of the emanation to 10 feet and the damage to 3d6 force damage and 3d12 electricity damage.</p>\n<p>If you use 3 actions to cast the spell, increase the size of the emanation to 20 feet and the damage to 4d6 force damage and 4d12 electricity damage.</p>\n<p>Each creature attempts one basic Reflex save that applies to both types of damage On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round; on a critical failure, the creature also takes @Damage[2d12[persistent,electricity]] damage and is deafened for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The force damage increases by 1d6 and the electricity damage by 1d12, or 2d6 and 2d12 if you use 2 or 3 actions</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
-                "0": "1d12"
+                "0": "1d6",
+                "1": "1d12"
             },
             "interval": 2,
             "type": "interval"
         },
         "level": {
             "value": 5
-        },
-        "materials": {
-            "value": ""
         },
         "overlays": {
             "btb0quascsjm63hj": {
@@ -65,28 +67,23 @@
                         "value": "10"
                     },
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "force"
-                                },
-                                "value": "3d6"
-                            },
-                            "egy1iz6xjlu1tr32": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "electricity"
-                                },
-                                "value": "3d12"
-                            }
+                        "0": {
+                            "category": null,
+                            "formula": "3d6",
+                            "type": "force"
+                        },
+                        "1": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "3d12",
+                            "materials": [],
+                            "type": "electricity"
                         }
                     },
                     "heightening": {
                         "damage": {
                             "0": "2d6",
-                            "egy1iz6xjlu1tr32": "2d12"
+                            "1": "2d12"
                         }
                     },
                     "time": {
@@ -113,28 +110,23 @@
                         "value": "20"
                     },
                     "damage": {
-                        "value": {
-                            "0": {
-                                "type": {
-                                    "value": "force"
-                                },
-                                "value": "4d6"
-                            },
-                            "c4txkqlk90qt1myy": {
-                                "applyMod": false,
-                                "type": {
-                                    "categories": [],
-                                    "subtype": "",
-                                    "value": "electricity"
-                                },
-                                "value": "4d12"
-                            }
+                        "0": {
+                            "category": null,
+                            "formula": "4d6",
+                            "type": "force"
+                        },
+                        "1": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "materials": [],
+                            "type": "electricity"
                         }
                     },
                     "heightening": {
                         "damage": {
                             "0": "2d6",
-                            "c4txkqlk90qt1myy": "2d12"
+                            "1": "2d12"
                         }
                     },
                     "time": {
@@ -142,9 +134,6 @@
                     }
                 }
             }
-        },
-        "prepared": {
-            "value": ""
         },
         "publication": {
             "license": "OGL",
@@ -154,33 +143,24 @@
         "range": {
             "value": ""
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "1 to 3"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
+                "concentrate",
                 "electricity",
+                "focus",
                 "force",
-                "monk",
-                "evocation"
+                "manipulate",
+                "monk"
             ]
         }
     },

@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { ItemGrantSource } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemGrantSource } from "@item/base/data/system.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -24,7 +24,7 @@ export class Migration796ItemGrantsToObjects extends MigrationBase {
                     }
                     return grantsObject;
                 },
-                {}
+                {},
             );
         }
     }
@@ -32,7 +32,7 @@ export class Migration796ItemGrantsToObjects extends MigrationBase {
     #convertToEntry(
         actor: ActorSourcePF2e,
         granter: ItemSourcePF2e,
-        grantedData: ItemGrantSource | string
+        grantedData: ItemGrantSource | string,
     ): [string, ItemGrantSource] | [null, null] {
         const grantedId = grantedData instanceof Object ? grantedData.id : grantedData;
         if (actor.items.some((i) => i._id === grantedId)) {

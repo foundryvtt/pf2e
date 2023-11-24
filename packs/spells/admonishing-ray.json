@@ -3,39 +3,30 @@
     "img": "systems/pf2e/icons/spells/admonishing-ray.webp",
     "name": "Admonishing Ray",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "bludgeoning"
-                    },
-                    "value": "2d6"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
             }
         },
+        "defense": null,
         "description": {
             "value": "<p>A ray of energy bludgeons your target into submission without causing lasting harm. When you cast this spell, you choose whether the ray feels like a strong punch or slap. Make a spell attack roll. The ray deals 2d6 bludgeoning damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -47,15 +38,6 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": false,
@@ -64,35 +46,13 @@
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "2"
-        },
-        "traditions": {
-            "custom": "",
-            "value": [
-                "arcane",
-                "divine"
-            ]
         },
         "traits": {
             "rarity": "common",
@@ -101,10 +61,15 @@
                 "necromancy": "Necromancy",
                 "nonlethal": "Nonlethal"
             },
+            "traditions": [
+                "arcane",
+                "divine"
+            ],
             "value": [
                 "attack",
-                "nonlethal",
-                "necromancy"
+                "concentrate",
+                "manipulate",
+                "nonlethal"
             ]
         }
     },

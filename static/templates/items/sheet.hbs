@@ -14,11 +14,7 @@
                 aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
             />
 
-            {{#if (and item.actionCost (not (eq item.type "action")))}}
-                <span class="feat-action-cost">
-                    {{{actionGlyph item.actionCost}}}
-                </span>
-            {{/if}}
+            {{#if (or item.actionCost item.actionGlyph)}}{{{actionGlyph (coalesce item.actionCost item.actionGlyph)}}}{{/if}}
 
             {{#if itemType}}
                 <span class="level">
@@ -46,7 +42,6 @@
                     </select>
                 {{/if}}
             </template>
-            <!-- showTraits {{showTraits}} -->
             {{#if showTraits}}
                 <input class="paizo-style tags" name="system.traits.value" value="{{json traitTagifyData}}" data-dtype="JSON"
                     {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
@@ -95,7 +90,9 @@
                     {{#if (not isVariant)}}
                         {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
                     {{else}}
-                        {{{enrichedContent.description}}}
+                        <div class="editor">
+                            <div class="editor-content">{{{enrichedContent.description}}}</div>
+                        </div>
                     {{/if}}
                 </section>
             </section>
@@ -105,7 +102,7 @@
                 {{> (lookup . "detailsTemplate")}}
 
                 <fieldset class="publication">
-                    <legend>Publication</legend>
+                    <legend>{{localize "PF2E.Publication.Label"}}</legend>
                     <div class="data">
                         {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.publication" data=data.publication}}
                     </div>

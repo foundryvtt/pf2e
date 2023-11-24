@@ -1,13 +1,13 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Set the "hands" (usage) property of weapons */
 export class Migration680SetWeaponHands extends MigrationBase {
     static override version = 0.68;
 
-    private oneHandedWeapons = new Set(["repeating-hand-crossbow"]);
+    #oneHandedWeapons = new Set(["repeating-hand-crossbow"]);
 
-    private onePlusHandedWeapons = new Set([
+    #onePlusHandedWeapons = new Set([
         "backpack-ballista",
         "backpack-catapult",
         "composite-longbow",
@@ -18,13 +18,13 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "sun-sling",
     ]);
 
-    private shieldAttachments = new Set(["shield-boss", "shield-spikes"]);
+    #shieldAttachments = new Set(["shield-boss", "shield-spikes"]);
 
-    private firearmAttachments = new Set(["bayonette", "reinforced-stock"]);
+    #firearmAttachments = new Set(["bayonette", "reinforced-stock"]);
 
-    private wornGloves = new Set(["handwraps-of-mighty-blows"]);
+    #wornGloves = new Set(["handwraps-of-mighty-blows"]);
 
-    private twoHandedWeapons = new Set([
+    #twoHandedWeapons = new Set([
         "adze",
         "alchemical-crossbow",
         "arquebus",
@@ -85,10 +85,9 @@ export class Migration680SetWeaponHands extends MigrationBase {
     ]);
 
     isShield(source: ItemSourcePF2e & { system: { armorType?: { value?: unknown } } }): source is MaybeOldShieldData {
-        return (
-            source.type === "armor" &&
-            (source.system.armorType?.value === "shield" || source.system.category === "shield")
-        );
+        const category: unknown =
+            source.type === "armor" ? source.system.armorType?.value || source.system.category : null;
+        return category === "shield";
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
@@ -100,21 +99,21 @@ export class Migration680SetWeaponHands extends MigrationBase {
             const { baseItem, slug, traits } = itemSource.system;
             const usage: { value: string } = itemSource.system.usage;
 
-            if (this.twoHandedWeapons.has(baseItem || slug || "")) {
+            if (this.#twoHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-two-hands";
-            } else if (this.onePlusHandedWeapons.has(baseItem || slug || "")) {
+            } else if (this.#onePlusHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-plus-hands";
-            } else if (this.oneHandedWeapons.has(baseItem || slug || "")) {
+            } else if (this.#oneHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-hand";
-            } else if (this.shieldAttachments.has(baseItem || slug || "")) {
+            } else if (this.#shieldAttachments.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-hand";
                 const attachedIndex = traits.value.findIndex((trait: string) => trait === "attached");
                 if (attachedIndex !== -1) traits.value.splice(attachedIndex, 1, "attached-to-shield");
-            } else if (this.firearmAttachments.has(baseItem || slug || "")) {
+            } else if (this.#firearmAttachments.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-hand";
                 const attachedIndex = traits.value.findIndex((trait: string) => trait === "attached");
                 if (attachedIndex !== -1) traits.value.splice(attachedIndex, 1, "attached-to-crossbow-or-firearm");
-            } else if (this.wornGloves.has(baseItem || slug || "")) {
+            } else if (this.#wornGloves.has(baseItem || slug || "")) {
                 usage.value = "worn-gloves";
             }
         }

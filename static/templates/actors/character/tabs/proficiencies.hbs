@@ -1,4 +1,4 @@
-<div class="tab proficiencies" data-group="primary" data-tab="proficiencies">
+<div class="tab proficiencies" data-group="primary" data-tab="proficiencies" data-tooltip-class="pf2e">
     <h3 class="header">{{localize "PF2E.CoreSkillsHeader"}}</h3>
     <ol class="overflow-list proficiencies-pane stroke-header">
         <ol class="skills-list">
@@ -6,7 +6,7 @@
             {{#each data.skills as |skill key|}}
                 {{#unless skill.lore}}
                     <li class="skill" data-skill="{{skill.slug}}">
-                        <a class="skill-name rollable" title="{{skill.breakdown}}">
+                        <a class="skill-name rollable" data-tooltip="{{skill.breakdown}}">
                             <span class="skill-score">{{numberFormat skill.value decimals=0 sign=true}}</span>
                             <h4>{{localize skill.label}}</h4>
                         </a>
@@ -30,7 +30,7 @@
         <h3 class="header">
             {{localize "PF2E.LoreSkillsHeader"}}
             <div class="controls">
-                <button type="button" class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore">
+                <button type="button" class="item-control item-create" data-tooltip="PF2E.CreateSkillTitle" data-type="lore">
                     <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
                 </button>
             </div>
@@ -41,17 +41,17 @@
             {{#each data.skills as |skill idx|}}
                 {{#if skill.lore}}
                     <li class="skill item" data-skill="{{skill.slug}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
-                        <a class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</a>
+                        <a class="skill-score rollable" data-tooltip="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</a>
                         <div class="skill-name lore-name-input item-name-input">
                             <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
                         </div>
                         <div class="skill-prof button-group skill-container">
-                            <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" title="{{skill.breakdown}}" data-rank="{{skill.rank}}" data-dtype="Number">
+                            <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}" data-dtype="Number">
                                 {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                             </select>
                             {{#if ../editable}}
                                 <div class="item-controls">
-                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                    <a class="item-control item-delete skill-armor" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                 </div>
                             {{/if}}
                         </div>
@@ -65,7 +65,7 @@
             {{localize "PF2E.Actor.Character.Proficiency.Attack.Title"}}
             {{#if editable}}
                 <div class="controls">
-                    <button type="button" class="item-control" data-action="add-attack-proficiency" title="{{localize "PF2E.AddCombatProficiency.Title"}}">
+                    <button type="button" class="item-control" data-action="add-attack-proficiency" data-tooltip="PF2E.AddCombatProficiency.Title">
                         <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
                     </button>
                 </div>
@@ -77,7 +77,7 @@
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
-                    <span class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
+                    <span class="skill-score lore-score" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select
@@ -91,6 +91,22 @@
                     </div>
                 </li>
             {{/each}}
+            {{#with document.spellcasting.base as |spellcasting|}}
+                <li class="skill" data-slug="spellcasting">
+                    <span class="skill-score lore-score" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
+                    <h4 class="skill-name lore-name-input">{{localize spellcasting.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <select
+                            class="skill-proficiency pf-rank adjust-stat-select"
+                            data-property="system.proficiencies.spellcasting.rank"
+                            data-rank="{{spellcasting.rank}}"
+                            data-dtype="Number"
+                        >
+                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank}}
+                        </select>
+                    </div>
+                </li>
+            {{/with}}
         </ol>
 
         <!-- Defenses -->
@@ -103,7 +119,7 @@
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
-                    <span class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
+                    <span class="skill-score lore-score" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select

@@ -1,8 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
-import { AncestrySource } from "@item/data/index.ts";
-import { MigrationBase } from "../base.ts";
+import { AncestrySource } from "@item/base/data/index.ts";
 import { isObject } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /** Remove alignment traits from PCs and NPCs, ancestry traits from PCs  */
 export class Migration698RemoveDerivedActorTraits extends MigrationBase {
@@ -22,7 +21,7 @@ export class Migration698RemoveDerivedActorTraits extends MigrationBase {
         }
 
         const traits = source.system.traits.traits.value;
-        for (const trait of ALIGNMENT_TRAITS) {
+        for (const trait of ["good", "evil", "lawful", "chaotic"]) {
             const index = traits.indexOf(trait);
             if (index >= 0) traits.splice(index, 1);
         }

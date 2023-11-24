@@ -2,6 +2,18 @@
     @import "../reset";
     @import "header";
 
+    a.disabled {
+        cursor: default;
+
+        &:hover {
+            text-shadow: none;
+        }
+
+        &.header-button {
+            color: var(--color-text-light-5);
+        }
+    }
+
     .sheet-body {
         height: calc(100% - 35px);
         overflow: hidden;
@@ -312,6 +324,7 @@
                         padding-right: 0.5em;
                         white-space: nowrap;
 
+                        &.disabled,
                         &.no-data {
                             color: var(--color-text-dark-4);
                         }
@@ -361,6 +374,15 @@
             }
         }
 
+        .form-list,
+        fieldset {
+            h3 {
+                font-weight: 600;
+                font-size: 1.05em;
+                margin-bottom: 0.25em;
+            }
+        }
+
         .form-list {
             border-radius: 5px;
             border: 1px solid var(--secondary-background);
@@ -370,12 +392,6 @@
 
             &:first-child {
                 margin-top: 0;
-            }
-
-            h3 {
-                font-weight: 600;
-                font-size: 1.05em;
-                margin-bottom: 0.25em;
             }
         }
 
@@ -414,21 +430,16 @@
         }
 
         .form-group {
-            &.scalable {
-                height: auto;
-                min-height: 1.5rem;
-
-                ul.traits-list {
-                    list-style-type: none;
-                }
-            }
-
             & > label:not(.large) {
                 max-width: 11em;
             }
 
             & > label.short {
                 max-width: 9em;
+            }
+
+            ul.tags {
+                margin: 0 0 0.5em;
             }
 
             .item-controls {
@@ -477,22 +488,6 @@
             select {
                 flex: 1;
                 width: auto;
-            }
-        }
-
-        .toggle-button-list {
-            display: flex;
-            gap: 2px;
-            margin: 4px 0;
-
-            button {
-                margin: 0;
-                font-size: var(--font-size-10);
-                line-height: 16px;
-                display: flex;
-                align-items: center;
-                white-space: nowrap;
-                padding: 3px 4px;
             }
         }
 

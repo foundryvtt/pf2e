@@ -95,7 +95,7 @@ export const DOCUMENT_TYPES: [
     "Playlist",
     "RollTable",
     "Scene",
-    "User"
+    "User",
 ];
 
 /** The allowed Document types which may exist within a Compendium pack. */
@@ -108,7 +108,7 @@ export const COMPENDIUM_DOCUMENT_TYPES: [
     "Playlist",
     "RollTable",
     "Scene",
-    "Adventure"
+    "Adventure",
 ];
 
 /**
@@ -139,7 +139,7 @@ export const DOCUMENT_LINK_TYPES: [
     "JournalEntry",
     "Macro",
     "RollTable",
-    "PlaylistSound"
+    "PlaylistSound",
 ];
 
 /** The supported dice roll visibility modes */
@@ -173,7 +173,7 @@ export const FOLDER_DOCUMENT_TYPES: [
     "Playlist",
     "RollTable",
     "Cards",
-    "Macro"
+    "Macro",
 ];
 
 /** The maximum allowed level of depth for Folder nesting */

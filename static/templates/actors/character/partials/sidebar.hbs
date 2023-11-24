@@ -9,13 +9,13 @@
     <div class="hp-big">
         <div class="container temp-hp">
             <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
-            <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
+            <div class="data-value">
                 <input name="system.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />
             </div>
         </div>
         <div class="container current-hp">
             <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
-            <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
+            <div class="data-value">
                 <input name="system.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" placeholder="10" />
             </div>
         </div>
@@ -32,21 +32,25 @@
         </div>
     </div>
     <div class="hp-small">
-        <a class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
+        <a
+            class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}"
+            data-action="recovery-check"
+            data-tooltip="{{localize "PF2E.Check.Specific.Recovery"}}"
+        >
             {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
         </a>
-        <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
+        <a class="dots dying">
             <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
             {{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}
         </a>
-        <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
+        <a class="dots wounded">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
             <span class="pips">
                 {{#times data.attributes.wounded.value}}<i class="fa-solid fa-dot-circle"></i>{{/times}}
                 {{#times dying.remainingWounded}}<i class="fa-regular fa-circle"></i>{{/times}}
             </span>
         </a>
-        <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
+        <a class="roll-icon rest" data-action="rest" data-tooltip="PF2E.Actor.Character.Rest.Label">
             <i class="fa-solid fa-bed"></i>
         </a>
     </div>
@@ -63,7 +67,7 @@
     <ol class="stamina">
         <li class="sp">
             <label for="{{options.id}}-pc-stamina" class="sidebar_label">{{localize "PF2E.StaminaPointsShortLabel"}}</label>
-            <span class="hp-current stamina-group" title="{{localize "PF2E.CurrentStaminaTitle"}}">
+            <span class="hp-current stamina-group">
                 <input
                     id="{{options.id}}-pc-stamina"
                     class="left"
@@ -79,7 +83,7 @@
         </li>
         <li class="resolve">
             <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.ResolvePointsShortLabel"}}</label>
-            <span class="hp-max stamina-group" title="{{localize "PF2E.ResolveTitle"}}">
+            <span class="hp-max stamina-group">
                 <input
                     id="{{options.id}}-pc-resolve"
                     class="left"
@@ -112,13 +116,13 @@
     </div>
     <div class="shield hp">
         <div class="data-value">
-            <input id="{{@root.options.id}}-shield-hp" type="number" placeholder="0" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" title="{{localize "PF2E.ShieldCurrentTitle"}}" />
+            <input id="{{@root.options.id}}-shield-hp" type="number" placeholder="0" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" />
         </div>
-        <label for="{{@root.options.id}}-shield-hp" class="sidebar_label">{{localize "PF2E.ShieldCurrentLabel"}}</label>
+        <label for="{{@root.options.id}}-shield-hp" class="sidebar_label">{{localize "PF2E.Actor.Creature.Shield.HitPoints.Value"}}</label>
     </div>
     <div class="shield-stats">
         <ol>
-            <li>
+            <li data-tooltip="PF2E.Actor.Creature.Shield.ACBonus">
                 <div class="shield-label">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
                         <path
@@ -128,35 +132,35 @@
                         <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ArmorClassShortLabel"}}</text>
                     </svg>
                 </div>
-                <span class="data-value" title="{{localize "PF2E.ShieldACBonusTitle"}}">
-                    <input type="number" placeholder="0" value="{{data.attributes.shield.ac}}" title="{{localize "PF2E.ShieldACBonusTitle"}}" readonly="readonly" />
+                <span class="data-value">
+                    <input type="number" placeholder="0" value="{{data.attributes.shield.ac}}" readonly="readonly" />
                 </span>
             </li>
-            <li>
+            <li data-tooltip="PF2E.Actor.Creature.Shield.Hardness.Hint">
                 <div class="shield-label">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
                         <path
                             d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
                             fill="#fff"
                         />
-                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ShieldHardnessShortLabel"}}</text>
+                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</text>
                     </svg>
                 </div>
-                <span class="data-value" title="{{localize "PF2E.ShieldHardnessTitle"}}">
+                <span class="data-value">
                     <input type="number" placeholder="0" value="{{data.attributes.shield.hardness}}" readonly="readonly" />
                 </span>
             </li>
-            <li>
+            <li data-tooltip="PF2E.Actor.Creature.Shield.BrokenThreshold">
                 <div class="shield-label">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
                         <path
                             d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
                             fill="#fff"
                         />
-                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ShieldBTShortLabel"}}</text>
+                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</text>
                     </svg>
                 </div>
-                <span class="data-value" title="{{localize "PF2E.ShieldBTTitle"}}">
+                <span class="data-value">
                     <input type="number" value="{{data.attributes.shield.brokenThreshold}}" readonly="readonly" />
                 </span>
             </li>
@@ -164,10 +168,10 @@
     </div>
     <div class="armor_footer">
         <div class="shield-max">
-            <label for="{{@root.options.id}}-shield-max" class="sidebar_label" title="{{localize "PF2E.ShieldMaxTitle"}}">
-                {{localize "PF2E.ShieldLabel"}}<br />{{localize "PF2E.MaxHitPointsShortLabel"}}
+            <label for="{{@root.options.id}}-shield-max" class="sidebar_label">
+                {{localize "PF2E.Actor.Creature.Shield.HitPoints.Max"}}
             </label>
-            <span class="data-value" title="{{localize "PF2E.ShieldMaxTitle"}}">
+            <span class="data-value">
                 <input id="{{@root.options.id}}-shield-max" type="number" placeholder="0" value="{{data.attributes.shield.hp.max}}" readonly="readonly" />
             </span>
         </div>
@@ -194,11 +198,11 @@
     </button>
 </div>
 <div class="roll-data perception-sidebar">
-    <a class="roll-icon attribute-name" data-action="perception-check" title="{{localize "PF2E.Check.Specific.Perception.Label"}}">
+    <a class="roll-icon attribute-name" data-action="perception-check" data-tooltip="PF2E.Check.Specific.Perception.Label">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
     </a>
 
-    <a class="roll-icon attribute-name" data-action="perception-check" data-secret="true" title="{{localize "PF2E.Check.Specific.Perception.Secret"}}">
+    <a class="roll-icon attribute-name" data-action="perception-check" data-secret="true" data-tooltip="PF2E.Check.Specific.Perception.Secret">
         <i class="fa-solid fa-eye-slash"></i>
     </a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
@@ -222,7 +226,7 @@
     </button>
 </div>
 <div class="roll-data initiative-sidebar">
-    <a class="roll-icon roll-init" data-action="roll-initiative">
+    <a class="roll-icon" data-action="roll-initiative" data-tooltip="COMBAT.InitiativeRoll">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
     </a>
     <h3>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</h3>
@@ -309,7 +313,7 @@
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
-            <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
+            <a data-action="edit-immunities" data-tooltip="PF2E.NPC.EditImmunities"><i class="fa-solid fa-edit"></i></a>
         </li>
     {{/if}}
 </ol>
@@ -324,7 +328,7 @@
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
-            <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
+            <a data-action="edit-weaknesses" data-tooltip="PF2E.NPC.EditWeaknesses"><i class="fa-solid fa-edit"></i></a>
         </li>
     {{/if}}
 </ol>
@@ -339,7 +343,7 @@
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
-            <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
+            <a data-action="edit-resistances" data-tooltip="PF2E.NPC.EditResistances"><i class="fa-solid fa-edit"></i></a>
         </li>
     {{/if}}
 </ol>

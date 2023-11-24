@@ -11,7 +11,7 @@ export async function stealthForSelected(event: JQuery.ClickEvent): Promise<void
         return;
     }
 
-    const argsFromEvent = eventToRollParams(event);
+    const argsFromEvent = eventToRollParams(event, { type: "check" });
     for (const actor of actors) {
         await actor.skills.stealth.roll({ ...argsFromEvent, traits: ["secret"] });
     }

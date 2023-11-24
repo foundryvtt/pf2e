@@ -17,7 +17,7 @@
  * });
  */
 declare class MeasuredTemplate<
-    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>
+    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     /** The template shape used for testing point intersection */
     shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
@@ -122,14 +122,14 @@ declare class MeasuredTemplate<
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 }
 
 declare interface MeasuredTemplate<
-    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>
+    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     get layer(): TemplateLayer<this>;
 }

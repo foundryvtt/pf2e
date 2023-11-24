@@ -57,6 +57,6 @@ declare class SpriteMesh extends PIXI.Mesh {
     static from(
         source: string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement,
         textureOptions?: object,
-        shaderCls?: typeof AbstractBaseShader
+        shaderCls?: typeof AbstractBaseShader,
     ): SpriteMesh;
 }

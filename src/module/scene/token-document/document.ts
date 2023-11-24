@@ -45,7 +45,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static override getTrackedAttributes(
         data: Record<string, unknown> = {},
-        _path: string[] = []
+        _path: string[] = [],
     ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
@@ -70,12 +70,34 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     ([k, v]) =>
                         patterns.positive.test(k) &&
                         !patterns.negative.test(k) &&
-                        !["boolean", "string"].includes(typeof v)
-                )
-            )
+                        !["boolean", "string"].includes(typeof v),
+                ),
+            ),
         );
 
         return super.getTrackedAttributes(prunedData, _path);
+    }
+
+    static override getTrackedAttributeChoices(
+        attributes?: TrackedAttributesDescription,
+    ): TrackedAttributesDescription {
+        attributes ??= this.getTrackedAttributes();
+        // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered { value, max }
+        // property and sp is nested within the hp property
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            attributes.bar.push(["attributes", "hp", "sp"]);
+        }
+        return super.getTrackedAttributeChoices(attributes);
+    }
+
+    /** Make stamina and resolve editable despite not being present in template.json */
+    override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
+        const attribute = super.getBarAttribute(barName, options);
+        if (attribute && ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute)) {
+            attribute.editable = true;
+        }
+
+        return attribute;
     }
 
     /** This should be in Foundry core, but ... */
@@ -134,7 +156,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 position[0],
                 position[1],
                 Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height)
+                Math.max(canvas.grid.size, bounds.height),
             );
         }
 
@@ -195,11 +217,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
                 ? CONST.TOKEN_DISPOSITIONS.SECRET
                 : alliance
-                ? {
-                      party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-                      opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
-                  }[alliance]
-                : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                  ? {
+                        party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                        opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
+                    }[alliance]
+                  : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
     /** Reset sight defaults if using rules-based vision */
@@ -399,7 +421,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
@@ -410,7 +432,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
@@ -428,7 +450,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
-        options: DocumentModificationContext<null> = {}
+        options: DocumentModificationContext<null> = {},
     ): void {
         super._onRelatedUpdate(update, options);
 

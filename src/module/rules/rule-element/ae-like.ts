@@ -74,7 +74,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     #rewriteSkillLongFormPath(path: string): string {
         return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
-            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match
+            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match,
         );
     }
 
@@ -85,32 +85,37 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
-                    (path) => getProperty(actor, path) !== undefined
+                    (path) => getProperty(actor, path) !== undefined,
                 ))
         );
     }
 
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    override async preCreate(): Promise<void> {
+        if (this.phase === "applyAEs") this.#applyAELike();
+    }
+
     /** Apply the modifications immediately after proper ActiveEffects are applied */
     override onApplyActiveEffects(): void {
-        if (this.phase === "applyAEs") this.applyAELike();
+        if (this.phase === "applyAEs") this.#applyAELike();
     }
 
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
     override beforePrepareData(): void {
-        if (this.phase === "beforeDerived") this.applyAELike();
+        if (this.phase === "beforeDerived") this.#applyAELike();
     }
 
     /** Apply the modifications at the conclusion of the actor's derived-data preparation */
     override afterPrepareData(): void {
-        if (this.phase === "afterDerived") this.applyAELike();
+        if (this.phase === "afterDerived") this.#applyAELike();
     }
 
     /** Apply the modifications prior to a Check (roll) */
     override beforeRoll(_domains: string[], rollOptions: Set<string>): void {
-        if (this.phase === "beforeRoll") this.applyAELike(rollOptions);
+        if (this.phase === "beforeRoll") this.#applyAELike(rollOptions);
     }
 
-    protected applyAELike(rollOptions?: Set<string>): void {
+    #applyAELike(rollOptions?: Set<string>): void {
         if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
@@ -154,7 +159,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         mode: AELikeChangeMode,
         current: TCurrent,
         change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
-        merge?: boolean
+        merge?: boolean,
     ): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
     static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown, merge = false): unknown {
         const { DataModelValidationFailure } = foundry.data.validation;
@@ -240,8 +245,8 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             item instanceof FeatPF2e
                 ? Number(/-(\d+)$/.exec(item.system.location ?? "")?.[1]) || item.level
                 : "level" in item && typeof item["level"] === "number"
-                ? item["level"]
-                : null;
+                  ? item["level"]
+                  : null;
         const { autoChanges } = this.actor.system;
         const entries = (autoChanges[this.path] ??= []);
         entries.push({ mode, level, value, source: this.item.name });

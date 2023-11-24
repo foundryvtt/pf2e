@@ -116,7 +116,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "adjust-shape",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ActorSizeLarge",
+                                "selected": true,
+                                "value": "large"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeMedium",
+                                "selected": false,
+                                "value": "medium"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "adjust-shape"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.adjustShape}"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "adjust-shape:medium"
+                        ],
+                        "selector": "all-speeds",
+                        "value": -10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -475,11 +509,7 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "N"
-            },
             "blurb": "Variant black pudding",
-            "creatureType": "Ooze",
             "level": {
                 "value": 7
             },

@@ -3,40 +3,30 @@
     "img": "systems/pf2e/icons/spells/hurtling-stone.webp",
     "name": "Hurtling Stone",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "bludgeoning"
-                    },
-                    "value": "1d6+@actor.abilities.str.mod"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "bludgeoning"
             }
         },
+        "defense": null,
         "description": {
-            "value": "<p>You evoke a magical stone and throw it, with your god's presence guiding your aim. Make a spell attack roll against the target. The stone deals bludgeoning damage equal to 1d6 plus your Strength modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The stone deals double damage.</p>\n<p><strong>Success</strong> The stone deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The stone's damage increases by 1d6.</p>"
+            "value": "<p>You evoke a magical stone and throw it, with divine guide to your aim. The stone deals 2d6 bludgeoning damage depending on your spell attack roll against the target's AC.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and you can push it up to 10 feet.</p>\n<p><strong>Success</strong> The target takes full damage and you can push it up to 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The stone's damage increases by 1d6.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -48,56 +38,31 @@
         "level": {
             "value": 1
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "60 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": ""
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "attack"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 creature"
         },
         "time": {
             "value": "1"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
                 "attack",
                 "cleric",
                 "earth",
-                "evocation"
+                "focus",
+                "manipulate"
             ]
         }
     },

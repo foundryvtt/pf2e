@@ -41,7 +41,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
                 a.hasPlayerOwner &&
                 a.isOfType("character") &&
                 !a.isToken &&
-                !a.system.traits.value.some((t) => ["minion", "eidolon"].includes(t))
+                !a.system.traits.value.some((t) => ["minion", "eidolon"].includes(t)),
         );
         sheetData.actorInfo = playerActors.map((a) => ({
             id: a.id,
@@ -117,10 +117,10 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
     /** Prevent Foundry from converting the actor IDs to boolean values */
     protected override async _onSubmit(
         event: Event,
-        options: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
+        options: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown> | false> {
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
-            element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : []
+            element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : [],
         );
         options.updateData = mergeObject(options.updateData ?? {}, { actorIds: actorIds });
         return super._onSubmit(event, options);

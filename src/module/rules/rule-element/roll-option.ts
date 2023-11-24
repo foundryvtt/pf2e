@@ -75,7 +75,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     initial: [],
                     validate: (v): boolean => Array.isArray(v) && v.length !== 1,
                     validationError: "must have zero or 2+ suboptions",
-                }
+                },
             ),
             value: new ResolvableValueField({
                 required: false,
@@ -93,7 +93,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     }),
                     new StrictBooleanField({ required: false, nullable: false, initial: false }),
                 ],
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined },
             ),
             placement: new fields.StringField({
                 required: false,
@@ -134,6 +134,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (source.placement && !source.toggleable) {
             throw Error("  placement: may only be present if toggleable");
         }
+    }
+
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    override async preCreate(): Promise<void> {
+        if (this.phase === "applyAEs") this.#setRollOption();
     }
 
     override onApplyActiveEffects(): void {
@@ -183,12 +188,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const isIdDomain = /^[a-zA-Z0-9]{16}-[-a-z0-9]+[a-z0-9]$/.test(this.domain);
         if (!isStandardDomain && !isIdDomain) {
             return this.failValidation(
-                "domain must be a string consisting of only lowercase letters, numbers, and hyphens."
+                "domain must be a string consisting of only lowercase letters, numbers, and hyphens.",
             );
         }
 
         const optionSet = new Set(
-            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
+            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat(),
         );
         if (!this.test(optionSet)) return this.#setFlag(false);
 
@@ -198,7 +203,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (!baseOption) {
             this.failValidation(
-                'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens'
+                'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens',
             );
             return;
         }

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeSchema } from "@module/rules/rule-element/ae-like.ts";
 import { recursiveReplaceString } from "@util";
@@ -12,11 +12,11 @@ export class Migration851JustInnovationId extends MigrationBase {
         if (source.type !== "feat") return;
 
         source.system.rules = source.system.rules.map((r) =>
-            recursiveReplaceString(r, (s) => s.replace("flags.pf2e.armorInnovationId", "flags.pf2e.innovationId"))
+            recursiveReplaceString(r, (s) => s.replace("flags.pf2e.armorInnovationId", "flags.pf2e.innovationId")),
         );
 
         const hasAELike = source.system.rules.some(
-            (r: MaybeAELikeSource) => r.key === "ActiveEffectLike" && r.path === "flags.pf2e.innovationId"
+            (r: MaybeAELikeSource) => r.key === "ActiveEffectLike" && r.path === "flags.pf2e.innovationId",
         );
         if (source.system.slug === "weapon-innovation" && !hasAELike) {
             const reSource: Pick<SourceFromSchema<AELikeSchema>, "key" | "mode" | "path" | "value"> = {

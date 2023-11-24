@@ -63,11 +63,11 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                     return {
                         adjustDamageRoll: (
                             weapon: WeaponPF2e | MeleePF2e,
-                            { materials }: { materials?: Set<MaterialDamageEffect> }
+                            { materials }: { materials?: Set<MaterialDamageEffect> },
                         ): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
-                                    'A strike adjustment of material effects must be used with the "add", "subtract", or "remove" mode.'
+                                    'A strike adjustment of material effects must be used with the "add", "subtract", or "remove" mode.',
                                 );
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
@@ -97,7 +97,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                             const rangeIncrement = weapon.range?.increment;
                             if (typeof rangeIncrement !== "number") {
                                 return this.failValidation(
-                                    "A weapon that meets the definition lacks a range increment."
+                                    "A weapon that meets the definition lacks a range increment.",
                                 );
                             }
 
@@ -110,7 +110,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                         adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
-                                    'A strike adjustment of traits must be used with the "add", "subtract", or "remove" mode.'
+                                    'A strike adjustment of traits must be used with the "add", "subtract", or "remove" mode.',
                                 );
                             }
                             if (!objectHasKey(CONFIG.PF2E.actionTraits, change)) {
@@ -132,7 +132,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                         adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
-                                    'A strike adjustment of weapon traits must be used with the "add", "subtract", or "remove" mode.'
+                                    'A strike adjustment of weapon traits must be used with the "add", "subtract", or "remove" mode.',
                                 );
                             }
                             if (
@@ -189,11 +189,9 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                 case "property-runes":
                     return {
                         adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
-                            if (weapon.isOfType("melee")) return; // Currently not supported
-
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
-                                    'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.'
+                                    'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.',
                                 );
                             }
                             const runeSlug = sluggify(String(change), { camel: "dromedary" });

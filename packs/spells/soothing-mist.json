@@ -3,39 +3,35 @@
     "img": "systems/pf2e/icons/spells/soothing-mist.webp",
     "name": "Soothing Mist",
     "system": {
-        "ability": {
-            "value": ""
-        },
         "area": null,
-        "category": {
-            "value": "focus"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "healing"
-                    },
-                    "value": "2d8"
-                }
+            "0": {
+                "applyMod": false,
+                "category": null,
+                "formula": "2d8",
+                "kinds": [
+                    "healing"
+                ],
+                "materials": [],
+                "type": "untyped"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "fortitude"
             }
         },
         "description": {
-            "value": "<p>You call forth a magical mist of positive energy that envelops a creature.</p>\n<p>The mist restores [[/r 2d8[healing]]]{2d8 Hit Points} to a target living creature and ends one source of persistent acid, bleed, fire, negative, or poison damage affecting it. If the creature is taking persistent damage from multiple sources, you select which one is removed.</p>\n<p>Against an undead target, you deal @Damage[2d8[vitality]] damage (basic Fortitude save); if it fails the save, it also takes @Damage[2[persistent,vitality]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing (or damage to an undead target) increases by [[/r 1d8]], and the persistent positive damage to an undead creature increases by 1.</p>"
+            "value": "<p>You call forth a magical mist that envelops a creature. The mist restores [[/r 2d8[healing]]]{2d8 Hit Points} to a target living creature and ends one source of persistent acid, bleed, fire, poison, or void damage affecting it. If the creature is taking persistent damage from multiple sources, you select which one is removed. Against an undead target, you deal @Damage[2d8[vitality]] damage (basic Fortitude save); if it fails the save, it also takes @Damage[2[persistent,vitality]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing (or damage to an undead target) increases by 1d8, and the persistent vitality damage to an undead creature increases by 1.</p>"
         },
         "duration": {
+            "sustained": false,
             "value": ""
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -47,56 +43,32 @@
         "level": {
             "value": 2
         },
-        "materials": {
-            "value": ""
-        },
-        "prepared": {
-            "value": ""
-        },
-        "primarycheck": {
-            "value": ""
-        },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "range": {
             "value": "30 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "basic",
-            "value": "fortitude"
-        },
-        "secondarycasters": {
-            "value": ""
-        },
-        "secondarycheck": {
-            "value": ""
-        },
-        "spellType": {
-            "value": "heal"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": "1 willing living creature or 1 undead creature"
         },
         "time": {
             "value": "2"
         },
-        "traditions": {
-            "value": []
-        },
         "traits": {
             "rarity": "uncommon",
+            "traditions": [],
             "value": [
+                "concentrate",
+                "focus",
                 "healing",
-                "vitality",
+                "manipulate",
                 "ranger",
-                "necromancy"
+                "vitality"
             ]
         }
     },

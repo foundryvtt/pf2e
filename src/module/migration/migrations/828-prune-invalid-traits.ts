@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorTrait } from "@item/armor/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellTrait } from "@item/spell/index.ts";
 import {
     actionTraits,
@@ -56,7 +56,7 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                             .replace(/^audible$/, "auditory")
                             .replace(/^concentration$/, "concentrate")
                             .replace(/^(interact|manipulation)$/i, "manipulate")
-                            .replace(/^vocal$/, "verbal")
+                            .replace(/^vocal$/, "verbal"),
                     )
                     .filter((t): t is ActionTrait => t in actionTraits);
                 return;
@@ -76,8 +76,8 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                         source.system.slug?.includes("helmsmans")
                             ? t.replace(/^shield-throw$/, "shield-throw-30")
                             : source.system.slug?.includes("klar")
-                            ? t.replace(/^integrated$/, "integrated-1d6-s-versatile-p")
-                            : t
+                              ? t.replace(/^integrated$/, "integrated-1d6-s-versatile-p")
+                              : t,
                     )
                     .filter((t): t is ArmorTrait => t in armorTraits);
                 return;

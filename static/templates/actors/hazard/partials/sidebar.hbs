@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<div class="sidebar" data-tooltip-class="pf2e">
     <section>
         <div class="sidebar-title">
             <h2>{{localize "PF2E.DefensesLabel"}}</h2>
@@ -6,7 +6,7 @@
         {{#if (or editing hasDefenses)}}
             <div class="health-line">
                 <div class="health valued-icon">
-                    <i class="fas fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
                     <input name="system.attributes.hp.value" class="current" type="number" value="{{data.attributes.hp.value}}" placeholder="0" />
                     /
                     <input name="system.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" placeholder="0" />
@@ -36,10 +36,10 @@
                     <div class="valued-icon">
                         <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
                     </div>
-                    <h2 class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
+                    <a class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
                         <i class="fa-solid fa-dice-d20"></i>
                         {{localize "PF2E.StealthLabel"}}
-                    </h2>
+                    </a>
                 </div>
             </div>
         </section>
@@ -55,7 +55,7 @@
                     <div class="save">
                         <h2 {{#if save.mod includeZero=true}}class="save-name{{#if @root.options.editable}} rollable{{/if}}" data-save="{{save.type}}"{{/if}}>
                             {{#if save.mod includeZero=true}}
-                                <i class="fas fa-dice-d20"></i>
+                                <i class="fa-solid fa-dice-d20"></i>
                             {{/if}}
                             {{localize save.label}}
                         </h2>
@@ -72,7 +72,7 @@
         <div class="sidebar-title">
             <h2>
                 <span>{{localize "PF2E.Actor.Hazard.EmitsSound.Title"}}</span>
-                <i class="fas fa-info-circle hint"></i>
+                <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Actor.Hazard.EmitsSound.Hint" data-tooltip-direction="RIGHT"></i>
             </h2>
         </div>
         <select name="system.attributes.emitsSound">
@@ -127,4 +127,4 @@
             </div>
         </section>
     {{/if}}
-</aside>
+</div>

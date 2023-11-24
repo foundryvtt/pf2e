@@ -14,7 +14,7 @@ interface Dice3D {
     addSystem(system: { id: string; name: string; colorset?: string }, mode?: "default" | "preferred"): void;
     addDicePreset(
         data: { type: string; labels: string[]; system: string; colorset?: string },
-        shape?: string | null
+        shape?: string | null,
     ): void;
     addTexture(textureId: string, options: { name: string; composite: string; source: string }): Promise<void>;
     addColorset(options: ColorsetOptions, mode?: "default" | "preferred"): void;

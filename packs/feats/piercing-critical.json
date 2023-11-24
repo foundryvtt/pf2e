@@ -24,7 +24,25 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "check:roll:total:natural:19",
+                    "item:proficiency:rank:4",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

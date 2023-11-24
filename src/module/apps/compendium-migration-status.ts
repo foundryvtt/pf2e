@@ -37,7 +37,7 @@ class CompendiumMigrationStatus extends Application {
             ...index.map((d) => {
                 const system = d.system ?? d.data;
                 return Number(system?._migration?.version ?? system?.schema?.version);
-            })
+            }),
         );
 
         // Compute foundry version. Javascript does not preserve insertion order for the structure, so we sort
@@ -45,7 +45,7 @@ class CompendiumMigrationStatus extends Application {
             R.pipe(
                 Object.entries(MigrationRunner.FOUNDRY_SCHEMA_VERSIONS),
                 R.sortBy(([_, schema]) => schema),
-                R.findLast(([_, schema]) => schemaVersion >= schema)
+                R.findLast(([_, schema]) => schemaVersion >= schema),
             )?.[0] ?? game.i18n.localize("PF2E.CompendiumMigrationStatus.FoundryOld");
 
         return {

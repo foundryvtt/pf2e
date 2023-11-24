@@ -7,37 +7,34 @@
             "type": "burst",
             "value": 20
         },
-        "category": {
-            "value": "spell"
-        },
-        "components": {
-            "somatic": true,
-            "verbal": true
-        },
         "cost": {
             "value": ""
         },
+        "counteraction": false,
         "damage": {
-            "value": {
-                "UKiopkMuk2wDUL6V": {
-                    "applyMod": false,
-                    "type": {
-                        "categories": [],
-                        "subtype": "",
-                        "value": "cold"
-                    },
-                    "value": "4d6"
-                }
+            "UKiopkMuk2wDUL6V": {
+                "applyMod": false,
+                "category": null,
+                "formula": "4d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "reflex"
             }
         },
         "description": {
             "value": "<p>Intense cold rain comes from nowhere, a microcosm of a sudden downpour, and a magical tweak can turn the rain to freezing sleet. The driving rain and pooling water make the area difficult terrain and extinguish non-magical fires.</p>\n<p>On subsequent rounds, the first time you Sustain the spell each round, you can move the area up to 20 feet and can also freeze the rain. If you freeze the rain, each creature in the area takes @Damage[4d6[cold]] damage and might be slowed, depending on result of its Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6]].</p>"
         },
         "duration": {
+            "sustained": true,
             "value": "sustained up to 10 minutes"
-        },
-        "hasCounteractCheck": {
-            "value": false
         },
         "heightening": {
             "damage": {
@@ -49,9 +46,6 @@
         "level": {
             "value": 5
         },
-        "materials": {
-            "value": ""
-        },
         "publication": {
             "license": "OGL",
             "remaster": true,
@@ -60,33 +54,24 @@
         "range": {
             "value": "120 feet"
         },
+        "requirements": "",
         "rules": [],
-        "save": {
-            "basic": "",
-            "value": "reflex"
-        },
-        "spellType": {
-            "value": "save"
-        },
-        "sustained": {
-            "value": false
-        },
         "target": {
             "value": ""
         },
         "time": {
             "value": "3"
         },
-        "traditions": {
-            "value": [
-                "arcane",
-                "primal"
-            ]
-        },
         "traits": {
             "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
             "value": [
                 "cold",
+                "concentrate",
+                "manipulate",
                 "water"
             ]
         }

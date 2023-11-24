@@ -1,4 +1,4 @@
-import { ConsumableSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ConsumableSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Add the "alchemical" trait to all firearm ammunition */

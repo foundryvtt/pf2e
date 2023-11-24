@@ -1,5 +1,6 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
+import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /**
@@ -12,15 +13,13 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "spell") return;
 
-        interface MaybeCategorie extends Omit<Partial<SpellSystemSource>, "traditions"> {
-            traditions: { value: string[] };
-            spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
-            spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
-            "-=spellCategorie"?: unknown;
-            "-=spellCategory"?: unknown;
-        }
         const systemData: MaybeCategorie = source.system;
         const traditions = systemData.traditions;
+        if (!isObject(traditions) || !Array.isArray(traditions.value)) {
+            systemData.traditions = { value: [] };
+            return;
+        }
+
         const isFocus = traditions.value.includes("focus");
         const isRitual = traditions.value.includes("ritual");
 
@@ -32,7 +31,7 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
 
         if (systemData.spellCategorie || systemData.spellCategory) {
             const currentCategory = systemData.spellCategorie?.value ?? systemData.spellCategory?.value ?? "";
-            source.system.category = {
+            systemData.category = {
                 value: isFocus ? "focus" : isRitual ? "ritual" : currentCategory === "" ? "spell" : currentCategory,
             };
 
@@ -45,9 +44,22 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
             }
         }
 
-        if (["focus", "ritual"].includes(source.system.spellType.value)) {
+        if (
+            "spellType" in source.system &&
+            isObject<{ value: string }>(source.system.spellType) &&
+            ["focus", "ritual"].includes(source.system.spellType.value ?? "")
+        ) {
             source.system.spellType.value = "utility";
         }
         traditions.value = traditions.value.filter((tradition) => !["focus", "ritual"].includes(tradition));
     }
+}
+
+interface MaybeCategorie extends Omit<Partial<SpellSystemSource>, "traditions"> {
+    traditions?: { value: string[] };
+    spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
+    spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
+    category?: object;
+    "-=spellCategorie"?: unknown;
+    "-=spellCategory"?: unknown;
 }

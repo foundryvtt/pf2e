@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base.ts";
+import { ItemSystemData } from "@item/base/data/system.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -33,9 +33,9 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         // Find every ancestry and versatile heritage the actor counts as, then get all the traits that match them,
         // falling back to homebrew
         const ancestryTraitsFilter =
-            actor.system.details.ancestry?.countsAs
-                .map((t) => getVanillaOrHomebrewTrait(t))
-                .flatMap((t) => (t ? `traits-${t}` : [])) ?? [];
+            actor.system.details.ancestry?.countsAs.flatMap((t) =>
+                t in CONFIG.PF2E.featTraits ? `traits-${t}` : [],
+            ) ?? [];
 
         this.createGroup({
             id: "ancestry",
@@ -46,20 +46,22 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         });
 
         // Attempt to acquire the trait corresponding with actor's class, falling back to homebrew variations
-        const classSlug = actor.class ? actor.class.slug ?? sluggify(actor.class.name) : null;
-        const classTrait = getVanillaOrHomebrewTrait(classSlug);
+        const classTrait = ((): string | null => {
+            const slug = actor.class ? actor.class.slug ?? sluggify(actor.class.name) : null;
+            return slug && slug in CONFIG.PF2E.featTraits ? slug : null;
+        })();
 
         const classFeatFilter = !classTrait
             ? // A class hasn't been selected: no useful pre-filtering available
               []
             : this.actor.level < 2
-            ? // The PC's level is less than 2: only show feats for the class
-              [`traits-${classTrait}`]
-            : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
-            ? // The PC has at least one dedication feat: include all archetype feats
-              [`traits-${classTrait}`, "traits-archetype"]
-            : // No dedication feat has been selected: include dedication but no other archetype feats
-              [`traits-${classTrait}`, "traits-dedication"];
+              ? // The PC's level is less than 2: only show feats for the class
+                [`traits-${classTrait}`]
+              : this.actor.itemTypes.feat.some((f) => f.traits.has("dedication"))
+                ? // The PC has at least one dedication feat: include all archetype feats
+                  [`traits-${classTrait}`, "traits-archetype"]
+                : // No dedication feat has been selected: include dedication but no other archetype feats
+                  [`traits-${classTrait}`, "traits-dedication"];
         this.createGroup({
             id: "class",
             label: "PF2E.FeatClassHeader",
@@ -72,16 +74,6 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             .fill(0)
             .map((_, idx) => idx + 1)
             .filter((idx) => idx % 2 === 0);
-
-        // Add dual class if active
-        if (game.settings.get("pf2e", "dualClassVariant")) {
-            this.createGroup({
-                id: "dualclass",
-                label: "PF2E.FeatDualClassHeader",
-                supported: ["class"],
-                slots: [1, ...evenLevels],
-            });
-        }
 
         // Add free archetype (if active)
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
@@ -131,7 +123,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
     /** Inserts a feat into the character. If groupId is empty string, it's a bonus feat. */
     async insertFeat(
         feat: FeatPF2e,
-        slotData: { groupId: string; slotId: string | null } | null
+        slotData: { groupId: string; slotId: string | null } | null,
     ): Promise<ItemPF2e<TActor>[]> {
         // Certain feat types aren't "real" feats and need to be inserted normally
         const alreadyHasFeat = this.actor.items.has(feat.id);
@@ -153,7 +145,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
                     game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
                         item: feat.name,
                         category: game.i18n.format(badGroup.label),
-                    })
+                    }),
                 );
                 return [];
             }
@@ -170,7 +162,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
     /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
     #findBestLocation(
         feat: FeatPF2e,
-        { requested }: { requested?: string }
+        { requested }: { requested?: string },
     ): { group: FeatGroup<TActor> | null; slotId: string | null } {
         if (feat.isFeature) return { group: this.get(feat.category) ?? null, slotId: null };
         if (requested === "bonus") return { group: null, slotId: null };
@@ -281,7 +273,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         this.label = options.label;
         this.supported = options.supported ?? [];
         this.featFilter = Array.from(
-            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat())
+            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat()),
         );
 
         if (options.slots) {
@@ -291,8 +283,8 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
                     typeof slotOption === "number"
                         ? { id: `${this.id}-${slotOption}`, level: slotOption, label: slotOption.toString() }
                         : typeof slotOption === "string"
-                        ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
-                        : slotOption;
+                          ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
+                          : slotOption;
                 if (typeof slotData.level === "number" && slotData.level > maxLevel) {
                     continue;
                 }
@@ -357,10 +349,10 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
     async insertFeat(feat: TItem, slotId: Maybe<string> = null): Promise<ItemPF2e<TActor>[]> {
         const slot = this.slots[slotId ?? ""];
-        const location = slot?.id ?? null;
-        const existing = this.actor.items
-            .filter((i): i is FeatLike<TActor> => isFeatLike(i))
-            .filter((i) => i.system.location === location);
+        const location = this.slotted || this.id === "bonus" ? slot?.id ?? null : this.id;
+        const existing = this.actor.items.filter(
+            (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location,
+        );
         const isFeatValidInSlot = this.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
 
@@ -398,15 +390,11 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     }
 }
 
-function getVanillaOrHomebrewTrait(slug: string | null) {
-    return (slug ?? "") in CONFIG.PF2E.featTraits ? slug : `hb_${slug}` in CONFIG.PF2E.featTraits ? `hb_${slug}` : null;
-}
-
 function isBoonOrCurse(feat: FeatPF2e) {
     return ["pfsboon", "deityboon", "curse"].includes(feat.category);
 }
 
-function isFeatLike(item: ItemPF2e): item is FeatLike {
+function isFeatLike<TActor extends ActorPF2e | null>(item: ItemPF2e<TActor>): item is FeatLike<TActor> {
     return "category" in item && "location" in item.system && "isFeat" in item && "isFeature" in item;
 }
 

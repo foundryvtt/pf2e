@@ -7,7 +7,8 @@ import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
-import { tupleHasValue } from "@util";
+import { sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -67,13 +68,14 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return specifiedMaxRange
             ? { increment: null, max: specifiedMaxRange }
             : rangeIncrement
-            ? { increment: rangeIncrement, max: rangeIncrement * 6 }
-            : null;
+              ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+              : null;
     }
 
     /** The first of this attack's damage instances */
     get baseDamage(): ConvertedNPCDamage {
-        const instance = Object.values(this.system.damageRolls).shift();
+        const partials = Object.values(this.system.damageRolls);
+        const instance = partials.find((p) => !p.category) ?? partials.at(0);
         if (!instance) {
             return {
                 dice: 0,
@@ -124,7 +126,10 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         super.prepareBaseData();
 
         // Set precious material (currently unused)
-        this.system.material = { type: null, grade: null };
+        this.system.material = { type: null, grade: null, effects: [] };
+
+        // Set empty property runes array for use by rule elements
+        this.system.runes = { property: [] };
 
         for (const attackDamage of Object.values(this.system.damageRolls)) {
             attackDamage.category ||= null;
@@ -175,6 +180,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { damageType } = this.baseDamage;
         const damageCategory = DamageCategorization.fromDamageType(damageType);
         const rangeIncrement = this.range?.increment;
+        const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);
 
         const otherOptions = Object.entries({
             equipped: true,
@@ -187,6 +193,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
             [`damage:type:${damageType}`]: true,
             [`damage:category:${damageCategory}`]: !!damageCategory,
+            ...propertyRunes,
         })
             .filter(([, isTrue]) => isTrue)
             .map(([key]) => `${prefix}:${key}`);
@@ -197,7 +204,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     /** Treat this item like a strike in this context and post it as one */
     override async toMessage(
         _event?: MouseEvent | JQuery.TriggeredEvent,
-        { create = true }: { create?: boolean } = {}
+        { create = true }: { create?: boolean } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!create) return undefined; // Nothing useful to do
         const strike = this.actor?.system.actions?.find((s) => s.item === this);

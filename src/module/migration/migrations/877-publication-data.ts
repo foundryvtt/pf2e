@@ -1,5 +1,5 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PublicationData } from "@module/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -10,7 +10,7 @@ export class Migration877PublicationData extends MigrationBase {
 
     #setPublicationData(
         systemSource: { details?: { publication: PublicationData }; publication?: PublicationData },
-        oldData: { value?: unknown; author?: unknown }
+        oldData: { value?: unknown; author?: unknown },
     ): void {
         const title = typeof oldData.value === "string" ? oldData.value.trim() : "";
         const authors = typeof oldData.author === "string" ? oldData.author.trim() : "";

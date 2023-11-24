@@ -1,13 +1,9 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
+import * as R from "remeda";
 import { CompendiumBrowserSources } from "./index.ts";
 
 class PackLoader {
-    loadedPacks: {
-        Actor: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
-        Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
-    } = { Actor: {}, Item: {} };
-
     loadedSources: string[] = [];
     sourcesSettings: CompendiumBrowserSources;
 
@@ -18,46 +14,31 @@ class PackLoader {
     async *loadPacks(
         documentType: "Actor" | "Item",
         packs: string[],
-        indexFields: string[]
+        indexFields: string[],
     ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
-        this.loadedPacks[documentType] ??= {};
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
         const progress = new Progress({ max: packs.length });
         for (const packId of packs) {
-            let data = this.loadedPacks[documentType][packId];
-            if (data) {
-                const { pack } = data;
-                progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
-            } else {
-                const pack = game.packs.get(packId);
-                if (!pack) {
-                    progress.advance();
-                    continue;
-                }
-                progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
-                if (pack.documentName === documentType) {
-                    const index = await pack.getIndex({ fields: indexFields });
-                    const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
-                    // Every result should have the "system" property otherwise the indexFields were wrong for that pack
-                    if (firstResult.system) {
-                        const filteredIndex = this.#createFilteredIndex(index, sources);
-                        this.#setModuleArt(packId, filteredIndex);
-                        data = { pack, index: filteredIndex };
-                        this.loadedPacks[documentType][packId] = data;
-                    } else {
-                        ui.notifications.warn(
-                            game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection })
-                        );
-                        continue;
-                    }
+            const pack = game.packs.get(packId);
+            if (!pack) {
+                progress.advance();
+                continue;
+            }
+            progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
+            if (pack.documentName === documentType) {
+                const index = await pack.getIndex({ fields: indexFields });
+                const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
+                // Every result should have the "system" property otherwise the indexFields were wrong for that pack
+                if (firstResult.system) {
+                    const filteredIndex = this.#createFilteredIndex(index, sources);
+                    this.#setModuleArt(packId, filteredIndex);
+                    yield { pack, index: filteredIndex };
                 } else {
-                    continue;
+                    ui.notifications.warn(game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection }));
                 }
             }
-
-            yield data;
         }
         progress.close({ label: localize("LoadingComplete") });
     }
@@ -92,18 +73,18 @@ class PackLoader {
             return index;
         }
 
-        const filteredIndex: CompendiumIndex = new Collection<CompendiumIndexData>();
+        const filteredIndex = new Collection<CompendiumIndexData>();
         const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
 
-        for (const document of index) {
-            const source = this.#getSourceFromDocument(document);
+        for (const data of index) {
+            const source = this.#getSourceFromDocument(data);
 
             if (
                 (!source && this.sourcesSettings.showEmptySources) ||
                 sources.has(source) ||
                 (this.sourcesSettings.showUnknownSources && !!source && !knownSources.includes(source))
             ) {
-                filteredIndex.set(document._id, document);
+                filteredIndex.set(data._id, deepClone(data));
             }
         }
         return filteredIndex;
@@ -124,7 +105,7 @@ class PackLoader {
 
         // Make sure it can be easily displayed sorted
         this.sourcesSettings.sources = Object.fromEntries(
-            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang))
+            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang)),
         );
     }
 
@@ -159,20 +140,20 @@ class PackLoader {
     }
 
     #getSourceFromDocument(document: CompendiumIndexData): string {
-        // There are two possible fields where the source can be, check them in order
-        if (document.system?.publication?.title) {
-            return document.system.publication.title;
-        }
+        const { system } = document;
+        if (!R.isObject(system)) return "";
 
-        if (document.system?.source?.value) {
-            return document.system.source.value;
-        }
-
-        return "";
+        // Handle unmigrated data
+        return (
+            system.publication?.title ??
+            system.details?.publication?.title ??
+            system.source?.value ??
+            system.details?.source?.value ??
+            ""
+        );
     }
 
     reset(): void {
-        this.loadedPacks = { Actor: {}, Item: {} };
         this.loadedSources = [];
     }
 

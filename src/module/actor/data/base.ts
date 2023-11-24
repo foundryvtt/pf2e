@@ -5,7 +5,7 @@ import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
 import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
 import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@module/system/rolls.ts";
@@ -18,7 +18,7 @@ import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, 
 /** Base interface for all actor data */
 type BaseActorSourcePF2e<
     TType extends ActorType,
-    TSystemSource extends ActorSystemSource = ActorSystemSource
+    TSystemSource extends ActorSystemSource = ActorSystemSource,
 > = foundry.documents.ActorSource<TType, TSystemSource, ItemSourcePF2e> & {
     flags: DeepPartial<ActorFlagsPF2e>;
     prototypeToken: PrototypeTokenSourcePF2e;
@@ -33,7 +33,7 @@ type ActorFlagsPF2e = foundry.documents.ActorFlags & {
     };
 };
 
-interface ActorSystemSource {
+type ActorSystemSource = {
     details?: ActorDetailsSource;
     attributes: ActorAttributesSource;
     traits?: ActorTraitsSource<string>;
@@ -42,7 +42,7 @@ interface ActorSystemSource {
     _migration: MigrationRecord;
     /** Legacy location of `MigrationRecord` */
     schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
-}
+};
 
 interface ActorAttributesSource {
     hp?: ActorHitPointsSource;
@@ -165,7 +165,7 @@ interface AttributeBasedTraceData extends StatisticTraceData {
 
 /** A roll function which can be called to roll a given skill. */
 type RollFunction<T extends RollParameters = RollParameters> = (
-    params: T
+    params: T,
 ) => Promise<Rolled<CheckRoll> | null | string | void>;
 
 type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;
@@ -215,8 +215,6 @@ interface StrikeData extends StatisticModifier {
     label: string;
     /** The type of action; currently just 'strike'. */
     type: "strike";
-    /** The image URL for this strike (shown on the UI). */
-    imageUrl: ImageFilePath;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this strike. */
@@ -225,9 +223,9 @@ interface StrikeData extends StatisticModifier {
     criticalSuccess: string;
     /** A description of what happens on a success. */
     success: string;
-    /** Any traits this strike has. */
+    /** Action traits associated with this strike */
     traits: TraitViewData[];
-    /** Any options always applied to this strike. */
+    /** Any options always applied to this strike */
     options: string[];
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;

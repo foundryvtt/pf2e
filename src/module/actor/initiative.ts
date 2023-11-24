@@ -30,21 +30,15 @@ class ActorInitiative {
     get ability(): AttributeString | null {
         foundry.utils.logCompatibilityWarning(
             "`ActorInitiative#ability` is deprecated. Use `ActorInitiative#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" }
+            { since: "5.3.0", until: "6.0.0" },
         );
         return this.attribute;
     }
 
-    constructor(actor: ActorPF2e) {
+    constructor(actor: ActorPF2e, { statistic }: { statistic: string }) {
         this.actor = actor;
 
-        const initiativeSkill = actor.isOfType("hazard")
-            ? "stealth"
-            : actor.isOfType("character", "npc")
-            ? actor.attributes.initiative?.statistic || "perception"
-            : null;
-        const base = initiativeSkill ? actor.getStatistic(initiativeSkill) : null;
-
+        const base = actor.getStatistic(statistic);
         const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
         const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
 

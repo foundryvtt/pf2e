@@ -1,6 +1,7 @@
-import type { ActorPF2e } from "@actor/base.ts";
+import type { ActorPF2e } from "@actor";
 import type { TokenPF2e } from "@module/canvas/index.ts";
-import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import * as R from "remeda";
 import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 
 class UserPF2e extends User<ActorPF2e<null>> {
@@ -19,18 +20,27 @@ class UserPF2e extends User<ActorPF2e<null>> {
                 pf2e: {
                     settings: {
                         showEffectPanel: true,
-                        showRollDialogs: true,
+                        showCheckDialogs: true,
+                        showDamageDialogs: true,
                         searchPackContents: false,
                         monochromeDarkvision: true,
                     },
                 },
             },
-            this.flags
+            this.flags,
         );
     }
 
     get settings(): Readonly<UserSettingsPF2e> {
         return this.flags.pf2e.settings;
+    }
+
+    /** Get tokens controlled by this user or, failing that, a token of the assigned character. */
+    getActiveTokens(): TokenDocumentPF2e[] {
+        if (!canvas.ready || canvas.tokens.controlled.length === 0) {
+            return R.compact([game.user.character?.getActiveTokens(true, true).shift()]);
+        }
+        return canvas.tokens.controlled.map((t) => t.document);
     }
 
     /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */
@@ -41,7 +51,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<null>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
         if (game.user.id !== userId) return;
@@ -65,7 +75,8 @@ interface UserPF2e extends User<ActorPF2e<null>> {
 
 interface UserSettingsPF2e {
     showEffectPanel: boolean;
-    showRollDialogs: boolean;
+    showCheckDialogs: boolean;
+    showDamageDialogs: boolean;
     monochromeDarkvision: boolean;
     searchPackContents: boolean;
 }

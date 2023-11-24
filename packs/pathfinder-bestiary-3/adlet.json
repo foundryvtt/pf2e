@@ -51,9 +51,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -134,10 +131,6 @@
                     "0": {
                         "damage": "2d6+9",
                         "damageType": "piercing"
-                    },
-                    "jcu9qxtykeof117xc007": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -183,7 +176,7 @@
                         "damage": "2d8+9",
                         "damageType": "slashing"
                     },
-                    "5ht1oyl6rtmo0r97xvmd": {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "cold"
                     }
@@ -200,7 +193,9 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -233,10 +228,6 @@
                     "0": {
                         "damage": "2d6+9",
                         "damageType": "piercing"
-                    },
-                    "u6vizl8kai87eu9mgqau": {
-                        "damage": "1d6",
-                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -419,9 +410,7 @@
                         "radius": 60,
                         "slug": "wolfstorm",
                         "traits": [
-                            "aura",
                             "cold",
-                            "evocation",
                             "primal"
                         ]
                     }
@@ -432,7 +421,6 @@
                     "value": [
                         "aura",
                         "cold",
-                        "evocation",
                         "primal"
                     ]
                 },
@@ -471,22 +459,21 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
                         ],
-                        "selector": "attack",
-                        "text": "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "frost"
                     }
                 ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "evocation"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -511,7 +498,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>An adlet's Strikes deal an additional [[/r 2d6]] damage to creatures that are within the reach of at least two of the adlet's allies.</p>"
+                    "value": "<p>An adlet's Strikes deal an additional 2d6 damage to creatures that are within the reach of at least two of the adlet's allies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -529,7 +516,6 @@
                         "toggleable": true
                     },
                     {
-                        "damageType": "piercing",
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
@@ -584,7 +570,6 @@
                     "value": [
                         "cold",
                         "concentrate",
-                        "evocation",
                         "primal"
                     ]
                 },
@@ -757,11 +742,7 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "CN"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 10
             },
@@ -808,6 +789,7 @@
                 "value": "med"
             },
             "value": [
+                "chaotic",
                 "cold",
                 "humanoid"
             ]

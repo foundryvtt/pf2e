@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement, RawPredicate } from "@system/predication.ts";
 import { isObject } from "@util";
@@ -28,7 +28,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
                         ? { not: predicate.not[0]! }
                         : { nor: predicate.not }
                     : [],
-            ].flat()
+            ].flat(),
         );
     }
 

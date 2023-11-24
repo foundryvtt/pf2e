@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { sluggify } from "@util";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -15,7 +15,7 @@ export class Migration858FakeWeaponSpecialization extends MigrationBase {
             (r) =>
                 r.key === "RollOption" &&
                 "option" in r &&
-                ["feature:greater-weapon-specialization", "feature:weapon-specialization"].includes(String(r.option))
+                ["feature:greater-weapon-specialization", "feature:weapon-specialization"].includes(String(r.option)),
         );
     }
 

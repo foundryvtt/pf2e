@@ -38,7 +38,7 @@
                 }
             },
             "Aid": {
-                "Description": "<p>You try to help your ally with a task. To use this reaction, you must first prepare to help, usually by using an action during your turn. You must explain to the GM exactly how you're trying to help, and they determine whether you can Aid your ally.</p><p>When you use your Aid reaction, attempt a skill check or attack roll of a type decided by the GM. The typical DC is 20, but the GM might adjust this DC for particularly hard or easy tasks. The GM can add any relevant traits to your preparatory action or to your Aid reaction depending on the situation, or even allow you to Aid checks other than skill checks and attack rolls.</p><p><strong>Critical Success</strong> You grant your ally a +2 circumstance bonus to\nthe triggering check. If you're a master with the check you attempted, the bonus is +3, and if you're legendary, it's +4.<br><strong>Success</strong> You grant your ally a +1 circumstance bonus to the triggering check.<br><strong>Critical Failure</strong> Your ally takes a –1 circumstance penalty to the triggering check.</p>",
+                "Description": "<p>You try to help your ally with a task. To use this reaction, you must first prepare to help, usually by using an action during your turn. You must explain to the GM exactly how you're trying to help, and they determine whether you can Aid your ally.</p><p>When you use your Aid reaction, attempt a skill check or attack roll of a type decided by the GM. The typical DC is 15, but the GM might adjust this DC for particularly hard or easy tasks. The GM can add any relevant traits to your preparatory action or to your Aid reaction depending on the situation, or even allow you to Aid checks other than skill checks and attack rolls.</p><p><strong>Critical Success</strong> You grant your ally a +2 circumstance bonus to\nthe triggering check. If you're a master with the check you attempted, the bonus is +3, and if you're legendary, it's +4.<br><strong>Success</strong> You grant your ally a +1 circumstance bonus to the triggering check.<br><strong>Critical Failure</strong> Your ally takes a –1 circumstance penalty to the triggering check.</p>",
                 "Notes": {
                     "criticalFailure": "Your ally takes a –1 circumstance penalty to the triggering check.",
                     "criticalSuccess": "You grant your ally a +2 circumstance bonus to the triggering check. If you're a master with the check you attempted, the bonus is +3, and if you're legendary, it's +4.",
@@ -241,11 +241,10 @@
                 "Title": "Disable Device"
             },
             "Disarm": {
-                "EffectLabel": "Using weapon with loose grip",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You lose your balance and become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn.",
                     "criticalSuccess": "<strong>Critical Success</strong> You knock the item out of the opponent's grasp. It falls to the ground in the opponent's space.",
-                    "success": "<strong>Success</strong> You weaken your opponent's grasp on the item. Until the start of that creature's turn, attempts to Disarm the opponent of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. @UUID[Compendium.pf2e.equipment-effects.Item.z3ATL8DcRVrT0Uzt]{Effect: Disarm (Success)}"
+                    "success": "<strong>Success</strong> You weaken your target's grasp on the item. Further attempts to Disarm the target of that item gain a +2 circumstance bonus, and the target takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. The creature can end the effect by Interacting to change its grip on the item; otherwise, it lasts as long as the creature holds the item.<br>@UUID[Compendium.pf2e.equipment-effects.Item.z3ATL8DcRVrT0Uzt]{Effect: Disarm (Success)}"
                 },
                 "Title": "Disarm"
             },
@@ -324,10 +323,10 @@
             },
             "HighJump": {
                 "Notes": {
-                    "criticalFailure": "<strong>Critical Failure</strong> You don't @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} at all, and instead you fall @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} in your space.",
-                    "criticalSuccess": "<strong>Critical Success</strong> Increase the maximum vertical distance to 8 feet, or increase the maximum vertical distance to 5 feet and maximum horizontal distance to 10 feet.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You fall @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} in your space.",
+                    "criticalSuccess": "<strong>Critical Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 8 feet vertically and 10 feet horizontally.",
                     "failure": "<strong>Failure</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} normally.",
-                    "success": "<strong>Success</strong> Increase the maximum vertical distance to 5 feet."
+                    "success": "<strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 5 feet vertically and 5 feet horizontally."
                 },
                 "Title": "High Jump"
             },
@@ -381,7 +380,7 @@
                 "Title": "Interact"
             },
             "Leap": {
-                "Description": "<p>You take a careful, short jump. You can Leap up to 10 feet horizontally if your Speed is at least 15 feet, or up to 15 feet horizontally if your Speed is at least 30 feet. You land in the space where your Leap ends (meaning you can typically clear a 5-foot gap, or a 10-foot gap if your Speed is 30 feet or more).</p><p>If you Leap vertically, you can move up to 3 feet vertically and 5 feet horizontally onto an elevated surface.</p><p>Jumping a greater distance requires using the Athletics skill.</p>",
+                "Description": "<p>You take a short horizontal or vertical jump. Jumping a greater distance requires using the Athletics skill for a @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{High Jump} or @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{Long Jump}.</p><ul><li><strong>Horizontal</strong> Jump up to 10 feet horizontally if your Speed is at least 15 feet, or up to 15 feet horizontally if your Speed is at least 30 feet. You land in the space where your Leap ends (meaning you can typically clear a 5-foot gap, or a 10-foot gap if your Speed is 30 feet or more). You can't make a horizontal Leap if your Speed is less than 15 feet.</li><li><strong>Vertical</strong> Jump up to 3 feet vertically and 5 feet horizontally onto an elevated surface.</li></ul>",
                 "Title": "Leap"
             },
             "Lie": {
@@ -393,11 +392,16 @@
             },
             "LongJump": {
                 "Notes": {
-                    "criticalFailure": "<strong>Critical Failure</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} normally, but then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
-                    "failure": "<strong>Failure</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} normally.",
-                    "success": "<strong>Success</strong> Increase the maximum horizontal distance you @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} to the desired distance."
+                    "criticalFailure": "<strong>Critical Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}, then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
+                    "failure": "<strong>Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}.",
+                    "success": "<strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to a distance equal to your check result rounded down to the nearest 5 feet. You can't jump farther than your land Speed."
                 },
                 "Title": "Long Jump"
+            },
+            "LowerShield": {
+                "Content": "{actor} lowers their {shield}.",
+                "ShortTitle": "Lower",
+                "Title": "Lower Shield"
             },
             "MakeAnImpression": {
                 "Notes": {
@@ -474,12 +478,14 @@
             },
             "RaiseAShield": {
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
-                "Content": "{actor} raises their shield.",
+                "Content": "{actor} raises their {shield}.",
                 "NoShieldEquipped": "{actor} must have a shield equipped.",
                 "ReactionTitle": "Reactive Shield",
                 "ShieldIsBroken": "{actor}'s {shield} is broken.",
                 "ShieldIsDestroyed": "{actor}'s {shield} is destroyed.",
-                "SingleActionTitle": "Raise a Shield"
+                "ShortTitle": "Raise",
+                "SingleActionTitle": "Raise a Shield",
+                "Title": "Raise a Shield"
             },
             "Ready": {
                 "Description": "<p>You prepare to use an action that will occur outside your turn. Choose a single action or free action you can use, and designate a trigger. Your turn then ends. If the trigger you designated occurs before the start of your next turn, you can use the chosen action as a reaction (provided you still meet the requirements to use it). You can't Ready a free action that already has a trigger.</p><p>If you have a multiple attack penalty and your readied action is an attack action, your readied attack takes the multiple attack penalty you had at the time you used Ready. This is one of the few times the multiple attack penalty applies when it's not your turn.</p>",
@@ -528,6 +534,15 @@
                 "Warning": {
                     "NotPhysicalItem": "Specified item {item} is not a physical item."
                 }
+            },
+            "Reposition": {
+                "Description": "<p>You muscle a creature or object around. Attempt an Athletics check against the target's Fortitude DC.</p><p><strong>Critical Success</strong> You move the creature up to 10 feet. It must remain within your reach during this movement, and you can't move it into or through obstacles.<br><strong>Success</strong> You move the target up to 5 feet. It must remain within your reach during this movement, and you can't move it into or through obstacles.<br><strong>Critical Failure</strong> The target can move you up to 5 feet as though it successfully Repositioned you.</p>",
+                "Notes": {
+                    "criticalFailure": "<strong>Critical Failure</strong> The target can move you up to 5 feet as though it successfully Repositioned you.",
+                    "criticalSuccess": "<strong>Critical Success</strong> You move the creature up to 10 feet. It must remain within your reach during this movement, and you can't move it into or through obstacles.",
+                    "success": "<strong>Success</strong> You move the target up to 5 feet. It must remain within your reach during this movement, and you can't move it into or through obstacles."
+                },
+                "Title": "Reposition"
             },
             "Request": {
                 "Notes": {

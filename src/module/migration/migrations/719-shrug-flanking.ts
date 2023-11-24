@@ -1,6 +1,6 @@
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 
@@ -143,7 +143,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
     private needsDenyAdvantage(rules: AELikeSource[]): boolean {
         return !rules.some(
             (r: Partial<AELikeSource>) =>
-                r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable"
+                r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable",
         );
     }
 }
