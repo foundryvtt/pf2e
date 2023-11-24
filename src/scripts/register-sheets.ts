@@ -34,6 +34,7 @@ import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
+import { ArmySheetPF2e } from "@actor/army/sheet.ts";
 
 export function registerSheets(): void {
     const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
@@ -99,6 +100,13 @@ export function registerSheets(): void {
     Actors.registerSheet("pf2e", PartySheetPF2e, {
         types: ["party"],
         label: game.i18n.format(sheetLabel, { type: localizeType("party") }),
+        makeDefault: true,
+    });
+
+    // Army
+    Actors.registerSheet("pf2e", ArmySheetPF2e, {
+        types: ["army"],
+        label: game.i18n.format(sheetLabel, { type: localizeType("army") }),
         makeDefault: true,
     });
 

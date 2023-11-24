@@ -161,10 +161,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             resourceDice: {
                 ...kingdom.resources.dice,
                 icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
-                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus)
-                    .adjustmentClass,
-                penaltyAdjustment: getAdjustment(kingdom.resources.dice.penalty, kingdom._source.resources.dice.penalty)
-                    .adjustmentClass,
+                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus),
+                penaltyAdjustment: getAdjustment(
+                    kingdom.resources.dice.penalty,
+                    kingdom._source.resources.dice.penalty,
+                ),
             },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];

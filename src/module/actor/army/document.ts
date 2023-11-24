@@ -30,7 +30,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     get routed(): boolean {
-        return this.system.attributes.hp.value < this.system.attributes.hp.routThreshold;
+        return this.hitPoints.value < this.system.attributes.hp.routThreshold;
     }
 
     /** Gets the active kingdom. Later this should be configurable */

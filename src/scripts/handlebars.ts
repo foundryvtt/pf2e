@@ -69,7 +69,9 @@ export function registerHandlebarsHelpers(): void {
     });
 
     Handlebars.registerHelper("times", (count: unknown, options: Handlebars.HelperOptions): string =>
-        [...Array(Number(count)).keys()].map((i) => options.fn(i, { data: options.data, blockParams: [i] })).join(""),
+        [...Array(Number(count) || 0).keys()]
+            .map((i) => options.fn(i, { data: options.data, blockParams: [i] }))
+            .join(""),
     );
 
     Handlebars.registerHelper("concat", (...params: unknown[]): string => {
