@@ -22,10 +22,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             "system.attributes.adjustment",
             "system.details.members",
             "system.campaign.type",
-<<<<<<< HEAD
             "prototypeToken.actorLink"
-=======
->>>>>>> 98b46c48dc6bfe05dca28064df2baa39cbeaf337
         );
         return options;
     }
