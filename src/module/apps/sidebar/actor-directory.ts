@@ -164,7 +164,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             for (const folderEl of folderEls) {
                 const entryId = folderEl?.dataset.entryId ?? "";
                 if (folderEl && entryId) {
-                    this.extraFolders[entryId] = true;
+                    this.#extraFolders[entryId] = true;
                     folderEl.classList.toggle("collapsed", true);
                 }
             }
