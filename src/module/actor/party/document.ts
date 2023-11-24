@@ -110,6 +110,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             member?.parties.add(this);
         }
 
+        // Determine alliance based on the contained members
+        this.system.details.alliance = this.members.some((m) => m.alliance === "party")
+            ? "party"
+            : this.members.some((m) => m.alliance === "opposition")
+              ? "opposition"
+              : null;
+
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
         const campaignType = game.settings.get("pf2e", "campaignType");
