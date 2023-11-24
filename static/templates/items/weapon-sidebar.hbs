@@ -3,6 +3,7 @@
         <label for="{{item.uuid}}-quantity">{{localize "PF2E.QuantityLabel"}}</label>
         <input type="number" name="system.quantity" id="{{item.uuid}}-quantity" value="{{data.quantity}}" />
     </div>
+
     <div class="form-group">
         <label for="{{item.uuid}}-usage">{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
         <select name="system.usage.value" id="{{item.uuid}}-usage">
@@ -14,17 +15,20 @@
             {{/select}}
         </select>
     </div>
+
     <div class="form-group">
-        <label for="{{item.uuid}}-bulk">{{localize "PF2E.Item.Physical.Bulk.Label"}}</label>
-        <select name="system.weight.value" id="{{item.uuid}}-bulk">
-            {{#select data.weight.value}}
-                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-                {{#each bulkTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
+        <label>{{localize "PF2E.Item.Physical.Bulk.Label"}}</label>
+        <select name="system.bulk.value" data-dtype="Number" {{disabled bulkDisabled}}>
+            {{#select data.bulk.value}}
+                <option value="0">{{localize "PF2E.Item.Physical.Bulk.Negligible"}}</option>
+                <option value="0.1">{{localize "PF2E.Item.Physical.Bulk.Light"}}</option>
+                {{#each bulks as |bulk|}}
+                    <option value="{{bulk}}">{{bulk}}</option>
                 {{/each}}
             {{/select}}
         </select>
     </div>
+
     <div class="form-group">
         <label for="{{item.uuid}}-size">{{localize "PF2E.Size"}}</label>
         <select name="system.size" id="{{item.uuid}}-size">

@@ -89,8 +89,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             priceAdjustment,
             adjustedPriceHint,
             actionTypes: CONFIG.PF2E.actionTypes,
+            bulks: Array.fromRange(50, 1),
             actionsNumber: CONFIG.PF2E.actionsNumber,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: CONFIG.PF2E.actorSizes,
             usages: CONFIG.PF2E.usages,
@@ -240,7 +240,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     adjustedLevelHint: string | null;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
-    bulkTypes: typeof CONFIG.PF2E.bulkTypes;
+    bulks: number[];
     frequencies: typeof CONFIG.PF2E.frequencies;
     sizes: typeof CONFIG.PF2E.actorSizes;
     usages: typeof CONFIG.PF2E.usages;

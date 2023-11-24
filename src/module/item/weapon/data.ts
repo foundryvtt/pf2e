@@ -160,7 +160,7 @@ interface WeaponMaterialSource extends ItemMaterialSource {
 }
 
 interface WeaponSystemData
-    extends Omit<WeaponSystemSource, "hp" | "identification" | "price" | "temporary">,
+    extends Omit<WeaponSystemSource, "bulk" | "hp" | "identification" | "price" | "temporary">,
         Omit<Investable<PhysicalSystemData>, "material"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
