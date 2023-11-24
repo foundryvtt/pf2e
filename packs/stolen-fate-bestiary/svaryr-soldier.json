@@ -1336,18 +1336,26 @@
                         "domain": "damage",
                         "key": "RollOption",
                         "option": "challenge-foe",
-                        "priority": 50,
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Bonus",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.Penalty",
+                                "value": "-3"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
-                        "key": "Note",
+                        "key": "FlatModifier",
                         "predicate": [
                             "challenge-foe"
                         ],
                         "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "type": "circumstance",
+                        "value": "{item|flags.pf2e.rulesSelections.challengeFoe}"
                     }
                 ],
                 "slug": null,
