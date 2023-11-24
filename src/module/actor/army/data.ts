@@ -19,6 +19,7 @@ import { Alignment } from "./types.ts";
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
 
 interface ArmySystemSource extends ActorSystemSource {
+    ac: ArmyArmorClass;
     attributes: ArmyAttributesSource;
     details: ArmyDetailsSource;
     traits: ArmyTraitsSource;
@@ -34,15 +35,12 @@ interface ArmySystemSource extends ActorSystemSource {
     };
 
     weapons: {
-        bonus: number;
         ranged: {
             name: string;
-            unlocked: boolean;
             potency: number;
         };
         melee: {
             name: string;
-            unlocked: boolean;
             potency: number;
         };
     };
@@ -71,6 +69,9 @@ interface ArmySystemData extends Omit<ArmySystemSource, "attributes">, ActorSyst
     traits: ArmyTraits;
     details: ArmyDetails;
     resources: ArmyResourcesData;
+    saves: ArmySystemSource["saves"] & {
+        strongSave: "maneuver" | "morale";
+    };
 }
 
 interface ArmyAttributesSource extends ActorAttributesSource {
@@ -80,14 +81,12 @@ interface ArmyAttributesSource extends ActorAttributesSource {
     resistances?: never;
 
     hp: ArmyHitPointsSource;
-    ac: ArmyArmorClass;
 }
 
 interface ArmyAttributes
     extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">,
         ActorAttributes {
     hp: ArmyHitPoints;
-    ac: ArmyArmorClass;
 }
 
 interface ArmyHitPointsSource extends Required<BaseHitPointsSource> {
