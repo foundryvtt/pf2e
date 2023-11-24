@@ -37,7 +37,6 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             categories: CONFIG.PF2E.armorCategories,
             groups: CONFIG.PF2E.armorGroups,
             baseTypes: CONFIG.PF2E.baseArmorTypes,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
             preciousMaterials: this.prepareMaterials(ARMOR_MATERIAL_VALUATION_DATA),
             ...propertyRuneSlots,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
@@ -63,7 +62,6 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     categories: Record<ArmorCategory, string>;
     groups: Record<ArmorGroup, string>;
     baseTypes: Record<BaseArmorType, string>;
-    bulkTypes: typeof CONFIG.PF2E.bulkTypes;
     preciousMaterials: MaterialSheetData;
     fundamentalRunes: Pick<typeof RUNE_DATA.armor, "potency" | "resilient">;
     propertyRunes: { slug: string; name: string }[];
