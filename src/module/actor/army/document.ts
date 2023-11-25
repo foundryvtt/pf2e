@@ -1,9 +1,9 @@
-import { ItemType } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { ArmySource, ArmySystemData } from "./data.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ARMY_STATS } from "./values.ts";
+import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
 import { signedInteger, tupleHasValue } from "@util";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
@@ -214,6 +214,24 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 scouting: this.system.scouting + (ARMY_STATS.scouting[newLevel] - ARMY_STATS.scouting[currentLevel]),
             },
         });
+    }
+
+    /** Prevent addition of invalid tactic types */
+    override checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean {
+        if (source.type === "campaignFeature" && source.system?.category === "army-tactic") {
+            const validArmyTypes = ARMY_TYPES.filter((t) => source.system?.traits?.value?.includes(t));
+            if (validArmyTypes.length > 0 && !validArmyTypes.includes(this.system.traits.type)) {
+                ui.notifications.error(
+                    game.i18n.format("PF2E.Kingmaker.Army.Error.InvalidTacticType", {
+                        name: source.name,
+                        type: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[this.system.traits.type]),
+                    }),
+                );
+                return false;
+            }
+        }
+
+        return super.checkItemValidity(source);
     }
 
     override getStatistic(slug: string): Statistic | null {
