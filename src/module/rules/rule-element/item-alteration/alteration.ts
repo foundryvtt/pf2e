@@ -313,7 +313,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.speedPenalty = newValue === null ? null : Math.min(newValue, 0);
+                data.item.system.speedPenalty = Math.min(newValue, 0);
                 return;
             }
             case "strength": {
@@ -321,13 +321,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!validator.isValid(data)) return;
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
-                    data.item.system.strength,
+                    data.item.system.strength ?? 0,
                     data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.strength = newValue === null ? null : Math.max(newValue, 0);
+                data.item.system.strength = data.item.system.strength === null ? null : Math.max(newValue ?? 0, -2);
                 return;
             }
             case "traits": {
