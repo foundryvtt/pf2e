@@ -1,3 +1,4 @@
+import { ItemSheetOptions } from "@item/base/sheet/base.ts";
 import {
     CoinsPF2e,
     MATERIAL_DATA,
@@ -12,7 +13,7 @@ import * as R from "remeda";
 import type { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<ArmorSheetData> {
         const sheetData = await super.getData(options);
 
         // Armor property runes

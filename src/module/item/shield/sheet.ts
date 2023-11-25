@@ -1,3 +1,4 @@
+import { ItemSheetOptions } from "@item/base/sheet/base.ts";
 import {
     CoinsPF2e,
     MATERIAL_DATA,
@@ -15,7 +16,7 @@ import { BaseShieldType } from "./types.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "./values.ts";
 
 class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ShieldSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<ShieldSheetData> {
         const sheetData = await super.getData(options);
         const { item } = this;
 
