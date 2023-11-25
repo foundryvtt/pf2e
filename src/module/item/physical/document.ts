@@ -20,7 +20,7 @@ import {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, organizeBulkData } from "./helpers.ts";
+import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, organizeBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -525,18 +525,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             changed.system.quantity = Math.clamped(changed.system.quantity, 0, 999_999_999) || 0;
         }
 
-        // Clamp hit points to between zero and max
-        const clone = this.clone(changed, { keepId: true });
-        const maxHPDifference = clone.system.hp.max - this.system.hp.max;
-        if (maxHPDifference !== 0) {
-            mergeObject(changed, { system: { hp: { value: this.system.hp.value + maxHPDifference } } });
-        }
-
-        if (typeof changed.system.hp?.value === "number") {
-            changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, clone.system.hp.max);
-        } else if (typeof changed.system.hp?.max === "number" && changed.system.hp.max < clone.system.hp.max) {
-            changed.system.hp.value = Math.clamped(this.system.hp.value, 0, clone.system.hp.max);
-        }
+        handleHPChange(this, changed);
 
         if (changed.system.hp?.value === null) {
             changed.system.hp.value = 0;

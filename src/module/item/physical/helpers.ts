@@ -1,3 +1,5 @@
+import { ActorProxyPF2e } from "@actor";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
@@ -151,6 +153,39 @@ function generateItemName(item: PhysicalItemPF2e): string {
     return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
 }
 
+/** Validate HP changes to a physical item and also adjust current HP when max HP changes */
+function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalItemSource>): void {
+    if (!changed.system?.hp) return;
+
+    if (item.actor) {
+        const actorSource = item.actor.toObject();
+        const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
+        const itemIndex = actorSource.items.findIndex((i) => i._id === item._id);
+        if (itemIndex === -1) return;
+        actorSource.items.splice(itemIndex, 1, changedSource);
+        const actorClone = new ActorProxyPF2e(actorSource);
+        const changedItem = actorClone.inventory.get(item.id, { strict: true });
+        const maxHPDifference = changedItem.system.hp.max - item.system.hp.max;
+        if (maxHPDifference !== 0) {
+            changed.system.hp.value = Math.max(item.system.hp.value + maxHPDifference, 0);
+        }
+    } else {
+        if (typeof changed.system.hp.value === "number") {
+            changed.system.hp.value = Math.max(
+                Math.min(changed.system.hp.value, changed.system.hp.max ?? item.system.hp.max),
+                0,
+            );
+        }
+        if (typeof changed.system.hp.max === "number") {
+            changed.system.hp.value = Math.max(
+                changed.system.hp.value ?? item.system.hp.value,
+                changed.system.hp.max,
+                0,
+            );
+        }
+    }
+}
+
 /**  Convert of scattershot bulk data on a physical item into a single object */
 function organizeBulkData(item: PhysicalItemPF2e): BulkData {
     const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
@@ -167,4 +202,4 @@ function organizeBulkData(item: PhysicalItemPF2e): BulkData {
 }
 
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName, organizeBulkData };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, organizeBulkData };
