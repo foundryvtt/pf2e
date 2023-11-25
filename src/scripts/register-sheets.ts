@@ -1,3 +1,4 @@
+import { ArmySheetPF2e } from "@actor/army/sheet.ts";
 import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { FamiliarSheetPF2e } from "@actor/familiar/sheet.ts";
 import { HazardSheetPF2e } from "@actor/hazard/sheet.ts";
@@ -5,7 +6,7 @@ import { LootSheetPF2e } from "@actor/loot/sheet.ts";
 import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
 import { PartySheetPF2e } from "@actor/party/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
-import { ActionSheetPF2e } from "@item/ability/sheet.ts";
+import { AbilitySheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
@@ -14,6 +15,7 @@ import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { BookSheetPF2e } from "@item/book/sheet.ts";
 import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
 import { ClassSheetPF2e } from "@item/class/sheet.ts";
+import { ConditionSheetPF2e } from "@item/condition/sheet.ts";
 import { ConsumableSheetPF2e } from "@item/consumable/sheet.ts";
 import { ContainerSheetPF2e } from "@item/container/sheet.ts";
 import { DeitySheetPF2e } from "@item/deity/sheet.ts";
@@ -22,6 +24,7 @@ import { EquipmentSheetPF2e } from "@item/equipment/sheet.ts";
 import { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { HeritageSheetPF2e } from "@item/heritage/sheet.ts";
 import { KitSheetPF2e } from "@item/kit/sheet.ts";
+import { LoreSheetPF2e } from "@item/lore/index.ts";
 import { MeleeSheetPF2e } from "@item/melee/sheet.ts";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -34,7 +37,6 @@ import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
-import { ArmySheetPF2e } from "@actor/army/sheet.ts";
 
 export function registerSheets(): void {
     const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
@@ -123,7 +125,7 @@ export function registerSheets(): void {
     }
 
     const sheetEntries = [
-        ["action", ActionSheetPF2e],
+        ["action", AbilitySheetPF2e],
         ["affliction", AfflictionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
         ["armor", ArmorSheetPF2e],
@@ -132,6 +134,7 @@ export function registerSheets(): void {
         ["book", BookSheetPF2e],
         ["campaignFeature", CampaignFeatureSheetPF2e],
         ["class", ClassSheetPF2e],
+        ["condition", ConditionSheetPF2e],
         ["consumable", ConsumableSheetPF2e],
         ["deity", DeitySheetPF2e],
         ["effect", EffectSheetPF2e],
@@ -139,6 +142,7 @@ export function registerSheets(): void {
         ["feat", FeatSheetPF2e],
         ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],
+        ["lore", LoreSheetPF2e],
         ["melee", MeleeSheetPF2e],
         ["shield", ShieldSheetPF2e],
         ["spell", SpellSheetPF2e],

@@ -1,9 +1,10 @@
-import { ClassPF2e } from "@item/class/document.ts";
+import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import type { ClassPF2e } from "@item/class/document.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ClassSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<ClassSheetData> {
         const sheetData = await super.getData(options);
         const itemData = sheetData.item;
 

@@ -1,13 +1,13 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import type { AbilityItemPF2e, FeatPF2e, SpellPF2e } from "@item";
-import { EffectPF2e, ItemPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { FrequencySource } from "@item/base/data/system.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { RangeData } from "@item/types.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
 import * as R from "remeda";
 import { AbilitySystemData, SelfEffectReference } from "./data.ts";
-import type { ActionSheetPF2e } from "./sheet.ts";
+import type { AbilitySheetPF2e } from "./sheet.ts";
 
 interface SourceWithActionData {
     system: {
@@ -81,7 +81,7 @@ interface SelfEffectSheetReference extends SelfEffectReference {
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */
-async function handleSelfEffectDrop(sheet: ActionSheetPF2e | FeatSheetPF2e, event: ElementDragEvent): Promise<void> {
+async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: ElementDragEvent): Promise<void> {
     if (!sheet.isEditable || sheet.item.system.actionType.value === "passive") {
         return;
     }
@@ -94,7 +94,7 @@ async function handleSelfEffectDrop(sheet: ActionSheetPF2e | FeatSheetPF2e, even
             return null;
         }
     })();
-    if (!(item instanceof EffectPF2e)) throw ErrorPF2e("Invalid item drop");
+    if (!item?.isOfType("effect")) throw ErrorPF2e("Invalid item drop");
 
     await sheet.item.update({ "system.selfEffect": { uuid: item.uuid, name: item.name } });
 }
