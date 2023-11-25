@@ -17,6 +17,8 @@ class MeasuredTemplatePF2e<
     // Workaround for https://github.com/microsoft/TypeScript/issues/32912
     #wheelListenerOptions: AddEventListenerOptions & EventListenerOptions = { passive: false };
 
+    #snapInterval = 2;
+
     get type(): MeasuredTemplateType {
         return this.document.t;
     }
@@ -50,6 +52,13 @@ class MeasuredTemplatePF2e<
         canvas.stage.on("mousedown", this.#onPreviewLeftClick);
         canvas.stage.on("rightdown", this.#onPreviewRightClick);
         canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
+
+        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+            const { item } = this.document;
+            if (item?.isOfType("spell") && item.system.area?.type === "burst") {
+                this.#snapInterval = 1;
+            }
+        }
 
         // Resolve existing preview
         MeasuredTemplatePF2e.currentPreview?.resolve(null);
@@ -88,7 +97,7 @@ class MeasuredTemplatePF2e<
         const now = Date.now();
         if (now - this.#moveTime <= 20) return;
         const center = event.getLocalPosition(this.layer);
-        const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
+        const snapped = canvas.grid.getSnappedPosition(center.x, center.y, this.#snapInterval);
         const hexTypes: number[] = [CONST.GRID_TYPES.HEXODDR, CONST.GRID_TYPES.HEXEVENR];
         const direction =
             this.#moveTime === 0 && hexTypes.includes(canvas.grid.type)
