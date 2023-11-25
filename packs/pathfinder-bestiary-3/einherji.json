@@ -915,31 +915,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "challenge-foe",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Bonus",
-                                "value": "2"
-                            },
-                            {
-                                "label": "PF2E.Penalty",
-                                "value": "-2"
-                            }
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:mark:challenge-foe"
                         ],
-                        "toggleable": true
+                        "selector": "damage",
+                        "slug": "challenge-foe-bonus",
+                        "type": "circumstance",
+                        "value": 2
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "challenge-foe"
+                            "self:effect:challenge-foe",
+                            {
+                                "not": "target:mark:challenge-foe"
+                            }
                         ],
                         "selector": "damage",
+                        "slug": "challenge-foe-penalty",
                         "type": "circumstance",
-                        "value": "{item|flags.pf2e.rulesSelections.challengeFoe}"
+                        "value": -2
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Challenge Foe",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
