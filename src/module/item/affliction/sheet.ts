@@ -76,7 +76,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         const html = $html[0];
 
         htmlQuery(html, "[data-action=onset-add]")?.addEventListener("click", () => {
-            const onset: AfflictionOnset = { value: 1, unit: "minutes" };
+            const onset: AfflictionOnset = { value: 1, unit: "minutes", active: true };
             this.item.update({ system: { onset } });
         });
 

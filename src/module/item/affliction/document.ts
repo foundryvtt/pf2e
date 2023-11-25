@@ -36,12 +36,11 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return {
             type: "counter",
             value: this.stage,
-            min: this.onsetDuration ? 0 : 1,
+            min: 1,
             max: this.maxStage,
-            label:
-                this.stage === 0
-                    ? game.i18n.localize("PF2E.Item.Affliction.OnsetLabel")
-                    : game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage }),
+            label: this.onset
+                ? game.i18n.localize("PF2E.Item.Affliction.OnsetLabel")
+                : game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage }),
         };
     }
 
@@ -58,10 +57,12 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     override async increase(): Promise<void> {
-        if (this.stage === this.maxStage) return;
-
-        const stage = Math.min(this.maxStage, this.system.stage + 1);
-        await this.update({ system: { stage } });
+        if (this.onset) {
+            await this.update({ system: { "-=onset": null } });
+        } else if (this.stage !== this.maxStage) {
+            const stage = Math.min(this.maxStage, this.system.stage + 1);
+            await this.update({ system: { stage } });
+        }
     }
 
     /** Decreases the affliction stage, deleting if reduced to 0 even if an onset exists */
@@ -73,6 +74,11 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         await this.update({ system: { stage } });
+    }
+
+    /** Returns true if the affliction is currently in the onset phase */
+    get onset(): boolean {
+        return !!this.system.onset?.active;
     }
 
     get onsetDuration(): number {
@@ -255,8 +261,9 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
             this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
         } else {
-            // Force minimum stage if there is no actor
-            data.system.stage = data.system.onset ? 0 : 1;
+            // Force minimum stage and active onset if there is no actor
+            data.system.stage = 1;
+            if (data.system.onset) data.system.onset.active = true;
         }
 
         return super._preCreate(data, options, user);
@@ -270,14 +277,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const duration = changed.system?.duration;
         if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             if (duration.value === -1) duration.value = 1;
-        }
-
-        // Force minimum stage if there is no actor
-        if (!this.actor) {
-            const hasOnset =
-                changed.system && "-=onset" in changed.system ? false : !!(changed.system?.onset ?? this.system.onset);
-            changed.system ??= {};
-            changed.system.stage = hasOnset ? 0 : 1;
         }
 
         return super._preUpdate(changed, options, user);
@@ -330,7 +329,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("prepareActorData called from unembedded item");
 
-        if (this.system.onset) {
+        if (this.onset) {
             actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:onset`] = true;
         }
     }

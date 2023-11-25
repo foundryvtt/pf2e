@@ -19,14 +19,23 @@
 
     {{#if user.isGM}}
         <div class="form-group">
-            <label for="data.unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
+            <label for="{{fieldIdPrefix}}unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
             <div class="form-fields">
-                <input type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
+                <input id="{{fieldIdPrefix}}unidentified" type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
             </div>
         </div>
     {{/if}}
 
     <hr/>
+
+    {{#if item.onsetDuration}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}onsetActive">{{localize "PF2E.Item.Affliction.OnsetActive"}}</label>
+            <div class="form-fields">
+                <input id="{{fieldIdPrefix}}onsetActive" type="checkbox" name="system.onset.active" {{checked data.onset.active}} {{disabled (not item.actor)}}>
+            </div>
+        </div>
+    {{/if}}
 
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.StageLabel"}}</label>
