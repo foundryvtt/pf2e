@@ -454,6 +454,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     ): void {
         super._onRelatedUpdate(update, options);
 
+        // If this scene isn't in view nor in focus, skip all later checks
+        // This method is called for every scene a linked actor's token is present in
+        if (!this.scene?.isInFocus && !this.scene?.isView) return;
+
         // Reinitialize vision if the actor's senses were updated directly
         const initializeVision =
             !!this.scene?.isView &&
