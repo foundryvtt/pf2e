@@ -248,7 +248,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         // Initiative
-        this.initiative = new ActorInitiative(this);
+        const initiativeSkill = system.attributes.initiative?.statistic || "perception";
+        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
         this.system.attributes.initiative = this.initiative.getTraceData();
     }
 

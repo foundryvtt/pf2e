@@ -1,6 +1,6 @@
-import { AfflictionPF2e, ConditionPF2e, EffectPF2e, ItemPF2e } from "@item";
+import { ItemPF2e, type AfflictionPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
@@ -10,21 +10,24 @@ import * as R from "remeda";
 import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data.ts";
 
 class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
-        const options = super.defaultOptions;
-        options.dragDrop = [{ dropSelector: "[data-stage-id]" }];
-        return options;
+    static override get defaultOptions(): ItemSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dropSelector: "[data-stage-id]" }],
+            hasSidebar: true,
+        };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<AfflictionSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<AfflictionSheetData> {
+        const sheetData = await super.getData(options);
+
         // Find the "defining trait" for item sheet header purposes
         const definingTraits: ActionTrait[] = ["disease", "poison", "curse"];
         const traits = new Set(this.item.system.traits.value);
         const definingTrait = definingTraits.find((t) => traits.has(t));
 
         return {
-            ...(await super.getData(options)),
-            hasSidebar: true,
+            ...sheetData,
             itemType: game.i18n.localize(definingTrait ? CONFIG.PF2E.actionTraits[definingTrait] : "PF2E.LevelLabel"),
             conditionTypes: R.omit(CONFIG.PF2E.conditionTypes, ["persistent-damage"]),
             damageTypes: CONFIG.PF2E.damageTypes,
@@ -73,7 +76,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         const html = $html[0];
 
         htmlQuery(html, "[data-action=onset-add]")?.addEventListener("click", () => {
-            const onset: AfflictionOnset = { value: 1, unit: "minutes" };
+            const onset: AfflictionOnset = { value: 1, unit: "minutes", active: true };
             this.item.update({ system: { onset } });
         });
 
@@ -197,7 +200,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             }
         })();
 
-        if (item instanceof EffectPF2e) {
+        if (item?.isOfType("effect")) {
             const effects = [...stage.effects, { uuid: item.uuid }];
             this.item.update({ system: { stages: { [stageId]: { effects } } } });
         } else {

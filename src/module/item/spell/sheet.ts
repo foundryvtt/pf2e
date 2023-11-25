@@ -16,8 +16,8 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
-import { createSpellRankLabel } from "./helpers.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
+import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
     SpellDamageSource,
     SpellHeighteningInterval,
@@ -25,6 +25,7 @@ import type {
     SpellSystemData,
     SpellSystemSource,
 } from "./index.ts";
+import { MAGIC_TRADITIONS } from "./values.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -37,6 +38,13 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    static override get defaultOptions(): ItemSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
+        };
+    }
+
     override get id(): string {
         const baseId = super.id;
         const appliedOverlays = this.item.appliedOverlays;
@@ -46,9 +54,16 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return baseId;
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
+    protected override get validTraits(): Record<string, string> | null {
+        return R.omit(CONFIG.PF2E.Item.traits.spell, Array.from(MAGIC_TRADITIONS));
+    }
+
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
+
+        const descriptionPrepend = await createDescriptionPrepend(this.item, { includeTraditions: true });
+        sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
 
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
@@ -77,7 +92,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         return {
             ...sheetData,
-            hasSidebar: true,
             itemType: createSpellRankLabel(this.item),
             isCantrip,
             isFocusSpell,
@@ -93,13 +107,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenIntervals: [1, 2, 3, 4],
             heightenOverlays: this.#prepareHeighteningLevels(),
             canHeighten: this.isEditable && this.getAvailableHeightenLevels().length > 0,
-        };
-    }
-
-    static override get defaultOptions(): DocumentSheetOptions {
-        return {
-            ...super.defaultOptions,
-            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
         };
     }
 
@@ -120,13 +127,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         tagify(html.querySelector('input[name="system.traits.traditions"]'), {
             whitelist: CONFIG.PF2E.magicTraditions,
         });
-        for (const tags of htmlQueryAll<HTMLInputElement>(html, "input.spell-traits")) {
-            tagify(tags, {
-                whitelist: this.item.isRitual
-                    ? R.omit(CONFIG.PF2E.spellTraits, ["attack", "cantrip", "focus"])
-                    : CONFIG.PF2E.spellTraits,
-            });
-        }
 
         for (const anchor of htmlQueryAll(html, "a[data-action=add-damage-partial]")) {
             anchor.addEventListener("click", () => {

@@ -1,10 +1,12 @@
-import { Rarity } from "@module/data.ts";
-import { PhysicalItemPF2e } from "./document.ts";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import type { Rarity } from "@module/data.ts";
+import type { PhysicalItemPF2e } from "./document.ts";
+import type { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 
 interface MaterialGradeData {
     level: number;
     price: number;
+    hardness?: number;
+    maxHP?: number;
     rarity: Rarity;
 }
 
@@ -15,15 +17,21 @@ type MaterialValuationData = Partial<
 >;
 
 function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | null {
-    const valuationData = item.isOfType("weapon")
-        ? WEAPON_MATERIAL_VALUATION_DATA
-        : item.isOfType("armor") && !item.isShield
-          ? ARMOR_MATERIAL_VALUATION_DATA
-          : null;
-    if (!valuationData) return null;
-
     const { material } = item;
     if (!material.type || !material.grade) return null;
+
+    const valuationData = item.isOfType("weapon")
+        ? MATERIAL_DATA.weapon
+        : item.isOfType("armor")
+          ? MATERIAL_DATA.armor
+          : item.isOfType("shield")
+            ? item.isBuckler
+                ? MATERIAL_DATA.shield.buckler
+                : item.isTowerShield
+                  ? MATERIAL_DATA.shield.towerShield
+                  : MATERIAL_DATA.shield.shield
+            : null;
+    if (!valuationData) return null;
 
     return valuationData[material.type]?.[material.grade] ?? null;
 }
@@ -724,10 +732,443 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     },
 };
 
-export {
-    ARMOR_MATERIAL_VALUATION_DATA,
-    OBJECT_MATERIAL_VALUATION_DATA,
-    WEAPON_MATERIAL_VALUATION_DATA,
-    getMaterialValuationData,
+const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+    "": {
+        low: null,
+        standard: null,
+        high: null,
+    },
+    abysium: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 4,
+            maxHP: 16,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "rare",
+        },
+    },
+    adamantine: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            rarity: "uncommon",
+            hardness: 8,
+            maxHP: 32,
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 11,
+            maxHP: 44,
+            rarity: "uncommon",
+        },
+    },
+    "cold-iron": {
+        low: {
+            level: 2,
+            price: 30,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 300,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5000,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "common",
+        },
+    },
+    darkwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+    },
+    djezet: {
+        low: null,
+        standard: {
+            level: 9,
+            price: 600,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 6,
+            maxHP: 24,
+            rarity: "rare",
+        },
+    },
+    inubrix: {
+        low: null,
+        standard: {
+            level: 7,
+            price: 320,
+            hardness: 2,
+            maxHP: 8,
+            rarity: "rare",
+        },
+        high: {
+            level: 15,
+            price: 5000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "rare",
+        },
+    },
+    mithral: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 6,
+            maxHP: 24,
+            rarity: "uncommon",
+        },
+    },
+    noqual: {
+        low: null,
+        standard: null,
+        high: {
+            level: 17,
+            price: 14_000,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "rare",
+        },
+    },
+    orichalcum: {
+        low: null,
+        standard: null,
+        high: {
+            level: 17,
+            price: 12_000,
+            hardness: 14,
+            maxHP: 56,
+            rarity: "rare",
+        },
+    },
+    siccatite: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 4,
+            maxHP: 16,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "rare",
+        },
+    },
+    silver: {
+        low: {
+            level: 2,
+            price: 30,
+            hardness: 1,
+            maxHP: 4,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 300,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5000,
+            hardness: 6,
+            maxHP: 24,
+            rarity: "common",
+        },
+    },
 };
+
+const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+    "": {
+        low: null,
+        standard: null,
+        high: null,
+    },
+    abysium: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 6,
+            maxHP: 24,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 10,
+            maxHP: 40,
+            rarity: "rare",
+        },
+    },
+    adamantine: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            rarity: "uncommon",
+            hardness: 10,
+            maxHP: 40,
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 13,
+            maxHP: 52,
+            rarity: "uncommon",
+        },
+    },
+    "cold-iron": {
+        low: {
+            level: 2,
+            price: 34,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 340,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5500,
+            hardness: 10,
+            maxHP: 40,
+            rarity: "common",
+        },
+    },
+    darkwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "uncommon",
+        },
+    },
+    djezet: {
+        low: null,
+        standard: {
+            level: 9,
+            price: 660,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "rare",
+        },
+    },
+    inubrix: {
+        low: null,
+        standard: {
+            level: 7,
+            price: 352,
+            hardness: 4,
+            maxHP: 16,
+            rarity: "rare",
+        },
+        high: {
+            level: 15,
+            price: 5500,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "rare",
+        },
+    },
+    "keep-stone": {
+        low: null,
+        standard: null,
+        high: {
+            level: 17,
+            price: 13_200,
+            hardness: 11,
+            maxHP: 46,
+            rarity: "rare",
+        },
+    },
+    mithral: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "uncommon",
+        },
+    },
+    noqual: {
+        low: null,
+        standard: null,
+        high: {
+            level: 17,
+            price: 15_400,
+            hardness: 10,
+            maxHP: 40,
+            rarity: "rare",
+        },
+    },
+    orichalcum: {
+        low: null,
+        standard: null,
+        high: {
+            level: 17,
+            price: 13_200,
+            hardness: 16,
+            maxHP: 64,
+            rarity: "rare",
+        },
+    },
+    siccatite: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 6,
+            maxHP: 24,
+            rarity: "rare",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 10,
+            maxHP: 40,
+            rarity: "rare",
+        },
+    },
+    silver: {
+        low: {
+            level: 2,
+            price: 34,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 340,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5500,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "common",
+        },
+    },
+};
+
+const TOWER_SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+    "": {
+        low: null,
+        standard: null,
+        high: null,
+    },
+    darkwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 560,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 11_200,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "uncommon",
+        },
+    },
+};
+
+const MATERIAL_DATA = {
+    armor: ARMOR_MATERIAL_VALUATION_DATA,
+    object: OBJECT_MATERIAL_VALUATION_DATA,
+    shield: {
+        shield: SHIELD_MATERIAL_VALUATION_DATA,
+        buckler: BUCKLER_MATERIAL_VALUATION_DATA,
+        towerShield: TOWER_SHIELD_MATERIAL_VALUATION_DATA,
+    },
+    weapon: WEAPON_MATERIAL_VALUATION_DATA,
+};
+
+export { MATERIAL_DATA, OBJECT_MATERIAL_VALUATION_DATA, getMaterialValuationData };
+
 export type { MaterialGradeData, MaterialValuationData };

@@ -38,6 +38,8 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.system.slug === "bloodline-genie") return;
+
         source.system = recursiveReplaceString(
             source.system,
             (s) => this.#TRAITS_RENAMES[s] ?? this.#LANGUAGE_RENAMES[s] ?? s,

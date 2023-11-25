@@ -91,7 +91,7 @@ interface SpellHeightenLayer {
 
 interface SpellOverlayOverride {
     _id: string;
-    system: DeepPartial<SpellSystemSource>;
+    system?: DeepPartial<SpellSystemSource>;
     name?: string;
     overlayType: "override";
     sort: number;

@@ -37,27 +37,30 @@ import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
 class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         const options = super.defaultOptions;
-        options.width = 695;
-        options.height = 460;
-        options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/sheet.hbs";
-        options.scrollY = [".tab.active", ".inventory-details", "div[data-rule-tab]"];
-        options.tabs = [
-            {
-                navSelector: ".tabs",
-                contentSelector: ".sheet-body",
-                initial: "description",
-            },
-            {
-                navSelector: ".mystify-nav",
-                contentSelector: ".mystify-sheet",
-                initial: "unidentified",
-            },
-        ];
+        options.classes.push("pf2e", "item");
 
-        return options;
+        return {
+            ...options,
+            width: 695,
+            height: 460,
+            template: "systems/pf2e/templates/items/sheet.hbs",
+            scrollY: [".tab.active", ".inventory-details", "div[data-rule-tab]"],
+            tabs: [
+                {
+                    navSelector: ".tabs",
+                    contentSelector: ".sheet-body",
+                    initial: "description",
+                },
+                {
+                    navSelector: ".mystify-nav",
+                    contentSelector: ".mystify-sheet",
+                    initial: "unidentified",
+                },
+            ],
+            hasSidebar: false,
+        };
     }
 
     /** Maintain selected rule element at the sheet level (do not persist) */
@@ -74,7 +77,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
-    get validTraits(): Record<string, string> | null {
+    protected get validTraits(): Record<string, string> | null {
         if (objectHasKey(CONFIG.PF2E.Item.traits, this.item.type)) {
             return CONFIG.PF2E.Item.traits[this.item.type];
         }
@@ -82,7 +85,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
+    override async getData(options: Partial<ItemSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
         options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
@@ -120,11 +123,12 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return {
             itemType: null,
             showTraits: this.validTraits !== null,
-            hasSidebar: this.item.isOfType("condition", "lore"),
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
                 type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
-            sidebarTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            sidebarTemplate: options.hasSidebar
+                ? `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`
+                : null,
             detailsTemplate: `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
@@ -422,7 +426,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         // Set up traits selection in the header
         const { validTraits } = this;
-        const tagElement = html.querySelector(".sheet-header .tags");
+        const tagElement = htmlQuery(this.form, ":scope > header .tags");
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement instanceof HTMLInputElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
@@ -526,6 +530,20 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 },
             });
         }
+
+        const refreshAnchor = htmlQuery(html.closest("div.item.sheet"), "a.refresh-from-compendium");
+        if (refreshAnchor) {
+            if (
+                this.item.system.rules.some(
+                    (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+                )
+            ) {
+                refreshAnchor.classList.add("disabled");
+                refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Disabled";
+            } else {
+                refreshAnchor.dataset.tooltip = "PF2E.Item.RefreshFromCompendium.Tooltip.Enabled";
+            }
+        }
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> | null = null): Record<string, unknown> {
@@ -545,16 +563,20 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const buttons = super._getHeaderButtons();
 
         if (
-            (BUILD_MODE === "development" || game.settings.get("pf2e", "dataTools")) &&
             this.isEditable &&
             this.item.sourceId?.startsWith("Compendium.") &&
             (this.actor || !this.item.uuid.startsWith("Compendium."))
         ) {
             buttons.unshift({
-                label: "Refresh",
+                label: "PF2E.Item.RefreshFromCompendium.Label",
                 class: "refresh-from-compendium",
                 icon: "fa-solid fa-sync-alt",
-                onclick: () => this.item.refreshFromCompendium(),
+                onclick: () => {
+                    const enabled = !this.item.system.rules.some(
+                        (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+                    );
+                    if (enabled) this.item.refreshFromCompendium();
+                },
             });
         }
 
@@ -625,11 +647,9 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;
-    /** Whether the sheet should have a sidebar at all */
-    hasSidebar: boolean;
     /** The sidebar's current title */
     sidebarTitle: string;
-    sidebarTemplate: string;
+    sidebarTemplate: string | null;
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
@@ -656,5 +676,9 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }
 
+interface ItemSheetOptions extends DocumentSheetOptions {
+    hasSidebar: boolean;
+}
+
 export { ItemSheetPF2e };
-export type { ItemSheetDataPF2e };
+export type { ItemSheetDataPF2e, ItemSheetOptions };

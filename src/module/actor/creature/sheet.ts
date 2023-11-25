@@ -12,7 +12,15 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ZeroToFour, goesToEleven } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQueryAll,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+} from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillAbbreviation, SkillData } from "./data.ts";
@@ -131,7 +139,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             const itemId = htmlClosest(menu, "[data-item-id]")?.dataset.itemId;
             const item = this.actor.inventory.get(itemId, { strict: true });
+
             const handsHeld = Number(menu.dataset.handsHeld) || 0;
+            if (!tupleHasValue([0, 1, 2], handsHeld)) {
+                throw ErrorPF2e("Invalid number of hands specified");
+            }
+
             const inSlot = menu.dataset.inSlot === "true";
             const current = item.system.equipped;
             if (

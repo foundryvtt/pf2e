@@ -1,5 +1,6 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
 import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
 import { isObject, objectHasKey, setHasElement } from "@util";
@@ -94,7 +95,15 @@ abstract class IWR<TType extends IWRType> {
             case "holy":
                 return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
             case "magical":
-                return ["item:magical"];
+                return [
+                    {
+                        or: [
+                            "item:magical",
+                            "origin:action:trait:magical",
+                            ...MAGIC_TRADITIONS.map((t) => `origin:action:trait:${t}`),
+                        ],
+                    },
+                ];
             case "mental":
                 return [{ or: ["damage:type:mental", { and: ["item:type:effect", "item:trait:mental"] }] }];
             case "non-magical":

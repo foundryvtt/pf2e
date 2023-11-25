@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSource, SpellSystemSource } from "@item/spell/data.ts";
+import { DamageType } from "@system/damage/types.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -37,12 +38,12 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
 
         const variants = R.isObject(source.system.overlays)
             ? Object.values(source.system.overlays).filter(
-                  (o) => R.isObject(o) && R.isObject(o.system.traits) && Array.isArray(o.system.traits.value),
+                  (o) => R.isObject(o) && R.isObject(o.system?.traits) && Array.isArray(o.system?.traits.value),
               )
             : [];
 
         for (const variant of variants) {
-            if (!variant.system.traits) continue;
+            if (!variant.system?.traits) continue;
             const system: DeepPartial<SpellSystemSource> & { "-=traits"?: null } = variant.system;
             if (system.time?.value === "1") {
                 system["-=traits"] = null;
@@ -68,12 +69,19 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
             "manipulate",
         ] as const).sort();
         for (const overlay of Object.values(source.system.overlays ?? {})) {
-            const overlaySystem: { traits?: object; "-=traits"?: null } = overlay.system;
+            const overlaySystem: { traits?: object; "-=traits"?: null } = overlay.system ?? {};
             overlaySystem["-=traits"] = null;
         }
     }
 
     #fixOtherVariants(source: SpellSource): void {
+        for (const partial of Object.values(source.system.damage).filter((p) => R.isObject(p))) {
+            if (typeof partial.type === "string") {
+                partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
+                partial.type ||= "untyped";
+            }
+        }
+
         for (const overlay of Object.values(source.system.overlays ?? {})) {
             const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } =
                 overlay.system ?? {};

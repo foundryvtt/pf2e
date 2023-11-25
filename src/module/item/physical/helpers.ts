@@ -1,3 +1,6 @@
+import { ActorProxyPF2e } from "@actor";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
+import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS, weightToBulk } from "./bulk.ts";
@@ -38,13 +41,13 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
     // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
     const materialData = getMaterialValuationData(item);
     const price = computePrice(item);
-    if (!(item.isMagical || materialData) || item.isSpecific || (item.isOfType("armor") && item.isShield)) {
+    if (!(item.isMagical || materialData) || item.isSpecific) {
         return { ...R.pick(item, ["level", "rarity"]), price };
     }
 
     const runesData = getRuneValuationData(item);
     const level = runesData
-        .map((runeData) => runeData.level)
+        .map((r) => r.level)
         .concat(materialData?.level ?? 0)
         .reduce((highest, level) => (level > highest ? level : highest), item.level);
 
@@ -68,20 +71,26 @@ function computeLevelRarityPrice(item: PhysicalItemPF2e): { level: number; rarit
  * have significant implementations.
  */
 function generateItemName(item: PhysicalItemPF2e): string {
-    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+    if (!item.isOfType("armor", "shield", "weapon")) {
         return item.name;
     }
 
     type Dictionaries = [
         Record<string, string | undefined>,
-        Record<string, { name: string } | undefined>,
-        Record<string, { name: string } | null>,
+        Record<string, { name: string } | undefined> | null,
+        Record<string, { name: string } | null> | null,
     ];
 
     // Acquire base-type and rune dictionaries, with "fundamental 2" being either resilient or striking
     const [baseItemDictionary, propertyDictionary, fundamentalTwoDictionary]: Dictionaries = item.isOfType("armor")
         ? [CONFIG.PF2E.baseArmorTypes, RUNE_DATA.armor.property, RUNE_DATA.armor.resilient]
-        : [CONFIG.PF2E.baseWeaponTypes, RUNE_DATA.weapon.property, RUNE_DATA.weapon.striking];
+        : item.isOfType("shield")
+          ? [CONFIG.PF2E.baseShieldTypes, null, null]
+          : [
+                { ...CONFIG.PF2E.baseWeaponTypes, ...CONFIG.PF2E.baseShieldTypes },
+                RUNE_DATA.weapon.property,
+                RUNE_DATA.weapon.striking,
+            ];
 
     const storedName = item._source.name;
     const baseType = item.baseType ?? "";
@@ -96,22 +105,36 @@ function generateItemName(item: PhysicalItemPF2e): string {
 
     const { material } = item;
     const { runes } = item.system;
-    const potencyRune = runes.potency;
-    const fundamental2 = "resilient" in runes ? runes.resilient : runes.striking;
+    const potency = "potency" in runes && runes.potency ? runes.potency : null;
+    const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
+    const reinforcing =
+        "reinforcing" in runes ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[runes.reinforcing] ?? "") || null : null;
 
-    const params = {
-        base: baseType ? game.i18n.localize(baseItemDictionary[baseType] ?? "") : item.name,
+    const params: Record<string, string | number | null> = {
+        base: baseType
+            ? material.type && ["hide-armor", "steel-shield", "wooden-shield"].includes(baseType)
+                ? game.i18n.localize(`TYPES.Item.${item.type}`)
+                : game.i18n.localize(baseItemDictionary[baseType] ?? "")
+            : item.name,
         material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
-        potency: potencyRune,
-        fundamental2: game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null,
-        property1: game.i18n.localize(propertyDictionary[runes.property[0]]?.name ?? "") || null,
-        property2: game.i18n.localize(propertyDictionary[runes.property[1]]?.name ?? "") || null,
-        property3: game.i18n.localize(propertyDictionary[runes.property[2]]?.name ?? "") || null,
-        property4: game.i18n.localize(propertyDictionary[runes.property[3]]?.name ?? "") || null,
+        potency,
+        reinforcing,
+        fundamental2:
+            fundamental2 && fundamentalTwoDictionary
+                ? game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
+                : null,
     };
+    if ("property" in runes && propertyDictionary) {
+        for (const index of [0, 1, 2, 3] as const) {
+            params[`property${index + 1}`] =
+                game.i18n.localize(propertyDictionary[runes.property[index]]?.name ?? "") || null;
+        }
+    }
+
     // Construct a localization key from material and runes
     const formatString = (() => {
-        const potency = params.potency && "Potency";
+        const potency = params.potency ? "Potency" : null;
+        const reinforcing = params.reinforcing ? "Reinforcing" : null;
         const fundamental2 = params.fundamental2 && "Fundamental2";
         const properties = params.property4
             ? "FourProperties"
@@ -123,13 +146,44 @@ function generateItemName(item: PhysicalItemPF2e): string {
                   ? "OneProperty"
                   : null;
         const material = params.material && "Material";
-        const key =
-            [potency, fundamental2, properties, material].filter((keyPart): keyPart is string => !!keyPart).join("") ||
-            null;
+        const key = R.compact([potency, reinforcing, fundamental2, properties, material]).join("") || null;
         return key && game.i18n.localize(key);
     })();
 
     return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
+}
+
+/** Validate HP changes to a physical item and also adjust current HP when max HP changes */
+function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalItemSource>): void {
+    // Basic validity: integer greater than or equal to zero
+    for (const property of ["value", "max"] as const) {
+        if (changed.system?.hp && changed.system.hp[property] !== undefined) {
+            changed.system.hp[property] = Math.max(Math.floor(Number(changed.system.hp[property])), 0) || 0;
+        }
+    }
+
+    // Get a clone of the item, through an actor clone if owned
+    const actorSource = item.actor?.toObject();
+    const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
+    const itemIndex = actorSource?.items.findIndex((i) => i._id === item._id);
+    if (itemIndex === -1) return;
+    actorSource?.items.splice(itemIndex ?? 0, 1, changedSource);
+    const actorClone = actorSource ? new ActorProxyPF2e(actorSource) : null;
+    const itemClone = actorClone?.inventory.get(item.id, { strict: true }) ?? item.clone(changed, { keepId: true });
+
+    // Adjust current HP proportionally if max HP changed
+    const maxHPDifference = itemClone.system.hp.max - item.system.hp.max;
+    if (maxHPDifference !== 0) {
+        changed.system = mergeObject(changed.system ?? {}, {
+            hp: { value: Math.max(item.system.hp.value + maxHPDifference, 0) },
+        });
+    }
+
+    // Final overage check
+    const newValue = changed.system?.hp?.value ?? itemClone.system.hp.value;
+    if (newValue > itemClone.system.hp.max) {
+        changed.system = mergeObject(changed.system ?? {}, { hp: { value: itemClone.system.hp.max } });
+    }
 }
 
 /**  Convert of scattershot bulk data on a physical item into a single object */
@@ -148,4 +202,4 @@ function organizeBulkData(item: PhysicalItemPF2e): BulkData {
 }
 
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName, organizeBulkData };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, organizeBulkData };

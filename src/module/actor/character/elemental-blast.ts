@@ -347,7 +347,12 @@ class ElementalBlast {
             melee,
             damaging: true,
             dc: { slug: "ac" },
-            extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
+            extraRollOptions: [
+                `action:${actionSlug}`,
+                `action:cost:${actionCost}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+            ],
             ...eventToRollParams(params.event, { type: "check" }),
         });
     }
@@ -384,7 +389,14 @@ class ElementalBlast {
             outcome,
             melee,
             checkContext: params.checkContext,
-            options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...item.traits]),
+            options: new Set([
+                `action:${actionSlug}`,
+                `action:cost:${actionCost}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+                `item:damage:type:${params.damageType}`,
+                ...item.traits,
+            ]),
         });
 
         const baseDamage: BaseDamageData = {

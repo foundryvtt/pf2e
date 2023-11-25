@@ -1,7 +1,8 @@
-import type { ActorPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
+import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
+import { EffectPF2e, ItemProxyPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -12,7 +13,6 @@ import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class PCAttackTraitHelpers extends AttackTraitHelpers {
@@ -93,6 +93,13 @@ interface AuxiliaryInteractParams {
     hands?: ZeroToTwo;
 }
 
+interface AuxiliaryShieldParams {
+    weapon: WeaponPF2e<CharacterPF2e>;
+    action: "RaiseAShield";
+    purpose?: never;
+    hands?: never;
+}
+
 interface AuxiliaryReleaseParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "Release";
@@ -100,27 +107,27 @@ interface AuxiliaryReleaseParams {
     hands: 0 | 1;
 }
 
-type AuxiliaryActionParams = AuxiliaryInteractParams | AuxiliaryReleaseParams;
+type AuxiliaryActionParams = AuxiliaryInteractParams | AuxiliaryShieldParams | AuxiliaryReleaseParams;
 type AuxiliaryActionPurpose = AuxiliaryActionParams["purpose"];
 
 /** Create an "auxiliary" action, an Interact or Release action using a weapon */
 class WeaponAuxiliaryAction {
     readonly weapon: WeaponPF2e<CharacterPF2e>;
-    readonly action: "Interact" | "Release";
+    readonly action: "Interact" | "RaiseAShield" | "Release";
     readonly actions: ZeroToThree;
     readonly carryType: ItemCarryType | null;
-    readonly hands: ZeroToThree | null;
-    readonly purpose: AuxiliaryActionPurpose;
+    readonly hands: ZeroToTwo | null;
+    readonly purpose: NonNullable<AuxiliaryActionPurpose> | null;
     /** A "full purpose" reflects the options to draw, sheathe, etc. a weapon */
-    readonly fullPurpose: string;
+    readonly fullPurpose: string | null;
 
     constructor({ weapon, action, purpose, hands }: AuxiliaryActionParams) {
         this.weapon = weapon;
         this.action = action;
-        this.purpose = purpose;
+        this.purpose = purpose ?? null;
         this.hands = hands ?? null;
 
-        type ActionsCarryTypePurpose = [ZeroToThree, ItemCarryType, string] | [1, null, "Modular"];
+        type ActionsCarryTypePurpose = [ZeroToThree, ItemCarryType, string] | [1, null, null] | [1, null, "Modular"];
         const [actions, carryType, fullPurpose] = ((): ActionsCarryTypePurpose => {
             switch (purpose) {
                 case "Draw":
@@ -141,6 +148,8 @@ class WeaponAuxiliaryAction {
                     return [1, null, purpose];
                 case "Drop":
                     return [0, "dropped", purpose];
+                default:
+                    return [1, null, null];
             }
         })();
 
@@ -154,7 +163,9 @@ class WeaponAuxiliaryAction {
     }
 
     get label(): string {
-        return game.i18n.localize(`PF2E.Actions.${this.action}.${this.fullPurpose}.Title`);
+        return this.action === "RaiseAShield"
+            ? game.i18n.localize(`PF2E.Actions.${this.action}.ShortTitle`)
+            : game.i18n.localize(`PF2E.Actions.${this.action}.${this.fullPurpose}.Title`);
     }
 
     get glyph(): string {
@@ -178,6 +189,13 @@ class WeaponAuxiliaryAction {
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
             const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
             if (!updated) return;
+        } else if (this.action === "RaiseAShield") {
+            const alreadyRaised = this.actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");
+            if (alreadyRaised) return;
+            const effect = await fromUuid("Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr");
+            if (effect instanceof EffectPF2e) {
+                this.actor.createEmbeddedDocuments("Item", [{ ...effect.toObject(), _id: null }]);
+            }
         }
 
         if (!game.combat) return; // Only send out messages if in encounter mode
@@ -189,20 +207,26 @@ class WeaponAuxiliaryAction {
 
         const flavorAction = {
             title: `PF2E.Actions.${this.action}.Title`,
-            subtitle: `PF2E.Actions.${this.action}.${this.fullPurpose}.Title`,
+            subtitle: this.fullPurpose ? `PF2E.Actions.${this.action}.${this.fullPurpose}.Title` : null,
             glyph: this.glyph,
         };
 
-        const flavor = await renderTemplate(templates.flavor, {
-            action: flavorAction,
-            traits: [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
-        });
+        const [traits, message] =
+            this.action === "RaiseAShield"
+                ? [[], `PF2E.Actions.${this.action}.Content`]
+                : [
+                      [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
+                      `PF2E.Actions.${this.action}.${this.fullPurpose}.Description`,
+                  ];
+
+        const flavor = await renderTemplate(templates.flavor, { action: flavorAction, traits });
 
         const content = await renderTemplate(templates.content, {
             imgPath: weapon.img,
-            message: game.i18n.format(`PF2E.Actions.${this.action}.${this.fullPurpose}.Description`, {
+            message: game.i18n.format(message, {
                 actor: actor.name,
                 weapon: weapon.name,
+                shield: weapon.shield?.name ?? weapon.name,
                 damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${selection}`),
             }),
         });
@@ -234,7 +258,7 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
             : null;
     if (!conditionSource) return;
 
-    const clumsyOne = new ConditionPF2e(conditionSource, { parent: actor });
+    const clumsyOne = new ItemProxyPF2e(conditionSource, { parent: actor }) as ConditionPF2e<CharacterPF2e>;
     clumsyOne.prepareSiblingData();
     clumsyOne.prepareActorData();
     for (const rule of clumsyOne.prepareRuleElements()) {

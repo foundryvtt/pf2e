@@ -809,7 +809,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #takePhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "npc"]);
+        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
@@ -834,7 +834,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "npc"]);
+        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {

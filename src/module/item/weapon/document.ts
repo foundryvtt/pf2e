@@ -3,9 +3,9 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
+import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
     IdentificationStatus,
@@ -36,6 +36,16 @@ import type {
 import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    declare shield?: ShieldPF2e<TParent>;
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: WeaponConstructionContext<TParent> = {}) {
+        super(data, context);
+
+        if (context.shield) {
+            this.shield = context.shield;
+        }
+    }
+
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
     altUsageType: "melee" | "thrown" | null = null;
 
@@ -447,7 +457,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const base = this.baseType ? CONFIG.PF2E.baseWeaponTypes[this.baseType] : null;
+        const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
+        const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
+        const base = this.baseType ? baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
 
@@ -749,6 +761,10 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     system: WeaponSystemData;
 
     get traits(): Set<WeaponTrait>;
+}
+
+interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
+    shield?: ShieldPF2e<TParent>;
 }
 
 interface WeaponCloneContext extends DocumentCloneContext {

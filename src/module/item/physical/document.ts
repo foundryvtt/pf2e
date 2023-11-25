@@ -1,9 +1,9 @@
-import { ActorProxyPF2e, type ActorPF2e } from "@actor";
+import { type ActorPF2e } from "@actor";
 import { ItemPF2e, type ContainerPF2e } from "@item";
-import { isCycle } from "@item/container/helpers.ts";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { Rarity, Size } from "@module/data.ts";
+import { isCycle } from "@item/container/helpers.ts";
+import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
 import * as R from "remeda";
@@ -15,11 +15,12 @@ import {
     ItemCarryType,
     ItemMaterialData,
     MystifiedData,
+    PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, organizeBulkData } from "./helpers.ts";
+import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, organizeBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -47,6 +48,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.size;
     }
 
+    get hitPoints(): PhysicalItemHitPoints {
+        return deepClone(this.system.hp);
+    }
+
+    get hardness(): number {
+        return this.system.hardness;
+    }
+
     get isEquipped(): boolean {
         return isEquipped(this.system.usage, this.system.equipped);
     }
@@ -61,7 +70,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** The number of hands being used to hold this item */
-    get handsHeld(): number {
+    get handsHeld(): ZeroToTwo {
         return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
     }
 
@@ -117,6 +126,16 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     get isDamaged(): boolean {
         return this.system.hp.value > 0 && this.system.hp.value < this.system.hp.max;
+    }
+
+    get isBroken(): boolean {
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= hitPoints.brokenThreshold;
+    }
+
+    get isDestroyed(): boolean {
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && hitPoints.value === 0;
     }
 
     get material(): ItemMaterialData {
@@ -204,11 +223,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
         systemData.hp.brokenThreshold = Math.floor(systemData.hp.max / 2);
 
-        // An embedded item may have its maximum HP altered, but otherwise ensure current HP is no greater than max
-        if (!this.isEmbedded) {
-            systemData.hp.value = Math.min(systemData.hp.value, systemData.hp.max);
-        }
-
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
             systemData.price.value = CoinsPF2e.fromString(systemData.price.value);
@@ -272,6 +286,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Fill gaps in unidentified data with defaults
         this.system.identification.unidentified = this.getMystifiedData("unidentified");
+
+        if (!this.isEmbedded) {
+            // Otherwise called in`onPrepareSynthetics`
+            this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+        }
     }
 
     override prepareSiblingData(): void {
@@ -290,7 +309,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
-        this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
+        this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
     }
 
     /** Can the provided item stack with this item? */
@@ -505,35 +524,27 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        // Clamp hit points to between zero and max
-        if (typeof changed.system?.hp?.value === "number") {
-            changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
-        } else if (typeof changed.system?.hp?.max === "number" && changed.system.hp.max < this.system.hp.max) {
-            changed.system.hp.value = Math.clamped(this.system.hp.value, 0, changed.system.hp.max);
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        for (const property of ["quantity", "hardness"] as const) {
+            if (changed.system[property] !== undefined) {
+                const max = property === "quantity" ? 999_999 : 999;
+                changed.system[property] = Math.clamped(Math.trunc(Number(changed.system[property])), 0, max) || 0;
+            }
         }
 
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        handleHPChange(this, changed);
 
         // Avoid setting a `baseItem` or `stackGroup` to an empty string
         for (const key of ["baseItem", "stackGroup"] as const) {
-            if (typeof changed.system?.[key] === "string") {
+            if (typeof changed.system[key] === "string") {
                 changed.system[key] = String(changed.system[key]).trim() || null;
             }
         }
 
-        // Uninvest if dropping
-        if (changed.system.equipped?.carryType === "dropped" && this.system.equipped.invested) {
-            changed.system.equipped.invested = false;
-        }
-
-        // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
-        const equipped: Record<string, unknown> = mergeObject(changed, { system: { equipped: {} } }).system.equipped;
-        const newCarryType = String(equipped.carryType ?? this.system.equipped.carryType);
-        if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
-
         // Clear 0 price denominations and per fields with values 0 or 1
-        if (isObject<Record<string, unknown>>(changed.system?.price)) {
-            const price: Record<string, unknown> = changed.system!.price;
+        if (isObject<Record<string, unknown>>(changed.system.price)) {
+            const price: Record<string, unknown> = changed.system.price;
             if (isObject<Record<string, number | null>>(price.value)) {
                 const coins = price.value;
                 for (const denomination of DENOMINATIONS) {
@@ -548,44 +559,24 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }
         }
 
-        const newUsage = getUsageDetails(String(changed.system?.usage?.value ?? this.system.usage.value));
-        const hasSlot = newUsage.type === "worn" && newUsage.where;
-        const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
+        const equipped: Record<string, unknown> = changed.system.equipped ?? {};
 
-        if (hasSlot) {
-            equipped.inSlot = isSlotted;
-        } else {
-            equipped["-=inSlot"] = null;
+        // Uninvest if dropping
+        if (equipped.carryType === "dropped" && this.system.equipped.invested) {
+            equipped.invested = false;
         }
 
-        // Special handling for ephemeral hit point changes: if the max HP would be adjusted when changing this item's
-        // carry type, proportionally adjust the current HP as well.
-        type MaybeItemAlteration = { key: string; property?: unknown; itemType?: unknown };
-        const { actor } = this;
-        const hasHpChangeRules =
-            this.actor?.rules.some(
-                (r: MaybeItemAlteration) =>
-                    r.key === "ItemAlteration" && r.property === "hp-max" && r.itemType === this.type,
-            ) ?? false;
-        if (actor && hasHpChangeRules && changed.system?.equipped?.carryType) {
-            // Simulate the update to determine whether max hit points will change
-            const postUpdateHPMax = ((): number => {
-                const actorSource = actor.toObject();
-                const itemSource = actorSource.items.find((i) => i._id === this.id) ?? { system: {} };
-                itemSource.system = mergeObject(itemSource.system, deepClone(changed.system));
-                const actorClone = new ActorProxyPF2e(actorSource);
-                const itemClone = actorClone.items.get(this.id, { strict: true });
-                return itemClone.isOfType("armor") ? itemClone.system.hp.max : this.system.hp.max;
-            })();
-            if (postUpdateHPMax !== this.system.hp.max) {
-                changed.system.hp ??= deepClone(this._source.system.hp);
-                // To avoid creeping values in one direction or the other, use `floor` when increasing and `ceil` when
-                // decreasing
-                const floorOrCeil = postUpdateHPMax > this.system.hp.max ? Math.floor : Math.ceil;
-                changed.system.hp.value = floorOrCeil(
-                    Math.clamped(this.system.hp.value * (postUpdateHPMax / this.system.hp.max), 0, postUpdateHPMax),
-                );
-            }
+        // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
+        const newCarryType = String(equipped.carryType ?? this.system.equipped.carryType);
+        if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
+
+        const newUsage = getUsageDetails(String(changed.system.usage?.value ?? this.system.usage.value));
+        const hasSlot = newUsage.type === "worn" && newUsage.where;
+        const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
+        if (hasSlot) {
+            equipped.inSlot = isSlotted;
+        } else if ("inSlot" in this._source.system.equipped) {
+            equipped["-=inSlot"] = null;
         }
 
         return super._preUpdate(changed, options, user);

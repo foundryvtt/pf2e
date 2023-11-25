@@ -109,7 +109,7 @@ export const InlineRollLinks = {
                 })();
 
                 if (actors.length === 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
                     return;
                 }
 

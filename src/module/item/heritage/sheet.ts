@@ -1,17 +1,19 @@
-import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { AncestryPF2e, ItemPF2e, type HeritagePF2e } from "@item";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { ErrorPF2e, sluggify } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".sidebar" }],
+            hasSidebar: true,
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<HeritageSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<HeritageSheetData> {
         const sheetData = await super.getData(options);
+
         const ancestry = await (async (): Promise<AncestryPF2e | null> => {
             const item = this.item.system.ancestry ? await fromUuid(this.item.system.ancestry.uuid) : null;
             return item instanceof AncestryPF2e ? item : null;
@@ -19,7 +21,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
         return {
             ...sheetData,
-            hasSidebar: true,
             ancestry,
             ancestryRefBroken: !!sheetData.data.ancestry && ancestry === null,
         };

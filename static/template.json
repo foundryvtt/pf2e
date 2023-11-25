@@ -437,16 +437,14 @@
         },
         "army": {
             "templates": [],
+            "ac": {
+                "value": null,
+                "potency": 0
+            },
             "attributes": {
-                "ac": {
-                    "value": 10,
-                    "details": "",
-                    "potency": 0
-                },
                 "hp": {
                     "value": 10,
-                    "max": 10,
-                    "details": ""
+                    "max": 10
                 }
             },
             "details": {
@@ -455,9 +453,7 @@
                 },
                 "alignment": "Neutral",
                 "description": "",
-                "blurb": "",
-                "strongSave": "morale",
-                "editLock": true
+                "blurb": ""
             },
             "traits": {
                 "rarity": "common",
@@ -468,27 +464,27 @@
                 "value": []
             },
             "consumption": 1,
-            "weapons": {
-                "bonus": 0,
-                "melee": {
-                    "name": "Melee Strike",
-                    "unlocked": true,
-                    "potency": 0
-                },
-                "ranged": {
-                    "name": "Ranged Strike",
-                    "unlocked": false,
-                    "potency": 0
-                }
-            },
             "resources": {
                 "potions": {
-                    "value": 0,
-                    "max": 0
+                    "value": 0
                 },
                 "ammunition": {
                     "value": 5,
                     "max": 5
+                }
+            },
+            "saves": {
+                "maneuver": 10,
+                "morale": 4
+            },
+            "weapons": {
+                "melee": {
+                    "name": "Melee Strike",
+                    "potency": 0
+                },
+                "ranged": {
+                    "name": "Ranged Strike",
+                    "potency": 0
                 }
             }
         }
@@ -514,6 +510,7 @@
             "kit",
             "lore",
             "melee",
+            "shield",
             "spell",
             "spellcastingEntry",
             "treasure",
@@ -579,9 +576,6 @@
                     "carryType": "worn"
                 },
                 "stackGroup": null,
-                "negateBulk": {
-                    "value": "0"
-                },
                 "containerId": null,
                 "size": "med",
                 "material": {
@@ -602,7 +596,7 @@
                     "misidentified": {}
                 },
                 "usage": {
-                    "value": ""
+                    "value": "carried"
                 }
             },
             "itemLevel": {
@@ -648,6 +642,9 @@
             ],
             "bulkCapacity": {
                 "value": ""
+            },
+            "negateBulk": {
+                "value": "0"
             },
             "collapsed": false,
             "stowing": false,
@@ -744,27 +741,27 @@
             "category": "light",
             "group": null,
             "acBonus": 0,
-            "strength": 0,
-            "dexCap": 0,
-            "checkPenalty": null,
-            "speedPenalty": null,
+            "strength": null,
+            "dexCap": null,
+            "checkPenalty": 0,
+            "speedPenalty": 0,
             "potencyRune": {
                 "value": 0
             },
             "resiliencyRune": {
-                "value": ""
+                "value": null
             },
             "propertyRune1": {
-                "value": ""
+                "value": null
             },
             "propertyRune2": {
-                "value": ""
+                "value": null
             },
             "propertyRune3": {
-                "value": ""
+                "value": null
             },
             "propertyRune4": {
-                "value": ""
+                "value": null
             },
             "usage": {
                 "value": "wornarmor"
@@ -1065,6 +1062,24 @@
                 "value": ""
             },
             "deathNote": false
+        },
+        "shield": {
+            "templates": [
+                "common",
+                "physical"
+            ],
+            "acBonus": 2,
+            "runes": {
+                "reinforcing": 0
+            },
+            "specific": null,
+            "speedPenalty": 0,
+            "traits": {
+                "integrated": null
+            },
+            "usage": {
+                "value": "held-in-one-hand"
+            }
         },
         "spell": {
             "templates": [

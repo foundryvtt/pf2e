@@ -192,13 +192,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
             }
 
+            // Delete min/max under certain conditions. Foundry is a bit shakey with -= behavior in _preUpdates
             if (badgeTypeChanged || labels || badgeChange.min === null) {
                 delete badgeChange.min;
-                badgeChange["-=min"] = null;
+                if ("min" in (this._source.system.badge ?? {})) badgeChange["-=min"] = null;
             }
             if (badgeTypeChanged || labels || badgeChange.max === null) {
                 delete badgeChange.max;
-                badgeChange["-=max"] = null;
+                if ("max" in (this._source.system.badge ?? {})) badgeChange["-=max"] = null;
             }
         }
 

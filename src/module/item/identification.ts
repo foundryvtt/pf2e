@@ -101,7 +101,9 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
                 return "weapon";
             }
         } else if (item.isOfType("armor")) {
-            return item.category === "shield" ? "shields" : "armor";
+            return "armor";
+        } else if (item.isOfType("shield")) {
+            return "shields";
         } else if (item.isOfType("consumable")) {
             switch (item.category) {
                 case "ammo":

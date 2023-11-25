@@ -3,13 +3,13 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data.ts";
+import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
@@ -169,12 +169,12 @@ abstract class CreaturePF2e<
     }
 
     get wornArmor(): ArmorPF2e<this> | null {
-        return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
+        return this.itemTypes.armor.find((a) => a.isEquipped) ?? null;
     }
 
     /** Get the held shield of most use to the wielder */
-    override get heldShield(): ArmorPF2e<this> | null {
-        const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+    override get heldShield(): ShieldPF2e<this> | null {
+        const heldShields = this.itemTypes.shield.filter((s) => s.isEquipped);
         return heldShields.length === 0
             ? null
             : heldShields.slice(0, -1).reduce((bestShield, shield) => {
@@ -389,7 +389,7 @@ abstract class CreaturePF2e<
             inSlot = false,
         }: {
             carryType: ItemCarryType;
-            handsHeld?: number;
+            handsHeld?: ZeroToTwo;
             inSlot?: boolean;
         },
     ): Promise<void> {
@@ -406,12 +406,16 @@ abstract class CreaturePF2e<
 
             const updates: (DeepPartial<ArmorSource> & { _id: string })[] = [];
 
-            if (isEquipped(usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+            if (isEquipped(usage, equipped) && item.isOfType("armor")) {
                 // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped);
                 for (const armor of wornArmors) {
                     updates.push({ _id: armor.id, system: { equipped: { inSlot: false } } });
                 }
+            } else if (equipped.carryType !== "held" && item.isOfType("weapon") && item.shield?.isRaised) {
+                // Stop raising the shield when the weapon it is attached to becomes stowed
+                const raiseAShieldEffect = item.actor.itemTypes.effect.find((e) => e.slug === "effect-raise-a-shield");
+                await raiseAShieldEffect?.delete();
             }
 
             updates.push({ _id: item.id, system: { containerId: null, equipped: equipped } });

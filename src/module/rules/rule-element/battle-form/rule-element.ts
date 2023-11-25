@@ -211,7 +211,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.#prepareIWR();
 
         // Initiative is built from skills/perception, so re-initialize just in case
-        this.actor.initiative = new ActorInitiative(this.actor);
+        const initiativeSkill = this.actor.system.attributes.initiative?.statistic || "perception";
+        this.actor.initiative = new ActorInitiative(this.actor, { statistic: initiativeSkill });
         this.actor.system.attributes.initiative = this.actor.initiative.getTraceData();
     }
 

@@ -230,36 +230,14 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "6",
-                        "kinds": [
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "vitality"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
+                "damage": {},
+                "defense": null,
                 "description": {
                     "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -369,7 +347,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -435,7 +413,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": "crossbow",
                 "bonus": {
@@ -474,9 +452,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -540,7 +515,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "Longsword",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -579,9 +554,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -647,7 +619,7 @@
             },
             "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
             "name": "Half Plate",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "acBonus": 5,
                 "baseItem": "half-plate",
@@ -679,10 +651,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -740,17 +708,14 @@
             },
             "img": "icons/equipment/shield/heater-steel-boss-red.webp",
             "name": "Steel Shield",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -759,7 +724,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 5,
                 "hp": {
                     "max": 20,
@@ -772,29 +736,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -802,16 +747,16 @@
                     "title": ""
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "steel-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -822,7 +767,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "W8eb6gjymXLSenUe",
@@ -833,7 +778,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "autoDestroy": {
                     "value": true
@@ -871,9 +816,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "per": 10,
@@ -913,7 +855,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -962,7 +904,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1012,7 +954,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1056,7 +998,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Disease",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1116,7 +1058,7 @@
             "_id": "ITkyellSfoRYxVGk",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Divine Grace",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1171,7 +1113,7 @@
             "_id": "eOj1lBtBYURSS36K",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Glimpse of Redemption",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1215,7 +1157,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1254,7 +1196,7 @@
             "_id": "9vVR7xd2ifoNGxDg",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1279,7 +1221,7 @@
             "_id": "SrGDsxp07HZDcSQ9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1304,7 +1246,7 @@
             "_id": "pkPTGKHYNoJPENW4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1329,7 +1271,7 @@
             "_id": "Sp7V9FbsM2ULA5Kp",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1354,7 +1296,7 @@
             "_id": "z7ITS3qhnhJp653X",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""

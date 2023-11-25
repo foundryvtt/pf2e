@@ -32,6 +32,7 @@ export { CampaignFeaturePF2e } from "./campaign-feature/document.ts";
 export { KitPF2e } from "./kit/document.ts";
 export { LorePF2e } from "./lore/index.ts";
 export { MeleePF2e } from "./melee/document.ts";
+export { ShieldPF2e } from "./shield/document.ts";
 export { SpellPF2e } from "./spell/document.ts";
 export { SpellcastingEntryPF2e } from "./spellcasting-entry/document.ts";
 

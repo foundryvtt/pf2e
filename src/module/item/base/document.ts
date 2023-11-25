@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor/base.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -273,7 +274,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(options: { name?: boolean } = {}): Promise<void> {
+    async refreshFromCompendium(options: { name?: boolean } = { name: true }): Promise<void> {
         if (!this.isOwned) {
             ui.notifications.error("This utility may only be used on owned items");
             return;
@@ -283,9 +284,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             return;
         }
 
-        options.name ??= false;
+        options.name ??= true;
 
         const currentSource = this.toObject();
+        if (
+            currentSource.system.rules.some(
+                (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
+            )
+        ) {
+            ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
+            return;
+        }
+
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
@@ -314,18 +324,28 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         if (isPhysicalData(currentSource)) {
-            // Preserve container ID
-            const { containerId, quantity } = currentSource.system;
-            mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
-        } else if (currentSource.type === "feat" || currentSource.type === "spell") {
+            // Preserve basic physical data
+            mergeObject(
+                updates,
+                expandObject({
+                    "system.containerId": currentSource.system.containerId,
+                    "system.equipped": currentSource.system.equipped,
+                    "system.material": currentSource.system.material,
+                    "system.quantity": currentSource.system.quantity,
+                }),
+            );
+        } else if (itemIsOfType(currentSource, "feat", "spell")) {
             // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
-        // Preserve material and runes
-        if (currentSource.type === "weapon" || currentSource.type === "armor") {
+        if (currentSource.type === "feat" && currentSource.system.level.taken) {
+            mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
+        }
+
+        // Preserve runes
+        if (itemIsOfType(currentSource, "armor", "weapon")) {
             const materialAndRunes: Record<string, unknown> = {
-                "system.material": currentSource.system.material,
                 "system.potencyRune": currentSource.system.potencyRune,
                 "system.propertyRune1": currentSource.system.propertyRune1,
                 "system.propertyRune2": currentSource.system.propertyRune2,
@@ -384,19 +404,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.processChatData(htmlOptions, deepClone(systemData));
     }
 
-    protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
-        const traits: string[] = [...(this.system.traits?.value ?? [])].sort();
+    protected traitChatData(
+        dictionary: Record<string, string | undefined> = {},
+        traits = this.system.traits.value ?? [],
+    ): TraitChatData[] {
+        const traitChatLabels = traits
+            .map((trait) => {
+                const label = game.i18n.localize(dictionary[trait] ?? trait);
+                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
-        const traitChatLabels = traits.map((trait) => {
-            const label = dictionary[trait] ?? trait;
-            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-
-            return {
-                value: trait,
-                label,
-                description: traitDescriptions[trait],
-            };
-        });
+                return {
+                    value: trait,
+                    label,
+                    description: traitDescriptions[trait],
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
 
         return traitChatLabels;
     }
@@ -456,7 +479,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
-        const sources = data.map((d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d));
+        const sources: PreCreate<ItemSourcePF2e>[] = data.map(
+            (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),
+        );
 
         // Migrate source in case of importing from an old compendium
         for (const source of [...sources]) {
@@ -475,19 +500,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const actor = context.parent;
         if (!actor) return super.createDocuments(sources, context);
 
-        const validTypes = actor.allowedItemTypes;
-        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
-
         // Check if this item is valid for this actor
-        for (const source of sources) {
-            if (!validTypes.includes(source.type)) {
-                ui.notifications.error(
-                    game.i18n.format("PF2E.Item.CannotAddType", {
-                        type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
-                    }),
-                );
-                return [];
-            }
+        if (sources.some((s) => !actor.checkItemValidity(s))) {
+            return [];
         }
 
         // Prevent creation of effects to which the actor is immune
@@ -831,7 +846,11 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>],
     ) {
-        const ItemClass = CONFIG.PF2E.Item.documentClasses[args[0]?.type] ?? ItemPF2e;
+        const type =
+            args[0]?.type === "armor" && (args[0].system?.category as string | undefined) === "shield"
+                ? "shield"
+                : args[0]?.type;
+        const ItemClass = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
         return new ItemClass(...args);
     },
 });

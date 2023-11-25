@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { type ItemPF2e, ItemSheetPF2e } from "@item";
+import { ItemSheetPF2e, type ItemPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath } from "@util";
@@ -164,20 +164,6 @@ export function registerSettings(): void {
                 StatusEffects.reset();
             } else if (!choice) {
                 game.settings.set("pf2e", "deathIcon", "icons/svg/skull.svg");
-            }
-        },
-    });
-
-    game.settings.register("pf2e", "dataTools", {
-        name: "PF2E.SETTINGS.DataTools.Name",
-        hint: "PF2E.SETTINGS.DataTools.Hint",
-        scope: "world",
-        config: false,
-        default: BUILD_MODE === "development",
-        type: Boolean,
-        onChange: () => {
-            for (const app of Object.values(ui.windows).filter((a) => a instanceof DocumentSheet)) {
-                app.render();
             }
         },
     });

@@ -3,7 +3,6 @@ import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
 import * as R from "remeda";
-import { compact, isObject } from "remeda";
 import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
 import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
 import systemJSON from "../../static/system.json" assert { type: "json" };
@@ -42,7 +41,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
 
     async createPack(docSources: DBEntry[], folders: DBFolder[]): Promise<void> {
         const isDoc = (source: unknown): source is EmbeddedEntry => {
-            return isObject(source) && "_id" in source;
+            return R.isObject(source) && "_id" in source;
         };
         const docBatch = this.#documentDb.batch();
         const embeddedBatch = this.#embeddedDb?.batch();
@@ -72,6 +71,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
             }
             await folderBatch.write();
         }
+
         await this.close();
     }
 
@@ -83,7 +83,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                 const embeddedDocs = await this.#embeddedDb.getMany(
                     source[embeddedKey]?.map((embeddedId) => `${docId}.${embeddedId}`) ?? [],
                 );
-                source[embeddedKey] = compact(embeddedDocs);
+                source[embeddedKey] = R.compact(embeddedDocs);
             }
             packSources.push(source as PackEntry);
         }

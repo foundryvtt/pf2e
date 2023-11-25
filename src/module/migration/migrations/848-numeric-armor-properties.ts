@@ -26,7 +26,7 @@ export class Migration848NumericArmorProperties extends MigrationBase {
                     const value = Number(oldProperty.value) || null;
                     source.system[newKey] = value === null ? null : Math.max(Math.floor((value - 10) / 2), 0);
                 } else if (tupleHasValue(["checkPenalty", "speedPenalty"], newKey)) {
-                    source.system[newKey] = Number(oldProperty.value) || null;
+                    source.system[newKey] = Number(oldProperty.value) || 0;
                     source.system[`-=${oldKey}`] = null;
                 } else {
                     source.system[newKey] = Number(oldProperty.value) || 0;

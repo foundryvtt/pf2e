@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/base.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -9,14 +9,14 @@ import { DeitySanctification } from "./data.ts";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".sheet-header, .sheet-content" }],
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<DeitySheetData> {
         const sheetData = await super.getData(options);
 
         const spellEntries = Object.entries(sheetData.data.spells);

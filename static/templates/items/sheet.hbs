@@ -14,11 +14,7 @@
                 aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
             />
 
-            {{#if (and item.actionCost (not (eq item.type "action")))}}
-                <span class="feat-action-cost">
-                    {{{actionGlyph item.actionCost}}}
-                </span>
-            {{/if}}
+            {{#if (or item.actionCost item.actionGlyph)}}{{{actionGlyph (coalesce item.actionCost item.actionGlyph)}}}{{/if}}
 
             {{#if itemType}}
                 <span class="level">
@@ -46,7 +42,6 @@
                     </select>
                 {{/if}}
             </template>
-            <!-- showTraits {{showTraits}} -->
             {{#if showTraits}}
                 <input class="paizo-style tags" name="system.traits.value" value="{{json traitTagifyData}}" data-dtype="JSON"
                     {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
@@ -57,7 +52,7 @@
     </header>
 
     <nav class="sheet-navigation">
-        {{#if hasSidebar}}
+        {{#if sidebarTemplate}}
             <h4 class="sidebar-summary">{{sidebarTitle}}</h4>
         {{/if}}
 
@@ -76,7 +71,7 @@
     <!-- ITEM SHEET CONTENT -->
     <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
-        {{#if hasSidebar}}
+        {{#if sidebarTemplate}}
             <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>

@@ -448,6 +448,9 @@
                         "ControlClick": "[Control-Click] Increase by 10"
                     }
                 },
+                "Section": {
+                    "WeaponsAndShields": "Weapons & Shields"
+                },
                 "TotalBulk": "Total Bulk: {bulk}"
             },
             "IWREditor": {
@@ -615,7 +618,6 @@
         "AreaTypeSquare": "Square",
         "ArmorArmorLabel": "AC Bonus",
         "ArmorArmorTypeLabel": "Category",
-        "ArmorBaseLabel": "Base",
         "ArmorCheckLabel": "Check Penalty",
         "ArmorCheckPenalty": "Armor Check Penalty",
         "ArmorClassBase": "Base Armor Class 10",
@@ -698,7 +700,6 @@
         "ArmorTypeHeavy": "Heavy Armor",
         "ArmorTypeLight": "Light Armor",
         "ArmorTypeMedium": "Medium Armor",
-        "ArmorTypeShield": "Shield",
         "ArmorTypeUnarmored": "Unarmored",
         "AttackEffectConstrict": "Constrict",
         "AttackEffectGrab": "Grab",
@@ -1637,6 +1638,7 @@
                     "Title": "If set, prevents the condition from being removed while the affliction lasts"
                 },
                 "OnsetLabel": "Onset",
+                "OnsetActive": "Onset Active",
                 "SaveLabel": "Save DC",
                 "Stage": "Stage {stage}",
                 "StageLabel": "Stage"
@@ -2121,7 +2123,7 @@
                 "LevelN": "Feat {level}",
                 "OnlyLevel1": "Must be taken at level 1",
                 "TakeMultiple": {
-                    "Five": "Up to 5x",
+                    "Five": "Up to 5×",
                     "Four": "Up to 4×",
                     "Label": "Can be taken multiple times",
                     "NoLimit": "No limit",
@@ -2156,12 +2158,14 @@
                 "Hint": "Additional tags beyond traits to help classify an item"
             },
             "Physical": {
+                "Base": "Base",
                 "Broken": "Broken",
                 "BrokenThreshold": {
                     "Label": "Broken Threshold",
                     "ShortLabel": "BT"
                 },
                 "Bulk": {
+                    "Label": "Bulk",
                     "Light": "L",
                     "Negligible": "—",
                     "NLight": "{light}L",
@@ -2176,6 +2180,8 @@
                 "GeneratedName": {
                     "FourProperties": "{property1} {property2} {property3} {property4} {base}",
                     "FourPropertiesMaterial": "{property1} {property2} {property3} {property4} {material} {base}",
+                    "Fundamental2": "{fundamental2} {base}",
+                    "Fundamental2Material": "{fundamental2} {material} {base}",
                     "Hint": "This is the name of the base weapon. For most weapons, the base is used to generate a fuller name, taking into account the material composition and/or runes. Giving this weapon a custom name or marking it as \"specific\" will prevent the generated name from appearing.",
                     "Material": "{material} {base}",
                     "OneProperty": "{property1} {base}",
@@ -2183,9 +2189,6 @@
                     "Potency": "+{potency} {base}",
                     "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "PotencyFourPropertiesMaterial": "+{potency} {property1} {property2} {property3} {property4} {material} {base}",
-                    "PotencyMaterial": "+{potency} {material} {base}",
-                    "PotencyOneProperty": "+{potency} {property1} {base}",
-                    "PotencyOnePropertyMaterial": "+{potency} {property1} {material} {base}",
                     "PotencyFundamental2": "+{potency} {fundamental2} {base}",
                     "PotencyFundamental2FourProperties": "+{potency} {fundamental2} {property1} {property2} {property3} {property4} {base}",
                     "PotencyFundamental2FourPropertiesMaterial": "+{potency} {fundamental2} {property1} {property2} {property3} {property4} {material} {base}",
@@ -2196,12 +2199,15 @@
                     "PotencyFundamental2ThreePropertiesMaterial": "+{potency} {fundamental2} {property1} {property2} {property3} {material} {base}",
                     "PotencyFundamental2TwoProperties": "+{potency} {fundamental2} {property1} {property2} {base}",
                     "PotencyFundamental2TwoPropertiesMaterial": "+{potency} {fundamental2} {property1} {property2} {material} {base}",
+                    "PotencyMaterial": "+{potency} {material} {base}",
+                    "PotencyOneProperty": "+{potency} {property1} {base}",
+                    "PotencyOnePropertyMaterial": "+{potency} {property1} {material} {base}",
                     "PotencyThreeProperties": "+{potency} {property1} {property2} {property3} {base}",
                     "PotencyThreePropertiesMaterial": "+{potency} {property1} {property2} {property3} {material} {base}",
                     "PotencyTwoProperties": "+{potency} {property1} {property2} {base}",
                     "PotencyTwoPropertiesMaterial": "+{potency} {property1} {property2} {material} {base}",
-                    "Fundamental2": "{fundamental2} {base}",
-                    "Fundamental2Material": "{fundamental2} {material} {base}",
+                    "Reinforcing": "{reinforcing} {base}",
+                    "ReinforcingMaterial": "{reinforcing} {material} {base}",
                     "ThreeProperties": "{property1} {property2} {property3} {base}",
                     "ThreePropertiesMaterial": "{property1} {property2} {property3} {material} {base}",
                     "TwoProperties": "{property1} {property2} {base}",
@@ -2216,6 +2222,9 @@
                 "OtherTags": {
                     "Hint": "These are tags indicating classifications in Second Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present.",
                     "Label": "Other Tags"
+                },
+                "MaterialRunes": {
+                    "Label": "Precious Material and Runes"
                 },
                 "PriceLabel": "Price: {price}",
                 "Usage": {
@@ -2254,6 +2263,13 @@
                 }
             },
             "Plural": "Items",
+            "RefreshFromCompendium": {
+                "Label": "Refresh",
+                "Tooltip": {
+                    "Disabled": "Item cannot be refreshed: contains data stored at time of adding to actor",
+                    "Enabled": "Refresh this item's data with the latest from its originating compendium."
+                }
+            },
             "RemovalPrevented": "Removal of {item} is prevented by {preventer}.",
             "Rules": {
                 "Apply": "Apply",
@@ -2268,6 +2284,41 @@
                 "RegenerateSlug": "(Re)generate Slug",
                 "Remove": "Remove Rule Element",
                 "Tab": "Rules"
+            },
+            "Shield": {
+                "Base": {
+                    "buckler": "Buckler",
+                    "casters-targe": "Caster's Targe",
+                    "dart-shield": "Dart Shield",
+                    "fortress-shield": "Fortress Shield",
+                    "gauntlet-buckler": "Gauntlet Buckler",
+                    "harnessed-shield": "Harness Shield",
+                    "heavy-rondache": "Heavy Rondache",
+                    "hide-shield": "Hide Shield",
+                    "klar": "Klar",
+                    "meteor-shield": "Meteor Shield",
+                    "razor-disc": "Razor Disc",
+                    "salvo-shield": "Salvo Shield",
+                    "steel-shield": "Steel Shield",
+                    "swordstealer-shield": "Swordstealer Shield",
+                    "tower-shield": "Tower Shield",
+                    "wooden-shield": "Wooden Shield"
+                },
+                "Rune": {
+                    "Reinforcing": {
+                        "Greater": "Greater Reinforcing",
+                        "Label": "Reinforcing Rune",
+                        "Lesser": "Lesser Reinforcing",
+                        "Major": "Major Reinforcing",
+                        "Minor": "Minor Reinforcing",
+                        "Moderate": "Moderate Reinforcing",
+                        "Supreme": "Supreme Reinforcing"
+                    }
+                },
+                "Specific": {
+                    "Hint": "Marking this shield as a <i>specific magic shield</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades.",
+                    "Label": "Specific Magic Shield"
+                }
             },
             "SidebarSummary": "{type} Summary",
             "Spell": {
@@ -2732,9 +2783,6 @@
         "PerceptionCheck": "Perception Check",
         "PerceptionHeader": "Perception",
         "PerceptionLabel": "Perception",
-        "Playlist": {
-            "Plural": "Playlists"
-        },
         "PotencyRuneLabel": "Potency Rune",
         "PreciousMaterialAbysium": "Abysium",
         "PreciousMaterialAbysiumDescription": "A blue-green metal with an eerie green luminescence, abysium radiates power that's inimical to life. Careless exposure to the material can lead to long-term damage to the immune system; as such, mining abysium is hazardous, as large quantities of the metal in an area cause all nearby creatures to become sick. A creature carrying an abysium object is sickened 1 for a standard-grade object of light Bulk, sickened 2 for a standard-grade object of 1 Bulk or more or a high-grade object of light Bulk, or sickened 3 for a high-grade object of 1 Bulk or more. This and all other sickening effects of abysium are poison effects. Crafters can use 1 abysium chunk to create up to 6 doses of poisonous abysium powder. Unscrupulous smiths have harnessed abysium's toxic properties to create noxious weapons and deadly substances. All objects crafted from abysium shed dim light in a 10-foot radius.",
@@ -4128,7 +4176,7 @@
         "TraitHarrowCourt": "Harrow Court",
         "TraitHaunt": "Haunt",
         "TraitHealing": "Healing",
-        "TraitHefty14": "Hefty 14",
+        "TraitHefty2": "Hefty 2",
         "TraitHeldOneHand": "Held in 1 hand",
         "TraitHeldOneHandFreeStanding": "Held in 1 hand or free-standing",
         "TraitHeldTwoHands": "Held in 2 hands",
@@ -4620,7 +4668,6 @@
                 "shieldActive": "and their {shield} gets ",
                 "shieldInActive": "gets"
             },
-            "errorTargetToken": "Select at least one valid token.",
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
             "shiftModifyDamageLabel": "Amount",
             "shiftModifyDamageTitle": "Adjust Damage/Healing"
@@ -5784,6 +5831,7 @@
             "kit": "Kit",
             "lore": "Lore Skill",
             "melee": "NPC Attack",
+            "shield": "Shield",
             "spell": "Spell",
             "spellcastingEntry": "Spellcasting Entry",
             "treasure": "Treasure",

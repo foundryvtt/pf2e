@@ -1,3 +1,4 @@
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { getActionGlyph, ordinalString, sluggify } from "@util";
 import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
@@ -127,7 +128,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             };
         }
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(
+            R.omit(CONFIG.PF2E.spellTraits, Array.from(MAGIC_TRADITIONS)),
+        );
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
             {

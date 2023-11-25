@@ -128,8 +128,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         const weaponGroup = groupMatch[1] as WeaponGroup;
                         data.label = CONFIG.PF2E.weaponGroups[weaponGroup] ?? weaponGroup;
                     } else if (Array.isArray(baseWeaponMatch)) {
-                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
-                        data.label = CONFIG.PF2E.baseWeaponTypes[baseWeapon] ?? baseWeapon;
+                        const baseType = baseWeaponMatch[1] as BaseWeaponType;
+                        const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
+                        const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
+                        data.label = baseWeaponTypes[baseType] ?? baseShieldTypes[baseType] ?? baseType;
                     } else {
                         data.label ??= key;
                     }

@@ -283,6 +283,7 @@ const actionGlyphMap: Record<string, string> = {
     "1 or 2": "1/2",
     "1 to 3": "1 - 3",
     "2 or 3": "2/3",
+    "2 rounds": "3,3",
     reaction: "R",
 };
 
@@ -298,7 +299,7 @@ function getActionGlyph(action: string | number | null | ActionCost): string {
         .toLowerCase()
         .trim();
 
-    return actionGlyphMap[sanitized] ?? "";
+    return actionGlyphMap[sanitized]?.replace("-", "–") ?? "";
 }
 
 function ErrorPF2e(message: string): Error {
