@@ -479,7 +479,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
-        const sources = data.map((d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d));
+        const sources: PreCreate<ItemSourcePF2e>[] = data.map(
+            (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),
+        );
 
         // Migrate source in case of importing from an old compendium
         for (const source of [...sources]) {
@@ -498,19 +500,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const actor = context.parent;
         if (!actor) return super.createDocuments(sources, context);
 
-        const validTypes = actor.allowedItemTypes;
-        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
-
         // Check if this item is valid for this actor
-        for (const source of sources) {
-            if (!validTypes.includes(source.type)) {
-                ui.notifications.error(
-                    game.i18n.format("PF2E.Item.CannotAddType", {
-                        type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
-                    }),
-                );
-                return [];
-            }
+        if (sources.some((s) => !actor.checkItemValidity(s))) {
+            return [];
         }
 
         // Prevent creation of effects to which the actor is immune

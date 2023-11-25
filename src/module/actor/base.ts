@@ -82,6 +82,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -368,6 +369,21 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         };
 
         return damageIsApplicable[damageType];
+    }
+
+    /** Checks if the item can be added to this actor by checking the valid item types. */
+    checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean {
+        if (!itemIsOfType(source, ...this.allowedItemTypes)) {
+            ui.notifications.error(
+                game.i18n.format("PF2E.Item.CannotAddType", {
+                    type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
+                }),
+            );
+
+            return false;
+        }
+
+        return true;
     }
 
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
