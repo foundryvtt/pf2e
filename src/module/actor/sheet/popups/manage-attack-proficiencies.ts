@@ -1,6 +1,5 @@
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data.ts";
 import type { CharacterPF2e } from "@actor/character/document.ts";
-import { BaseWeaponType } from "@item/weapon/types.ts";
 import { fontAwesomeIcon, htmlClosest, localizer, objectHasKey } from "@util";
 
 async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
@@ -47,12 +46,13 @@ async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
 
 function remove(actor: CharacterPF2e, event: MouseEvent): void {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
-    const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
+    const baseWeapons: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
+    const baseShields: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
     const key = htmlClosest(event.currentTarget, "li.skill.custom")?.dataset.slug ?? "";
     const translationKey = key?.replace(/^weapon-(?:base|group)-/, "") ?? "";
     const name = objectHasKey(weaponGroups, translationKey)
         ? game.i18n.localize(weaponGroups[translationKey])
-        : baseWeapons[translationKey as BaseWeaponType];
+        : baseWeapons[translationKey] ?? baseShields[translationKey] ?? translationKey;
 
     const localize = localizer("PF2E.RemoveCombatProficiency");
     const message = localize("Message", { proficiency: name });
