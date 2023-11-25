@@ -155,34 +155,34 @@ function generateItemName(item: PhysicalItemPF2e): string {
 
 /** Validate HP changes to a physical item and also adjust current HP when max HP changes */
 function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalItemSource>): void {
-    if (!changed.system?.hp) return;
+    // Basic validity: integer greater than or equal to zero
+    for (const property of ["value", "max"] as const) {
+        if (changed.system?.hp && changed.system.hp[property] !== undefined) {
+            changed.system.hp[property] = Math.max(Math.floor(Number(changed.system.hp[property])), 0) || 0;
+        }
+    }
 
-    if (item.actor) {
-        const actorSource = item.actor.toObject();
-        const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
-        const itemIndex = actorSource.items.findIndex((i) => i._id === item._id);
-        if (itemIndex === -1) return;
-        actorSource.items.splice(itemIndex, 1, changedSource);
-        const actorClone = new ActorProxyPF2e(actorSource);
-        const changedItem = actorClone.inventory.get(item.id, { strict: true });
-        const maxHPDifference = changedItem.system.hp.max - item.system.hp.max;
-        if (maxHPDifference !== 0) {
-            changed.system.hp.value = Math.max(item.system.hp.value + maxHPDifference, 0);
-        }
-    } else {
-        if (typeof changed.system.hp.value === "number") {
-            changed.system.hp.value = Math.max(
-                Math.min(changed.system.hp.value, changed.system.hp.max ?? item.system.hp.max),
-                0,
-            );
-        }
-        if (typeof changed.system.hp.max === "number") {
-            changed.system.hp.value = Math.max(
-                changed.system.hp.value ?? item.system.hp.value,
-                changed.system.hp.max,
-                0,
-            );
-        }
+    // Get a clone of the item, through an actor clone if owned
+    const actorSource = item.actor?.toObject();
+    const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
+    const itemIndex = actorSource?.items.findIndex((i) => i._id === item._id);
+    if (itemIndex === -1) return;
+    actorSource?.items.splice(itemIndex ?? 0, 1, changedSource);
+    const actorClone = actorSource ? new ActorProxyPF2e(actorSource) : null;
+    const itemClone = actorClone?.inventory.get(item.id, { strict: true }) ?? item.clone(changed, { keepId: true });
+
+    // Adjust current HP proportionally if max HP changed
+    const maxHPDifference = itemClone.system.hp.max - item.system.hp.max;
+    if (maxHPDifference !== 0) {
+        changed.system = mergeObject(changed.system ?? {}, {
+            hp: { value: Math.max(item.system.hp.value + maxHPDifference, 0) },
+        });
+    }
+
+    // Final overage check
+    const newValue = changed.system?.hp?.value ?? itemClone.system.hp.value;
+    if (newValue > itemClone.system.hp.max) {
+        changed.system = mergeObject(changed.system ?? {}, { hp: { value: itemClone.system.hp.max } });
     }
 }
 

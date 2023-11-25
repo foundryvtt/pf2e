@@ -15,7 +15,7 @@ interface ShieldSystemSource extends PhysicalSystemSource {
     traits: ShieldTraitsSource;
     baseItem: BaseShieldType | null;
     acBonus: number;
-    speedPenalty: number | null;
+    speedPenalty: number;
     /** Data stored at the time of marking a shield as specific */
     specific: SpecificShieldData | null;
 

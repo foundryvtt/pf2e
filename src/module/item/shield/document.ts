@@ -292,14 +292,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.acBonus === null) changed.system.acBonus = 0;
-        if (typeof changed.system?.acBonus === "number") {
-            changed.system.acBonus = Math.clamped(Math.trunc(changed.system.acBonus), 0, 99) || 0;
+        if (changed.system?.acBonus !== undefined) {
+            changed.system.acBonus = Math.clamped(Math.trunc(Number(changed.system.acBonus)), 0, 99) || 0;
         }
 
-        if (changed.system?.speedPenalty === null) changed.system.speedPenalty = 0;
-        if (typeof changed.system?.speedPenalty === "number") {
-            changed.system.speedPenalty = Math.clamped(Math.trunc(changed.system.speedPenalty), -99, 0) || 0;
+        if (changed.system?.speedPenalty !== undefined) {
+            changed.system.speedPenalty = Math.clamped(Math.trunc(Number(changed.system.speedPenalty)), -99, 0) || 0;
         }
 
         const hasIntegratedTrait = this._source.system.traits.value.some((t) => t.startsWith("integrated-"));
