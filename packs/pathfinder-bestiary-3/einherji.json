@@ -915,23 +915,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "challenge-foe",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
+                        "key": "FlatModifier",
                         "predicate": [
-                            "challenge-foe"
+                            "target:mark:challenge-foe"
                         ],
                         "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "slug": "challenge-foe-bonus",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:challenge-foe",
+                            {
+                                "not": "target:mark:challenge-foe"
+                            }
+                        ],
+                        "selector": "damage",
+                        "slug": "challenge-foe-penalty",
+                        "type": "circumstance",
+                        "value": -2
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Challenge Foe",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1020,7 +1030,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "jotun-slayer"
+                            {
+                                "or": [
+                                    "jotun-slayer",
+                                    "target:trait:giant"
+                                ]
+                            }
                         ],
                         "selector": "damage",
                         "type": "circumstance",
