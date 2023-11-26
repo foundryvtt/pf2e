@@ -13,7 +13,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.899;
+    static LATEST_SCHEMA_VERSION = 0.9;
 
     static MINIMUM_SAFE_VERSION = 0.634;
 
