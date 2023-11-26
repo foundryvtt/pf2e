@@ -13,6 +13,8 @@ interface ClassSystemSource extends ABCSystemSource {
     savingThrows: Record<SaveType, ZeroToFour>;
     attacks: ClassAttackProficiencies;
     defenses: ClassDefenseProficiencies;
+    /** Starting proficiency in "spell attack rolls and DCs" */
+    spellcasting: ZeroToFour;
     trainedSkills: {
         value: string[];
         additional: number;

@@ -330,6 +330,11 @@
                         }
                     }
 
+                    &.no-sidebar .form-group label {
+                        max-width: 12em;
+                        white-space: wrap;
+                    }
+
                     select {
                         font-size: var(--font-size-12);
                         height: 1.5rem;
@@ -430,12 +435,16 @@
         }
 
         .form-group {
-            & > label:not(.large) {
-                max-width: 11em;
-            }
+            > label {
+                line-height: 1.5rem;
 
-            & > label.short {
-                max-width: 9em;
+                &:not(.large) {
+                    max-width: 11em;
+                }
+
+                &.short {
+                    max-width: 9em;
+                }
             }
 
             ul.tags {

@@ -572,7 +572,7 @@ const featTraits = {
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
     circus: "PF2E.TraitCircus",
-    class: "PF2E.Class",
+    class: "TYPES.Item.class",
     composite: "PF2E.TraitComposite",
     concentrate: "PF2E.TraitConcentrate",
     dedication: "PF2E.TraitDedication",
