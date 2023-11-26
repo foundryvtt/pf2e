@@ -3,7 +3,7 @@ import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ActionType, ItemSourcePF2e, ItemType, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, ItemType, isPhysicalData } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
@@ -1204,50 +1204,52 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
-    #onClickCreateItem(link: HTMLElement): void {
-        const data = link.dataset;
-        if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, data.type)) {
-            throw ErrorPF2e(`Unrecognized item type: "${data.type}"`);
+    #onClickCreateItem(anchor: HTMLElement): void {
+        const dataset = { ...anchor.dataset };
+        const itemType = R.compact([dataset.type ?? dataset.types?.split(",")].flat()).find((t) => t !== "shield");
+        if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
+            throw ErrorPF2e(`Unrecognized item type: types`);
         }
 
-        if (data.type === "spell") {
-            return onClickCreateSpell(this.actor, data);
+        if (itemType === "spell") {
+            return onClickCreateSpell(this.actor, dataset);
         }
 
-        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        const type = data.type;
         const itemSource = ((): DeepPartial<ItemSourcePF2e> | null => {
-            switch (type) {
+            switch (itemType) {
                 case "action": {
-                    const name = game.i18n.localize(`PF2E.ActionType${String(data.actionType).capitalize()}`);
-                    const actionType = data.actionType as ActionType;
-                    return { type, img, name, system: { actionType: { value: actionType } } };
+                    const { actionType } = dataset;
+                    if (!objectHasKey(CONFIG.PF2E.actionTypes, actionType)) {
+                        throw ErrorPF2e(`Action type not recognized: ${actionType}`);
+                    }
+                    const name = game.i18n.localize(`PF2E.ActionType${actionType.capitalize()}`);
+                    return { type: itemType, name, system: { actionType: { value: actionType } } };
                 }
                 case "melee": {
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${type.capitalize()}`);
-                    const weaponType = data.actionType as "melee" | "ranged";
-                    return { type, img, name, system: { weaponType: { value: weaponType } } };
+                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    const meleeOrRanged = dataset.actionType === "melee" ? "melee" : "ranged";
+                    return { type: itemType, name, system: { weaponType: { value: meleeOrRanged } } };
                 }
                 case "lore": {
                     const name =
                         this.actor.type === "npc"
                             ? game.i18n.localize("PF2E.SkillLabel")
                             : game.i18n.localize("PF2E.NewPlaceholders.Lore");
-                    return { type, img, name };
+                    return { type: itemType, name };
                 }
                 default: {
-                    if (!setHasElement(PHYSICAL_ITEM_TYPES, type)) {
-                        throw ErrorPF2e(`Unsupported item type: ${type}`);
+                    if (!setHasElement(PHYSICAL_ITEM_TYPES, itemType)) {
+                        throw ErrorPF2e(`Unsupported item type: ${itemType}`);
                     }
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-                    return { name, type };
+                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    return { name, type: itemType };
                 }
             }
         })();
 
         if (itemSource) {
-            if (data.traits) {
-                const traits = String(data.traits).split(",");
+            if (dataset.traits) {
+                const traits = dataset.traits?.split(",") ?? [];
                 itemSource.system = mergeObject(itemSource.system ?? {}, { traits: { value: traits } });
             }
 

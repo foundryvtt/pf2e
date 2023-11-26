@@ -4,7 +4,7 @@ import { ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, ordinalString } from "@util";
 import * as R from "remeda";
 
-function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): void {
+function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | undefined>): void {
     if (!data.location) {
         throw ErrorPF2e("Unexpected missing spellcasting-entry location");
     }
