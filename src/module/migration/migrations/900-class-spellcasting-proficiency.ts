@@ -15,14 +15,14 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
             if (aeLikeIncrease) {
                 source.system.spellcasting = Math.max(1, source.system.spellcasting ?? 0) as ZeroToFour;
                 source.system.rules.splice(source.system.rules.indexOf(aeLikeIncrease), 1);
-            } else if (["sorcerer", "summoner", "witch", "wizard"].includes(source.system.slug ?? "")) {
+            } else if (["sorcerer", "summoner", "witch"].includes(source.system.slug ?? "")) {
                 source.system.spellcasting = 1;
             } else {
                 source.system.spellcasting = Math.max(0, source.system.spellcasting ?? 0) as ZeroToFour;
             }
         }
 
-        if (source.type === "feat" && source.system.slug?.includes("spellcast")) {
+        if (source.type === "feat") {
             const baseRule: AELikeSource = {
                 key: "ActiveEffectLike",
                 mode: "upgrade",
@@ -30,16 +30,45 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
             };
 
             switch (source.system.slug) {
+                case "bloodline":
+                case "patron":
+                    source.system.rules = source.system.rules.filter(
+                        (r: MaybeAELike) => r.path !== "system.proficiencies.spellcasting.rank",
+                    );
+                    break;
                 case "expert-spellcaster":
+                    source.system.rules = [{ ...baseRule, value: 2 }];
+                    source.system.publication = {
+                        ...(source.system.publication ?? {}),
+                        license: "ORC",
+                        remaster: true,
+                        title: "Pathfinder Player Core",
+                    };
+                    break;
                 case "expert-spellcasting":
                     source.system.rules = [{ ...baseRule, value: 2 }];
                     break;
                 case "master-spellcaster":
+                    source.system.rules = [{ ...baseRule, value: 3 }];
+                    source.system.publication = {
+                        ...(source.system.publication ?? {}),
+                        license: "ORC",
+                        remaster: true,
+                        title: "Pathfinder Player Core",
+                    };
+                    break;
                 case "master-spellcasting":
                     source.system.rules = [{ ...baseRule, value: 3 }];
                     break;
                 case "legendary-spellcaster":
                     source.system.rules = [{ ...baseRule, value: 4 }];
+                    source.system.publication = {
+                        ...(source.system.publication ?? {}),
+                        license: "ORC",
+                        remaster: true,
+                        title: "Pathfinder Player Core",
+                    };
+                    break;
                     break;
             }
         }
