@@ -1,5 +1,5 @@
 {
-    "_id": "ZbRVqf14RTJJIZXG",
+    "_id": "SBNg9Fl1HhuXZf74",
     "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Halfling Luck",
     "system": {
@@ -28,7 +28,33 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    {
+                        "gt": [
+                            "halfling-luck",
+                            0
+                        ]
+                    }
+                ],
+                "selector": [
+                    "skill-check",
+                    "saving-throw"
+                ],
+                "text": "You can re-roll this check or saving throw.",
+                "title": "Halfling Luck"
+            },
+            {
+                "key": "RollOption",
+                "option": "halfling-luck:{item|frequency.value}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
