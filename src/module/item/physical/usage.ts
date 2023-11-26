@@ -45,6 +45,7 @@ function getUsageDetails(usage: string): UsageDetails {
 
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
+        case "held-in-one-or-two-hands":
             return { value: usage, type: "held", hands: 1 };
         case "held-in-two-hands":
             return { value: usage, type: "held", hands: 2 };
