@@ -260,7 +260,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     override async activateEditor(
         name: string,
         options: EditorCreateOptions = {},
-        initialContent?: string,
+        initialContent = "",
     ): Promise<TinyMCE.Editor | ProseMirror.EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
@@ -280,7 +280,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
-        return super.activateEditor(name, options, sourceContent);
+        // Prevent additional description content from some item types getting injected into the editor content
+        const instance = await super.activateEditor(name, options, sourceContent);
+        if ("startContent" in instance && sourceContent.trim() === "") {
+            instance.resetContent(sourceContent);
+        }
+
+        return instance;
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {

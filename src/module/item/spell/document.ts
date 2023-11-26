@@ -565,9 +565,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             });
         }
 
-        this.system.time.value = this.system.time.value.trim();
+        const castTime = (this.system.time.value = this.system.time.value.trim());
         // Special case for Horizon Thunder Sphere until glyph generation refactor
-        if (!this.isRitual && !getActionGlyph(this.system.time.value) && this.system.time.value !== "2 to 2 rounds") {
+        if (!["", "2 to 2 rounds"].includes(castTime) && !this.isRitual && !getActionGlyph(castTime)) {
             this.system.traits.value.push("exploration");
             this.system.traits.value.sort();
         }

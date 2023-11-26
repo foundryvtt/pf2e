@@ -22,7 +22,10 @@ async function createDescriptionPrepend(
               .sort((a, b) => a.localeCompare(b, game.i18n.lang))
               .join(", ")
         : null;
-    return renderTemplate("systems/pf2e/templates/items/partials/spell-description-prepend.hbs", { spell, traditions });
+    const templatePath = "systems/pf2e/templates/items/partials/spell-description-prepend.hbs";
+    const rendered = (await renderTemplate(templatePath, { spell, traditions })).trim();
+
+    return rendered ? `${rendered}\n<hr />` : "";
 }
 
 export { createDescriptionPrepend, createSpellRankLabel };
