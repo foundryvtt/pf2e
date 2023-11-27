@@ -512,6 +512,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         ...this.getOriginData(),
                     },
                     areaType: this.system.area?.type ?? null,
+                    unconstrained:
+                        this.system.area?.type === "emanation" ? this.system.area.unconstrained ?? null : null,
                 },
             },
         };

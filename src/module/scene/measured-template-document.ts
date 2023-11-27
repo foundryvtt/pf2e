@@ -6,6 +6,7 @@ import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import type { ScenePF2e } from "./document.ts";
+import { TokenDocumentPF2e } from "./token-document/document.ts";
 
 class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
@@ -54,6 +55,14 @@ class MeasuredTemplateDocumentPF2e<
         return initialized;
     }
 
+    get token(): TokenDocumentPF2e | null {
+        return this.message?.token
+            ? this.message.token
+            : this.actor
+              ? this.actor.getActiveTokens().at(0)?.document ?? null
+              : null;
+    }
+
     /** If present, show the clear-template button on the message from which this template was spawned */
     protected override _onCreate(
         data: this["_source"],
@@ -80,6 +89,7 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
             messageId?: string;
             origin?: ItemOriginFlag;
             areaType: EffectAreaType | null;
+            unconstrained: boolean | null;
         };
     };
 }

@@ -50,7 +50,7 @@ interface SpellTraits extends ItemTraits<SpellTrait> {
     traditions: MagicTradition[];
 }
 
-interface SpellArea {
+interface SpellAreaBase {
     value: EffectAreaSize;
     type: EffectAreaType;
     /**
@@ -59,6 +59,18 @@ interface SpellArea {
      */
     details?: string;
 }
+
+interface SpellAreaEmanation extends SpellAreaBase {
+    type: "emanation";
+    /* Allow free placement of the emanation? */
+    unconstrained?: boolean;
+}
+
+interface SpellAreaOther extends SpellAreaBase {
+    type: "burst" | "cone" | "cube" | "line" | "square";
+}
+
+type SpellArea = SpellAreaEmanation | SpellAreaOther;
 
 interface SpellDamageSource {
     formula: string;

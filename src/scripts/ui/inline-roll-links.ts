@@ -248,7 +248,7 @@ export const InlineRollLinks = {
         } as const;
 
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
+            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width, pf2Unconstrained } = link.dataset;
             link.addEventListener("click", () => {
                 if (!canvas.ready) return;
 
@@ -291,6 +291,9 @@ export const InlineRollLinks = {
                     objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
                 ) {
                     flags.pf2e.areaType = pf2EffectArea;
+                    if (pf2EffectArea === "emanation" && pf2Unconstrained === "true") {
+                        flags.pf2e.unconstrained = true;
+                    }
                 }
 
                 const messageId =

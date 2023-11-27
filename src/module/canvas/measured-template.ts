@@ -4,7 +4,7 @@ import type { EffectAreaType } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
 import { highlightGrid } from "./helpers.ts";
-import type { TemplateLayerPF2e } from "./index.ts";
+import type { TemplateLayerPF2e, TokenPF2e } from "./index.ts";
 
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
@@ -23,6 +23,10 @@ class MeasuredTemplatePF2e<
 
     get areaType(): EffectAreaType | null {
         return this.document.areaType;
+    }
+
+    get token(): TokenPF2e | null {
+        return this.document.token?.object ?? null;
     }
 
     /** Set the template layer's grid precision appropriately for this measured template's shape. */

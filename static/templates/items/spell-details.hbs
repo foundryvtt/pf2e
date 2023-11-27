@@ -45,7 +45,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.AreaLabel"}}</label>
-        <div class="details-container-two-columns">
+        <div class="details-container-{{#if (eq data.area.type "emanation")}}three{{else}}two{{/if}}-columns">
             <select name="system.area.value" data-dtype="Number">
                 <option value="0"></option>
                 {{#select data.area.value}}
@@ -62,6 +62,20 @@
                     {{/each}}
                 {{/select}}
             </select>
+            {{#if (eq data.area.type "emanation")}}
+                <div class="area-emanation">
+                    <label
+                        for="{{fieldIdPrefix}}area-unconstrained"
+                        data-tooltip="PF2E.Item.Spell.AreaDetails.Emanation.UnconstrainedDetails"
+                    >{{localize "PF2E.Item.Spell.AreaDetails.Emanation.Unconstrained"}}</label>
+                    <input
+                        type="checkbox"
+                        name="system.area.unconstrained"
+                        id="{{fieldIdPrefix}}area-unconstrained"
+                        {{checked data.area.unconstrained}}
+                    />
+                </div>
+            {{/if}}
         </div>
     </div>
 

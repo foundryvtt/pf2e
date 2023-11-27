@@ -133,7 +133,17 @@ export class TemplateLayerPF2e<
                 preview.snapForShape();
                 const { document, position } = preview;
                 this.#deactivatePreviewListeners(initialLayer, event);
-                document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y, this.gridPrecision));
+                const { x, y } = (() => {
+                    if (preview.areaType === "emanation" && !preview.document.flags.pf2e.unconstrained) {
+                        // Place emanations at token center unless the emanation is unconstrained
+                        const { token } = preview;
+                        if (token) {
+                            return { x: token.center.x, y: token.center.y };
+                        }
+                    }
+                    return { x: position.x, y: position.y };
+                })();
+                document.updateSource(canvas.grid.getSnappedPosition(x, y, this.gridPrecision));
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {

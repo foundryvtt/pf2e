@@ -315,6 +315,8 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            if (params.type === "emanation" && params.unconstrained === "true")
+                html.setAttribute("data-pf2-unconstrained", "true");
             return html;
         }
         return null;
