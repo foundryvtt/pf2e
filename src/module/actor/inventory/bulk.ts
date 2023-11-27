@@ -50,13 +50,13 @@ export class InventoryBulk {
     }
 
     get encumberedPercentage(): number {
-        const totalTimes10 = this.value.toLightBulk();
+        const totalTimes10 = this.value.toLightUnits();
         const encumberedAtTimes10 = this.encumberedAfter * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
     get maxPercentage(): number {
-        const totalTimes10 = this.value.toLightBulk();
+        const totalTimes10 = this.value.toLightUnits();
         const limitTimes10 = this.max * 10 + 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
@@ -98,9 +98,9 @@ export class InventoryBulk {
             per: item.system.bulk.per,
             item,
             group: item.system.baseItem,
-            bulk: new Bulk({ light: item.system.bulk.value }).convertToSize(item.size, actorSize),
+            bulk: new Bulk(item.system.bulk.value).convertToSize(item.size, actorSize),
         }));
-        const grouped = groupBy(stackingBehaviors, (d) => `${d.group}-${d.per}-${d.bulk.toLightBulk()}`);
+        const grouped = groupBy(stackingBehaviors, (d) => `${d.group}-${d.per}-${d.bulk.toLightUnits()}`);
         const bulks = [...grouped.values()].map((dataEntries) => {
             const { bulk, per } = dataEntries[0]; // guaranteed to have at least one with groupBy
             const quantity = dataEntries.map((entry) => entry.item.quantity).reduce((sum, value) => sum + value, 0);

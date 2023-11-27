@@ -3,12 +3,14 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
-import { Bulk, STACK_DEFINITIONS, weightToBulk } from "./bulk.ts";
+import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
 import { BulkData } from "./data.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
+import { ContainerBulkData } from "@item/container/data.ts";
+import { ContainerPF2e } from "@item";
 
 function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = item.price.value;
@@ -20,7 +22,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     // https://2e.aonprd.com/Equipment.aspx?ID=380
     const materialData = getMaterialValuationData(item);
     const materialPrice = materialData?.price ?? 0;
-    const heldOrStowedBulk = new Bulk({ light: item.system.bulk.heldOrStowed });
+    const heldOrStowedBulk = new Bulk(item.system.bulk.heldOrStowed);
     const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
     const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
@@ -187,18 +189,26 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
 }
 
 /**  Convert of scattershot bulk data on a physical item into a single object */
-function organizeBulkData(item: PhysicalItemPF2e): BulkData {
+function organizeBulkData<TItem extends PhysicalItemPF2e>(
+    item: TItem,
+): TItem extends ContainerPF2e ? ContainerBulkData : BulkData;
+function organizeBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
     const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
     const per = stackData?.size ?? 1;
 
-    const heldOrStowed = stackData?.lightBulk ?? weightToBulk(item.system.weight.value)?.toLightBulk() ?? 0;
-    const worn = item.system.equippedBulk.value
-        ? weightToBulk(item.system.equippedBulk.value)?.toLightBulk() ?? 0
-        : heldOrStowed;
+    const sourceBulk = item._source.system.bulk;
+    const heldOrStowed = item.isOfType("armor")
+        ? new Bulk(sourceBulk.value).increment().value
+        : "heldOrStowed" in sourceBulk
+          ? Number(sourceBulk.heldOrStowed) || 0
+          : sourceBulk.value;
+    const worn = item.system.bulk.value;
+    const value = item.isEquipped ? worn : heldOrStowed;
+    const data = { heldOrStowed, value, per };
 
-    const value = item.isOfType("armor", "equipment", "backpack") && item.isEquipped ? worn : heldOrStowed;
-
-    return { heldOrStowed, worn, value, per };
+    return item.isOfType("backpack")
+        ? { ...data, capacity: item.system.bulk.capacity, ignored: item.system.bulk.ignored }
+        : data;
 }
 
 export { coinCompendiumIds } from "./coins.ts";

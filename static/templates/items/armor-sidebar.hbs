@@ -4,34 +4,19 @@
         <input type="number" name="system.quantity" value="{{data.quantity}}" />
     </div>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select data-property="system.weight.value" data-value-base="{{item._source.system.weight.value}}">
-            {{#select data.weight.value}}
-                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-                {{#each bulkTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
+      <div class="form-group">
+        <label>{{localize "PF2E.Item.Physical.Bulk.Label"}}</label>
+        <select name="system.bulk.value" data-dtype="Number" {{disabled bulkDisabled}}>
+            {{#select data.bulk.value}}
+                <option value="0">{{localize "PF2E.Item.Physical.Bulk.Negligible"}}</option>
+                <option value="0.1">{{localize "PF2E.Item.Physical.Bulk.Light"}}</option>
+                {{#each bulks as |bulk|}}
+                    <option value="{{bulk}}">{{bulk}}</option>
                 {{/each}}
             {{/select}}
         </select>
     </div>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select
-            data-property="system.equippedBulk.value"
-            data-value-base="{{item._source.system.equippedBulk.value}}"
-            {{disabled bulkDisabled}}
-        >
-            {{#select data.equippedBulk.value}}
-                <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
-                <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
-                {{#each bulkTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
     <div class="form-group">
         <label for="{{item.uuid}}-size">{{localize "PF2E.Size"}}</label>
         <select name="system.size" id="{{item.uuid}}-size">
