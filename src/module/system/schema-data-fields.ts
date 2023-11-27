@@ -282,7 +282,7 @@ class PredicateStatementField extends fields.DataField<PredicateStatement, Predi
             required: true,
             nullable: false,
             initial: undefined,
-            validationError: "must be recognized predicated statement type",
+            validationError: "must be a recognized predication statement",
         });
     }
 

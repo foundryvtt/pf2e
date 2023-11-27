@@ -75,10 +75,10 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         super.validateJoint(data);
 
         if (data.alternate && !data.text && !data.damageDice && !data.modifier) {
-            throw Error("  alternate: must also include at least one of text, damage dice, or modifier");
+            throw Error("alternate: must also include at least one of text, damage dice, or modifier");
         } else if (!data.alternate && (data.text || data.damageDice || data.modifier)) {
             const badProperty = (["text", "damageDice", "modifier"] as const).find((k) => data[k]);
-            throw Error(`  ${badProperty}: may only be used if alternate is true`);
+            throw Error(`${badProperty}: may only be used if alternate is true`);
         }
     }
 

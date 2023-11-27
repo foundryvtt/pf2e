@@ -180,6 +180,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             this.actor.synthetics.preparationWarnings.add(
                 `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
             );
+            const { DataModelValidationFailure } = foundry.data.validation;
+            this.validationFailures.joint ??= new DataModelValidationFailure({
+                message: fullMessage,
+                unresolved: true,
+            });
         }
         this.ignored = true;
     }
@@ -293,13 +298,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                             !unresolveds.every((u) => u.startsWith("@target.") || u.startsWith("@actor.conditions."));
                         this.ignored = true;
                         if (shouldWarn) {
-                            this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                            this.failValidation(`unable to resolve formula, "${formula}"`);
                         }
                         return Number(defaultValue);
                     }
                     return Roll.safeEval(formula);
                 } catch {
-                    this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
+                    this.failValidation(`unable to evaluate formula, "${formula}"`);
                     return 0;
                 }
             };
