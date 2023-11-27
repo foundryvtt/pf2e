@@ -1,8 +1,8 @@
 import { TokenEffect } from "@actor/token-effect.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import { EffectPF2e } from "@item";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { isImageFilePath } from "@util";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /**
  * Add an effect icon to an actor's token
@@ -22,7 +22,7 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
 
         const path = this.value ? this.resolveInjectedProperties(this.value).trim() : this.item.img;
         if (!isImageFilePath(path)) {
-            return this.failValidation("value is not a valid image file path");
+            return this.failValidation("value: must resolve to an image file path");
         }
         this.actor.synthetics.tokenEffectIcons.push(
             new TokenEffect(new EffectPF2e({ type: "effect", name: this.label, img: path })),

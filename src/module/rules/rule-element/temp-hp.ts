@@ -37,7 +37,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
         if (this.ignored || !this.events.onCreate) return;
 
         const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
-        const value = this.resolveValue(this.value);
+        const value = Math.trunc(Number(this.resolveValue(this.value)));
 
         const rollOptions = Array.from(
             new Set([
@@ -49,8 +49,8 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             return;
         }
 
-        if (typeof value !== "number") {
-            return this.failValidation("Temporary HP requires a non-zero value field");
+        if (typeof Number.isNaN(value) || value < 0) {
+            return this.failValidation("value: must resolve to a positive number");
         }
 
         const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
