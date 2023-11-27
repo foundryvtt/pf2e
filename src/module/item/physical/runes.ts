@@ -1375,7 +1375,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             ],
             ignoredResistances: [
                 { type: "fire", max: null },
-                { type: "good", max: null },
+                { type: "spirit", max: null },
                 { type: "vitality", max: null },
             ],
         },
