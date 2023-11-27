@@ -580,6 +580,7 @@ class PackExtractor {
             "spell",
             "weapon",
             "armor",
+            "shield",
             "equipment",
             "consumable",
             "treasure",
