@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{localize "PF2E.ConsumableTypeLabel"}}</label>
+    <label>{{localize "PF2E.Category"}}</label>
     <select name="system.consumableType.value">
         {{#select data.consumableType.value}}
             {{#each consumableTypes as |name type|}}
@@ -9,15 +9,24 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label for="{{fieldIdPrefix}}uses-value">{{localize "PF2E.Item.Consumable.Uses.Label"}}</label>
+    <div class="form-fields">
+        <input id="{{fieldIdPrefix}}uses-value" type="number" name="system.charges.value" value="{{data.charges.value}}" />
+        /
+        <input type="number" name="system.charges.max" value="{{data.charges.max}}" />
+    </div>
+</div>
+
 {{#unless item.isAmmunition}}
     <div class="form-group">
-        <label>{{localize "PF2E.ConsumableConsumeLabel"}}</label>
-        <input type="text" name="system.consume.value" value="{{data.consume.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+        <label>{{localize "PF2E.Formula"}}</label>
+        <input type="text" name="system.consume.value" value="{{data.consume.value}}" />
     </div>
 {{/unless}}
 
 <div class="form-group">
-    <label>{{localize "PF2E.ConsumableAutoDestroyLabel"}}</label>
+    <label>{{localize "PF2E.Item.Consumable.Uses.AutoDestroy"}}</label>
     <input type="checkbox" name="system.autoDestroy.value" {{checked data.autoDestroy.value}} />
 </div>
 

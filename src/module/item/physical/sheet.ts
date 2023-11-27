@@ -1,5 +1,6 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import { localizer } from "@util";
 import * as R from "remeda";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
@@ -80,16 +81,24 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 : null;
         })();
 
+        const localizeBulk = localizer("PF2E.Item.Physical.Bulk");
+        const bulks = [0, 0.1, ...Array.fromRange(50, 1)].map((value) => {
+            if (value === 0) return { value, label: localizeBulk("Negligible.Label") };
+            if (value === 0.1) return { value, label: localizeBulk("Light.Label") };
+            return { value, label: value.toString() };
+        });
+
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
+            sidebarTemplate: "systems/pf2e/templates/items/physical-sidebar.hbs",
             baseLevel: baseData.system.level.value,
             adjustedLevelHint,
             basePrice,
             priceAdjustment,
             adjustedPriceHint,
             actionTypes: CONFIG.PF2E.actionTypes,
-            bulks: Array.fromRange(50, 1),
+            bulks,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: CONFIG.PF2E.actorSizes,
@@ -232,6 +241,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 }
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    sidebarTemplate: string;
     isPhysical: true;
     baseLevel: number;
     basePrice: CoinsPF2e;
@@ -240,7 +250,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     adjustedLevelHint: string | null;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
-    bulks: number[];
+    bulks: { value: number; label: string }[];
     frequencies: typeof CONFIG.PF2E.frequencies;
     sizes: typeof CONFIG.PF2E.actorSizes;
     usages: typeof CONFIG.PF2E.usages;
