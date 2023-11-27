@@ -5,11 +5,26 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
 .sheet.army {
     form {
         display: grid;
-
         grid-template:
             "header header" min-content
             "sidebar content" 1fr
             / min-content 1fr;
+        overflow: hidden;
+
+        background: url("/assets/sheet/background.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: local;
+    }
+
+    input {
+        &.adjusted-higher {
+            color: $adjusted-higher;
+        }
+
+        &.adjusted-lower {
+            color: $adjusted-lower;
+        }
     }
 
     form > header {
@@ -206,6 +221,7 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
 
     // Sheet contents
     section.army-body {
+        grid-area: content;
         color: $color;
         padding: 0.5rem;
         overflow: auto;

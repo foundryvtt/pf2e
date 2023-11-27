@@ -29,11 +29,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ["campaignFeature", "effect"];
     }
 
-    get routed(): boolean {
-        return this.hitPoints.value < this.system.attributes.hp.routThreshold;
+    get underRoutThreshold(): boolean {
+        return this.hitPoints.value <= this.system.attributes.hp.routThreshold;
     }
 
-    /** Gets the active kingdom. Later this should be configurable */
+    /** Gets the active kingdom. Later this should be configurable based on alliance */
     get kingdom(): Kingdom | null {
         const campaign = game.actors.party?.campaign;
         return campaign instanceof Kingdom ? campaign : null;
@@ -55,8 +55,19 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
     }
 
+    /** Run rule elements */
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+        this.prepareSynthetics();
+
+        this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
 
         const expectedAC = ARMY_STATS.ac[this.level];
         const acAdjustment = this.system.ac.value - expectedAC;
@@ -93,6 +104,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             ]),
         });
 
+        // Add statistics for saving throws
+        // Note: Kingmaker refers to these as both a type of save (high/low save) but also as "maneuver check"
         for (const saveType of ["maneuver", "morale"] as const) {
             const table = this.system.saves.strongSave === saveType ? ARMY_STATS.strongSave : ARMY_STATS.weakSave;
             const baseValue = table[this.level];
@@ -101,6 +114,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             this[saveType] = new Statistic(this, {
                 slug: saveType,
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
+                domains: ["all", "saving-throw", `${saveType}-check`],
                 modifiers: R.compact([
                     new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseValue }),
                     adjustment
@@ -141,6 +155,14 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     modifier: ARMY_STATS.attack[this.level],
                 }),
                 data.potency && new ModifierPF2e({ slug: "potency", label: "Potency", modifier: data.potency }),
+                new ModifierPF2e({
+                    slug: "concealed",
+                    label: "PF2E.Kingmaker.Army.Condition.concealed.name",
+                    type: "circumstance",
+                    modifier: -2,
+                    predicate: ["target:effect:concealed"],
+                    hideIfDisabled: true,
+                }),
             ]),
         });
 
