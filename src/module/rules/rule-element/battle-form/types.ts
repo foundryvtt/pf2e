@@ -4,7 +4,7 @@ import { AttributeString, MovementType } from "@actor/types.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
-import { RawPredicate } from "@system/predication.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { RuleElementSource } from "../index.ts";
 import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 
@@ -52,20 +52,34 @@ type BattleFormSenses = { [K in SenseType]?: BattleFormSense };
 type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 type BattleFormSpeeds = { [K in MovementType]?: number };
 
-interface BattleFormStrike {
+interface BattleFormStrikeBase {
     label: string;
     img?: ImageFilePath;
     ability?: AttributeString;
     category: WeaponCategory;
     group: WeaponGroup | null;
-    baseType?: BaseWeaponType | null;
     traits: WeaponTrait[];
-    modifier: string | number;
-    damage: WeaponDamage;
     ownIfHigher?: boolean;
     range?: number | null;
     maxRange?: number | null;
+}
+
+interface BattleFormStrike extends BattleFormStrikeBase {
+    baseType?: BaseWeaponType | null;
+    modifier: string | number;
+    damage: WeaponDamage;
     predicate?: RawPredicate;
+}
+
+interface BattleFormStrikeData extends BattleFormStrikeBase {
+    key: "Strike";
+    slug: string;
+    img: ImageFilePath;
+    baseItem?: BaseWeaponType | null;
+    options: string[];
+    damage: { base: WeaponDamage };
+    ownIfHigher: boolean;
+    predicate?: PredicatePF2e;
 }
 
 interface BattleFormStrikeQuery {
@@ -83,5 +97,6 @@ export type {
     BattleFormSource,
     BattleFormSpeeds,
     BattleFormStrike,
+    BattleFormStrikeData,
     BattleFormStrikeQuery,
 };

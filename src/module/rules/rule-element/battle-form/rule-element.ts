@@ -21,7 +21,7 @@ import { SenseRuleElement } from "../sense.ts";
 import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
 import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
-import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
+import { BattleFormSource, BattleFormStrike, BattleFormStrikeData, BattleFormStrikeQuery } from "./types.ts";
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     /** The label given to modifiers of AC, skills, and strikes */
@@ -364,25 +364,30 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const { synthetics } = this.actor;
         const strikes = this.overrides.strikes ?? {};
 
-        const ruleData = Object.entries(strikes).map(([slug, strikeData]) => ({
-            key: "Strike",
-            label:
-                game.i18n.localize(strikeData.label) ??
-                `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
-            slug,
-            img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
-            category: strikeData.category,
-            group: strikeData.group,
-            baseItem: strikeData.baseType,
-            options: [slug],
-            damage: { base: strikeData.damage },
-            range: strikeData.range,
-            maxRange: strikeData.maxRange,
-            traits: strikeData.traits ?? [],
-            ability: strikeData.ability,
-            ownIfHigher: (strikeData.ownIfHigher ??= true),
-            predicate: strikeData.predicate ? new PredicatePF2e(strikeData.predicate) : null,
-        }));
+        const ruleData = Object.entries(strikes).map(([slug, strikeData]) => {
+            const datum: BattleFormStrikeData = {
+                key: "Strike",
+                label:
+                    game.i18n.localize(strikeData.label) ??
+                    `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
+                slug,
+                img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
+                category: strikeData.category,
+                group: strikeData.group,
+                baseItem: strikeData.baseType,
+                options: [slug],
+                damage: { base: strikeData.damage },
+                range: strikeData.range,
+                maxRange: strikeData.maxRange,
+                traits: strikeData.traits ?? [],
+                ability: strikeData.ability,
+                ownIfHigher: (strikeData.ownIfHigher ??= true),
+            };
+            if (strikeData.predicate) {
+                datum.predicate = new PredicatePF2e(strikeData.predicate);
+            }
+            return datum;
+        });
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
         if (this.ownUnarmed) {
