@@ -923,6 +923,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "ashen",
         traits: ["magical"],
     },
+    astral: {
+        level: 8,
+        name: "PF2E.WeaponPropertyRune.astral.Name",
+        price: 450,
+        rarity: "common",
+        slug: "astral",
+        traits: ["magical", "spirit"],
+    },
     authorized: {
         level: 3,
         name: "PF2E.WeaponPropertyRune.authorized.Name",
@@ -1320,6 +1328,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "greaterAshen",
         traits: ["magical"],
+    },
+    greaterAstral: {
+        level: 15,
+        name: "PF2E.WeaponPropertyRune.greaterAstral.Name",
+        price: 6000,
+        rarity: "common",
+        slug: "greaterAstral",
+        traits: ["magical", "spirit"],
     },
     greaterBloodbane: {
         level: 13,
