@@ -6,6 +6,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/
 import { Size } from "@module/data.ts";
 import { RuleElementSource } from "../index.ts";
 import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
+import { RawPredicate } from "@system/predication.ts";
 
 interface BattleFormSource extends RuleElementSource {
     overrides?: BattleFormOverrides;
@@ -64,6 +65,7 @@ interface BattleFormStrike {
     ownIfHigher?: boolean;
     range?: number | null;
     maxRange?: number | null;
+    predicate?: RawPredicate;
 }
 
 interface BattleFormStrikeQuery {
