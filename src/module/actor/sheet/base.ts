@@ -163,15 +163,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 types: ["weapon", "shield"],
                 items: [],
             },
-            { label: game.i18n.localize("PF2E.InventoryArmorHeader"), types: ["armor"], items: [] },
-            { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), types: ["equipment"], items: [] },
+            { label: game.i18n.localize("TYPES.Item.armor"), types: ["armor"], items: [] },
+            { label: game.i18n.localize("TYPES.Item.equipment"), types: ["equipment"], items: [] },
             {
-                label: game.i18n.localize("PF2E.InventoryConsumablesHeader"),
+                label: game.i18n.localize("PF2E.Item.Consumable.Plural"),
                 types: ["consumable"],
                 items: [],
             },
-            { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), types: ["treasure"], items: [] },
-            { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), types: ["backpack"], items: [] },
+            { label: game.i18n.localize("TYPES.Item.treasure"), types: ["treasure"], items: [] },
+            { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
         for (const item of this.actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
