@@ -1,9 +1,9 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import type { PhysicalItemPF2e } from "@item";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { localizer } from "@util";
 import * as R from "remeda";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
-import type { PhysicalItemPF2e } from "./document.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,
@@ -120,11 +120,15 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return super.render(force, options);
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData): MaterialSheetData {
+    protected getMaterialSheetData(item: PhysicalItemPF2e, valuationData: MaterialValuationData): MaterialSheetData {
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
+        const isSpecificMagicItem = item.isSpecific;
         const materials = Object.entries(valuationData).reduce(
             (result, [materialKey, materialData]) => {
-                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
+                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter(
+                    (grade) =>
+                        !!materialData[grade] && (!isSpecificMagicItem || item.system.material.type === materialKey),
+                );
                 if (validGrades.length) {
                     result[materialKey] = {
                         label: game.i18n.localize(preciousMaterials[materialKey]),

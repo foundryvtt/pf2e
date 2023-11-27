@@ -100,7 +100,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         return {
             ...sheetData,
             propertyRuneSlots,
-            preciousMaterials: this.prepareMaterials(MATERIAL_DATA.weapon),
+            preciousMaterials: this.getMaterialSheetData(weapon, MATERIAL_DATA.weapon),
             fundamentalRunes,
             propertyRunes,
             otherTags,
