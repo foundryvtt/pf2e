@@ -253,7 +253,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`bulk:${bulk}`]: true,
-                [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
