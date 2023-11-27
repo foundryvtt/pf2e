@@ -23,6 +23,7 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
@@ -82,7 +83,6 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { itemIsOfType } from "@item/helpers.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
