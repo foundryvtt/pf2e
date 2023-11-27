@@ -73,8 +73,17 @@
 <fieldset>
     <legend>{{localize "PF2E.Item.Physical.MaterialRunes.Label"}}</legend>
     <div class="form-group precious-material">
-        <label for="{{item.uuid}}-material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
-        <select id="{{item.uuid}}-material" data-property="system.material" data-value-base="{{json item._source.system.material}}" data-dtype="JSON">
+        <label
+            for="{{fieldIdPrefix}}material"
+            {{#unless canChangeMaterial}}class="disabled"{{/unless}}
+        >{{localize "PF2E.PreciousMaterialLabel"}}</label>
+        <select
+            id="{{fieldIdPrefix}}material"
+            data-property="system.material"
+            data-value-base="{{json item._source.system.material}}"
+            data-dtype="JSON"
+            {{disabled (not canChangeMaterial)}}
+        >
             {{#select preciousMaterials.value}}
                 <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
                 {{#each preciousMaterials.materials as |material|}}
@@ -126,13 +135,18 @@
 
         {{#each propertyRuneSlots as |slot index|}}
             <div class="form-group">
-                <label for="{{../fieldIdPrefix}}integrated-runes-property-{{index}}">
+                <label
+                    for="{{../fieldIdPrefix}}integrated-runes-property-{{index}}"
+                    {{#if slot.disabled}}class="disabled"{{/if}}
+                >
                     {{localize (concat "PF2E.PropertyRuneLabel" (add index 1))}}
                 </label>
                 <select
-                    {{#if (and slot.enabled (not @root.data.specific))}}name="system.traits.integrated.runes.property.{{index}}"{{/if}}
+                    name="system.traits.integrated.runes.property.{{index}}"
                     id="{{../fieldIdPrefix}}integrated-runes-property-{{index}}"
-                    {{disabled (or (not slot.enabled) @root.data.specific)}}>
+                    {{disabled slot.disabled}}
+                    {{#if slot.readOnly}}class="readonly"{{/if}}
+                >
                     {{#select slot.slug}}
                         <option value=""></option>
                         {{#each @root.weaponRunes.property as |rune|}}

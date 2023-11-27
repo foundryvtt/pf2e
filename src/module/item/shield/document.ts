@@ -243,7 +243,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 additionalData.name = this._source.name;
             }
 
-            return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+            return new ItemProxyPF2e(mergeObject(baseData, additionalData), {
+                parent: this.parent,
+                shield: this,
+            }) as WeaponPF2e<TParent>;
         }
 
         const damageData: { system: Partial<WeaponSystemSource> } = {

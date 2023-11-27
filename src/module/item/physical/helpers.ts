@@ -1,5 +1,7 @@
 import { ActorProxyPF2e } from "@actor";
+import { ContainerPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
+import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
@@ -9,8 +11,6 @@ import { BulkData } from "./data.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
-import { ContainerBulkData } from "@item/container/data.ts";
-import { ContainerPF2e } from "@item";
 
 function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = item.price.value;
@@ -27,13 +27,18 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
-    const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0);
+    const reinforcingRuneValue =
+        !item.isOfType("shield") || item.isSpecific
+            ? 0
+            : RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0;
+    const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
         : basePrice.add({ gp: materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
-    const afterShoddy = item.isShoddy ? higher.scale(0.5) : higher;
+    const afterReinforcingRune = higher.add(new CoinsPF2e({ gp: reinforcingRuneValue }));
+    const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */
     return item.isMagical ? afterShoddy : afterShoddy.adjustForSize(item.size);
