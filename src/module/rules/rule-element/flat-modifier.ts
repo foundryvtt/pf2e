@@ -196,7 +196,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
-    ability: StringField<AttributeString, AttributeString, false, false, false>;
+    ability: StringField<string, string, false, false, false>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
     min: NumberField<number, number, false, false, false>;
     max: NumberField<number, number, false, false, false>;
