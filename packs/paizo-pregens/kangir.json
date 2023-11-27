@@ -169,7 +169,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.jDdOqFmZLwE4dblQ"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Pickpocket",
             "sort": 0,
             "system": {
@@ -219,7 +219,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.C1R4wd6G46CAVIn7"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Unburdened Iron",
             "sort": 0,
             "system": {
@@ -231,7 +231,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>You've learned techniques first devised by your ancestors during their ancient wars, allowing you to comfortably wear massive suits of armor. Ignore the reduction to your Speed from any armor you wear. In addition, any time you're taking a penalty to your Speed from some other reason (such as from the encumbered condition or from a spell), deduct 5 feet from the penalty. For example, the encumbered condition normally gives a -10-foot penalty to Speed, but it gives you only a -5-foot penalty. If your Speed is taking multiple penalties, pick only one penalty to reduce.</p>"
+                    "value": "<p>You've learned techniques first devised by your ancestors during their ancient wars, allowing you to comfortably wear massive suits of armor. Ignore the reduction to your Speed from any armor you wear.</p>\n<p>In addition, any time you're taking a penalty to your Speed for some other reason (such as from the @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] condition or from a spell), deduct 5 feet from the penalty. For example, the encumbered condition normally gives a –10-foot penalty to Speed, but this feat would reduce it to a –5-foot penalty. If your Speed is taking multiple penalties, pick only one penalty to reduce.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -242,15 +242,38 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
-                        "domain": "speed",
-                        "key": "RollOption",
-                        "option": "armor:ignore-speed-penalty"
+                        "key": "AdjustModifier",
+                        "selectors": [
+                            "land-speed"
+                        ],
+                        "slug": "armor-speed-penalty",
+                        "suppress": true
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "maxApplications": 1,
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "not": "penalty:slug:armor-speed-penalty"
+                            },
+                            {
+                                "lte": [
+                                    "penalty:value",
+                                    -5
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "land-speed"
+                        ],
+                        "value": 5
                     }
                 ],
                 "slug": "unburdened-iron",
@@ -270,7 +293,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.HOUHs5rahwIsQoBf"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Stonecunning",
             "sort": 0,
             "system": {
@@ -341,7 +364,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.w8Ycgeq2zfyshtoS"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Reactive Shield",
             "sort": 0,
             "system": {
@@ -389,7 +412,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.19OLlTrxvEtDAOHc"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Aggressive Block",
             "sort": 0,
             "system": {
@@ -434,7 +457,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.lkcM4V3VDAtjlR9P"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Intimidating Strike",
             "sort": 0,
             "system": {
@@ -482,7 +505,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.JHcvySfCM9uYNb9N"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Revealing Stab",
             "sort": 0,
             "system": {
@@ -527,7 +550,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Additional Lore",
             "sort": 0,
             "system": {
@@ -578,7 +601,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Combat Climber",
             "sort": 0,
             "system": {
@@ -628,7 +651,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quick Repair",
             "sort": 0,
             "system": {
@@ -678,7 +701,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Fleet",
             "sort": 0,
             "system": {
@@ -770,9 +793,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -880,9 +900,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -986,9 +1003,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -1094,9 +1108,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 0
                 },
@@ -1174,14 +1185,11 @@
             "sort": 600000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 8, HP 64, and BT 32.</p>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -1190,7 +1198,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 8,
                 "hp": {
                     "max": 64,
@@ -1203,28 +1210,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 100
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1232,16 +1221,26 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "sturdy-shield-minor",
-                "speedPenalty": null,
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -1254,7 +1253,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "T2G1oKfW29Qj1Ltl",
@@ -1298,10 +1297,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -1397,9 +1392,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 20
@@ -1481,9 +1473,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
@@ -1564,9 +1553,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1707,9 +1693,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 1
@@ -1773,9 +1756,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 1
@@ -1838,9 +1818,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1912,9 +1889,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 2
@@ -1977,9 +1951,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2044,9 +2015,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 5
@@ -2110,9 +2078,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "gp": 3
@@ -2175,9 +2140,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2298,7 +2260,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Armor Expertise"
                     },
                     "e1e4m": {
-                        "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
                         "level": 1,
                         "name": "Shield Block",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
@@ -2334,7 +2296,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Armor Mastery"
                     },
                     "r6269": {
-                        "img": "systems/pf2e/icons/features/classes/attack-of-opportunity.webp",
+                        "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
                         "level": 1,
                         "name": "Attack of Opportunity",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reactive Strike"
@@ -2358,7 +2320,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
                     },
                     "u8k07": {
-                        "img": "systems/pf2e/icons/features/classes/fighter-weapon-mastery.webp",
+                        "img": "icons/weapons/swords/sword-guard-steel-green.webp",
                         "level": 5,
                         "name": "Fighter Weapon Mastery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Weapon Mastery"
@@ -2423,6 +2385,7 @@
                     ]
                 },
                 "slug": "fighter",
+                "spellcasting": 0,
                 "trainedSkills": {
                     "additional": 3,
                     "value": []
@@ -2449,7 +2412,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/attack-of-opportunity.webp",
+            "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
             "name": "Attack of Opportunity",
             "sort": 0,
             "system": {
@@ -2507,7 +2470,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
             "name": "Shield Block",
             "sort": 100,
             "system": {
@@ -2630,7 +2593,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.gApJtAdNb9ST4Ms9"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/fighter-weapon-mastery.webp",
+            "img": "icons/weapons/swords/sword-guard-steel-green.webp",
             "name": "Fighter Weapon Mastery (Spear)",
             "sort": 1500,
             "system": {
@@ -2772,7 +2735,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Shield Block",
             "sort": 0,
             "system": {
@@ -3054,9 +3017,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null

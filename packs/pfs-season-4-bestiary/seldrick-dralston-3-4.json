@@ -795,7 +795,8 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
-                            "damage"
+                            "damage",
+                            "healing"
                         ],
                         "materials": [],
                         "type": "void"
@@ -842,6 +843,7 @@
                                     ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -859,7 +861,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -874,11 +877,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -903,7 +901,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -914,6 +913,13 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -926,7 +932,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -955,6 +962,7 @@
                         "divine"
                     ],
                     "value": [
+                        "manipulate",
                         "void"
                     ]
                 }
@@ -1226,9 +1234,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -1324,9 +1329,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 1
@@ -1389,9 +1391,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1630,7 +1629,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. Allies within the aura who have void healing gain fast healing 3. When a creature within the aura would receive positive healing, it must succeed at a @Check[type:flat|dc:5] or receive no healing from the effect.</p>"
+                    "value": "<p>20 feet. Allies within the aura who have void healing gain fast healing 3. When a creature within the aura would receive vitality healing, it must succeed at a @Check[type:flat|dc:5] or receive no healing from the effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",

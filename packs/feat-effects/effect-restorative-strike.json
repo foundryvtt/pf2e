@@ -1,0 +1,47 @@
+{
+    "_id": "jYxWTG5J171XVa5r",
+    "img": "icons/magic/life/cross-flared-green.webp",
+    "name": "Effect: Restorative Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Restorative Strike]</p>\n<p>If you make this Strike with your deity's favored weapon, you gain a +1 status bonus to the attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:deity-favored"
+                ],
+                "removeAfterRoll": true,
+                "selector": "strike-attack-roll",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

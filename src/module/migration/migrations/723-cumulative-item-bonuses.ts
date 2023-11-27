@@ -72,11 +72,9 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
     /** Replace the retired toggle macro with a simple hotbar-drop effect macro */
     override async updateMacro(source: foundry.documents.MacroSource): Promise<void> {
         if (source.type === "script" && source.command.includes("Stance: Mountain Stance")) {
-            source.command = String.raw`const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
-if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+            source.command = String.raw`const actors = game.user.getActiveTokens().flatMap((t) => t.actor ?? []);
 if (actors.length === 0) {
-    const message = game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected");
-    return ui.notifications.error(message);
+    return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }
 
 const ITEM_UUID = "Compendium.pf2e.feat-effects.gYpy9XBPScIlY93p"; // Stance: Mountain Stance

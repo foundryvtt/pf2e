@@ -104,7 +104,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.1Eceqc6zbMj2x0q9"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Seasoned",
             "sort": 0,
             "system": {
@@ -211,7 +211,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.AmFv3ClkAVRowHLI"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Tengu Weapon Familiarity",
             "sort": 0,
             "system": {
@@ -1117,9 +1117,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 4
@@ -1182,9 +1179,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1249,9 +1243,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "cp": 5
@@ -1314,9 +1305,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1381,9 +1369,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "cp": 5
@@ -1446,9 +1431,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1513,9 +1495,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "cp": 2
@@ -1573,9 +1552,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {}
@@ -1636,9 +1612,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1701,9 +1674,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1775,10 +1745,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -1811,7 +1777,7 @@
                 "rules": [],
                 "size": "med",
                 "slug": "chain-shirt",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": 1,
                 "traits": {
@@ -1878,9 +1844,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 0
@@ -1988,9 +1951,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -2092,9 +2052,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "per": 10,
                     "value": {
@@ -2170,9 +2127,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2326,6 +2280,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -2368,9 +2323,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -2385,7 +2344,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -2400,11 +2361,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -2429,7 +2385,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -2440,6 +2398,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -2452,7 +2417,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -2483,6 +2450,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -2599,9 +2567,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2737,9 +2702,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2938,19 +2900,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Signature Spells"
                     },
                     "68tsw": {
-                        "img": "systems/pf2e/icons/features/classes/legendary-spellcaster.webp",
+                        "img": "icons/sundries/books/book-open-purple.webp",
                         "level": 19,
                         "name": "Legendary Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
                     },
                     "6ygi2": {
-                        "img": "systems/pf2e/icons/features/classes/oracular-clarity.webp",
+                        "img": "icons/sundries/lights/candle-lit-angelic.webp",
                         "level": 19,
                         "name": "Oracular Clarity",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Clarity"
                     },
                     "7gbv8": {
-                        "img": "systems/pf2e/icons/features/classes/oracle-curse.webp",
+                        "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
                         "level": 1,
                         "name": "Oracular Curse",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Curse"
@@ -2986,19 +2948,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Major Curse"
                     },
                     "dvsdr": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 11,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
                     },
                     "hi0gi": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 13,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "jtk8p": {
-                        "img": "systems/pf2e/icons/features/classes/extreme-curse.webp",
+                        "img": "icons/equipment/neck/necklace-carved-bone-skull.webp",
                         "level": 17,
                         "name": "Extreme Curse",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Extreme Curse"
@@ -3010,7 +2972,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Magical Fortitude"
                     },
                     "n1uo5": {
-                        "img": "systems/pf2e/icons/features/classes/expert-spellcaster.webp",
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
                         "level": 7,
                         "name": "Expert Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
@@ -3045,37 +3007,7 @@
                     "remaster": false,
                     "title": "Pathfinder Advanced Player's Guide"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 7,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 15,
-                                    "value": 3
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 4
-                                }
-                            ],
-                            "field": "actor|system.details.level.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -3109,6 +3041,7 @@
                     ]
                 },
                 "slug": "oracle",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 3,
                     "value": [
@@ -3293,7 +3226,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.ibX2EhKkyUtbOHLj"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/oracle-curse.webp",
+            "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
             "name": "Oracular Curse",
             "sort": 200,
             "system": {

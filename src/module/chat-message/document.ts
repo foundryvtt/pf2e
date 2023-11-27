@@ -105,18 +105,19 @@ class ChatMessagePF2e extends ChatMessage {
         if (strike?.item) return strike.item;
 
         const item = (() => {
-            const domItem = this.getItemFromDOM();
-            if (domItem) return domItem;
+            const { actor } = this;
+            const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
+            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
             const origin = this.flags.pf2e?.origin ?? null;
             const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            return this.actor?.items.get(match?.[1] ?? "") ?? null;
+            return actor?.items.get(match?.[1] ?? "") ?? null;
         })();
         if (!item) return null;
 
         // Assign spellcasting entry, currently only used for trick magic item
         const { tradition } = this.flags.pf2e?.casting ?? {};
-        const isCharacter = item.actor.isOfType("character");
+        const isCharacter = !!item.actor?.isOfType("character");
         if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
             const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
             item.trickMagicEntry = trick;
@@ -155,25 +156,6 @@ class ChatMessagePF2e extends ChatMessage {
                   const altUsageMeleeOrRanged = u.item.isMelee ? "melee" : "ranged";
                   return meleeOrRanged === altUsageMeleeOrRanged;
               }) ?? null;
-    }
-
-    /** Get stringified item source from the DOM-rendering of this chat message */
-    getItemFromDOM(): ItemPF2e<ActorPF2e> | null {
-        const html = ui.chat.element[0];
-        const messageElem = htmlQuery(html, `#chat-log > li[data-message-id="${this.id}"]`);
-        const sourceString = htmlQuery(messageElem, ".pf2e.item-card")?.dataset.embeddedItem ?? "null";
-        try {
-            const itemSource = JSON.parse(sourceString);
-            const item = itemSource
-                ? new ItemProxyPF2e(itemSource, {
-                      parent: this.actor,
-                      fromConsumable: this.flags?.pf2e?.isFromConsumable,
-                  })
-                : null;
-            return item as ItemPF2e<ActorPF2e> | null;
-        } catch (_error) {
-            return null;
-        }
     }
 
     async showDetails(): Promise<void> {

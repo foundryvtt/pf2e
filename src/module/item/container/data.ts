@@ -17,6 +17,9 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     bulkCapacity: {
         value: string | null;
     };
+    negateBulk: {
+        value: string;
+    };
     collapsed: boolean;
 }
 

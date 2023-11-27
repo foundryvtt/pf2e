@@ -7,7 +7,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
-import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { OneToFour, Rarity, ZeroToFour, ZeroToSix, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
@@ -47,32 +47,44 @@ function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string,
 }
 
 function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
-    if (!item.isOfType("armor", "weapon") || (item.isOfType("armor") && item.isShield)) {
+    if (!item.isOfType("armor", "shield", "weapon")) {
         return [];
     }
 
-    type WorkingData = {
-        runes: Record<string, Record<string | number, RuneData | null>>;
-        secondaryFundamental: "resilient" | "striking";
+    type ItemRuneData = {
+        ""?: number;
+        potency?: ZeroToFour;
+        resilient?: ZeroToThree;
+        reinforcing?: ZeroToSix;
+        striking?: ZeroToThree;
+        property?: string[];
     };
     const itemRunes: ItemRuneData = item.system.runes;
 
-    type ItemRuneData = {
-        potency: ZeroToFour;
-        resilient?: ZeroToThree;
-        striking?: ZeroToThree;
-        property: string[];
-        effects: string[];
+    type WorkingData = {
+        runes: Record<string, Record<number | string, RuneData | null>>;
+        weaponRunes?: Record<string, Record<number | string, RuneData | null>>;
+        secondaryFundamental: "resilient" | "striking" | "";
     };
     const data: WorkingData = item.isOfType("armor")
         ? { runes: RUNE_DATA.armor, secondaryFundamental: "resilient" }
-        : { runes: RUNE_DATA.weapon, secondaryFundamental: "striking" };
+        : item.isOfType("shield")
+          ? { runes: RUNE_DATA.shield, weaponRunes: RUNE_DATA.weapon, secondaryFundamental: "" }
+          : { runes: RUNE_DATA.weapon, secondaryFundamental: "striking" };
 
-    return [
-        data.runes.potency[item.system.runes.potency],
-        data.runes[data.secondaryFundamental][itemRunes[data.secondaryFundamental] ?? ""],
-        ...item.system.runes.property.map((p) => data.runes.property[p]),
-    ].filter((d): d is RuneData => !!d);
+    return R.compact(
+        item.isOfType("shield")
+            ? [
+                  data.runes.reinforcing[item.system.runes.reinforcing],
+                  data.weaponRunes!.potency[item.system.traits.integrated?.runes.potency ?? 0],
+                  data.weaponRunes!.striking[item.system.traits.integrated?.runes.striking ?? 0],
+              ].flat()
+            : [
+                  data.runes.potency[item.system.runes.potency],
+                  data.runes[data.secondaryFundamental]?.[itemRunes[data.secondaryFundamental] ?? ""],
+                  item.system.runes.property.map((p) => data.runes.property[p]),
+              ].flat(),
+    );
 }
 
 const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> = new Map([
@@ -156,13 +168,18 @@ interface PotencyRuneData extends RuneData {
     value: OneToFour;
 }
 
-interface SecondaryFundamentalRuneData extends RuneData {
-    slug: string;
+interface SecondaryFundamentalRuneData<TSlug extends string> extends RuneData {
+    slug: TSlug;
+}
+
+interface ReinforcingRuneData extends RuneData {
+    hardness: { increase: number; max: number };
+    maxHP: { increase: number; max: number };
 }
 
 interface FundamentalArmorRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    resilient: Record<ZeroToThree, SecondaryFundamentalRuneData | null>;
+    resilient: Record<ZeroToThree, SecondaryFundamentalRuneData<ResilientRuneType> | null>;
 }
 
 const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
@@ -237,7 +254,7 @@ const FUNDAMENTAL_ARMOR_RUNE_DATA: FundamentalArmorRuneData = {
 
 interface FundamentalWeaponRuneData {
     potency: Record<ZeroToFour, PotencyRuneData | null>;
-    striking: Record<ZeroToThree, SecondaryFundamentalRuneData | null>;
+    striking: Record<ZeroToThree, SecondaryFundamentalRuneData<StrikingRuneType> | null>;
 }
 const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
     // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -302,6 +319,70 @@ const FUNDAMENTAL_WEAPON_RUNE_DATA: FundamentalWeaponRuneData = {
             rarity: "common",
             slug: "majorStriking",
             traits: [],
+        },
+    },
+};
+
+type FundamentalShieldRuneData = {
+    reinforcing: Record<ZeroToSix, ReinforcingRuneData | null>;
+};
+
+const FUNDAMENTAL_SHIELD_RUNE_DATA: FundamentalShieldRuneData = {
+    reinforcing: {
+        0: null,
+        1: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Minor",
+            level: 4,
+            price: 75,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 8 },
+            maxHP: { increase: 44, max: 64 },
+        },
+        2: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Lesser",
+            level: 7,
+            price: 300,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 10 },
+            maxHP: { increase: 52, max: 80 },
+        },
+        3: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Moderate",
+            level: 10,
+            price: 900,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 3, max: 13 },
+            maxHP: { increase: 64, max: 104 },
+        },
+        4: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Greater",
+            level: 13,
+            price: 2500,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 5, max: 15 },
+            maxHP: { increase: 80, max: 120 },
+        },
+        5: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Major",
+            level: 16,
+            price: 8000,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 5, max: 17 },
+            maxHP: { increase: 84, max: 136 },
+        },
+        6: {
+            name: "PF2E.Item.Shield.Rune.Reinforcing.Supreme",
+            level: 19,
+            price: 32_000,
+            rarity: "common",
+            traits: ["magical"],
+            hardness: { increase: 7, max: 20 },
+            maxHP: { increase: 108, max: 160 },
         },
     },
 };
@@ -842,6 +923,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "ashen",
         traits: ["magical"],
     },
+    astral: {
+        level: 8,
+        name: "PF2E.WeaponPropertyRune.astral.Name",
+        price: 450,
+        rarity: "common",
+        slug: "astral",
+        traits: ["magical", "spirit"],
+    },
     authorized: {
         level: 3,
         name: "PF2E.WeaponPropertyRune.authorized.Name",
@@ -1239,6 +1328,14 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "greaterAshen",
         traits: ["magical"],
+    },
+    greaterAstral: {
+        level: 15,
+        name: "PF2E.WeaponPropertyRune.greaterAstral.Name",
+        price: 6000,
+        rarity: "common",
+        slug: "greaterAstral",
+        traits: ["magical", "spirit"],
     },
     greaterBloodbane: {
         level: 13,
@@ -2040,6 +2137,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
 
 const RUNE_DATA = {
     armor: { ...FUNDAMENTAL_ARMOR_RUNE_DATA, property: ARMOR_PROPERTY_RUNES },
+    shield: FUNDAMENTAL_SHIELD_RUNE_DATA,
     weapon: { ...FUNDAMENTAL_WEAPON_RUNE_DATA, property: WEAPON_PROPERTY_RUNES },
 };
 

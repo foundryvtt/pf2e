@@ -3,7 +3,7 @@ import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ActionType, ItemSourcePF2e, ItemType, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, ItemType, isPhysicalData } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
@@ -37,6 +37,7 @@ import {
     tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import Sortable, { type SortableEvent } from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
 import {
@@ -78,7 +79,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
 
     /** Stores data from the Sortable onMove event */
-    #sortableOnMoveData: { related?: HTMLElement; willInsertAfter?: boolean } = {};
+    #sortableData: { related?: HTMLElement; willInsertAfter?: boolean } = {};
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -156,19 +157,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected prepareInventory(): SheetInventory {
-        const sections: SheetInventory["sections"] = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), type: "armor", items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), type: "equipment", items: [] },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), type: "consumable", items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), type: "treasure", items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
-        };
+        const sections: SheetInventory["sections"] = [
+            {
+                label: game.i18n.localize("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
+                types: ["weapon", "shield"],
+                items: [],
+            },
+            { label: game.i18n.localize("PF2E.InventoryArmorHeader"), types: ["armor"], items: [] },
+            { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), types: ["equipment"], items: [] },
+            {
+                label: game.i18n.localize("PF2E.InventoryConsumablesHeader"),
+                types: ["consumable"],
+                items: [],
+            },
+            { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), types: ["treasure"], items: [] },
+            { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), types: ["backpack"], items: [] },
+        ];
 
         for (const item of this.actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
-            if (!objectHasKey(sections, item.type) || item.isInContainer) continue;
-            const category = item.isOfType("book") ? sections.equipment : sections[item.type];
-            category.items.push(this.prepareInventoryItem(item));
+            if (item.isInContainer) continue;
+            sections.find((s) => s.types.includes(item.type))?.items.push(this.prepareInventoryItem(item));
         }
 
         return {
@@ -643,7 +651,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Inventory drag & drop listeners */
     #activateInventoryDragDrop(panel: HTMLElement | null): void {
-        const inventoryList = htmlQuery(panel, "section.inventory-list, ol[data-container-type=actorInventory]");
+        const inventoryList = htmlQuery(panel, "section[data-inventory]");
         if (!inventoryList) return;
         const sortableOptions: Sortable.Options = {
             ...SORTABLE_DEFAULTS,
@@ -658,7 +666,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             },
             onStart: () => {
                 // Reset move data
-                this.#sortableOnMoveData = {};
+                this.#sortableData = {};
             },
             onClone: (event) => {
                 // Cloning sets draggable to false for some reason
@@ -671,12 +679,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
 
         for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
-            const itemType = list.dataset.itemType;
+            const itemTypes = list.dataset.itemTypes?.split(",") ?? [];
             // Ignore nested container lists that have the same selector. They will be handled by the backpack section
-            if (list.dataset.containerId || !itemType) continue;
+            if (list.dataset.containerId || !itemTypes) continue;
 
             // Containers
-            if (itemType === "backpack") {
+            if (itemTypes.includes("backpack")) {
                 Sortable.create(list, {
                     ...sortableOptions,
                     group: {
@@ -703,12 +711,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             Sortable.create(list, {
                 ...sortableOptions,
                 group: {
-                    name: itemType,
+                    name: itemTypes.join(","),
                     put: (to, from, dragEl) => {
                         // Return early if both lists are the same
                         if (from === to) return true;
                         // Allow dragging by item type
-                        return dragEl.dataset.itemType === to.el.dataset.itemType;
+                        return R.equals(dragEl.dataset.itemTypes, to.el.dataset.itemTypes);
                     },
                 },
             });
@@ -721,7 +729,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!this.isEditable) return false;
 
         // This data is not available in the onEnd event. Store it here.
-        this.#sortableOnMoveData = {
+        this.#sortableData = {
             related: event.related,
             willInsertAfter: event.willInsertAfter,
         };
@@ -781,7 +789,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Get the item that the source item was dropped relative to
-        const { related, willInsertAfter } = this.#sortableOnMoveData;
+        const { related, willInsertAfter } = this.#sortableData;
         const relativeItemId = htmlQuery(related, "div[data-item-id]")?.dataset.itemId ?? "";
         const relativeItem = this.actor.inventory.get(relativeItemId);
 
@@ -858,26 +866,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
         const checkboxesFilterCodes = (element.dataset.filter ?? "")
             .split(",")
-            .filter((s) => !!s)
-            .map((s) => s.trim());
-
+            .map((s) => s.trim())
+            .filter((s) => !!s);
         const tab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await tab.getFilterData();
         const { checkboxes } = filter;
 
-        for (const filterCode of checkboxesFilterCodes) {
-            const splitValues = filterCode.split("-");
-            if (splitValues.length !== 2) {
-                throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
-            }
-            const [filterType, value] = splitValues;
-            if (objectHasKey(checkboxes, filterType)) {
-                const checkbox = checkboxes[filterType];
-                if (objectHasKey(checkbox.options, value)) {
-                    checkbox.options[value].selected = true;
-                    checkbox.selected.push(value);
-                    checkbox.isExpanded = true;
-                }
+        for (const itemType of checkboxesFilterCodes) {
+            const checkbox = checkboxes.itemTypes;
+            if (objectHasKey(checkbox.options, itemType)) {
+                checkbox.options[itemType].selected = true;
+                checkbox.selected.push(itemType);
+                checkbox.isExpanded = true;
             }
         }
 
@@ -885,13 +885,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     protected override _canDragStart(selector: string): boolean {
-        if (this.isLootSheet) return true;
-        return super._canDragStart(selector);
+        return this.isLootSheet || super._canDragStart(selector);
     }
 
     protected override _canDragDrop(selector: string): boolean {
-        if (this.isLootSheet) return true;
-        return super._canDragDrop(selector);
+        return this.isLootSheet || super._canDragDrop(selector);
     }
 
     /** Add support for dropping actions and toggles */
@@ -1206,50 +1204,52 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
-    #onClickCreateItem(link: HTMLElement): void {
-        const data = link.dataset;
-        if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, data.type)) {
-            throw ErrorPF2e(`Unrecognized item type: "${data.type}"`);
+    #onClickCreateItem(anchor: HTMLElement): void {
+        const dataset = { ...anchor.dataset };
+        const itemType = R.compact([dataset.type ?? dataset.types?.split(",")].flat()).find((t) => t !== "shield");
+        if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
+            throw ErrorPF2e(`Unrecognized item type: types`);
         }
 
-        if (data.type === "spell") {
-            return onClickCreateSpell(this.actor, data);
+        if (itemType === "spell") {
+            return onClickCreateSpell(this.actor, dataset);
         }
 
-        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        const type = data.type;
         const itemSource = ((): DeepPartial<ItemSourcePF2e> | null => {
-            switch (type) {
+            switch (itemType) {
                 case "action": {
-                    const name = game.i18n.localize(`PF2E.ActionType${String(data.actionType).capitalize()}`);
-                    const actionType = data.actionType as ActionType;
-                    return { type, img, name, system: { actionType: { value: actionType } } };
+                    const { actionType } = dataset;
+                    if (!objectHasKey(CONFIG.PF2E.actionTypes, actionType)) {
+                        throw ErrorPF2e(`Action type not recognized: ${actionType}`);
+                    }
+                    const name = game.i18n.localize(`PF2E.ActionType${actionType.capitalize()}`);
+                    return { type: itemType, name, system: { actionType: { value: actionType } } };
                 }
                 case "melee": {
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${type.capitalize()}`);
-                    const weaponType = data.actionType as "melee" | "ranged";
-                    return { type, img, name, system: { weaponType: { value: weaponType } } };
+                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    const meleeOrRanged = dataset.actionType === "melee" ? "melee" : "ranged";
+                    return { type: itemType, name, system: { weaponType: { value: meleeOrRanged } } };
                 }
                 case "lore": {
                     const name =
                         this.actor.type === "npc"
                             ? game.i18n.localize("PF2E.SkillLabel")
                             : game.i18n.localize("PF2E.NewPlaceholders.Lore");
-                    return { type, img, name };
+                    return { type: itemType, name };
                 }
                 default: {
-                    if (!setHasElement(PHYSICAL_ITEM_TYPES, type)) {
-                        throw ErrorPF2e(`Unsupported item type: ${type}`);
+                    if (!setHasElement(PHYSICAL_ITEM_TYPES, itemType)) {
+                        throw ErrorPF2e(`Unsupported item type: ${itemType}`);
                     }
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-                    return { name, type };
+                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    return { name, type: itemType };
                 }
             }
         })();
 
         if (itemSource) {
-            if (data.traits) {
-                const traits = String(data.traits).split(",");
+            if (dataset.traits) {
+                const traits = dataset.traits?.split(",") ?? [];
                 itemSource.system = mergeObject(itemSource.system ?? {}, { traits: { value: traits } });
             }
 

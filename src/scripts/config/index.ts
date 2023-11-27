@@ -23,6 +23,7 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
+    ShieldPF2e,
     SpellPF2e,
     SpellcastingEntryPF2e,
     TreasurePF2e,
@@ -59,6 +60,7 @@ import {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
+    shieldTraits,
     spellTraits,
     traitDescriptions,
     vehicleTraits,
@@ -170,7 +172,7 @@ const weaponCategories = {
 };
 
 const baseArmorTypes = R.mapValues(EN_JSON.PF2E.Item.Armor.Base, (_v, slug) => `PF2E.Item.Armor.Base.${slug}`);
-
+const baseShieldTypes = R.mapValues(EN_JSON.PF2E.Item.Shield.Base, (_v, slug) => `PF2E.Item.Shield.Base.${slug}`);
 const baseWeaponTypes = R.mapValues(EN_JSON.PF2E.Weapon.Base, (_v, slug) => `PF2E.Weapon.Base.${slug}`);
 
 /** Base weapon types that are considered equivalent for all rules purposes */
@@ -433,6 +435,7 @@ export const PF2ECONFIG = {
     meleeWeaponGroups,
 
     baseArmorTypes,
+    baseShieldTypes,
     baseWeaponTypes,
     equivalentWeapons,
 
@@ -536,6 +539,7 @@ export const PF2ECONFIG = {
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
+        "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
@@ -604,6 +608,7 @@ export const PF2ECONFIG = {
     otherConsumableTags,
 
     actionTraits,
+    shieldTraits,
     spellTraits,
     featTraits,
     creatureTraits,
@@ -661,7 +666,6 @@ export const PF2ECONFIG = {
         light: "PF2E.ArmorTypeLight",
         medium: "PF2E.ArmorTypeMedium",
         heavy: "PF2E.ArmorTypeHeavy",
-        shield: "PF2E.ArmorTypeShield",
         "light-barding": "PF2E.Item.Armor.Category.light-barding",
         "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
     },
@@ -1108,6 +1112,7 @@ export const PF2ECONFIG = {
             kit: KitPF2e,
             lore: LorePF2e,
             melee: MeleePF2e,
+            shield: ShieldPF2e,
             spell: SpellPF2e,
             spellcastingEntry: SpellcastingEntryPF2e,
             treasure: TreasurePF2e,
@@ -1128,6 +1133,7 @@ export const PF2ECONFIG = {
             heritage: featTraits,
             kit: classTraits,
             melee: npcAttackTraits,
+            shield: shieldTraits,
             spell: spellTraits,
             weapon: weaponTraits,
         },

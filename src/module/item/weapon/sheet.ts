@@ -1,10 +1,11 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
+import { ItemSheetOptions } from "@item/base/sheet/base.ts";
 import {
+    MATERIAL_DATA,
     MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
     RUNE_DATA,
-    WEAPON_MATERIAL_VALUATION_DATA,
     getPropertySlots,
 } from "@item/physical/index.ts";
 import { OneToFour } from "@module/data.ts";
@@ -12,12 +13,12 @@ import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, sortStringRecord, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ComboWeaponMeleeUsage, WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data.ts";
-import { type WeaponPF2e } from "./document.ts";
+import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<WeaponSheetData> {
-        const sheetData: PhysicalItemSheetData<WeaponPF2e> = await super.getData(options);
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<WeaponSheetData> {
+        const sheetData = await super.getData(options);
         const weapon = this.item;
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
@@ -99,7 +100,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         return {
             ...sheetData,
             propertyRuneSlots,
-            preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
+            preciousMaterials: this.prepareMaterials(MATERIAL_DATA.weapon),
             fundamentalRunes,
             propertyRunes,
             otherTags,

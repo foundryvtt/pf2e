@@ -119,7 +119,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Dubious Knowledge",
             "sort": 0,
             "system": {
@@ -179,7 +179,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.WoKiYMCXV27szBdy"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Cringe",
             "sort": 0,
             "system": {
@@ -227,7 +227,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.gS9FYlD0Vt8yyZkP"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Grovel",
             "sort": 0,
             "system": {
@@ -288,7 +288,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Basic Lesson",
             "sort": 0,
             "system": {
@@ -423,7 +423,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.j01dM0ZAC7KzShx0"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Rites Of Convocation (Summon Plants and Fungi)",
             "sort": 0,
             "system": {
@@ -468,7 +468,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.6Z4e3B9vePYpibcy"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Confabulator",
             "sort": 0,
             "system": {
@@ -518,7 +518,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Dvz54d6aPhjsmUux"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Lie To Me",
             "sort": 0,
             "system": {
@@ -576,7 +576,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Ancestral Paragon",
             "sort": 0,
             "system": {
@@ -656,7 +656,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Kobold Breath",
             "sort": 0,
             "system": {
@@ -1510,6 +1510,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1551,9 +1552,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1568,7 +1573,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1583,11 +1590,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1612,7 +1614,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1623,6 +1627,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1635,7 +1646,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1666,6 +1679,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -3057,9 +3071,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -3183,9 +3194,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -3276,9 +3284,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 60
@@ -3353,9 +3358,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 9
@@ -3422,9 +3424,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3512,9 +3511,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 15
@@ -3595,9 +3591,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "per": 10,
                     "value": {
@@ -3675,9 +3668,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
@@ -3745,9 +3735,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3885,9 +3872,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 5
@@ -3950,9 +3934,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -4029,9 +4010,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "per": 10,
                     "value": {
@@ -4095,9 +4073,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -4174,9 +4149,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 4
@@ -4239,9 +4211,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -4386,9 +4355,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "cp": 2
@@ -4451,9 +4417,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -4548,7 +4511,7 @@
                 "hp": 6,
                 "items": {
                     "1ddf6": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 9,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
@@ -4566,7 +4529,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
                     },
                     "5a5an": {
-                        "img": "systems/pf2e/icons/features/classes/legendary-spellcaster.webp",
+                        "img": "icons/sundries/books/book-open-purple.webp",
                         "level": 19,
                         "name": "Legendary Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
@@ -4596,7 +4559,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Witch Spellcasting"
                     },
                     "qo3f2": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 11,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
@@ -4626,7 +4589,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Magical Fortitude"
                     },
                     "vq6ja": {
-                        "img": "systems/pf2e/icons/features/classes/expert-spellcaster.webp",
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
                         "level": 7,
                         "name": "Expert Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
@@ -4683,6 +4646,7 @@
                     ]
                 },
                 "slug": "witch",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 3,
                     "value": []
@@ -5250,13 +5214,6 @@
                         "mode": "upgrade",
                         "path": "system.skills.nat.rank",
                         "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.proficiencies.aliases.witch",
-                        "priority": 39,
-                        "value": "primal"
                     }
                 ],
                 "slug": "wild-patron",

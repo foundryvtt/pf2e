@@ -61,7 +61,6 @@ import type { ModuleArt } from "@system/module-art.ts";
 import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
-import type Peggy from "peggy";
 import type EnJSON from "static/lang/en.json";
 
 interface GamePF2e
@@ -239,7 +238,6 @@ declare global {
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
-        get(module: "pf2e", setting: "dataTools"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
@@ -270,5 +268,5 @@ declare global {
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
-    const ROLL_PARSER: Peggy.Parser;
+    const ROLL_PARSER: string;
 }

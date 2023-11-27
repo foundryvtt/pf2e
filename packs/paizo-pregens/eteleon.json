@@ -140,7 +140,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.ar2DUlvDK4LDcH9J"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quick Coercion",
             "sort": 0,
             "system": {
@@ -190,7 +190,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.kCO4r8NOm8E2T3eH"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Nimble Elf",
             "sort": 0,
             "system": {
@@ -241,7 +241,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.WoLh16gyDp8y9WOZ"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Ancestral Longevity",
             "sort": 0,
             "system": {
@@ -290,7 +290,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.1W0a6YCyoYv8dm4e"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Harming Hands",
             "sort": 0,
             "system": {
@@ -330,7 +330,10 @@
                         "predicate": [
                             "item:slug:harm"
                         ],
-                        "selector": "spell-damage"
+                        "selector": [
+                            "spell-damage",
+                            "spell-healing"
+                        ]
                     }
                 ],
                 "slug": "harming-hands",
@@ -350,7 +353,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.o5q9FBrPsAYqEl5w"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Channel Smite",
             "sort": 0,
             "system": {
@@ -400,7 +403,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Trj5azJlaOk5jgBi"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Divine Weapon",
             "sort": 0,
             "system": {
@@ -445,7 +448,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Intimidating Glare",
             "sort": 0,
             "system": {
@@ -495,7 +498,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Group Coercion",
             "sort": 0,
             "system": {
@@ -545,7 +548,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Combat Climber",
             "sort": 0,
             "system": {
@@ -595,7 +598,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Armor Proficiency",
             "sort": 0,
             "system": {
@@ -1406,6 +1409,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1447,9 +1451,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1464,7 +1472,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1479,11 +1489,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1508,7 +1513,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1519,6 +1526,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1531,7 +1545,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1562,6 +1578,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1590,7 +1607,8 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
-                            "damage"
+                            "damage",
+                            "healing"
                         ],
                         "materials": [],
                         "type": "void"
@@ -1637,6 +1655,7 @@
                                     ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1654,7 +1673,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -1669,11 +1689,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1698,7 +1713,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -1709,6 +1725,13 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1721,7 +1744,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -1750,6 +1774,7 @@
                         "divine"
                     ],
                     "value": [
+                        "manipulate",
                         "void"
                     ]
                 }
@@ -2163,7 +2188,8 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
-                            "damage"
+                            "damage",
+                            "healing"
                         ],
                         "materials": [],
                         "type": "void"
@@ -2215,6 +2241,7 @@
                                     ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -2232,7 +2259,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -2247,11 +2275,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -2276,7 +2299,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -2287,6 +2311,13 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -2299,7 +2330,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -2328,6 +2360,7 @@
                         "divine"
                     ],
                     "value": [
+                        "manipulate",
                         "void"
                     ]
                 }
@@ -2551,9 +2584,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -2656,9 +2686,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -2758,10 +2785,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 1
                 },
@@ -2794,9 +2817,9 @@
                 "rules": [],
                 "size": "med",
                 "slug": "leather-armor",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": 0,
+                "strength": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2846,9 +2869,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2923,9 +2943,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3013,9 +3030,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 3
@@ -3096,9 +3110,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "per": 10,
                     "value": {
@@ -3174,9 +3185,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3257,9 +3265,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 25
@@ -3339,9 +3344,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3493,9 +3495,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
@@ -3536,6 +3535,7 @@
                                 "category": null,
                                 "formula": "1d8",
                                 "kinds": [
+                                    "damage",
                                     "healing"
                                 ],
                                 "materials": [],
@@ -3582,9 +3582,13 @@
                                     },
                                     "damage": {
                                         "0": {
-                                            "formula": "1d8+8"
+                                            "formula": "1d8+8",
+                                            "kinds": [
+                                                "healing"
+                                            ]
                                         }
                                     },
+                                    "defense": null,
                                     "heightenedLevel": {},
                                     "heightening": {
                                         "damage": {
@@ -3600,7 +3604,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -3620,11 +3626,6 @@
                                     },
                                     "time": {
                                         "value": "1"
-                                    },
-                                    "traits": {
-                                        "value": [
-                                            "manipulate"
-                                        ]
                                     }
                                 }
                             },
@@ -3646,7 +3647,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -3661,6 +3664,13 @@
                                         "areaType": "",
                                         "value": ""
                                     },
+                                    "damage": {
+                                        "0": {
+                                            "kinds": [
+                                                "damage"
+                                            ]
+                                        }
+                                    },
                                     "heightenedLevel": {},
                                     "range": {
                                         "value": "30 feet"
@@ -3674,7 +3684,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -3705,6 +3717,7 @@
                             ],
                             "value": [
                                 "healing",
+                                "manipulate",
                                 "vitality"
                             ]
                         }
@@ -3777,9 +3790,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -3940,9 +3950,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
@@ -4093,9 +4100,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 1
@@ -4232,9 +4236,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "gp": 2
@@ -4299,9 +4300,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 3
@@ -4365,9 +4363,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -4516,7 +4511,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.First Doctrine"
                     },
                     "ozqxv": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 5,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
@@ -4540,7 +4535,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
                     },
                     "vpn62": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 11,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
@@ -4575,14 +4570,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -4616,6 +4604,7 @@
                     ]
                 },
                 "slug": "cleric",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 2,
                     "value": [
@@ -5069,7 +5058,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/alertness.webp",
+            "img": "icons/creatures/eyes/human-single-blue.webp",
             "name": "Alertness",
             "sort": 3500,
             "system": {
@@ -5219,12 +5208,12 @@
                         "mode": "override",
                         "path": "flags.pf2e.cleric",
                         "value": {
-                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.n9W8MjjRgPpUTvWf",
-                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.DgGefatQ4v6xT6f9",
-                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn",
-                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.vxOf4LXZcqUG3P7a",
-                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.sa7BWfnyCswAvBVa",
-                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.s8WEmc4GGZSHSC7q"
+                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Cloistered Cleric)",
+                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.Final Doctrine (Cloistered Cleric)",
+                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)",
+                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Cloistered Cleric)",
+                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)",
+                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)"
                         }
                     }
                 ],
@@ -5251,7 +5240,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Domain Initiate (Zeal)",
             "sort": 0,
             "system": {

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Untamed Shift",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Untamed Shift]</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Untamed Shift]</p>\n<p>You transform just a part of your body.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,32 +16,32 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "choices": [
                     {
                         "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildClaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedClaws",
                         "predicate": [
-                            "feat:wild-shape"
+                            "feat:untamed-form"
                         ],
-                        "value": "wild-claws"
+                        "value": "untamed-claws"
                     },
                     {
                         "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildJaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedJaws",
                         "predicate": [
                             "feat:insect-shape"
                         ],
-                        "value": "wild-jaws"
+                        "value": "untamed-jaws"
                     },
                     {
                         "img": "systems/pf2e/icons/spells/summon-elemental.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
+                        "label": "PF2E.SpecificRule.UntamedShift.ElementalMatter",
                         "predicate": [
                             "feat:elemental-shape"
                         ],
@@ -49,7 +49,7 @@
                     },
                     {
                         "img": "icons/magic/nature/root-vine-entwined-thorns.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.LongVines",
+                        "label": "PF2E.SpecificRule.UntamedShift.LongVines",
                         "predicate": [
                             "feat:plant-shape"
                         ],
@@ -57,83 +57,83 @@
                     },
                     {
                         "img": "systems/pf2e/icons/spells/angelic-wings.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.Wings",
+                        "label": "PF2E.SpecificRule.UntamedShift.Wings",
                         "predicate": [
                             "feat:soaring-shape"
                         ],
                         "value": "wings"
                     }
                 ],
-                "flag": "spellEffectWildMorph",
+                "flag": "spellEffectUntamedShift",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.WildMorph.Prompt",
-                "rollOption": "wild-morph"
+                "prompt": "PF2E.SpecificRule.UntamedShift.Prompt",
+                "rollOption": "untamed-shift"
             },
             {
                 "allowNoSelection": true,
                 "choices": [
                     {
                         "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildClaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedClaws",
                         "predicate": [
-                            "feat:wild-shape",
+                            "feat:untamed-form",
                             {
-                                "not": "wild-morph:wild-claws"
+                                "not": "untamed-shift:untamed-claws"
                             }
                         ],
-                        "value": "wild-claws"
+                        "value": "untamed-claws"
                     },
                     {
                         "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildJaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedJaws",
                         "predicate": [
                             "feat:insect-shape",
                             {
-                                "not": "wild-morph:wild-jaws"
+                                "not": "untamed-shift:untamed-jaws"
                             }
                         ],
-                        "value": "wild-jaws"
+                        "value": "untamed-jaws"
                     },
                     {
                         "img": "systems/pf2e/icons/spells/summon-elemental.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
+                        "label": "PF2E.SpecificRule.UntamedShift.ElementalMatter",
                         "predicate": [
                             "feat:elemental-shape",
                             {
-                                "not": "wild-morph:elemental-matter"
+                                "not": "untamed-shift:elemental-matter"
                             }
                         ],
                         "value": "elemental-matter"
                     },
                     {
                         "img": "icons/magic/nature/root-vine-entwined-thorns.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.LongVines",
+                        "label": "PF2E.SpecificRule.UntamedShift.LongVines",
                         "predicate": [
                             "feat:plant-shape",
                             {
-                                "not": "wild-morph:long-vines"
+                                "not": "untamed-shift:long-vines"
                             }
                         ],
                         "value": "long-vines"
                     },
                     {
                         "img": "systems/pf2e/icons/spells/angelic-wings.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.Wings",
+                        "label": "PF2E.SpecificRule.UntamedShift.Wings",
                         "predicate": [
                             "feat:soaring-shape",
                             {
-                                "not": "wild-morph:wings"
+                                "not": "untamed-shift:wings"
                             }
                         ],
                         "value": "wings"
                     }
                 ],
-                "flag": "spellEffectWildMorphTwo",
+                "flag": "spellEffectUntamedShiftTwo",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
                         "gte": [
-                            "item:level",
+                            "parent:level",
                             6
                         ]
                     },
@@ -141,9 +141,9 @@
                         "or": [
                             {
                                 "and": [
-                                    "feat:wild-shape",
+                                    "feat:untamed-form",
                                     {
-                                        "not": "wild-morph:wild-claws"
+                                        "not": "untamed-shift:untamed-claws"
                                     }
                                 ]
                             },
@@ -151,7 +151,7 @@
                                 "and": [
                                     "feat:insect-shape",
                                     {
-                                        "not": "wild-morph:wild-jaws"
+                                        "not": "untamed-shift:untamed-jaws"
                                     }
                                 ]
                             },
@@ -159,7 +159,7 @@
                                 "and": [
                                     "feat:elemental-shape",
                                     {
-                                        "not": "wild-morph:elemental-matter"
+                                        "not": "untamed-shift:elemental-matter"
                                     }
                                 ]
                             },
@@ -167,7 +167,7 @@
                                 "and": [
                                     "feat:plant-shape",
                                     {
-                                        "not": "wild-morph:long-vines"
+                                        "not": "untamed-shift:long-vines"
                                     }
                                 ]
                             },
@@ -175,81 +175,81 @@
                                 "and": [
                                     "feat:soaring-shape",
                                     {
-                                        "not": "wild-morph:wings"
+                                        "not": "untamed-shift:wings"
                                     }
                                 ]
                             }
                         ]
                     }
                 ],
-                "prompt": "PF2E.SpecificRule.WildMorph.PromptTwo",
-                "rollOption": "wild-morph"
+                "prompt": "PF2E.SpecificRule.UntamedShift.PromptTwo",
+                "rollOption": "untamed-shift"
             },
             {
                 "allowNoSelection": true,
                 "choices": [
                     {
                         "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildClaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedClaws",
                         "predicate": [
-                            "feat:wild-shape",
+                            "feat:untamed-form",
                             {
-                                "not": "wild-morph:wild-claws"
+                                "not": "untamed-shift:untamed-claws"
                             }
                         ],
-                        "value": "wild-claws"
+                        "value": "untamed-claws"
                     },
                     {
                         "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.WildJaws",
+                        "label": "PF2E.SpecificRule.UntamedShift.UntamedJaws",
                         "predicate": [
                             "feat:insect-shape",
                             {
-                                "not": "wild-morph:wild-jaws"
+                                "not": "untamed-shift:untamed-jaws"
                             }
                         ],
-                        "value": "wild-jaws"
+                        "value": "untamed-jaws"
                     },
                     {
                         "img": "systems/pf2e/icons/spells/summon-elemental.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.ElementalMatter",
+                        "label": "PF2E.SpecificRule.UntamedShift.ElementalMatter",
                         "predicate": [
                             "feat:elemental-shape",
                             {
-                                "not": "wild-morph:elemental-matter"
+                                "not": "untamed-shift:elemental-matter"
                             }
                         ],
                         "value": "elemental-matter"
                     },
                     {
                         "img": "icons/magic/nature/root-vine-entwined-thorns.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.LongVines",
+                        "label": "PF2E.SpecificRule.UntamedShift.LongVines",
                         "predicate": [
                             "feat:plant-shape",
                             {
-                                "not": "wild-morph:long-vines"
+                                "not": "untamed-shift:long-vines"
                             }
                         ],
                         "value": "long-vines"
                     },
                     {
                         "img": "systems/pf2e/icons/spells/angelic-wings.webp",
-                        "label": "PF2E.SpecificRule.WildMorph.Wings",
+                        "label": "PF2E.SpecificRule.UntamedShift.Wings",
                         "predicate": [
                             "feat:soaring-shape",
                             {
-                                "not": "wild-morph:wings"
+                                "not": "untamed-shift:wings"
                             }
                         ],
                         "value": "wings"
                     }
                 ],
-                "flag": "spellEffectWildMorphThree",
+                "flag": "spellEffectUntamedShiftThree",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
                         "gte": [
-                            "item:level",
+                            "parent:level",
                             10
                         ]
                     },
@@ -257,9 +257,9 @@
                         "or": [
                             {
                                 "and": [
-                                    "feat:wild-shape",
+                                    "feat:untamed-form",
                                     {
-                                        "not": "wild-morph:wild-claws"
+                                        "not": "untamed-shift:untamed-claws"
                                     }
                                 ]
                             },
@@ -267,7 +267,7 @@
                                 "and": [
                                     "feat:insect-shape",
                                     {
-                                        "not": "wild-morph:wild-jaws"
+                                        "not": "untamed-shift:untamed-jaws"
                                     }
                                 ]
                             },
@@ -275,7 +275,7 @@
                                 "and": [
                                     "feat:elemental-shape",
                                     {
-                                        "not": "wild-morph:elemental-matter"
+                                        "not": "untamed-shift:elemental-matter"
                                     }
                                 ]
                             },
@@ -283,7 +283,7 @@
                                 "and": [
                                     "feat:plant-shape",
                                     {
-                                        "not": "wild-morph:long-vines"
+                                        "not": "untamed-shift:long-vines"
                                     }
                                 ]
                             },
@@ -291,15 +291,15 @@
                                 "and": [
                                     "feat:soaring-shape",
                                     {
-                                        "not": "wild-morph:wings"
+                                        "not": "untamed-shift:wings"
                                     }
                                 ]
                             }
                         ]
                     }
                 ],
-                "prompt": "PF2E.SpecificRule.WildMorph.PromptThree",
-                "rollOption": "wild-morph"
+                "prompt": "PF2E.SpecificRule.UntamedShift.PromptThree",
+                "rollOption": "untamed-shift"
             },
             {
                 "baseType": "claw",
@@ -315,7 +315,7 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
                 "predicate": [
-                    "wild-morph:wild-claws"
+                    "untamed-shift:untamed-claws"
                 ],
                 "range": null,
                 "slug": "claw",
@@ -339,7 +339,7 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "predicate": [
-                    "wild-morph:wild-jaws"
+                    "untamed-shift:untamed-jaws"
                 ],
                 "range": null,
                 "slug": "jaws",
@@ -350,7 +350,7 @@
             {
                 "key": "Resistance",
                 "predicate": [
-                    "wild-morph:elemental-matter"
+                    "untamed-shift:elemental-matter"
                 ],
                 "type": [
                     "critical-hits",
@@ -363,14 +363,14 @@
                 "mode": "upgrade",
                 "path": "system.attributes.reach.base",
                 "predicate": [
-                    "wild-morph:long-vines"
+                    "untamed-shift:long-vines"
                 ],
                 "value": 10
             },
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "wild-morph:wings"
+                    "untamed-shift:wings"
                 ],
                 "selector": "fly",
                 "value": 30

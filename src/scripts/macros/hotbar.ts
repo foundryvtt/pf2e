@@ -204,9 +204,7 @@ export async function createToggleEffectMacro(effect: ConditionPF2e | EffectPF2e
         return;
     }
 
-    const command = `
-const actors = Array.from(new Set(canvas.tokens.controlled.flatMap((token) => token.actor ?? [])));
-if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+    const command = `const actors = game.user.getActiveTokens().flatMap((t) => t.actor ?? []);
 if (actors.length === 0) {
     return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }

@@ -850,7 +850,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laughter. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1659,9 +1659,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -1731,7 +1728,7 @@
                 "acBonus": 0,
                 "baseItem": "explorers-clothing",
                 "category": "unarmored",
-                "checkPenalty": null,
+                "checkPenalty": 0,
                 "containerId": null,
                 "description": {
                     "value": "<p>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor.</p>"
@@ -1757,9 +1754,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 0
@@ -1793,7 +1787,7 @@
                 "rules": [],
                 "size": "med",
                 "slug": "explorers-clothing",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": null,
                 "traits": {
@@ -1846,9 +1840,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -1913,9 +1904,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2070,7 +2058,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<hr />\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra 2d6 damage.</p>\n<p>Roll [[/br 1d20 #Type]] to determine the type:</p>\n<ul>\n<li>1-7 acid</li>\n<li>8-9 cold</li>\n<li>10-11 electricity</li>\n<li>12-18 fire</li>\n<li>19-20 negative</li>\n</ul>"
+                    "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<hr />\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra 2d6 damage.</p>\n<p>Roll 1d20 to determine the type:</p>\n<ul>\n<li>1-7 acid</li>\n<li>8-9 cold</li>\n<li>10-11 electricity</li>\n<li>12-18 fire</li>\n<li>19-20 negative</li>\n</ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2080,46 +2068,11 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "breach-the-abyss",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAcid",
-                                "value": "acid"
-                            },
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitVoid",
-                                "value": "void"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.breachTheAbyss}",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "breach-the-abyss"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Breach the Abyss",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Breach the Abyss"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",

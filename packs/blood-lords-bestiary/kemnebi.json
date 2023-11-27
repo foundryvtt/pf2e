@@ -1988,7 +1988,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You release your spiritual essence in a torrential blast of energy, dealing 10d6 damage. If you're a living creature, this spell deals vitality damage and gains the positive trait. If you're an undead creature, this spell deals void damage and gains the negative trait. The spell's effect is based on how many actions you spend when Casting the Spell.</p>\n<p><span class=\"action-glyph\">2</span> (somatic, verbal) The spell targets all creatures in a 60-foot line.</p>\n<p><span class=\"action-glyph\">3</span> (material, somatic, verbal) The spell targets all creatures in a 60-foot cone.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The spell's damage increases by 2d6.</p>"
+                    "value": "<p>You release your spiritual essence in a torrential blast of energy, dealing 10d6 damage. If you're a living creature, this spell deals vitality damage and gains the vitality trait. If you're an undead creature, this spell deals void damage and gains the void trait. The spell's effect is based on how many actions you spend when Casting the Spell.</p>\n<p><span class=\"action-glyph\">2</span> (somatic, verbal) The spell targets all creatures in a 60-foot line.</p>\n<p><span class=\"action-glyph\">3</span> (material, somatic, verbal) The spell targets all creatures in a 60-foot cone.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The spell's damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -4922,7 +4922,8 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
-                            "damage"
+                            "damage",
+                            "healing"
                         ],
                         "materials": [],
                         "type": "void"
@@ -4969,6 +4970,7 @@
                                     ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -4986,7 +4988,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -5001,11 +5004,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -5030,7 +5028,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -5041,6 +5040,13 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -5053,7 +5059,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -5082,6 +5089,7 @@
                         "divine"
                     ],
                     "value": [
+                        "manipulate",
                         "void"
                     ]
                 }
@@ -5722,9 +5730,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 67000
@@ -5790,9 +5795,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -5860,9 +5862,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {

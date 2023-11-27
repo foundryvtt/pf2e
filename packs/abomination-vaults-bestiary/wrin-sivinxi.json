@@ -443,7 +443,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laughter. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1223,6 +1223,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1265,9 +1266,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1282,7 +1287,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1297,11 +1304,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1326,7 +1328,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1337,6 +1341,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1349,7 +1360,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1380,6 +1393,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1647,9 +1661,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 1
                 },
@@ -1745,9 +1756,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 10
@@ -1812,9 +1820,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 2
@@ -1845,7 +1850,7 @@
         },
         {
             "_id": "z7r4p7kLzt2ZbByW",
-            "img": "systems/pf2e/icons/equipment/treasure/art-objects/major-art-object/darkwood-violin-by-a-legend.webp",
+            "img": "icons/tools/instruments/lute-gold-brown.webp",
             "name": "Violin",
             "sort": 2300000,
             "system": {
@@ -1873,9 +1878,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {}

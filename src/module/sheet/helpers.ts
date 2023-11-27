@@ -62,11 +62,18 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
-function getAdjustment(value: number, reference: number): AdjustedValue {
-    const adjustedHigher = value > reference;
-    const adjustedLower = value < reference;
-    const adjustmentClass = adjustedHigher ? "adjusted-higher" : adjustedLower ? "adjusted-lower" : null;
-    return { value, adjustmentClass, adjustedHigher, adjustedLower };
+function getAdjustment(value: number, reference: number): "adjusted-higher" | "adjusted-lower" | null {
+    return value > reference ? "adjusted-higher" : value < reference ? "adjusted-lower" : null;
+}
+
+function getAdjustedValue(value: number, reference: number): AdjustedValue {
+    const adjustmentClass = getAdjustment(value, reference);
+    return {
+        value,
+        adjustmentClass,
+        adjustedHigher: adjustmentClass === "adjusted-higher",
+        adjustedLower: adjustmentClass === "adjusted-lower",
+    };
 }
 
 interface AdjustedValue {
@@ -121,6 +128,7 @@ export {
     createSheetOptions,
     createSheetTags,
     createTagifyTraits,
+    getAdjustedValue,
     getAdjustment,
     maintainFocusInRender,
     processTagifyInSubmitData,

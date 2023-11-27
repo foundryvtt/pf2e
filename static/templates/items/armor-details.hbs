@@ -9,7 +9,7 @@
     </select>
 </div>
 
-{{#if (and item.isArmor (not item.isBarding))}}
+{{#unless item.isBarding}}
     <div class="form-group">
         <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
         <select data-property="system.group" data-value-base="{{item._source.system.group}}">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.ArmorBaseLabel"}}</label>
+        <label>{{localize "PF2E.Item.Physical.Base"}}</label>
         <select name="system.baseItem">
             {{#select item.baseType}}
                 <option value=""></option>
@@ -33,7 +33,7 @@
             {{/select}}
         </select>
     </div>
-{{/if}}
+{{/unless}}
 
 <div class="form-group">
     <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
@@ -53,7 +53,7 @@
     </select>
 </div>
 
-{{#if (and item.isArmor (not item.isBarding))}}
+{{#unless item.isBarding}}
     <div class="form-group">
         <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
         <select name="system.potencyRune.value" data-dtype="Number">
@@ -139,85 +139,52 @@
         </label>
         <input type="checkbox" name="system.specific.value" {{checked data.specific.value}} />
     </div>
-{{/if}}
-
+{{/unless}}
 
 <div class="form-group">
-    <label>{{localize "PF2E.ArmorArmorLabel"}}</label>
+    <label>{{localize "PF2E.ArmorDexLabel"}}</label>
     <input
         type="number"
-        value="{{item.system.acBonus}}"
-        data-property="system.acBonus"
-        data-value-base="{{item._source.system.acBonus}}"
-        {{#if (gt item.acBonus item._source.system.acBonus)}}
+        value="{{data.dexCap}}"
+        data-property="system.dexCap"
+        data-value-base="{{item._source.system.dexCap}}"
+        {{#if (gt item.dexCap item._source.system.dexCap)}}
             class="adjusted-higher"
-        {{else if (lt item.acBonus item._source.system.acBonus)}}
+        {{else if (lt item.dexCap item._source.system.dexCap)}}
             class="adjusted-lower"
         {{/if}}
     />
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.ArmorSpeedLabel"}}</label>
+    <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
     <input
         type="number"
-        value="{{data.speedPenalty}}"
-        data-property="system.speedPenalty"
-        data-value-base="{{item._source.system.speedPenalty}}"
-        {{#if (gt item.speedPenalty item._source.system.speedPenalty)}}
+        value="{{data.checkPenalty}}"
+        data-property="system.checkPenalty"
+        data-value-base="{{item._source.system.checkPenalty}}"
+        {{#if (gt item.checkPenalty item._source.system.checkPenalty)}}
             class="adjusted-higher"
-        {{else if (lt item.speedPenalty item._source.system.speedPenalty)}}
+        {{else if (lt item.checkPenalty item._source.system.checkPenalty)}}
             class="adjusted-lower"
         {{/if}}
     />
 </div>
 
-{{#if item.isArmor}}
-    <div class="form-group">
-        <label>{{localize "PF2E.ArmorDexLabel"}}</label>
-        <input
-            type="number"
-            value="{{data.dexCap}}"
-            data-property="system.dexCap"
-            data-value-base="{{item._source.system.dexCap}}"
-            {{#if (gt item.dexCap item._source.system.dexCap)}}
-                class="adjusted-higher"
-            {{else if (lt item.dexCap item._source.system.dexCap)}}
-                class="adjusted-lower"
-            {{/if}}
-        />
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
-        <input
-            type="number"
-            value="{{data.checkPenalty}}"
-            data-property="system.checkPenalty"
-            data-value-base="{{item._source.system.checkPenalty}}"
-            {{#if (gt item.checkPenalty item._source.system.checkPenalty)}}
-                class="adjusted-higher"
-            {{else if (lt item.checkPenalty item._source.system.checkPenalty)}}
-                class="adjusted-lower"
-            {{/if}}
-        />
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.ArmorStrengthLabel"}}</label>
-        <input
-            type="number"
-            value="{{data.strength}}"
-            data-property="system.strength"
-            data-value-base="{{item._source.system.strength}}"
-            {{#if (gt item.strength item._source.system.strength)}}
-                class="adjusted-lower"
-            {{else if (lt item.strength item._source.system.strength)}}
-                class="adjusted-higher"
-            {{/if}}
-        />
-    </div>
-{{/if}}
+<div class="form-group">
+    <label>{{localize "PF2E.ArmorStrengthLabel"}}</label>
+    <input
+        type="number"
+        value="{{data.strength}}"
+        data-property="system.strength"
+        data-value-base="{{item._source.system.strength}}"
+        {{#if (gt item.strength item._source.system.strength)}}
+            class="adjusted-lower"
+        {{else if (lt item.strength item._source.system.strength)}}
+            class="adjusted-higher"
+        {{/if}}
+    />
+</div>
 
 <div class="form-group">
     <label>{{localize "PF2E.HardnessLabel"}}</label>

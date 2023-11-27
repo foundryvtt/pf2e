@@ -1,3 +1,150 @@
+## 5.9.4
+
+### System Improvements
+
+-   (stwlam) Add "Refresh from Compendium" button to sheets of owned items
+-   (stwlam) Include a "healing" domain for healing spells
+-   (stwlam) Prominently display spell details alongside descriptions
+
+### Bugfixes
+
+-   (azrazalea) Prevent granted heritages from overriding PCs' main heritages
+-   (shemetz) Restore presence of counteractions rollable from some spell chat cards
+-   (stwlam) Reinclude AC bonus from potency rune following override-mode item alterations
+
+### Data Updates
+
+-   (Dire Weasel) Add effect for Bespell Strikes
+-   (Dire Weasel) Clean up some enriched HTML
+-   (Dire Weasel) Fix path to icon of Animal Instinct tongue attack
+-   (Dire Weasel) Fix unholy champion reaction damage and include auto-heightening damage links
+-   (Dire Weasel) Unify Worm's Feast damage links and auto-heighten
+-   (Intervención) Update Inventor Feat to PC1 text
+-   (Minniehajj) Update divine font note in Cleric class journal entry page
+-   (stwlam) Add rows for removed LO:AG lineage feats to Remaster Changes journal entry
+-   (stwlam) Localize prompt in Unified Magical Theory choice set
+-   (stwlam) Migrate "hb\_"-prefixed homebrew tags occurring in middle of strings
+-   (stwlam) Update old copies of Lay on Hands and Touch of Corruption
+-   (stwlam) Update text of Recall Knowledge action
+-   (Tikael) Add automation to Ravening's Desperation
+
+## 5.9.4
+
+### System Improvements
+
+-   (Supe) Add melee/ranged and damage type to elemental blast roll options
+
+### Bugfixes
+
+-   (stwlam) Fix rolling damage from scrolls and wands
+-   (stwlam) Fix auto-encumbered not granting Clumsy 1
+-   (Supe) Fix aura rendering when the active scene is updated
+
+### Data Updates
+
+-   (avagdu) Update level-1 Ezren, Feiya, Harsk, Kyra, Lem, Lini, Merisiel, and Valeros using remastered iconics
+-   (avagdu) Add Witch Patron Familiar Abilities
+-   (avagdu) Fix rule elements on Champion's Code to not add both Holy and Unholy when selecting a deity that allows either sanctification
+-   (avagdu) Allow Additional Lore to be Selected Multiple Times
+-   (avagdu) Add Spellcasting and Bounded Spellcasting Archetypes Journals, link Journal Entries to Spellcasting Archetype Feats
+-   (avagdu) Change Blade Brake to a reaction
+-   (avagdu) Convert Dragon Form effects to remaster rules
+-   (avagdu) Correct Channeling Block level and Mark Others as Remastered
+-   (avagdu) Fix rule elements on Everstand Stance Effect to Increase Hardness and Nephilim Resistance
+-   (avagdu) Grant Pet feat from Witch Familiar Feature and Familiar Feat
+-   (avagdu) Restore Paladin rule elements to Shining Oath
+-   (Dana) Add reminder note and effect to Tactician's Helm
+-   (Dire Weasel) Add attack trait to Reposition, remove attack trait from Spy's Mark spell
+-   (Dire Weasel) Add automation for Divine Rebuttal and Stance: Masquerade of Seasons Stance, and Ovinnik's Raise Grain Cloud extra fire resistance
+-   (Dire Weasel) Add Communal Crafting and Unusual Treatment feats
+-   (Dire Weasel) Add effects for Raise Symbol, Restorative Strike, Mantle of the Unwavering Heart
+-   (Dire Weasel) Add Subtle trait to Charm, Invisibility, and Subconscious Suggestion
+-   (Dire Weasel) Add toggle to Swaggering Initiative
+-   (Dire Weasel) Fix damage type of Debilitating Dichotomy
+-   (Dire Weasel) Fix description of Kneecap effect
+-   (Dire Weasel) Update Elemental Shape to use new unified Spell Effect: Elemental Form
+-   (Dire Weasel) Fix hardness and HP of Indestructible Shield
+-   (Dire Weasel) Fix level of Words of Unraveling
+-   (Dire Weasel) Fix Tok Loyalist's Crafting traps variant label
+-   (Dire Weasel) Improve automation of Scamper Underfoot and Titan Slinger
+-   (Dire Weasel) Make Antipaladin and Ghoul Antipaladin strikes unholy
+-   (Dire Weasel) Refresh Kangir's Unburdened Iron
+-   (Dire Weasel) Update Book of Warding Prayers to grant resistance to holy or unholy
+-   (Jesse) Update Disarm description to match remaster text
+-   (Jesse) Update Litany against Wrath description to match errata text
+-   (kakesu) Add Goggles of Night to list of renamed equipment from the remaster
+-   (kakesu) Add links to weapon names in Elven Weapon Familiarity feat
+-   (Minniehajj) Fix dragon sorcerer bloodlines and dragon disciple interaction
+-   (Minniehajj) Update the copy within the compedium for Divine Font's remaster changes
+-   (nikolaj-a) Fix maximum craftable item level for snarecrafter dedication
+-   (rinaldaj) Fix Witches Armaments not adding the selected strike to character sheet
+-   (stwlam) Fix traits and defenses of spells with variants
+-   (stwlam) Have Animal Accomplice and Leshy Familiar feats grant Pet feat
+-   (stwlam) Have Cleric Dedication grant Deity class feature
+-   (stwlam) Limit Courageous Anthem's check bonus to attack rolls
+-   (stwlam) Set default opposing statistic in Perform action to Will DC
+-   (Tikael) Add Aiuvaran and Dromaar to remaster changes journal
+-   (Tikael) Add automation to Channel Protection Amulet
+-   (Tikael) Improve automation for granting champion reactions
+
+## 5.9.3
+
+### Bugfixes
+
+-   (stwlam) Fix precious material select menu on armor & weapon sheets
+-   (stwlam) Prevent long A(H)BC names from causing overflow on PC sheet
+-   (stwlam) Fix raised-shield status in actor shield data
+
+### Data Updates
+
+-   (Dire Weasel) Add inline damage roll to Grim Ring
+-   (Dire Weasel) Fix predicates based on wild shape
+-   (Dire Weasel) Fix some mentions of Positive and Negative
+-   (stwlam) Add Aura RE to Aura of Faith, update predicates on extra damage
+-   (stwlam) Add description for Summon trait
+-   (stwlam) Remove addition of spellcasting mod to Shadow Illusion and Weapon of Judgment damage
+-   (stwlam) Remove spell "Lay on Hands (Vs. Undead)", redirect links to it to Lay on Hands
+-   (Tikael) Clean up NPC antipaladin and demonologist
+-   (TMun) Update witch and wizard descriptions in Classes journal entry to latest text from _Player Core_
+
+## 5.9.2
+
+### Bugfixes
+
+-   (In3luki) Migrate non-boolean `adjustName` values in choice set rule elements
+-   (stwlam) Confirm a damage recipients are at 0 hp before possibly pronouncing instant death
+-   (stwlam) Fix aberrant positioning deity section on PC sheets
+-   (stwlam) Link up holy/unholy traits with immunities/weaknesses/resistances
+-   (Supe) Prevent duplicate phantom aura textures
+-   (Supe) Allow category-less custom damage types from modules
+-   (Supe) Fix spellcasting proficiency increases from rule elements
+
+### Data Updates
+
+-   (avagdu) Update Range on Divine Lance
+-   (dellatorreadrian) Add Atone ritual link in Druid Anathema description
+-   (dellatorreadrian) Add/Update Familiar Abilities from Remaster
+-   (dellatorreadrian) Rename Hearing to Echolocation in Batsbreath Cane Effect
+-   (Dire Weasel) Add arcane to Mindlink traditions
+-   (Dire Weasel) Add automation for Dark Deliverance bestiary abilities
+-   (Dire Weasel) Fix Initiate Warden's link to Heal Companion
+-   (Dire Weasel) Fix traits for Clear Mind
+-   (Dire Weasel) Update damage links in Shed Spirit and Stitching Strike to autolevel
+-   (Dire Weasel) Update Spellmaster's Ward with autoheightening roll link
+-   (Intervención) Add link Untamed Form spell from feat, remove level restriction
+-   (Intervención) Correct Cleanse Affliction rank
+-   (Intervención) Correct Sure Footing spell link on Remaster Journal
+-   (Intervención) Fix Untamed Shape precidate
+-   (Intervención) Remove identify bonus from Staff of the Dead
+-   (Intervención) Update Rogue Resilience to upgrade Fortitude instead of Reflex
+-   (stwlam) Add Holy trait to Holy Light and Moonlight Ray spells
+-   (stwlam) Fix filter in Experimental Spellshaping choice set
+-   (stwlam) Include Subtle trait description in config/traits
+-   (stwlam) Remove "hb\_" prefix in tags among homebrew settings
+-   (stwlam) Remove sanctification options from Gozreh
+-   (stwlam) Update description of Arcane Cascade action item, standard cantrips of Oscillating Wave class feature
+-   (Supe) Automatically remove Monster Hunter effect after rolling
+
 ## 5.9.1
 
 ### Bugfixes

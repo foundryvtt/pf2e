@@ -4,7 +4,7 @@ import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
-import type Peggy from "peggy";
+import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
@@ -48,11 +48,6 @@ abstract class AbstractDamageRoll extends Roll {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
 }
-
-// Vite sets globals too late in dev server mode: push this to the end of the task queue so it'll wait
-Promise.resolve().then(() => {
-    AbstractDamageRoll.parser = ROLL_PARSER;
-});
 
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
@@ -603,6 +598,14 @@ class DamageInstance extends AbstractDamageRoll {
         return this as Rolled<this>;
     }
 }
+
+// Called asynchronously due to vite adding `define` variables to `globalThis` late in serve mode
+Promise.resolve().then(() => {
+    // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
+    // function constructor.
+    const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
+    new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
+});
 
 interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;

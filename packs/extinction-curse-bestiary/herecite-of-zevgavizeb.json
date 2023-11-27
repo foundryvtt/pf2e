@@ -873,7 +873,8 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
-                            "damage"
+                            "damage",
+                            "healing"
                         ],
                         "materials": [],
                         "type": "void"
@@ -921,6 +922,7 @@
                                     ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -938,7 +940,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -953,11 +956,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -982,7 +980,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -993,6 +992,13 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1005,7 +1011,8 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "manipulate",
+                                    "void"
                                 ]
                             }
                         }
@@ -1034,6 +1041,7 @@
                         "divine"
                     ],
                     "value": [
+                        "manipulate",
                         "void"
                     ]
                 }
@@ -1129,7 +1137,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Your body sprouts a coat of brambly thorns that harm those that strike you and thrive on life magic. Adjacent creatures that hit you with a melee attack, as well as creatures that hit you with unarmed attacks, take 1 piercing damage each time they do. Anytime you cast a positive spell, the damage from your thorns increases to 1d6 until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1, or 1d6 after you cast a positive spell.</p>"
+                    "value": "<p>Your body sprouts a coat of brambly thorns that harm those that strike you and thrive on life magic. Adjacent creatures that hit you with a melee attack, as well as creatures that hit you with unarmed attacks, take 1 piercing damage each time they do. Anytime you cast a vitality spell, the damage from your thorns increases to 1d6 until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1, or 1d6 after you cast a vitality spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1220,9 +1228,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1

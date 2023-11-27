@@ -1,5 +1,4 @@
 <div class="pf2e chat-card item-card"
-    {{#if data.item}}data-embedded-item="{{data.item}}"{{/if}}
     data-spell-lvl="{{data.castLevel}}"
     data-cast-level="{{data.castLevel}}"
     data-actor-id="{{actor.id}}"
@@ -8,13 +7,13 @@
 >
     <header class="card-header flexrow">
         <img src="{{item.img}}" alt="{{item.name}}" />
-        <h3>{{item.name}}</h3>
-        <h4>{{data.rankLabel}}</h4>
+        <h3>{{item.name}}{{#if item.actionGlyph}} <span class="action-glyph">{{item.actionGlyph}}</span>{{/if}}</h3>
+        <h4 class="rank">{{data.rankLabel}}</h4>
     </header>
 
     <section class="item-properties tags" data-tooltip-class="pf2e">
         {{#each data.traits as |trait|}}
-            <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+            <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{trait.label}}</span>
         {{/each}}
     </section>
 
@@ -27,9 +26,9 @@
 
     <section class="card-buttons">
         {{#each data.variants as |variant|}}
-            <button type="button" data-action="spell-variant" data-visibility="owner" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
-                {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
+            <button type="button" data-variant="{{json variant}}" data-action="spell-variant" data-visibility="owner" data-overlay-ids="{{variant.overlayIds}}">
                 <span>{{variant.name}}</span>
+                {{#if variant.actionGlyph}}<span class="action-glyph">{{variant.actionGlyph}}</span>{{/if}}
             </button>
         {{else}}
             {{#if data.isSave}}
@@ -37,7 +36,7 @@
                     {{{data.save.label}}}
                 </button>
             {{/if}}
-            {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
+            {{#if (or data.check data.hasDamage data.counteraction data.area.type)}}
                 <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
@@ -51,7 +50,7 @@
                             <button type="button" data-action="spell-damage" data-visibility="owner">{{localize data.damageLabel}}</button>
                         </div>
                     {{/if}}
-                    {{#if data.hasCounteractCheck.value}}
+                    {{#if data.counteraction}}
                         <div class="spell-button">
                             <button type="button" data-action="spell-counteract" data-visibility="owner">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
@@ -74,9 +73,11 @@
         {{/each}}
     </section>
 
-    <footer class="card-footer">
-        {{#each data.properties as |property|}}
-            <span>{{localize property}}</span>
-        {{/each}}
-    </footer>
+    {{#if data.properties}}
+        <footer class="card-footer">
+            {{#each data.properties as |property|}}
+                <span>{{localize property}}</span>
+            {{/each}}
+        </footer>
+    {{/if}}
 </div>

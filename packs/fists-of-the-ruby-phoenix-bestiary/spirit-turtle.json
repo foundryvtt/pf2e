@@ -582,7 +582,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": ""
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -855,6 +855,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -897,9 +898,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -914,7 +919,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -929,11 +936,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -958,7 +960,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -969,6 +973,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -981,7 +992,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1012,6 +1025,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }

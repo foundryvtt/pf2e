@@ -1,5 +1,5 @@
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
-import { BackgroundPF2e } from "./document.ts";
+import type { BackgroundPF2e } from "./document.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {

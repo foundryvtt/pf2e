@@ -5,10 +5,11 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
+import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
+import "./core-helpers.ts";
 import { getFilesRecursively, PackError } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
@@ -337,44 +338,16 @@ class CompendiumPack {
             }
         }
 
-        const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
-            typeof choices === "object" &&
-            Object.values(choices ?? {}).every(
-                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e."),
-            );
-
-        const rules: REMaybeWithUUIDs[] = source.system.rules;
-
-        for (const rule of rules) {
-            if (rule.key === "Aura" && Array.isArray(rule.effects)) {
-                for (const effect of rule.effects) {
-                    if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
-                        effect.uuid = this.convertUUID(effect.uuid, convertOptions);
-                    }
-                }
-            } else if (tupleHasValue(["EphemeralEffect", "GrantItem"], rule.key) && typeof rule.uuid === "string") {
-                rule.uuid = this.convertUUID(rule.uuid, convertOptions);
-            } else if (rule.key === "ChoiceSet") {
-                if (hasUUIDChoices(rule.choices)) {
-                    for (const [key, choice] of Object.entries(rule.choices)) {
-                        rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
-                    }
-                }
-                if (
-                    "selection" in rule &&
-                    typeof rule.selection === "string" &&
-                    rule.selection.startsWith("Compendium.pf2e.")
-                ) {
-                    rule.selection = this.convertUUID(rule.selection, convertOptions);
-                }
-            }
-        }
+        source.system.rules = source.system.rules.map((r) =>
+            recursiveReplaceString(r, (s) => (s.startsWith("Compendium.") ? this.convertUUID(s, convertOptions) : s)),
+        );
     }
 
     static convertUUID<TUUID extends string>(uuid: TUUID, { to, map }: ConvertUUIDOptions): TUUID {
         if (uuid.startsWith("Item.")) {
             throw PackError(`World-item UUID found: ${uuid}`);
         }
+        if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
 
         const toNameRef = (uuid: string): TUUID => {
             const parts = uuid.split(".");
@@ -399,7 +372,6 @@ class CompendiumPack {
             }
         };
 
-        if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
         return to === "id" ? toIDRef(uuid) : toNameRef(uuid);
     }
 

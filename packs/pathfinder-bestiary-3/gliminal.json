@@ -297,6 +297,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -339,9 +340,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -356,7 +361,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -371,11 +378,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -400,7 +402,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -411,6 +415,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -423,7 +434,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -454,6 +467,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -812,7 +826,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A gliminal doesn't gain the automatic or temporary Hit Points from being on a plane with the positive planar essence.</p>"
+                    "value": "<p>A gliminal doesn't gain the automatic or temporary Hit Points from being on a plane with the vitality planar essence.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1002,7 +1016,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a gliminal grants positive healing that would heal a living creature above their maximum Hit Points, including the fast healing HP from their Bond in Light ability, the excess is granted as temporary Hit Points.</p>\n<p>Unlike normal, these temporary HP combine with each other, and they last for 1 hour. If a creature's temporary HP from a gliminal ever exceeds its maximum HP, it becomes overloaded and explodes in a burst of vitality energy.</p>\n<p>A creature with temporary HP from overpowering healing becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} if the temporary HP equal half their maximum HP or more. The creature can't reduce this sickened condition unless it has 0 temporary HP.</p>\n<p>Overpowering healing doesn't apply to creatures with the positive trait.</p>"
+                    "value": "<p>When a gliminal grants vitality healing that would heal a living creature above their maximum Hit Points, including the fast healing HP from their Bond in Light ability, the excess is granted as temporary Hit Points.</p>\n<p>Unlike normal, these temporary HP combine with each other, and they last for 1 hour. If a creature's temporary HP from a gliminal ever exceeds its maximum HP, it becomes overloaded and explodes in a burst of vitality energy.</p>\n<p>A creature with temporary HP from overpowering healing becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} if the temporary HP equal half their maximum HP or more. The creature can't reduce this sickened condition unless it has 0 temporary HP.</p>\n<p>Overpowering healing doesn't apply to creatures with the vitality trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1081,16 +1095,16 @@
             "type": "lore"
         },
         {
-            "_id": "q7feYTEPooCwxvYL",
+            "_id": "fj2rLzo717u5F5Ya",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
+            "name": "Forge of Creation Lore",
             "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 18
+                    "value": 19
                 },
                 "proficient": {
                     "value": 0
@@ -1106,16 +1120,16 @@
             "type": "lore"
         },
         {
-            "_id": "fj2rLzo717u5F5Ya",
+            "_id": "q7feYTEPooCwxvYL",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forge of Creation Lore",
+            "name": "Medicine",
             "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 19
+                    "value": 18
                 },
                 "proficient": {
                     "value": 0

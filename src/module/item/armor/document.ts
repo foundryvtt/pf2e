@@ -2,7 +2,6 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/base/data/index.ts";
 import {
-    PhysicalItemHitPoints,
     PhysicalItemPF2e,
     RUNE_DATA,
     getPropertySlots,
@@ -23,14 +22,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         return super.isStackableWith(item);
     }
 
-    get isShield(): boolean {
-        return this.system.category === "shield";
-    }
-
-    get isArmor(): boolean {
-        return !this.isShield;
-    }
-
     get isBarding(): boolean {
         return ["light-barding", "heavy-barding"].includes(this.category);
     }
@@ -48,54 +39,27 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     get dexCap(): number | null {
-        return this.isShield ? null : this.system.dexCap;
+        return this.system.dexCap;
     }
 
     get strength(): number | null {
-        return this.isShield ? null : this.system.strength;
+        return this.system.strength;
     }
 
-    get checkPenalty(): number | null {
-        return this.isShield ? null : this.system.checkPenalty || null;
+    get checkPenalty(): number {
+        return this.system.checkPenalty || 0;
     }
 
-    get speedPenalty(): number | null {
-        return this.system.speedPenalty || null;
+    get speedPenalty(): number {
+        return this.system.speedPenalty || 0;
     }
 
     get acBonus(): number {
         return this.system.acBonus;
     }
 
-    get hitPoints(): PhysicalItemHitPoints {
-        return deepClone(this.system.hp);
-    }
-
-    get hardness(): number {
-        return this.system.hardness;
-    }
-
     override get isSpecific(): boolean {
         return this.system.specific?.value ?? false;
-    }
-
-    get isBroken(): boolean {
-        const { hitPoints } = this;
-        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= hitPoints.brokenThreshold;
-    }
-
-    get isDestroyed(): boolean {
-        const { hitPoints } = this;
-        return hitPoints.max > 0 && hitPoints.value === 0;
-    }
-
-    /** Given this is a shield, is it raised? */
-    get isRaised(): boolean {
-        if (!(this.isShield && this.actor?.isOfType("character", "npc"))) {
-            return false;
-        }
-
-        return this.id === this.actor.attributes.shield.itemId && this.actor.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -142,10 +106,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const potencyRune =
-            this.isArmor && this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
+        const potencyRune = this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
         const baseArmor = Number(this.system.acBonus) || 0;
-        this.system.acBonus = this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
+        this.system.acBonus = baseArmor + potencyRune;
     }
 
     private prepareRunes(): void {
@@ -174,48 +137,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         if (!this.isEquipped) return;
 
-        if (this.isArmor) {
-            for (const rollOption of this.getRollOptions("armor")) {
-                actor.rollOptions.all[rollOption] = true;
-            }
-        }
-
-        this.setActorShieldData();
-    }
-
-    override onPrepareSynthetics(this: ArmorPF2e<ActorPF2e>): void {
-        super.onPrepareSynthetics();
-        this.setActorShieldData();
-    }
-
-    // Set actor-shield data from this item--if it is a held shield
-    private setActorShieldData(): void {
-        const { actor } = this;
-        const isEquippedShield = this.isShield && this.isEquipped && actor?.heldShield === this;
-        if (!isEquippedShield || !actor.isOfType("character", "npc")) {
-            return;
-        }
-        const { attributes } = actor;
-        if (attributes.shield.itemId !== null) return;
-
-        const { hitPoints } = this;
-        attributes.shield = {
-            itemId: this.id,
-            name: this.name,
-            ac: this.acBonus,
-            hp: hitPoints,
-            hardness: this.hardness,
-            brokenThreshold: hitPoints.brokenThreshold,
-            raised: false,
-            broken: this.isBroken,
-            destroyed: this.isDestroyed,
-            icon: this.img,
-        };
-        actor.rollOptions.all["self:shield:equipped"] = true;
-        if (this.isDestroyed) {
-            actor.rollOptions.all["self:shield:destroyed"] = true;
-        } else if (this.isBroken) {
-            actor.rollOptions.all["self:shield:broken"] = true;
+        for (const rollOption of this.getRollOptions("armor")) {
+            actor.rollOptions.all[rollOption] = true;
         }
     }
 
@@ -224,10 +147,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
         const properties = [
-            this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            CONFIG.PF2E.armorCategories[this.category],
             `${addSign(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
-            this.isArmor ? `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}` : null,
-            this.isArmor ? `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}` : null,
+            `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}`,
+            `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
         ];
 
@@ -241,22 +164,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
-        const fallback = this.isShield ? "PF2E.ArmorTypeShield" : "TYPES.Item.armor";
+        const fallback = "TYPES.Item.armor";
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
         return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
-    }
-
-    /** Ensure correct shield/actual-armor usage */
-    protected override async _preCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e,
-    ): Promise<boolean | void> {
-        const { category } = this._source.system;
-        this._source.system.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
-
-        return super._preCreate(data, options, user);
     }
 
     /** Ensure correct shield/actual-armor usage */
@@ -265,10 +176,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.category) {
-            const usage = { value: changed.system.category === "shield" ? "held-in-one-hand" : "wornarmor" };
-            changed.system = mergeObject(changed.system, { usage });
-        }
         if (changed.system?.acBonus !== undefined) {
             changed.system.acBonus ||= 0;
         }

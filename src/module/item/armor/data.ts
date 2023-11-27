@@ -26,9 +26,9 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     baseItem: BaseArmorType | null;
     acBonus: number;
     strength: number | null;
-    dexCap: number;
-    checkPenalty: number | null;
-    speedPenalty: number | null;
+    dexCap: number | null;
+    checkPenalty: number;
+    speedPenalty: number;
     /** Whether the armor is "specific magic armor" */
     specific?: SpecificArmorData;
 
@@ -67,8 +67,7 @@ type SpecificArmorData =
 
 interface ArmorSystemData
     extends Omit<ArmorSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
-        Omit<Investable<PhysicalSystemData>, "traits"> {
-    baseItem: BaseArmorType;
+        Omit<Investable<PhysicalSystemData>, "baseItem" | "traits"> {
     runes: ArmorRuneData;
 }
 

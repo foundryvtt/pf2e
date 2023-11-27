@@ -575,6 +575,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -616,9 +617,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -633,7 +638,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -648,11 +655,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -677,7 +679,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -688,6 +692,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -700,7 +711,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -731,6 +744,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1128,7 +1142,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You morph your body based on your training, choosing one of the following effects based on your wild order feats.</p>\n<ul>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Untamed Form]{Wild Shape}, you can morph your hands into wild claws. Your hands transform into incredibly sharp claws. These claws are an unarmed attack you're trained in and deal 1d6 slashing damage each (agile, finesse). You can still hold and use items with your hands while they're transformed by this spell, but you cannot hold an item while attacking.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Insect Shape], you can instead transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Elemental Shape], you can morph your body to be partially composed of elemental matter, granting you resistance 5 to critical hits and precision damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Plant Shape], you can morph your arms into long vines, increasing your reach to 10 feet (or 15 feet with a reach weapon).</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Soaring Shape], you can cast the spell as a two-action activity (<span class=\"action-glyph\">2</span> <strong>somatic, verbal</strong>) to grow wings from your back. These wings allow you to fly with a fly Speed of 30 feet.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You can choose up to two of the effects from the list. Wild claws leave terrible, ragged wounds that also deal @Damage[2d6[bleed]] on a hit, and wild jaws are envenomed, also dealing @Damage[2d6[persistent,poison]] on a hit.</p>\n<p><strong>Heightened (10th)</strong> You can choose up to three of the effects from the list. Wild claws deal @Damage[4d6[bleed]] on a hit, and wild jaws deal @Damage[4d6[persistent,poison]] on a hit.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Untamed Shift]{Spell Effect: Wild Morph}</p>"
+                    "value": "<p>You morph your body based on your training, choosing one of the following effects based on your wild order feats.</p>\n<ul>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Untamed Form], you can morph your hands into wild claws. Your hands transform into incredibly sharp claws. These claws are an unarmed attack you're trained in and deal 1d6 slashing damage each (agile, finesse). You can still hold and use items with your hands while they're transformed by this spell, but you cannot hold an item while attacking.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Insect Shape], you can instead transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Elemental Shape], you can morph your body to be partially composed of elemental matter, granting you resistance 5 to critical hits and precision damage.</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Plant Shape], you can morph your arms into long vines, increasing your reach to 10 feet (or 15 feet with a reach weapon).</li>\n<li>If you have @UUID[Compendium.pf2e.feats-srd.Item.Soaring Shape], you can cast the spell as a two-action activity (<span class=\"action-glyph\">2</span> <strong>somatic, verbal</strong>) to grow wings from your back. These wings allow you to fly with a fly Speed of 30 feet.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You can choose up to two of the effects from the list. Wild claws leave terrible, ragged wounds that also deal @Damage[2d6[bleed]] on a hit, and wild jaws are envenomed, also dealing @Damage[2d6[persistent,poison]] on a hit.</p>\n<p><strong>Heightened (10th)</strong> You can choose up to three of the effects from the list. Wild claws deal @Damage[4d6[bleed]] on a hit, and wild jaws deal @Damage[4d6[persistent,poison]] on a hit.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Untamed Shift]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1213,10 +1227,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -1277,14 +1287,11 @@
             "sort": 1500000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "wooden-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -1293,7 +1300,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 3,
                 "hp": {
                     "max": 12,
@@ -1306,29 +1312,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -1336,16 +1323,16 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "wooden-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -1356,7 +1343,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "PIKuAg6kLVvSzh0P",

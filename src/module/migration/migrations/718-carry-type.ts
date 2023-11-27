@@ -22,7 +22,7 @@ export class Migration718CarryType extends MigrationBase {
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
         } else if (itemData.type === "armor") {
-            const { category } = itemData.system;
+            const category: string = itemData.system.category;
             systemData.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
         } else if (itemData.type === "equipment" && systemData.slug?.startsWith("clothing-")) {
             // Basic adventurer's gear clothing

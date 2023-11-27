@@ -85,13 +85,15 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "ac-bonus": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                const armor = data.item;
-                const newValue = AELikeRuleElement.getNewValue(this.mode, armor.system.acBonus, data.alteration.value);
+                const item = data.item;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, item.system.acBonus, data.alteration.value);
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                armor.system.acBonus = Math.max(newValue, 0);
-                this.#adjustCreatureShieldData(armor);
+                const itemBonus =
+                    "potencyRune" in item.system && this.mode === "override" ? item.system.potencyRune.value || 0 : 0;
+                item.system.acBonus = Math.max(newValue, 0) + itemBonus;
+                this.#adjustCreatureShieldData(item);
                 return;
             }
             case "badge-max": {
@@ -169,7 +171,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.checkPenalty = newValue === null ? null : Math.min(newValue, 0);
+                data.item.system.checkPenalty = Math.min(newValue, 0);
                 return;
             }
             case "dex-cap": {
@@ -183,7 +185,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.dexCap = Math.max(newValue, 0);
+                data.item.system.dexCap = typeof newValue === "number" ? Math.max(newValue, 0) : null;
                 return;
             }
             case "hardness": {
@@ -311,7 +313,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.speedPenalty = newValue === null ? null : Math.min(newValue, 0);
+                data.item.system.speedPenalty = Math.min(newValue, 0);
                 return;
             }
             case "strength": {
@@ -319,13 +321,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!validator.isValid(data)) return;
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
-                    data.item.system.strength,
+                    data.item.system.strength ?? 0,
                     data.alteration.value,
                 );
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.strength = newValue === null ? null : Math.max(newValue, 0);
+                data.item.system.strength = data.item.system.strength === null ? null : Math.max(newValue ?? 0, -2);
                 return;
             }
             case "traits": {
@@ -352,7 +354,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 
     /** Adjust creature shield data due it being set before item alterations occur */
     #adjustCreatureShieldData(item: PhysicalItemPF2e | PhysicalItemSource): void {
-        if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("armor") && item.isShield) {
+        if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("shield")) {
             const { heldShield } = item.actor;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;

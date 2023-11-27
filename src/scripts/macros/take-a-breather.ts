@@ -1,13 +1,11 @@
-import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { fontAwesomeIcon } from "@util";
 import * as R from "remeda";
 
 function takeABreather(): void {
     let applyChanges = false;
-    const actors: ActorPF2e[] = R.uniq(
-        R.compact([game.user.character, canvas.tokens.controlled.map((t) => t.actor)].flat()),
-    );
+    const actors = R.uniq(R.compact(game.user.getActiveTokens().map((t) => t.actor)));
     const pcs = actors.filter((a): a is CharacterPF2e => a.isOfType("character"));
     if (!game.settings.get("pf2e", "staminaVariant")) {
         return;

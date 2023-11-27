@@ -61,16 +61,9 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         );
     }
 
-    /** Pulls the features that should be granted by this class, sorted by level and choice set */
+    /** Pulls the features that should be granted by this class, sorted by level */
     override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
-        const hasChoiceSet = (f: FeatPF2e<null>) => f.system.rules.some((re) => re.key === "ChoiceSet");
-        return (await super.createGrantedItems(options)).sort((a, b) => {
-            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
-            if (aLevel !== bLevel) return aLevel - bLevel;
-            const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
-            if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
-            return a.name.localeCompare(b.name, game.i18n.lang);
-        });
+        return (await super.createGrantedItems(options)).sort((a, b) => a.system.level.value - b.system.level.value);
     }
 
     override prepareBaseData(): void {
@@ -143,6 +136,12 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
                 skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
             }
         }
+
+        proficiencies.spellcasting.rank = Math.max(
+            proficiencies.spellcasting.rank,
+            this.system.spellcasting,
+        ) as ZeroToFour;
+        this.logAutoChange("system.proficiencies.spellcasting.rank", this.system.spellcasting);
 
         details.class = { name: this.name, trait: slug };
         this.actor.rollOptions.all[`class:${slug}`] = true;

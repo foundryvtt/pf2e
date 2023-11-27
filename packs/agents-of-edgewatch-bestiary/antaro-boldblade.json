@@ -142,6 +142,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -183,9 +184,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -200,7 +205,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -215,11 +222,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -244,7 +246,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -255,6 +259,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -267,7 +278,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -298,6 +311,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -484,9 +498,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -556,14 +567,11 @@
             "sort": 600000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "wooden-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -572,7 +580,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 3,
                 "hp": {
                     "max": 12,
@@ -585,29 +592,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -615,16 +603,16 @@
                     "title": ""
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "wooden-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -635,7 +623,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "GNoQny8KdUr88SvA",
@@ -678,10 +666,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },

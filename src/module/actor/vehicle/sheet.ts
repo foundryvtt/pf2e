@@ -2,9 +2,9 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import { AbilityItemPF2e, ItemPF2e } from "@item";
 import { ActionCost, Frequency } from "@item/base/data/system.ts";
+import { AdjustedValue, getAdjustedValue } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
-import { AdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -60,9 +60,9 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             actorSize: CONFIG.PF2E.actorSizes[this.actor.size],
             actorRarities: CONFIG.PF2E.rarityTraits,
             actorRarity: CONFIG.PF2E.rarityTraits[this.actor.system.traits.rarity],
-            ac: getAdjustment(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
+            ac: getAdjustedValue(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
             saves: {
-                fortitude: getAdjustment(
+                fortitude: getAdjustedValue(
                     this.actor.saves.fortitude.mod,
                     this.actor._source.system.saves.fortitude.value,
                 ),
@@ -75,7 +75,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const html = $html[0];
 
         // Ensure correct tab name is displayed after actor update
-        const titleElem = htmlQuery(html, ".navigation-title");
+        const titleElem = htmlQuery(html, "nav > .panel-title");
         if (!titleElem) throw ErrorPF2e("Unexpected missing DOM element");
 
         const initialTitle = htmlQuery(html, ".sheet-navigation .active")?.title;

@@ -1194,6 +1194,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1240,9 +1241,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1257,7 +1262,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1272,11 +1279,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1301,7 +1303,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1312,6 +1316,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1324,7 +1335,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1355,6 +1368,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1377,42 +1391,82 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "6",
-                        "kinds": [
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "vitality"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands (Vs. Undead)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
+                    "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
                     "value": "Nn5E53ud3JgH2R3T"
+                },
+                "overlays": {
+                    "a33QUFoKgoOprovO": {
+                        "_id": "a33QUFoKgoOprovO",
+                        "name": "Lay on Hands (Vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "37YW4ZGhxx7Y2mdI": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "37YW4ZGhxx7Y2mdI": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "uLuOg62dVyxvbW66": {
+                        "_id": "uLuOg62dVyxvbW66",
+                        "name": "Lay on Hands (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "b39tbePoPlJSzLku": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "b39tbePoPlJSzLku": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
                 },
                 "publication": {
                     "license": "OGL",
@@ -1446,95 +1500,10 @@
             "type": "spell"
         },
         {
-            "_id": "yVlPFPnKpc8ePwr1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.IxyD7YdRbSSucxZp"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
-            "name": "Lay on Hands (Vs. Undead)",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "vitality"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round. Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands (Vs. Undead)]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "Nn5E53ud3JgH2R3T"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "lay-on-hands-vs-undead",
-                "target": {
-                    "value": "1 undead creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "champion",
-                        "focus",
-                        "healing",
-                        "manipulate",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "zsHciQgmfpHT7Rdu",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1589,7 +1558,7 @@
             "_id": "bIOojNVEElRivlmd",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1650,7 +1619,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1694,7 +1663,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1738,7 +1707,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 20 (Deactivated by Unholy)",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1787,7 +1756,7 @@
             "_id": "fzjCg0wFBhRYlKEh",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dragon's Salvation",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1826,7 +1795,7 @@
             "_id": "iGx7eQKe0LJXzUAo",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1867,7 +1836,7 @@
             "_id": "br8FCwfVCLAXisnU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dragon's Wisdom",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1906,7 +1875,7 @@
             "_id": "xkS0Q59YAAwHJlcT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1931,7 +1900,7 @@
             "_id": "uehunenPzM6eSJvN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1956,7 +1925,7 @@
             "_id": "mOToqh2R8tANGGfd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1981,7 +1950,7 @@
             "_id": "k0naTdKqc7mTIAra",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
@@ -2006,7 +1975,7 @@
             "_id": "i37RsbxnUjHluzs3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "description": {
                     "value": ""
@@ -2031,7 +2000,7 @@
             "_id": "w2Wodg2t7hHYZHg4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -2056,7 +2025,7 @@
             "_id": "dZGiqsZu9U1qRnqD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "description": {
                     "value": ""
@@ -2081,7 +2050,7 @@
             "_id": "poFV0K8IzaMCquPb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nirvana Lore",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -2106,7 +2075,7 @@
             "_id": "S5EydLEAu4cbobTA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "description": {
                     "value": ""
@@ -2131,7 +2100,7 @@
             "_id": "WQtTRbc4c50MPIKZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "description": {
                     "value": ""
@@ -2156,7 +2125,7 @@
             "_id": "kXjdFoKq51aA4hZb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "description": {
                     "value": ""

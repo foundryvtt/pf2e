@@ -121,7 +121,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.WC4xLBGmBsdOdHWu"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Natural Medicine",
             "sort": 0,
             "system": {
@@ -257,9 +257,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {}
                 },
@@ -320,9 +317,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -394,10 +388,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -481,9 +471,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {}
                 },
@@ -557,9 +544,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -643,9 +627,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -736,9 +717,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 34
@@ -781,14 +759,11 @@
             "sort": 0,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "wooden-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
@@ -796,7 +771,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 3,
                 "hp": {
                     "max": 12,
@@ -809,29 +783,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -839,16 +794,16 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "wooden-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -859,7 +814,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "5OfST4WQFtRTu3zC",
@@ -894,9 +849,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1456,6 +1408,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1497,9 +1450,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1514,7 +1471,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1529,11 +1488,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1558,7 +1512,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1569,6 +1525,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1581,7 +1544,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1612,6 +1577,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -2065,7 +2031,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.i5W5aGWEiyo1vt2d"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Leshy Lore",
             "sort": 0,
             "system": {
@@ -2304,7 +2270,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.N7dTFxpjXGn4ddq8"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Enhanced Familiar",
             "sort": 0,
             "system": {
@@ -2366,7 +2332,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.lKgpe2JKaeLjgnYF"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Woodland Stride",
             "sort": 0,
             "system": {
@@ -2415,7 +2381,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.urQZwmzg2kS53vd5"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Experienced Tracker",
             "sort": 0,
             "system": {
@@ -2465,7 +2431,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.tGIXuk0XeWmG04CX"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Survey Wildlife",
             "sort": 0,
             "system": {
@@ -2515,7 +2481,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Fleet",
             "sort": 0,
             "system": {
@@ -2624,7 +2590,7 @@
                 "hp": 8,
                 "items": {
                     "3nzxp": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 5,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
@@ -2684,19 +2650,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Druidic Order"
                     },
                     "ibknd": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 3,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
                     },
                     "ifwyc": {
-                        "img": "systems/pf2e/icons/features/classes/legendary-spellcaster.webp",
+                        "img": "icons/sundries/books/book-open-purple.webp",
                         "level": 19,
                         "name": "Legendary Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
                     },
                     "ixkp9": {
-                        "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
                         "level": 1,
                         "name": "Shield Block",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
@@ -2714,7 +2680,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Druid Spellcasting"
                     },
                     "ycbpi": {
-                        "img": "systems/pf2e/icons/features/classes/expert-spellcaster.webp",
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
                         "level": 7,
                         "name": "Expert Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
@@ -2737,37 +2703,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 7,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 15,
-                                    "value": 3
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 4
-                                }
-                            ],
-                            "field": "actor|system.details.level.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -2801,6 +2737,7 @@
                     ]
                 },
                 "slug": "druid",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 2,
                     "value": [
@@ -3064,7 +3001,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
             "name": "Shield Block",
             "sort": 400,
             "system": {
@@ -3160,7 +3097,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/alertness.webp",
+            "img": "icons/creatures/eyes/human-single-blue.webp",
             "name": "Alertness",
             "sort": 1800,
             "system": {
@@ -3264,7 +3201,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Leshy Familiar",
             "sort": 0,
             "system": {
@@ -3402,7 +3339,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Shield Block",
             "sort": 0,
             "system": {

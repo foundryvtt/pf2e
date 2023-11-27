@@ -795,6 +795,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -841,9 +842,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -858,7 +863,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -873,11 +880,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -902,7 +904,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -913,6 +917,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -925,7 +936,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -956,6 +969,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1010,9 +1024,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -1346,7 +1357,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Allies in the movanic deva's aura gain a +1 status bonus to all saving throws, resistance 10 to vitality and void damage, and are unharmed by the effects of a plane's positive and negative traits. Animals in the aura of 12th level or lower don't attack the movanic deva or the deva's allies unless they are controlled or otherwise forced to attack.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Vitality]</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Allies in the movanic deva's aura gain a +1 status bonus to all saving throws, resistance 10 to vitality and void damage, and are unharmed by the effects of a plane's vitality and void traits. Animals in the aura of 12th level or lower don't attack the movanic deva or the deva's allies unless they are controlled or otherwise forced to attack.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Vitality]</p>"
                 },
                 "publication": {
                     "license": "OGL",

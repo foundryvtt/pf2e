@@ -281,9 +281,9 @@ type AELikeChangeMode = keyof typeof AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIOR
 type AELikeDataPrepPhase = (typeof AELikeRuleElement.PHASES)[number];
 
 interface AELikeSource extends RuleElementSource {
-    mode?: unknown;
-    path?: unknown;
-    phase?: unknown;
+    mode?: JSONValue;
+    path?: JSONValue;
+    phase?: JSONValue;
 }
 
 export { AELikeRuleElement };

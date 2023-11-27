@@ -114,7 +114,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.QaH9p7xSfhdz9dRR"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Assurance (Survival)",
             "sort": 0,
             "system": {
@@ -192,7 +192,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Angelkin",
             "sort": 0,
             "system": {
@@ -264,7 +264,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Multilingual",
             "sort": 0,
             "system": {
@@ -381,9 +381,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -486,9 +483,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "per": 10,
                     "value": {
@@ -532,7 +526,7 @@
                 "acBonus": 0,
                 "baseItem": "explorers-clothing",
                 "category": "unarmored",
-                "checkPenalty": null,
+                "checkPenalty": 0,
                 "containerId": null,
                 "description": {
                     "value": "<p>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor.</p>"
@@ -559,9 +553,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -595,7 +586,7 @@
                 "rules": [],
                 "size": "med",
                 "slug": "explorers-clothing",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": null,
                 "traits": {
@@ -661,9 +652,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -733,9 +721,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -812,9 +797,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 4
@@ -878,9 +860,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -958,9 +937,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": 1
@@ -1054,9 +1030,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 2
@@ -1126,9 +1099,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -1364,6 +1334,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1405,9 +1376,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1422,7 +1397,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1437,11 +1414,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1466,7 +1438,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1477,6 +1451,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1489,7 +1470,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1520,6 +1503,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -2217,9 +2201,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 700
@@ -2293,9 +2274,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2411,9 +2389,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -2518,9 +2493,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 360
@@ -2561,6 +2533,7 @@
                                 "category": null,
                                 "formula": "1d8",
                                 "kinds": [
+                                    "damage",
                                     "healing"
                                 ],
                                 "materials": [],
@@ -2607,9 +2580,13 @@
                                     },
                                     "damage": {
                                         "0": {
-                                            "formula": "1d8+8"
+                                            "formula": "1d8+8",
+                                            "kinds": [
+                                                "healing"
+                                            ]
                                         }
                                     },
+                                    "defense": null,
                                     "heightenedLevel": {},
                                     "heightening": {
                                         "damage": {
@@ -2625,7 +2602,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -2645,11 +2624,6 @@
                                     },
                                     "time": {
                                         "value": "1"
-                                    },
-                                    "traits": {
-                                        "value": [
-                                            "manipulate"
-                                        ]
                                     }
                                 }
                             },
@@ -2671,7 +2645,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -2686,6 +2662,13 @@
                                         "areaType": "",
                                         "value": ""
                                     },
+                                    "damage": {
+                                        "0": {
+                                            "kinds": [
+                                                "damage"
+                                            ]
+                                        }
+                                    },
                                     "heightenedLevel": {},
                                     "range": {
                                         "value": "30 feet"
@@ -2699,7 +2682,9 @@
                                     "traits": {
                                         "value": [
                                             "concentrate",
-                                            "manipulate"
+                                            "healing",
+                                            "manipulate",
+                                            "vitality"
                                         ]
                                     }
                                 }
@@ -2730,6 +2715,7 @@
                             ],
                             "value": [
                                 "healing",
+                                "manipulate",
                                 "vitality"
                             ]
                         }
@@ -2762,7 +2748,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.lwLcUHQMOqfaNND4"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Cooperative Nature",
             "sort": 0,
             "system": {
@@ -2831,7 +2817,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Natural Ambition",
             "sort": 0,
             "system": {
@@ -2887,7 +2873,7 @@
                                         "item:steadying-stone",
                                         "item:storm-born",
                                         "item:versatile-performance",
-                                        "item:wild-shape"
+                                        "item:untamed-form"
                                     ]
                                 }
                             ],
@@ -2928,7 +2914,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Healing Hands",
             "sort": 0,
             "system": {
@@ -2967,7 +2953,10 @@
                         "predicate": [
                             "item:slug:heal"
                         ],
-                        "selector": "spell-damage"
+                        "selector": [
+                            "spell-damage",
+                            "spell-healing"
+                        ]
                     }
                 ],
                 "slug": "healing-hands",
@@ -2987,7 +2976,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.hT4INKGtly4QY8KN"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Domain Initiate (Fire)",
             "sort": 0,
             "system": {
@@ -3041,7 +3030,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.PGyzFBwuTgypU8cD"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Turn Undead",
             "sort": 0,
             "system": {
@@ -3086,7 +3075,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.yyt2I2lGbRndXjbc"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Selective Energy",
             "sort": 0,
             "system": {
@@ -3131,7 +3120,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.yExxOkHN1PN37hUa"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Communal Healing",
             "sort": 0,
             "system": {
@@ -3178,7 +3167,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.uR44wELN9OlU68cL"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Advanced Domain",
             "sort": 0,
             "system": {
@@ -3228,7 +3217,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Fleet",
             "sort": 0,
             "system": {
@@ -3279,7 +3268,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Toughness",
             "sort": 0,
             "system": {
@@ -3336,7 +3325,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.wYerMk6F1RZb0Fwt"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Battle Medicine",
             "sort": 0,
             "system": {
@@ -3388,7 +3377,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.c85a69mB1urW2Se2"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Continual Recovery",
             "sort": 0,
             "system": {
@@ -3438,7 +3427,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.x7EMZNMavris2aHY"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Student of the Canon",
             "sort": 0,
             "system": {
@@ -3517,7 +3506,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Multilingual",
             "sort": 0,
             "system": {
@@ -3568,7 +3557,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.8c61nOIr5AM3KxZi"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Ward Medic",
             "sort": 0,
             "system": {
@@ -4413,7 +4402,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": ""
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -4826,7 +4815,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.vtCrMziYxNyj8kP7"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Celestial Wings",
             "sort": 0,
             "system": {
@@ -4988,7 +4977,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.First Doctrine"
                     },
                     "ozqxv": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 5,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
@@ -5012,7 +5001,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
                     },
                     "vpn62": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 11,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
@@ -5047,14 +5036,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -5088,6 +5070,7 @@
                     ]
                 },
                 "slug": "cleric",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 2,
                     "value": [
@@ -5541,7 +5524,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/alertness.webp",
+            "img": "icons/creatures/eyes/human-single-blue.webp",
             "name": "Alertness",
             "sort": 3500,
             "system": {
@@ -5828,12 +5811,12 @@
                         "mode": "override",
                         "path": "flags.pf2e.cleric",
                         "value": {
-                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.n9W8MjjRgPpUTvWf",
-                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.DgGefatQ4v6xT6f9",
-                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.aiwxBj5MjnafCMyn",
-                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.vxOf4LXZcqUG3P7a",
-                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.sa7BWfnyCswAvBVa",
-                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.s8WEmc4GGZSHSC7q"
+                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Cloistered Cleric)",
+                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.Final Doctrine (Cloistered Cleric)",
+                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.First Doctrine (Cloistered Cleric)",
+                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Cloistered Cleric)",
+                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Cloistered Cleric)",
+                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Third Doctrine (Cloistered Cleric)"
                         }
                     }
                 ],
@@ -5860,7 +5843,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Domain Initiate (Fire)",
             "sort": 0,
             "system": {

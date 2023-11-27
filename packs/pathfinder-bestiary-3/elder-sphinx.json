@@ -1422,7 +1422,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The elder sphinx transforms their body into stone or back to flesh.</p>\n<p>In stone form, the sphinx is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] but has Hardness 14 and gains immunity to bleed, clumsy, disease, drained, enfeebled, fatigued, void damage, petrified, poison, sickened, and wounded. They don't age or require food, water, or sleep. They can perceive their surroundings and cast their innate spells.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh]</em> turns the elder sphinx from stone form back to flesh, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Petrify]</em> turns it from flesh form to stone form.</p>"
+                    "value": "<p>The elder sphinx transforms their body into stone or back to flesh.</p>\n<p>In stone form, the sphinx is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] but has Hardness 14 and gains immunity to bleed, clumsy, disease, drained, enfeebled, fatigued, petrified, poison, sickened, void damage, and wounded. They don't age or require food, water, or sleep. They can perceive their surroundings and cast their innate spells.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh] turns the elder sphinx from stone form back to flesh, and @UUID[Compendium.pf2e.spells-srd.Item.Petrify] turns it from flesh form to stone form.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1440,6 +1440,15 @@
                         "toggleable": true
                     },
                     {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "predicate": [
+                            "guardian-monolith"
+                        ],
+                        "value": 14
+                    },
+                    {
                         "key": "Immunity",
                         "predicate": [
                             "guardian-monolith"
@@ -1451,10 +1460,10 @@
                             "drained",
                             "enfeebled",
                             "fatigued",
-                            "void",
                             "petrified",
                             "poison",
                             "sickened",
+                            "void",
                             "wounded"
                         ]
                     }

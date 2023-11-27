@@ -5,16 +5,12 @@ import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
 import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
+import "./lib/core-helpers.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration869RefreshMightyBulwark } from "@module/migration/migrations/869-refresh-mighty-bulwark.ts";
-import { Migration870MartialToProficiencies } from "@module/migration/migrations/870-martial-to-proficiencies.ts";
-import { Migration873RemoveBonusBulkLimit } from "@module/migration/migrations/873-remove-bonus-bulk-limit.ts";
-import { Migration874MoveStaminaStuff } from "@module/migration/migrations/874-move-stamina-stuff.ts";
-import { Migration875SetInnovationIdEarly } from "@module/migration/migrations/875-set-innovation-id-early.ts";
 import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
@@ -27,6 +23,12 @@ import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrat
 import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
 import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
+import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
+import { Migration895FixVariantSpellTraits } from "@module/migration/migrations/895-fix-variant-spell-traits.ts";
+import { Migration896HealingDomains } from "@module/migration/migrations/896-healing-domains.ts";
+import { Migration897ClearLayOnHandsDamage } from "@module/migration/migrations/897-clear-lay-on-hands-damage.ts";
+import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrations/899-armor-shields-to-shield-shields.ts";
+import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -36,11 +38,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration869RefreshMightyBulwark(),
-    new Migration870MartialToProficiencies(),
-    new Migration873RemoveBonusBulkLimit(),
-    new Migration874MoveStaminaStuff(),
-    new Migration875SetInnovationIdEarly(),
     new Migration876FeatLevelTaken(),
     new Migration877PublicationData(),
     new Migration878TakeABreather(),
@@ -53,35 +50,13 @@ const migrations: MigrationBase[] = [
     new Migration889RemoveFocusMaxIncreases(),
     new Migration890RMClassItemClassDC(),
     new Migration891DruidicToWildsong(),
+    new Migration894NoLayOnHandsVsUndead(),
+    new Migration895FixVariantSpellTraits(),
+    new Migration896HealingDomains(),
+    new Migration897ClearLayOnHandsDamage(),
+    new Migration899ArmorShieldToShieldShield(),
+    new Migration900ClassSpellcastingProficiency(),
 ];
-
-global.deepClone = <T>(original: T): T => {
-    // Simple types
-    if (typeof original !== "object" || original === null) return original;
-
-    // Arrays
-    if (Array.isArray(original)) return original.map(deepClone) as unknown as T;
-
-    // Dates
-    if (original instanceof Date) return new Date(original) as T & Date;
-
-    // Unsupported advanced objects
-    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
-
-    // Other objects
-    const clone: Record<string, unknown> = {};
-    for (const k of Object.keys(original)) {
-        clone[k] = deepClone((original as Record<string, unknown>)[k]);
-    }
-    return clone as T;
-};
-
-global.randomID = function randomID(length = 16): string {
-    const rnd = () => Math.random().toString(36).substring(2);
-    let id = "";
-    while (id.length < length) id += rnd();
-    return id.substring(0, length);
-};
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
 

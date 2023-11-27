@@ -101,7 +101,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Hefty Hauler",
             "sort": 0,
             "system": {
@@ -225,7 +225,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Assurance (Athletics)",
             "sort": 0,
             "system": {
@@ -380,7 +380,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Natural Ambition",
             "sort": 0,
             "system": {
@@ -436,7 +436,7 @@
                                         "item:steadying-stone",
                                         "item:storm-born",
                                         "item:versatile-performance",
-                                        "item:wild-shape"
+                                        "item:untamed-form"
                                     ]
                                 }
                             ],
@@ -476,7 +476,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Deadly Simplicity",
             "sort": 0,
             "system": {
@@ -804,6 +804,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -850,9 +851,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -867,7 +872,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -882,11 +889,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -911,7 +913,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -922,6 +926,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -934,7 +945,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -965,6 +978,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1472,6 +1486,7 @@
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
+                            "damage",
                             "healing"
                         ],
                         "materials": [],
@@ -1513,9 +1528,13 @@
                         "system": {
                             "damage": {
                                 "0": {
-                                    "formula": "1d8+8"
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1530,7 +1549,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1545,11 +1566,6 @@
                             },
                             "time": {
                                 "value": "1"
-                            },
-                            "traits": {
-                                "value": [
-                                    "manipulate"
-                                ]
                             }
                         }
                     },
@@ -1574,7 +1590,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1585,6 +1603,13 @@
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
                             "range": {
                                 "value": "30 feet"
                             },
@@ -1597,7 +1622,9 @@
                             "traits": {
                                 "value": [
                                     "concentrate",
-                                    "manipulate"
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
                                 ]
                             }
                         }
@@ -1628,6 +1655,7 @@
                     ],
                     "value": [
                         "healing",
+                        "manipulate",
                         "vitality"
                     ]
                 }
@@ -1682,9 +1710,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "potencyRune": {
                     "value": null
@@ -1788,9 +1813,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": null
                 },
@@ -1888,10 +1910,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
                 "potencyRune": {
                     "value": 0
                 },
@@ -1955,14 +1973,11 @@
             "sort": 0,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -1971,7 +1986,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 5,
                 "hp": {
                     "max": 20,
@@ -1984,29 +1998,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -2014,16 +2009,16 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "steel-shield",
-                "speedPenalty": null,
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": []
                 },
@@ -2034,7 +2029,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "K1UrLvGGKrYHXH78",
@@ -2070,9 +2065,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2136,9 +2128,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2281,9 +2270,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "0"
                 },
                 "price": {
                     "value": {
@@ -2432,7 +2418,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.First Doctrine"
                     },
                     "ozqxv": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 5,
                         "name": "Alertness",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
@@ -2456,7 +2442,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
                     },
                     "vpn62": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 11,
                         "name": "Lightning Reflexes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
@@ -2491,14 +2477,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -2532,6 +2511,7 @@
                     ]
                 },
                 "slug": "cleric",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 2,
                     "value": [
@@ -3022,12 +3002,12 @@
                         "mode": "override",
                         "path": "flags.pf2e.cleric",
                         "value": {
-                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.kmimy4VOaoEOgOiQ",
-                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.N1ugDqZlslxbp3Uy",
-                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.xxkszluN9icAiTO4",
-                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.px3gVYp7zlEQIpcl",
-                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.D34mPo29r1J3DPaX",
-                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Zp81uTBItG1xlH4O"
+                            "fifthDoctrine": "Compendium.pf2e.classfeatures.Item.Fifth Doctrine (Warpriest)",
+                            "finalDoctrine": "Compendium.pf2e.classfeatures.Item.Final Doctrine (Warpriest)",
+                            "firstDoctrine": "Compendium.pf2e.classfeatures.Item.First Doctrine (Warpriest)",
+                            "fourthDoctrine": "Compendium.pf2e.classfeatures.Item.Fourth Doctrine (Warpriest)",
+                            "secondDoctrine": "Compendium.pf2e.classfeatures.Item.Second Doctrine (Warpriest)",
+                            "thirdDoctrine": "Compendium.pf2e.classfeatures.Item.Third Doctrine (Warpriest)"
                         }
                     }
                 ],
@@ -3054,7 +3034,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Shield Block",
             "sort": 0,
             "system": {

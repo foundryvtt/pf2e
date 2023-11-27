@@ -38,13 +38,6 @@
                 "value": 1
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.proficiencies.aliases.sorcerer",
-                "priority": 39,
-                "value": "arcane"
-            },
-            {
                 "adjustName": true,
                 "choices": [
                     {
@@ -256,65 +249,6 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.sorcerer.bloodline.spells",
-                "value": {
-                    "1st": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh",
-                        "slug": "true-strike"
-                    },
-                    "2nd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n",
-                        "slug": "resist-energy"
-                    },
-                    "3rd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4",
-                        "slug": "haste"
-                    },
-                    "4th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.tgIhRUFtgDSELpJE",
-                        "slug": "spell-immunity"
-                    },
-                    "5th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.forsqeofEszBNtLq",
-                        "slug": "chromatic-wall"
-                    },
-                    "6th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.5c692cCcTDXjSEzk",
-                        "slug": "dragon-form"
-                    },
-                    "7th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.O6VQC1Bs4aSYDa6R",
-                        "slug": "mask-of-terror"
-                    },
-                    "8th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.iL6TujgTCtRRa0Y0",
-                        "slug": "prismatic-wall"
-                    },
-                    "9th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.fkDeKktdmbeplYRY",
-                        "slug": "overwhelming-presence"
-                    },
-                    "advanced": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.JcobNl4iE9HmMYtE",
-                        "slug": "dragon-breath"
-                    },
-                    "cantrip": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR",
-                        "slug": "shield"
-                    },
-                    "greater": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.HWJODX2zPg5cg34F",
-                        "slug": "dragon-wings"
-                    },
-                    "initial": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.K8vvrOgW4bGakXxm",
-                        "slug": "dragon-claws"
-                    }
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
                 "path": "flags.pf2e.dragonBloodline",
                 "value": {
                     "breathSave": "{item|flags.pf2e.rulesSelections.dragon.breathSave}",
@@ -323,6 +257,11 @@
                     "damageType": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
                     "slug": "{item|flags.pf2e.rulesSelections.dragon.slug}"
                 }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:draconic:{item|flags.pf2e.rulesSelections.dragon.slug}"
             }
         ],
         "traits": {

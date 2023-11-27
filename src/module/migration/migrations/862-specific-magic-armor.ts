@@ -14,7 +14,7 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
     ]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type !== "armor" || source.system.category === "shield") {
+        if (source.type !== "armor" || (source.system.category as string) === "shield") {
             return;
         }
 

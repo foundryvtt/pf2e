@@ -1636,12 +1636,16 @@
                 "Prompt": "Select a type of energy associated with your bloodline."
             },
             "Champion": {
+                "AuraOfFaith": {
+                    "Toggle": "First Stike against an unholy creature this round"
+                },
                 "BladeAllyRune": "Select a property rune for your blade ally.",
                 "DivineSmite": {
                     "Label": "Divine Smite"
                 },
                 "EvilDamage": "Spirit Damage",
                 "NegativeDamage": "Void Damage",
+                "RetributiveStrike": "Retributive Strike",
                 "TargetReaction": "Target triggered your champion reaction"
             },
             "ChromaticArmor": {
@@ -1665,6 +1669,9 @@
                 "Prompt": "Select a clan weapon."
             },
             "Cleric": {
+                "DivineRebuttal": {
+                    "Note": "If your Strike hits, all your allies gain a +2 circumstance bonus to the triggering saving throw (or a +3 circumstance bonus on a critical hit). @UUID[Compendium.pf2e.feat-effects.Item.jMQi2kDirzGgddti]{Effect: Divine Rebuttal}"
+                },
                 "Doctrine": {
                     "AllowedDrops": "1st-level cleric class feature",
                     "Prompt": "Select a doctrine."
@@ -1912,6 +1919,7 @@
                     "Poison": "Orange (Poison)",
                     "Cold": "Brown (Cold)"
                 },
+                "ChannelProtectionAmuletLabel": "Channel Protection",
                 "ChaplainsCudgel": {
                     "BowToAHigherPowerLabel": "Chaplain's Cudgel — Bow to a Higher Power",
                     "CastTwoActionSpellLabel": "Cast a divine spell that takes two or more actions"
@@ -1958,6 +1966,9 @@
                     "CriticalHitNote": "On a critical hit, you cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.",
                     "StrikeLabel": "Sparkler"
                 },
+                "TacticiansHelm": {
+                    "ReactiveStrikeNote": "On a successful @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{Reactive Strike}, add one charge: @UUID[Compendium.pf2e.equipment-effects.Item.nLwtvyLZZTZgFmKq]{Effect: Tactician's Helm Charges}"
+                },
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
                 }
@@ -1974,6 +1985,11 @@
             },
             "FanesFourberie": {
                 "Prompt": "Treat Cards as darts or daggers?"
+            },
+            "Feat": {
+                "Forager": {
+                    "Note": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide for multiple creatures."
+                }
             },
             "Fetchling": {
                 "DeepFetchling": {
@@ -2379,6 +2395,13 @@
                     "DefendingLabel": "Defending against magic"
                 }
             },
+            "MantleOfTheUnwaveringHeart": {
+                "EvergreenVitality": "Evergreen Vitality",
+                "GraspingBranch": "Grasping Branch",
+                "OverwhelmingPerfume": "Overwhelming Perfume",
+                "ToweringTrunk": "Towering Trunk",
+                "UnyieldingWill": "Unyielding Will"
+            },
             "MarkForDeath": {
                 "DeceiveMark": "To use Deception to Feint your Mark",
                 "SeekMark": "To Seek your Mark",
@@ -2608,12 +2631,13 @@
                 "SubconsciousMind": "Select a subconscious mind.",
                 "ThirdImplement": "Select a third implement.",
                 "Tradition": "Select a tradition.",
+                "Trait": "Select a trait.",
                 "VersatileTrait": "Select a versatile damage type.",
                 "UnarmedAttack": "Select an unarmed attack.",
+                "UntamedForm": "Select a form effect.",
                 "Weapon": "Select a weapon.",
                 "WeaponGroup": "Select a weapon group.",
-                "WeaponOrUnarmed": "Select a weapon or unarmed strike.",
-                "WildShape": "Select a form effect."
+                "WeaponOrUnarmed": "Select a weapon or unarmed strike."
             },
             "Psychic": {
                 "UnleashPsyche": {
@@ -2662,6 +2686,11 @@
                 "Fortitude": "When you roll a success on a Fortitude save, you get a critical success instead.",
                 "Reflex": "When you roll a success on a Reflex save, you get a critical success instead.",
                 "Will": "When you roll a success on a Will save, you get a critical success instead."
+            },
+            "SaveCriticalFailureToFailure": {
+                "FailureHalfDamage": {
+                    "Will": "When you roll a critical failure on a Will save, you get a failure instead. When you fail a Will save against an effect that deals damage, you take half damage."
+                }
             },
             "ScionOfDomora": {
                 "GuardiansEmbrace": {
@@ -2952,6 +2981,16 @@
                     "Note": "The target is @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round."
                 }
             },
+            "UntamedShift": {
+                "ElementalMatter": "Elemental Matter",
+                "LongVines": "Long Vines",
+                "Prompt": "Select a shift.",
+                "PromptTwo": "Select a 2nd shift.",
+                "PromptThree": "Select a 3rd shift.",
+                "UntamedClaws": "Untamed Claws",
+                "UntamedJaws": "Untamed Jaws",
+                "Wings": "Wings"
+            },
             "Vampire": {
                 "ViciousFangs": {
                     "Note": {
@@ -3004,16 +3043,6 @@
                 "Initiative": "When you roll initiative for a non-trivial combat encounter, as well as in other high-stress situations of the GM's choice, magic wells up within you. Attempt a @Check[type:flat|dc:6|traits:wellspring-magic].",
                 "Success": "You temporarily recover an expended spell slot of a spell level chosen randomly among your top three levels of spell slots (or all your levels of spell slots if you have fewer than three). The slot lasts 3 rounds instead of 1 minute, otherwise you experience a @UUID[Compendium.pf2e.rollable-tables.RollTable.N0pDFNCffTe2Du39]{Wellspring Surge}."
             },
-            "WildMorph": {
-                "ElementalMatter": "Elemental Matter",
-                "LongVines": "Long Vines",
-                "Prompt": "Select a morph.",
-                "PromptTwo": "Select a 2nd morph.",
-                "PromptThree": "Select a 3rd morph.",
-                "WildClaws": "Wild Claws",
-                "WildJaws": "Wild Jaws",
-                "Wings": "Wings"
-            },
             "Witch": {
                 "Patron": {
                     "Prompt": "Select a patron."
@@ -3028,6 +3057,9 @@
                 },
                 "Spellshape1": {
                     "Prompt": "Select a 1st-level wizard spellshape feat."
+                },
+                "UnifiedMagicalTheory": {
+                    "Prompt": "Select a 1st-level wizard feat."
                 }
             },
             "Zombie": {

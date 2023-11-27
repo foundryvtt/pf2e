@@ -419,7 +419,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands (Vs. Undead)]</em></p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
+                    "value": "<p>Your hands become infused with vitality energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -476,6 +476,9 @@
                                     "applyMod": false,
                                     "category": null,
                                     "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
                                     "materials": [],
                                     "type": "untyped"
                                 }
@@ -630,9 +633,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 2
                 },
@@ -740,9 +740,6 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "potencyRune": {
                     "value": 2
                 },
@@ -810,14 +807,11 @@
             "sort": 1000000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
                 "containerId": null,
                 "description": {
                     "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 15, HP 120, and BT 60.</p>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
@@ -826,7 +820,6 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
                 "hardness": 15,
                 "hp": {
                     "max": 120,
@@ -839,28 +832,10 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 3000
                     }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -868,16 +843,26 @@
                     "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "sturdy-shield-greater",
-                "speedPenalty": null,
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
                 "stackGroup": null,
-                "strength": null,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": [
                         "magical"
@@ -890,7 +875,7 @@
                     "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "46M4PewZUpmrWn09",
@@ -1348,23 +1333,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "challenge-foe",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
+                        "key": "FlatModifier",
                         "predicate": [
-                            "challenge-foe"
+                            "target:mark:challenge-foe"
                         ],
                         "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "slug": "challenge-foe-bonus",
+                        "type": "circumstance",
+                        "value": 3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:challenge-foe",
+                            {
+                                "not": "target:mark:challenge-foe"
+                            }
+                        ],
+                        "selector": "damage",
+                        "slug": "challenge-foe-penalty",
+                        "type": "circumstance",
+                        "value": -3
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Challenge Foe",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
