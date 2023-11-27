@@ -485,6 +485,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         super.activateListeners($html);
         const html = $html[0];
 
+        this.#activateNavListeners(html);
+
         // Toggle the availability of the roll-initiative link
         this.toggleInitiativeLink();
 
@@ -511,29 +513,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
-
-        {
-            // ensure correct tab name is displayed after actor update
-            const title = $(".sheet-navigation .active").attr("title");
-            if (title) {
-                $html.find(".navigation-title").text(title);
-            }
-        }
-
-        $html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
-            const title = event.currentTarget.title;
-            if (title) {
-                $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
-            }
-        });
-
-        $html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
-            const parent = $(event.currentTarget).parents(".sheet-navigation");
-            const title = parent.find(".item.active").attr("title");
-            if (title) {
-                parent.find(".navigation-title").text(title);
-            }
-        });
 
         // open ancestry, background, or class compendium
         $html.find(".open-compendium").on("click", (event) => {
@@ -1002,8 +981,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>("a[data-action=manage-tabs]")[0]);
-
         // Feat Browser shortcut links
         for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
@@ -1022,6 +999,25 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const path = `system.details.biography.visibility.${section}`;
                 this.actor.update({ [path]: !biography.visibility[section] });
             }
+        });
+    }
+
+    /** Activate listeners of main sheet navigation section */
+    #activateNavListeners(html: HTMLElement): void {
+        const sheetNavigation = htmlQuery(html, "nav.sheet-navigation");
+        const navTitleArea = htmlQuery(sheetNavigation, ":scope > .panel-title");
+        const activeTab = htmlQuery(sheetNavigation, "a[data-tab].active");
+        if (!(sheetNavigation && navTitleArea && activeTab)) {
+            throw ErrorPF2e("Sheet navigation not found");
+        }
+
+        navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
+        const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
+        if (manageTabsAnchor) PCSheetTabManager.initialize(this.actor, manageTabsAnchor);
+
+        sheetNavigation.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-tab]");
+            if (anchor) navTitleArea.innerText = game.i18n.localize(anchor.dataset.tooltip ?? "");
         });
     }
 
