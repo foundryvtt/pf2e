@@ -20,6 +20,8 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             this.fromEquipment = false;
         }
 
+        this.ability = this.resolveInjectedProperties(this.ability);
+
         if (this.type === "ability") {
             if (this.ability) {
                 this.slug = this.ability;
@@ -67,7 +69,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 choices: Array.from(MODIFIER_TYPES),
                 initial: "untyped",
             }),
-            ability: new fields.StringField({ required: false, choices: CONFIG.PF2E.abilities, initial: undefined }),
+            ability: new fields.StringField({ required: false, initial: undefined }),
             min: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             max: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             force: new fields.BooleanField(),
