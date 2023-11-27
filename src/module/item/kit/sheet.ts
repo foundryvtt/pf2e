@@ -9,7 +9,6 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
-            hasSidebar: true,
         };
     }
 

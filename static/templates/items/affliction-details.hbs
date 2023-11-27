@@ -25,7 +25,7 @@
 
         <div class="damage-formulas">
             <h3>
-                {{localize "PF2E.FormulaPlaceholder"}}
+                {{localize "PF2E.Formula"}}
                 <div class="item-controls">
                     <i class="fa-solid fa-fw fa-plus" data-action="damage-create"></i>
                 </div>
@@ -34,7 +34,7 @@
             {{#each stage.damage as |damage id|}}
                 <div class="formula-section">
                     <div class="formula-row">
-                        <input type="text" name="system.stages.{{stageId}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                        <input type="text" name="system.stages.{{stageId}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
                         <select name="system.stages.{{stageId}}.damage.{{id}}.category">
                             {{#select damage.category}}
                                 <option></option>
