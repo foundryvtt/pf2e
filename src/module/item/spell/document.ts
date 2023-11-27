@@ -505,7 +505,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         traits: deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
-                    spellArea: this.system.area,
+                    effectArea: this.system.area,
                 },
             },
         };

@@ -39,8 +39,8 @@ class MeasuredTemplateDocumentPF2e<
         return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
     }
 
-    get spellArea(): SpellArea | null {
-        return this.flags.pf2e?.spellArea ?? null;
+    get effectArea(): SpellArea | null {
+        return this.flags.pf2e?.effectArea ?? null;
     }
 
     /** If present, show the clear-template button on the message from which this template was spawned */
@@ -68,7 +68,7 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
         pf2e?: {
             messageId?: string;
             origin?: ItemOriginFlag;
-            spellArea?: Maybe<SpellArea>;
+            effectArea?: Maybe<SpellArea>;
         };
     };
 }

@@ -33,8 +33,8 @@ class MeasuredTemplatePF2e<
         return this.document.message;
     }
 
-    get spellArea(): SpellArea | null {
-        return this.document.spellArea;
+    get effectArea(): SpellArea | null {
+        return this.document.effectArea;
     }
 
     get type(): MeasuredTemplateType {
@@ -67,7 +67,7 @@ class MeasuredTemplatePF2e<
         this.layer.preview.addChild(this);
 
         if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            if (this.spellArea?.type === "burst") {
+            if (this.effectArea?.type === "burst") {
                 this.#snapInterval = 1;
             }
         }
