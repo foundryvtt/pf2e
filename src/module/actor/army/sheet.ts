@@ -89,6 +89,16 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 this.actor.strikes[type].variants[variant]?.roll({ event });
             });
         }
+
+        for (const strikeDamage of htmlQueryAll(html, "[data-action=strike-damage]")) {
+            const type = htmlClosest(strikeDamage, "[data-strike]")?.dataset.strike;
+            const outcome = strikeDamage.dataset.outcome === "criticalSuccess" ? "critical" : "damage";
+            if (!objectHasKey(this.actor.strikes, type)) continue;
+
+            strikeDamage.addEventListener("click", (event) => {
+                this.actor.strikes[type][outcome]({ event });
+            });
+        }
     }
 }
 
