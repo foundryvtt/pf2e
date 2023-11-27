@@ -533,10 +533,6 @@
                     "qer7usznuf9fivsafcu9": {
                         "damage": "1d6-3",
                         "damageType": "piercing"
-                    },
-                    "ra4j7wxphcsxkarnnvav": {
-                        "damage": "1",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -679,7 +675,46 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "luminous-fire",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "luminous-fire"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "luminous-fire",
+                            {
+                                "not": "item:slug:luminous-spark"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
