@@ -62,12 +62,18 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
-function getAdjustment(value: number, reference: number): "adjusted-higher" | "adjusted-lower" | null {
-    return value > reference ? "adjusted-higher" : value < reference ? "adjusted-lower" : null;
+function getAdjustment(
+    value: number,
+    reference: number,
+    options?: { better?: "higher" | "lower" },
+): "adjusted-higher" | "adjusted-lower" | null {
+    if (value === reference) return null;
+    const isBetter = (options?.better ?? "higher") === "higher" ? value > reference : value < reference;
+    return isBetter ? "adjusted-higher" : "adjusted-lower";
 }
 
-function getAdjustedValue(value: number, reference: number): AdjustedValue {
-    const adjustmentClass = getAdjustment(value, reference);
+function getAdjustedValue(value: number, reference: number, options?: { better?: "higher" | "lower" }): AdjustedValue {
+    const adjustmentClass = getAdjustment(value, reference, options);
     return {
         value,
         adjustmentClass,

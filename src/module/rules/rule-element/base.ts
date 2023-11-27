@@ -26,7 +26,15 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     protected suppressWarnings: boolean;
 
     /** A list of actor types on which this rule element can operate (all unless overridden) */
-    protected static validActorTypes: ActorType[] = ["character", "familiar", "hazard", "npc", "party", "vehicle"];
+    protected static validActorTypes: ActorType[] = [
+        "army",
+        "character",
+        "familiar",
+        "hazard",
+        "npc",
+        "party",
+        "vehicle",
+    ];
 
     /**
      * @param source unserialized JSON data from the actual rule input

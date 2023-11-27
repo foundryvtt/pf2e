@@ -6,7 +6,7 @@ import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
 import * as R from "remeda";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
-import { getAdjustment } from "@module/sheet/helpers.ts";
+import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CampaignFeaturePF2e } from "@item";
 
@@ -16,16 +16,28 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         return {
             ...options,
             classes: [...options.classes, "army"],
+            width: 750,
+            height: 625,
             template: "systems/pf2e/templates/actors/army/sheet.hbs",
         };
     }
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<ArmySheetData> {
         const data = await super.getData(options);
-        const campaignFeatures = this.actor.itemTypes.campaignFeature;
+        const actor = this.actor;
+        const campaignFeatures = actor.itemTypes.campaignFeature;
 
         return {
             ...data,
+            hitPoints: {
+                value: actor.system.attributes.hp.value,
+                max: getAdjustedValue(actor.system.attributes.hp.max, actor._source.system.attributes.hp.max),
+                routThreshold: getAdjustedValue(
+                    actor.system.attributes.hp.routThreshold,
+                    actor._source.system.attributes.hp.routThreshold,
+                    { better: "lower" },
+                ),
+            },
             alignments: ALIGNMENTS,
             armyTypes: R.pick(kingmakerTraits, ARMY_TYPES),
             rarityTraits: CONFIG.PF2E.rarityTraits,
@@ -81,6 +93,11 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 }
 
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
+    hitPoints: {
+        value: number;
+        max: AdjustedValue;
+        routThreshold: AdjustedValue;
+    };
     alignments: Iterable<Alignment>;
     armyTypes: Record<string, string>;
     rarityTraits: Record<string, string>;

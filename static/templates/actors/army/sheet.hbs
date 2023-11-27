@@ -25,7 +25,7 @@
                 </select>
                 <select name="system.traits.type" class="tag">
                     {{#select data.traits.type}}
-                        {{#each armyTypes as |type label|}}
+                        {{#each armyTypes as |label type|}}
                             <option value="{{type}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
@@ -64,13 +64,13 @@
             <header>
                 <i class="fa-solid fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                <input type="number" data-property="system.attributes.hp.value" value="{{hitPoints.value}}" data-dtype="Number"/>
                 <span class="slash">/</span>
-                <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
+                <input type="number" class="{{hitPoints.max.adjustmentClass}}" data-property="system.attributes.hp.max" value="{{hitPoints.max.value}}" data-dtype="Number"/>
             </header>
             <label {{#if document.routed}}class="routed" data-tooltip="{{localize "PF2E.Kingmaker.Army.RoutedDescription"}}"{{/if}}>
                 {{localize "PF2E.Kingmaker.Army.RoutThreshold"}}
-                <input type="number" data-property="system.attributes.hp.routThreshold" value="{{data.attributes.hp.routThreshold}}" data-dtype="Number"/>
+                <input type="number" class="{{hitPoints.routThreshold.adjustmentClass}}" data-property="system.attributes.hp.routThreshold" value="{{hitPoints.routThreshold.value}}" data-dtype="Number"/>
             </label>
             <div class="row">
                 {{#if (eq @root.data.attributes.hp.potions 0)}}
@@ -204,13 +204,13 @@
             <ol class="item-list">
                 {{#each document.itemTypes.effect as |effect|}}
                     <li class="item" data-item-id="{{effect._id}}">
-                        <a class="item-icon item-chat">
-                            <i class="imgicon fa-solid fa-fw fa-comment-alt"></i>
+                        <a class="icon item-image">
                             <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
+                            <i class="fa-solid fa-fw fa-comment-alt"></i>
                         </a>
-                        <label class="item-name">
+                        <a class="item-name">
                             <h4>{{effect.name}}</h4>
-                        </label>
+                        </a>
                             {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
                                 ({{coalesce effect.badge.label effect.badge.value}})
                             {{/if}}
