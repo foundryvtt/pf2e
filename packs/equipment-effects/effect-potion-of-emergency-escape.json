@@ -1,0 +1,48 @@
+{
+    "_id": "EZsHuGGSLER67CiM",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-expeditious-retreat.webp",
+    "name": "Effect: Potion of Emergency Escape",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Emergency Escape]</p>\n<p>You become fleeing and you gain a +40-foot status bonus to all your Speeds for the duration as long as you are fleeing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 40
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
