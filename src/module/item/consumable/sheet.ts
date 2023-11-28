@@ -1,4 +1,4 @@
-import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import * as R from "remeda";

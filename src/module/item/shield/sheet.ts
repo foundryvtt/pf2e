@@ -1,4 +1,4 @@
-import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     CoinsPF2e,
     MATERIAL_DATA,

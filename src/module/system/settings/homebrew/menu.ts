@@ -1,4 +1,4 @@
-import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";

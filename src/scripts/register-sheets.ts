@@ -11,7 +11,7 @@ import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
 import { BackgroundSheetPF2e } from "@item/background/sheet.ts";
-import { ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { BookSheetPF2e } from "@item/book/sheet.ts";
 import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
 import { ClassSheetPF2e } from "@item/class/sheet.ts";
@@ -115,7 +115,7 @@ export function registerSheets(): void {
     // ITEM
     Items.unregisterSheet("core", ItemSheet);
 
-    const itemTypes = ["condition", "lore", "spellcastingEntry"];
+    const itemTypes = ["lore", "spellcastingEntry"];
     for (const itemType of itemTypes) {
         Items.registerSheet("pf2e", ItemSheetPF2e, {
             types: [itemType],

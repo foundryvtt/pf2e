@@ -1,7 +1,7 @@
 import type { AbilityItemPF2e } from "@item/ability/document.ts";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
-import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SelfEffectReference } from "./data.ts";
+import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
 
 class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     static override get defaultOptions(): ItemSheetOptions {

@@ -1,4 +1,4 @@
-import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
 import * as R from "remeda";
 import type { ContainerPF2e } from "./document.ts";

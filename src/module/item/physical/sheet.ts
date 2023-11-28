@@ -1,9 +1,9 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { PhysicalItemPF2e } from "@item";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { localizer } from "@util";
 import * as R from "remeda";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,

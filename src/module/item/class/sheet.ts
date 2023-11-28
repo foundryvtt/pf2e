@@ -1,4 +1,4 @@
-import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import type { ClassPF2e } from "@item/class/document.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
