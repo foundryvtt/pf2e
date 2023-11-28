@@ -197,6 +197,14 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
                     width: 3em;
                 }
             }
+
+            .gear {
+                align-items: center;
+                gap: 0.125rem;
+                span {
+                    flex: 1;
+                }
+            }
         }
 
         .saves {
@@ -258,19 +266,11 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
             }
         }
 
-        section.weapons {
+        .weapons {
             display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            fieldset.weapons,
-            .upgrades {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-            }
-            fieldset.weapons {
-                flex: 1;
-            }
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-evenly;
 
             .strike {
                 flex: 0;
@@ -374,13 +374,12 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
     }
 
     button {
-        height: 100%;
-        width: 2rem;
-        font-size: var(--font-size-14);
-        margin: auto;
-        align-items: center;
-        border: none;
         background: none;
+        border: none;
+        flex: 0;
+        font-size: var(--font-size-14);
+        height: 100%;
+        margin: auto;
         label,
         i {
             margin: auto;
@@ -398,6 +397,40 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
                 text-shadow: none;
                 cursor: default;
             }
+        }
+    }
+
+    button.attack, button.damage {
+        align-items: center;
+        border: none;
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+        color: var(--color-text-trait);
+        display: inline-flex;
+        font-family: var(--sans-serif);
+        font-size: var(--font-size-10);
+        font-weight: 500;
+        gap: 2px;
+        height: 1.25rem;
+        letter-spacing: 0.05em;
+        line-height: unset;
+        margin: 0;
+        padding: 0 0.5em;
+        text-rendering: optimizeLegibility;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        &.attack {
+            background-color: var(--secondary);
+        }
+
+        &.damage {
+            background-color: var(--primary);
+        }
+
+        &:not(:disabled):hover {
+            box-shadow: none;
+            text-shadow: 0 0 2px var(--text-light);
         }
     }
 

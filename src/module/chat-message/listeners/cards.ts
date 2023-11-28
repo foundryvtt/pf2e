@@ -314,6 +314,16 @@ class ChatCards {
                     return craftItem(physicalItem, quantity, actor);
                 }
             }
+        } else if (action === "army-strike-damage" && actor.isOfType("army")) {
+            // todo: remove when StrikeData is a more generalized structure that supports non-items,
+            // and we can do army strikes via actor.system.actions
+            const roll = message.rolls.find(
+                (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "army-strike",
+            );
+            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckRollContextFlag | null;
+            const action = button.dataset.outcome === "success" ? "damage" : "critical";
+            const strike = actor.strikes[roll?.options.identifier ?? ""];
+            strike?.[action]({ checkContext, event });
         }
     }
 

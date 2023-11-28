@@ -10,9 +10,12 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import * as R from "remeda";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ArmyStrike } from "./types.ts";
-import { AttackRollParams } from "@system/rolls.ts";
+import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { DamagePF2e } from "@system/damage/damage.ts";
+import { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
@@ -20,10 +23,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     declare maneuver: Statistic;
     declare morale: Statistic;
 
-    declare strikes: {
-        melee: ArmyStrike;
-        ranged: ArmyStrike;
-    };
+    declare strikes: Record<string, ArmyStrike>;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return ["campaignFeature", "effect"];
@@ -166,10 +166,49 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             ]),
         });
 
+        const dealDamage = async (
+            params: DamageRollParams = {},
+            outcome: "success" | "criticalSuccess" = "success",
+        ): Promise<string | Rolled<DamageRoll> | null> => {
+            const targetToken = params.target ?? game.user.targets.first() ?? null;
+
+            const context = await this.getDamageRollContext({
+                viewOnly: params.getFormula ?? false,
+                statistic: statistic.check,
+                target: { token: targetToken },
+                domains: ["damage", `${type}-damage`],
+                outcome,
+                checkContext: params.checkContext,
+                options: new Set(),
+            });
+
+            const damageContext: DamageRollContext = {
+                type: "damage-roll",
+                sourceType: "attack",
+                self: context.self,
+                target: context.target,
+                outcome,
+                options: context.options,
+                domains: ["damage", `${type}-damage`],
+                ...eventToRollParams(params.event, { type: "damage" }),
+            };
+
+            const formula = outcome === "success" ? "1" : "2";
+            const template: SimpleDamageTemplate = {
+                name: "Army damage",
+                materials: [],
+                modifiers: [],
+                damage: { roll: new DamageRoll(formula), breakdown: [] },
+            };
+
+            return DamagePF2e.roll(template, damageContext);
+        };
+
         return {
             slug: `${type}-strike`,
             label: data.name,
             type: "strike",
+            glyph: "A",
             variants: [0, 1, 2].map((idx) => {
                 const penalty = -5 * idx;
 
@@ -194,15 +233,24 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                         const targetToken = params.target ?? game.user.targets.find((t) => !!t.actor?.isOfType("army"));
 
                         return statistic.roll({
+                            identifier: type,
+                            action: "army-strike",
                             melee: type === "melee",
                             modifiers: penalty !== 0 ? [mapModifier] : [],
                             target: targetToken?.actor,
                             dc: params.dc ?? targetToken?.actor?.armorClass,
+                            damaging: true,
                             ...eventToRollParams(params.event, { type: "check" }),
                         });
                     },
                 };
             }),
+            damage: (params?: DamageRollParams) => {
+                return dealDamage(params, "success");
+            },
+            critical: (params?: DamageRollParams) => {
+                return dealDamage(params, "criticalSuccess");
+            },
         };
     }
 
