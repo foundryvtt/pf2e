@@ -164,13 +164,15 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Returns the bulk of this item and all sub-containers */
     get bulk(): Bulk {
-        const { value, per } = this.system.bulk;
+        const { per } = this.system.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
         // Only convert to actor-relative size if the actor is a creature
         // https://2e.aonprd.com/Rules.aspx?ID=258
         const actorSize = this.actor?.isOfType("creature") ? this.actor.size : null;
 
-        return new Bulk({ light: value }).convertToSize(this.size, actorSize ?? this.size).times(bulkRelevantQuantity);
+        return new Bulk(this.system.bulk.value)
+            .convertToSize(this.size, actorSize ?? this.size)
+            .times(bulkRelevantQuantity);
     }
 
     get activations(): (ItemActivation & { componentsLabel: string })[] {
@@ -194,6 +196,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const { material } = this.system;
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
+            [`hands-held:${this.handsHeld}`]: this.handsHeld > 0,
             [`rarity:${this.rarity}`]: true,
             uninvested: this.isInvested === false,
             [`material:${material.type}`]: !!material.type,
@@ -219,7 +222,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         systemData.material.grade ||= null;
         systemData.material.effects ??= [];
         systemData.stackGroup ||= null;
-        systemData.equippedBulk.value ||= null;
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
         systemData.hp.brokenThreshold = Math.floor(systemData.hp.max / 2);
 

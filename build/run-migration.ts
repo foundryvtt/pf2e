@@ -28,6 +28,8 @@ import { Migration895FixVariantSpellTraits } from "@module/migration/migrations/
 import { Migration896HealingDomains } from "@module/migration/migrations/896-healing-domains.ts";
 import { Migration897ClearLayOnHandsDamage } from "@module/migration/migrations/897-clear-lay-on-hands-damage.ts";
 import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrations/899-armor-shields-to-shield-shields.ts";
+import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
+import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -54,6 +56,8 @@ const migrations: MigrationBase[] = [
     new Migration896HealingDomains(),
     new Migration897ClearLayOnHandsDamage(),
     new Migration899ArmorShieldToShieldShield(),
+    new Migration900ClassSpellcastingProficiency(),
+    new Migration901ReorganizeBulkData(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

@@ -1,6 +1,7 @@
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import {
     BasePhysicalItemSource,
+    BulkData,
     Investable,
     PhysicalItemTraits,
     PhysicalSystemData,
@@ -14,17 +15,26 @@ type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
 interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     traits: ContainerTraits;
     stowing: boolean;
-    bulkCapacity: {
-        value: string | null;
-    };
-    negateBulk: {
-        value: string;
-    };
+    bulk: ContainerBulkSource;
     collapsed: boolean;
 }
 
-interface ContainerSystemData
-    extends Omit<ContainerSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
-        Omit<Investable<PhysicalSystemData>, "traits"> {}
+interface ContainerBulkSource {
+    value: number;
+    heldOrStowed: number;
+    capacity: number;
+    ignored: number;
+}
 
-export type { ContainerSource, ContainerSystemData };
+interface ContainerSystemData
+    extends Omit<
+            ContainerSystemSource,
+            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
+        >,
+        Omit<Investable<PhysicalSystemData>, "traits"> {
+    bulk: ContainerBulkData;
+}
+
+interface ContainerBulkData extends ContainerBulkSource, BulkData {}
+
+export type { ContainerSource, ContainerBulkData, ContainerSystemData };

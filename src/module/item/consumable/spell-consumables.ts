@@ -136,7 +136,8 @@ function calculateTrickMagicItemCheckDC(
     const level = Number(item.level);
     const saveDC = calculateDC(level, options);
 
-    const skills: [string, number][] = item.system.traits.value
+    const traditions = item.system.spell?.system.traits.traditions ?? [];
+    const skills: [string, number][] = [...item.system.traits.value, ...traditions]
         .filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t))
         .map((tradition) => [traditionSkills[tradition], saveDC]);
 

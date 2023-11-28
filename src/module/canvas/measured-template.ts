@@ -4,6 +4,8 @@ import { highlightGrid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
 import { ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
+import { SpellArea } from "@item/spell/data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
@@ -18,6 +20,22 @@ class MeasuredTemplatePF2e<
     #wheelListenerOptions: AddEventListenerOptions & EventListenerOptions = { passive: false };
 
     #snapInterval = 2;
+
+    get actor(): ActorPF2e | null {
+        return this.document.actor;
+    }
+
+    get item(): ItemPF2e | null {
+        return this.document.item;
+    }
+
+    get message(): ChatMessagePF2e | null {
+        return this.document.message;
+    }
+
+    get effectArea(): SpellArea | null {
+        return this.document.effectArea;
+    }
 
     get type(): MeasuredTemplateType {
         return this.document.t;
@@ -48,17 +66,16 @@ class MeasuredTemplatePF2e<
         await this.draw();
         this.layer.preview.addChild(this);
 
+        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+            if (this.effectArea?.type === "burst") {
+                this.#snapInterval = 1;
+            }
+        }
+
         canvas.stage.on("mousemove", this.#onPreviewMouseMove);
         canvas.stage.on("mousedown", this.#onPreviewLeftClick);
         canvas.stage.on("rightdown", this.#onPreviewRightClick);
         canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
-
-        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            const { item } = this.document;
-            if (item?.isOfType("spell") && item.system.area?.type === "burst") {
-                this.#snapInterval = 1;
-            }
-        }
 
         // Resolve existing preview
         MeasuredTemplatePF2e.currentPreview?.resolve(null);
@@ -148,10 +165,6 @@ class MeasuredTemplatePF2e<
             this.refresh();
         }
     };
-
-    get item(): ItemPF2e<ActorPF2e> | null {
-        return this.document.item;
-    }
 }
 
 interface PreviewData {

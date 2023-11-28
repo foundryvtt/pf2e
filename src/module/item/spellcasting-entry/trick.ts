@@ -170,6 +170,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             hasCollection: false,
             sort: 0,
             levels: [],
+            usesSpellProficiency: false,
             spellPrepList: null,
         };
     }

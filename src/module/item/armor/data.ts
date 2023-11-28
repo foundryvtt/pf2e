@@ -66,7 +66,7 @@ type SpecificArmorData =
       };
 
 interface ArmorSystemData
-    extends Omit<ArmorSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
+    extends Omit<ArmorSystemSource, "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
         Omit<Investable<PhysicalSystemData>, "baseItem" | "traits"> {
     runes: ArmorRuneData;
 }

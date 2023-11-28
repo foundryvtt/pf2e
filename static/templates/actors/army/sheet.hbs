@@ -9,14 +9,14 @@
             <input class="name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.Kingmaker.Army.NamePlaceholder"}}" spellcheck="false" />
             {{!-- TRAITS --}}
             <div class="tags paizo-style">
-                <select class="rarity-select trait {{data.traits.rarity}}" name="system.traits.rarity">
+                <select class="tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
                     {{#select data.traits.rarity}}
                         {{#each rarityTraits as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
-                <select class="alignment-select tag {{data.details.alignment}}" name="system.details.alignment">
+                <select class="alignment tag {{data.details.alignment}}" name="system.details.alignment">
                     {{#select data.details.alignment}}
                         {{#each alignments as |alignment|}}
                             <option value="{{alignment}}">{{alignment}}</option>
@@ -25,7 +25,7 @@
                 </select>
                 <select name="system.traits.type" class="tag">
                     {{#select data.traits.type}}
-                        {{#each armyTypes as |type label|}}
+                        {{#each armyTypes as |label type|}}
                             <option value="{{type}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
@@ -43,20 +43,9 @@
         <section>
             <header>
                 <i class="fa-solid fa-fw fa-shield-alt"></i>
-                <h4 data-tooltip="{{document.armorClass.breakdown}}">{{localize "PF2E.ArmorClassLabel"}}</h4>
-                <input class="stats" type="number" data-property="system.ac.value" value="{{document.armorClass.value}}" data-dtype="Number"/>
+                <h4 data-tooltip="{{ac.breakdown}}">{{localize "PF2E.ArmorClassLabel"}}</h4>
+                <input type="number" class="stats {{ac.adjustmentClass}}" data-property="system.ac.value" value="{{ac.value}}" data-dtype="Number"/>
             </header>
-            <div class="row">
-                <span>{{numberFormat data.ac.potency sign=true}}</span>
-                <button data-tooltip="{{data.ac.potency}}" class="armor pips" type="button">
-                    {{#times 3}}
-                        <i class="{{#if (gt @root.data.ac.potency this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
-                    {{/times}}
-                </button>
-                <button data-tooltip="Magic Armor Info" class="info" data-info="armor" type="button">
-                    <i class="far fa-comment-alt"></i>
-                </button>
-            </div>
         </section>
 
         {{!-- HP --}}
@@ -64,13 +53,13 @@
             <header>
                 <i class="fa-solid fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                <input type="number" data-property="system.attributes.hp.value" value="{{hitPoints.value}}" data-dtype="Number"/>
                 <span class="slash">/</span>
-                <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
+                <input type="number" class="{{hitPoints.max.adjustmentClass}}" data-property="system.attributes.hp.max" value="{{hitPoints.max.value}}" data-dtype="Number"/>
             </header>
             <label {{#if document.routed}}class="routed" data-tooltip="{{localize "PF2E.Kingmaker.Army.RoutedDescription"}}"{{/if}}>
                 {{localize "PF2E.Kingmaker.Army.RoutThreshold"}}
-                <input type="number" data-property="system.attributes.hp.routThreshold" value="{{data.attributes.hp.routThreshold}}" data-dtype="Number"/>
+                <input type="number" class="{{hitPoints.routThreshold.adjustmentClass}}" data-property="system.attributes.hp.routThreshold" value="{{hitPoints.routThreshold.value}}" data-dtype="Number"/>
             </label>
             <div class="row">
                 {{#if (eq @root.data.attributes.hp.potions 0)}}
@@ -95,8 +84,26 @@
         <section>
             <header>
                 <i class="fa-solid fa-fw fa-eye"></i>
-                <h4>{{localize "PF2E.SavesHeader"}}</h4>
+                <h4>{{localize "PF2E.Kingmaker.Army.Stats"}}</h4>
             </header>
+            <div class="row">
+                <span data-tooltip="{{document.scouting.breakdown}}">{{document.scouting.label}}</span>
+                <section class="roll" data-statistic="scouting">
+                    <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
+                    <input class="stats modifier" type="number" data-property="system.scouting" value="{{numberFormat document.scouting.mod decimals=0 sign=true}}" data-dtype="Number"/>
+                </section>
+            </div>
+            <label>
+                {{localize "PF2E.Kingmaker.Consumption.Label"}}
+                <input class="stats" type="number" data-property="system.consumption" value="{{data.consumption}}" data-dtype="Number"/>
+            </label>
+            <label>
+                {{localize "PF2E.Kingmaker.Army.standardDC"}}
+                <input class="stats" type="number" data-property="system.attributes.standardDC" value="{{data.attributes.standardDC}}" data-dtype="Number"/>
+            </label>
+        </section>
+
+        <section>
             <div class="saves">
                 {{#each saves as |save|}}
                     <div class="save" data-statistic="{{save.slug}}">
@@ -109,24 +116,42 @@
 
         <section>
             <header>
-                <i class="fa-solid fa-fw fa-eye"></i>
-                <h4>{{localize "PF2E.Kingmaker.ArmySheet.attributesHeader"}}</h4>
+                <i class="fa-solid fa-toolbox"></i>
+                <h4>{{localize "PF2E.Kingmaker.Army.Gear.Label"}}</h4>
             </header>
-            <div class="row">
-                <span data-tooltip="{{document.scouting.breakdown}}">{{document.scouting.label}}</span>
-                <section class="roll" data-statistic="scouting">
-                    <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
-                    <input class="stats roll-bonus" type="number" data-property="system.scouting" value="{{numberFormat document.scouting.mod decimals=0 sign=true}}" data-dtype="Number"/>
-                </section>
+            <div class="row gear">
+                <span>Armor</span>
+                <button type="button" class="pips" data-action="change-magic-armor">
+                    {{#times 3}}
+                        <i class="{{#if (gt @root.data.ac.potency this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
+                    {{/times}}
+                </button>
+                <button data-tooltip="Magic Armor Info" class="info" data-info="armor" type="button">
+                    <i class="far fa-comment-alt"></i>
+                </button>
             </div>
-            <label>
-                {{localize "PF2E.Kingmaker.Consumption.Label"}}
-                <input class="stats" type="number" data-property="system.consumption" value="{{data.consumption}}" data-dtype="Number"/>
-            </label>
-            <label>
-                {{localize "PF2E.Kingmaker.Army.standardDC"}}
-                <input class="stats" type="number" data-property="system.attributes.standardDC" value="{{data.attributes.standardDC}}" data-dtype="Number"/>
-            </label>
+            <div class="row gear">
+                <span>Melee</span>
+                <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="melee">
+                    {{#times 3}}
+                        <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
+                    {{/times}}
+                </button>
+                <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipMelee"}}" class="info" data-info="melee" type="button">
+                    <i class="far fa-comment-alt"></i>
+                </button>
+            </div>
+            <div class="row gear">
+                <span>Ranged</span>
+                <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="ranged">
+                    {{#times 3}}
+                        <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
+                    {{/times}}
+                </button>
+                <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipRanged"}}" class="info" data-info="ranged" type="button">
+                    <i class="far fa-comment-alt"></i>
+                </button>
+            </div>
         </section>
     </aside>
 
@@ -143,59 +168,36 @@
             {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable}}
         </fieldset>
 
-        <section class="weapons">
-            <fieldset class="weapons">
-                <legend>
-                    <i class="fa-light fa-swords"></i>
-                    {{localize "PF2E.Kingmaker.Army.Strikes.Label"}}
-                </legend>
-                {{#each document.strikes as |strike type|}}
-                    <div class="strike" data-strike="{{type}}">
-                        <a data-action="strike-attack" data-variant-index="0" class="rollable">
-                            <i data-tooltip="{{strike.check.breakdown}}" class="fas fa-dice-d20"></i>
-                            {{strike.variants.0.label}}
-                        </a>
-                        <a data-action="strike-attack" data-variant-index="1" class="rollable">{{strike.variants.1.label}}</a>
-                        <a data-action="strike-attack" data-variant-index="2" class="rollable">{{strike.variants.2.label}}</a>
-                        <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" placeholder="{{localize "PF2E.Kingmaker.Strikes.{{type}}"}}" />
-                        {{#if (eq type "ranged")}}
-                            <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}" class="ammunition pips" type="button">
-                                {{#times @root.data.resources.ammunition.max}}
-                                    <i class="{{#if (gt @root.data.resources.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
-                                {{/times}}
-                            </button>
-                            <button data-tooltip="Restore Ammunition" class="ammunition restore"><i class="{{#if (eq @root.data.weapons.ammunition.value 5)}}fal fa-refresh empty{{else}}far fa-refresh filled{{/if}}"></i></button>
-                        {{/if}}
-                    </div>
-                {{/each}}
-            </fieldset>
-
-            <fieldset class="upgrades">
-                <legend>
-                    <i class="fa-light fa-sparkle"></i> {{localize "PF2E.Kingmaker.Army.Potency"}}
-                </legend>
-                <div class="strike rank">
-                    <button type="button" class="pips" data-tooltip="{{localize "PF2E.Kingmaker.Gear.Weapons.name"}}">
-                        {{#times 3}}
-                            <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
-                        {{/times}}
-                    </button>
-                    <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipMelee"}}" class="info" data-info="melee" type="button">
-                        <i class="far fa-comment-alt"></i>
-                    </button>
+        <fieldset class="weapons">
+            <legend>
+                <i class="fa-light fa-swords"></i>
+                {{localize "PF2E.Kingmaker.Army.Strikes.Label"}}
+            </legend>
+            {{#each document.strikes as |strike type|}}
+                <div class="strike" data-strike="{{type}}">
+                    {{#each strike.variants as |variant index|}}
+                        <button type="button" data-action="strike-attack" data-variant-index="{{index}}" class="attack">
+                            {{#if (eq index 0)}}
+                                <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                                <span class="action-glyph">{{strike.glyph}}</span>
+                            {{/if}}
+                            {{variant.label}}
+                        </button>
+                    {{/each}}
+                    <button type="button" data-action="strike-damage" class="damage">{{localize "PF2E.DamageLabel"}}</button>
+                    <button type="button" data-action="strike-damage" data-outcome="criticalSuccess" class="damage critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" placeholder="{{localize "PF2E.Kingmaker.Strikes.{{type}}"}}" />
+                    {{#if (eq type "ranged")}}
+                        <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}" class="ammunition pips" type="button">
+                            {{#times @root.data.resources.ammunition.max}}
+                                <i class="{{#if (gt @root.data.resources.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
+                            {{/times}}
+                        </button>
+                        <button data-tooltip="Restore Ammunition" class="ammunition restore"><i class="{{#if (eq @root.data.weapons.ammunition.value 5)}}fal fa-refresh empty{{else}}far fa-refresh filled{{/if}}"></i></button>
+                    {{/if}}
                 </div>
-                <div class="strike rank">
-                    <button type="button" class="pips" data-tooltip="{{localize "PF2E.Kingmaker.Gear.Weapons.name"}}">
-                        {{#times 3}}
-                            <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
-                        {{/times}}
-                    </button>
-                    <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipRanged"}}" class="info" data-info="ranged" type="button">
-                        <i class="far fa-comment-alt"></i>
-                    </button>
-                </div>
-            </fieldset>
-        </section>
+            {{/each}}
+        </fieldset>
 
         <fieldset class="conditions">
             <legend>
@@ -204,13 +206,13 @@
             <ol class="item-list">
                 {{#each document.itemTypes.effect as |effect|}}
                     <li class="item" data-item-id="{{effect._id}}">
-                        <a class="item-icon item-chat">
-                            <i class="imgicon fa-solid fa-fw fa-comment-alt"></i>
+                        <a class="icon item-image">
                             <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
+                            <i class="fa-solid fa-fw fa-comment-alt"></i>
                         </a>
-                        <label class="item-name">
+                        <a class="item-name">
                             <h4>{{effect.name}}</h4>
-                        </label>
+                        </a>
                             {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
                                 ({{coalesce effect.badge.label effect.badge.value}})
                             {{/if}}

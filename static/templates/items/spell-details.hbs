@@ -125,7 +125,7 @@
             {{#each data.damage as |partial id|}}
                 <div class="form-group">
                     <div class="form-fields">
-                        <input type="text" name="system.damage.{{id}}.formula" value="{{partial.formula}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
+                        <input type="text" name="system.damage.{{id}}.formula" value="{{partial.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
                         <label>
                             <span>{{localize "PF2E.SpellAbilityModLabel"}}</span>
                             <input type="checkbox" name="system.damage.{{id}}.applyMod" {{checked partial.applyMod}} />
@@ -232,13 +232,13 @@
         </legend>
 
         {{#each variants as |variant|}}
-            <div class="variant" data-variant-id="{{variant.id}}">
+            <div class="variant" data-variant-id="{{variant.variantId}}">
                 <label>{{variant.name}}</label>
                 <span class="action-glyph">{{variant.actions}}</span>
                 {{#if @root.editable}}
                     <div class="item-controls">
-                        <a data-action="edit-variant" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                        <a data-action="delete-variant" data-id="{{variant.id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        <a data-action="edit-variant" data-id="{{variant.variantId}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a data-action="delete-variant" data-id="{{variant.variantId}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                     </div>
                 {{/if}}
             </div>

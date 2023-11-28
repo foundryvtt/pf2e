@@ -66,7 +66,16 @@
                         <section class="spell-ability">
                             <span class="spell-tradition">{{localize entry.statistic.label}}</span>
                             <div class="spellcasting-prof button-group">
-                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" data-rank="{{entry.statistic.rank}}" data-dtype="Number">
+                                <select
+                                    {{#if entry.usesSpellProficiency}}
+                                        class="skill-proficiency pf-rank"
+                                        data-action="{{#if entry.usesSpellProficiency}}update-spellcasting-rank{{/if}}"
+                                    {{else}}
+                                        class="skill-proficiency pf-rank adjust-item-stat-select"
+                                        data-item-property="system.proficiency.value"
+                                    {{/if}}
+                                    data-rank="{{entry.statistic.rank}}"
+                                >
                                     {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" excludeUntrained=true proflevel=entry.statistic.rank}}
                                 </select>
                             </div>

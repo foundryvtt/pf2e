@@ -1,8 +1,9 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import type { PhysicalItemPF2e } from "@item";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { localizer } from "@util";
 import * as R from "remeda";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
-import type { PhysicalItemPF2e } from "./document.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,
@@ -80,17 +81,25 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 : null;
         })();
 
+        const localizeBulk = localizer("PF2E.Item.Physical.Bulk");
+        const bulks = [0, 0.1, ...Array.fromRange(50, 1)].map((value) => {
+            if (value === 0) return { value, label: localizeBulk("Negligible.Label") };
+            if (value === 0.1) return { value, label: localizeBulk("Light.Label") };
+            return { value, label: value.toString() };
+        });
+
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
+            sidebarTemplate: "systems/pf2e/templates/items/physical-sidebar.hbs",
             baseLevel: baseData.system.level.value,
             adjustedLevelHint,
             basePrice,
             priceAdjustment,
             adjustedPriceHint,
             actionTypes: CONFIG.PF2E.actionTypes,
+            bulks,
             actionsNumber: CONFIG.PF2E.actionsNumber,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: CONFIG.PF2E.actorSizes,
             usages: CONFIG.PF2E.usages,
@@ -111,11 +120,15 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         return super.render(force, options);
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData): MaterialSheetData {
+    protected getMaterialSheetData(item: PhysicalItemPF2e, valuationData: MaterialValuationData): MaterialSheetData {
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
+        const isSpecificMagicItem = item.isSpecific;
         const materials = Object.entries(valuationData).reduce(
             (result, [materialKey, materialData]) => {
-                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
+                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter(
+                    (grade) =>
+                        !!materialData[grade] && (!isSpecificMagicItem || item.system.material.type === materialKey),
+                );
                 if (validGrades.length) {
                     result[materialKey] = {
                         label: game.i18n.localize(preciousMaterials[materialKey]),
@@ -232,6 +245,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 }
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    sidebarTemplate: string;
     isPhysical: true;
     baseLevel: number;
     basePrice: CoinsPF2e;
@@ -240,7 +254,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     adjustedLevelHint: string | null;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
-    bulkTypes: typeof CONFIG.PF2E.bulkTypes;
+    bulks: { value: number; label: string }[];
     frequencies: typeof CONFIG.PF2E.frequencies;
     sizes: typeof CONFIG.PF2E.actorSizes;
     usages: typeof CONFIG.PF2E.usages;

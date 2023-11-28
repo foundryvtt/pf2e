@@ -41,7 +41,7 @@ interface SpecificShieldData extends Pick<ShieldSystemSource, "material" | "rune
 }
 
 interface ShieldSystemData
-    extends Omit<ShieldSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
+    extends Omit<ShieldSystemSource, "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "baseItem" | "traits"> {
     traits: ShieldTraits;
     usage: {

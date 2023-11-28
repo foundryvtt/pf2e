@@ -15,9 +15,10 @@ import type { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./inde
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<ArmorSheetData> {
         const sheetData = await super.getData(options);
+        const armor = this.item;
 
         // Armor property runes
-        const maxPropertySlots = getPropertySlots(this.item);
+        const maxPropertySlots = getPropertySlots(armor);
         const propertyRuneSlots: Record<`propertyRuneSlots${number}`, boolean> = {};
         for (const slot of [1, 2, 3, 4]) {
             if (slot <= maxPropertySlots) {
@@ -32,16 +33,16 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
-            rarity: this.item._source.system.traits.rarity,
+            rarity: armor._source.system.traits.rarity,
             fundamentalRunes,
             propertyRunes,
             categories: CONFIG.PF2E.armorCategories,
             groups: CONFIG.PF2E.armorGroups,
             baseTypes: CONFIG.PF2E.baseArmorTypes,
-            preciousMaterials: this.prepareMaterials(MATERIAL_DATA.armor),
+            preciousMaterials: this.getMaterialSheetData(armor, MATERIAL_DATA.armor),
             ...propertyRuneSlots,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
-            basePrice: new CoinsPF2e(this.item._source.system.price.value),
+            basePrice: new CoinsPF2e(armor._source.system.price.value),
         };
     }
 

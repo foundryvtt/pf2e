@@ -81,6 +81,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.isFromConsumable = !!context.fromConsumable;
     }
 
+    /** The id of the override overlay that constitutes this variant */
+    get variantId(): string | null {
+        return this.original ? this.appliedOverlays?.get("override") ?? null : null;
+    }
+
     /** The spell's "base" rank; that is, before heightening */
     get baseRank(): OneToTen {
         return this.system.level.value;
@@ -449,14 +454,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 source.system.location.heightenedLevel = castLevel;
             }
 
+            source._id = this.id;
             return source;
         })();
         if (!overrides) return null;
 
-        const fromConsumable = this.isFromConsumable;
-        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable }) as SpellPF2e<
-            NonNullable<TParent>
-        >;
+        const variant = new SpellPF2e(overrides, {
+            parent: this.actor,
+            fromConsumable: this.isFromConsumable,
+        }) as SpellPF2e<NonNullable<TParent>>;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
         variant.trickMagicEntry = this.trickMagicEntry;
@@ -505,6 +511,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         traits: deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
+                    effectArea: this.system.area,
                 },
             },
         };
@@ -565,9 +572,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             });
         }
 
-        this.system.time.value = this.system.time.value.trim();
+        const castTime = (this.system.time.value = this.system.time.value.trim());
         // Special case for Horizon Thunder Sphere until glyph generation refactor
-        if (!this.isRitual && !getActionGlyph(this.system.time.value) && this.system.time.value !== "2 to 2 rounds") {
+        if (!["", "2 to 2 rounds"].includes(castTime) && !this.isRitual && !getActionGlyph(castTime)) {
             this.system.traits.value.push("exploration");
             this.system.traits.value.sort();
         }

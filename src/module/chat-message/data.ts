@@ -13,6 +13,7 @@ type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
 };
 
 export interface ItemOriginFlag {
+    actor?: ActorUUID;
     type: ItemType;
     uuid: string;
     castLevel?: number;

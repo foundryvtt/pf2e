@@ -137,6 +137,12 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
             }
         }
 
+        proficiencies.spellcasting.rank = Math.max(
+            proficiencies.spellcasting.rank,
+            this.system.spellcasting,
+        ) as ZeroToFour;
+        this.logAutoChange("system.proficiencies.spellcasting.rank", this.system.spellcasting);
+
         details.class = { name: this.name, trait: slug };
         this.actor.rollOptions.all[`class:${slug}`] = true;
     }

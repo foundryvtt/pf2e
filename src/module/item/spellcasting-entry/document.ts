@@ -371,6 +371,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
             hasCollection: !!this.spells,
+            usesSpellProficiency: !this.system.proficiency.slug,
             showSlotlessLevels: this.showSlotlessLevels,
             ...spellCollectionData,
         };

@@ -68,7 +68,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
-                id: variant.id,
+                variantId: variant.variantId,
                 sort: variant.sort,
                 actions: getActionGlyph(variant.system.time.value),
             }))
@@ -468,7 +468,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     isVariant: boolean;
     variants: {
         name: string;
-        id: string;
+        variantId: string | null;
         sort: number;
         actions: string;
     }[];
