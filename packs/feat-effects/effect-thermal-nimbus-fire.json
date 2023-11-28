@@ -25,6 +25,20 @@
                 "key": "Resistance",
                 "type": "fire",
                 "value": "@item.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "or": [
+                            "junction:fire:resistance",
+                            "junction:water:resistance"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": "@actor.level + @item.level"
             }
         ],
         "start": {
