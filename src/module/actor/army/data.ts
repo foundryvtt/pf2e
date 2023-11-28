@@ -81,11 +81,13 @@ interface ArmyAttributesSource extends ActorAttributesSource {
     resistances?: never;
 
     hp: ArmyHitPointsSource;
+    ac: never;
 }
 
 interface ArmyAttributes
     extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">,
         ActorAttributes {
+    ac: never;
     hp: ArmyHitPoints;
 }
 
