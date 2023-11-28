@@ -51,7 +51,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const weaponFields = [...armorAndWeaponFields, "system.strikingRune"];
         const shieldFields = [...physicalItemFields, "system.runes"];
         const consumableFields = [...physicalItemFields, "system.consumableType"];
-        const indexFields = [...new Set([...armorFields, ...weaponFields, ...consumableFields])];
+        const indexFields = R.uniq([...armorFields, ...weaponFields, ...shieldFields, ...consumableFields]).sort();
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
