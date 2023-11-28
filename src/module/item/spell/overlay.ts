@@ -1,7 +1,7 @@
-import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
+import type { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
+import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import { SpellPF2e } from "./index.ts";
-import { ActorPF2e } from "@actor";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
     constructor(
@@ -56,7 +56,10 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         variantSpell: SpellPF2e<ActorPF2e>,
         data: Partial<SpellSource>,
         options?: DocumentModificationContext<ActorPF2e>,
-    ): Promise<SpellPF2e<ActorPF2e>> {
+    ): Promise<SpellPF2e<ActorPF2e> | null> {
+        const variantId = variantSpell.variantId;
+        if (!variantId) return null;
+
         // Perform local data update of spell variant data
         variantSpell.updateSource(data, options);
 
@@ -75,13 +78,13 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         // Delete old entry to ensure clean data
         await this.spell.update(
             {
-                [`system.overlays.-=${variantSpell.id}`]: null,
+                [`system.overlays.-=${variantId}`]: null,
             },
             { render: false },
         );
         // Save new diff object
         await this.spell.update({
-            [`system.overlays.${variantSpell.id}`]: difference,
+            [`system.overlays.${variantId}`]: difference,
         });
 
         if (variantSpell.sheet.rendered) {

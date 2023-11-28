@@ -81,6 +81,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.isFromConsumable = !!context.fromConsumable;
     }
 
+    /** The id of the override overlay that constitutes this variant */
+    get variantId(): string | null {
+        return this.original ? this.appliedOverlays?.get("override") ?? null : null;
+    }
+
     /** The spell's "base" rank; that is, before heightening */
     get baseRank(): OneToTen {
         return this.system.level.value;
@@ -449,14 +454,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 source.system.location.heightenedLevel = castLevel;
             }
 
+            source._id = this.id;
             return source;
         })();
         if (!overrides) return null;
 
-        const fromConsumable = this.isFromConsumable;
-        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable }) as SpellPF2e<
-            NonNullable<TParent>
-        >;
+        const variant = new SpellPF2e(overrides, {
+            parent: this.actor,
+            fromConsumable: this.isFromConsumable,
+        }) as SpellPF2e<NonNullable<TParent>>;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
         variant.trickMagicEntry = this.trickMagicEntry;
