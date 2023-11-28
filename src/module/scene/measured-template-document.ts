@@ -1,14 +1,22 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import { ScenePF2e } from "./document.ts";
+import { SpellArea } from "@item/spell/data.ts";
 
-export class MeasuredTemplateDocumentPF2e<
+class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
 > extends MeasuredTemplateDocument<TParent> {
+    get actor(): ActorPF2e | null {
+        const uuid = this.flags.pf2e?.origin?.actor;
+        if (!uuid) return null;
+        const document = fromUuidSync(uuid);
+        return document instanceof ActorPF2e ? document : this.item?.actor ?? null;
+    }
+
     get item(): ItemPF2e<ActorPF2e> | null {
         const origin = this.flags.pf2e?.origin;
         const uuid = origin?.uuid;
@@ -31,6 +39,10 @@ export class MeasuredTemplateDocumentPF2e<
         return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
     }
 
+    get effectArea(): SpellArea | null {
+        return this.flags.pf2e?.effectArea ?? null;
+    }
+
     /** If present, show the clear-template button on the message from which this template was spawned */
     protected override _onCreate(
         data: this["_source"],
@@ -48,7 +60,7 @@ export class MeasuredTemplateDocumentPF2e<
     }
 }
 
-export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
+interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     extends MeasuredTemplateDocument<TParent> {
     get object(): MeasuredTemplatePF2e<this> | null;
 
@@ -56,6 +68,9 @@ export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null =
         pf2e?: {
             messageId?: string;
             origin?: ItemOriginFlag;
+            effectArea?: Maybe<SpellArea>;
         };
     };
 }
+
+export { MeasuredTemplateDocumentPF2e };
