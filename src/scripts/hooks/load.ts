@@ -128,14 +128,28 @@ export const Load = {
                     return;
                 }
                 const lang = await response.json();
-                mergeObject(game.i18n.translations, lang);
-                rerenderApps(path);
+                const apply = (): void => {
+                    mergeObject(game.i18n.translations, lang);
+                    rerenderApps(path);
+                };
+                if (game.ready) {
+                    apply();
+                } else {
+                    Hooks.once("ready", apply);
+                }
             });
 
             import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
-                delete _templateCache[path];
-                await getTemplate(path);
-                rerenderApps(path);
+                const apply = async (): Promise<void> => {
+                    delete _templateCache[path];
+                    await getTemplate(path);
+                    rerenderApps(path);
+                };
+                if (game.ready) {
+                    apply();
+                } else {
+                    Hooks.once("ready", apply);
+                }
             });
         }
     },
