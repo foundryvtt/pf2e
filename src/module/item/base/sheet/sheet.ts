@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
@@ -36,7 +36,12 @@ import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror.ts";
 import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-element-form/index.ts";
 
-class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
+class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOptions> {
+    constructor(item: TItem, options: Partial<ItemSheetOptions> = {}) {
+        super(item, options);
+        this.options.classes.push(this.item.type);
+    }
+
     static override get defaultOptions(): ItemSheetOptions {
         const options = super.defaultOptions;
         options.classes.push("pf2e", "item");
@@ -87,7 +92,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     override async getData(options: Partial<ItemSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
         options.id = this.id;
-        options.classes?.push(this.item.type);
         options.editable = this.isEditable;
         options.sheetConfig &&=
             Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;

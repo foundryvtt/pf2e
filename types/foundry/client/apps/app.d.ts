@@ -372,11 +372,12 @@ declare global {
     }
 
     interface ApplicationPosition {
-        width?: number;
-        height?: number;
-        left?: number;
-        top?: number;
-        scale?: number;
+        width?: Maybe<number>;
+        height?: Maybe<string | number>;
+        left?: Maybe<number>;
+        top?: Maybe<number>;
+        scale?: Maybe<number>;
+        zIndex?: Maybe<number>;
     }
 
     type ApplicationRenderState = (typeof Application)["RENDER_STATES"][keyof (typeof Application)["RENDER_STATES"]];
