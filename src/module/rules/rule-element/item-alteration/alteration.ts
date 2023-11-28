@@ -18,8 +18,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "ac-bonus",
         "badge-max",
         "badge-value",
-        "bulk-held-or-stowed",
-        "bulk-worn",
+        "bulk",
         "category",
         "check-penalty",
         "dex-cap",
@@ -133,21 +132,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 badge.value = Math.clamped(newValue, min, max) || 0;
                 return;
             }
-            case "bulk-held-or-stowed": {
+            case "bulk": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                data.alteration.value = String(data.alteration.value);
+                data.alteration.value = Number(data.alteration.value) || 0;
                 if (!validator.isValid(data)) return;
-                data.item.system.weight.value = data.alteration.value;
-                if (data.item instanceof foundry.abstract.DataModel) {
-                    data.item.system.bulk = organizeBulkData(data.item);
-                }
-                return;
-            }
-            case "bulk-worn": {
-                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                data.alteration.value = String(data.alteration.value);
-                if (!validator.isValid(data)) return;
-                data.item.system.equippedBulk.value = data.alteration.value;
+                data.item.system.bulk.value = data.alteration.value;
                 if (data.item instanceof foundry.abstract.DataModel) {
                     data.item.system.bulk = organizeBulkData(data.item);
                 }

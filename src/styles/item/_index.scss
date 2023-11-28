@@ -455,14 +455,22 @@
                 flex: 0 1 auto;
             }
 
-            input.adjusted-higher:not(:focus) {
-                font-weight: 700;
-                color: $adjusted-higher;
+            input {
+                &.adjusted-higher:not(:focus) {
+                    font-weight: 700;
+                    color: $adjusted-higher;
+                }
+
+                &.adjusted-lower:not(:focus) {
+                    font-weight: 700;
+                    color: $adjusted-lower;
+                }
             }
 
-            input.adjusted-lower:not(:focus) {
-                font-weight: 700;
-                color: $adjusted-lower;
+            select.readonly {
+                color: var(--color-text-dark-3);
+                opacity: 0.7;
+                pointer-events: none;
             }
         }
 

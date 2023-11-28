@@ -32,7 +32,7 @@ class TokenLightRuleElement extends RuleElementPF2e<TokenLightRuleSchema> {
                 if (typeof resolvedValue === "number") {
                     light[key] = resolvedValue;
                 } else {
-                    this.failValidation(`${key} must resolve to a number`);
+                    this.failValidation(`${key}: must resolve to a number`);
                     return null;
                 }
             }

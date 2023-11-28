@@ -1,20 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { RUNE_DATA } from "@item/physical/index.ts";
 import type { ShieldPF2e } from "./document.ts";
-
-function applyReinforcingRune(shield: ShieldPF2e): void {
-    const reinforcingRuneData = RUNE_DATA.shield.reinforcing;
-    const reinforcingRune = shield.system.runes.reinforcing;
-    const adjustFromRune = (property: "hardness" | "maxHP", base: number): number => {
-        const additionalFromRune = reinforcingRune ? reinforcingRuneData[reinforcingRune]?.[property] : null;
-        const sumFromRune = base + (additionalFromRune?.increase ?? 0);
-        return additionalFromRune && sumFromRune > additionalFromRune.max
-            ? Math.max(base, additionalFromRune.max)
-            : sumFromRune;
-    };
-    shield.system.hp.max = adjustFromRune("maxHP", shield.system.hp.max);
-    shield.system.hardness = adjustFromRune("hardness", shield.system.hardness);
-}
 
 function setActorShieldData(shield: ShieldPF2e<ActorPF2e>): void {
     const { actor } = shield;
@@ -48,4 +33,4 @@ function setActorShieldData(shield: ShieldPF2e<ActorPF2e>): void {
     }
 }
 
-export { applyReinforcingRune, setActorShieldData };
+export { setActorShieldData };

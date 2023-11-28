@@ -4,12 +4,12 @@
     "name": "Charm of Resistance",
     "system": {
         "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
         "containerId": null,
         "description": {
             "value": "<p>This charm, normally hung from the belt or worn around the neck, grants you resistance 5 against one type of energy damage: acid, cold, electricity, fire, or sonic. Each charm is crafted to protect against a particular type of energy damage, and its design usually embodies the type of energy it protects the wearer from in some way. For instance, a <em>charm of cold resistance</em> could be carved in the shape of a yeti, whereas a <em>charm of fire resistance</em> would be made from volcanic glass.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,6 +36,7 @@
         "quantity": 1,
         "rules": [
             {
+                "adjustName": "PF2E.SpecificRule.CharmOfResistance.Standard",
                 "choices": [
                     {
                         "label": "PF2E.TraitAcid",
@@ -58,13 +59,13 @@
                         "value": "sonic"
                     }
                 ],
-                "flag": "ringOfEnergyResistance",
+                "flag": "damageType",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
             },
             {
                 "key": "Resistance",
-                "type": "{item|flags.pf2e.rulesSelections.ringOfEnergyResistance}",
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
                 "value": 5
             }
         ],
@@ -79,9 +80,6 @@
         },
         "usage": {
             "value": "worn"
-        },
-        "weight": {
-            "value": "-"
         }
     },
     "type": "equipment"

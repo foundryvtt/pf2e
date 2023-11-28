@@ -9,7 +9,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
-import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 
@@ -282,14 +282,42 @@ export const InlineRollLinks = {
                     }
                 }
 
-                if (pf2Traits) {
-                    templateData.flags = {
-                        pf2e: {
-                            origin: {
-                                traits: pf2Traits.split(","),
-                            },
-                        },
+                const flags: { pf2e: Record<string, unknown> } = {
+                    pf2e: {},
+                };
+
+                if (
+                    objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
+                    objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
+                ) {
+                    flags.pf2e.effectArea = {
+                        value: templateData.distance,
+                        type: pf2EffectArea,
                     };
+                }
+
+                const messageId =
+                    foundryDoc instanceof ChatMessagePF2e
+                        ? foundryDoc.id
+                        : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
+                if (messageId) {
+                    flags.pf2e.messageId = messageId;
+                }
+
+                const actor = resolveActor(foundryDoc, link);
+                if (actor || pf2Traits) {
+                    const origin: Record<string, unknown> = {};
+                    if (actor) {
+                        origin.actor = actor.uuid;
+                    }
+                    if (pf2Traits) {
+                        origin.traits = pf2Traits.split(",");
+                    }
+                    flags.pf2e.origin = origin;
+                }
+
+                if (!R.isEmpty(flags.pf2e)) {
+                    templateData.flags = flags;
                 }
 
                 const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });

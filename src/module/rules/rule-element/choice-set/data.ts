@@ -28,7 +28,12 @@ type ChoiceSetSchema = RuleElementSchema & {
     /** The prompt to present in the ChoiceSet application window */
     prompt: StringField<string, string, false, false, true>;
     /** Whether the parent item's name should be adjusted to reflect the choice made */
-    adjustName: StrictBooleanField<true, false, true>;
+    adjustName: DataUnionField<
+        StrictBooleanField<true, false, false> | StrictStringField<string, string, true, false, false>,
+        true,
+        false,
+        true
+    >;
     /**
      * The name of the flag that will contain the user's selection. If not set, it defaults to the camel-casing of the
      * parent item's slug, falling back to name.

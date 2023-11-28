@@ -579,6 +579,7 @@ class PackExtractor {
             "spellcastingEntry",
             "spell",
             "weapon",
+            "shield",
             "armor",
             "equipment",
             "consumable",

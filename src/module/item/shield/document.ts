@@ -10,7 +10,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger } from "@util";
 import * as R from "remeda";
 import { IntegratedWeaponData, ShieldSource, ShieldSystemData } from "./data.ts";
-import { applyReinforcingRune, setActorShieldData } from "./helpers.ts";
+import { setActorShieldData } from "./helpers.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -86,8 +86,20 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         const materialData = getMaterialValuationData(this);
-        this.system.hardness = materialData?.hardness ?? this.system.hardness;
-        this.system.hp.max = materialData?.maxHP ?? this.system.hp.max;
+        const reinforcingRune = this.system.runes.reinforcing;
+        const adjustFromMaterialAndRune = (property: "hardness" | "maxHP", base: number): number => {
+            const fromMaterial = materialData?.[property] ?? base;
+            const additionalFromRune = reinforcingRune
+                ? RUNE_DATA.shield.reinforcing[reinforcingRune]?.[property]
+                : null;
+            const sumFromRune = fromMaterial + (additionalFromRune?.increase ?? 0);
+            return additionalFromRune && sumFromRune > additionalFromRune.max
+                ? Math.max(fromMaterial, additionalFromRune.max)
+                : sumFromRune;
+        };
+
+        this.system.hardness = adjustFromMaterialAndRune("hardness", this.system.hardness);
+        this.system.hp.max = adjustFromMaterialAndRune("maxHP", this.system.hp.max);
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
         // Add traits from fundamental runes
@@ -132,8 +144,6 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         } else {
             this.system.traits.integrated = null;
         }
-
-        if (!this.isEmbedded) applyReinforcingRune(this); // Otherwise called in`onPrepareSynthetics`
     }
 
     override prepareDerivedData(): void {
@@ -148,9 +158,8 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override onPrepareSynthetics(this: ShieldPF2e<ActorPF2e>): void {
-        applyReinforcingRune(this);
         super.onPrepareSynthetics();
-        setActorShieldData(this); // Call again after runes and/or REs have possibly adjusted shield data
+        setActorShieldData(this); // Call again after REs have possibly adjusted shield data
     }
 
     override async getChatData(
@@ -234,7 +243,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 additionalData.name = this._source.name;
             }
 
-            return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+            return new ItemProxyPF2e(mergeObject(baseData, additionalData), {
+                parent: this.parent,
+                shield: this,
+            }) as WeaponPF2e<TParent>;
         }
 
         const damageData: { system: Partial<WeaponSystemSource> } = {

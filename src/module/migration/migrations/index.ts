@@ -266,3 +266,4 @@ export { Migration897ClearLayOnHandsDamage } from "./897-clear-lay-on-hands-dama
 export { Migration898NoHBAgain } from "./898-no-hb-again.ts";
 export { Migration899ArmorShieldToShieldShield } from "./899-armor-shields-to-shield-shields.ts";
 export { Migration900ClassSpellcastingProficiency } from "./900-class-spellcasting-proficiency.ts";
+export { Migration901ReorganizeBulkData } from "./901-reorganize-bulk-data.ts";

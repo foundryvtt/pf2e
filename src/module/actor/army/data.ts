@@ -81,23 +81,24 @@ interface ArmyAttributesSource extends ActorAttributesSource {
     resistances?: never;
 
     hp: ArmyHitPointsSource;
+    ac: never;
 }
 
 interface ArmyAttributes
     extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">,
         ActorAttributes {
+    ac: never;
     hp: ArmyHitPoints;
 }
 
 interface ArmyHitPointsSource extends Required<BaseHitPointsSource> {
     /** Typically half the army's hit points, armies that can't be feared have a threshold of 0 instead */
-    routThreshold?: number;
+    routThreshold: number;
 }
 
 interface ArmyHitPoints extends ArmyHitPointsSource, ActorHitPoints {
     negativeHealing: boolean;
     unrecoverable: number;
-    routThreshold: number;
 }
 
 interface ArmyResourcesSource {

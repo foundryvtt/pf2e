@@ -24,14 +24,11 @@ interface PhysicalSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
+    bulk: {
+        value: number;
+    };
     hp: PhysicalItemHPSource;
     hardness: number;
-    weight: {
-        value: string;
-    };
-    equippedBulk: {
-        value: string | null;
-    };
     price: PartialPrice;
     equipped: EquippedData;
     identification: IdentificationSource;
@@ -78,8 +75,6 @@ type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData
 interface BulkData {
     /** Held or stowed bulk */
     heldOrStowed: number;
-    /** Worn bulk, if different than when held or stowed */
-    worn: number | null;
     /** The applicable bulk value between the above two */
     value: number;
     /** The quantity of this item necessary to amount to the above bulk quantities: anything less is negligible */

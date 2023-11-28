@@ -370,17 +370,17 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 game.i18n.localize(strikeData.label) ??
                 `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
+            predicate: strikeData.predicate ?? [],
             img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
             category: strikeData.category,
             group: strikeData.group,
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: strikeData.range,
-            maxRange: strikeData.maxRange,
+            range: { increment: strikeData.range ?? null, max: strikeData.maxRange ?? null },
             traits: strikeData.traits ?? [],
             ability: strikeData.ability,
-            ownIfHigher: (strikeData.ownIfHigher ??= true),
+            battleForm: true,
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
@@ -390,7 +390,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             }
             this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
-            synthetics.strikes.clear();
+            for (const [slug, strike] of synthetics.strikes.entries()) {
+                if (!strike.flags.pf2e.battleForm) synthetics.strikes.delete(slug);
+            }
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
                 predicate.push({ not: "battle-form" });
@@ -398,7 +400,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement({ ...datum, battleForm: true }, { parent: this.item }).beforePrepareData();
+                new StrikeRuleElement(datum, { parent: this.item }).beforePrepareData();
             }
         }
 

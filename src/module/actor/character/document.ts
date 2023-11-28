@@ -1318,10 +1318,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
-            const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
-            const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
             const { usage } = weapon.system;
-            const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
+            const canWield2H =
+                usage.hands === 2 ||
+                (usage.hands === 1 && this.handsFree > 0 && !traitsArray.includes("free-hand")) ||
+                traitsArray.some((t) => t.startsWith("fatal-aim")) ||
+                traitsArray.some((t) => t.startsWith("two-hand"));
 
             switch (weapon.carryType) {
                 case "held": {

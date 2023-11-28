@@ -25,7 +25,7 @@ import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
@@ -112,6 +112,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const tab = options?.tabs.find((t) => t.navSelector === ".sheet-navigation");
             if (tab) tab.initial = "biography";
         }
+
+        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
+            n,
+            game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
+        ]);
 
         // Attacks and defenses
         sheetData.martialProficiencies = {
@@ -215,8 +220,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     ...classDC,
                     icon: this.getProficiencyIcon(classDC.rank),
                     hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
-                    rankSlug: PROFICIENCY_RANKS[classDC.rank],
-                    rankName: game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`),
                 }),
             )
             .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
@@ -240,9 +243,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                       : [],
               );
 
-        // Spell Details
+        // Spellcasting
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
+        sheetData.spellcastingEntries = await this.prepareSpellcasting();
+        sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some((s) => s.usesSpellProficiency);
 
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
@@ -255,9 +260,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             reflex: sheetData.data.saves.reflex,
             will: sheetData.data.saves.will,
         };
-        for (const save of Object.values(sheetData.data.saves)) {
-            save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
-        }
 
         // limiting the amount of characters for the save labels
         for (const save of Object.values(sheetData.data.saves)) {
@@ -269,8 +271,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant");
-
-        sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.bonus];
 
@@ -752,6 +752,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 pips.addEventListener("click", listener);
                 pips.addEventListener("contextmenu", listener);
             }
+        }
+
+        // Update all "normal" spellcasting entries
+        for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {
+            select.addEventListener("click", () => {
+                const newRank = Number(select.value);
+                if ([1, 2, 3, 4].includes(newRank)) {
+                    const entries = this.actor.itemTypes.spellcastingEntry.filter((e) => !e.system.proficiency.slug);
+                    this.actor.updateEmbeddedDocuments(
+                        "Item",
+                        entries.map((e) => ({ _id: e.id, "system.proficiency.value": newRank })),
+                    );
+                }
+            });
         }
 
         // CRAFTING
@@ -1479,6 +1493,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     attributeBoostsAllocated: boolean;
     biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
+    numberToRank: Record<ZeroToFour, string>;
     classDCs: {
         dcs: ClassDCSheetData[];
         /** The slug of the character's primary class DC */
@@ -1499,6 +1514,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     preparationType: Object;
     showPFSTab: boolean;
     spellcastingEntries: SpellcastingSheetData[];
+    hasNormalSpellcasting: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
         encounter: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
@@ -1530,8 +1546,6 @@ interface ActionSheetData {
 interface ClassDCSheetData extends ClassDCData {
     icon: string;
     hover: string;
-    rankSlug: string;
-    rankName: string;
 }
 
 interface ElementalBlastSheetConfig extends ElementalBlastConfig {

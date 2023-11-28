@@ -2,8 +2,7 @@ import { ItemPF2e } from "@item";
 import { ArmorTrait } from "@item/armor/types.ts";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { BulkValue } from "@item/physical/types.ts";
-import { BULK_VALUES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
@@ -118,23 +117,13 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         { validateForItem: itemHasCounterBadge },
     ),
-    "bulk-held-or-stowed": new ItemAlterationValidator({
-        itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
-        mode: new fields.StringField({ required: true, choices: ["override"] }),
-        value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
-            required: true,
-            nullable: false,
-            choices: BULK_VALUES,
-            initial: undefined,
-        } as const),
-    }),
-    "bulk-worn": new ItemAlterationValidator({
+    bulk: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["armor", "backpack"] }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
-        value: new fields.StringField<BulkValue, BulkValue, true, false, false>({
+        value: new StrictNumberField<number, number, true, false, false>({
             required: true,
             nullable: false,
-            choices: BULK_VALUES,
+            choices: [0, 0.1, ...Array.fromRange(100, 1)],
             initial: undefined,
         } as const),
     }),

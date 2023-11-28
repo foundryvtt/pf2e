@@ -63,21 +63,22 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
 
     type WorkingData = {
         runes: Record<string, Record<number | string, RuneData | null>>;
-        weaponRunes?: Record<string, Record<number | string, RuneData | null>>;
+        weaponRunes: Record<string, Record<number | string, RuneData | null>>;
         secondaryFundamental: "resilient" | "striking" | "";
     };
     const data: WorkingData = item.isOfType("armor")
-        ? { runes: RUNE_DATA.armor, secondaryFundamental: "resilient" }
+        ? { runes: RUNE_DATA.armor, weaponRunes: {}, secondaryFundamental: "resilient" }
         : item.isOfType("shield")
           ? { runes: RUNE_DATA.shield, weaponRunes: RUNE_DATA.weapon, secondaryFundamental: "" }
-          : { runes: RUNE_DATA.weapon, secondaryFundamental: "striking" };
+          : { runes: RUNE_DATA.weapon, weaponRunes: {}, secondaryFundamental: "striking" };
 
     return R.compact(
         item.isOfType("shield")
             ? [
                   data.runes.reinforcing[item.system.runes.reinforcing],
-                  data.weaponRunes!.potency[item.system.traits.integrated?.runes.potency ?? 0],
-                  data.weaponRunes!.striking[item.system.traits.integrated?.runes.striking ?? 0],
+                  data.weaponRunes.potency[item.system.traits.integrated?.runes.potency ?? 0],
+                  data.weaponRunes.striking[item.system.traits.integrated?.runes.striking ?? 0],
+                  item.system.traits.integrated?.runes.property.map((p) => data.weaponRunes.property[p]) ?? [],
               ].flat()
             : [
                   data.runes.potency[item.system.runes.potency],
@@ -1375,7 +1376,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             ],
             ignoredResistances: [
                 { type: "fire", max: null },
-                { type: "good", max: null },
+                { type: "spirit", max: null },
                 { type: "vitality", max: null },
             ],
         },
