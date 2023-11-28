@@ -13,13 +13,11 @@
     }
 
     h6 {
+        @include micro;
         padding: 2px 4px;
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-        @include micro;
         color: var(--text-light);
-        @include flex-center;
-        cursor: pointer;
     }
 
     .core-title {
@@ -35,9 +33,7 @@
         font-family: var(--serif);
     }
 
-    .skills-list,
-    .lores-list,
-    .combat-list {
+    ul.proficiencies-list {
         list-style: none;
         @include p-reset;
         display: grid;
@@ -46,7 +42,7 @@
         align-items: center;
         margin-bottom: 2em;
 
-        .skill {
+        li {
             @include frame-elegant;
             padding: 2px 15px 2px 4px;
             display: flex;
@@ -57,13 +53,13 @@
                 &:hover {
                     color: var(--primary);
                     text-shadow: 0 0 2px white;
-                    .skill-score {
+                    .modifier {
                         text-decoration: underline;
                     }
                 }
             }
 
-            .skill-score {
+            .modifier {
                 color: var(--primary);
                 font-family: var(--serif);
                 font-size: var(--font-size-24);
@@ -121,9 +117,9 @@
         }
     }
 
-    .lores-list,
-    .combat-list {
-        .skill {
+    ul.lores-list,
+    ul.combat-list {
+        li {
             grid:
                 "score name btn" min-content
                 / 42px 2fr 1fr;

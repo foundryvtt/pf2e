@@ -1,3 +1,4 @@
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
@@ -6,6 +7,16 @@ import { MigrationBase } from "../base.ts";
 /** Record initial spellcasting proficiency in class item data */
 export class Migration900ClassSpellcastingProficiency extends MigrationBase {
     static override version = 0.9;
+
+    /** Remove persisted spellcasting proficiency */
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if (source.type === "character" && source.system.proficiencies) {
+            const proficiencies: { attacks?: object; "-=spellcasting"?: null } = source.system.proficiencies;
+            if ("spellcasting" in proficiencies) {
+                proficiencies["-=spellcasting"] = null;
+            }
+        }
+    }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "class") {
