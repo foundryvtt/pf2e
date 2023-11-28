@@ -1,6 +1,6 @@
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
 import type { AncestryPF2e } from "@item/ancestry/index.ts";
-import { ItemSheetOptions } from "@item/base/sheet/base.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 
 class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {

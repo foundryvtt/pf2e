@@ -30,7 +30,7 @@ import type {
     ItemType,
     TraitChatData,
 } from "./data/index.ts";
-import { ItemSheetPF2e } from "./sheet/base.ts";
+import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {

@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/base.ts";
+import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";

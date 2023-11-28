@@ -1,7 +1,7 @@
 import { EffectBadgeSource } from "@item/abstract-effect/index.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ErrorPF2e } from "@util";
 import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { EffectSource } from "./data.ts";
 import type { EffectPF2e } from "./document.ts";
 

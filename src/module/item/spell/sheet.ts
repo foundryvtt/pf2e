@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { OneToTen } from "@module/data.ts";
 import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
@@ -16,7 +17,6 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
     SpellDamageSource,
