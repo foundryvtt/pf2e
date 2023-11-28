@@ -3,6 +3,7 @@ import { AttributeString, SaveType } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
 import {
+    ActionCostValue,
     ActionType,
     BaseItemSourcePF2e,
     Frequency,
@@ -13,7 +14,7 @@ import {
 } from "@item/base/data/system.ts";
 import { ClassTrait } from "@item/class/types.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
-import { OneToFour, OneToThree } from "@module/data.ts";
+import { OneToFour } from "@module/data.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
@@ -35,7 +36,7 @@ interface FeatSystemSource extends ItemSystemSource {
         value: ActionType;
     };
     actions: {
-        value: OneToThree | null;
+        value: ActionCostValue | null;
     };
     prerequisites: {
         value: PrerequisiteTagData[];

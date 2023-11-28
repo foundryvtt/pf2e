@@ -25,10 +25,13 @@ interface SourceWithFrequencyData {
 function normalizeActionChangeData(document: SourceWithActionData, changed: DeepPartial<SourceWithActionData>): void {
     if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
         const actionType = changed.system?.actionType?.value ?? document.system.actionType.value;
-        const actionCount = Number(changed.system?.actions?.value ?? document.system.actions.value);
+        const actionValue = changed.system?.actions?.value ?? document.system.actions.value ?? 1;
+        const actionCount = Number.isNumeric(actionValue) ? Math.clamped(Number(actionValue), 1, 3) : actionValue;
         changed.system = fu.mergeObject(changed.system, {
             actionType: { value: actionType },
-            actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
+            actions: {
+                value: actionType !== "action" ? null : actionCount,
+            },
         });
     }
 }

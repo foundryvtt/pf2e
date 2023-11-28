@@ -1,4 +1,4 @@
-import { ActionCost } from "@item/base/data/system.ts";
+import { ActionCost, ActionCostValue, ActionType } from "@item/base/data/system.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 
@@ -169,10 +169,7 @@ function parseHTML(unparsed: string): HTMLElement {
     return element;
 }
 
-function getActionTypeLabel(
-    type: Maybe<"action" | "free" | "reaction" | "passive">,
-    cost: Maybe<number>,
-): string | null {
+function getActionTypeLabel(type: Maybe<ActionType>, cost: Maybe<ActionCostValue>): string | null {
     switch (type) {
         case "action":
             return cost === 1 ? "PF2E.Item.Action.Type.Single" : "PF2E.Item.Action.Type.Activity";

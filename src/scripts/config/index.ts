@@ -772,6 +772,9 @@ export const PF2ECONFIG = {
         1: "PF2E.ActionNumber1",
         2: "PF2E.ActionNumber2",
         3: "PF2E.ActionNumber3",
+        "1 or 2": "PF2E.ActionNumberOneOrTwo",
+        "2 or 3": "PF2E.ActionNumberTwoOrThree",
+        "1 to 3": "PF2E.ActionNumberOneToThree",
     },
 
     actionCategories: {
