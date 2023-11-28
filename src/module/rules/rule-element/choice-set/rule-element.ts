@@ -110,7 +110,17 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 nullable: false,
                 initial: "PF2E.UI.RuleElements.ChoiceSet.Prompt",
             }),
-            adjustName: new StrictBooleanField({ required: true, nullable: false, initial: true }),
+            adjustName: new DataUnionField(
+                [
+                    new StrictBooleanField({ required: true, nullable: false, initial: undefined }),
+                    new StrictStringField<string, string, true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                ],
+                { required: true, nullable: false, initial: true },
+            ),
             allowedDrops: new fields.SchemaField(
                 {
                     label: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
@@ -177,15 +187,21 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
             // Change the name of the parent item
             if (this.adjustName) {
-                const effectName = itemSource.name;
+                const itemName = itemSource.name;
                 const label = game.i18n.localize(selection.label);
-                const name = `${effectName} (${label})`;
-                // Deduplicate if parenthetical is already present
-                const pattern = ((): RegExp => {
-                    const escaped = RegExp.escape(label);
-                    return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
-                })();
-                itemSource.name = name.replace(pattern, `(${label})`);
+                if (this.adjustName === true) {
+                    const newName = `${itemName} (${label})`;
+                    // Deduplicate if parenthetical is already present
+                    const pattern = ((): RegExp => {
+                        const escaped = RegExp.escape(label);
+                        return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
+                    })();
+                    itemSource.name = newName.replace(pattern, `(${label})`);
+                } else {
+                    itemSource.name = game.i18n.format(this.adjustName, {
+                        [this.flag]: game.i18n.localize(selection.label),
+                    });
+                }
             }
 
             // Set the item flag in case other preCreate REs need it
