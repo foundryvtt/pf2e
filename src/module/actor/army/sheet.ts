@@ -5,7 +5,7 @@ import { Alignment } from "./types.ts";
 import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
 import * as R from "remeda";
-import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CampaignFeaturePF2e } from "@item";
@@ -29,6 +29,15 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 
         return {
             ...data,
+            ac: {
+                value: actor.armorClass.value,
+                breakdown: actor.armorClass.breakdown,
+                // When getting the ac adjustment class, factor in potency in the base (or it'll always be blue...)
+                adjustmentClass: getAdjustment(
+                    actor.armorClass.value,
+                    actor._source.system.ac.value + actor.system.ac.potency,
+                ),
+            },
             hitPoints: {
                 value: actor.system.attributes.hp.value,
                 max: getAdjustedValue(actor.system.attributes.hp.max, actor._source.system.attributes.hp.max),
@@ -76,6 +85,34 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             });
         }
 
+        // Handle direct magic armor updates
+        for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-armor]")) {
+            gearElement.addEventListener("click", () => {
+                const newValue = Math.clamped(this.actor.system.ac.potency + 1, 0, 3);
+                this.actor.update({ [`system.ac.potency`]: newValue });
+            });
+            gearElement.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                const newValue = Math.clamped(this.actor.system.ac.potency - 1, 0, 3);
+                this.actor.update({ [`system.ac.potency`]: newValue });
+            });
+        }
+
+        // Handle direct magic weapon updates
+        for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-weapon]")) {
+            const gear = gearElement.dataset.weapon;
+            if (!tupleHasValue(["melee", "ranged"], gear)) return;
+            gearElement.addEventListener("click", () => {
+                const newValue = Math.clamped(this.actor.system.weapons[gear].potency + 1, 0, 3);
+                this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+            });
+            gearElement.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                const newValue = Math.clamped(this.actor.system.weapons[gear].potency - 1, 0, 3);
+                this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+            });
+        }
+
         htmlQuery(html, "[data-action=edit-description]")?.addEventListener("click", () => {
             this.activateEditor("system.details.description");
         });
@@ -103,6 +140,11 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 }
 
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
+    ac: {
+        value: number;
+        breakdown: string;
+        adjustmentClass: string | null;
+    };
     hitPoints: {
         value: number;
         max: AdjustedValue;

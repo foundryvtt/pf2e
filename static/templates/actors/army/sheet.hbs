@@ -9,14 +9,14 @@
             <input class="name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.Kingmaker.Army.NamePlaceholder"}}" spellcheck="false" />
             {{!-- TRAITS --}}
             <div class="tags paizo-style">
-                <select class="rarity-select trait {{data.traits.rarity}}" name="system.traits.rarity">
+                <select class="tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
                     {{#select data.traits.rarity}}
                         {{#each rarityTraits as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
-                <select class="alignment-select tag {{data.details.alignment}}" name="system.details.alignment">
+                <select class="alignment tag {{data.details.alignment}}" name="system.details.alignment">
                     {{#select data.details.alignment}}
                         {{#each alignments as |alignment|}}
                             <option value="{{alignment}}">{{alignment}}</option>
@@ -43,8 +43,8 @@
         <section>
             <header>
                 <i class="fa-solid fa-fw fa-shield-alt"></i>
-                <h4 data-tooltip="{{document.armorClass.breakdown}}">{{localize "PF2E.ArmorClassLabel"}}</h4>
-                <input class="stats" type="number" data-property="system.ac.value" value="{{document.armorClass.value}}" data-dtype="Number"/>
+                <h4 data-tooltip="{{ac.breakdown}}">{{localize "PF2E.ArmorClassLabel"}}</h4>
+                <input type="number" class="stats {{ac.adjustmentClass}}" data-property="system.ac.value" value="{{ac.value}}" data-dtype="Number"/>
             </header>
         </section>
 
@@ -84,28 +84,13 @@
         <section>
             <header>
                 <i class="fa-solid fa-fw fa-eye"></i>
-                <h4>{{localize "PF2E.SavesHeader"}}</h4>
-            </header>
-            <div class="saves">
-                {{#each saves as |save|}}
-                    <div class="save" data-statistic="{{save.slug}}">
-                        <a class="attribute-label rollable" data-tooltip="{{save.breakdown}}">{{localize save.label}}</a>
-                        <input type="text" value="{{numberFormat save.mod decimals=0 sign=true}}" class="modifier adjustable {{save.adjustmentClass}}" data-property="system.saves.{{save.slug}}" data-dtype="Number" placeholder="0" />
-                    </div>
-                {{/each}}
-            </div>
-        </section>
-
-        <section>
-            <header>
-                <i class="fa-solid fa-fw fa-eye"></i>
-                <h4>{{localize "PF2E.Kingmaker.ArmySheet.attributesHeader"}}</h4>
+                <h4>{{localize "PF2E.Kingmaker.Army.Stats"}}</h4>
             </header>
             <div class="row">
                 <span data-tooltip="{{document.scouting.breakdown}}">{{document.scouting.label}}</span>
                 <section class="roll" data-statistic="scouting">
                     <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
-                    <input class="stats roll-bonus" type="number" data-property="system.scouting" value="{{numberFormat document.scouting.mod decimals=0 sign=true}}" data-dtype="Number"/>
+                    <input class="stats modifier" type="number" data-property="system.scouting" value="{{numberFormat document.scouting.mod decimals=0 sign=true}}" data-dtype="Number"/>
                 </section>
             </div>
             <label>
@@ -119,13 +104,24 @@
         </section>
 
         <section>
+            <div class="saves">
+                {{#each saves as |save|}}
+                    <div class="save" data-statistic="{{save.slug}}">
+                        <a class="attribute-label rollable" data-tooltip="{{save.breakdown}}">{{localize save.label}}</a>
+                        <input type="text" value="{{numberFormat save.mod decimals=0 sign=true}}" class="modifier adjustable {{save.adjustmentClass}}" data-property="system.saves.{{save.slug}}" data-dtype="Number" placeholder="0" />
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <section>
             <header>
-                <i class="fa-light fa-armor"></i>
+                <i class="fa-solid fa-toolbox"></i>
                 <h4>{{localize "PF2E.Kingmaker.Army.Gear.Label"}}</h4>
             </header>
             <div class="row gear">
                 <span>Armor</span>
-                <button data-tooltip="{{data.ac.potency}}" class="armor pips" type="button">
+                <button type="button" class="pips" data-action="change-magic-armor">
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.ac.potency this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
                     {{/times}}
@@ -136,7 +132,7 @@
             </div>
             <div class="row gear">
                 <span>Melee</span>
-                <button type="button" class="pips" data-tooltip="{{localize "PF2E.Kingmaker.Gear.Weapons.name"}}">
+                <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="melee">
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
                     {{/times}}
@@ -147,7 +143,7 @@
             </div>
             <div class="row gear">
                 <span>Ranged</span>
-                <button type="button" class="pips" data-tooltip="{{localize "PF2E.Kingmaker.Gear.Weapons.name"}}">
+                <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="ranged">
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
                     {{/times}}

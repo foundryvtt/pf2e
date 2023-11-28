@@ -84,8 +84,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                         label: "PF2E.Kingmaker.Army.Adjustment",
                         modifier: acAdjustment,
                     }),
+                this.system.ac.potency &&
+                    new ModifierPF2e({ slug: "potency", label: "Potency", modifier: this.system.ac.potency }),
             ]),
         }).dc;
+        this.system.ac.value = this.armorClass.value;
 
         const baseScouting = ARMY_STATS.scouting[this.level];
         const scoutAdjustment = this.system.scouting - baseScouting;
@@ -103,6 +106,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     : null,
             ]),
         });
+        this.system.scouting = this.scouting.mod;
 
         // Add statistics for saving throws
         // Note: Kingmaker refers to these as both a type of save (high/low save) but also as "maneuver check"
