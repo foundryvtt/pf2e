@@ -102,12 +102,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Get the source description in case this is an unidentified physical item
         enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
             rollData,
-            secrets: game.user.isGM,
+            secrets: item.isOwner,
             async: true,
         });
         enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
             rollData,
-            secrets: game.user.isGM,
             async: true,
         });
 

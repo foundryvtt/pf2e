@@ -62,6 +62,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         const rollData = this.actor.getRollData();
         sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
             rollData,
+            secrets: this.actor.isOwner,
             async: true,
         });
         sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {

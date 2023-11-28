@@ -312,13 +312,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Enrich content
         const rollData = actor.getRollData();
         const biography = (sheetData.biography = actor.system.details.biography);
+        const enrichmentOptions = { rollData, secrets: actor.isOwner, async: true };
         const enrichPromises = {
-            appearance: TextEditor.enrichHTML(biography.appearance, { rollData, async: true }),
-            backstory: TextEditor.enrichHTML(biography.backstory, { rollData, async: true }),
-            campaignNotes: TextEditor.enrichHTML(biography.campaignNotes, { rollData, async: true }),
-            allies: TextEditor.enrichHTML(biography.allies, { rollData, async: true }),
-            enemies: TextEditor.enrichHTML(biography.enemies, { rollData, async: true }),
-            organizations: TextEditor.enrichHTML(biography.organizations, { rollData, async: true }),
+            appearance: TextEditor.enrichHTML(biography.appearance, enrichmentOptions),
+            backstory: TextEditor.enrichHTML(biography.backstory, enrichmentOptions),
+            campaignNotes: TextEditor.enrichHTML(biography.campaignNotes, enrichmentOptions),
+            allies: TextEditor.enrichHTML(biography.allies, enrichmentOptions),
+            enemies: TextEditor.enrichHTML(biography.enemies, enrichmentOptions),
+            organizations: TextEditor.enrichHTML(biography.organizations, enrichmentOptions),
         };
         await Promise.all(Object.values(enrichPromises));
         for (const [key, content] of Object.entries(enrichPromises)) {
