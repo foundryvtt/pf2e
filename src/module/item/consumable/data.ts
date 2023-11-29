@@ -26,7 +26,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
         max: number;
     };
     consume: {
-        value: string;
+        value: string | null;
     };
     autoDestroy: {
         value: boolean;

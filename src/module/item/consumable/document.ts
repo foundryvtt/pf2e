@@ -46,7 +46,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     get formula(): string | null {
-        return this.system.consume.value.trim() || null;
+        return this.system.consume.value?.trim() || null;
     }
 
     override prepareBaseData(): void {
