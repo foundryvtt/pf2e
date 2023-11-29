@@ -892,6 +892,8 @@ const kingmakerTraits = {
     infantry: "PF2E.Kingmaker.Trait.infantry",
     kingdom: "PF2E.Kingmaker.Trait.kingdom",
     leadership: "PF2E.Kingmaker.Trait.leadership",
+    maneuver: "PF2E.Kingmaker.Trait.maneuver",
+    morale: "PF2E.Kingmaker.Trait.morale",
     region: "PF2E.Kingmaker.Trait.region",
     siege: "PF2E.Kingmaker.Trait.siege",
     skirmisher: "PF2E.Kingmaker.Trait.skirmisher",

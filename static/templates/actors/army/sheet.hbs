@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off" spellcheck="false">
+<form class="{{cssClass}}" autocomplete="off" spellcheck="false" data-tooltip-class="pf2e">
     <header class="army-sheet-header">
         {{!-- Portrait --}}
         <section class="frame">
@@ -297,7 +297,11 @@
         {{#if @root.options.editable}}
             <div class="item-controls">
                 <a class="item-control item-edit" data-tooltip="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                <a class="item-control item-delete" data-tooltip="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                {{#if action.granter}}
+                    <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
+                {{else}}
+                    <a class="item-control item-delete" data-tooltip="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                {{/if}}
             </div>
         {{/if}}
     </li>
