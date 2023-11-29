@@ -177,11 +177,13 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         ): Promise<string | Rolled<DamageRoll> | null> => {
             const targetToken = params.target ?? game.user.targets.first() ?? null;
 
+            const domains = ["damage", "strike-damage", `${type}-damage`];
+
             const context = await this.getDamageRollContext({
                 viewOnly: params.getFormula ?? false,
                 statistic: statistic.check,
                 target: { token: targetToken },
-                domains: ["damage", `${type}-damage`],
+                domains,
                 outcome,
                 checkContext: params.checkContext,
                 options: new Set(),
@@ -194,7 +196,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 target: context.target,
                 outcome,
                 options: context.options,
-                domains: ["damage", `${type}-damage`],
+                domains,
                 ...eventToRollParams(params.event, { type: "damage" }),
             };
 

@@ -11,6 +11,11 @@ export class RenderTokenHUD {
 
             const token = canvas.scene?.tokens.get(data._id ?? "")?.object;
             this.addClownCarButton(html, token);
+
+            // Remove conditions hud from army. Once Foundry supports replacing these by actor type we'll add them back in
+            if (token?.actor?.isOfType("army")) {
+                htmlQuery(html, ".control-icon[data-action=effects]")?.remove();
+            }
         });
     }
 
