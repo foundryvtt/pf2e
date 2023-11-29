@@ -262,7 +262,7 @@ declare global {
          * Start a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftStart}
          */
-        protected _onDragLeftStart(event: PlaceablesLayerEvent<TObject>): Promise<TObject | void>;
+        protected _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<TObject | void>;
 
         /**
          * Continue a left-click drag workflow originating from the Canvas stage.
@@ -313,6 +313,10 @@ declare global {
     }
 
     interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.FederatedEvent {
+        interactionData: PlaceableInteractionData<TObject>;
+    }
+
+    interface PlaceablesLayerPointerEvent<TObject extends PlaceableObject> extends PIXI.FederatedPointerEvent {
         interactionData: PlaceableInteractionData<TObject>;
     }
 

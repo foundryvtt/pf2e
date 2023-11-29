@@ -314,7 +314,7 @@ declare global {
         protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[]>;
+        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[] | void>;
 
         /** Callback actions which occur on a mouse-move operation. */
         protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;

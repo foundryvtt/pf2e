@@ -119,7 +119,7 @@ declare global {
          */
         protected _onDarknessChange(darkness: number, prior: number): void;
 
-        protected override _onDragLeftStart(event: PIXI.FederatedEvent): Promise<void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TAmbientLight>): Promise<void>;
 
         protected override _onDragLeftMove(event: PIXI.FederatedEvent): Promise<void>;
 

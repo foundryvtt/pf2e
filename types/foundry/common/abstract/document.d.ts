@@ -176,13 +176,6 @@ export default abstract class Document<
      */
     getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
 
-    /**
-     * Migrate candidate source data for this DataModel which may require initial cleaning or transformations.
-     * @param source           The candidate source data from which the model will be constructed
-     * @returns                Migrated source data, if necessary
-     */
-    static migrateData(source: object): Record<string, JSONValue>;
-
     /* -------------------------------------------- */
     /*  Database Operations                         */
     /* -------------------------------------------- */
