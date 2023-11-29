@@ -1,21 +1,21 @@
-import { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { ActorPF2e, HitPointsSummary } from "../base.ts";
-import { ArmySource, ArmySystemData } from "./data.ts";
-import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
-import { signedInteger, tupleHasValue } from "@util";
-import { Kingdom } from "@actor/party/kingdom/model.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
-import * as R from "remeda";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { ArmyStrike } from "./types.ts";
-import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { Kingdom } from "@actor/party/kingdom/model.ts";
+import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
-import { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import type { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
+import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
+import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { signedInteger, tupleHasValue } from "@util";
+import * as R from "remeda";
+import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import type { ArmySource, ArmySystemData } from "./data.ts";
+import type { ArmyStrike } from "./types.ts";
+import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
@@ -23,7 +23,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     declare maneuver: Statistic;
     declare morale: Statistic;
 
-    declare strikes: Record<string, ArmyStrike>;
+    declare strikes: Record<string, ArmyStrike | null>;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return ["campaignFeature", "effect"];
@@ -133,16 +133,15 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         }
 
         this.initiative = new ActorInitiative(this, { statistic: "scouting" });
-
-        this.strikes = {
-            melee: this.prepareArmyStrike("melee"),
-            ranged: this.prepareArmyStrike("ranged"),
-        };
+        this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
+            this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
+        );
     }
 
-    prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike {
+    prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null {
         const synthetics = this.synthetics;
         const data = this.system.weapons[type];
+        if (data === null) return null;
 
         const attackDomains = ["army-attack-roll"];
 

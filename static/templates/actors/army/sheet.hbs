@@ -62,17 +62,17 @@
                 <input type="number" class="{{hitPoints.routThreshold.adjustmentClass}}" data-property="system.attributes.hp.routThreshold" value="{{hitPoints.routThreshold.value}}" data-dtype="Number"/>
             </label>
             <div class="row">
-                {{#if (eq @root.data.attributes.hp.potions 0)}}
+                {{#if (eq @root.data.resources.potions.value 0)}}
                     <button data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkErrorNoPotions"}}" class="disabled" type="button"><i class="fal fa-champagne-glasses"></i>
                 {{else if (eq @root.document.hitPoints.value @root.document.hitPoints.max)}}
                     <button data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkErrorFullHP"}}" class="disabled" type="button"><i class="fal fa-champagne-glasses"></i>
                 {{else}}
-                    <button data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkTooltip"}}" class="usepotion" type="button"><i class="fas fa-champagne-glasses"></i>
+                    <button data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkTooltip"}}" data-action="use-potion" type="button"><i class="fas fa-champagne-glasses"></i>
                 {{/if}}
                 </button>
-                <button data-tooltip="{{data.attributes.hp.potions}} {{localize "PF2E.Kingmaker.ArmySheet.Potions.label"}}" class="potion pips" type="button">
-                    {{#times 3}}
-                        <i class="{{#if (gt @root.data.attributes.hp.potions this)}}far fa-flask-round-potion filled{{else}}fal fa-flask-round-potion empty{{/if}}"></i>
+                <button class="pips" data-action="change-potions" type="button">
+                    {{#times @root.data.resources.potions.max as |idx|}}
+                        <i class="{{#if (gt @root.data.attributes.hp.potions idx)}}far fa-flask-round-potion filled{{else}}fal fa-flask-round-potion empty{{/if}}"></i>
                     {{/times}}
                 </button>
                 <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipPotion"}}" class="info" data-info="potions" type="button">
@@ -133,9 +133,12 @@
             <div class="row gear">
                 <span>Melee</span>
                 <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="melee">
-                    {{#times 3}}
-                        <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
-                    {{/times}}
+                    <i class="{{#if data.weapons.melee}}fa-solid filled{{else}}fa-regular{{/if}} fa-circle split"></i>
+                    <span>
+                        {{#times 3}}
+                            <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword{{/if}}"></i>
+                        {{/times}}
+                    </span>
                 </button>
                 <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipMelee"}}" class="info" data-info="melee" type="button">
                     <i class="far fa-comment-alt"></i>
@@ -144,9 +147,12 @@
             <div class="row gear">
                 <span>Ranged</span>
                 <button type="button" class="pips" data-action="change-magic-weapon" data-weapon="ranged">
-                    {{#times 3}}
-                        <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
-                    {{/times}}
+                    <i class="{{#if data.weapons.ranged}}fa-solid filled{{else}}fa-regular{{/if}} fa-circle split"></i>
+                    <span>
+                        {{#times 3}}
+                            <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow{{/if}}"></i>
+                        {{/times}}
+                    </span>
                 </button>
                 <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipRanged"}}" class="info" data-info="ranged" type="button">
                     <i class="far fa-comment-alt"></i>
@@ -175,6 +181,11 @@
             </legend>
             {{#each document.strikes as |strike type|}}
                 <div class="strike" data-strike="{{type}}">
+                    {{#if (eq type "melee")}}
+                        <i class="fa-solid fa-fw fa-sword"></i>
+                    {{else}}
+                        <i class="fa-solid fa-fw fa-bow-arrow"></i>
+                    {{/if}}
                     {{#each strike.variants as |variant index|}}
                         <button type="button" data-action="strike-attack" data-variant-index="{{index}}" class="attack">
                             {{#if (eq index 0)}}
@@ -186,9 +197,9 @@
                     {{/each}}
                     <button type="button" data-action="strike-damage" class="damage">{{localize "PF2E.DamageLabel"}}</button>
                     <button type="button" data-action="strike-damage" data-outcome="criticalSuccess" class="damage critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
-                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" placeholder="{{localize "PF2E.Kingmaker.Strikes.{{type}}"}}" />
+                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" />
                     {{#if (eq type "ranged")}}
-                        <button data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}" class="ammunition pips" type="button">
+                        <button type="button" class="pips" data-action="change-ammunition"  data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}">
                             {{#times @root.data.resources.ammunition.max}}
                                 <i class="{{#if (gt @root.data.resources.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
                             {{/times}}

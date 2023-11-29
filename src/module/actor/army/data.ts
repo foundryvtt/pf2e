@@ -11,10 +11,10 @@ import {
     BaseActorSourcePF2e,
     BaseHitPointsSource,
 } from "@actor/data/base.ts";
-import { ARMY_TYPES } from "./values.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
 import { Alignment } from "./types.ts";
+import { ARMY_TYPES } from "./values.ts";
 
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
 
@@ -35,15 +35,14 @@ interface ArmySystemSource extends ActorSystemSource {
     };
 
     weapons: {
-        ranged: {
-            name: string;
-            potency: number;
-        };
-        melee: {
-            name: string;
-            potency: number;
-        };
+        ranged: ArmyWeaponData | null;
+        melee: ArmyWeaponData | null;
     };
+}
+
+interface ArmyWeaponData {
+    name: string;
+    potency: number;
 }
 
 interface ArmyArmorClass {

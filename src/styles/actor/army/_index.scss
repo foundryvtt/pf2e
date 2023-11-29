@@ -139,7 +139,7 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         gap: 1rem;
         overflow: hidden scroll;
         padding: 0.5rem;
-        width: 10.5rem;
+        width: 11rem;
 
         input[type="text"],
         input[type="number"] {
@@ -362,17 +362,21 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         padding: 0 0.25rem;
     }
 
-    .pips {
+    .pips, .pips span {
+        align-items: center;
         width: 3.5rem;
         height: 24px;
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
-        .empty {
+        i {
             color: darkgrey;
         }
         .filled {
             color: black;
+        }
+        .split + * {
+            margin-left: 0.25rem;
         }
     }
 
