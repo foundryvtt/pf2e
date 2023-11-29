@@ -34,8 +34,6 @@ import "./client/pixi/canvas-layer/grid-layer.d.ts";
 import "./client/pixi/grid/index.d.ts";
 import "./client/pixi/helpers/index.d.ts";
 import "./client/pixi/index.d.ts";
-import "./client/pixi/mouse-interaction-manager.d.ts";
-import "./client/pixi/placeables-layer/index.d.ts";
 import "./client/pixi/special-effect/index.d.ts";
 import "./client/roll-term/index.d.ts";
 import "./client/roll.d.ts";
