@@ -1,10 +1,9 @@
 import { MeasuredTemplatePF2e } from "../index.ts";
 
 export class TemplateLayerPF2e<
-    TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e,
-> extends TemplateLayer<TTemplate> {
-    /** Originally by Furyspark for the PF1e system */
-    protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void {
+    TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e,
+> extends TemplateLayer<TObject> {
+    protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void {
         if (!canvas.scene || !canvas.dimensions) return;
         const interaction = event.interactionData;
         const { destination, layerDragState, preview: template, origin } = interaction;
@@ -49,7 +48,7 @@ export class TemplateLayerPF2e<
         }
     }
 
-    protected override _onMouseWheel(event: WheelEvent): Promise<TTemplate["document"] | undefined> | void {
+    protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void {
         // Abort if there's no hovered template
         const template = this.hover;
         if (!(template && canvas.scene)) return;
