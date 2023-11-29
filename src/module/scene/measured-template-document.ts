@@ -5,7 +5,7 @@ import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import { ScenePF2e } from "./document.ts";
-import { SpellArea } from "@item/spell/data.ts";
+import type { EffectAreaType } from "@item/spell/types.ts";
 
 class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
@@ -39,8 +39,8 @@ class MeasuredTemplateDocumentPF2e<
         return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
     }
 
-    get effectArea(): SpellArea | null {
-        return this.flags.pf2e?.effectArea ?? null;
+    get areaType(): EffectAreaType | null {
+        return this.flags.pf2e?.areaType ?? null;
     }
 
     /** If present, show the clear-template button on the message from which this template was spawned */
@@ -68,7 +68,7 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
         pf2e?: {
             messageId?: string;
             origin?: ItemOriginFlag;
-            effectArea?: Maybe<SpellArea>;
+            areaType?: EffectAreaType;
         };
     };
 }
