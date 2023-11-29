@@ -12,7 +12,7 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
-import { calculateKingdomCollectionData, resolveKingdomBoosts } from "./helpers.ts";
+import { calculateKingdomCollectionData, importDocuments, resolveKingdomBoosts } from "./helpers.ts";
 import { KINGDOM_SCHEMA } from "./schema.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import {
@@ -473,40 +473,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             .filter((d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"))
             .filter((d) => d.system.category === "kingdom-activity");
 
-        const actor = this.actor;
-        const newDocuments = documents.filter((d) => !actor.items.some((i) => i.sourceId === d.uuid));
-        const createData = newDocuments.map((d) => d.toObject());
-
-        const incomingDataByUUID = R.mapToObj(documents, (d) => [d.uuid, d.toObject(true)]);
-        const updateData = R.compact(
-            actor.itemTypes.campaignFeature.map((d) => {
-                const incoming = d.sourceId && incomingDataByUUID[d.sourceId];
-                if (!incoming) return null;
-
-                const data = R.pick(incoming, ["name", "img", "system"]);
-                const diff = diffObject(d.toObject(true), data);
-                return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
-            }),
-        );
-
-        // Exit out early if there's nothing to add or update
-        if (!updateData.length && !createData.length) {
-            return;
-        }
-
-        if (!skipDialog) {
-            const result = await Dialog.confirm({
-                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.ImportDialog.Title"),
-                content: game.i18n.format("PF2E.Kingmaker.Kingdom.ImportDialog.Content", {
-                    added: createData.length,
-                    updated: updateData.length,
-                }),
-            });
-            if (!result) return;
-        }
-
-        await this.actor.updateEmbeddedDocuments("Item", updateData);
-        await this.actor.createEmbeddedDocuments("Item", createData);
+        await importDocuments(this.actor, documents, skipDialog);
     }
 
     /** Adds/removes kingdom features as appropriate. Private instead of # because # explodes */

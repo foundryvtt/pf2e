@@ -16,6 +16,9 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     declare behavior: BehaviorType;
     declare levelLabel: string;
 
+    /** The item that granted this feature */
+    granter: CampaignFeaturePF2e | null = null;
+
     get category(): KingmakerCategory {
         return this.system.category;
     }
@@ -83,7 +86,11 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         const itemGrants = this.flags.pf2e.itemGrants;
         this.grants = Object.values(itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
-            return item?.isOfType("campaignFeature") ? [item] : [];
+            if (item?.isOfType("campaignFeature")) {
+                item.granter = this;
+                return [item];
+            }
+            return [];
         });
     }
 

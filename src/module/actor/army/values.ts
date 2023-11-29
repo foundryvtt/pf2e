@@ -1,3 +1,5 @@
+const BASIC_WAR_ACTIONS_FOLDER = "Vqp8b64uH35zkncy";
+
 const ALIGNMENTS = new Set(["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] as const);
 
 const ARMY_TYPES = ["infantry", "cavalry", "siege", "skirmisher"] as const;
@@ -60,4 +62,4 @@ function fetchArmyGearData(gearType: String): Object {
     }
 }
 
-export { ALIGNMENTS, ARMY_STATS, fetchArmyGearData, ARMY_TYPES };
+export { ALIGNMENTS, ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, fetchArmyGearData };
