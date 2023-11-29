@@ -1,14 +1,14 @@
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { CampaignFeaturePF2e } from "@item";
+import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
+import { kingmakerTraits } from "@scripts/config/traits.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
+import * as R from "remeda";
+import { ArmyPF2e } from "./document.ts";
 import { Alignment } from "./types.ts";
 import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
-import { kingmakerTraits } from "@scripts/config/traits.ts";
-import * as R from "remeda";
-import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
-import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { CampaignFeaturePF2e } from "@item";
 
 class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -102,14 +102,26 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-weapon]")) {
             const gear = gearElement.dataset.weapon;
             if (!tupleHasValue(["melee", "ranged"], gear)) return;
+            const data = this.actor.system.weapons[gear];
             gearElement.addEventListener("click", () => {
-                const newValue = Math.clamped(this.actor.system.weapons[gear].potency + 1, 0, 3);
-                this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+                if (data) {
+                    const newValue = Math.clamped(data.potency + 1, 0, 3);
+                    this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+                } else {
+                    const newData = { name: "", potency: 0 };
+                    this.actor.update({ [`system.weapons.${gear}`]: newData });
+                }
             });
             gearElement.addEventListener("contextmenu", (event) => {
                 event.preventDefault();
-                const newValue = Math.clamped(this.actor.system.weapons[gear].potency - 1, 0, 3);
-                this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+                if (!data) return;
+
+                if (data.potency === 0) {
+                    this.actor.update({ [`system.weapons.${gear}`]: null });
+                } else {
+                    const newValue = Math.clamped(data.potency - 1, 0, 3);
+                    this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
+                }
             });
         }
 
@@ -123,7 +135,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             if (!objectHasKey(this.actor.strikes, type)) continue;
 
             strikeAttack.addEventListener("click", (event) => {
-                this.actor.strikes[type].variants[variant]?.roll({ event });
+                this.actor.strikes[type]?.variants[variant]?.roll({ event });
             });
         }
 
@@ -133,7 +145,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             if (!objectHasKey(this.actor.strikes, type)) continue;
 
             strikeDamage.addEventListener("click", (event) => {
-                this.actor.strikes[type][outcome]({ event });
+                this.actor.strikes[type]?.[outcome]({ event });
             });
         }
     }
