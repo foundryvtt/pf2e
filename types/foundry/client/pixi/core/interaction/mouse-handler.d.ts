@@ -103,7 +103,13 @@ declare class MouseInteractionManager {
     callback(action: string, event: Event): unknown;
 
     /** A reference to the possible interaction states which can be observed */
-    get states(): { [x: string]: number };
+    get states(): {
+        NONE: 0;
+        HOVER: 1;
+        CLICKED: 2;
+        DRAG: 3;
+        DROP: 4;
+    };
 
     /* -------------------------------------------- */
     /*  Listener Activation and Deactivation        */
@@ -135,78 +141,13 @@ declare class MouseInteractionManager {
     protected _deactivateDragEvents(): void;
 
     /* -------------------------------------------- */
-    /*  Hover In and Hover Out                      */
-    /* -------------------------------------------- */
-
-    /** Handle mouse-over events which activate downstream listeners and do not stop propagation. */
-    protected _handleMouseOver(event: Event): void;
-
-    /** Handle mouse-out events which terminate hover workflows and do not stop propagation. */
-    protected _handleMouseOut(event: Event): void;
-
-    /* -------------------------------------------- */
-    /*  Left Click and Double Click                 */
-    /* -------------------------------------------- */
-
-    /**
-     * Handle mouse-down events which activate downstream listeners.
-     * Stop further propagation only if the event is allowed by either single or double-click.
-     */
-    protected _handleMouseDown(event: Event): void;
-
-    /**
-     * Handle mouse-down which trigger a single left-click workflow.
-     */
-    protected _handleClickLeft(event: Event): void;
-
-    /**
-     * Handle mouse-down which trigger a single left-click workflow.
-     */
-    protected _handleClickLeft2(event: Event): void;
-
-    /* -------------------------------------------- */
-    /*  Right Click and Double Click                */
-    /* -------------------------------------------- */
-
-    /**
-     * Handle right-click mouse-down events.
-     * Stop further propagation only if the event is allowed by either single or double-click.
-     */
-    protected _handleRightDown(event: Event): void;
-
-    /**
-     * Handle single right-click actions.
-     */
-    protected _handleClickRight(event: Event): void;
-
-    /**
-     * Handle double right-click actions.
-     */
-    protected _handleClickRight2(event: Event): void;
-
-    /* -------------------------------------------- */
     /*  Drag and Drop                               */
     /* -------------------------------------------- */
 
-    /** Handle mouse movement during a drag workflow */
-    protected _handleMouseMove(event: Event): void;
-
-    /** Handle the beginning of a new drag start workflow, moving all controlled objects on the layer */
-    protected _handleDragStart(event: Event): void;
-
-    /** Handle the continuation of a drag workflow, moving all controlled objects on the layer */
-    protected _handleDragMove(event: Event): void;
-
-    /** Handle mouse up events which may optionally conclude a drag workflow */
-    protected _handleMouseUp(event: Event): void;
-
     /**
-     * Handle the conclusion of a drag workflow, placing all dragged objects back on the layer
+     * A public method to handle directly an event into this manager, according to its type.
+     * Note: drag events are not handled.
+     * @returns Has the event been processed?
      */
-    protected _handleDragDrop(event: Event): void;
-
-    /**
-     * Handle the cancellation of a drag workflow, resetting back to the original state
-     */
-    protected _handleDragCancel(event: Event): void;
+    handleEvent(event: PIXI.FederatedEvent): boolean;
 }

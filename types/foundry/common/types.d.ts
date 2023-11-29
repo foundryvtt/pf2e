@@ -1,4 +1,4 @@
-import type { Document, EmbeddedCollection } from "./abstract/module.d.ts";
+import type { Document } from "./abstract/module.d.ts";
 
 declare global {
     interface DocumentConstructionContext<TParent extends Document | null>
@@ -44,10 +44,7 @@ declare global {
     /* ----------------------------------------- */
 
     /** A single point, expressed as an object {x, y} */
-    interface Point {
-        x: number;
-        y: number;
-    }
+    type Point = { x: number; y: number };
 
     /** A single point, expressed as an array [x,y] */
     type PointArray = [number, number];
