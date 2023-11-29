@@ -23,7 +23,7 @@ declare global {
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
-        protected override _onDragLeftStart(event: PlaceablesLayerEvent<TTemplate>): Promise<TTemplate | void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TTemplate>): Promise<TTemplate | void>;
 
         protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void;
 
