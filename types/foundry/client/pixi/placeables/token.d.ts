@@ -618,8 +618,8 @@ declare global {
         editable: boolean;
     }
 
-    interface TokenPointerEvent<T extends Token> extends PIXI.FederatedPointerEvent {
-        interactionData: {
+    interface TokenPointerEvent<T extends Token> extends PlaceablesLayerPointerEvent<T> {
+        interactionData: PlaceablesLayerPointerEvent<T>["interactionData"] & {
             clones?: T[];
         };
     }

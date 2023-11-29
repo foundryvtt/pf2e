@@ -1,12 +1,12 @@
 export {};
 
 declare global {
-    class TemplateLayer<TTemplate extends MeasuredTemplate = MeasuredTemplate> extends PlaceablesLayer<TTemplate> {
+    class TemplateLayer<TObject extends MeasuredTemplate = MeasuredTemplate> extends PlaceablesLayer<TObject> {
         static override get layerOptions(): TemplateLayerOptions;
 
         static documentName: "MeasuredTemplate";
 
-        override quadtree: CanvasQuadtree<TTemplate>;
+        override quadtree: CanvasQuadtree<TObject>;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -23,11 +23,11 @@ declare global {
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
-        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TTemplate>): Promise<TTemplate | void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<TObject | void>;
 
-        protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void;
+        protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-        protected override _onMouseWheel(event: WheelEvent): Promise<TTemplate["document"] | undefined> | void;
+        protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void;
     }
 
     /**

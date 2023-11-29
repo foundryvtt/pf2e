@@ -15,13 +15,13 @@ declare global {
      * @example <caption>The lightingRefresh hook</caption>
      * Hooks.on("lightingRefresh", layer => {});
      */
-    class LightingLayer<TAmbientLight extends AmbientLight = AmbientLight> extends PlaceablesLayer<TAmbientLight> {
+    class LightingLayer<TObject extends AmbientLight = AmbientLight> extends PlaceablesLayer<TObject> {
         constructor();
 
-        override quadtree: CanvasQuadtree<TAmbientLight>;
+        override quadtree: CanvasQuadtree<TObject>;
 
         /** A mapping of light sources which are active within the rendered Scene */
-        sources: Collection<LightSource<TAmbientLight | Token>>;
+        sources: Collection<LightSource<TObject | Token>>;
 
         /**
          * Increment this whenever lighting channels are re-configured.
@@ -42,7 +42,7 @@ declare global {
         background: PIXI.Container | null;
 
         /** An array of light sources which are currently animated */
-        protected _animatedSources: LightSource<TAmbientLight>[];
+        protected _animatedSources: LightSource<TObject>[];
 
         /** A mapping of different light level channels */
         channels: LightChannels;
@@ -119,9 +119,9 @@ declare global {
          */
         protected _onDarknessChange(darkness: number, prior: number): void;
 
-        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TAmbientLight>): Promise<void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
 
-        protected override _onDragLeftMove(event: PIXI.FederatedEvent): Promise<void>;
+        protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
 
         protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 

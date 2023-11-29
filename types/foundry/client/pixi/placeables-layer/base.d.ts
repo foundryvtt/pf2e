@@ -268,7 +268,7 @@ declare global {
          * Continue a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftMove}
          */
-        protected _onDragLeftMove(event: PlaceablesLayerEvent<TObject>): void;
+        protected _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Conclude a left-click drag workflow originating from the Canvas stage.
