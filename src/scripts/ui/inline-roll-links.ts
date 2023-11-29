@@ -290,10 +290,7 @@ export const InlineRollLinks = {
                     objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
                     objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
                 ) {
-                    flags.pf2e.effectArea = {
-                        value: templateData.distance,
-                        type: pf2EffectArea,
-                    };
+                    flags.pf2e.areaType = pf2EffectArea;
                 }
 
                 const messageId =

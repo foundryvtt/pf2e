@@ -4,7 +4,7 @@ import { highlightGrid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
 import { ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
-import { SpellArea } from "@item/spell/data.ts";
+import type { EffectAreaType } from "@item/spell/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 class MeasuredTemplatePF2e<
@@ -33,8 +33,8 @@ class MeasuredTemplatePF2e<
         return this.document.message;
     }
 
-    get effectArea(): SpellArea | null {
-        return this.document.effectArea;
+    get areaType(): EffectAreaType | null {
+        return this.document.areaType;
     }
 
     get type(): MeasuredTemplateType {
@@ -67,7 +67,7 @@ class MeasuredTemplatePF2e<
         this.layer.preview.addChild(this);
 
         if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            if (this.effectArea?.type === "burst") {
+            if (this.areaType === "burst") {
                 this.#snapInterval = 1;
             }
         }
