@@ -11,7 +11,12 @@
                             <h4>{{localize skill.label}}</h4>
                         </a>
                         <div class="skill-prof button-group">
-                            <select class="skill-proficiency pf-rank adjust-stat-select" data-property="system.skills.{{key}}.rank" data-rank="{{skill.rank}}">
+                            <select
+                                class="skill-proficiency pf-rank"
+                                data-property="system.skills.{{key}}.rank"
+                                data-rank="{{skill.rank}}"
+                                data-dtype="Number"
+                            >
                                 {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                             </select>
                             <div class="hover-container">
@@ -81,9 +86,10 @@
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select
-                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
                             data-property="system.proficiencies.attacks.{{key}}.rank"
                             data-rank="{{proficiency.rank}}"
+                            data-dtype="Number"
                         >
                             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
                         </select>
@@ -106,9 +112,10 @@
                     <h4 class="skill-name">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select
-                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
                             data-property="system.proficiencies.defenses.{{key}}.rank"
                             data-rank="{{proficiency.rank}}"
+                            data-dtype="Number"
                         >
                             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
                         </select>

@@ -509,9 +509,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             await this.actor.update({ "system.resources.heroPoints.value": newValue });
         });
 
-        for (const selectElem of htmlQueryAll<HTMLSelectElement>(html, "select.adjust-stat-select")) {
-            selectElem.addEventListener("change", () => this.#onChangeAdjustStat(selectElem));
-        }
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
@@ -1156,23 +1153,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         return featTab.open(filter);
-    }
-
-    /** Handle changing of proficiency-rank via dropdown */
-    #onChangeAdjustStat(selectElem: HTMLSelectElement): void {
-        const propertyKey = selectElem.dataset.property ?? "";
-        const currentValue = getProperty(this.actor, propertyKey);
-        const selectedValue = Number(selectElem.value);
-        if (typeof currentValue !== "number" || Number.isNaN(selectedValue)) {
-            throw ErrorPF2e("Actor property not found");
-        }
-
-        const newValue = Math.clamped(selectedValue, 0, 4);
-        const clone = this.actor.clone({ [propertyKey]: newValue }, { keepId: true });
-        if (newValue !== getProperty(clone, propertyKey)) {
-            ui.notifications.warn("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures", { localize: true });
-            selectElem.value = currentValue.toString();
-        }
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
