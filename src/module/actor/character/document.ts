@@ -1171,7 +1171,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ].flat(),
         ) as WeaponPF2e<this>[];
 
-        // Sort alphabetically, force basic unarmed attack to end, and finally move all readied strikes to beginning
+        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and finally
+        // move all readied strikes to beginning
         const { handsReallyFree } = this;
         return weapons
             .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
@@ -1182,7 +1183,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .localeCompare(b.label.toLocaleLowerCase(game.i18n.lang).replace(/[-0-9\s]/gi, ""), game.i18n.lang),
             )
             .sort((a, b) => (a.slug === "basic-unarmed" ? 1 : b.slug === "basic-unarmed" ? -1 : 0))
-            .sort((a, b) => (a.ready !== b.ready ? (a.ready ? 0 : 1) - (b.ready ? 0 : 1) : 0));
+            .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
+            .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
     }
 
     /** Prepare a strike action from a weapon */
