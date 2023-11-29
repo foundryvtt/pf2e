@@ -23,10 +23,17 @@
         },
         "rules": [
             {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "one-shot-one-kill",
+                "toggleable": true
+            },
+            {
                 "category": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
+                    "one-shot-one-kill",
                     "self:participant:own-turn",
                     "encounter:round:1",
                     "self:participant:initiative:stat:stealth",
