@@ -25,7 +25,12 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 label: "Scale",
             }),
             tint: new fields.ColorField({ label: "TOKEN.TintColor" }),
-            alpha: new fields.AlphaField({ label: "PF2E.RuleEditor.General.Opacity" }),
+            alpha: new fields.AlphaField({
+                label: "PF2E.RuleEditor.General.Opacity",
+                required: false,
+                nullable: true,
+                initial: null,
+            }),
         };
     }
 
@@ -79,7 +84,7 @@ type TokenImageRuleSchema = RuleElementSchema & {
     /** An optional tint adjustment */
     tint: ColorField;
     /** An optional alpha adjustment */
-    alpha: AlphaField;
+    alpha: AlphaField<false, true, true>;
 };
 
 export { TokenImageRuleElement };
