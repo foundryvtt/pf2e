@@ -11,6 +11,8 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
+import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
 import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
 import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
@@ -30,6 +32,7 @@ import { Migration897ClearLayOnHandsDamage } from "@module/migration/migrations/
 import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrations/899-armor-shields-to-shield-shields.ts";
 import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
 import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
+import { Migration902DuskwoodDawnsilver } from "@module/migration/migrations/902-duskwood-dawnsilver.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -58,46 +61,39 @@ const migrations: MigrationBase[] = [
     new Migration899ArmorShieldToShieldShield(),
     new Migration900ClassSpellcastingProficiency(),
     new Migration901ReorganizeBulkData(),
+    new Migration902DuskwoodDawnsilver(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
 
 type CompendiumSource = CompendiumDocument["_source"];
 
-const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "vehicle"];
-const itemTypes = [
+const actorTypes = new Set([...CREATURE_ACTOR_TYPES, "army", "hazard", "loot", "vehicle"]);
+const itemTypes = new Set([
+    ...PHYSICAL_ITEM_TYPES,
     "action",
     "ancestry",
-    "armor",
     "background",
-    "backpack",
     "campaignFeature",
     "class",
     "condition",
-    "consumable",
     "deity",
     "effect",
-    "equipment",
     "feat",
-    "formula",
     "heritage",
     "kit",
     "lore",
-    "martial",
     "melee",
     "spell",
     "spellcastingEntry",
-    "status",
-    "treasure",
-    "weapon",
-];
+]);
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
-    return "type" in docSource && actorTypes.includes(docSource.type);
+    return "type" in docSource && actorTypes.has(docSource.type);
 };
 
 const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
-    return "type" in docSource && itemTypes.includes(docSource.type);
+    return "type" in docSource && itemTypes.has(docSource.type);
 };
 
 const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.documents.JournalEntrySource => {

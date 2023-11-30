@@ -1,6 +1,5 @@
 import { ArmorSystemSource } from "@item/armor/data.ts";
 import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
-import { PreciousMaterialType } from "@item/physical/types.ts";
 import { IntegratedWeaponSource, SpecificShieldData } from "@item/shield/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
@@ -188,7 +187,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         const baseItem = system.baseItem ?? "";
         const { type } = system.material;
         const BUCKLERS = ["buckler", "casters-targe", "dart-shield", "gauntlet-buckler", "heavy-rondache", "klar"];
-        const bucklerMaterials: PreciousMaterialType[] = [
+        const bucklerMaterials = [
             "abysium",
             "adamantine",
             "cold-iron",
@@ -201,7 +200,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             "siccatite",
             "silver",
         ];
-        const MATERIALS: Record<"buckler" | "towerShield" | "shield", PreciousMaterialType[]> = {
+        const MATERIALS: Record<"buckler" | "towerShield" | "shield", string[]> = {
             buckler: bucklerMaterials,
             towerShield: ["darkwood"],
             shield: [...bucklerMaterials, "keep-stone"],
@@ -238,7 +237,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
                 break;
             case "kizidhars-shield":
                 system.baseItem = "steel-shield";
-                system.material = { type: "darkwood", grade: "standard" };
+                system.material = { type: "duskwood", grade: "standard" };
                 setSpecific();
                 break;
 

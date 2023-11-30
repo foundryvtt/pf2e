@@ -1,4 +1,5 @@
 import { ActionCost } from "@item/base/data/system.ts";
+import * as R from "remeda";
 import Sortable from "sortablejs";
 
 /**
@@ -383,30 +384,30 @@ function sortStringRecord(record: Record<string, string>): Record<string, string
 
 /** JSON.stringify with recursive key sorting */
 function sortObjByKey(value: unknown): unknown {
-    return isObject<Record<string | number, unknown>>(value)
-        ? Array.isArray(value)
-            ? value.map(sortObjByKey)
-            : Object.keys(value)
-                  .sort()
-                  .reduce((o: Record<string, unknown>, key) => {
-                      const v = value[key];
-                      o[key] = sortObjByKey(v);
-                      return o;
-                  }, {})
-        : value;
+    return Array.isArray(value)
+        ? value.map(sortObjByKey)
+        : R.isObject(value)
+          ? Object.keys(value)
+                .sort()
+                .reduce((o: Record<string, unknown>, key) => {
+                    const v = value[key];
+                    o[key] = sortObjByKey(v);
+                    return o;
+                }, {})
+          : value;
 }
 
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = Array.isArray(source) || isObject(source) ? deepClone(source) : source;
+    const clone = Array.isArray(source) || R.isObject(source) ? deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
         return clone.map((e) => recursiveReplaceString(e, replace));
-    } else if (isObject<Record<string, unknown>>(clone)) {
-        for (const key of Object.keys(clone)) {
-            clone[key] = recursiveReplaceString(clone[key], replace);
+    } else if (R.isObject(clone)) {
+        for (const [key, value] of Object.entries(clone)) {
+            clone[key] = recursiveReplaceString(value, replace);
         }
     }
 
