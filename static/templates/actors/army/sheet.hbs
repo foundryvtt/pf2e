@@ -94,11 +94,11 @@
             </div>
             <label>
                 <span>{{localize "PF2E.Kingmaker.Consumption.Label"}}</span>
-                <input class="stats" type="number" data-property="system.consumption" value="{{data.consumption}}" data-dtype="Number"/>
+                <input class="{{consumption.adjustmentClass}}" type="number" data-property="system.consumption" value="{{consumption.value}}"/>
             </label>
             <label>
-                <span>{{localize "PF2E.Kingmaker.Army.standardDC"}}</span>
-                <input class="stats" type="number" data-property="system.attributes.standardDC" value="{{data.attributes.standardDC}}" data-dtype="Number"/>
+                <span>{{localize "PF2E.Kingmaker.Army.RecruitmentDC"}}</span>
+                <input type="number" data-property="system.recruitmentDC" value="{{data.recruitmentDC}}"/>
             </label>
         </section>
 
@@ -119,7 +119,7 @@
                 <h4>{{localize "PF2E.Kingmaker.Army.Gear.Label"}}</h4>
             </header>
             <div class="row gear">
-                <span>Armor</span>
+                <span>{{localize "PF2E.Kingmaker.Army.Armor"}}</span>
                 <a class="pips" data-action="change-magic-armor">
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.ac.potency this)}}fa-regular fa-shield filled{{else}}fa-light fa-shield empty{{/if}}"></i>
@@ -130,7 +130,7 @@
                 </a>
             </div>
             <div class="row gear">
-                <span>Melee</span>
+                <span>{{localize "PF2E.Kingmaker.Army.Strikes.melee"}}</span>
                 <a class="pips" data-action="change-magic-weapon" data-weapon="melee">
                     <i class="{{#if data.weapons.melee}}fa-solid filled{{else}}fa-regular{{/if}} fa-circle split"></i>
                     <span>
@@ -144,7 +144,7 @@
                 </a>
             </div>
             <div class="row gear">
-                <span>Ranged</span>
+                <span>{{localize "PF2E.Kingmaker.Army.Strikes.ranged"}}</span>
                 <a class="pips" data-action="change-magic-weapon" data-weapon="ranged">
                     <i class="{{#if data.weapons.ranged}}fa-solid filled{{else}}fa-regular{{/if}} fa-circle split"></i>
                     <span>
@@ -180,7 +180,7 @@
                 {{#if document.strikes.ranged}}
                     <div class="ammunition">
                         (
-                        <span>Ammunition</span>
+                        <span>{{localize "PF2E.Kingmaker.Army.Ammunition"}}</span>
                         <a class="pips" data-action="change-resource" data-resource="ammunition" data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}">
                             {{#times @root.data.resources.ammunition.max}}
                                 <i class="{{#if (gt @root.data.resources.ammunition.value this)}}fa-regular fa-dagger filled{{else}}fa-light fa-dagger empty{{/if}}"></i>

@@ -26,6 +26,7 @@ interface ArmySystemSource extends ActorSystemSource {
 
     consumption: number;
     scouting: number;
+    recruitmentDC: number;
 
     resources: ArmyResourcesSource;
 

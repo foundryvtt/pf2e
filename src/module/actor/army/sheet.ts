@@ -39,6 +39,9 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                     actor._source.system.ac.value + actor.system.ac.potency,
                 ),
             },
+            consumption: getAdjustedValue(actor.system.consumption, actor._source.system.consumption, {
+                better: "lower",
+            }),
             hitPoints: {
                 value: actor.system.attributes.hp.value,
                 max: getAdjustedValue(actor.system.attributes.hp.max, actor._source.system.attributes.hp.max),
@@ -180,6 +183,7 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
         breakdown: string;
         adjustmentClass: string | null;
     };
+    consumption: AdjustedValue;
     hitPoints: {
         value: number;
         max: AdjustedValue;
