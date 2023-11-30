@@ -1316,7 +1316,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const isRealItem = this.items.has(weapon.id);
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Modular" }));
+            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "modular" }));
         }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
@@ -1330,23 +1330,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             switch (weapon.carryType) {
                 case "held": {
                     if (weapon.shield && !weapon.shield.isRaised) {
-                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "RaiseAShield" }));
+                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
                     }
 
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Grip", hands: 1 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "release", purpose: "grip", hands: 1 }),
                         );
                     } else if (weapon.handsHeld === 1 && canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "grip", hands: 2 }),
                         );
                     }
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "sheathe", hands: 0 }),
                     );
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Drop", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "release", purpose: "drop", hands: 0 }),
                     );
 
                     break;
@@ -1354,28 +1354,28 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 case "worn": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "draw", hands: 2 }),
                         );
                     }
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "draw", hands: 1 }),
                     );
                     break;
                 }
                 case "stowed": {
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "retrieve", hands: 1 }),
                     );
                     break;
                 }
                 case "dropped": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "pick-up", hands: 2 }),
                         );
                     }
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "pick-up", hands: 1 }),
                     );
                     break;
                 }
