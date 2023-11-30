@@ -132,7 +132,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
-        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
+        return [
+            ...super.allowedItemTypes,
+            ...buildItems,
+            "physical",
+            "spellcastingEntry",
+            "spell",
+            "action",
+            "lore",
+            "kit",
+        ];
     }
 
     get keyAttribute(): AttributeString {
