@@ -19,7 +19,7 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { MeasuredTemplateDocumentPF2e, type TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -483,7 +483,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .sort((first, second) => first.level - second.level);
     }
 
-    createTemplate(message?: ChatMessagePF2e): MeasuredTemplatePF2e {
+    placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
         const templateConversion = {
             burst: "circle",
             cone: "cone",
@@ -496,10 +496,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { area } = this.system;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
-        const areaType = templateConversion[area.type];
+        const templateType = templateConversion[area.type];
 
         const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
-            t: areaType,
+            t: templateType,
             distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
             fillColor: game.user.color,
             flags: {
@@ -511,12 +511,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         traits: deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
-                    areaType: this.system.area?.type,
+                    areaType: this.system.area?.type ?? null,
                 },
             },
         };
 
-        switch (areaType) {
+        switch (templateType) {
             case "ray":
                 templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                 break;
@@ -532,12 +532,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-        return new MeasuredTemplatePF2e(templateDoc);
-    }
-
-    placeTemplate(message?: ChatMessagePF2e): void {
-        this.createTemplate(message).drawPreview();
+        return canvas.templates.createPreview(templateData);
     }
 
     override prepareBaseData(): void {
