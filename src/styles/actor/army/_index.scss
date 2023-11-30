@@ -1,7 +1,3 @@
-// todo: convert to css variables
-$faded-color: #7a7971;
-$color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an error, diagnose?
-
 .sheet.army {
     form {
         display: grid;
@@ -15,6 +11,19 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: local;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        background: rgba(0, 0, 0, 0.03);
+        border: 1px solid transparent;
+        padding: 0 4px;
+
+        &:hover:not(:disabled),
+        &:focus {
+            border: 1px solid black;
+            box-shadow: 0 0 10px #00005a;
+        }
     }
 
     input {
@@ -45,16 +54,16 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
 
         .frame {
             position: relative;
-            width: 4.25rem;
-            height: 4.25rem;
+            width: 4rem;
+            height: 4rem;
 
             img {
                 object-fit: cover;
                 object-position: top;
                 border: none;
                 border-radius: 0;
-                width: 4.25rem;
-                height: 4.25rem;
+                width: 4rem;
+                height: 4rem;
                 cursor: pointer;
                 @include brown-border;
             }
@@ -129,35 +138,18 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         }
     }
 
-    // ============= //
-    //    SIDEBAR    //
-    // ============= //
     aside.army-sidebar {
-        color: $color;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         overflow: hidden scroll;
-        padding: 0.5rem;
+        padding: 0.75rem 0.25rem 0.5rem 0.5rem;
         width: 11rem;
-
-        input[type="text"],
-        input[type="number"] {
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid transparent;
-            text-align: right;
-            padding: 0 4px;
-
-            &:hover:not(:disabled),
-            &:focus {
-                border: 1px solid black;
-                box-shadow: 0 0 10px #00005a;
-            }
-        }
 
         input {
             flex: 0;
             min-width: 5ch;
+            text-align: right;
             &[type="checkbox"] {
                 font-size: var(--font-size-10);
                 height: 12px;
@@ -167,13 +159,11 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         }
 
         header {
+            border-bottom: 1px solid var(--color-border-divider);
+            color: var(--primary);
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            align-items: baseline;
-
-            border-bottom: 1px solid;
-            border-color: $faded-color;
             align-items: baseline;
             line-height: 18px;
 
@@ -182,9 +172,10 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
             }
 
             h4 {
-                font-weight: bold;
+                font-size: var(--font-size-15);
+                font-family: var(--serif);
+                font-weight: 600;
                 margin-bottom: 0px;
-                font-size: 0.9rem;
                 padding-left: 4px;
                 width: 100%;
                 text-align: left;
@@ -195,15 +186,23 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
             & > label, .row {
                 align-items: baseline;
                 display: flex;
-                justify-content: space-between;
+                gap: 0.25rem;
+                span {
+                    flex: 1;
+                }
                 input {
                     width: 3em;
                 }
             }
 
+            .potions {
+                justify-content: center;
+                gap: 1rem;
+            }
+
             .gear {
                 align-items: center;
-                gap: 0.125rem;
+                gap: 0.5rem;
                 span {
                     flex: 1;
                 }
@@ -233,25 +232,33 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
     // Sheet contents
     section.army-body {
         grid-area: content;
-        color: $color;
-        padding: 0.5rem;
+
+        display: flex;
+        flex-direction: column;
+        padding: 0.75rem 0.5rem;
         overflow: auto;
+        gap: 0.5rem;
 
         fieldset {
             border: 1px solid #5e0000;
             border-radius: 3px;
-            margin: 8px 0;
+            padding: 0 0.75rem 0.5rem 0.75rem;
+
             legend {
-                align-items: center;
-                font-size: 1rem;
-                color: rgb(95, 0, 0);
+                align-items: baseline;
+                color: var(--primary);
                 display: flex;
-                text-transform: bold;
+                font-size: var(--font-size-15);
+                font-family: var(--serif);
+                font-weight: 600;
                 gap: 0.25rem;
+                margin-bottom: -0.125rem; // compensate for the font's large bottom whitespace
+
                 .item-controls {
                     margin-left: 0.125rem;
                     font-size: 0.8em;
                 }
+
             }
         }
 
@@ -271,29 +278,25 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
 
         .weapons {
             display: flex;
-            flex: 1;
             flex-direction: column;
-            justify-content: space-evenly;
+
+            .ammunition {
+                display: flex;
+                font-size: 0.9em;
+                gap: 0.125rem;
+                margin-left: 0.25rem;
+                .pips {
+                    margin: 0 0.375rem;
+                }
+            }
 
             .strike {
-                flex: 0;
-                display: flex;
-                gap: 0.25rem;
                 align-items: center;
+                display: flex;
+                flex: 0;
+                gap: 0.25rem;
                 line-height: 1.5rem;
 
-                a.rollable {
-                    border: 1px solid rgba(200, 100, 60, 0.15);
-                    border-radius: 4px;
-                    background: rgba(255, 255, 255, 0.25);
-                    text-align: center;
-                    white-space: nowrap;
-                    line-height: 1.25rem;
-                    &[data-variant-index="1"],
-                    &[data-variant-index="2"] {
-                        font-size: 0.7rem;
-                    }
-                }
                 input.name {
                     flex: 1;
                     text-indent: 0.25rem;
@@ -364,7 +367,6 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
 
     .pips, .pips span {
         align-items: center;
-        width: 3.5rem;
         height: 24px;
         display: flex;
         flex-flow: row nowrap;
@@ -380,33 +382,6 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         }
     }
 
-    button {
-        background: none;
-        border: none;
-        flex: 0;
-        font-size: var(--font-size-14);
-        height: 100%;
-        margin: auto;
-        label,
-        i {
-            margin: auto;
-        }
-        &.sheet-settings button {
-            font-size: 1rem;
-            width: 3rem;
-            margin: 0;
-        }
-
-        // Disabled buttons
-        .disabled {
-            color: darkgrey;
-            i::before {
-                text-shadow: none;
-                cursor: default;
-            }
-        }
-    }
-
     button.attack, button.damage {
         align-items: center;
         border: none;
@@ -414,6 +389,7 @@ $color: rgb(68, 0, 0); // Was previously "rarity-common" but now that throws an 
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
         color: var(--color-text-trait);
         display: inline-flex;
+        flex: 0;
         font-family: var(--sans-serif);
         font-size: var(--font-size-10);
         font-weight: 500;
