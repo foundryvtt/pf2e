@@ -157,17 +157,17 @@ abstract class IWR<TType extends IWRType> {
                             return [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }];
                         case "cold-iron":
                             return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
-                        case "darkwood":
+                        case "duskwood":
                             return [
                                 {
                                     or: [
-                                        "damage:material:darkwood",
+                                        "damage:material:duskwood",
                                         { and: ["self:mode:undead", "damage:material:peachwood"] },
                                     ],
                                 },
                             ];
                         case "silver":
-                            return [{ or: ["damage:material:silver", "damage:material:mithral"] }];
+                            return [{ or: ["damage:material:silver", "damage:material:dawnsilver"] }];
                         default:
                             return [`damage:material:${iwrType}`];
                     }

@@ -85,7 +85,7 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    darkwood: {
+    dawnsilver: {
         low: null,
         standard: {
             level: 11,
@@ -111,6 +111,19 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    duskwood: {
+        low: null,
+        standard: {
+            level: 11,
+            price: 1400,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 17,
+            price: 13500,
+            rarity: "uncommon",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -131,19 +144,6 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 18,
             price: 22500,
             rarity: "rare",
-        },
-    },
-    mithral: {
-        low: null,
-        standard: {
-            level: 11,
-            price: 1400,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 17,
-            price: 13500,
-            rarity: "uncommon",
         },
     },
     noqual: {
@@ -318,7 +318,7 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    darkwood: {
+    dawnsilver: {
         low: null,
         standard: {
             level: 12,
@@ -345,6 +345,19 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         },
     },
     dragonhide: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "uncommon",
+        },
+    },
+    duskwood: {
         low: null,
         standard: {
             level: 12,
@@ -390,19 +403,6 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 20,
             price: 56000,
             rarity: "rare",
-        },
-    },
-    mithral: {
-        low: null,
-        standard: {
-            level: 12,
-            price: 1600,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 19,
-            price: 32000,
-            rarity: "uncommon",
         },
     },
     noqual: {
@@ -565,7 +565,7 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    darkwood: {
+    dawnsilver: {
         low: null,
         standard: {
             level: 8,
@@ -591,6 +591,19 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    duskwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 350,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 6000,
+            rarity: "uncommon",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -611,19 +624,6 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 17,
             price: 9000,
             rarity: "rare",
-        },
-    },
-    mithral: {
-        low: null,
-        standard: {
-            level: 8,
-            price: 350,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 16,
-            price: 6000,
-            rarity: "uncommon",
         },
     },
     noqual: {
@@ -795,7 +795,7 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    darkwood: {
+    dawnsilver: {
         low: null,
         standard: {
             level: 8,
@@ -807,8 +807,8 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 16,
             price: 8000,
-            hardness: 5,
-            maxHP: 20,
+            hardness: 6,
+            maxHP: 24,
             rarity: "uncommon",
         },
     },
@@ -829,6 +829,23 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    duskwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 400,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8000,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -844,23 +861,6 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 5,
             maxHP: 20,
             rarity: "rare",
-        },
-    },
-    mithral: {
-        low: null,
-        standard: {
-            level: 8,
-            price: 400,
-            hardness: 3,
-            maxHP: 12,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 16,
-            price: 8000,
-            hardness: 6,
-            maxHP: 24,
-            rarity: "uncommon",
         },
     },
     noqual: {
@@ -990,7 +990,7 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
-    darkwood: {
+    dawnsilver: {
         low: null,
         standard: {
             level: 8,
@@ -1024,6 +1024,23 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    duskwood: {
+        low: null,
+        standard: {
+            level: 8,
+            price: 440,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 16,
+            price: 8800,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "uncommon",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -1050,23 +1067,6 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 11,
             maxHP: 46,
             rarity: "rare",
-        },
-    },
-    mithral: {
-        low: null,
-        standard: {
-            level: 8,
-            price: 440,
-            hardness: 5,
-            maxHP: 20,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 16,
-            price: 8800,
-            hardness: 8,
-            maxHP: 32,
-            rarity: "uncommon",
         },
     },
     noqual: {
@@ -1139,7 +1139,7 @@ const TOWER_SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: null,
         high: null,
     },
-    darkwood: {
+    duskwood: {
         low: null,
         standard: {
             level: 8,
