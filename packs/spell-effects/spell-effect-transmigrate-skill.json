@@ -1,16 +1,16 @@
 {
-    "_id": "W8MD8WCjVC4pLlqn",
-    "img": "icons/magic/life/heart-broken-red.webp",
-    "name": "Effect: Heart Break",
+    "_id": "FqG4zXjSoxq9qTlf",
+    "img": "icons/magic/symbols/runes-star-magenta.webp",
+    "name": "Spell effect: Transmigrate (Skill)",
     "system": {
         "description": {
-            "value": "<p>Until the end of her next turn, each enemy within 60 feet of Narcela takes a -1 item penalty to Will saves.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Transmigrate]</p>\n<p>You gain a +1 status bonus to skill checks.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "days",
+            "value": 30
         },
         "level": {
             "value": 1
@@ -18,14 +18,14 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": ""
+            "title": "Pathfinder #198: No Breath to Cry"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "will",
-                "type": "item",
-                "value": -1
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
             }
         ],
         "start": {
