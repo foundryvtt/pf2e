@@ -1,0 +1,83 @@
+{
+    "_id": "LuW0KcoGUJ49dFCJ",
+    "img": "icons/equipment/feet/wrappings-leather-brown.webp",
+    "name": "Kinburi's Sandals of Bounding",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>These elevated wooden sandals once belonged to a haughty kitsune named Kinburi. It was well known that her swiftness and grace were unmatched, and observers described her as seeming to glide above the earth with each step. She often challenged others to wager on her speed, but as people began to grow wise, she was forced to conceal her identity or promise to forfeit her sandals if she lost.</p>\n<p>These sandals give you a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] and @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]. In addition, when you use the @UUID[Compendium.pf2e.actionspf2e.Item.Leap] action, you can move 5 feet further if jumping horizontally or 3 feet higher if jumping vertically.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (command)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You loudly boast about your grace and agility, then take any combination of two High Jumps or Long Jumps. You do not need to Stride first, and between the two jumps, you need only to come into contact with a physical object before making the second jump; this object doesn't need to be one that can bear your weight, or even be attached to the ground—you can jump off from a floating feather or a thin branch or even off a paper wall as needed. The sandals' item bonus increases to +2 for these jumps.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 700
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #198: No Breath to Cry"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "sandals-of-bounding",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:long-jump",
+                            "action:high-jump"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "athletics",
+                "slug": "kinburis-sandals-of-bounding",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornshoes"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,16 +1,16 @@
 {
-    "_id": "W8MD8WCjVC4pLlqn",
-    "img": "icons/magic/life/heart-broken-red.webp",
-    "name": "Effect: Heart Break",
+    "_id": "UQmizjvdBfSVYoZe",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Effect: Spirit Power (Flight)",
     "system": {
         "description": {
-            "value": "<p>Until the end of her next turn, each enemy within 60 feet of Narcela takes a -1 item penalty to Will saves.</p>"
+            "value": "<p>You gain a fly Speed equal to your Speed or 30 feet, whichever is greater.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
             "value": 1
@@ -18,14 +18,13 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": ""
+            "title": "Pathfinder #198: No Breath to Cry"
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "will",
-                "type": "item",
-                "value": -1
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(30,@actor.attributes.speed.total)"
             }
         ],
         "start": {
