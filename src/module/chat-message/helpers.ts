@@ -215,8 +215,9 @@ async function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, r
             $html[0].querySelector("input")?.focus();
         }
     };
+    const isHealing = multiplier < 0;
     new AdjustmentDialog({
-        title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
+        title: game.i18n.localize(isHealing ? "PF2E.UI.shiftModifyHealingTitle" : "PF2E.UI.shiftModifyDamageTitle"),
         content,
         buttons: {
             ok: {
