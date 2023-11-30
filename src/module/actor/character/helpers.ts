@@ -136,8 +136,9 @@ class WeaponAuxiliaryAction {
                     return [1, "held", `${purpose}${hands}H`];
                 case "Retrieve": {
                     const { container } = weapon;
-                    const actionCost =
-                        container?.system.usage.type === "worn" && container.isWorn ? 1 : container?.isHeld ? 2 : 3;
+                    if (container?.isHeld) return [1, "held", `${purpose}${hands}H`];
+                    const usage = container?.system.usage;
+                    const actionCost = usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
                     return [actionCost, "held", `${purpose}${hands}H`];
                 }
                 case "Grip":

@@ -3,6 +3,7 @@ import { EquippedData } from "./data.ts";
 interface HeldUsage {
     value: string;
     type: "held";
+    where?: never;
     hands: 1 | 2;
 }
 
@@ -16,6 +17,7 @@ interface WornUsage {
 interface CarriedUsage {
     value: "carried";
     type: "carried";
+    where?: never;
     hands?: 0;
 }
 
