@@ -1,11 +1,15 @@
 export {};
 
 declare global {
-    /** The base PlaceablesLayer subclass of CanvasLayer */
-    abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends CanvasLayer {
+    /**
+     * A subclass of Canvas Layer which is specifically designed to contain multiple PlaceableObject instances,
+     * each corresponding to an embedded Document.
+     * @category - Canvas
+     */
+    abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
         constructor();
 
-        objects: PIXI.Application;
+        objects: PIXI.Container | null;
 
         /** Preview Object Placement */
         preview: PIXI.Container;
@@ -13,57 +17,60 @@ declare global {
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
 
-        quadtree: CanvasQuadtree<TObject> | null;
-
-        /** Track the PlaceableObject on this layer which is currently hovered upon. */
-        get hover(): TObject | null;
-
-        set hover(object: TObject | null);
-
-        /** Track the set of PlaceableObjects on this layer which are currently controlled by their id */
-        protected _controlled: Record<string, TObject>;
-
         /** Keep track of an object copied with CTRL+C which can be pasted later */
         protected _copy: TObject[];
 
-        /** PlaceableObject layer options */
-        options: PlaceablesLayerOptions;
+        quadtree: CanvasQuadtree<TObject> | null;
 
-        static documentName: string;
+        /* -------------------------------------------- */
+        /*  Attributes                                  */
+        /* -------------------------------------------- */
 
         /** Customize behaviors of this PlaceablesLayer by modifying some behaviors at a class level */
         static override get layerOptions(): PlaceablesLayerOptions;
 
-        /** Return a reference to the active instance of this canvas layer */
-        static override get instance(): PlaceablesLayer;
+        /** A reference to the named Document type which is contained within this Canvas Layer. */
+        static documentName: string;
 
-        /**
-         * Define the named Array within Scene.data containing the placeable objects displayed in this layer
-         */
-        static get dataArray(): string;
+        /** Creation states affected to placeables during their construction. */
+        static CREATION_STATES: {
+            NONE: 0;
+            POTENTIAL: 1;
+            CONFIRMED: 2;
+            COMPLETED: 3;
+        };
 
-        /**
-         * Define a Container implementation used to render placeable objects contained in this layer
-         */
-        static get placeableClass(): ConstructorOf<PIXI.Container>;
+        /** Obtain a reference to the Collection of embedded Document instances within the currently viewed Scene */
+        get documentCollection(): Collection<TObject["document"]> | null;
 
-        /**
-         * Return the precision relative to the Scene grid with which Placeable objects should be snapped
-         */
+        /** Obtain a reference to the PlaceableObject class definition which represents the Document type in this layer. */
+        static get placeableClass(): ConstructorOf<PlaceableObject>;
+
+        /** Return the precision relative to the Scene grid with which Placeable objects should be snapped */
         get gridPrecision(): number;
 
         /** If objects on this PlaceableLayer have a HUD UI, provide a reference to its instance */
         get hud(): BasePlaceableHUD<TObject> | null;
 
-        /**
-         * A convenience method for accessing the placeable object instances contained in this layer
-         */
+        /** A convenience method for accessing the placeable object instances contained in this layer */
         get placeables(): TObject[];
 
-        /**
-         * An Array of placeable objects in this layer which have the _controlled attribute
-         */
+        /** An Array of placeable objects in this layer which have the _controlled attribute */
         get controlled(): TObject[];
+
+        /**
+         * Iterates over placeable objects that are eligible for control/select.
+         * @yields A placeable object
+         */
+        controllableObjects(): Generator<TObject>;
+
+        /** Track the set of PlaceableObjects on this layer which are currently controlled. */
+        get controlledObjects(): Map<string, PlaceableObject>;
+
+        /** Track the PlaceableObject on this layer which is currently hovered upon. */
+        get hover(): TObject | null;
+
+        set hover(object: TObject | null);
 
         /** Track whether "highlight all objects" is currently active */
         highlightObjects: boolean;
@@ -74,6 +81,15 @@ declare global {
 
         /** Obtain an iterable of objects which should be added to this PlaceableLayer */
         getDocuments(): TObject["document"][];
+
+        /** PlaceableObject layer options */
+        options: PlaceablesLayerOptions;
+
+        /** Return a reference to the active instance of this canvas layer */
+        static override get instance(): PlaceablesLayer;
+
+        /**  Define the named Array within Scene.data containing the placeable objects displayed in this layer */
+        static get dataArray(): string;
 
         /**
          * Draw the PlaceablesLayer.
@@ -242,6 +258,20 @@ declare global {
             options?: DocumentModificationContext<TObject["document"]["parent"]>,
         ): Promise<TObject["document"][]>;
 
+        /**
+         * Create a preview of this layer's object type from a world document and show its sheet to be finalized.
+         * @param createData The data to create the object with.
+         * @param [options] Options which configure preview creation
+         * @param [options.renderSheet] Render the preview object config sheet?
+         * @param [options.top] The offset-top position where the sheet should be rendered
+         * @param [options.left] The offset-left position where the sheet should be rendered
+         * @returns The created preview object
+         */
+        protected _createPreview(
+            createData: Record<string, unknown>,
+            options?: { renderSheet?: boolean; top?: number; left?: number },
+        ): Promise<TObject>;
+
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
@@ -250,56 +280,56 @@ declare global {
          * Handle left mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickLeft}
          */
-        protected _onClickLeft(event: PIXI.FederatedEvent): void;
+        protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Handle double left-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickLeft2}
          */
-        protected _onClickLeft2(event: PIXI.FederatedEvent): void;
+        protected _onClickLeft2(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Start a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftStart}
          */
-        protected _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<TObject | void>;
+        protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): Promise<TObject | void>;
 
         /**
          * Continue a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftMove}
          */
-        protected _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
+        protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Conclude a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<void>;
+        protected override _onDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): Promise<void>;
 
         /**
          * Cancel a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+        protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Handle right mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
          * @see {Canvas#_onClickRight}
          */
-        protected _onClickRight(event: PIXI.FederatedEvent): void;
+        protected override _onClickRight(event: PlaceablesLayerPointerEvent<TObject>): void;
 
         /**
          * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
          * This handler will rotate all controlled objects by some incremental angle.
          * @param event The mousewheel event which originated the request
          */
-        protected _onMouseWheel(event: WheelEvent): unknown;
+        protected override _onMouseWheel(event: WheelEvent): unknown;
 
         /**
          * Handle a DELETE keypress while a placeable object is hovered
          * @param event The delete key press event which triggered the request
          */
-        protected _onDeleteKey(event: PIXI.FederatedEvent): Promise<void>;
+        protected override _onDeleteKey(event: KeyboardEvent): Promise<void>;
     }
 
     interface PlaceablesLayerOptions extends CanvasLayerOptions {
@@ -332,7 +362,8 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> {
     clearPreviewContainer: boolean;
     preview?: TObject | null;
     layerDragState?: number;
-    object: PIXI.Mesh;
+    clones?: TObject[];
+    object: PIXI.Container | PIXI.Mesh;
     origin: Point;
     destination: Point;
 }
