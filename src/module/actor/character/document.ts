@@ -1325,7 +1325,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const isRealItem = this.items.has(weapon.id);
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "modular" }));
+            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
@@ -1338,54 +1338,61 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             switch (weapon.carryType) {
                 case "held": {
-                    if (weapon.shield && !weapon.shield.isRaised) {
-                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
+                    if (weapon.shield) {
+                        const hasGreaterCover = !!weapon.actor.rollOptions.all["self:cover-level:greater"];
+                        if (!weapon.shield.isRaised) {
+                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
+                        } else if (weapon.shield.isTowerShield) {
+                            const action = hasGreaterCover ? "end-cover" : "take-cover";
+                            const annotation = "tower-shield";
+                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
+                        }
                     }
 
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "release", purpose: "grip", hands: 1 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
                         );
                     } else if (weapon.handsHeld === 1 && canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "grip", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
                         );
                     }
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "sheathe", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
                     );
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "release", purpose: "drop", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
                     );
 
                     break;
                 }
                 case "worn": {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
+                    );
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "draw", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
                         );
                     }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "draw", hands: 1 }),
-                    );
                     break;
                 }
                 case "stowed": {
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "retrieve", hands: 1 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
                     );
                     break;
                 }
                 case "dropped": {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
+                    );
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "pick-up", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
                         );
                     }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "interact", purpose: "pick-up", hands: 1 }),
-                    );
                     break;
                 }
             }

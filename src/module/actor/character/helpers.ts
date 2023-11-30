@@ -8,6 +8,7 @@ import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
@@ -97,27 +98,27 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "interact";
-    purpose: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe";
+    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe";
     hands?: ZeroToTwo;
 }
 
 interface AuxiliaryShieldParams {
     weapon: WeaponPF2e<CharacterPF2e>;
-    action: "raise-a-shield";
-    purpose?: never;
+    action: "end-cover" | "raise-a-shield" | "take-cover";
+    annotation?: "tower-shield";
     hands?: never;
 }
 
 interface AuxiliaryReleaseParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "release";
-    purpose: "grip" | "drop";
+    annotation: "grip" | "drop";
     hands: 0 | 1;
 }
 
 type AuxiliaryActionParams = AuxiliaryInteractParams | AuxiliaryShieldParams | AuxiliaryReleaseParams;
 type AuxiliaryActionType = AuxiliaryActionParams["action"];
-type AuxiliaryActionPurpose = AuxiliaryActionParams["purpose"];
+type AuxiliaryActionPurpose = AuxiliaryActionParams["annotation"];
 
 /** Create an "auxiliary" action, an Interact or Release action using a weapon */
 class WeaponAuxiliaryAction {
@@ -126,38 +127,42 @@ class WeaponAuxiliaryAction {
     readonly actions: ZeroToThree;
     readonly carryType: ItemCarryType | null;
     readonly hands: ZeroToTwo | null;
-    readonly purpose: NonNullable<AuxiliaryActionPurpose> | null;
+    readonly annotation: NonNullable<AuxiliaryActionPurpose> | null;
     /** A "full purpose" reflects the options to draw, sheathe, etc. a weapon */
-    readonly fullPurpose: string | null;
+    readonly fullAnnotation: string | null;
 
-    constructor({ weapon, action, purpose, hands }: AuxiliaryActionParams) {
+    constructor({ weapon, action, annotation, hands }: AuxiliaryActionParams) {
         this.weapon = weapon;
         this.action = action;
-        this.purpose = purpose ?? null;
+        this.annotation = annotation ?? null;
         this.hands = hands ?? null;
 
-        type ActionsCarryTypePurpose = [ZeroToThree, ItemCarryType, string] | [1, null, null] | [1, null, "modular"];
-        const [actions, carryType, fullPurpose] = ((): ActionsCarryTypePurpose => {
-            switch (purpose) {
+        type ActionCostCarryTypePurpose = [ZeroToThree, ItemCarryType | null, string | null];
+        const [actions, carryType, fullPurpose] = ((): ActionCostCarryTypePurpose => {
+            switch (annotation) {
                 case "draw":
-                    return [1, "held", `${purpose}${hands}H`];
+                    return [1, "held", `${annotation}${hands}H`];
                 case "pick-up":
-                    return [1, "held", `${purpose}${hands}H`];
+                    return [1, "held", `${annotation}${hands}H`];
                 case "retrieve": {
                     const { container } = weapon;
-                    if (container?.isHeld) return [1, "held", `${purpose}${hands}H`];
+                    if (container?.isHeld) return [1, "held", `${annotation}${hands}H`];
                     const usage = container?.system.usage;
                     const actionCost = usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
-                    return [actionCost, "held", `${purpose}${hands}H`];
+                    return [actionCost, "held", `${annotation}${hands}H`];
                 }
                 case "grip":
-                    return [action === "interact" ? 1 : 0, "held", purpose];
+                    return [action === "interact" ? 1 : 0, "held", annotation];
                 case "sheathe":
-                    return [1, "worn", purpose];
+                    return [1, "worn", annotation];
                 case "modular":
-                    return [1, null, purpose];
+                    return [1, null, annotation];
                 case "drop":
-                    return [0, "dropped", purpose];
+                    return [0, "dropped", annotation];
+                case "tower-shield": {
+                    const cost = this.action === "take-cover" ? 1 : 0;
+                    return [cost, null, null];
+                }
                 default:
                     return [1, null, null];
             }
@@ -165,7 +170,7 @@ class WeaponAuxiliaryAction {
 
         this.actions = actions;
         this.carryType = carryType;
-        this.fullPurpose = fullPurpose;
+        this.fullAnnotation = fullPurpose;
     }
 
     get actor(): CharacterPF2e {
@@ -174,7 +179,7 @@ class WeaponAuxiliaryAction {
 
     get label(): string {
         const actionKey = sluggify(this.action, { camel: "bactrian" });
-        const purposeKey = this.fullPurpose ? sluggify(this.fullPurpose, { camel: "bactrian" }) : null;
+        const purposeKey = this.fullAnnotation ? sluggify(this.fullAnnotation, { camel: "bactrian" }) : null;
         return purposeKey
             ? game.i18n.localize(`PF2E.Actions.${actionKey}.${purposeKey}.Title`)
             : game.i18n.localize(`PF2E.Actions.${actionKey}.ShortTitle`);
@@ -185,7 +190,7 @@ class WeaponAuxiliaryAction {
     }
 
     get options(): SheetOptions | null {
-        if (this.purpose === "modular") {
+        if (this.annotation === "modular") {
             return createSheetOptions(
                 R.pick(CONFIG.PF2E.damageTypes, this.weapon.system.traits.toggles.modular.options),
                 [this.weapon.system.traits.toggles.modular.selection ?? []].flat(),
@@ -196,18 +201,34 @@ class WeaponAuxiliaryAction {
 
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
+        const COVER_UUID = "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi";
+
         if (this.carryType) {
             await actor.adjustCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
             const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {
-            const alreadyRaised = this.actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");
+            // Apply Effect: Raise a Shield
+            const alreadyRaised = actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");
             if (alreadyRaised) return;
             const effect = await fromUuid("Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr");
             if (effect instanceof EffectPF2e) {
-                this.actor.createEmbeddedDocuments("Item", [{ ...effect.toObject(), _id: null }]);
+                await actor.createEmbeddedDocuments("Item", [{ ...effect.toObject(), _id: null }]);
             }
+        } else if (this.action === "take-cover") {
+            // Apply Effect: Cover with a greater-cover selection
+            const effect = await fromUuid(COVER_UUID);
+            if (effect instanceof EffectPF2e) {
+                const data = { ...effect.toObject(), _id: null };
+                data.system.traits.otherTags.push("tower-shield");
+                type ChoiceSetSource = RuleElementSource & { selection?: unknown };
+                const rule = data.system.rules.find((r): r is ChoiceSetSource => r.key === "ChoiceSet");
+                if (rule) rule.selection = { bonus: 4, level: "greater" };
+                await actor.createEmbeddedDocuments("Item", [data]);
+            }
+        } else if (this.action === "end-cover") {
+            await actor.itemTypes.effect.find((e) => e.sourceId === COVER_UUID)?.delete();
         }
 
         if (!game.combat) return; // Only send out messages if in encounter mode
@@ -218,20 +239,23 @@ class WeaponAuxiliaryAction {
         };
 
         const actionKey = sluggify(this.action, { camel: "bactrian" });
-        const purposeKey = this.fullPurpose ? sluggify(this.fullPurpose, { camel: "bactrian" }) : null;
+        const annotationKey = this.annotation ? sluggify(this.annotation, { camel: "bactrian" }) : null;
+        const fullAnnotationKey = this.fullAnnotation ? sluggify(this.fullAnnotation, { camel: "bactrian" }) : null;
         const flavorAction = {
             title: `PF2E.Actions.${actionKey}.Title`,
-            subtitle: purposeKey ? `PF2E.Actions.${actionKey}.${purposeKey}.Title` : null,
+            subtitle: fullAnnotationKey ? `PF2E.Actions.${actionKey}.${fullAnnotationKey}.Title` : null,
             glyph: this.glyph,
         };
 
         const [traits, message] =
             this.action === "raise-a-shield"
                 ? [[], `PF2E.Actions.${actionKey}.Content`]
-                : [
-                      [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
-                      `PF2E.Actions.${actionKey}.${purposeKey}.Description`,
-                  ];
+                : ["take-cover", "end-cover"].includes(this.action)
+                  ? [[], `PF2E.Actions.${actionKey}.${annotationKey}.Description`]
+                  : [
+                        [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
+                        `PF2E.Actions.${actionKey}.${fullAnnotationKey}.Description`,
+                    ];
 
         const flavor = await renderTemplate(templates.flavor, { action: flavorAction, traits });
 

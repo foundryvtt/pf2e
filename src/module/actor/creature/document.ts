@@ -414,8 +414,16 @@ abstract class CreaturePF2e<
                 }
             } else if (equipped.carryType !== "held" && item.isOfType("weapon") && item.shield?.isRaised) {
                 // Stop raising the shield when the weapon it is attached to becomes stowed
-                const raiseAShieldEffect = item.actor.itemTypes.effect.find((e) => e.slug === "effect-raise-a-shield");
-                await raiseAShieldEffect?.delete();
+                const effectIds = item.actor.itemTypes.effect
+                    .filter(
+                        (e) =>
+                            e.slug === "effect-raise-a-shield" ||
+                            (e.slug === "effect-cover" &&
+                                e.system.traits.otherTags.includes("tower-shield") &&
+                                item.shield?.isTowerShield),
+                    )
+                    .map((e) => e.id);
+                await this.deleteEmbeddedDocuments("Item", effectIds);
             }
 
             updates.push({ _id: item.id, system: { containerId: null, equipped: equipped } });
