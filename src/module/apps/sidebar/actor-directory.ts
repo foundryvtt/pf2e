@@ -62,9 +62,10 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.documentId ?? "");
-            const hideLevel = actor?.isOfType("character", "familiar", "vehicle", "hazard")
-                ? !actor?.testUserPermission(game.user, "LIMITED")
-                : !actor?.testUserPermission(game.user, "OBSERVER");
+            const hideLevel =
+                (actor?.isOfType("character", "familiar", "vehicle", "hazard") &&
+                    !actor?.testUserPermission(game.user, "LIMITED")) ||
+                !actor?.testUserPermission(game.user, "OBSERVER");
 
             if (hideLevel) element.querySelector("span.actor-level")?.remove();
         }
