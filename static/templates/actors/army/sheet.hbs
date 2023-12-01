@@ -181,12 +181,12 @@
                     <div class="ammunition">
                         (
                         <span>{{localize "PF2E.Kingmaker.Army.Ammunition"}}</span>
-                        <a class="pips" data-action="change-resource" data-resource="ammunition" data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.ammunitionLabel"}} {{data.resources.ammunition.value}}">
+                        <a class="pips" data-action="change-resource" data-resource="ammunition" data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.CurrentAmmo" current=data.resources.ammunition.value max=data.resources.ammunition.max}}">
                             {{#times @root.data.resources.ammunition.max}}
                                 <i class="{{#if (gt @root.data.resources.ammunition.value this)}}fa-regular fa-dagger filled{{else}}fa-light fa-dagger empty{{/if}}"></i>
                             {{/times}}
                         </a>
-                        <a data-tooltip="Restore Ammunition" data-action="reset-ammo">
+                        <a data-action="reset-ammo" data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.RestoreAmmunition"}}" >
                             <i class="{{#if (eq @root.data.weapons.ammunition.value 5)}}fa-light fa-refresh empty{{else}}fa-regular fa-refresh filled{{/if}}"></i>
                         </a>
                         )
@@ -205,7 +205,15 @@
                         <i class="fa-solid fa-fw fa-bow-arrow"></i>
                     {{/if}}
                     {{#each strike.variants as |variant index|}}
-                        <button type="button" data-action="strike-attack" data-variant-index="{{index}}" class="attack">
+                        <button
+                            type="button"
+                            data-action="strike-attack"
+                            data-variant-index="{{index}}"
+                            class="attack"
+                            {{#unless (or @root.data.resources.ammunition.value (ne type "ranged"))}}
+                                disabled
+                                data-tooltip="{{localize "PF2E.Kingmaker.Army.Strikes.OutOfAmmo"}}"
+                            {{/unless}}>
                             {{#if (eq index 0)}}
                                 <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
                                 <span class="action-glyph">{{strike.glyph}}</span>

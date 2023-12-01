@@ -240,7 +240,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     roll: async (params: AttackRollParams) => {
                         const targetToken = params.target ?? game.user.targets.find((t) => !!t.actor?.isOfType("army"));
 
-                        return statistic.roll({
+                        const roll = await statistic.roll({
                             identifier: type,
                             action: "army-strike",
                             melee: type === "melee",
@@ -250,6 +250,13 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                             damaging: true,
                             ...eventToRollParams(params.event, { type: "check" }),
                         });
+
+                        if (roll && type === "ranged") {
+                            const newAmmo = Math.max(0, this.system.resources.ammunition.value - 1);
+                            this.update({ "system.resources.ammunition.value": newAmmo });
+                        }
+
+                        return roll;
                     },
                 };
             }),
