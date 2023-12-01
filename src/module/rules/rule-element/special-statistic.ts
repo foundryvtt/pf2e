@@ -34,7 +34,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
             }),
             extends: new fields.StringField({ required: true, nullable: true, initial: null }),
             attribute: new fields.StringField({
-                required: true,
+                required: false,
                 choices: Array.from(ATTRIBUTE_ABBREVIATIONS),
                 nullable: true,
                 initial: null,
@@ -74,7 +74,7 @@ interface SpecialStatisticRuleElement
 type StatisticRESchema = RuleElementSchema & {
     type: StringField<StatisticType, StatisticType, true, false, true>;
     extends: StringField<string, string, true, true, true>;
-    attribute: StringField<AttributeString, AttributeString, true, true, true>;
+    attribute: StringField<AttributeString, AttributeString, false, true, true>;
 };
 
 type StatisticType = "simple" | "check" | "attack-roll";
