@@ -205,12 +205,14 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
         // Ensure an empty-string `location` property is null
-        if (typeof changed.system?.location === "string") {
+        if ("location" in changed.system) {
             changed.system.location ||= null;
         }
 
-        if (typeof changed.system?.level?.value === "number" && changed.system.level.value !== 1) {
+        if (typeof changed.system.level?.value === "number" && changed.system.level.value !== 1) {
             changed.system.onlyLevel1 = false;
         }
 
@@ -218,9 +220,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         normalizeActionChangeData(this, changed);
 
         // Ensure onlyLevel1 and takeMultiple are consistent
-        const traits = changed.system?.traits?.value;
-
-        if (this.isFeature && changed.system) {
+        const traits = changed.system.traits?.value;
+        if (setHasElement(FEATURE_CATEGORIES, changed.system.category ?? this.category)) {
             changed.system.onlyLevel1 = false;
             changed.system.maxTakable = 1;
 
