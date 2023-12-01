@@ -7,7 +7,7 @@ declare abstract class InteractionLayer extends CanvasLayer {
     get active(): boolean;
 
     /** Customize behaviors of this CanvasLayer by modifying some behaviors at a class level. */
-    static get layerOptions(): { name: string; sortActiveTop: boolean; zIndex: number };
+    static get layerOptions(): InteractionLayerOptions;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -15,8 +15,8 @@ declare abstract class InteractionLayer extends CanvasLayer {
 
     /**
      * Activate the InteractionLayer, deactivating other layers and marking this layer's children as interactive.
-     * @param [options] Options which configure layer activation
-     * @param [options.tool]   A specific tool in the control palette to set as active
+     * @param options Options which configure layer activation
+     * @param options.tool   A specific tool in the control palette to set as active
      * @returns The layer instance, now activated
      */
     activate(options?: { tool?: string }): this;
@@ -106,4 +106,9 @@ declare abstract class InteractionLayer extends CanvasLayer {
      * @param event The delete key press event
      */
     protected _onDeleteKey(event: KeyboardEvent): Promise<void>;
+}
+
+declare interface InteractionLayerOptions extends CanvasLayerOptions {
+    sortActiveTop: boolean;
+    zIndex: number;
 }

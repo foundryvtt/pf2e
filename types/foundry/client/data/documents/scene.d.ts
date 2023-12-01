@@ -16,6 +16,9 @@ declare global {
         /** Track whether the scene is the active view */
         protected _view: boolean;
 
+        /** Determine the canvas dimensions this Scene would occupy, if rendered */
+        dimensions: SceneDimensions;
+
         /** Provide a thumbnail image path used to represent this document. */
         get thumbnail(): string;
 

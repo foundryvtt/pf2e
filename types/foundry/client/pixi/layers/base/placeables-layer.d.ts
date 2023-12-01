@@ -95,12 +95,12 @@ declare global {
          * Draw the PlaceablesLayer.
          * Draw each Sound within the scene as a child of the sounds container.
          */
-        override draw(): Promise<this>;
+        protected override _draw(options?: object): Promise<void>;
 
         /** Draw a single placeable object */
         createObject(data: PreCreate<TObject["document"]["_source"]>): TObject;
 
-        override tearDown(): Promise<void>;
+        protected override _tearDown(options?: object): Promise<void>;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -310,7 +310,9 @@ declare global {
          * Cancel a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void;
+        protected override _onDragLeftCancel(
+            event: PIXI.FederatedPointerEvent | PlaceablesLayerPointerEvent<TObject>,
+        ): void;
 
         /**
          * Handle right mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
@@ -332,14 +334,23 @@ declare global {
         protected override _onDeleteKey(event: KeyboardEvent): Promise<void>;
     }
 
-    interface PlaceablesLayerOptions extends CanvasLayerOptions {
+    interface PlaceablesLayerOptions extends InteractionLayerOptions {
+        /** Does this layer support a mouse-drag workflow to create new objects? */
         canDragCreate: boolean;
+        /** Can objects be deleted from this layer? */
+        canDelete: boolean;
+        /** Can placeable objects in this layer be controlled? */
         controllableObjects: boolean;
+        /** Can placeable objects in this layer be rotated? */
         rotatableObjects: boolean;
+        /** Do objects in this layer snap to the grid */
         snapToGrid: boolean;
+        /** The class used to represent an object on this layer. */
         objectClass: ConstructorOf<PlaceableObject>;
+        /** Does this layer use a quadtree to track object positions? */
         quadtree: boolean;
-        sheetClass: ConstructorOf<FormApplication>;
+        /** Are contained objects sorted based on elevation instead of zIndex */
+        elevationSorting: boolean;
     }
 
     interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.FederatedEvent {
