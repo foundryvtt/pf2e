@@ -30,7 +30,7 @@ declare global {
          * Draw the grid
          * @param preview Override settings used in place of those saved to the Scene data
          */
-        draw({ type, dimensions, gridColor, gridAlpha }?: GridDrawOptions): Promise<this>;
+        protected _draw({ type, dimensions, gridColor, gridAlpha }?: GridDrawOptions): Promise<void>;
 
         /**
          * Given a pair of coordinates (x1,y1), return the grid coordinates (x2,y2) which represent the snapped position

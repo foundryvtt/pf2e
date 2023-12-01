@@ -15,8 +15,11 @@ export class TemplateLayerPF2e<
 
     /** Set a grid-snapping precision appropriate for an effect area type */
     snapFor(areaType: EffectAreaType | null): void {
-        const snaps: Record<string, number | undefined> = { burst: 1 };
-        this.#gridPrecision = snaps[areaType ?? ""] ?? 2;
+        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+            this.#gridPrecision = areaType === "burst" ? 1 : 2;
+        } else {
+            this.#gridPrecision = 2;
+        }
     }
 
     async createPreview(createData: Record<string, unknown>): Promise<TObject> {
@@ -31,83 +34,91 @@ export class TemplateLayerPF2e<
     /* -------------------------------------------- */
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void {
-        if (!canvas.scene || !canvas.dimensions) return;
-        const interaction = event.interactionData;
-        const { destination, layerDragState, preview: template, origin } = interaction;
-
-        if (!template || template.destroyed) return;
-        if (template.parent === null) {
-            // In theory this should never happen, but rarely does
-            this.preview.addChild(template);
+        if (!canvas.scene || !canvas.dimensions || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+            return super._onDragLeftMove(event);
         }
+
+        const { destination, layerDragState, preview: template, origin } = event.interactionData;
         const dragState = layerDragState ?? 0;
+        if (!template || template.destroyed || dragState === 0) return;
 
-        if (dragState >= 1) {
-            // Snap the destination to the grid
-            const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, 2);
-            destination.x = x;
-            destination.y = y;
-            const ray = new Ray(origin, destination);
-            const ratio = canvas.dimensions.size / canvas.dimensions.distance;
+        this.snapFor(template.areaType);
+        const { dimensions } = canvas;
 
-            // Update the shape data
-            if (["cone", "circle"].includes(template.document.t)) {
-                const direction = ray.angle;
-                const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
-                template.document.direction = Math.toDegrees(
-                    Math.floor((direction + Math.PI * 0.125) / snapAngle) * snapAngle,
-                );
-                const distance = Math.max(ray.distance / ratio, canvas.dimensions.distance);
-                template.document.distance =
-                    Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
-            } else {
-                template.document.direction = Math.toDegrees(ray.angle);
-                template.document.distance = ray.distance / ratio;
-            }
+        // Snap the destination to the grid
+        const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y);
+        destination.x = x;
+        destination.y = y;
+        const ray = new Ray(origin, destination);
+        const ratio = dimensions.size / dimensions.distance;
+        const { document } = template;
 
-            // Draw the pending shape
-            template.refresh();
-            event.interactionData.layerDragState = 2;
+        // Update the shape data
+        if (["cone", "circle"].includes(document.t)) {
+            const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
+            document.direction = Math.toDegrees(Math.floor((ray.angle + Math.PI * 0.125) / snapAngle) * snapAngle);
+        } else {
+            document.direction = Math.toDegrees(ray.angle);
         }
+
+        const increment = Math.max(ray.distance / ratio, dimensions.distance);
+        document.distance = Math.ceil(increment / dimensions.distance) * dimensions.distance;
+
+        // Draw the pending shape
+        template.refresh();
+        event.interactionData.layerDragState = 2;
     }
 
     protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void {
         // Abort if there's no hovered template
         const template = this.hover;
-        if (!(template && canvas.scene)) return;
+        if (!template || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+            return super._onMouseWheel(event);
+        }
 
         // Determine the incremental angle of rotation from event data
-        const increment = event.shiftKey ? 15 : 5;
-        const coneMultiplier = template.document.t === "cone" ? (canvas.scene.hasHexGrid ? 2 : 3) : 1;
+        const shapeType = template.document.t;
+        const distance = template.document.distance ?? 5;
+        const increment = event.shiftKey || distance <= 30 ? 15 : 5;
+        const coneMultiplier = shapeType === "cone" ? (canvas.scene.hasHexGrid ? 2 : 3) : 1;
         const snap = increment * coneMultiplier;
         const delta = snap * Math.sign(event.deltaY);
 
         return template.rotate(template.document.direction + delta, snap);
     }
 
-    #activatePreviewListeners(preview: TObject, initialLayer: CanvasLayer | null): void {
+    #activatePreviewListeners(preview: TObject, initialLayer: InteractionLayer | null): void {
+        let lastMove = Date.now(); // Throttle 25ms
+
         const listeners: TemplatePreviewEventListeners = (this.#previewListeners = {
             mousemove: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
+                const now = Date.now();
+                if (now - lastMove <= 25) return;
+
                 canvas._onDragCanvasPan(event);
                 const destination = event.getLocalPosition(this);
                 const dx = destination.x - preview.document.x;
                 const dy = destination.y - preview.document.y;
                 preview.document.updateSource({ x: preview.document.x + dx, y: preview.document.y + dy });
                 preview.renderFlags.set({ refresh: true });
+                lastMove = now;
             },
             wheel: (event: Event): void => {
                 if (!(event instanceof WheelEvent)) return;
+                event.preventDefault();
                 event.stopPropagation();
-                const { direction } = preview.document;
+                const now = Date.now();
+                if (now - lastMove <= 25) return;
 
-                if (event.ctrlKey || !event.shiftKey) {
-                    event.preventDefault();
-                    const snap = event.shiftKey ? 15 : 5;
+                const { direction } = preview.document;
+                const distance = preview.document.distance ?? 5;
+
+                if (event.ctrlKey) {
+                    const snap = event.shiftKey || distance <= 30 ? 15 : 5;
                     preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
                     preview.renderFlags.set({ refresh: true });
                 } else if (event.shiftKey) {
-                    event.preventDefault();
                     const snap =
                         canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ
                             ? 60
@@ -115,18 +126,19 @@ export class TemplateLayerPF2e<
                     preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
                     preview.renderFlags.set({ refresh: true });
                 }
+                lastMove = now;
             },
             mousedown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                const { position } = preview;
                 preview.snapForShape();
-                preview.document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y));
-                this.#deactivatePreviewListeners(preview, initialLayer);
-                canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [preview.document.toObject()]);
+                const { document, position } = preview;
+                this.#deactivatePreviewListeners(initialLayer, event);
+                document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y));
+                canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                this.#deactivatePreviewListeners(preview, initialLayer);
+                this.#deactivatePreviewListeners(initialLayer, event);
             },
         });
 
@@ -136,15 +148,16 @@ export class TemplateLayerPF2e<
         canvas.stage.once("rightdown", listeners.rightdown);
     }
 
-    #deactivatePreviewListeners(preview: TObject, initialLayer: CanvasLayer | null): void {
+    #deactivatePreviewListeners(initialLayer: InteractionLayer | null, event: PIXI.FederatedPointerEvent): void {
+        this._onDragLeftCancel(event);
         if (this.#previewListeners) {
             canvas.stage.off("mousemove", this.#previewListeners.mousemove);
-            canvas.stage.removeEventListener?.("wheel", this.#previewListeners.wheel);
+            canvas.app.view.removeEventListener?.("wheel", this.#previewListeners.wheel);
             canvas.stage.off("mousedown", this.#previewListeners.mousedown);
             canvas.stage.off("rightdown", this.#previewListeners.rightdown);
+            this.#previewListeners = null;
         }
-        preview.destroy();
-        initialLayer?.activate();
+        if (initialLayer !== this) initialLayer?.activate();
     }
 }
 

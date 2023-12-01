@@ -33,7 +33,7 @@ declare global {
         /*  Methods                                     */
         /* -------------------------------------------- */
 
-        override tearDown(): Promise<void>;
+        protected override _tearDown(): Promise<void>;
 
         override activate(): this;
 

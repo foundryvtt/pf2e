@@ -16,97 +16,17 @@ declare global {
      * Hooks.on("lightingRefresh", layer => {});
      */
     class LightingLayer<TObject extends AmbientLight = AmbientLight> extends PlaceablesLayer<TObject> {
-        constructor();
+        static override documentName: "AmbientLight";
 
-        override quadtree: CanvasQuadtree<TObject>;
+        static override get layerOptions(): PlaceablesLayerOptions;
 
-        /** A mapping of light sources which are active within the rendered Scene */
-        sources: Collection<LightSource<TObject | Token>>;
-
-        /**
-         * Increment this whenever lighting channels are re-configured.
-         * This informs lighting and vision sources whether they need to re-render.
-         */
-        version: number;
-
-        /** The current client setting for whether global illumination is used or not */
-        globalLight: boolean;
-
-        /** The coloration container which visualizes the effect of light sources */
-        coloration: PIXI.Container | null;
-
-        /** The illumination container which visualizes darkness and light */
-        illumination: IlluminationContainer | null;
-
-        /** The background container which visualizes the background */
-        background: PIXI.Container | null;
-
-        /** An array of light sources which are currently animated */
-        protected _animatedSources: LightSource<TObject>[];
-
-        /** A mapping of different light level channels */
-        channels: LightChannels;
-
-        static override get layerOptions(): (typeof PlaceablesLayer)["layerOptions"] & {
-            name: "lighting";
-            rotatableObjects: true;
-            zIndex: 300;
-        };
-
-        /**
-         * TODO: Significant portions of this method may no longer be needed
-         * Configure the lighting channels which are inputs to the ShadowMap
-         * @param [options]
-         * @param [options.darkness]        Darkness level override.
-         * @param [options.backgroundColor] Canvas background color override.
-         */
-        protected _configureChannels(options?: { darkness?: number; backgroundColor?: number }): LightChannels;
+        override get hookName(): "LightingLayer";
 
         /* -------------------------------------------- */
-        /*  Rendering                                   */
+        /*  Methods                                     */
         /* -------------------------------------------- */
 
-        override draw(): Promise<this>;
-
-        /**
-         * Draw the coloration container which is responsible for rendering the visible hue of a light source.
-         * Apply an additive blend to the entire container after each individual light source is blended via screen.
-         */
-        protected _drawColorationContainer(): PIXI.Container;
-
-        /**
-         * Draw the illumination container which is responsible for displaying darkness and light.
-         */
-        protected _drawIlluminationContainer(): IlluminationContainer;
-
-        /** Does this scene currently benefit from global illumination? */
-        hasGlobalIllumination(): boolean;
-
-        /** Initialize all AmbientLight sources which are present on this layer */
-        initializeSources(): void;
-
-        /**
-         * Refresh the active display of the LightingLayer.
-         * Update the scene background color, light sources, and darkness sources
-         * @param [options]
-         * @param [options.darkness]        An override darkness level to which the layer should be temporarily rendered.
-         * @param [options.backgroundColor] An override canvas background color.
-         */
-        refresh(options?: { darkness?: number | null; backgroundColor?: string }): void;
-
-        override tearDown(): Promise<void>;
-
-        /** Activate light source animation for AmbientLight objects within this layer */
-        activateAnimation(): void;
-
-        /** Deactivate light source animation for AmbientLight objects within this layer */
-        deactivateAnimation(): void;
-
-        /**
-         * The ticker handler which manages animation delegation
-         * @param dt Delta time
-         */
-        protected _animateSource(dt: number): void;
+        protected override _activate(): void;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
