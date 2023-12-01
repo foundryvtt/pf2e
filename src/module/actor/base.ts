@@ -1893,21 +1893,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /**
-     * Work around upstream issue in which `TokenDocument#_onUpdateBaseActor` is only called for tokens in the viewed
-     * scene.
-     */
-    protected override _updateDependentTokens(
-        update?: Record<string, unknown>,
-        options?: DocumentModificationContext<TParent>,
-    ): void {
-        if (game.release.build > 305) return super._updateDependentTokens(update, options);
-        const tokens = game.scenes.map((s) => s.tokens.filter((t) => t.actorId === this.id)).flat();
-        for (const token of tokens) {
-            token._onUpdateBaseActor(update, options);
-        }
-    }
-
     /** Unregister all effects possessed by this actor */
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         for (const effect of this.itemTypes.effect) {
