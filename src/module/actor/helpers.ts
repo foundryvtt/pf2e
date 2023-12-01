@@ -41,6 +41,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
+    actors = R.uniq(Array.from(actors));
 
     for (const actor of actors) {
         actor.reset();
@@ -54,7 +55,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
         !game.settings.get("pf2e", "automation.removeExpiredEffects");
 
     if (refreshScenes) {
-        const scenes = new Set(
+        const scenes = R.uniq(
             Array.from(actors)
                 .flatMap((a) => a.getActiveTokens(false, true))
                 .flatMap((t) => t.scene),
