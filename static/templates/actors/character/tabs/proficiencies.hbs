@@ -83,7 +83,7 @@
         </h3>
         <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.attacks as |proficiency key|}}
-                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
@@ -109,7 +109,7 @@
         </h3>
         <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.defenses as |proficiency key|}}
-                <li class="{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
