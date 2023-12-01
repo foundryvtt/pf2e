@@ -634,7 +634,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             rank: systemData.attributes.perception.rank,
-            domains: ["perception", "wis-based", "all"],
+            domains: ["perception", "all"],
             check: { type: "perception-check" },
         });
         systemData.attributes.perception = mergeObject(
@@ -980,14 +980,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const longForm = sluggify(loreItem.name);
             const rank = loreItem.system.proficient.value;
 
-            const domains = [longForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
-
             const statistic = new Statistic(this, {
                 slug: longForm,
                 label: loreItem.name,
                 rank,
                 attribute: "int",
-                domains,
+                domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill;
@@ -1087,7 +1085,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             label: classDC.label,
             attribute: classDC.ability,
             rank: classDC.rank,
-            domains: ["class", slug, `${classDC.ability}-based`, "all"],
+            domains: ["class", slug, "all"],
             check: { type: "check" },
         });
     }
