@@ -49,7 +49,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             return;
         }
 
-        if (typeof Number.isNaN(value) || value < 0) {
+        if (Number.isNaN(value) || value < 0) {
             return this.failValidation("value: must resolve to a positive number");
         }
 
