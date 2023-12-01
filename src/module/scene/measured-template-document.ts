@@ -1,11 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import type { EffectAreaType } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
-import { ScenePF2e } from "./document.ts";
-import type { EffectAreaType } from "@item/spell/types.ts";
+import { tupleHasValue } from "@util";
+import type { ScenePF2e } from "./document.ts";
 
 class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
@@ -40,7 +41,20 @@ class MeasuredTemplateDocumentPF2e<
     }
 
     get areaType(): EffectAreaType | null {
-        return this.flags.pf2e?.areaType ?? null;
+        return this.flags.pf2e.areaType;
+    }
+
+    /** Ensure the source has a `pf2e` flag along with an `areaType` if directly inferable. */
+    protected override _initializeSource(
+        data: object,
+        options?: DataModelConstructionOptions<TParent>,
+    ): this["_source"] {
+        const initialized = super._initializeSource(data, options);
+        initialized.flags.pf2e = mergeObject(
+            { areaType: tupleHasValue(["cone", "line"], initialized.t) ? initialized.t : null },
+            initialized.flags.pf2e ?? {},
+        );
+        return initialized;
     }
 
     /** If present, show the clear-template button on the message from which this template was spawned */
@@ -65,10 +79,10 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
     get object(): MeasuredTemplatePF2e<this> | null;
 
     flags: DocumentFlags & {
-        pf2e?: {
+        pf2e: {
             messageId?: string;
             origin?: ItemOriginFlag;
-            areaType?: EffectAreaType;
+            areaType: EffectAreaType | null;
         };
     };
 }
