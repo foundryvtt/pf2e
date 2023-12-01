@@ -222,12 +222,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
 
         // Roll skill checks
-        $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
-            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-            const rollParams = eventToRollParams(event, { type: "check" });
-            this.actor.skills[key]?.check.roll(rollParams);
-        });
+        for (const anchor of htmlQueryAll(html, ".skill-name.rollable, .skill-score.rollable")) {
+            anchor.addEventListener("click", () => {
+                const skill = anchor.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
+                const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
+                const rollParams = eventToRollParams(event, { type: "check" });
+                this.actor.skills[key]?.check.roll(rollParams);
+            });
+        }
 
         // Roll perception checks
         for (const element of htmlQueryAll(html, "a[data-action=perception-check]")) {

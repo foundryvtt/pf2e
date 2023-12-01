@@ -198,13 +198,17 @@
     </button>
 </div>
 <div class="roll-data perception-sidebar">
-    <a class="roll-icon attribute-name" data-action="perception-check" data-tooltip="PF2E.Check.Specific.Perception.Label">
+    <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
     </a>
 
-    <a class="roll-icon attribute-name" data-action="perception-check" data-secret="true" data-tooltip="PF2E.Check.Specific.Perception.Secret">
-        <i class="fa-solid fa-eye-slash"></i>
-    </a>
+    <a
+        class="roll-icon"
+        data-action="roll-check"
+        data-statistic="perception"
+        data-secret
+        data-tooltip="PF2E.Check.Specific.Perception.Secret"
+    ><i class="fa-solid fa-eye-slash"></i></a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
 
     <div class="perception-prof button-group skill-container">
@@ -271,7 +275,7 @@
             </div>
 
             <div class="save-roll">
-                <a class="roll-icon save-name">
+                <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">
                     {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                 </a>
                 <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
