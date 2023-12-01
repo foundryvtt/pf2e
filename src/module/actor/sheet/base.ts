@@ -12,6 +12,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
     SELECTABLE_TAG_FIELDS,
@@ -245,15 +246,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         super.activateListeners($html);
         const html = $html[0];
 
-        // Item summaries
+        this.activateClickListeners(html);
         this.itemRenderer.activateListeners(html);
-
-        // Pop out window with actor portrait
-        htmlQuery(html, "a[data-action=show-image]")?.addEventListener("click", () => {
-            const actor = this.actor;
-            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
-        });
 
         // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on limited permission sheets.
         const inventoryPanel = ((): HTMLElement | null => {
@@ -525,6 +519,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 deltaInput.value = match ?? deltaInput.value;
             });
         }
+    }
+
+    /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
+    protected activateClickListeners(html: HTMLElement): void {
+        const ACTION: Record<string, ((a: HTMLElement, event: MouseEvent) => void | Promise<void>) | undefined> = {
+            "roll-check": (anchor, event) => {
+                const statistic = this.actor.getStatistic(anchor.dataset.statistic ?? "");
+                const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
+                if (anchor.dataset.secret !== undefined) {
+                    args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
+                }
+                statistic?.roll(args);
+            },
+            "show-image": () => {
+                const actor = this.actor;
+                const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
+                new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+            },
+        };
+
+        html.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+            if (anchor) ACTION[anchor.dataset.action ?? ""]?.(anchor, event);
+        });
     }
 
     /** DOM listeners for inventory panel */

@@ -34,14 +34,19 @@
                         <div class="statistic-values">
                             <section class="skill-data" data-tooltip="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
-                                <h4 class="skill-name spellcasting">{{localize "PF2E.Actor.Creature.Spellcasting.DC"}}</h4>
+                                <h4>{{localize "PF2E.Actor.Creature.Spellcasting.DC"}}</h4>
                             </section>
                             <section>
                                 (
-                                    <div class="skill-data rollable" data-tooltip="{{entry.statistic.check.breakdown}}" data-action="spell-attack">
+                                    <a
+                                        class="skill-data rollable"
+                                        data-action="roll-check"
+                                        data-statistic="{{entry.statistic.slug}}"
+                                        data-tooltip="{{entry.statistic.check.breakdown}}"
+                                    >
                                         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                                         <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
-                                    </div>
+                                    </a>
                                 )
                             </section>
                         </div>
