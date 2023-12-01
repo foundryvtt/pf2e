@@ -1471,6 +1471,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -1485,9 +1488,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "knife",
                 "hardness": 0,
@@ -1553,9 +1553,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -1572,6 +1569,9 @@
             "sort": 2100000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This ring grants you resistance 5 against one type of energy damage: acid, cold, electricity, fire, or sonic. Each ring is crafted to protect against a particular type of energy damage, and its design usually embodies the type of energy it protects the wearer from in some way. For instance, a <em>ring of fire resistance</em> might be capped with a ruby, whereas a <em>ring of cold resistance</em> features a sapphire instead.</p>"
@@ -1579,9 +1579,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": false
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1619,9 +1616,6 @@
                 },
                 "usage": {
                     "value": "worn"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -1633,15 +1627,15 @@
             "sort": 2200000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": "null",
                 "description": {
                     "value": ""
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1674,9 +1668,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "treasure"
@@ -1693,8 +1684,11 @@
             "sort": 2300000,
             "system": {
                 "baseItem": null,
-                "bulkCapacity": {
-                    "value": "25"
+                "bulk": {
+                    "capacity": 25,
+                    "heldOrStowed": 1,
+                    "ignored": 25,
+                    "value": 0
                 },
                 "collapsed": false,
                 "containerId": null,
@@ -1705,9 +1699,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1720,9 +1711,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "25"
                 },
                 "price": {
                     "value": {
@@ -1749,9 +1737,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "backpack"
@@ -1866,7 +1851,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>While holding the shadow crystal, Aydrian Thrune receives the following benefits. She gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] and can cast <em>shadow step</em> once per day. Additionally, if she dies, is dying, or someone else holds the shadow crystal, it shatters, dealing @Damage[4d6[void]] damage in a @Template[type:burst|distance:5] @Check[type:reflex|dc:19|basic:true] save</p>\n<hr />\n<p><strong>Shadow Step</strong></p>\n<p><strong>Activate</strong><span class=\"action-glyph\">1</span> (conjuration, occult, shadow, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Aydrian Thrune is in dim light or darkness</p>\n<hr />\n<p><strong>Effect</strong> Aydrian teleports up to 30 feet. The destination must be in dim light or darkness and must be within her line of sight and line of effect.</p>"
+                    "value": "<p>While holding the shadow crystal, Aydrian Thrune receives the following benefits. She gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] and can cast <em>shadow step</em> once per day. Additionally, if she dies, is dying, or someone else holds the shadow crystal, it shatters, dealing @Damage[4d6[void]] damage in a @Template[type:burst|distance:5] @Check[type:reflex|dc:19|basic:true] save</p>\n<hr />\n<p><strong>Shadow Step</strong></p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (conjuration, occult, shadow, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Aydrian Thrune is in dim light or darkness</p>\n<hr />\n<p><strong>Effect</strong> Aydrian teleports up to 30 feet. The destination must be in dim light or darkness and must be within her line of sight and line of effect.</p>"
                 },
                 "frequency": {
                     "max": 1,

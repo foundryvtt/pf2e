@@ -4,16 +4,17 @@ import {
     handleSelfEffectDrop,
 } from "@item/ability/helpers.ts";
 import { SelfEffectReference } from "@item/ability/index.ts";
-import { FeatPF2e } from "@item/feat/document.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import type { FeatPF2e } from "@item/feat/document.ts";
 import { tagify } from "@util";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
+            hasSidebar: true,
         };
     }
 
@@ -21,14 +22,12 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         return CONFIG.PF2E.featTraits;
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<FeatSheetData> {
         const sheetData = await super.getData(options);
-
         const hasLineageTrait = this.item.traits.has("lineage");
 
         return {
             ...sheetData,
-            hasSidebar: true,
             itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
             categories: CONFIG.PF2E.featCategories,
             actionTypes: CONFIG.PF2E.actionTypes,

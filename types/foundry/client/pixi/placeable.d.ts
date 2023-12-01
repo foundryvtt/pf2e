@@ -32,12 +32,18 @@ declare global {
         /** A mouse interaction manager instance which handles mouse workflows related to this object. */
         mouseInteractionManager: MouseInteractionManager;
 
-        /** Identify the official EmbeddedEntity name for this PlaceableObject class */
-        static embeddedName: string;
-
         /* -------------------------------------------- */
         /* Properties                                   */
         /* -------------------------------------------- */
+
+        /** Identify the official EmbeddedEntity name for this PlaceableObject class */
+        static embeddedName: string;
+
+        /** Passthrough certain drag operations on locked objects. */
+        protected _dragPassthrough: boolean;
+
+        /** Know if a placeable is in the hover-in state.  */
+        protected _isHoverIn: boolean;
 
         /**
          * The bounding box for this PlaceableObject.
@@ -311,13 +317,13 @@ declare global {
         protected _onDragEnd(): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
+        protected _onDragLeftMove(event: PlaceablesLayerPointerEvent<this>): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[]>;
+        protected _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<TDocument[] | void>;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;
+        protected _onDragLeftCancel(event: PlaceablesLayerPointerEvent<this>): void;
     }
 
     interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument>

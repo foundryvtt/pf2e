@@ -772,6 +772,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -786,9 +789,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "knife",
                 "hardness": 0,
@@ -854,9 +854,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -879,6 +876,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -893,9 +893,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "club",
                 "hardness": 0,
@@ -956,9 +953,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -975,6 +969,9 @@
             "sort": 1200000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<ul>\n<li>Cantrips\n<ul>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Void Warp]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em></li>\n</ul>\n</li>\n<li>1st level spells\n<ul>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Command]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</em></li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em></li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>"
@@ -983,9 +980,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1020,9 +1014,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -1342,6 +1333,45 @@
             "type": "action"
         },
         {
+            "_id": "J6pZtpCOYKA1AxsU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood of the Night",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The dhampir's penalty and Hit Point reduction from the @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition are reduced as though the condition value were 1 lower.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "C0y22etsAkFpPbDt",
             "flags": {
                 "core": {
@@ -1349,8 +1379,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 1900000,
+            "name": "Void Healing",
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1379,45 +1409,6 @@
                     }
                 ],
                 "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "J6pZtpCOYKA1AxsU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood of the Night",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The dhampir's penalty and Hit Point reduction from the @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition are reduced as though the condition value were 1 lower.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": []

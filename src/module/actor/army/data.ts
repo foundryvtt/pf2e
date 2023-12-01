@@ -11,10 +11,10 @@ import {
     BaseActorSourcePF2e,
     BaseHitPointsSource,
 } from "@actor/data/base.ts";
-import { ARMY_TYPES } from "./values.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
 import { Alignment } from "./types.ts";
+import { ARMY_TYPES } from "./values.ts";
 
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
 
@@ -26,6 +26,7 @@ interface ArmySystemSource extends ActorSystemSource {
 
     consumption: number;
     scouting: number;
+    recruitmentDC: number;
 
     resources: ArmyResourcesSource;
 
@@ -35,15 +36,14 @@ interface ArmySystemSource extends ActorSystemSource {
     };
 
     weapons: {
-        ranged: {
-            name: string;
-            potency: number;
-        };
-        melee: {
-            name: string;
-            potency: number;
-        };
+        ranged: ArmyWeaponData | null;
+        melee: ArmyWeaponData | null;
     };
+}
+
+interface ArmyWeaponData {
+    name: string;
+    potency: number;
 }
 
 interface ArmyArmorClass {
@@ -81,23 +81,24 @@ interface ArmyAttributesSource extends ActorAttributesSource {
     resistances?: never;
 
     hp: ArmyHitPointsSource;
+    ac: never;
 }
 
 interface ArmyAttributes
     extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">,
         ActorAttributes {
+    ac: never;
     hp: ArmyHitPoints;
 }
 
 interface ArmyHitPointsSource extends Required<BaseHitPointsSource> {
     /** Typically half the army's hit points, armies that can't be feared have a threshold of 0 instead */
-    routThreshold?: number;
+    routThreshold: number;
 }
 
 interface ArmyHitPoints extends ArmyHitPointsSource, ActorHitPoints {
     negativeHealing: boolean;
     unrecoverable: number;
-    routThreshold: number;
 }
 
 interface ArmyResourcesSource {

@@ -2849,6 +2849,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -2863,9 +2866,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "spear",
                 "hardness": 0,
@@ -2929,9 +2929,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -2949,6 +2946,9 @@
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
                 "category": "light",
                 "checkPenalty": -1,
                 "containerId": null,
@@ -2959,11 +2959,8 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
+                    "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "1"
                 },
                 "group": "leather",
                 "hardness": 0,
@@ -2972,7 +2969,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 14
+                    "value": 0
                 },
                 "material": {
                     "grade": null,
@@ -2983,7 +2980,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 1350
+                        "gp": 2
                     }
                 },
                 "propertyRune1": {
@@ -2999,9 +2996,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -3015,16 +3012,10 @@
                 "strength": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
+                    "value": []
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "armor"
@@ -3437,57 +3428,6 @@
             "type": "action"
         },
         {
-            "_id": "l8kqKRoSgAHqu4qD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 4800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "vcUhZ1Yjwbi3Iwrb",
             "flags": {
                 "core": {
@@ -3496,7 +3436,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coffin Restoration",
-            "sort": 4900000,
+            "sort": 4800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3538,7 +3478,7 @@
             "_id": "5ynSyNxRrPYLHX2S",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Divided Faith",
-            "sort": 5000000,
+            "sort": 4900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3579,7 +3519,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Mist Escape",
-            "sort": 5100000,
+            "sort": 5000000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3624,7 +3564,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vampire Weaknesses",
-            "sort": 5200000,
+            "sort": 5100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3652,7 +3592,7 @@
                                     "item:magical",
                                     {
                                         "or": [
-                                            "damage:material:mithral",
+                                            "damage:material:dawnsilver",
                                             "damage:material:silver"
                                         ]
                                     }
@@ -3666,6 +3606,57 @@
                     }
                 ],
                 "slug": "vampire-basic-vampire-weaknesses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l8kqKRoSgAHqu4qD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 5200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "traits": {
                     "rarity": "common",
                     "value": []

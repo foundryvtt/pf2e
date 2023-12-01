@@ -20,6 +20,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -34,9 +37,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "bow",
                 "hardness": 0,
@@ -101,9 +101,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-plus-hands"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -121,6 +118,9 @@
             "system": {
                 "acBonus": 4,
                 "baseItem": "breastplate",
+                "bulk": {
+                    "value": 2
+                },
                 "category": "medium",
                 "checkPenalty": -2,
                 "containerId": null,
@@ -133,9 +133,6 @@
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "2"
                 },
                 "group": "plate",
                 "hardness": 0,
@@ -191,9 +188,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "3"
                 }
             },
             "type": "armor"
@@ -213,6 +207,9 @@
                     "value": true
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "charges": {
                     "max": 0,
                     "value": 0
@@ -230,9 +227,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -268,9 +262,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -464,61 +455,10 @@
             "type": "action"
         },
         {
-            "_id": "YyJ8ioOaohHGksR2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "PWE9sinIQ5L6H4v2",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Consecration Vulnerability",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -562,7 +502,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Mortic Ferocity",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -602,7 +542,7 @@
             "_id": "VjJS4dQI0QyHntez",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Soul Feast",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -630,6 +570,57 @@
                         "divine",
                         "void"
                     ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YyJ8ioOaohHGksR2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""

@@ -46,7 +46,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     get formula(): string | null {
-        return this.system.consume.value.trim() || null;
+        return this.system.consume.value?.trim() || null;
     }
 
     override prepareBaseData(): void {
@@ -90,7 +90,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                   !["other", "scroll", "talisman", "tool", "wand"].includes(this.category),
               ];
 
-        const usesLabel = game.i18n.localize("PF2E.ConsumableChargesLabel");
+        const usesLabel = game.i18n.localize("PF2E.Item.Consumable.Uses.Label");
         const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {

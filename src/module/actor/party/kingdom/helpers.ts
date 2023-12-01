@@ -1,9 +1,11 @@
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import * as R from "remeda";
-import { KingdomAbility, KingdomCHG, KingdomCommodity } from "./types.ts";
 import type { Kingdom } from "./model.ts";
+import { KingdomAbility, KingdomCHG, KingdomCommodity } from "./types.ts";
 
 /** Resolves boosts using kingmaker rules. Free boosts cannot be the granted ability nor the flaw */
-export function resolveKingdomBoosts(entry: KingdomCHG, choices: KingdomAbility[]): KingdomAbility[] {
+function resolveKingdomBoosts(entry: KingdomCHG, choices: KingdomAbility[]): KingdomAbility[] {
     const notFreeBoosts = entry.boosts.filter((b): b is KingdomAbility => b !== "free");
     return R.uniq([notFreeBoosts, choices].flat())
         .filter((b) => b !== entry.flaw)
@@ -11,7 +13,7 @@ export function resolveKingdomBoosts(entry: KingdomCHG, choices: KingdomAbility[
 }
 
 /** Assemble what will be collected during the kingdom's upkeep phase */
-export function calculateKingdomCollectionData(kingdom: Kingdom): {
+function calculateKingdomCollectionData(kingdom: Kingdom): {
     formula: string;
     commodities: Record<Exclude<KingdomCommodity, "food">, number>;
 } {
@@ -24,3 +26,41 @@ export function calculateKingdomCollectionData(kingdom: Kingdom): {
         }),
     };
 }
+
+async function importDocuments(actor: ActorPF2e, items: ItemPF2e[], skipDialog: boolean): Promise<void> {
+    const newDocuments = items.filter((d) => !actor.items.some((i) => i.sourceId === d.uuid));
+    const createData = newDocuments.map((d) => d.toObject());
+
+    const incomingDataByUUID = R.mapToObj(items, (d) => [d.uuid, d.toObject(true)]);
+    const updateData = R.compact(
+        actor.itemTypes.campaignFeature.map((d) => {
+            const incoming = d.sourceId && incomingDataByUUID[d.sourceId];
+            if (!incoming) return null;
+
+            const data = R.pick(incoming, ["name", "img", "system"]);
+            const diff = diffObject(d.toObject(true), data);
+            return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
+        }),
+    );
+
+    // Exit out early if there's nothing to add or update
+    if (!updateData.length && !createData.length) {
+        return;
+    }
+
+    if (!skipDialog) {
+        const result = await Dialog.confirm({
+            title: game.i18n.localize("PF2E.Kingmaker.Kingdom.ImportDialog.Title"),
+            content: game.i18n.format("PF2E.Kingmaker.Kingdom.ImportDialog.Content", {
+                added: createData.length,
+                updated: updateData.length,
+            }),
+        });
+        if (!result) return;
+    }
+
+    await actor.updateEmbeddedDocuments("Item", updateData);
+    await actor.createEmbeddedDocuments("Item", createData);
+}
+
+export { calculateKingdomCollectionData, importDocuments, resolveKingdomBoosts };

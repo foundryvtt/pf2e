@@ -1855,6 +1855,9 @@
             "sort": 2400000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -1863,9 +1866,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1898,9 +1898,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -1917,6 +1914,9 @@
             "sort": 2500000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>A mask helps you use the @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] action to pass yourself off as someone you aren't.</p>\n<p>This well-crafted mask, suitable for a noble at a masquerade, is made with impeccable craftsmanship and expensive material, such as porcelain and gold filigree.</p>"
@@ -1926,9 +1926,6 @@
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1963,9 +1960,6 @@
                 },
                 "usage": {
                     "value": "wornmask"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -2158,57 +2152,6 @@
             "type": "action"
         },
         {
-            "_id": "VXAdFMEIJiPWyhRq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "9iYmbVoVyCe6SNu9",
             "flags": {
                 "core": {
@@ -2217,7 +2160,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coffin Restoration",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2259,7 +2202,7 @@
             "_id": "drrpMlT2j7uEjKqs",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Mist Evasion",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2299,7 +2242,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vampire Weaknesses",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2327,7 +2270,7 @@
                                     "item:magical",
                                     {
                                         "or": [
-                                            "damage:material:mithral",
+                                            "damage:material:dawnsilver",
                                             "damage:material:silver"
                                         ]
                                     }
@@ -2341,6 +2284,57 @@
                     }
                 ],
                 "slug": "vampire-basic-vampire-weaknesses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VXAdFMEIJiPWyhRq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "traits": {
                     "rarity": "common",
                     "value": []

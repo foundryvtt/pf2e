@@ -1,7 +1,7 @@
 {
     "_id": "KYl1rWFOHe0e6VqJ",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Premonition Of Avoidance",
+    "name": "Premonition of Avoidance",
     "system": {
         "actionType": {
             "value": "reaction"
@@ -26,10 +26,16 @@
         },
         "rules": [
             {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "premonition-of-avoidance",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "premonition-of-avoidance",
-                    "target:type:hazard"
+                    "origin:type:hazard",
+                    "premonition-of-avoidance"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",

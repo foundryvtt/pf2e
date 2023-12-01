@@ -473,6 +473,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -487,9 +490,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "spear",
                 "hardness": 0,
@@ -552,103 +552,9 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "SB4qHGggtBKdeqj4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
-                }
-            },
-            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "+1 Full Plate",
-            "sort": 800000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": "full-plate",
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
-                },
-                "dexCap": null,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": false
-                },
-                "equippedBulk": {
-                    "value": "4"
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "potencyRune": {
-                    "value": 1
-                },
-                "price": {
-                    "value": {
-                        "gp": 190
-                    }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
-                "rules": [],
-                "size": "lg",
-                "slug": "full-plate",
-                "speedPenalty": -10,
-                "stackGroup": null,
-                "strength": 4,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bulwark"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "5"
-                }
-            },
-            "type": "armor"
         },
         {
             "_id": "ezXz3Iob9w6dAvQe",
@@ -659,10 +565,13 @@
             },
             "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
             "name": "Sturdy Shield (Lesser)",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>If a shield archon is slain, its shield can be taken, but it fades into nothingness after 24 hours.</p>\n<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 10, HP 80, and BT 40.</p>"
@@ -671,9 +580,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 10,
                 "hp": {
@@ -725,12 +631,98 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "shield"
+        },
+        {
+            "_id": "SB4qHGggtBKdeqj4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
+                }
+            },
+            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+            "name": "Full Plate",
+            "sort": 900000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "full-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor]{padded armor} and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                },
+                "dexCap": null,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "lg",
+                "slug": "full-plate",
+                "speedPenalty": -10,
+                "stackGroup": null,
+                "strength": 4,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bulwark"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmor"
+                }
+            },
+            "type": "armor"
         },
         {
             "_id": "kczBdJyhIgiqjlNI",

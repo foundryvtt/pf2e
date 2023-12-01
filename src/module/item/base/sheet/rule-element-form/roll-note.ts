@@ -5,8 +5,6 @@ import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> {
-    private html: HTMLElement | null = null;
-
     override template = "systems/pf2e/templates/items/rules/note.hbs";
 
     override async getData(): Promise<RollNoteFormSheetData> {
@@ -18,7 +16,6 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
 
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
-        this.html = html;
 
         // Add events for toggle buttons
         htmlQuery(html, "[data-action=toggle-selector]")?.addEventListener("click", () => {
@@ -31,18 +28,13 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
     }
 
     override updateObject(ruleData: Partial<Record<string, unknown>>): void {
-        super.updateObject(ruleData);
-
-        const { html } = this;
-        if (html) {
-            const shouldBeHidden = htmlQuery<HTMLInputElement>(html, ".hidden-value")?.checked;
-            const isHidden = ["gm", "owner"].includes(String(ruleData.visibility));
-            if (shouldBeHidden !== isHidden) {
-                if (shouldBeHidden) {
-                    ruleData.visibility = "owner";
-                } else {
-                    delete ruleData.visibility;
-                }
+        const shouldBeHidden = htmlQuery<HTMLInputElement>(this.element, ".hidden-value")?.checked;
+        const isHidden = ["gm", "owner"].includes(String(this.rule.visibility));
+        if (shouldBeHidden !== isHidden) {
+            if (shouldBeHidden) {
+                ruleData.visibility = "owner";
+            } else {
+                ruleData.visibility = null;
             }
         }
 
@@ -53,6 +45,8 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
         if (typeof ruleData.title === "string") {
             ruleData.title = ruleData.title.trim();
         }
+
+        super.updateObject(ruleData);
     }
 }
 

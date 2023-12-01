@@ -20,6 +20,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 2
+                },
                 "category": "advanced",
                 "containerId": null,
                 "damage": {
@@ -34,9 +37,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "axe",
                 "hardness": 0,
@@ -101,9 +101,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "weapon"
@@ -121,6 +118,9 @@
             "system": {
                 "acBonus": 4,
                 "baseItem": "chain-mail",
+                "bulk": {
+                    "value": 2
+                },
                 "category": "medium",
                 "checkPenalty": -2,
                 "containerId": null,
@@ -133,9 +133,6 @@
                     "handsHeld": 0,
                     "inSlot": false,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "2"
                 },
                 "group": "chain",
                 "hardness": 0,
@@ -194,9 +191,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "3"
                 }
             },
             "type": "armor"
@@ -336,6 +330,81 @@
             "type": "action"
         },
         {
+            "_id": "qvgyve9ubbhtjhlb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Consecration Vulnerability",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A relictner in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by <em>@UUID[Compendium.pf2e.spells-srd.Item.Sanctified Ground]</em>, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9y280jhc7njt1nez",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lair Sense",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The relictner bonds with a single structure they consider their lair, such as a house, temple, or ruin. A relictner is aware of any creature that enters the lair, and the direction and approximate distance to the creature. If the lair is destroyed, the relictner can bond with a new lair by residing within a structure they own or claim for 1 week.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "detection",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Zyy2H5wK3HtqNuuy",
             "flags": {
                 "core": {
@@ -343,8 +412,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 600000,
+            "name": "Void Healing",
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -381,81 +450,6 @@
                     "value": ""
                 },
                 "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qvgyve9ubbhtjhlb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Consecration Vulnerability",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A relictner in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by <em>@UUID[Compendium.pf2e.spells-srd.Item.Sanctified Ground]</em>, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9y280jhc7njt1nez",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lair Sense",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The relictner bonds with a single structure they consider their lair, such as a house, temple, or ruin. A relictner is aware of any creature that enters the lair, and the direction and approximate distance to the creature. If the lair is destroyed, the relictner can bond with a new lair by residing within a structure they own or claim for 1 week.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "detection",
-                        "divine"
-                    ]
-                },
-                "trigger": {
                     "value": ""
                 }
             },

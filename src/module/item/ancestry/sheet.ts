@@ -1,15 +1,19 @@
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
-import { AncestryPF2e } from "@item/ancestry/index.ts";
+import type { AncestryPF2e } from "@item/ancestry/index.ts";
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 
 class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
-        const data: ABCSheetData<AncestryPF2e> = await super.getData(options);
-        const itemData = data.item;
+    static override get defaultOptions(): ItemSheetOptions {
+        return { ...super.defaultOptions, hasSidebar: true };
+    }
+
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<AncestrySheetData> {
+        const sheetData = await super.getData(options);
+        const itemData = sheetData.item;
 
         return {
-            ...data,
-            hasSidebar: true,
+            ...sheetData,
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),

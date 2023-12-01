@@ -53,6 +53,7 @@ class TextEditorPF2e extends TextEditor {
         content: string | null,
         options: EnrichmentOptionsPF2e = {},
     ): string | Promise<string> {
+        options.secrets ??= game.user.isGM;
         if (content?.startsWith("<p>@Localize")) {
             // Remove tags
             content = content.substring(3, content.length - 4);

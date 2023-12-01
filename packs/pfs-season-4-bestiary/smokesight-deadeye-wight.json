@@ -20,6 +20,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 2
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -34,9 +37,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "bow",
                 "hardness": 0,
@@ -101,9 +101,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-plus-hands"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "weapon"
@@ -121,6 +118,9 @@
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
                 "category": "light",
                 "checkPenalty": -1,
                 "containerId": null,
@@ -132,9 +132,6 @@
                     "carryType": "worn",
                     "inSlot": false,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "1"
                 },
                 "group": "leather",
                 "hardness": 0,
@@ -190,9 +187,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "armor"
@@ -209,6 +203,9 @@
             "sort": 300000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 2
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This kit contains tools and materials for creating snares. A snare kit allows you to Craft snares using the Crafting skill.</p>"
@@ -216,9 +213,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -253,9 +247,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "equipment"
@@ -445,6 +436,43 @@
             "type": "action"
         },
         {
+            "_id": "479508pjo4uznsty",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Final Snare",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The deadeye wight is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The deadeye wight has rigged their own body with a snare, which they trigger before being destroyed. Slivers of bone launch at an adjacent creature, dealing @Damage[4d8[piercing]] damage (@Check[type:reflex|dc:25|basic:true]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "WUYJjrYb5HbQgPNA",
             "flags": {
                 "core": {
@@ -452,8 +480,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 800000,
+            "name": "Void Healing",
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -490,43 +518,6 @@
                     "value": ""
                 },
                 "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "479508pjo4uznsty",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Final Snare",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The deadeye wight is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The deadeye wight has rigged their own body with a snare, which they trigger before being destroyed. Slivers of bone launch at an adjacent creature, dealing @Damage[4d8[piercing]] damage (@Check[type:reflex|dc:25|basic:true]).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
                     "value": ""
                 }
             },

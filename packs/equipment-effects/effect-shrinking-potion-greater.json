@@ -4,7 +4,7 @@
     "name": "Effect: Shrinking Potion (Greater)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shrinking Potion (Greater)]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shrinking Potion (Greater)]</p>\n<p>This fungus-flavored potion conveys the effects of a 4th-rank <em>shrink</em> spell to make you and all your gear smaller. In addition, you gain a +2 item bonus to Stealth checks while shrunken.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 8
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "rules": [
             {
@@ -26,6 +26,11 @@
                 "selector": "stealth",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "resizeEquipment": true,
+                "value": "tiny"
             }
         ],
         "start": {

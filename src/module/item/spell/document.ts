@@ -19,7 +19,7 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { MeasuredTemplateDocumentPF2e, type TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -79,6 +79,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext<TParent> = {}) {
         super(data, context);
         this.isFromConsumable = !!context.fromConsumable;
+    }
+
+    /** The id of the override overlay that constitutes this variant */
+    get variantId(): string | null {
+        return this.original ? this.appliedOverlays?.get("override") ?? null : null;
     }
 
     /** The spell's "base" rank; that is, before heightening */
@@ -449,14 +454,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 source.system.location.heightenedLevel = castLevel;
             }
 
+            source._id = this.id;
             return source;
         })();
         if (!overrides) return null;
 
-        const fromConsumable = this.isFromConsumable;
-        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable }) as SpellPF2e<
-            NonNullable<TParent>
-        >;
+        const variant = new SpellPF2e(overrides, {
+            parent: this.actor,
+            fromConsumable: this.isFromConsumable,
+        }) as SpellPF2e<NonNullable<TParent>>;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
         variant.trickMagicEntry = this.trickMagicEntry;
@@ -477,7 +483,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .sort((first, second) => first.level - second.level);
     }
 
-    createTemplate(message?: ChatMessagePF2e): MeasuredTemplatePF2e {
+    placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
         const templateConversion = {
             burst: "circle",
             cone: "cone",
@@ -490,10 +496,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { area } = this.system;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
-        const areaType = templateConversion[area.type];
+        const templateType = templateConversion[area.type];
 
         const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
-            t: areaType,
+            t: templateType,
             distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
             fillColor: game.user.color,
             flags: {
@@ -505,11 +511,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         traits: deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
+                    areaType: this.system.area?.type ?? null,
                 },
             },
         };
 
-        switch (areaType) {
+        switch (templateType) {
             case "ray":
                 templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                 break;
@@ -525,12 +532,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-        return new MeasuredTemplatePF2e(templateDoc);
-    }
-
-    placeTemplate(message?: ChatMessagePF2e): void {
-        this.createTemplate(message).drawPreview();
+        return canvas.templates.createPreview(templateData);
     }
 
     override prepareBaseData(): void {
@@ -565,9 +567,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             });
         }
 
-        this.system.time.value = this.system.time.value.trim();
+        const castTime = (this.system.time.value = this.system.time.value.trim());
         // Special case for Horizon Thunder Sphere until glyph generation refactor
-        if (!this.isRitual && !getActionGlyph(this.system.time.value) && this.system.time.value !== "2 to 2 rounds") {
+        if (!["", "2 to 2 rounds"].includes(castTime) && !this.isRitual && !getActionGlyph(castTime)) {
             this.system.traits.value.push("exploration");
             this.system.traits.value.sort();
         }

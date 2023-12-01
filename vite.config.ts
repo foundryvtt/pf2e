@@ -73,9 +73,21 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 name: "hmr-handler",
                 apply: "serve",
                 handleHotUpdate(context) {
-                    if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
+                    if (context.file.startsWith(outDir)) return;
+
+                    if (context.file.endsWith("en.json")) {
+                        const basePath = context.file.slice(context.file.indexOf("lang/"));
+                        console.log(`Updating lang file at ${basePath}`);
+                        fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
+                            context.server.ws.send({
+                                type: "custom",
+                                event: "lang-update",
+                                data: { path: `systems/pf2e/${basePath}` },
+                            });
+                        });
+                    } else if (context.file.endsWith(".hbs")) {
                         const basePath = context.file.slice(context.file.indexOf("templates/"));
-                        console.log(`Updating template at ${basePath}`);
+                        console.log(`Updating template file at ${basePath}`);
                         fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
                             context.server.ws.send({
                                 type: "custom",

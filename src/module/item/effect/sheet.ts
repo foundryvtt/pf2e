@@ -1,17 +1,20 @@
 import { EffectBadgeSource } from "@item/abstract-effect/index.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ErrorPF2e } from "@util";
 import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { EffectSource } from "./data.ts";
-import { EffectPF2e } from "./document.ts";
+import type { EffectPF2e } from "./document.ts";
 
 export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<EffectSheetData> {
+    static override get defaultOptions(): ItemSheetOptions {
+        return { ...super.defaultOptions, hasSidebar: true };
+    }
+
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<EffectSheetData> {
         const badge = this.item.badge;
 
         return {
             ...(await super.getData(options)),
-            hasSidebar: true,
             itemType: game.i18n.localize("PF2E.LevelLabel"),
             badgeType: badge ? game.i18n.localize(`PF2E.Item.Effect.Badge.Type.${badge.type}`) : "",
             timeUnits: CONFIG.PF2E.timeUnits,

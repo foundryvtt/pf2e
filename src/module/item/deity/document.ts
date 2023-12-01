@@ -89,9 +89,11 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (favoredWeaponRank > 0) {
             type PartialAttackProficiencies = Record<string, Partial<MartialProficiency> | undefined>;
             const attacks: PartialAttackProficiencies = this.actor.system.proficiencies.attacks;
+            const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
+            const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
             for (const baseType of this.favoredWeapons) {
                 attacks[`weapon-base-${baseType}`] = {
-                    label: CONFIG.PF2E.baseWeaponTypes[baseType],
+                    label: baseWeaponTypes[baseType] ?? baseShieldTypes[baseType] ?? baseType,
                     rank: Math.max(
                         Number(attacks[`weapon-base-${baseType}`]?.rank) || 0,
                         favoredWeaponRank,

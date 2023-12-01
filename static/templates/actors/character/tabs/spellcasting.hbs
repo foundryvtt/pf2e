@@ -34,14 +34,19 @@
                         <div class="statistic-values">
                             <section class="skill-data" data-tooltip="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
-                                <h4 class="skill-name spellcasting">{{localize "PF2E.Actor.Creature.Spellcasting.DC"}}</h4>
+                                <h4>{{localize "PF2E.Actor.Creature.Spellcasting.DC"}}</h4>
                             </section>
                             <section>
                                 (
-                                    <div class="skill-data rollable" data-tooltip="{{entry.statistic.check.breakdown}}" data-action="spell-attack">
+                                    <a
+                                        class="skill-data rollable"
+                                        data-action="roll-check"
+                                        data-statistic="{{entry.statistic.slug}}"
+                                        data-tooltip="{{entry.statistic.check.breakdown}}"
+                                    >
                                         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                                         <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
-                                    </div>
+                                    </a>
                                 )
                             </section>
                         </div>
@@ -66,7 +71,16 @@
                         <section class="spell-ability">
                             <span class="spell-tradition">{{localize entry.statistic.label}}</span>
                             <div class="spellcasting-prof button-group">
-                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" data-rank="{{entry.statistic.rank}}" data-dtype="Number">
+                                <select
+                                    {{#if entry.usesSpellProficiency}}
+                                        class="skill-proficiency pf-rank"
+                                        data-action="{{#if entry.usesSpellProficiency}}update-spellcasting-rank{{/if}}"
+                                    {{else}}
+                                        class="skill-proficiency pf-rank adjust-item-stat-select"
+                                        data-item-property="system.proficiency.value"
+                                    {{/if}}
+                                    data-rank="{{entry.statistic.rank}}"
+                                >
                                     {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" excludeUntrained=true proflevel=entry.statistic.rank}}
                                 </select>
                             </div>

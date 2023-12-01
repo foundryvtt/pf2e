@@ -111,9 +111,13 @@ class RuleElementForm<
 
         const validationFailures = ((): string[] => {
             const fieldFailures = this.object?.validationFailures.fields?.asError().getAllFailures() ?? {};
-            const jointFailures = this.object?.validationFailures.joint?.asError().getAllFailures() ?? {};
-            return Object.entries({ ...fieldFailures, ...jointFailures }).map(
-                ([key, failure]) => `${key}: ${failure.message}`,
+            const jointFailures = this.object?.validationFailures.joint
+                ? { joint: this.object.validationFailures.joint }
+                : {};
+            return Object.entries({ ...fieldFailures, ...jointFailures }).map(([key, failure]) =>
+                key === "joint"
+                    ? failure.message.replace(/^.*Joint Validation Error:\s*/, "")
+                    : `${key}: ${failure.message}`,
             );
         })();
 

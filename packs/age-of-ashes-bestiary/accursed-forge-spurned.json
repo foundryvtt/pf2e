@@ -20,6 +20,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -34,9 +37,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "flail",
                 "hardness": 0,
@@ -82,7 +82,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "lg",
                 "slug": "spiked-chain",
                 "splashDamage": {
                     "value": null
@@ -101,9 +101,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -126,6 +123,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -140,9 +140,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "hammer",
                 "hardness": 0,
@@ -188,7 +185,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "lg",
                 "slug": "warhammer",
                 "splashDamage": {
                     "value": 0
@@ -205,9 +202,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -220,25 +214,26 @@
                 }
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "+2 Resilient Full Plate",
+            "name": "Full Plate",
             "sort": 300000,
             "system": {
                 "acBonus": 6,
                 "baseItem": "full-plate",
+                "bulk": {
+                    "value": 4
+                },
                 "category": "heavy",
                 "checkPenalty": -3,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor]{padded armor} and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
                 },
                 "dexCap": null,
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": false
-                },
-                "equippedBulk": {
-                    "value": "4"
                 },
                 "group": "plate",
                 "hardness": 0,
@@ -247,7 +242,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 11
+                    "value": 2
                 },
                 "material": {
                     "grade": null,
@@ -258,7 +253,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 1400
+                        "gp": 30
                     }
                 },
                 "propertyRune1": {
@@ -274,16 +269,16 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
                     "value": "resilient"
                 },
                 "rules": [],
-                "size": "med",
+                "size": "lg",
                 "slug": "full-plate",
                 "speedPenalty": -10,
                 "stackGroup": null,
@@ -296,9 +291,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "5"
                 }
             },
             "type": "armor"
@@ -454,61 +446,10 @@
             "type": "action"
         },
         {
-            "_id": "y6J0cFsDLtTzzYwe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "aGM9Fk35YNBZ55lZ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Eternal Damnation",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -549,7 +490,7 @@
             "_id": "D8iQ4Gr9GPDsrYgl",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Searing Heat",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -576,6 +517,57 @@
                     "value": [
                         "fire"
                     ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y6J0cFsDLtTzzYwe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""

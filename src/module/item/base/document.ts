@@ -1,4 +1,6 @@
 import { ActorPF2e } from "@actor/base.ts";
+import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -7,14 +9,12 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionSource } from "../affliction/data.ts";
-import type { ContainerPF2e } from "../container/document.ts";
-import type { PhysicalItemPF2e } from "../physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
 import { ItemInstances } from "../types.ts";
@@ -30,7 +30,7 @@ import type {
     ItemType,
     TraitChatData,
 } from "./data/index.ts";
-import { ItemSheetPF2e } from "./sheet/base.ts";
+import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -276,12 +276,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Pull the latest system data from the source compendium and replace this item's with it */
     async refreshFromCompendium(options: { name?: boolean } = { name: true }): Promise<void> {
         if (!this.isOwned) {
-            ui.notifications.error("This utility may only be used on owned items");
-            return;
+            throw ErrorPF2e("This utility may only be used on owned items");
         }
         if (!this.sourceId?.startsWith("Compendium.")) {
-            ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
-            return;
+            throw ErrorPF2e(`Item "${this.name}" has no compendium source.`);
         }
 
         options.name ??= true;
@@ -299,7 +297,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
             ui.notifications.warn(
-                `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`,
+                game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
+                    item: this.name,
+                    sourceId: this.sourceId,
+                }),
             );
             return;
         } else if (latestSource.type !== this.type) {
@@ -310,11 +311,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         const updates: Partial<foundry.documents.ItemSource> & { system: ItemSourcePF2e["system"] } = {
+            name: options.name ? latestSource.name : currentSource.name,
             img: latestSource.img,
             system: deepClone(latestSource.system),
         };
-
-        if (options.name) updates.name = latestSource.name;
 
         if (updates.system.level && currentSource.type === "feat") {
             updates.system.level = {
@@ -332,8 +332,58 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     "system.equipped": currentSource.system.equipped,
                     "system.material": currentSource.system.material,
                     "system.quantity": currentSource.system.quantity,
+                    "system.size": currentSource.system.size,
                 }),
             );
+
+            // Preserve runes
+            if (itemIsOfType(currentSource, "armor", "weapon")) {
+                const materialAndRunes: Record<string, unknown> = {
+                    "system.potencyRune": currentSource.system.potencyRune,
+                    "system.propertyRune1": currentSource.system.propertyRune1,
+                    "system.propertyRune2": currentSource.system.propertyRune2,
+                    "system.propertyRune3": currentSource.system.propertyRune3,
+                    "system.propertyRune4": currentSource.system.propertyRune4,
+                };
+                if (currentSource.type === "weapon") {
+                    materialAndRunes["system.strikingRune"] = currentSource.system.strikingRune;
+                } else {
+                    materialAndRunes["system.resiliencyRune"] = currentSource.system.resiliencyRune;
+                }
+                mergeObject(updates, expandObject(materialAndRunes));
+            } else if (currentSource.type === "shield") {
+                mergeObject(updates, { "system.runes": currentSource.system.runes });
+            }
+
+            if (
+                currentSource.type === "consumable" &&
+                currentSource.system.spell?.system?.traits &&
+                tupleHasValue(["scroll", "wand"], currentSource.system.consumableType.value) &&
+                latestSource.type === "consumable" &&
+                !latestSource.system.spell
+            ) {
+                // If a spell consumable, refresh the spell as well as the consumable
+                const spellSourceId = currentSource.system.spell.flags.core?.sourceId ?? "";
+                const refreshedSpell = await fromUuid(currentSource.system.spell.flags.core?.sourceId ?? "");
+                if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
+                    const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
+                        type: currentSource.system.consumableType.value,
+                        heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
+                    });
+                    mergeObject(updates, {
+                        name: spellConsumableData.name,
+                        system: { spell: spellConsumableData.system.spell },
+                    });
+                } else {
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
+                            item: currentSource.system.spell.name,
+                            sourceId: spellSourceId,
+                        }),
+                    );
+                    return;
+                }
+            }
         } else if (itemIsOfType(currentSource, "feat", "spell")) {
             // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
@@ -343,29 +393,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
         }
 
-        // Preserve runes
-        if (itemIsOfType(currentSource, "armor", "weapon")) {
-            const materialAndRunes: Record<string, unknown> = {
-                "system.potencyRune": currentSource.system.potencyRune,
-                "system.propertyRune1": currentSource.system.propertyRune1,
-                "system.propertyRune2": currentSource.system.propertyRune2,
-                "system.propertyRune3": currentSource.system.propertyRune3,
-                "system.propertyRune4": currentSource.system.propertyRune4,
-            };
-            if (currentSource.type === "weapon") {
-                materialAndRunes["system.strikingRune"] = currentSource.system.strikingRune;
-            } else {
-                materialAndRunes["system.resiliencyRune"] = currentSource.system.resiliencyRune;
-            }
-            mergeObject(updates, expandObject(materialAndRunes));
-        }
-
         await this.update(updates, { diff: false, recursive: false });
         ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
     getOriginData(): ItemOriginFlag {
-        return { uuid: this.uuid, type: this.type as ItemType };
+        return { actor: this.actor?.uuid, uuid: this.uuid, type: this.type as ItemType };
     }
 
     /* -------------------------------------------- */
@@ -479,7 +512,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
-        const sources = data.map((d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d));
+        const sources: PreCreate<ItemSourcePF2e>[] = data.map(
+            (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),
+        );
 
         // Migrate source in case of importing from an old compendium
         for (const source of [...sources]) {
@@ -498,19 +533,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const actor = context.parent;
         if (!actor) return super.createDocuments(sources, context);
 
-        const validTypes = actor.allowedItemTypes;
-        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
-
         // Check if this item is valid for this actor
-        for (const source of sources) {
-            if (!validTypes.includes(source.type)) {
-                ui.notifications.error(
-                    game.i18n.format("PF2E.Item.CannotAddType", {
-                        type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
-                    }),
-                );
-                return [];
-            }
+        if (sources.some((s) => !actor.checkItemValidity(s))) {
+            return [];
         }
 
         // Prevent creation of effects to which the actor is immune

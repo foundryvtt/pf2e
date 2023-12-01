@@ -23,6 +23,7 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
@@ -368,6 +369,21 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         };
 
         return damageIsApplicable[damageType];
+    }
+
+    /** Checks if the item can be added to this actor by checking the valid item types. */
+    checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean {
+        if (!itemIsOfType(source, ...this.allowedItemTypes)) {
+            ui.notifications.error(
+                game.i18n.format("PF2E.Item.CannotAddType", {
+                    type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
+                }),
+            );
+
+            return false;
+        }
+
+        return true;
     }
 
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
@@ -1874,21 +1890,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     tokenDoc.update({ overlayEffect: "" });
                 }
             }
-        }
-    }
-
-    /**
-     * Work around upstream issue in which `TokenDocument#_onUpdateBaseActor` is only called for tokens in the viewed
-     * scene.
-     */
-    protected override _updateDependentTokens(
-        update?: Record<string, unknown>,
-        options?: DocumentModificationContext<TParent>,
-    ): void {
-        if (game.release.build > 305) return super._updateDependentTokens(update, options);
-        const tokens = game.scenes.map((s) => s.tokens.filter((t) => t.actorId === this.id)).flat();
-        for (const token of tokens) {
-            token._onUpdateBaseActor(update, options);
         }
     }
 

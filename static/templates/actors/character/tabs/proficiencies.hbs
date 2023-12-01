@@ -1,17 +1,22 @@
 <div class="tab proficiencies" data-group="primary" data-tab="proficiencies" data-tooltip-class="pf2e">
     <h3 class="header">{{localize "PF2E.CoreSkillsHeader"}}</h3>
     <ol class="overflow-list proficiencies-pane stroke-header">
-        <ol class="skills-list">
+        <ul class="proficiencies-list">
             <!-- Core Skills -->
             {{#each data.skills as |skill key|}}
                 {{#unless skill.lore}}
-                    <li class="skill" data-skill="{{skill.slug}}">
-                        <a class="skill-name rollable" data-tooltip="{{skill.breakdown}}">
-                            <span class="skill-score">{{numberFormat skill.value decimals=0 sign=true}}</span>
+                    <li>
+                        <a class="skill-name" data-action="roll-check" data-statistic="{{skill.slug}}" data-tooltip="{{skill.breakdown}}">
+                            <span class="modifier">{{numberFormat skill.value decimals=0 sign=true}}</span>
                             <h4>{{localize skill.label}}</h4>
                         </a>
                         <div class="skill-prof button-group">
-                            <select class="skill-proficiency pf-rank adjust-stat-select" data-property="system.skills.{{key}}.rank" data-rank="{{skill.rank}}" data-dtype="Number">
+                            <select
+                                class="skill-proficiency pf-rank"
+                                data-property="system.skills.{{key}}.rank"
+                                data-rank="{{skill.rank}}"
+                                data-dtype="Number"
+                            >
                                 {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                             </select>
                             <div class="hover-container">
@@ -24,7 +29,7 @@
                     </li>
                 {{/unless}}
             {{/each}}
-        </ol>
+        </ul>
 
         <!-- Lore Header -->
         <h3 class="header">
@@ -36,17 +41,22 @@
             </div>
         </h3>
 
-        <ol class="lores-list">
+        <ul class="proficiencies-list lores-list">
             <!-- Lore Skills -->
             {{#each data.skills as |skill idx|}}
                 {{#if skill.lore}}
-                    <li class="skill item" data-skill="{{skill.slug}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
-                        <a class="skill-score rollable" data-tooltip="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</a>
+                    <li class="item" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                        <a
+                            class="modifier"
+                            data-action="roll-check"
+                            data-statistic="{{skill.slug}}"
+                            data-tooltip="{{skill.breakdown}}"
+                        >{{numberFormat skill.value decimals=0 sign=true}}</a>
                         <div class="skill-name lore-name-input item-name-input">
                             <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
                         </div>
                         <div class="skill-prof button-group skill-container">
-                            <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}" data-dtype="Number">
+                            <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
                                 {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                             </select>
                             {{#if ../editable}}
@@ -58,7 +68,7 @@
                     </li>
                 {{/if}}
             {{/each}}
-        </ol>
+        </ul>
 
         <!-- Attacks -->
         <h3 class="header attacks-defenses">
@@ -71,17 +81,17 @@
                 </div>
             {{/if}}
         </h3>
-        <ol class="combat-list">
+        <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.attacks as |proficiency key|}}
-                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
-                    <span class="skill-score lore-score" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
+                    <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select
-                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
                             data-property="system.proficiencies.attacks.{{key}}.rank"
                             data-rank="{{proficiency.rank}}"
                             data-dtype="Number"
@@ -91,39 +101,23 @@
                     </div>
                 </li>
             {{/each}}
-            {{#with document.spellcasting.base as |spellcasting|}}
-                <li class="skill" data-slug="spellcasting">
-                    <span class="skill-score lore-score" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
-                    <h4 class="skill-name lore-name-input">{{localize spellcasting.label}}</h4>
-                    <div class="skill-prof button-group skill-container">
-                        <select
-                            class="skill-proficiency pf-rank adjust-stat-select"
-                            data-property="system.proficiencies.spellcasting.rank"
-                            data-rank="{{spellcasting.rank}}"
-                            data-dtype="Number"
-                        >
-                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank}}
-                        </select>
-                    </div>
-                </li>
-            {{/with}}
-        </ol>
+        </ul>
 
         <!-- Defenses -->
         <h3 class="header attacks-defenses">
             {{localize "PF2E.Actor.Character.Proficiency.Defense.Title"}}
         </h3>
-        <ol class="combat-list">
+        <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.defenses as |proficiency key|}}
-                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
-                    <span class="skill-score lore-score" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
-                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
+                    <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
+                    <h4 class="skill-name">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select
-                            class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}"
+                            class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
                             data-property="system.proficiencies.defenses.{{key}}.rank"
                             data-rank="{{proficiency.rank}}"
                             data-dtype="Number"
@@ -133,7 +127,34 @@
                     </div>
                 </li>
             {{/each}}
-        </ol>
+        </ul>
 
+        <!-- Spellcasting -->
+        {{#if hasNormalSpellcasting}}
+            <h3 class="header">{{localize "PF2E.Item.Spell.Plural"}}</h3>
+            <ul class="proficiencies-list">
+                {{#with document.spellcasting.base as |spellcasting|}}
+                    <li data-slug="spellcasting">
+                        <span class="modifier" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
+                        <h4 class="skill-name lore-name-input">{{localize spellcasting.label}}</h4>
+                        <div class="skill-prof button-group skill-container">
+                            {{#if (gt actor.itemTypes.spellcastingEntry.length 0)}}
+                                <select
+                                    class="skill-proficiency pf-rank"
+                                    data-action="update-spellcasting-rank"
+                                    data-rank="{{spellcasting.rank}}"
+                                >
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank excludeUntrained=true}}
+                                </select>
+                            {{else}}
+                                <div class="button-group">
+                                    <span class="pf-rank" data-rank="{{spellcasting.rank}}">{{lookup @root.numberToRank spellcasting.rank}}</span>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </li>
+                {{/with}}
+            </ol>
+        {{/if}}
     </ol>
 </div>

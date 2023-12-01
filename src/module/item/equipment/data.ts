@@ -24,7 +24,10 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 interface EquipmentSystemData
-    extends Omit<EquipmentSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
+    extends Omit<
+            EquipmentSystemSource,
+            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
+        >,
         Omit<Investable<PhysicalSystemData>, "traits"> {
     apex?: {
         attribute: AttributeString;

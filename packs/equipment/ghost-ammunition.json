@@ -7,6 +7,9 @@
             "value": true
         },
         "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
         "charges": {
             "max": 0,
             "value": 0
@@ -19,10 +22,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p><em>Ghost ammunition</em> is cool to the touch. This ammunition has the benefits of the <em>ghost touch</em> property rune and can fly through any obstacle except those that can block incorporeal creatures or effects. Though the ammunition penetrates barriers and ignores all cover, the target still benefits from the flat check from being concealed or hidden. You still can't target an undetected creature without guessing.</p>\n<p>After it is launched, the ammunition vanishes into mist. However, in the dead of the night [[/r 1d4 #days]]{1d4 days} later, it reappears in the last quiver or other container it was taken from.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
+            "value": "<p><em>Ghost ammunition</em> is cool to the touch. This ammunition has the benefits of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and can fly through any obstacle except those that can block incorporeal creatures or effects. Though the ammunition penetrates barriers and ignores all cover, the target still benefits from the flat check from being concealed or hidden. You still can't target an undetected creature without guessing.</p>\n<p>After it is launched, the ammunition vanishes into mist. However, in the dead of the night [[/r 1d4 #days]]{1d4 days} later, it reappears in the last quiver or other container it was taken from.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -47,7 +47,17 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
         "size": "med",
         "stackGroup": "arrows",
         "traits": {
@@ -58,9 +68,6 @@
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "weight": {
-            "value": "-"
         }
     },
     "type": "consumable"

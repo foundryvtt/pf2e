@@ -2281,6 +2281,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -2295,9 +2298,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "club",
                 "hardness": 0,
@@ -2358,9 +2358,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -2377,6 +2374,9 @@
             "sort": 3200000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>An <em>orange prism aeon stone</em> must be activated to provide a benefit. The resonant power grants you a +2 item bonus to Arcana, Nature, Occultism, or Religion checks-whichever corresponds to the tradition of the last spell you enhanced with this <em>aeon stone</em>.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> envision</p>\n<hr />\n<p><strong>Effect</strong> If your next action is to Cast a Spell, that spell's level is 1 higher (maximum 10th level) for the purposes of counteracting and being counteracted.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone (Orange Prism) (Arcana)]</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone (Orange Prism) (Nature)]</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone (Orange Prism) (Occultism)]</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone (Orange Prism) (Religion)]</p>"
@@ -2384,9 +2384,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2424,9 +2421,6 @@
                 },
                 "usage": {
                     "value": "worn"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -2644,61 +2638,10 @@
             "type": "action"
         },
         {
-            "_id": "iR8i2JeM3fL97FdW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "LAA0XJePYKC5IgZv",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Energy Ward",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2774,6 +2717,57 @@
                     "value": []
                 },
                 "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iR8i2JeM3fL97FdW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
                     "value": ""
                 }
             },

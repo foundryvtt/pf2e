@@ -15,7 +15,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
         super(source, options);
 
         if (this.removeAfterRoll && !this.item.isOfType("effect")) {
-            this.failValidation("  removeAfterRoll: may only be used with effects");
+            this.failValidation("removeAfterRoll: may only be used with effects");
         }
     }
 

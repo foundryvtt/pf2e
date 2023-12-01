@@ -68,6 +68,7 @@ class Statistic extends BaseStatistic {
                 ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.attribute) ??
                   createAttributeModifier({ actor, attribute: data.attribute, domains })
                 : null;
+        if (data.attribute) domains.push(`${data.attribute}-based`);
 
         // If this is a character with a proficiency, add a proficiency modifier
         const proficiencyModifier = !actor.isOfType("character")

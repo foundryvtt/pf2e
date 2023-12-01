@@ -1,3 +1,4 @@
+import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     CoinsPF2e,
     MATERIAL_DATA,
@@ -15,28 +16,38 @@ import { BaseShieldType } from "./types.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "./values.ts";
 
 class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ShieldSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<ShieldSheetData> {
         const sheetData = await super.getData(options);
-        const { item } = this;
+        const shield = this.item;
 
-        const weaponRunes = item.system.traits.integrated?.runes;
-        const slotsArray = item.system.material.type === "orichalcum" ? [0, 1, 2, 3] : [0, 1, 2];
-        const propertyRuneSlots = slotsArray.map((i) => ({
+        const isSpecificShield = shield.isSpecific;
+        const weaponRunes = shield.system.traits.integrated?.runes;
+        const hasPotencyRune = !!weaponRunes?.potency;
+        const slotIndexes = ((): number[] => {
+            if (!hasPotencyRune) return [];
+            if (isSpecificShield) return weaponRunes.property.map((_p, index) => index);
+            return shield.system.material.type === "orichalcum" ? [0, 1, 2, 3] : [0, 1, 2];
+        })();
+        const propertyRuneSlots = slotIndexes.map((i) => ({
             slug: weaponRunes?.property[i] ?? null,
-            enabled: !!weaponRunes?.potency && weaponRunes.potency > i && (i === 0 || !!weaponRunes.property[i - i]),
+            disabled:
+                !weaponRunes?.potency ||
+                ((i === 3 || weaponRunes.potency < 3) && i > 0 && (!weaponRunes.property[i - 1] || !isSpecificShield)),
+            readOnly: isSpecificShield,
         }));
-        const materialData = item.isBuckler
+        const materialData = shield.isBuckler
             ? MATERIAL_DATA.shield.buckler
-            : item.isTowerShield
+            : shield.isTowerShield
               ? MATERIAL_DATA.shield.towerShield
               : MATERIAL_DATA.shield.shield;
 
         return {
             ...sheetData,
-            baseHardness: item._source.system.hardness,
-            basePrice: new CoinsPF2e(item._source.system.price.value),
+            baseHardness: shield._source.system.hardness,
+            basePrice: new CoinsPF2e(shield._source.system.price.value),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseShieldTypes),
-            preciousMaterials: this.prepareMaterials(materialData),
+            canChangeMaterial: !shield.isSpecific || !!shield.system.material.type,
+            preciousMaterials: this.getMaterialSheetData(shield, materialData),
             propertyRuneSlots,
             reinforcing: R.mapToObj.indexed(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
             weaponRunes: weaponRunes ? RUNE_DATA.weapon : null,
@@ -81,10 +92,12 @@ interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     baseHardness: number;
     basePrice: CoinsPF2e;
     baseTypes: Record<BaseShieldType, string>;
+    canChangeMaterial: boolean;
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: {
         slug: WeaponPropertyRuneType | null;
-        enabled: boolean;
+        disabled: boolean;
+        readOnly: boolean;
     }[];
     reinforcing: Record<number, string | null>;
     weaponRunes: object | null;

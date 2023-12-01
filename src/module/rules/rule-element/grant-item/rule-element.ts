@@ -14,7 +14,7 @@ import { ItemAlteration } from "../item-alteration/alteration.ts";
 import { GrantItemSchema } from "./schema.ts";
 
 class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
-    static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
+    static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     /** The id of the granted item */
     grantedId: string | null;

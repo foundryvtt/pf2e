@@ -2370,6 +2370,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -2384,9 +2387,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "club",
                 "hardness": 0,
@@ -2462,9 +2462,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -2481,6 +2478,9 @@
             "sort": 3200000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "gm": "<p><strong>Epitome</strong> When you epitomize <em>The Tangled Briar</em>, small patches of tangled undergrowth spring up throughout the Harrow Court—blackberries and thistles in the farmlands, stinging nettles in the forests and swamps, spiky leafless shrubs in the desert and mountains, and strange spiny seaweed in the lake. These tangles serve as spiritual conduits for ancient spirits associated with the harrow to influence the Harrow Court. These spirits help to guide souls through the realm, and as a result, all skill checks made to resolve the casting of <em>@UUID[Compendium.pf2e.spells-srd.Item.Astral Projection]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Call Spirit]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Reincarnate]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> gain a +2 item bonus. The presence of the spirits helps to lessen the cost involved when casting reincarnate and resurrect as well, halving the final gp cost of performing the ritual as long as it takes place in the Harrow Court.</p>",
@@ -2489,9 +2489,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2529,9 +2526,6 @@
                 },
                 "usage": {
                     "value": "carried"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -2551,6 +2545,9 @@
                     "value": false
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "charges": {
                     "max": 1,
                     "value": 1
@@ -2567,9 +2564,6 @@
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2697,9 +2691,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -2917,57 +2908,6 @@
             "type": "action"
         },
         {
-            "_id": "Jxw7RvEERHGRzycq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "lTAUfkDQ3VVnBakO",
             "flags": {
                 "core": {
@@ -2976,7 +2916,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3036,7 +2976,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3064,6 +3004,57 @@
                     "value": [
                         "arcane"
                     ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Jxw7RvEERHGRzycq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""

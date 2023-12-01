@@ -247,6 +247,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -261,9 +264,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "knife",
                 "hardness": 0,
@@ -329,9 +329,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -354,6 +351,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -368,9 +368,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "sword",
                 "hardness": 0,
@@ -433,9 +430,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -453,6 +447,9 @@
             "system": {
                 "acBonus": 2,
                 "baseItem": "wooden-shield",
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
@@ -461,9 +458,6 @@
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 3,
                 "hp": {
@@ -475,7 +469,7 @@
                 },
                 "material": {
                     "grade": "standard",
-                    "type": "darkwood"
+                    "type": "duskwood"
                 },
                 "price": {
                     "value": {
@@ -503,9 +497,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "shield"
@@ -915,23 +906,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "challenge-foe",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
+                        "key": "FlatModifier",
                         "predicate": [
-                            "challenge-foe"
+                            "target:mark:challenge-foe"
                         ],
                         "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "slug": "challenge-foe-bonus",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:challenge-foe",
+                            {
+                                "not": "target:mark:challenge-foe"
+                            }
+                        ],
+                        "selector": "damage",
+                        "slug": "challenge-foe-penalty",
+                        "type": "circumstance",
+                        "value": -2
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Challenge Foe",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Challenge Foe"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1020,7 +1021,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "jotun-slayer"
+                            {
+                                "or": [
+                                    "jotun-slayer",
+                                    "target:trait:giant"
+                                ]
+                            }
                         ],
                         "selector": "damage",
                         "type": "circumstance",

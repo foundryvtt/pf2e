@@ -1,8 +1,8 @@
 import { ArmorSystemSource } from "@item/armor/data.ts";
 import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
 import { IntegratedWeaponSource, SpecificShieldData } from "@item/shield/data.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
-import { PreciousMaterialType } from "@item/physical/types.ts";
 
 /** Convert shield "armor" items to shield items */
 export class Migration899ArmorShieldToShieldShield extends MigrationBase {
@@ -122,6 +122,8 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             if ("negateBulk" in system) system["-=negateBulk"] = null;
         }
 
+        this.#migrateRules(source);
+
         if (source.type !== "armor") return;
 
         const category: string = source.system.category;
@@ -158,6 +160,20 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         }
     }
 
+    #migrateRules(source: ItemSourcePF2e): void {
+        const shieldAlterations = source.system.rules.filter(
+            (r: MaybeShieldAlteration): r is { key: string; predicate: JSONValue[]; itemType: string } =>
+                r.key === "ItemAlteration" &&
+                r.itemType === "armor" &&
+                Array.isArray(r.predicate) &&
+                r.predicate.includes("item:category:shield"),
+        );
+        for (const rule of shieldAlterations) {
+            rule.itemType = "shield";
+            rule.predicate = rule.predicate.filter((s) => s !== "item:category:shield");
+        }
+    }
+
     #validateOrRemoveMaterial(system: ShieldConversionData): void {
         if (!system.material.type) {
             system.material.grade = null;
@@ -171,7 +187,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         const baseItem = system.baseItem ?? "";
         const { type } = system.material;
         const BUCKLERS = ["buckler", "casters-targe", "dart-shield", "gauntlet-buckler", "heavy-rondache", "klar"];
-        const bucklerMaterials: PreciousMaterialType[] = [
+        const bucklerMaterials = [
             "abysium",
             "adamantine",
             "cold-iron",
@@ -184,7 +200,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
             "siccatite",
             "silver",
         ];
-        const MATERIALS: Record<"buckler" | "towerShield" | "shield", PreciousMaterialType[]> = {
+        const MATERIALS: Record<"buckler" | "towerShield" | "shield", string[]> = {
             buckler: bucklerMaterials,
             towerShield: ["darkwood"],
             shield: [...bucklerMaterials, "keep-stone"],
@@ -221,7 +237,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
                 break;
             case "kizidhars-shield":
                 system.baseItem = "steel-shield";
-                system.material = { type: "darkwood", grade: "standard" };
+                system.material = { type: "duskwood", grade: "standard" };
                 setSpecific();
                 break;
 
@@ -260,4 +276,8 @@ type ShieldConversionData = Pick<ArmorSystemSource, "acBonus" | "material" | "sl
     "-=resiliencyRune"?: null;
     "-=strength"?: null;
     "-=unequippedBulk"?: null;
+};
+
+type MaybeShieldAlteration = RuleElementSource & {
+    itemType?: JSONValue;
 };

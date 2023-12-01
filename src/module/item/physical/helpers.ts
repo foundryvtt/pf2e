@@ -1,7 +1,11 @@
+import { ActorProxyPF2e } from "@actor";
+import { ContainerPF2e } from "@item";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
+import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import * as R from "remeda";
-import { Bulk, STACK_DEFINITIONS, weightToBulk } from "./bulk.ts";
+import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
 import { BulkData } from "./data.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
@@ -18,18 +22,23 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     // https://2e.aonprd.com/Equipment.aspx?ID=380
     const materialData = getMaterialValuationData(item);
     const materialPrice = materialData?.price ?? 0;
-    const heldOrStowedBulk = new Bulk({ light: item.system.bulk.heldOrStowed });
+    const heldOrStowedBulk = new Bulk(item.system.bulk.heldOrStowed);
     const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
     const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
-    const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0);
+    const reinforcingRuneValue =
+        !item.isOfType("shield") || item.isSpecific
+            ? 0
+            : RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0;
+    const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
         : basePrice.add({ gp: materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
-    const afterShoddy = item.isShoddy ? higher.scale(0.5) : higher;
+    const afterReinforcingRune = higher.add(new CoinsPF2e({ gp: reinforcingRuneValue }));
+    const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */
     return item.isMagical ? afterShoddy : afterShoddy.adjustForSize(item.size);
@@ -151,20 +160,61 @@ function generateItemName(item: PhysicalItemPF2e): string {
     return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
 }
 
+/** Validate HP changes to a physical item and also adjust current HP when max HP changes */
+function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalItemSource>): void {
+    // Basic validity: integer greater than or equal to zero
+    for (const property of ["value", "max"] as const) {
+        if (changed.system?.hp && changed.system.hp[property] !== undefined) {
+            changed.system.hp[property] = Math.max(Math.floor(Number(changed.system.hp[property])), 0) || 0;
+        }
+    }
+
+    // Get a clone of the item, through an actor clone if owned
+    const actorSource = item.actor?.toObject();
+    const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
+    const itemIndex = actorSource?.items.findIndex((i) => i._id === item._id);
+    if (itemIndex === -1) return;
+    actorSource?.items.splice(itemIndex ?? 0, 1, changedSource);
+    const actorClone = actorSource ? new ActorProxyPF2e(actorSource) : null;
+    const itemClone = actorClone?.inventory.get(item.id, { strict: true }) ?? item.clone(changed, { keepId: true });
+
+    // Adjust current HP proportionally if max HP changed
+    const maxHPDifference = itemClone.system.hp.max - item.system.hp.max;
+    if (maxHPDifference !== 0) {
+        changed.system = mergeObject(changed.system ?? {}, {
+            hp: { value: Math.max(item.system.hp.value + maxHPDifference, 0) },
+        });
+    }
+
+    // Final overage check
+    const newValue = changed.system?.hp?.value ?? itemClone.system.hp.value;
+    if (newValue > itemClone.system.hp.max) {
+        changed.system = mergeObject(changed.system ?? {}, { hp: { value: itemClone.system.hp.max } });
+    }
+}
+
 /**  Convert of scattershot bulk data on a physical item into a single object */
-function organizeBulkData(item: PhysicalItemPF2e): BulkData {
+function organizeBulkData<TItem extends PhysicalItemPF2e>(
+    item: TItem,
+): TItem extends ContainerPF2e ? ContainerBulkData : BulkData;
+function organizeBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
     const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
     const per = stackData?.size ?? 1;
 
-    const heldOrStowed = stackData?.lightBulk ?? weightToBulk(item.system.weight.value)?.toLightBulk() ?? 0;
-    const worn = item.system.equippedBulk.value
-        ? weightToBulk(item.system.equippedBulk.value)?.toLightBulk() ?? 0
-        : heldOrStowed;
+    const sourceBulk = item._source.system.bulk;
+    const heldOrStowed = item.isOfType("armor")
+        ? new Bulk(sourceBulk.value).increment().value
+        : "heldOrStowed" in sourceBulk
+          ? Number(sourceBulk.heldOrStowed) || 0
+          : sourceBulk.value;
+    const worn = item.system.bulk.value;
+    const value = item.isEquipped ? worn : heldOrStowed;
+    const data = { heldOrStowed, value, per };
 
-    const value = item.isOfType("armor", "equipment", "backpack") && item.isEquipped ? worn : heldOrStowed;
-
-    return { heldOrStowed, worn, value, per };
+    return item.isOfType("backpack")
+        ? { ...data, capacity: item.system.bulk.capacity, ignored: item.system.bulk.ignored }
+        : data;
 }
 
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName, organizeBulkData };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, organizeBulkData };

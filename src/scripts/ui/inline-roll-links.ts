@@ -2,14 +2,12 @@ import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
-import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
-import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 
@@ -252,6 +250,8 @@ export const InlineRollLinks = {
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
             const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
             link.addEventListener("click", () => {
+                if (!canvas.ready) return;
+
                 if (typeof pf2EffectArea !== "string") {
                     console.warn(`PF2e System | Could not create template'`);
                     return;
@@ -282,18 +282,42 @@ export const InlineRollLinks = {
                     }
                 }
 
-                if (pf2Traits) {
-                    templateData.flags = {
-                        pf2e: {
-                            origin: {
-                                traits: pf2Traits.split(","),
-                            },
-                        },
-                    };
+                const flags: { pf2e: Record<string, unknown> } = {
+                    pf2e: {},
+                };
+
+                if (
+                    objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
+                    objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
+                ) {
+                    flags.pf2e.areaType = pf2EffectArea;
                 }
 
-                const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                new MeasuredTemplatePF2e(templateDoc).drawPreview();
+                const messageId =
+                    foundryDoc instanceof ChatMessagePF2e
+                        ? foundryDoc.id
+                        : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
+                if (messageId) {
+                    flags.pf2e.messageId = messageId;
+                }
+
+                const actor = resolveActor(foundryDoc, link);
+                if (actor || pf2Traits) {
+                    const origin: Record<string, unknown> = {};
+                    if (actor) {
+                        origin.actor = actor.uuid;
+                    }
+                    if (pf2Traits) {
+                        origin.traits = pf2Traits.split(",");
+                    }
+                    flags.pf2e.origin = origin;
+                }
+
+                if (!R.isEmpty(flags.pf2e)) {
+                    templateData.flags = flags;
+                }
+
+                canvas.templates.createPreview(templateData);
             });
         }
     },

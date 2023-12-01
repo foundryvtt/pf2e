@@ -1,20 +1,20 @@
 {
     "_id": "vHZSx5f093Wrivzn",
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/moonlit-chain.webp",
+    "img": "icons/equipment/chest/breastplate-banded-blue.webp",
     "name": "Moonlit Chain",
     "system": {
         "acBonus": 2,
         "baseItem": "chain-shirt",
+        "bulk": {
+            "value": 2
+        },
         "category": "light",
         "checkPenalty": -1,
         "containerId": null,
         "description": {
-            "value": "<p>This <em>+1 silver chain </em>shirt has a collar adorned with stitched images of the phases of the moon. You can see in moonlight as though you had low-light vision.</p>\n<p><strong>Activate—Dim Sight</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<p><strong>Frequency</strong> one per day</p>\n<hr />\n<p><strong>Effect</strong> You touch the stitched image of the new moon on the armor's collar and suppress the dazzled condition for 1 minute.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include 33 gp of silver.</p>"
+            "value": "<p>This <em>+1 silver chain</em> shirt has a collar adorned with stitched images of the phases of the moon. You can see in moonlight as though you had low-light vision.</p>\n<p><strong>Activate—Dim Sight</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<p><strong>Frequency</strong> one per day</p>\n<hr />\n<p><strong>Effect</strong> You touch the stitched image of the new moon on the armor's collar and suppress the dazzled condition for 1 minute.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include 33 gp of silver.</p>"
         },
         "dexCap": 3,
-        "equippedBulk": {
-            "value": "2"
-        },
         "group": "chain",
         "hardness": 0,
         "hp": {
@@ -57,7 +57,22 @@
         "resiliencyRune": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Moonlight",
+                "option": "terrain:moonlight",
+                "toggleable": true
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "terrain:moonlight"
+                ],
+                "selector": "lowLightVision"
+            }
+        ],
         "size": "med",
         "specific": {
             "material": {
@@ -84,9 +99,6 @@
         },
         "usage": {
             "value": "wornarmor"
-        },
-        "weight": {
-            "value": "3"
         }
     },
     "type": "armor"

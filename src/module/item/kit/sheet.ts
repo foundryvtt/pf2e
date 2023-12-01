@@ -1,18 +1,18 @@
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";
 
 class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<KitSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<KitSheetData> {
         const items = Object.fromEntries(
             Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
                 key,
@@ -22,7 +22,6 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
         return {
             ...(await super.getData(options)),
-            hasSidebar: true,
             priceString: this.item.price.value,
             items,
         };

@@ -1,3 +1,5 @@
+const BASIC_WAR_ACTIONS_FOLDER = "Vqp8b64uH35zkncy";
+
 const ALIGNMENTS = new Set(["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] as const);
 
 const ARMY_TYPES = ["infantry", "cavalry", "siege", "skirmisher"] as const;
@@ -24,32 +26,40 @@ function fetchArmyGearData(gearType: String): Object {
                         ? "icons/weapons/axes/axe-battle-black.webp"
                         : "icons/weapons/crossbows/crossbow-simple-brown.webp",
                 name: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Weapons.name"),
-                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Weapons.level"),
                 description: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Weapons.description"),
                 traits: ["army", "magical"],
-                ranks: 3,
+                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Weapons.level"),
+                ranks: [
+                    { price: 20, level: 2 },
+                    { price: 40, level: 10 },
+                    { price: 60, level: 16 },
+                ],
             };
         case "potions":
             return {
                 img: "icons/consumables/potions/bottle-round-corked-orante-red.webp",
                 name: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Potions.name"),
-                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Potions.level"),
                 description: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Potions.description"),
-                price: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Potions.price"),
                 traits: ["army", "consumable", "healing", "magical", "potion"],
+                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Potions.level"),
+                price: 15,
             };
         case "armor":
             return {
                 img: "icons/equipment/shield/heater-wooden-brown-axe.webp",
                 name: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.name"),
-                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.level"),
                 description: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.description"),
                 traits: ["army", "magical"],
-                ranks: 3,
+                level: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.level"),
+                ranks: [
+                    { price: 25, level: 5 },
+                    { price: 50, level: 11 },
+                    { price: 75, level: 18 },
+                ],
             };
         default:
             return {};
     }
 }
 
-export { ALIGNMENTS, ARMY_STATS, fetchArmyGearData, ARMY_TYPES };
+export { ALIGNMENTS, ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, fetchArmyGearData };

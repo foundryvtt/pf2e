@@ -1,14 +1,23 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import type { EffectAreaType } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
-import { ScenePF2e } from "./document.ts";
+import { tupleHasValue } from "@util";
+import type { ScenePF2e } from "./document.ts";
 
-export class MeasuredTemplateDocumentPF2e<
+class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
 > extends MeasuredTemplateDocument<TParent> {
+    get actor(): ActorPF2e | null {
+        const uuid = this.flags.pf2e?.origin?.actor;
+        if (!uuid) return null;
+        const document = fromUuidSync(uuid);
+        return document instanceof ActorPF2e ? document : this.item?.actor ?? null;
+    }
+
     get item(): ItemPF2e<ActorPF2e> | null {
         const origin = this.flags.pf2e?.origin;
         const uuid = origin?.uuid;
@@ -31,6 +40,23 @@ export class MeasuredTemplateDocumentPF2e<
         return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
     }
 
+    get areaType(): EffectAreaType | null {
+        return this.flags.pf2e.areaType;
+    }
+
+    /** Ensure the source has a `pf2e` flag along with an `areaType` if directly inferable. */
+    protected override _initializeSource(
+        data: object,
+        options?: DataModelConstructionOptions<TParent>,
+    ): this["_source"] {
+        const initialized = super._initializeSource(data, options);
+        initialized.flags.pf2e = mergeObject(
+            { areaType: tupleHasValue(["cone", "line"], initialized.t) ? initialized.t : null },
+            initialized.flags.pf2e ?? {},
+        );
+        return initialized;
+    }
+
     /** If present, show the clear-template button on the message from which this template was spawned */
     protected override _onCreate(
         data: this["_source"],
@@ -48,14 +74,17 @@ export class MeasuredTemplateDocumentPF2e<
     }
 }
 
-export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
+interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     extends MeasuredTemplateDocument<TParent> {
     get object(): MeasuredTemplatePF2e<this> | null;
 
     flags: DocumentFlags & {
-        pf2e?: {
+        pf2e: {
             messageId?: string;
             origin?: ItemOriginFlag;
+            areaType: EffectAreaType | null;
         };
     };
 }
+
+export { MeasuredTemplateDocumentPF2e };

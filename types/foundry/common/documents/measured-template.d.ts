@@ -76,4 +76,4 @@ type MeasuredTemplateSchema = {
     flags: fields.ObjectField<DocumentFlags>;
 };
 
-type MeasuredTemplateSource = SourceFromSchema<MeasuredTemplateSchema>;
+export type MeasuredTemplateSource = SourceFromSchema<MeasuredTemplateSchema>;

@@ -63,117 +63,89 @@ const STACK_DEFINITIONS: StackDefinitions = {
 };
 
 class Bulk {
-    normal: number;
+    /** The bulk value as a number, with negligible being 0, light being 0.1, and bulk (the unit) as an integer */
+    readonly value: number;
 
-    light: number;
+    constructor(value = 0) {
+        this.value = Math.round(Math.max(Math.abs(value), 0) * 10) / 10;
+    }
 
-    constructor({ normal = 0, light = 0 }: { normal?: number; light?: number } = {}) {
-        this.normal = normal + Math.floor(light / 10);
-        this.light = light % 10;
+    get normal(): number {
+        return Math.floor(this.value);
+    }
+
+    get light(): number {
+        return Math.round((this.value - this.normal) * 10);
     }
 
     get isNegligible(): boolean {
-        return this.normal === 0 && this.light === 0;
+        return this.value === 0;
     }
 
     get isLight(): boolean {
-        return this.toLightBulk() < 10 && !this.isNegligible;
+        return this.value > 0 && this.value < 1;
     }
 
-    toLightBulk(): number {
+    toLightUnits(): number {
         return this.normal * 10 + this.light;
     }
 
-    plus(bulk: Bulk): Bulk {
-        return new Bulk({
-            normal: this.normal + bulk.normal,
-            light: this.light + bulk.light,
-        });
+    /** Increase the bulk by one step: negligible becomes light, light becomes 1 bulk, and 1+ bulk increases by 1 */
+    increment(): Bulk {
+        if (this.isNegligible) return new Bulk(0.1);
+        if (this.isLight) return new Bulk(1);
+        return new Bulk(this.value + 1);
     }
 
-    minus(bulk: Bulk): Bulk {
-        // 1 bulk is 10 light bulk
-        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-        const result = thisBulk - otherBulk;
-
-        // bulk can't get negative
-        if (result < 0) {
-            return new Bulk();
-        }
-        return new Bulk({
-            normal: Math.floor(result / 10),
-            light: result % 10,
-        });
+    plus(other: number | Bulk): Bulk {
+        const otherValue = typeof other === "number" ? other : other.value;
+        return new Bulk(this.value + otherValue);
     }
 
-    _toSingleNumber(bulk: Bulk): [number, number] {
-        return [this.normal * 10 + this.light, bulk.normal * 10 + bulk.light];
+    minus(other: number | Bulk): Bulk {
+        const otherValue = typeof other === "number" ? other : other.value;
+        return new Bulk(this.value - otherValue);
     }
 
     times(factor: number): Bulk {
-        // An item that would have its Bulk reduced below 1 has light Bulk.
-        const normal = this.normal * factor;
-        const lightCarryOver = normal < 1 && normal > 0 ? 1 : 0;
-        const light = Math.floor(this.light * factor) + lightCarryOver;
-        return new Bulk({
-            normal: Math.floor(normal),
-            light,
-        });
+        return new Bulk(Math.round(this.value * factor * 10) / 10);
     }
 
-    isSmallerThan(bulk: Bulk): boolean {
-        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-        return thisBulk < otherBulk;
-    }
-
-    isBiggerThan(bulk: Bulk): boolean {
-        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-        return thisBulk > otherBulk;
-    }
-
-    isEqualTo(bulk: Bulk): boolean {
-        return this.normal === bulk.normal && this.light === bulk.light;
-    }
-
-    isPositive(): boolean {
-        return this.normal > 0 || this.light > 0;
-    }
-
-    /** Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend bulk column */
+    /** Produce strings like "—", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend bulk column */
     toString(): string {
         const { light, normal } = this;
-        if (normal === 0 && light === 0) {
-            return game.i18n.localize("PF2E.Item.Physical.Bulk.Negligible");
+        if (this.isNegligible) {
+            return game.i18n.localize("PF2E.Item.Physical.Bulk.Negligible.ShortLabel");
         }
-        if (normal > 0 && light === 0) {
+
+        if (this.value === normal) {
             return normal.toString();
         }
-        if (light === 1 && normal === 0) {
-            return game.i18n.localize("PF2E.Item.Physical.Bulk.Light");
+
+        if (normal === 0 && light === 1) {
+            return game.i18n.localize("PF2E.Item.Physical.Bulk.Light.ShortLabel");
         }
         if (light > 0 && normal === 0) {
-            return game.i18n.format("PF2E.Item.Physical.Bulk.NLight", { light });
+            return game.i18n.format("PF2E.Item.Physical.Bulk.NLight", { light: light });
         }
-        return game.i18n.format("PF2E.Item.Physical.Bulk.WithLight", { bulk: normal, light });
+        return game.i18n.format("PF2E.Item.Physical.Bulk.WithLight", { bulk: normal, light: light });
     }
 
     double(): Bulk {
         if (this.isNegligible) {
-            return new Bulk({ light: 1 });
+            return new Bulk(0.1);
         } else if (this.isLight) {
-            return this.times(10);
+            return new Bulk(1);
         } else {
             return this.times(2);
         }
     }
 
     halve(): Bulk {
-        if (this.isNegligible) {
-            return new Bulk();
-        } else if (this.isLight) {
+        if (this.isNegligible || this.isLight) {
             return new Bulk();
         } else if (this.normal === 1) {
-            return new Bulk({ light: 1 });
+            return new Bulk(0.1);
         } else {
             return this.times(0.5);
         }
@@ -220,35 +192,4 @@ class Bulk {
     }
 }
 
-const lightBulkRegex = /^(\d*)l$/i;
-const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
-
-/**
- * Accepted formats:
- * "l", "1", "L", "1; L", "2; 3L", "2;3L"
- * @param weight if not parseable will return null or undefined
- */
-function weightToBulk(weight: Maybe<string | number>): Bulk | null {
-    if (typeof weight !== "string" && typeof weight !== "number") {
-        return null;
-    }
-    const trimmed = String(weight).trim();
-    if (/^\d+$/.test(trimmed)) {
-        return new Bulk({ normal: parseInt(trimmed, 10) });
-    }
-    const lightMatch = trimmed.match(lightBulkRegex);
-    if (lightMatch) {
-        return new Bulk({ light: parseInt(lightMatch[1] || "1", 10) });
-    }
-    const complexMatch = trimmed.match(complexBulkRegex);
-    if (complexMatch) {
-        const [, normal, light] = complexMatch;
-        return new Bulk({
-            normal: Number(normal) || 0,
-            light: Number(light || 1) || 0,
-        });
-    }
-    return null;
-}
-
-export { Bulk, STACK_DEFINITIONS, weightToBulk };
+export { Bulk, STACK_DEFINITIONS };

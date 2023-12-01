@@ -52,7 +52,7 @@
     </header>
 
     <nav class="sheet-navigation">
-        {{#if hasSidebar}}
+        {{#if sidebarTemplate}}
             <h4 class="sidebar-summary">{{sidebarTitle}}</h4>
         {{/if}}
 
@@ -71,7 +71,7 @@
     <!-- ITEM SHEET CONTENT -->
     <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
-        {{#if hasSidebar}}
+        {{#if sidebarTemplate}}
             <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
@@ -98,7 +98,12 @@
             </section>
 
             <!-- Item Details -->
-            <section class="tab details" data-tab="details" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+            <section
+                class="tab details{{#unless sidebarTemplate}} no-sidebar{{/unless}}"
+                data-tab="details"
+                data-tooltip-class="pf2e"
+                data-tooltip-direction="UP"
+            >
                 {{> (lookup . "detailsTemplate")}}
 
                 <fieldset class="publication">

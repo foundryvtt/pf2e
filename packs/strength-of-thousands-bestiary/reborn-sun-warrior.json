@@ -510,6 +510,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -524,9 +527,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "spear",
                 "hardness": 0,
@@ -607,9 +607,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -626,6 +623,9 @@
             "sort": 800000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
@@ -634,9 +634,6 @@
                     "carryType": "worn",
                     "inSlot": false,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -671,9 +668,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -883,6 +877,46 @@
             "type": "action"
         },
         {
+            "_id": "oq77hmot8z0rlcmb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Burning Sacrifice",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the sun warrior is destroyed, they explode in a blast of flame that deals @Damage[6d6[fire]] damage in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:27|basic:true] save). Creatures that critically fail their saves are marked with Walkena's religious symbol on a visible area of their body, which remains for 1 day. This mark allows Walkena to treat the creature as if he knew the creature's identity but not having met them for the purposes of <em>@UUID[Compendium.pf2e.spells-srd.Item.Scrying]</em>, lowering the spell's DC by 2. The sun warrior's gear and treasure are unaffected by the explosion and left in a pile where they die.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "LCeQBmcszsdXdXCH",
             "flags": {
                 "core": {
@@ -890,8 +924,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 1300000,
+            "name": "Void Healing",
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -928,46 +962,6 @@
                     "value": ""
                 },
                 "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oq77hmot8z0rlcmb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Burning Sacrifice",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the sun warrior is destroyed, they explode in a blast of flame that deals @Damage[6d6[fire]] damage in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:27|basic:true] save). Creatures that critically fail their saves are marked with Walkena's religious symbol on a visible area of their body, which remains for 1 day. This mark allows Walkena to treat the creature as if he knew the creature's identity but not having met them for the purposes of <em>@UUID[Compendium.pf2e.spells-srd.Item.Scrying]</em>, lowering the spell's DC by 2. The sun warrior's gear and treasure are unaffected by the explosion and left in a pile where they die.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire"
-                    ]
-                },
-                "trigger": {
                     "value": ""
                 }
             },

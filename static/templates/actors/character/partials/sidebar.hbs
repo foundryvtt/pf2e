@@ -198,17 +198,26 @@
     </button>
 </div>
 <div class="roll-data perception-sidebar">
-    <a class="roll-icon attribute-name" data-action="perception-check" data-tooltip="PF2E.Check.Specific.Perception.Label">
+    <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
     </a>
 
-    <a class="roll-icon attribute-name" data-action="perception-check" data-secret="true" data-tooltip="PF2E.Check.Specific.Perception.Secret">
-        <i class="fa-solid fa-eye-slash"></i>
-    </a>
+    <a
+        class="roll-icon"
+        data-action="roll-check"
+        data-statistic="perception"
+        data-secret
+        data-tooltip="PF2E.Check.Specific.Perception.Secret"
+    ><i class="fa-solid fa-eye-slash"></i></a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
 
     <div class="perception-prof button-group skill-container">
-        <select class="perception-proficiency pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="system.attributes.perception.rank" data-rank="{{data.attributes.perception.rank}}" data-dtype="Number">
+        <select
+            class="perception-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
+            data-property="system.attributes.perception.rank"
+            data-rank="{{data.attributes.perception.rank}}"
+            data-dtype="Number"
+        >
             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=data.attributes.perception.rank}}
         </select>
     </div>
@@ -250,18 +259,23 @@
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
 </div>
 <ul class="sidebar-saves">
-    {{#each data.saves as |save sid|}}
-        <li class="roll-data" data-save="{{sid}}">
+    {{#each data.saves as |save slug|}}
+        <li class="roll-data" data-save="{{slug}}">
             <h2 class="sidebar_label">{{localize save.label}}</h2>
 
             <div class="save-prof button-group skill-container">
-                <select class="save-proficiency pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="system.saves.{{sid}}.rank" data-rank="{{save.rank}}" data-dtype="Number">
+                <select
+                    class="save-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
+                    data-property="system.saves.{{slug}}.rank"
+                    data-rank="{{save.rank}}"
+                    data-dtype="Number"
+                >
                     {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=save.rank}}
                 </select>
             </div>
 
             <div class="save-roll">
-                <a class="roll-icon save-name">
+                <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">
                     {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                 </a>
                 <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
@@ -291,7 +305,7 @@
                 {{#if ../classDCs.perDCDetails}}<span class="sidebar_label">{{classDC.label}}</span>{{/if}}
             </h3>
             <div class="classdc-rank">
-                <span class="pf-rank {{classDC.rankSlug}}">{{classDC.rankName}}</span>
+                <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
                 {{#if ../classDCs.perDCDetails}}
                     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers"><i class="fa-solid fa-eye"></i></button>
                 {{/if}}

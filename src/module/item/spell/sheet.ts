@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { OneToTen } from "@module/data.ts";
 import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
@@ -16,7 +17,6 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../base/sheet/base.ts";
 import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
     SpellDamageSource,
@@ -38,6 +38,13 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    static override get defaultOptions(): ItemSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
+        };
+    }
+
     override get id(): string {
         const baseId = super.id;
         const appliedOverlays = this.item.appliedOverlays;
@@ -51,7 +58,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return R.omit(CONFIG.PF2E.Item.traits.spell, Array.from(MAGIC_TRADITIONS));
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
 
@@ -61,7 +68,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
-                id: variant.id,
+                variantId: variant.variantId,
                 sort: variant.sort,
                 actions: getActionGlyph(variant.system.time.value),
             }))
@@ -100,13 +107,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenIntervals: [1, 2, 3, 4],
             heightenOverlays: this.#prepareHeighteningLevels(),
             canHeighten: this.isEditable && this.getAvailableHeightenLevels().length > 0,
-        };
-    }
-
-    static override get defaultOptions(): DocumentSheetOptions {
-        return {
-            ...super.defaultOptions,
-            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
         };
     }
 
@@ -468,7 +468,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     isVariant: boolean;
     variants: {
         name: string;
-        id: string;
+        variantId: string | null;
         sort: number;
         actions: string;
     }[];

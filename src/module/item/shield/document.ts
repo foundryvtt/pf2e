@@ -10,6 +10,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger } from "@util";
 import * as R from "remeda";
 import { IntegratedWeaponData, ShieldSource, ShieldSystemData } from "./data.ts";
+import { setActorShieldData } from "./helpers.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -84,13 +85,13 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.runes = { reinforcing: 0 };
         }
 
-        const reinforcingRuneData = RUNE_DATA.shield.reinforcing;
-        const reinforcingRune = this.system.runes.reinforcing;
         const materialData = getMaterialValuationData(this);
-
+        const reinforcingRune = this.system.runes.reinforcing;
         const adjustFromMaterialAndRune = (property: "hardness" | "maxHP", base: number): number => {
             const fromMaterial = materialData?.[property] ?? base;
-            const additionalFromRune = reinforcingRune ? reinforcingRuneData[reinforcingRune]?.[property] : null;
+            const additionalFromRune = reinforcingRune
+                ? RUNE_DATA.shield.reinforcing[reinforcingRune]?.[property]
+                : null;
             const sumFromRune = fromMaterial + (additionalFromRune?.increase ?? 0);
             return additionalFromRune && sumFromRune > additionalFromRune.max
                 ? Math.max(fromMaterial, additionalFromRune.max)
@@ -104,7 +105,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const baseTraits = this.system.traits.value;
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
-        const hasReinforcing = !!reinforcingRune;
+        const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
         this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort()).filter(
             (t) => t in CONFIG.PF2E.shieldTraits,
@@ -153,45 +154,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareActorData(this: ShieldPF2e<ActorPF2e>): void {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
-        this.setActorShieldData();
+        setActorShieldData(this);
     }
 
     override onPrepareSynthetics(this: ShieldPF2e<ActorPF2e>): void {
         super.onPrepareSynthetics();
-        this.setActorShieldData();
-    }
-
-    // Set actor-shield data from this item--if it is a held shield
-    private setActorShieldData(): void {
-        const { actor } = this;
-        const isEquippedShield = this.isEquipped && actor?.heldShield === this;
-        if (!isEquippedShield || !actor.isOfType("character", "npc")) {
-            return;
-        }
-        const { attributes } = actor.system;
-        if (![this.id, null].includes(attributes.shield.itemId)) {
-            return;
-        }
-
-        const { hitPoints } = this;
-        attributes.shield = {
-            itemId: this.id,
-            name: this.name,
-            ac: this.acBonus,
-            hp: hitPoints,
-            hardness: this.hardness,
-            brokenThreshold: hitPoints.brokenThreshold,
-            raised: this.isRaised,
-            broken: this.isBroken,
-            destroyed: this.isDestroyed,
-            icon: this.img,
-        };
-        actor.rollOptions.all["self:shield:equipped"] = true;
-        if (this.isDestroyed) {
-            actor.rollOptions.all["self:shield:destroyed"] = true;
-        } else if (this.isBroken) {
-            actor.rollOptions.all["self:shield:broken"] = true;
-        }
+        setActorShieldData(this); // Call again after REs have possibly adjusted shield data
     }
 
     override async getChatData(
@@ -275,7 +243,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 additionalData.name = this._source.name;
             }
 
-            return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+            return new ItemProxyPF2e(mergeObject(baseData, additionalData), {
+                parent: this.parent,
+                shield: this,
+            }) as WeaponPF2e<TParent>;
         }
 
         const damageData: { system: Partial<WeaponSystemSource> } = {
@@ -292,14 +263,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.acBonus === null) changed.system.acBonus = 0;
-        if (typeof changed.system?.acBonus === "number") {
-            changed.system.acBonus = Math.clamped(Math.trunc(changed.system.acBonus), 0, 99) || 0;
+        if (changed.system?.acBonus !== undefined) {
+            changed.system.acBonus = Math.clamped(Math.trunc(Number(changed.system.acBonus)), 0, 99) || 0;
         }
 
-        if (changed.system?.speedPenalty === null) changed.system.speedPenalty = 0;
-        if (typeof changed.system?.speedPenalty === "number") {
-            changed.system.speedPenalty = Math.clamped(Math.trunc(changed.system.speedPenalty), -99, 0) || 0;
+        if (changed.system?.speedPenalty !== undefined) {
+            changed.system.speedPenalty = Math.clamped(Math.trunc(Number(changed.system.speedPenalty)), -99, 0) || 0;
         }
 
         const hasIntegratedTrait = this._source.system.traits.value.some((t) => t.startsWith("integrated-"));

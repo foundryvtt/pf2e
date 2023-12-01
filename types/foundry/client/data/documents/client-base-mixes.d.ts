@@ -6993,6 +6993,9 @@ export class CanvasBaseMeasuredTemplate<
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
+    /** System note: undocumented */
+    locked?: boolean;
+
     constructor(data: object, context: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */

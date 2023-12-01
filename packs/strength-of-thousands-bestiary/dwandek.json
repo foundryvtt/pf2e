@@ -2709,6 +2709,9 @@
                     "attribute": "int"
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>An elegant, colorful gem cut into a complex geometric pattern is slotted into a narrow metal band that fits around your brow. You gain a +3 item bonus to checks to Recall Knowledge, regardless of the skill.</p>\n<p>When you invest the diadem, you either increase your Intelligence score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p>This gives you additional trained skills and languages, as normal for increasing your Intelligence score. You must select skills and languages the first time you invest the item, and whenever you invest the same <em>diadem of intellect</em>, you get the same skills and languages you chose the first time.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You gain the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Hypercognition]</em>.</p>"
@@ -2717,9 +2720,6 @@
                     "carryType": "worn",
                     "inSlot": true,
                     "invested": false
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2768,9 +2768,6 @@
                 },
                 "usage": {
                     "value": "worncirclet"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2790,6 +2787,9 @@
                     "value": false
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "charges": {
                     "max": 1,
                     "value": 1
@@ -2807,9 +2807,6 @@
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2931,9 +2928,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -3030,61 +3024,10 @@
             "type": "action"
         },
         {
-            "_id": "z1yecRaf5ND5ZSvb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "cR4Qv1If2i2o1DGE",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Counterspell",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -3125,7 +3068,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3167,7 +3110,7 @@
             "_id": "63j43tkscg3lanwh",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Resist Arcane Magic",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -3208,7 +3151,7 @@
             "_id": "MyVZEE31o9GmvesC",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Resistance 5 to Damage from Arcane Spells",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3235,6 +3178,57 @@
                     "value": []
                 },
                 "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z1yecRaf5ND5ZSvb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
                     "value": ""
                 }
             },

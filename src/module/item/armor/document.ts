@@ -191,8 +191,12 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
                 resilient: resilientRuneValues.get(this._source.system.resiliencyRune.value) || 0,
             };
         } else if (changedSpecific.value === false) {
-            changedSpecific["-=material"] = null;
-            changedSpecific["-=runes"] = null;
+            if ("material" in (this._source.system.specific ?? {})) {
+                changedSpecific["-=material"] = null;
+            }
+            if ("runes" in (this._source.system.specific ?? {})) {
+                changedSpecific["-=runes"] = null;
+            }
         }
 
         return super._preUpdate(changed, options, user);

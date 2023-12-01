@@ -185,30 +185,22 @@ declare global {
         /** Initialize Mouse controls */
         initializeMouse(): void;
 
-        /**
-         * Register core game settings
-         */
+        /** Register core game settings */
         registerSettings(): void;
 
         /** The currently connected User */
         get user(): Active<TUser>;
 
-        /**
-         * Metadata regarding the game System which powers this World
-         */
+        /** Metadata regarding the game System which powers this World */
         get system(): System;
 
         /** A convenience accessor for the currently active Combat encounter */
         get combat(): TCombat | null;
 
-        /**
-         * A state variable which tracks whether or not the game session is currently paused
-         */
+        /** A state variable which tracks whether or not the game session is currently paused */
         get paused(): boolean;
 
-        /**
-         * A convenient reference to the currently active canvas tool
-         */
+        /** A convenient reference to the currently active canvas tool */
         get activeTool(): string;
 
         /**
@@ -223,19 +215,13 @@ declare global {
 
         static clearCookies(): boolean;
 
-        /**
-         * Open socket listeners which transact game state data
-         */
+        /** Open socket listeners which transact game state data */
         openSockets(): void;
 
-        /**
-         * General game-state socket listeners and event handlers
-         */
+        /** General game-state socket listeners and event handlers */
         static socketListeners(socket: io.Socket): void;
 
-        /**
-         * Activate Event Listeners which apply to every Game View
-         */
+        /** Activate Event Listeners which apply to every Game View */
         activateListeners(): void;
     }
 }

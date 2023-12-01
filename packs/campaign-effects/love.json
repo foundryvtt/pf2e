@@ -1,0 +1,78 @@
+{
+    "_id": "SidX2yZ5Z0ORfpdr",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Love",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>A powerful and all-consuming devotion, love for another can sometimes reach them beyond the grave. Romantic, familial, or platonic love can be the driving force behind this focus. It expresses itself as an aura of empathy for animals, who are sensitive toward otherworldly beings and easier to influence with ghostly emotions than more logical creatures. You can ask questions of, receive answers from, and use the Diplomacy skill with animals. When you are within 30 feet of a trusted ally (such as another PC), you gain a +1 status bonus to Will saving throws. This increases to a +2 status bonus if a trusted ally you love is within this range.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #198: No Breath to Cry"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpiritPower.Love.Label",
+                "option": "spirit-power:love",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.SpiritPower.Love.Trusted",
+                        "value": "trusted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpiritPower.Love.Love",
+                        "value": "love"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-power:love"
+                ],
+                "selector": "will",
+                "slug": "spirit-power-love",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "spirit-power:love:love"
+                ],
+                "selector": "will",
+                "slug": "spirit-power-love",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "minor-spirit-power"
+            ],
+            "rarity": "rare",
+            "value": [
+                "mental",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

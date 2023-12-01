@@ -19,8 +19,8 @@ const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] a
 const MATERIAL_DAMAGE_EFFECTS = new Set([
     "adamantine",
     "cold-iron",
-    "darkwood",
-    "mithral",
+    "dawnsilver",
+    "duskwood",
     "orichalcum",
     "silver",
     "sisterstone-dusk",

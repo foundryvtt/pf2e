@@ -20,6 +20,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 2
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -34,9 +37,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "sword",
                 "hardness": 0,
@@ -99,9 +99,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "weapon"
@@ -119,6 +116,9 @@
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
                 "category": "light",
                 "checkPenalty": -1,
                 "containerId": null,
@@ -130,9 +130,6 @@
                     "carryType": "worn",
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "1"
                 },
                 "group": "leather",
                 "hardness": 0,
@@ -188,9 +185,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "armor"
@@ -332,6 +326,53 @@
             "type": "action"
         },
         {
+            "_id": "Qs8JZrELvc5vMsxP",
+            "flags": {
+                "core": {
+                    "sourceId": "Actor.gWYbmi3JoXdSn3ch.Item.h0VU0sBf5jz6KCu1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "The Void's Revenge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature that slays Alystair is subjected to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em> spell with a @Check[type:will|dc:20|traits:spell] save. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "4jUkeNIE92J0asLl",
             "flags": {
                 "core": {
@@ -339,8 +380,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 600000,
+            "name": "Void Healing",
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -372,53 +413,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Qs8JZrELvc5vMsxP",
-            "flags": {
-                "core": {
-                    "sourceId": "Actor.gWYbmi3JoXdSn3ch.Item.h0VU0sBf5jz6KCu1"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "The Void's Revenge",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A creature that slays Alystair is subjected to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em> spell with a @Check[type:will|dc:20|traits:spell] save. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "divine"
-                    ]
                 },
                 "trigger": {
                     "value": ""

@@ -27,7 +27,34 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:under-rout-threshold"
+                ],
+                "selector": [
+                    "ac",
+                    "morale-check",
+                    "maneuver-check",
+                    "attack-roll"
+                ],
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": 1
+                        },
+                        {
+                            "start": 10,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|level"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

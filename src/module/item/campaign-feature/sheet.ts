@@ -1,22 +1,25 @@
 import { activateActionSheetListeners } from "@item/ability/helpers.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { htmlQuery } from "@util";
 import Tagify from "@yaireo/tagify";
-import { CampaignFeaturePF2e } from "./document.ts";
+import type { CampaignFeaturePF2e } from "./document.ts";
 import { KINGMAKER_CATEGORIES } from "./values.ts";
 
 class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
+    static override get defaultOptions(): ItemSheetOptions {
+        return { ...super.defaultOptions, hasSidebar: true };
+    }
+
     override get validTraits(): Record<string, string> {
         return CONFIG.PF2E.kingmakerTraits;
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<CampaignFeatureSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<CampaignFeatureSheetData> {
         const sheetData = await super.getData(options);
         const hasLevel = this.item.behavior !== "activity";
 
         return {
             ...sheetData,
-            hasSidebar: true,
             itemType: hasLevel ? game.i18n.localize(this.item.levelLabel) : null,
             categories: KINGMAKER_CATEGORIES,
             actionTypes: CONFIG.PF2E.actionTypes,

@@ -253,7 +253,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`bulk:${bulk}`]: true,
-                [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
@@ -457,7 +456,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const base = this.baseType ? CONFIG.PF2E.baseWeaponTypes[this.baseType] : null;
+        const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
+        const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
+        const base = this.baseType ? baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
 

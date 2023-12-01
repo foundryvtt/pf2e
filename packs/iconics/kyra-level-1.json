@@ -453,19 +453,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Second Doctrine"
                     },
                     "7gkd0": {
-                        "img": "systems/pf2e/icons/features/classes/divine-font.webp",
+                        "img": "icons/magic/fire/flame-burning-hand-white.webp",
                         "level": 1,
                         "name": "Divine Font",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Font"
                     },
                     "AbLjR": {
-                        "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
                         "level": 11,
                         "name": "Reflex Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "DeQbl": {
-                        "img": "systems/pf2e/icons/features/classes/divine-spellcasting.webp",
+                        "img": "icons/weapons/axes/axe-double-gold.webp",
                         "level": 1,
                         "name": "Cleric Spellcasting",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Cleric Spellcasting"
@@ -477,7 +477,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Resolute Faith"
                     },
                     "QhM5T": {
-                        "img": "systems/pf2e/icons/features/classes/alertness.webp",
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
                         "level": 5,
                         "name": "Perception Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
@@ -554,14 +554,7 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -595,6 +588,7 @@
                     ]
                 },
                 "slug": "cleric",
+                "spellcasting": 1,
                 "trainedSkills": {
                     "additional": 2,
                     "value": [
@@ -848,7 +842,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.AvNbdGSOTWNRgcxs"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/divine-spellcasting.webp",
+            "img": "icons/weapons/axes/axe-double-gold.webp",
             "name": "Cleric Spellcasting",
             "sort": 200,
             "system": {
@@ -892,7 +886,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.gblTFUOgolqFS9v4"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/divine-font.webp",
+            "img": "icons/magic/fire/flame-burning-hand-white.webp",
             "name": "Divine Font",
             "sort": 300,
             "system": {
@@ -2437,8 +2431,11 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
-                "bulkCapacity": {
-                    "value": "4"
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
                 },
                 "collapsed": false,
                 "containerId": null,
@@ -2451,9 +2448,6 @@
                     "inSlot": true,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": "0"
-                },
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -2465,9 +2459,6 @@
                 "material": {
                     "grade": null,
                     "type": null
-                },
-                "negateBulk": {
-                    "value": "2"
                 },
                 "price": {
                     "value": {
@@ -2491,9 +2482,6 @@
                 },
                 "usage": {
                     "value": "wornbackpack"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "backpack"
@@ -2510,6 +2498,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>50 feet of rope.</p>"
@@ -2517,9 +2508,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2554,9 +2542,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2573,6 +2558,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
@@ -2580,9 +2568,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2617,9 +2602,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2639,6 +2621,9 @@
                     "value": true
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "charges": {
                     "max": 1,
                     "value": 1
@@ -2655,9 +2640,6 @@
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2693,9 +2675,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "consumable"
@@ -2712,6 +2691,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
@@ -2719,9 +2701,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2756,9 +2735,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -2775,6 +2751,9 @@
             "sort": 0,
             "system": {
                 "area": null,
+                "bulk": {
+                    "value": 0
+                },
                 "consumableType": {
                     "value": "other"
                 },
@@ -2949,6 +2928,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
@@ -2956,9 +2938,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3073,9 +3052,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -3092,6 +3068,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>A rolled up bed.</p>"
@@ -3099,9 +3078,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3136,9 +3112,6 @@
                 },
                 "usage": {
                     "value": "other"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -3155,6 +3128,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": "tjYnOS7x7hJ2FuQz",
                 "description": {
                     "value": "<p>Bar of soap.</p>"
@@ -3162,9 +3138,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3199,9 +3172,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "equipment"
@@ -3219,6 +3189,9 @@
             "system": {
                 "acBonus": 2,
                 "baseItem": "chain-shirt",
+                "bulk": {
+                    "value": 1
+                },
                 "category": "light",
                 "checkPenalty": -1,
                 "containerId": null,
@@ -3231,9 +3204,6 @@
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "1"
                 },
                 "group": "chain",
                 "hardness": 0,
@@ -3280,9 +3250,6 @@
                 "rules": [],
                 "size": "med",
                 "slug": "chain-shirt",
-                "specific": {
-                    "value": false
-                },
                 "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": 1,
@@ -3295,9 +3262,6 @@
                 },
                 "usage": {
                     "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "2"
                 }
             },
             "type": "armor"
@@ -3314,6 +3278,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
@@ -3321,9 +3288,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3358,9 +3322,6 @@
                 },
                 "usage": {
                     "value": "other"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "equipment"
@@ -3377,6 +3338,9 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
@@ -3384,9 +3348,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3428,9 +3389,6 @@
                 },
                 "usage": {
                     "value": "other"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -3453,6 +3411,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -3467,9 +3428,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "sword",
                 "hardness": 0,
@@ -3533,9 +3491,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -3558,6 +3513,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -3572,9 +3530,6 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "group": "sling",
                 "hardness": 0,
@@ -3636,9 +3591,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -3658,6 +3610,9 @@
                     "value": true
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "charges": {
                     "max": 0,
                     "value": 0
@@ -3674,9 +3629,6 @@
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3712,9 +3664,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -3734,6 +3683,9 @@
                     "value": true
                 },
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "charges": {
                     "max": 1,
                     "value": 1
@@ -3750,9 +3702,6 @@
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3793,9 +3742,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -3812,15 +3758,15 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3855,9 +3801,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "type": "treasure"
@@ -3874,15 +3817,15 @@
             "sort": 0,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
                 "containerId": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -3917,9 +3860,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "type": "treasure"

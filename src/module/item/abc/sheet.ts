@@ -2,21 +2,22 @@ import { AttributeString } from "@actor/types.ts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { FeatOrFeatureCategory } from "@item/feat/types.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
 abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ABCSheetData<TItem>> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<ABCSheetData<TItem>> {
         const sheetData = await super.getData(options);
+
         // Exclude any added during data preparation
         const features = Object.entries(this.item.toObject().system.items)
             .map(([key, ref]) => ({
@@ -25,10 +26,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
             }))
             .sort((a, b) => a.item.level - b.item.level);
 
-        return {
-            ...sheetData,
-            features,
-        };
+        return { ...sheetData, features };
     }
 
     protected getLocalizedAbilities(traits: { value: AttributeString[] }): { [key: string]: string } {

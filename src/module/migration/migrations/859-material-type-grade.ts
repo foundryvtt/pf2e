@@ -9,6 +9,10 @@ import { MigrationBase } from "../base.ts";
 export class Migration859MaterialTypeGrade extends MigrationBase {
     static override version = 0.859;
 
+    #PRECIOUS_MATERIAL_TYPES: Set<string> = new Set(
+        [...PRECIOUS_MATERIAL_TYPES].filter((t) => t.replace("duskwood", "darkwood").replace("dawnsilver", "mithral")),
+    );
+
     #hasOldMaterialData(source: PhysicalItemSource): source is ItemWithOldMaterialData {
         return (
             "preciousMaterial" in source.system &&
@@ -21,7 +25,7 @@ export class Migration859MaterialTypeGrade extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (itemIsOfType(source, "physical") && this.#hasOldMaterialData(source)) {
             const { preciousMaterial, preciousMaterialGrade } = source.system;
-            const type = setHasElement(PRECIOUS_MATERIAL_TYPES, preciousMaterial?.value)
+            const type = this.#PRECIOUS_MATERIAL_TYPES.has(String(preciousMaterial?.value))
                 ? preciousMaterial?.value ?? null
                 : null;
             const grade = setHasElement(PRECIOUS_MATERIAL_GRADES, preciousMaterialGrade?.value)

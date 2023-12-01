@@ -167,16 +167,21 @@ async function processPreUpdateActorHooks(
             ),
         )
     ).reduce(
-        (combined, cd) => ({
-            create: [...combined.create, ...cd.create],
-            delete: Array.from(new Set([...combined.delete, ...cd.delete])),
-        }),
+        (combined, cd) => {
+            combined.create.push(...cd.create);
+            combined.delete.push(...cd.delete);
+            return combined;
+        },
         { create: [], delete: [] },
     );
-    createDeletes.delete = createDeletes.delete.filter((id) => actor.items.has(id));
+    createDeletes.delete = R.uniq(createDeletes.delete).filter((id) => actor.items.has(id));
 
-    await actor.createEmbeddedDocuments("Item", createDeletes.create, { keepId: true, render: false });
-    await actor.deleteEmbeddedDocuments("Item", createDeletes.delete, { render: false });
+    if (createDeletes.create.length > 0) {
+        await actor.createEmbeddedDocuments("Item", createDeletes.create, { keepId: true, render: false });
+    }
+    if (createDeletes.delete.length > 0) {
+        await actor.deleteEmbeddedDocuments("Item", createDeletes.delete, { render: false });
+    }
 }
 
 export {

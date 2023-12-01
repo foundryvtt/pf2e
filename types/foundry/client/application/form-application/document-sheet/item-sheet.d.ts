@@ -9,8 +9,11 @@
  * @param item      The Item instance being displayed within the sheet.
  * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<TItem extends Item> extends DocumentSheet<TItem> {
-    constructor(item: TItem, options?: Partial<DocumentSheetOptions>);
+declare class ItemSheet<TItem extends Item, TOptions extends DocumentSheetOptions> extends DocumentSheet<
+    TItem,
+    TOptions
+> {
+    constructor(item: TItem, options?: Partial<TOptions>);
 
     static override get defaultOptions(): DocumentSheetOptions;
 
@@ -24,7 +27,7 @@ declare class ItemSheet<TItem extends Item> extends DocumentSheet<TItem> {
     /** The Actor instance which owns this item. This may be null if the item is unowned. */
     get actor(): TItem["parent"];
 
-    override getData(option?: Partial<this["options"]>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
+    override getData(option?: Partial<TOptions>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events

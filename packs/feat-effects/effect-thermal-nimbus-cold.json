@@ -25,6 +25,15 @@
                 "key": "Resistance",
                 "type": "cold",
                 "value": "@item.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:fire:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": "cold",
+                "value": "@actor.level + @item.level"
             }
         ],
         "start": {

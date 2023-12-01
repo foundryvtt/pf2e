@@ -132,7 +132,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
-        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
+        return [
+            ...super.allowedItemTypes,
+            ...buildItems,
+            "physical",
+            "spellcastingEntry",
+            "spell",
+            "action",
+            "lore",
+            "kit",
+        ];
     }
 
     get keyAttribute(): AttributeString {
@@ -625,7 +634,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             rank: systemData.attributes.perception.rank,
-            domains: ["perception", "wis-based", "all"],
+            domains: ["perception", "all"],
             check: { type: "perception-check" },
         });
         systemData.attributes.perception = mergeObject(
@@ -971,14 +980,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const longForm = sluggify(loreItem.name);
             const rank = loreItem.system.proficient.value;
 
-            const domains = [longForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
-
             const statistic = new Statistic(this, {
                 slug: longForm,
                 label: loreItem.name,
                 rank,
                 attribute: "int",
-                domains,
+                domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill;
@@ -1078,7 +1085,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             label: classDC.label,
             attribute: classDC.ability,
             rank: classDC.rank,
-            domains: ["class", slug, `${classDC.ability}-based`, "all"],
+            domains: ["class", slug, "all"],
             check: { type: "check" },
         });
     }
@@ -1171,7 +1178,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ].flat(),
         ) as WeaponPF2e<this>[];
 
-        // Sort alphabetically, force basic unarmed attack to end, and finally move all readied strikes to beginning
+        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and finally
+        // move all readied strikes to beginning
         const { handsReallyFree } = this;
         return weapons
             .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
@@ -1182,7 +1190,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .localeCompare(b.label.toLocaleLowerCase(game.i18n.lang).replace(/[-0-9\s]/gi, ""), game.i18n.lang),
             )
             .sort((a, b) => (a.slug === "basic-unarmed" ? 1 : b.slug === "basic-unarmed" ? -1 : 0))
-            .sort((a, b) => (a.ready !== b.ready ? (a.ready ? 0 : 1) - (b.ready ? 0 : 1) : 0));
+            .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
+            .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
     }
 
     /** Prepare a strike action from a weapon */
@@ -1314,65 +1323,74 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const isRealItem = this.items.has(weapon.id);
 
         if (weapon.system.traits.toggles.modular.options.length > 0) {
-            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Modular" }));
+            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
-            const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
-            const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
             const { usage } = weapon.system;
-            const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
+            const canWield2H =
+                usage.hands === 2 ||
+                (usage.hands === 1 && this.handsFree > 0 && !traitsArray.includes("free-hand")) ||
+                traitsArray.some((t) => t.startsWith("fatal-aim")) ||
+                traitsArray.some((t) => t.startsWith("two-hand"));
 
             switch (weapon.carryType) {
                 case "held": {
-                    if (weapon.shield && !weapon.shield.isRaised) {
-                        auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "RaiseAShield" }));
+                    if (weapon.shield) {
+                        const hasGreaterCover = !!weapon.actor.rollOptions.all["self:cover-level:greater"];
+                        if (!weapon.shield.isRaised) {
+                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
+                        } else if (weapon.shield.isTowerShield) {
+                            const action = hasGreaterCover ? "end-cover" : "take-cover";
+                            const annotation = "tower-shield";
+                            auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
+                        }
                     }
 
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Grip", hands: 1 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),
                         );
                     } else if (weapon.handsHeld === 1 && canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "grip", hands: 2 }),
                         );
                     }
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "sheathe", hands: 0 }),
                     );
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Release", purpose: "Drop", hands: 0 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "drop", hands: 0 }),
                     );
 
                     break;
                 }
                 case "worn": {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 1 }),
+                    );
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "draw", hands: 2 }),
                         );
                     }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 }),
-                    );
                     break;
                 }
                 case "stowed": {
                     auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 }),
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "retrieve", hands: 1 }),
                     );
                     break;
                 }
                 case "dropped": {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 1 }),
+                    );
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 }),
+                            new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "pick-up", hands: 2 }),
                         );
                     }
-                    auxiliaryActions.push(
-                        new WeaponAuxiliaryAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 }),
-                    );
                     break;
                 }
             }
