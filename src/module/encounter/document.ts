@@ -222,8 +222,15 @@ class EncounterPF2e extends Combat {
      * `async` since this is usually called from CRUD hooks, which are called prior to encounter/combatant data resets
      */
     async resetActors(): Promise<void> {
-        const actors = this.combatants.contents.flatMap((c) => c.actor ?? []);
-        resetActors(actors, { rerender: false });
+        const actors: ActorPF2e[] = R.uniq(
+            R.compact(
+                this.combatants.contents.flatMap((c) => [
+                    c.actor,
+                    c.actor?.isOfType("character") ? c.actor.familiar : null,
+                ]),
+            ),
+        );
+        resetActors(actors, { sheets: false, tokens: true });
     }
 
     /* -------------------------------------------- */
