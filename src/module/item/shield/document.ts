@@ -242,20 +242,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
+            const combinedData = mergeObject(baseData, additionalData);
 
-            return new ItemProxyPF2e(mergeObject(baseData, additionalData), {
-                parent: this.parent,
-                shield: this,
-            }) as WeaponPF2e<TParent>;
+            return new ItemProxyPF2e(combinedData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
         }
 
-        const damageData: { system: Partial<WeaponSystemSource> } = {
-            system: { damage: { dice: 1, die: "d6", damageType: "bludgeoning", modifier: 0, persistent: null } },
-        };
-        return new ItemProxyPF2e(
-            mergeObject(baseData, damageData, { inplace: false }) satisfies PreCreate<WeaponSource>,
-            { parent: this.parent, shield: this },
-        ) as WeaponPF2e<TParent>;
+        return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
     }
 
     protected override _preUpdate(
