@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="{{fieldIdPrefix}}bulk-held-stowed">{{localize "PF2E.Item.Physical.Bulk.HeldOrStowed"}}</label>
     <select name="system.bulk.heldOrStowed" id="{{fieldIdPrefix}}bulk-held-stowed" data-dtype="Number">
-        {{#select data.bulk.heldOrStowed}}
+        {{#select item._source.system.bulk.heldOrStowed}}
             {{#each bulks as |bulk|}}
                 <option value="{{bulk.value}}">{{bulk.label}}</option>
             {{/each}}
@@ -10,13 +10,13 @@
 </div>
 
 <div class="form-group">
-    <label for="{{fieldIdPrefix}}ignored">{{localize "PF2E.Item.Container.Bulk.Ignored"}}</label>
-    <input type="number" name="system.bulk.ignored" id="{{fieldIdPrefix}}ignored" value="{{data.bulk.ignored}}" />
+    <label for="{{fieldIdPrefix}}capacity">{{localize "PF2E.Item.Container.Bulk.Capacity"}}</label>
+    <input type="number" name="system.bulk.capacity" id="{{fieldIdPrefix}}capacity" value="{{data.bulk.capacity}}" />
 </div>
 
 <div class="form-group">
-    <label for="{{fieldIdPrefix}}capacity">{{localize "PF2E.Item.Container.Bulk.Capacity"}}</label>
-    <input type="number" name="system.bulk.capacity" id="{{fieldIdPrefix}}capacity" value="{{data.bulk.capacity}}" />
+    <label for="{{fieldIdPrefix}}ignored">{{localize "PF2E.Item.Container.Bulk.Ignored"}}</label>
+    <input type="number" name="system.bulk.ignored" id="{{fieldIdPrefix}}ignored" value="{{data.bulk.ignored}}" />
 </div>
 
 <div class="form-group">

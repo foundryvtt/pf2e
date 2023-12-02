@@ -3,7 +3,7 @@ import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { organizeBulkData } from "@item/physical/helpers.ts";
+import { prepareBulkData } from "@item/physical/helpers.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -138,7 +138,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!validator.isValid(data)) return;
                 data.item.system.bulk.value = data.alteration.value;
                 if (data.item instanceof foundry.abstract.DataModel) {
-                    data.item.system.bulk = organizeBulkData(data.item);
+                    data.item.system.bulk = prepareBulkData(data.item);
                 }
                 return;
             }

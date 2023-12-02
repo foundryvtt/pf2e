@@ -17,6 +17,8 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         const sheetData = await super.getData(options);
         const armor = this.item;
 
+        const adjustedBulkHint = armor.isEquipped || !armor.actor ? null : "PF2E.Item.Armor.UnequippedHint";
+
         // Armor property runes
         const maxPropertySlots = getPropertySlots(armor);
         const propertyRuneSlots: Record<`propertyRuneSlots${number}`, boolean> = {};
@@ -33,7 +35,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
-            rarity: armor._source.system.traits.rarity,
+            adjustedBulkHint,
             fundamentalRunes,
             propertyRunes,
             categories: CONFIG.PF2E.armorCategories,

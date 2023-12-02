@@ -1,5 +1,5 @@
 import { ActorProxyPF2e } from "@actor";
-import { ContainerPF2e } from "@item";
+import type { ContainerPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
@@ -193,11 +193,11 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
     }
 }
 
-/**  Convert of scattershot bulk data on a physical item into a single object */
-function organizeBulkData<TItem extends PhysicalItemPF2e>(
+/** Add and adjust properties on an item's bulk data object */
+function prepareBulkData<TItem extends PhysicalItemPF2e>(
     item: TItem,
 ): TItem extends ContainerPF2e ? ContainerBulkData : BulkData;
-function organizeBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
+function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
     const stackData = STACK_DEFINITIONS[item.system.stackGroup ?? ""] ?? null;
     const per = stackData?.size ?? 1;
 
@@ -208,7 +208,7 @@ function organizeBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData 
           ? Number(sourceBulk.heldOrStowed) || 0
           : sourceBulk.value;
     const worn = item.system.bulk.value;
-    const value = item.isEquipped ? worn : heldOrStowed;
+    const value = !item.actor || item.isEquipped ? worn : heldOrStowed;
     const data = { heldOrStowed, value, per };
 
     return item.isOfType("backpack")
@@ -217,4 +217,4 @@ function organizeBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData 
 }
 
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, organizeBulkData };
+export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, prepareBulkData };
