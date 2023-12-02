@@ -2376,7 +2376,7 @@
                 }
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "+1 Resilient Full Plate",
+            "name": "Full Plate",
             "sort": 3100000,
             "system": {
                 "acBonus": 6,
@@ -2388,12 +2388,13 @@
                 "checkPenalty": -3,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor]{padded armor} and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
                 },
                 "dexCap": null,
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": false
                 },
                 "group": "plate",
@@ -2403,7 +2404,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 8
+                    "value": 2
                 },
                 "material": {
                     "grade": null,
@@ -2414,7 +2415,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 500
+                        "gp": 30
                     }
                 },
                 "propertyRune1": {
@@ -2430,9 +2431,9 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -2673,61 +2674,10 @@
             "type": "action"
         },
         {
-            "_id": "py7MzheoXU7EEjNA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "EPvcNjklx5lHjwSK",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Counterspell",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2768,7 +2718,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2828,7 +2778,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2855,6 +2805,57 @@
                     "value": [
                         "arcane"
                     ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "py7MzheoXU7EEjNA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""

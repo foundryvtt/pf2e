@@ -79,16 +79,16 @@ declare class MeasuredTemplate<
     protected override _refresh(options: object): void;
 
     /** Get a Circular area of effect given a radius of effect */
-    protected _getCircleShape(distance: number): PIXI.Circle;
+    static getCircleShape(distance: number): PIXI.Circle;
 
     /** Get a Conical area of effect given a direction, angle, and distance */
-    protected _getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
+    static getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
 
     /** Get a Rectangular area of effect given a width and height */
-    protected _getRectShape(direction: number, distance: number): PIXI.Rectangle;
+    static getRectShape(direction: number, distance: number): PIXI.Rectangle;
 
     /** Get a rotated Rectangular area of effect given a width, height, and direction */
-    protected _getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
+    static getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
 
     /** Draw the rotation control handle and assign event listeners */
     protected _drawRotationHandle(radius: number): void;

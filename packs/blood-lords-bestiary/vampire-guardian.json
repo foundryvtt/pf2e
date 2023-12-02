@@ -393,7 +393,7 @@
                 }
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "+1 Leather Armor",
+            "name": "Leather Armor",
             "sort": 500000,
             "system": {
                 "acBonus": 1,
@@ -411,7 +411,7 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
+                    "inSlot": true,
                     "invested": null
                 },
                 "group": "leather",
@@ -421,7 +421,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 5
+                    "value": 0
                 },
                 "material": {
                     "grade": null,
@@ -432,7 +432,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 160
+                        "gp": 2
                     }
                 },
                 "propertyRune1": {
@@ -448,9 +448,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -464,10 +464,7 @@
                 "strength": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
+                    "value": []
                 },
                 "usage": {
                     "value": "wornarmor"
@@ -927,57 +924,6 @@
             "type": "action"
         },
         {
-            "_id": "LcF7XaYoS96nk8cl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "dQBobrGFUHBrrW9b",
             "flags": {
                 "core": {
@@ -986,7 +932,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coffin Restoration",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1034,7 +980,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Mist Escape",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1079,7 +1025,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vampire Weaknesses",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1107,7 +1053,7 @@
                                     "item:magical",
                                     {
                                         "or": [
-                                            "damage:material:mithral",
+                                            "damage:material:dawnsilver",
                                             "damage:material:silver"
                                         ]
                                     }
@@ -1121,6 +1067,57 @@
                     }
                 ],
                 "slug": "vampire-basic-vampire-weaknesses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LcF7XaYoS96nk8cl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "traits": {
                     "rarity": "common",
                     "value": []

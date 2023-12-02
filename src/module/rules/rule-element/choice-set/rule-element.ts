@@ -13,7 +13,7 @@ import {
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import { isObject, localizer, objectHasKey, sluggify } from "@util";
+import { localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
@@ -53,11 +53,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.flag = this.#setDefaultFlag(this);
         this.selection =
-            typeof data.selection === "string" || typeof data.selection === "number" || isObject(data.selection)
+            typeof data.selection === "string" || typeof data.selection === "number" || R.isObject(data.selection)
                 ? data.selection
                 : null;
 
-        if (isObject(this.choices) && !Array.isArray(this.choices) && !("filter" in this.choices)) {
+        if (R.isObject(this.choices) && !Array.isArray(this.choices) && !("filter" in this.choices)) {
             this.choices.predicate = new PredicatePF2e(this.choices.predicate ?? []);
             if (this.choices.unarmedAttacks) this.choices.predicate.push("item:category:unarmed");
         }
@@ -143,7 +143,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         ruleSource,
         tempItems,
     }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
-        if (this.selection === null && isObject(this.choices) && "query" in this.choices) {
+        if (this.selection === null && R.isObject(this.choices) && "query" in this.choices) {
             this.failValidation("As of FVTT version 11, choice set queries are no longer supported.");
             for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
@@ -155,7 +155,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const predicate = this.resolveInjectedProperties(this.predicate);
         if (!predicate.test(rollOptions)) return;
 
-        if (isObject(this.choices)) {
+        if (R.isObject(this.choices)) {
             const { choices } = this;
             if ("ownedItems" in choices && choices.ownedItems && !choices.types?.length) {
                 console.warn(
@@ -243,7 +243,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     async inflateChoices(rollOptions: Set<string>, tempItems: ItemPF2e<ActorPF2e>[]): Promise<PickableThing[]> {
         const choices: PickableThing<string | number | object>[] = Array.isArray(this.choices)
             ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
-            : isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
+            : R.isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
               ? this.choices.ownedItems
                   ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
                   : this.choices.attacks || this.choices.unarmedAttacks
@@ -275,7 +275,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             }
         }
 
-        if (choicesAreUUIDs || (isObject(this.choices) && "query" in this.choices)) {
+        if (choicesAreUUIDs || (R.isObject(this.choices) && "query" in this.choices)) {
             this.containsItems = true;
         }
 
@@ -306,10 +306,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
         if (
             Array.isArray(choiceObject) &&
-            choiceObject.every((c) => isObject<{ value: string }>(c) && typeof c.value === "string")
+            choiceObject.every((c) => R.isObject<{ value: string }>(c) && typeof c.value === "string")
         ) {
             return choiceObject;
-        } else if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
+        } else if (R.isObject(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
             return Object.entries(choiceObject).map(([value, label]) => ({
                 value,
                 label: String(label),
@@ -470,7 +470,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
     #getPreselection(): PickableThing<string | number | object> | null {
-        const choice = Array.isArray(this.choices) ? this.choices.find((c) => c.value === this.selection) : null;
+        const choice = Array.isArray(this.choices) ? this.choices.find((c) => R.equals(c.value, this.selection)) : null;
         return choice ?? null;
     }
 

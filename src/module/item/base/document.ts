@@ -332,8 +332,28 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     "system.equipped": currentSource.system.equipped,
                     "system.material": currentSource.system.material,
                     "system.quantity": currentSource.system.quantity,
+                    "system.size": currentSource.system.size,
                 }),
             );
+
+            // Preserve runes
+            if (itemIsOfType(currentSource, "armor", "weapon")) {
+                const materialAndRunes: Record<string, unknown> = {
+                    "system.potencyRune": currentSource.system.potencyRune,
+                    "system.propertyRune1": currentSource.system.propertyRune1,
+                    "system.propertyRune2": currentSource.system.propertyRune2,
+                    "system.propertyRune3": currentSource.system.propertyRune3,
+                    "system.propertyRune4": currentSource.system.propertyRune4,
+                };
+                if (currentSource.type === "weapon") {
+                    materialAndRunes["system.strikingRune"] = currentSource.system.strikingRune;
+                } else {
+                    materialAndRunes["system.resiliencyRune"] = currentSource.system.resiliencyRune;
+                }
+                mergeObject(updates, expandObject(materialAndRunes));
+            } else if (currentSource.type === "shield") {
+                mergeObject(updates, { "system.runes": currentSource.system.runes });
+            }
 
             if (
                 currentSource.type === "consumable" &&
@@ -371,23 +391,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         if (currentSource.type === "feat" && currentSource.system.level.taken) {
             mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
-        }
-
-        // Preserve runes
-        if (itemIsOfType(currentSource, "armor", "weapon")) {
-            const materialAndRunes: Record<string, unknown> = {
-                "system.potencyRune": currentSource.system.potencyRune,
-                "system.propertyRune1": currentSource.system.propertyRune1,
-                "system.propertyRune2": currentSource.system.propertyRune2,
-                "system.propertyRune3": currentSource.system.propertyRune3,
-                "system.propertyRune4": currentSource.system.propertyRune4,
-            };
-            if (currentSource.type === "weapon") {
-                materialAndRunes["system.strikingRune"] = currentSource.system.strikingRune;
-            } else {
-                materialAndRunes["system.resiliencyRune"] = currentSource.system.resiliencyRune;
-            }
-            mergeObject(updates, expandObject(materialAndRunes));
         }
 
         await this.update(updates, { diff: false, recursive: false });

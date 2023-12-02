@@ -413,6 +413,41 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    /**
+     * Use actor updates (real or otherwise) that propagate down to ephemeral token changes  to provoke canvas object
+     * re-rendering.
+     */
+    simulateUpdate(actorUpdates: Record<string, unknown> = {}): void {
+        // If this scene isn't in view nor in focus, skip all later checks
+        // This method is called for every scene a linked actor's token is present in
+        if (!this.scene?.isInFocus && !this.scene?.isView) return;
+
+        // Reinitialize vision if the actor's senses were updated directly
+        const initializeVision =
+            !!this.scene?.isView &&
+            this.sight.enabled &&
+            Object.keys(flattenObject(actorUpdates)).some((k) => k.startsWith("system.traits.senses"));
+        if (initializeVision) canvas.perception.update({ initializeVision }, true);
+
+        const preUpdate = this.toObject(false);
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        this.reset();
+        const postUpdate = this.toObject(false);
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+
+        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
+            this.object?._onUpdate(tokenChanges, {}, game.user.id);
+        }
+
+        // Assess the full diff using `diffObject`: additions, removals, and changes
+        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
+
+        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
+            this.scene?.checkAuras?.();
+        }
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -453,35 +488,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DocumentModificationContext<null> = {},
     ): void {
         super._onRelatedUpdate(update, options);
-
-        // If this scene isn't in view nor in focus, skip all later checks
-        // This method is called for every scene a linked actor's token is present in
-        if (!this.scene?.isInFocus && !this.scene?.isView) return;
-
-        // Reinitialize vision if the actor's senses were updated directly
-        const initializeVision =
-            !!this.scene?.isView &&
-            this.sight.enabled &&
-            Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
-        if (initializeVision) canvas.perception.update({ initializeVision }, true);
-
-        const preUpdate = this.toObject(false);
-        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        this.reset();
-        const postUpdate = this.toObject(false);
-        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-
-        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            this.object?._onUpdate(tokenChanges, {}, game.user.id);
-        }
-
-        // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
-
-        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
-            this.scene?.checkAuras?.();
-        }
+        this.simulateUpdate(update);
     }
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {

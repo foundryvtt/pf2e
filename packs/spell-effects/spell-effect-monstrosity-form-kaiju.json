@@ -1,0 +1,99 @@
+{
+    "_id": "bzpW0owbAV3UX7UA",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Spell Effect: Monstrosity Form (Kaiju)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Heart of the Kaiju]</p>\n<p>You take on a kaiju form. The battle form is Gargantuan size with the following specific abilities.</p>\n<p><strong>Kaiju</strong> Speed 40 feet; physical resistance 5;</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (reach 20 feet), <strong>Damage</strong> 3d12+20 piercing;</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> claws (agile, reach 20 feet), <strong>Damage</strong> 3d8+20 slashing;</p>\n<p><strong>Breath Weapon</strong> <span class=\"action-glyph\">2</span> (evocation, primal) Each creature in a 60-foot cone takes 15d6 damage (of your chosen damage type), with a basic Reflex save against your spell DC. Once activated, your breath weapon can't be used again for 1d4 rounds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #168: King of the Mountain"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "gargantuan",
+                    "skills": {
+                        "ath": {
+                            "modifier": 33
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d8",
+                                "modifier": 20
+                            },
+                            "modifier": 31,
+                            "traits": [
+                                "agile",
+                                "reach-20",
+                                "unarmed"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "modifier": 31,
+                            "traits": [
+                                "reach-20",
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 25
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

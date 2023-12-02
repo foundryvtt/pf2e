@@ -5,6 +5,7 @@ import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -14,7 +15,7 @@ import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import { ActorPF2e, type ActorUpdateContext, type HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
 import type { ArmyStrike } from "./types.ts";
 import { ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER } from "./values.ts";
@@ -239,7 +240,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     roll: async (params: AttackRollParams) => {
                         const targetToken = params.target ?? game.user.targets.find((t) => !!t.actor?.isOfType("army"));
 
-                        return statistic.roll({
+                        const roll = await statistic.roll({
                             identifier: type,
                             action: "army-strike",
                             melee: type === "melee",
@@ -249,6 +250,13 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                             damaging: true,
                             ...eventToRollParams(params.event, { type: "check" }),
                         });
+
+                        if (roll && type === "ranged") {
+                            const newAmmo = Math.max(0, this.system.resources.ammunition.value - 1);
+                            this.update({ "system.resources.ammunition.value": newAmmo });
+                        }
+
+                        return roll;
                     },
                 };
             }),
@@ -337,6 +345,19 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         if (this.primaryUpdater === game.user) {
             this.importBasicActions({ skipDialog: true });
         }
+    }
+
+    override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: ActorUpdateContext<TParent>,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        if (typeof changed?.system?.attributes?.hp?.value === "number") {
+            const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
+            changed.system.attributes.hp.value = Math.clamped(changed.system.attributes.hp.value, 0, max);
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 

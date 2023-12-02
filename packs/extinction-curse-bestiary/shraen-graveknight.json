@@ -623,19 +623,19 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/armor/precious-metal-armor/elven-chain.webp",
-            "name": "+2 Greater Resilient Elven Chain (Standard-Grade)",
+            "name": "Elven Chain (Standard-Grade)",
             "sort": 800000,
             "system": {
                 "acBonus": 2,
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 0.1
                 },
                 "category": "light",
                 "checkPenalty": 0,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Elven chain is a chain shirt made of mithral that glitters in even the faintest light. It grants a +2 item bonus to AC and has no check penalty.</p>\n<p>Created by elven artisans employing ancient crafting techniques, elven chain is exceptionally quiet. Unlike other chain shirts-even other mithral chain shirts-elven chain does not have the noisy trait. This suit of armor can be etched with runes like any other mithral chain shirt.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include mithral worth at least 3,125 sp.</p>"
+                    "value": "<p>Elven chain is a @UUID[Compendium.pf2e.equipment-srd.Item.Chain Shirt] made of dawnsilver that glitters in even the faintest light. Because it's constructed with small, supple rings, it has no check penalty.</p>\n<p>Created by elven artisans employing ancient crafting techniques, elven chain is exceptionally quiet. Unlike other chain shirts-even other dawnsilver chain shirts-elven chain does not have the noisy trait. This suit of armor can be etched with runes like any other dawnsilver chain shirt.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include dawnsilver worth at least 3,125 sp.</p>"
                 },
                 "dexCap": 3,
                 "equipped": {
@@ -655,14 +655,14 @@
                 },
                 "material": {
                     "grade": "standard",
-                    "type": "mithral"
+                    "type": "dawnsilver"
                 },
                 "potencyRune": {
                     "value": 2
                 },
                 "price": {
                     "value": {
-                        "gp": 7000
+                        "gp": 2500
                     }
                 },
                 "propertyRune1": {
@@ -678,9 +678,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -1149,57 +1149,6 @@
             "type": "action"
         },
         {
-            "_id": "UpFgpADvEZmNKChA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "2LY21nrCeQ74PTkR",
             "flags": {
                 "core": {
@@ -1208,7 +1157,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1252,7 +1201,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1299,7 +1248,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sacrilegious Aura",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1351,7 +1300,7 @@
             "_id": "BeWl7Ot39HAvDQoK",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Status Bonus to Saves",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1409,6 +1358,57 @@
                     "value": []
                 },
                 "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UpFgpADvEZmNKChA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
                     "value": ""
                 }
             },

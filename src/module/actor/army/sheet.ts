@@ -19,6 +19,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             width: 750,
             height: 625,
             template: "systems/pf2e/templates/actors/army/sheet.hbs",
+            scrollY: [".sheet-body"],
         };
     }
 
@@ -38,6 +39,9 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                     actor._source.system.ac.value + actor.system.ac.potency,
                 ),
             },
+            consumption: getAdjustedValue(actor.system.consumption, actor._source.system.consumption, {
+                better: "lower",
+            }),
             hitPoints: {
                 value: actor.system.attributes.hp.value,
                 max: getAdjustedValue(actor.system.attributes.hp.max, actor._source.system.attributes.hp.max),
@@ -85,6 +89,28 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             });
         }
 
+        // Handle resource updates
+        for (const resourceElement of htmlQueryAll(html, "[data-action=change-resource]")) {
+            const resource = resourceElement.dataset.resource;
+            if (!tupleHasValue(["potions", "ammunition"], resource)) continue;
+            const max = this.actor.system.resources[resource].max;
+
+            resourceElement.addEventListener("click", () => {
+                const newValue = Math.clamped(this.actor.system.resources[resource].value + 1, 0, max);
+                this.actor.update({ [`system.resources.${resource}.value`]: newValue });
+            });
+            resourceElement.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                const newValue = Math.clamped(this.actor.system.resources[resource].value - 1, 0, max);
+                this.actor.update({ [`system.resources.${resource}.value`]: newValue });
+            });
+        }
+
+        htmlQuery(html, "[data-action=reset-ammo]")?.addEventListener("click", () => {
+            const max = this.actor.system.resources.ammunition.max;
+            this.actor.update({ "system.resources.ammunition.value": max });
+        });
+
         // Handle direct magic armor updates
         for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-armor]")) {
             gearElement.addEventListener("click", () => {
@@ -101,7 +127,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         // Handle direct magic weapon updates
         for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-weapon]")) {
             const gear = gearElement.dataset.weapon;
-            if (!tupleHasValue(["melee", "ranged"], gear)) return;
+            if (!tupleHasValue(["melee", "ranged"], gear)) continue;
             const data = this.actor.system.weapons[gear];
             gearElement.addEventListener("click", () => {
                 if (data) {
@@ -157,6 +183,7 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
         breakdown: string;
         adjustmentClass: string | null;
     };
+    consumption: AdjustedValue;
     hitPoints: {
         value: number;
         max: AdjustedValue;

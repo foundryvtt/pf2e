@@ -2,10 +2,8 @@ import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
-import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
@@ -252,6 +250,8 @@ export const InlineRollLinks = {
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
             const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
             link.addEventListener("click", () => {
+                if (!canvas.ready) return;
+
                 if (typeof pf2EffectArea !== "string") {
                     console.warn(`PF2e System | Could not create template'`);
                     return;
@@ -317,8 +317,7 @@ export const InlineRollLinks = {
                     templateData.flags = flags;
                 }
 
-                const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                new MeasuredTemplatePF2e(templateDoc).drawPreview();
+                canvas.templates.createPreview(templateData);
             });
         }
     },

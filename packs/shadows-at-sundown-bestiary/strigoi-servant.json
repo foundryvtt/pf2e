@@ -381,7 +381,7 @@
                 }
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "+1 Leather Armor",
+            "name": "Leather Armor",
             "sort": 500000,
             "system": {
                 "acBonus": 1,
@@ -399,7 +399,7 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
+                    "inSlot": true,
                     "invested": null
                 },
                 "group": "leather",
@@ -409,7 +409,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 5
+                    "value": 0
                 },
                 "material": {
                     "grade": null,
@@ -420,7 +420,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 160
+                        "gp": 2
                     }
                 },
                 "propertyRune1": {
@@ -436,9 +436,9 @@
                     "value": null
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -447,9 +447,6 @@
                 "rules": [],
                 "size": "med",
                 "slug": "leather-armor",
-                "specific": {
-                    "value": false
-                },
                 "speedPenalty": 0,
                 "stackGroup": null,
                 "strength": null,
@@ -819,57 +816,6 @@
             "type": "action"
         },
         {
-            "_id": "f672LWQ7RdZgQdTw",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "IzMNuavTEydVrfVN",
             "flags": {
                 "core": {
@@ -878,7 +824,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coffin Restoration",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -925,7 +871,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shadow Form",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -970,7 +916,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Strigoi Weaknesses",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -997,6 +943,57 @@
                     "value": []
                 },
                 "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f672LWQ7RdZgQdTw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
                     "value": ""
                 }
             },

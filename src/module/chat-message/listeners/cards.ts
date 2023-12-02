@@ -109,7 +109,8 @@ class ChatCards {
                     spell?.rollCounteract(event);
                     return;
                 case "spell-template":
-                    return spell?.placeTemplate(message);
+                    spell?.placeTemplate(message);
+                    return;
                 case "spell-template-clear": {
                     const templateIds =
                         canvas.scene?.templates.filter((t) => t.message === message).map((t) => t.id) ?? [];

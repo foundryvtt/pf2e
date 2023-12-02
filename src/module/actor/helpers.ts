@@ -1,5 +1,5 @@
-import { ActorPF2e, ActorProxyPF2e } from "@actor";
-import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ActorProxyPF2e, type ActorPF2e } from "@actor";
+import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { CheckRollContextFlag } from "@module/chat-message/index.ts";
@@ -35,16 +35,21 @@ import {
 import { NPCStrike } from "./npc/data.ts";
 import { AttributeString, AuraEffectData, DamageRollContextParams } from "./types.ts";
 
-/** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
-async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
+/**
+ * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
+ * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
+ * @param [options] Render options for actor sheets and tokens
+ */
+async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRenderOptions = {}): Promise<void> {
     actors ??= [
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
+    actors = R.uniq(Array.from(actors));
 
     for (const actor of actors) {
         actor.reset();
-        if (rerender) actor.render();
+        if (options.sheets) actor.render();
     }
     game.pf2e.effectPanel.refresh();
 
@@ -54,7 +59,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
         !game.settings.get("pf2e", "automation.removeExpiredEffects");
 
     if (refreshScenes) {
-        const scenes = new Set(
+        const scenes = R.uniq(
             Array.from(actors)
                 .flatMap((a) => a.getActiveTokens(false, true))
                 .flatMap((t) => t.scene),
@@ -66,6 +71,17 @@ async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {
             }
         }
     }
+
+    if (options.tokens) {
+        for (const token of R.uniq(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
+            token.simulateUpdate();
+        }
+    }
+}
+
+interface ResetActorsRenderOptions {
+    sheets?: boolean;
+    tokens?: boolean;
 }
 
 /** Get the user color most appropriate for a provided actor */

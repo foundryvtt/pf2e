@@ -182,7 +182,7 @@ declare global {
         get darknessLevel(): number;
 
         /** Return a reference to the active Canvas Layer */
-        get activeLayer(): CanvasLayer | null;
+        get activeLayer(): InteractionLayer | null;
 
         /* -------------------------------------------- */
         /*  Initialization                              */

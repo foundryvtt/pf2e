@@ -1,6 +1,7 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import { ItemSourcePF2e, MeleeSource, SpellSource, isPhysicalData } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { PublicationData } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
@@ -482,8 +483,6 @@ class PackExtractor {
                         delete (docSource as Partial<PackEntry>).ownership;
                     }
                 }
-            } else if (["_modifiers", "_sheetTab"].includes(key)) {
-                delete docSource[key as DocumentKey];
             } else if (docSource[key as DocumentKey] instanceof Object) {
                 this.#pruneTree(docSource[key as DocumentKey] as unknown as PackEntry, topLevel);
             }
@@ -515,13 +514,14 @@ class PackExtractor {
                 delete (source.system as { spell?: unknown }).spell;
             }
 
+            if (itemIsOfType(source, "armor", "weapon") && source.system.specific?.value === false) {
+                delete source.system.specific;
+            }
+
             if (source.type === "weapon") {
                 delete (source.system as { property1?: unknown }).property1;
                 if ("value" in source.system.damage) {
                     delete source.system.damage.value;
-                }
-                if (source.system.specific?.value === false) {
-                    delete source.system.specific;
                 }
                 if (!source.system.damage.persistent) {
                     delete (source.system.damage as { persistent?: unknown }).persistent;

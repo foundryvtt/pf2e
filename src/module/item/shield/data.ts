@@ -4,6 +4,7 @@ import {
     PhysicalSystemData,
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
+import { HeldUsage } from "@item/physical/usage.ts";
 import { WeaponRuneData } from "@item/weapon/data.ts";
 import { ZeroToSix } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -44,11 +45,7 @@ interface ShieldSystemData
     extends Omit<ShieldSystemSource, "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "baseItem" | "traits"> {
     traits: ShieldTraits;
-    usage: {
-        value: string;
-        type: "held";
-        hands: 1;
-    };
+    usage: HeldUsage;
 }
 
 interface IntegratedWeaponData extends IntegratedWeaponSource {

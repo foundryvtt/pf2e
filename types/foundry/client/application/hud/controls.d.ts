@@ -55,9 +55,10 @@ declare interface SceneControl {
     name: string;
     icon: string;
     title: string;
-    layer?: string;
+    layer: string;
     visible: boolean;
     tools: SceneControlTool[];
+    activeTool: string;
 }
 
 declare interface ToolclipConfiguration {

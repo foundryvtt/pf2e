@@ -8,7 +8,7 @@ export class Migration889RemoveFocusMaxIncreases extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
             source.type === "feat" &&
-            ["clarity of focus", "psi-cantrips-and-amps", "psychic-dedication", "psi-development"].includes(
+            ["clarity-of-focus", "psi-cantrips-and-amps", "psychic-dedication", "psi-development"].includes(
                 source.system.slug ?? "",
             )
         ) {

@@ -33,7 +33,6 @@ const immunityTypes = {
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
     curse: "PF2E.Damage.IWR.Type.curse",
     custom: "", // Label provided by rule element
-    darkwood: "PF2E.Damage.IWR.Type.darkwood",
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
     "death-effects": "PF2E.Damage.IWR.Type.death-effects",

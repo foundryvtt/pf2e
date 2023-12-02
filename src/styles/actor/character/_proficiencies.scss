@@ -14,23 +14,10 @@
 
     h6 {
         @include micro;
-        padding: 2px 4px;
+        padding: 2px 0.25rem;
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
         color: var(--text-light);
-    }
-
-    .core-title {
-        width: 100%;
-        text-align: left;
-        @include p-reset;
-        margin-left: 0;
-        padding-top: 10px;
-        padding-left: 12px;
-        height: 43px;
-        border: none;
-        color: var(--text-light);
-        font-family: var(--serif);
     }
 
     ul.proficiencies-list {
@@ -38,50 +25,49 @@
         @include p-reset;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 0.75rem;
         align-items: center;
         margin-bottom: 2em;
 
         li {
             @include frame-elegant;
-            padding: 2px 15px 2px 4px;
-            display: flex;
             align-items: center;
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.125rem 0.875rem 0.125rem 0.25rem;
 
-            .rollable {
-                cursor: pointer;
+            a.skill-name,
+            a.modifier {
                 &:hover {
                     color: var(--primary);
-                    text-shadow: 0 0 2px white;
-                    .modifier {
-                        text-decoration: underline;
-                    }
+                    text-shadow: none;
                 }
+            }
+
+            a.modifier:hover,
+            a.skill-name:hover > .modifier {
+                text-decoration: underline;
             }
 
             .modifier {
                 color: var(--primary);
-                font-family: var(--serif);
-                font-size: var(--font-size-24);
-                font-weight: 600;
-                line-height: 1;
+                font: 600 var(--font-size-22) / 1em var(--serif);
                 text-align: end;
-                margin-right: 4px;
                 width: 2.5rem;
             }
 
             .skill-name {
-                display: flex;
                 align-items: center;
+                display: flex;
                 flex: 1;
+                gap: 0.25rem;
             }
 
             .button-group {
-                display: flex;
                 align-items: center;
+                display: flex;
+                flex-flow: column wrap;
                 justify-content: center;
-                flex-wrap: wrap;
-                flex-direction: column;
 
                 h6 {
                     margin: 1px 0;
@@ -99,8 +85,8 @@
                 position: relative;
                 a.delete {
                     position: absolute;
-                    top: -8px;
-                    right: -8px;
+                    top: -0.5rem;
+                    right: -0.5rem;
                     z-index: -1;
                     opacity: 0.75;
                     &:hover {
@@ -119,38 +105,26 @@
 
     ul.lores-list,
     ul.combat-list {
-        li {
-            grid:
-                "score name btn" min-content
-                / 42px 2fr 1fr;
-            padding: 2px 15px 2px 6px;
+        li .button-group {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            margin-left: auto;
 
-            input {
-                color: var(--text-dark);
-                border-bottom: 1px solid var(--sub);
-                margin-right: 4px;
-                font-weight: 600;
-                &:hover {
-                    border: 1px solid var(--sub);
-                }
-            }
-
-            .button-group {
-                flex-direction: row;
-                flex-wrap: nowrap;
-                margin-left: auto;
-
-                .item-controls {
-                    font-size: var(--font-size-12);
-                    margin-top: 1px;
-                    margin-left: 0.5rem;
-                }
+            .item-controls {
+                font-size: var(--font-size-12);
+                margin-left: 0.5rem;
+                margin-top: 1px;
             }
         }
     }
 
     ul.lores-list {
         grid-template-columns: 1fr;
+
+        input {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
     }
 
     ul.combat-list {
@@ -168,7 +142,7 @@
             @include micro;
 
             .item-control {
-                padding: 4px;
+                padding: 0.25rem;
                 background: var(--secondary);
                 font-size: var(--font-size-10);
                 border-radius: 2px;

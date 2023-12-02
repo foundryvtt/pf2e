@@ -5,8 +5,8 @@
             <!-- Core Skills -->
             {{#each data.skills as |skill key|}}
                 {{#unless skill.lore}}
-                    <li data-skill="{{skill.slug}}">
-                        <a class="skill-name rollable" data-tooltip="{{skill.breakdown}}">
+                    <li>
+                        <a class="skill-name" data-action="roll-check" data-statistic="{{skill.slug}}" data-tooltip="{{skill.breakdown}}">
                             <span class="modifier">{{numberFormat skill.value decimals=0 sign=true}}</span>
                             <h4>{{localize skill.label}}</h4>
                         </a>
@@ -45,8 +45,13 @@
             <!-- Lore Skills -->
             {{#each data.skills as |skill idx|}}
                 {{#if skill.lore}}
-                    <li class="item" data-skill="{{skill.slug}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
-                        <a class="modifier rollable" data-tooltip="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</a>
+                    <li class="item" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                        <a
+                            class="modifier"
+                            data-action="roll-check"
+                            data-statistic="{{skill.slug}}"
+                            data-tooltip="{{skill.breakdown}}"
+                        >{{numberFormat skill.value decimals=0 sign=true}}</a>
                         <div class="skill-name lore-name-input item-name-input">
                             <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
                         </div>
@@ -78,7 +83,7 @@
         </h3>
         <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.attacks as |proficiency key|}}
-                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
@@ -104,7 +109,7 @@
         </h3>
         <ul class="proficiencies-list combat-list">
             {{#each martialProficiencies.defenses as |proficiency key|}}
-                <li class="{{#if proficiency.custom}} custom{{/if}}" data-slug="{{key}}">
+                <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}

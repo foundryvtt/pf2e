@@ -170,7 +170,7 @@ declare global {
          * When the base Actor for a TokenDocument changes, we may need to update its Actor instance
          * @internal
          */
-        _onUpdateBaseActor(
+        protected _onUpdateBaseActor(
             update?: Record<string, unknown>,
             options?: DocumentModificationContext<ClientDocument | null>,
         ): void;

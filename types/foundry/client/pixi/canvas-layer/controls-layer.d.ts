@@ -9,7 +9,7 @@ declare global {
      * 2) Ruler measurement
      * 3) Map pings
      */
-    class ControlsLayer extends CanvasLayer {
+    class ControlsLayer extends InteractionLayer {
         constructor();
 
         /** A container of DoorControl instances */
@@ -47,9 +47,9 @@ declare global {
         /** Get the Ruler display for a specific User ID */
         getRulerForUser(userId: string): Ruler | null;
 
-        override draw(): Promise<this>;
+        protected override _draw(): Promise<void>;
 
-        override tearDown(): Promise<void>;
+        protected override _tearDown(): Promise<void>;
 
         /** Draw the cursors container */
         drawCursors(): void;
@@ -63,7 +63,7 @@ declare global {
          */
         drawSelect({ x, y, width, height }: { x: number; y: number; width: number; height: number }): void;
 
-        override deactivate(): void;
+        protected override _deactivate(): void;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
