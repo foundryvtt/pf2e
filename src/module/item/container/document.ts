@@ -34,9 +34,12 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     override get bulk(): Bulk {
-        const canReduceBulk = !this.traits.has("extradimensional") || !hasExtraDimensionalParent(this);
-        const reduction = canReduceBulk ? new Bulk(this.system.bulk.ignored) : new Bulk();
-        return super.bulk.plus(this.capacity.value.minus(reduction ?? new Bulk()));
+        const { capacity } = this;
+        const canReduceBulk =
+            capacity.value <= capacity.max && !(this.traits.has("extradimensional") && hasExtraDimensionalParent(this));
+        const reduction = canReduceBulk ? this.system.bulk.ignored : 0;
+
+        return super.bulk.plus(capacity.value.minus(reduction));
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
