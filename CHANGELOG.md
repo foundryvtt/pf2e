@@ -1,4 +1,60 @@
-## 5.9.4
+## 5.10.0
+
+Note: The system now requires a minimum Foundry version of 11.311.
+
+### System Improvements
+
+-   (In3luki) Snap burst templates to grid intersections
+-   (stwlam) Add shield item type, migrate armor shields to shield shields
+-   (Supe) Set party alliance based on contained members
+
+### Bugfixes
+
+-   (azrazalea) Fix adding kits to PCs
+-   (In3luki) Fix setting visibility on the `RollNoteForm`
+-   (nikolaj-a) Fix scroll and wand trick magic item skill selection from spell tradition
+-   (stwlam) Preserve spells in scrolls/wands when refreshing from compendium
+-   (Supe) Fix issue causing poor performance in worlds with large numbers of linked tokens
+
+### Data Updates
+
+-   (AFigureOfBlue) Fix Untamed Shift effect heightening
+-   (avagdu) Add Astral and Greater Astral runes
+-   (avagdu) Rename Disrupting Rune to Vitalizing Rune
+-   (avagdu) Restore links to macros in Acrobatics and Athletics
+-   (avagdu) Update descriptions of basic and skill actions to Remaster rules
+-   (avagdu) Fix usage of Morphing Weapon
+-   (Dire Weasel) Add automation for Challenge Foe, Elder Sphinx's Guardian Monolith Hardness, Forager, Ghost Ammunition, Serithtial, Sprite's Luminous Fire
+-   (Dire Weasel) Add effects for Aeon Stone (Sprouting), Heart of the Kaiju, Potion of Emergency Escape, Shrinking potions, Spirit Guide Form, Worm Form, Life-Saver Mail, Moonlit Chain
+-   (Dire Weasel) Add Potion of Expeditious Retreat to Remaster changes journal entry
+-   (Dire Weasel) Brush up descriptions of Premonition of Avoidance, Premonition of Clarity, Shared Avoidance, Shared Clarity
+-   (Dire Weasel) Fix action cost and description for Spirit Guide Form
+-   (Dire Weasel) Fix description formatting for Aeon Stone (Pearly White Spindle)
+-   (Dire Weasel) Fix rules elements in Flames Oracle and Untamed Order
+-   (Dire Weasel) Fix Speaker Of Svaryr's regeneration and fix attack traits
+-   (Dire Weasel) Fix usage of and bulk of several aeon stones
+-   (Dire Weasel) Remove Greater Resolve class feature from Bard class
+-   (Dire Weasel) Update Sun Blade to include variants and automate spirit and vitality damage
+-   (Drental) Link automatically granted spells in Composition Spells class feature
+-   (InfamousSky) Fix traits of Furious Focus
+-   (InfamousSky) Remove channel smite prerequisite
+-   (Intervención) Fix rule element on Rogue Resilience note selector
+-   (Intervención) Fix Staves of Elemental Power's Frostbite
+-   (intrand) Use magnifying glass icon in empty A(H)BCD fields on PC sheet
+-   (j-bs) Add links to some Swashbuckler class features
+-   (j-bs) Fix recently adjusted container bulk localisation strings
+-   (LebombJames) Fix Divine Health Predicate and add DoS adjustment
+-   (rectulo) Fix variants of Execute
+-   (S-North) Update Administer First Aid and Refocus action remaster text
+-   (shemetz) Remove initial value from damage/healing adjustment dialog
+-   (stwlam) Add Ring of Energy Resistance rename to Remaster Changes journal entry
+-   (stwlam) Include conditional cumulative resistance in Thermal Nimbus effects
+-   (stwlam) Upgrade martial proficiency to expert in Warpriest's Third Doctrine
+-   (Tikael) Add missing inline check to Scholar's Bane
+-   (Tikael) Fix Psychic class's Clarity of Focus class feature
+-   (Tikael) Restore Baba Yaga and Mosquito Witch patrons
+
+## 5.9.5
 
 ### System Improvements
 
