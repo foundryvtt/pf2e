@@ -53,6 +53,12 @@
                 ],
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "key":"ActiveEffectLike",
+                "path":"system.abilities.str.mod",
+                "mode":"add",
+                "value":"ternary(lt(@actor.abilities.str.mod, 4), 4-@actor.abilities.str.mod, 1)"
             }
         ],
         "start": {
